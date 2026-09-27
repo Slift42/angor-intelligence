@@ -1,0 +1,17 @@
+# Secrets : ne JAMAIS versionner
+.env
+# Vos vrais sites clients (confidentiel)
+config/sites.local.json
+# Mémoire du robot et fichiers générés (recréés à chaque collecte)
+data/
+docs/data/data.js
+docs/data/events.geojson
+docs/data/econ.js
+docs/data/profiles.js
+# Python
+__pycache__/
+*.pyc
+.venv/
+docs/data/archive/
+# Captures et exports de travail
+Claude outputs/

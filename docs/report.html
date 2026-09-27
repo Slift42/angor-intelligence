@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rapport pays – Angor Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="report.css">
+</head>
+<body>
+<div class="toolbar no-print">
+  <a class="tb-btn" href="index.html" id="tb-back"></a>
+  <select id="tb-country" aria-label="Pays"></select>
+  <span class="tb-space"></span>
+  <button class="tb-btn" id="tb-lang">EN</button>
+  <button class="tb-btn primary" id="tb-print"></button>
+</div>
+<main id="report" class="report"></main>
+<script src="vendor/icons.js"></script>
+<script src="data/countries.js"></script>
+<script src="data/data.js" onerror="window.VS_DATA_MISSING=true"></script>
+<script src="data/profiles.js" onerror="window.VS_PROFILES_MISSING=true"></script>
+<script src="data/factbook.js"></script>
+<script src="data/econ.js" onerror="window.VS_ECON_MISSING=true"></script>
+<script src="report.js"></script>
+</body>
+</html>

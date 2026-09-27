@@ -1,0 +1,73 @@
+# Robot de collecte + publication automatique de la carte (GitHub Pages), toutes les 30 minutes.
+# À placer dans .github/workflows/collecte.yml (voir GUIDE_MISE_EN_LIGNE.md).
+# L'historique du robot (data/) est conservé dans le cache GitHub : aucun commit toutes les 30 min,
+# le dépôt reste léger.
+name: Collecte
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: collecte
+  cancel-in-progress: false
+
+jobs:
+  collecte:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Restaurer la mémoire du robot
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data
+            docs/data/profiles.js
+          key: robot-${{ github.run_id }}
+          restore-keys: robot-
+      - name: Collecte
+        run: python collecte.py
+        env:
+          VS_PUBLIC: "1"   # ne publie jamais la localisation de vos sites
+          ACLED_EMAIL: ${{ secrets.ACLED_EMAIL }}
+          ACLED_PASSWORD: ${{ secrets.ACLED_PASSWORD }}
+          FOURNISSEUR_TOKEN: ${{ secrets.FOURNISSEUR_TOKEN }}
+          PRESSE_ABONNE_COOKIE: ${{ secrets.PRESSE_ABONNE_COOKIE }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          SITES_JSON: ${{ secrets.SITES_JSON }}   # vos vrais sites (contenu de sites.local.json), jamais publiés
+      - name: Sauvegarder la mémoire du robot
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data
+            docs/data/profiles.js
+          key: robot-${{ github.run_id }}
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - id: deploy
+        uses: actions/deploy-pages@v4

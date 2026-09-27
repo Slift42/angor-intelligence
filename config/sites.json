@@ -1,0 +1,33 @@
+{
+  "_comment": "Vos sites à surveiller. Sites d'EXEMPLE : remplacez-les. radius_km = rayon de vigilance ; min_severity = gravité minimale pour alerter.",
+  "sites": [
+    {
+      "name": "Siège – Paris (exemple)",
+      "lat": 48.8566,
+      "lon": 2.3522,
+      "radius_km": 25,
+      "min_severity": 1
+    },
+    {
+      "name": "Plateforme logistique – Lyon (exemple)",
+      "lat": 45.764,
+      "lon": 4.8357,
+      "radius_km": 30,
+      "min_severity": 2
+    },
+    {
+      "name": "Bureau – Abidjan (exemple)",
+      "lat": 5.36,
+      "lon": -4.0083,
+      "radius_km": 50,
+      "min_severity": 2
+    },
+    {
+      "name": "Usine – Izmir (exemple)",
+      "lat": 38.4237,
+      "lon": 27.1428,
+      "radius_km": 100,
+      "min_severity": 2
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "_comment": "Poids et seuils de la note de risque pays (voir veille/risk.py). 'overrides' : forcer un niveau pour un pays, ex. {\"FR\": 2}.",
+  "weights": {
+    "advisories": 0.6,
+    "security": 0.3,
+    "hazards": 0.1
+  },
+  "window_days": 7,
+  "severity_points": {
+    "1": 1,
+    "2": 3,
+    "3": 8,
+    "4": 20
+  },
+  "saturation_points": 150,
+  "thresholds": [
+    0.15,
+    0.35,
+    0.55,
+    0.75
+  ],
+  "overrides": {},
+  "confidence_weights": {
+    "low": 0.3,
+    "medium": 0.6,
+    "high": 1.0
+  },
+  "auto_detected_weight": 0.5
+}

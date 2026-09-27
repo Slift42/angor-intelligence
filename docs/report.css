@@ -1,0 +1,64 @@
+/* Angor Intelligence – rapport pays (écran + impression A4) */
+:root { --ink: #111B27; --ink-2: #3E4C5B; --muted: #6B7886; --line: #DDE3E8; --navy: #13263D; --bg: #EEF1F4;
+  --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 13px/1.5 var(--font); -webkit-font-smoothing: antialiased; }
+a { color: #1F5FD1; }
+.toolbar { position: sticky; top: 0; z-index: 5; display: flex; gap: 8px; align-items: center; padding: 10px 16px; background: #fff; border-bottom: 1px solid var(--line); }
+.tb-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff;
+  font: 500 13px var(--font); color: var(--ink); text-decoration: none; cursor: pointer; }
+.tb-btn.primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+.tb-space { flex: 1; }
+#tb-country { height: 32px; border: 1px solid var(--line); border-radius: 8px; padding: 0 8px; font: inherit; max-width: 260px; }
+.report { max-width: 210mm; margin: 16px auto 40px; display: grid; gap: 16px; padding: 0 12px; }
+.page { background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,.08); padding: 14mm 14mm 12mm; }
+.brand { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--navy); }
+.title-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin: 6px 0 4px; flex-wrap: wrap; }
+h1 { margin: 0; font-size: 34px; letter-spacing: -.02em; line-height: 1.05; }
+.sub { color: var(--muted); margin-top: 4px; }
+.risk-box { display: flex; gap: 10px; align-items: center; border: 2px solid; border-radius: 10px; padding: 8px 12px; max-width: 340px; }
+.risk-box .rn { font-weight: 700; }
+.risk-box .rd { font-size: 11.5px; color: var(--ink-2); }
+.lvl { display: inline-grid; place-items: center; min-width: 24px; height: 24px; border-radius: 6px; color: #fff; font-weight: 700; font-size: 12.5px; vertical-align: middle; }
+.risk-box .lvl { min-width: 40px; height: 40px; font-size: 20px; border-radius: 9px; }
+.meta { color: var(--muted); font-size: 11.5px; margin-bottom: 12px; }
+.facts { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 8px 0 14px; }
+.fact { border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+.fv { font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; }
+.fk { font-size: 10.5px; color: var(--muted); }
+h2 { display: flex; align-items: center; gap: 8px; font-size: 17px; margin: 14px 0 8px; padding-bottom: 6px; border-bottom: 2px solid var(--navy); letter-spacing: -.01em; }
+h3 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); margin: 14px 0 6px; }
+.lead { margin: 0 0 10px; color: var(--ink-2); text-align: justify; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.kv { display: grid; grid-template-columns: 120px 1fr; gap: 5px 10px; margin: 0; font-size: 12px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; }
+.hint { color: var(--muted); font-size: 11.5px; }
+.small { font-size: 11px; color: var(--ink-2); }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.matrix th { white-space: nowrap; text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-bottom: 1.5px solid var(--navy); padding: 5px 6px; }
+.matrix td, .list td { border-bottom: 1px solid var(--line); padding: 6px; vertical-align: top; }
+.c { text-align: center; font-variant-numeric: tabular-nums; }
+.r { text-align: right; }
+.nowrap { white-space: nowrap; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-top: 4px; }
+ul { margin: 4px 0 8px; padding-left: 18px; }
+li { margin: 2px 0; }
+ul.plain { list-style: none; padding: 0; }
+.bars { display: grid; gap: 6px; margin-bottom: 14px; }
+.bar { display: grid; grid-template-columns: 230px 1fr 34px; gap: 8px; align-items: center; font-size: 12px; }
+.track { height: 8px; background: #EEF1F4; border-radius: 4px; overflow: hidden; display: block; }
+.fill { display: block; height: 100%; border-radius: 4px; }
+.bv { text-align: right; font-family: var(--mono); font-size: 11px; }
+.bn { grid-column: 1 / -1; font-size: 10.5px; color: var(--muted); }
+@media (max-width: 700px) { .facts { grid-template-columns: repeat(3, 1fr); } .cols { grid-template-columns: 1fr; } .bar { grid-template-columns: 1fr 1fr 30px; } .page { padding: 16px; } }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; }
+  .no-print { display: none !important; }
+  .report { margin: 0; padding: 0; max-width: none; gap: 0; }
+  .page { box-shadow: none; border-radius: 0; padding: 0; break-after: page; }
+  .page:last-child { break-after: auto; }
+  tr, li, .fact { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}

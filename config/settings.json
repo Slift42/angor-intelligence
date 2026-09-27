@@ -1,0 +1,27 @@
+{
+  "product_name": "Angor Intelligence",
+  "default_lang": "fr",
+  "retention_days": 400,
+  "site_alert_min_severity": 2,
+  "publish_sites": true,
+  "_comment": "publish_sites : true uniquement pour un usage local. En ligne (VS_PUBLIC=1), les sites ne sont jamais publiés. Vos vrais sites : config/sites.local.json (non versionné).",
+  "map_days": 30,
+  "headline_fetch_per_run": 100,
+  "ai": {
+    "enabled": true,
+    "model": "claude-haiku-4-5",
+    "max_items_per_run": 400,
+    "monthly_budget_usd": 20
+  },
+  "alerts": {
+    "_comment": "Alertes Telegram/e-mail pour tout nouvel incident (plus de critère de rayon). countries/categories vides = tout. Ex. countries: [\"FR\",\"ML\"], categories: [\"terrorism\",\"unrest\"].",
+    "min_severity": 3,
+    "max_age_hours": 6,
+    "countries": [],
+    "categories": [],
+    "include_auto": true,
+    "max_per_message": 15,
+    "telegram": true,
+    "email": true
+  }
+}

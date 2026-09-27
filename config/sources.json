@@ -1,0 +1,514 @@
+{
+  "sources": [
+    {
+      "id": "us_advisories",
+      "type": "us_advisories",
+      "enabled": true,
+      "name": "US State Dept",
+      "license": "Domaine public"
+    },
+    {
+      "id": "ca_advisories",
+      "type": "ca_advisories",
+      "enabled": true,
+      "name": "Canada",
+      "license": "Licence du gouvernement ouvert"
+    },
+    {
+      "id": "usgs",
+      "type": "usgs",
+      "enabled": true,
+      "name": "USGS",
+      "license": "Domaine public",
+      "feed": "2.5_day",
+      "min_magnitude": 4.0
+    },
+    {
+      "id": "gdacs",
+      "type": "gdacs",
+      "enabled": true,
+      "name": "GDACS",
+      "license": "Attribution",
+      "min_severity_by_category": {
+        "wildfire": 3,
+        "earthquake": 1
+      }
+    },
+    {
+      "id": "eonet",
+      "type": "eonet",
+      "enabled": true,
+      "name": "NASA EONET",
+      "license": "Domaine public",
+      "days": 30,
+      "exclude_categories": [
+        "seaLakeIce",
+        "waterColor",
+        "wildfires"
+      ],
+      "_comment": "Feux de forêt exclus : trop de petits feux (surtout USA). Les feux importants viennent de GDACS (alerte orange/rouge)."
+    },
+    {
+      "id": "gdelt",
+      "type": "gdelt_events",
+      "enabled": true,
+      "name": "GDELT",
+      "license": "Libre (citer GDELT)",
+      "backfill_hours": 12,
+      "max_files_per_run": 16,
+      "root_codes": [
+        "14",
+        "18",
+        "19",
+        "20"
+      ],
+      "escalate_articles": 20,
+      "root_events_only": true,
+      "max_event_age_days": 3,
+      "_comment": "Seuils (articles, sites de presse distincts) par contexte : voir DEFAULT_THRESHOLDS dans veille/connectors/gdelt_events.py ; surchargeables ici via \"thresholds\"."
+    },
+    {
+      "id": "who",
+      "type": "who_don",
+      "enabled": true,
+      "name": "WHO",
+      "license": "Attribution",
+      "max_age_days": 60
+    },
+    {
+      "id": "gnews",
+      "type": "gnews",
+      "enabled": true,
+      "name": "Google News – presse locale (~110 pays)",
+      "license": "Titre + lien",
+      "queries_per_run": 40,
+      "max_items_per_query": 20,
+      "max_age_hours": 48,
+      "_comment": "Rotation : 40 requêtes par collecte sur ~220 (sûreté + économie pour ~110 pays). Liste des pays et mots-clés : veille/connectors/gnews.py"
+    },
+    {
+      "id": "guardian_world",
+      "type": "rss",
+      "enabled": true,
+      "name": "The Guardian – World",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.theguardian.com/world/rss",
+      "filter": "security"
+    },
+    {
+      "id": "nyt_world",
+      "type": "rss",
+      "enabled": true,
+      "name": "New York Times – World",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+      "filter": "security"
+    },
+    {
+      "id": "dw_en",
+      "type": "rss",
+      "enabled": true,
+      "name": "Deutsche Welle",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://rss.dw.com/rdf/rss-en-all",
+      "filter": "security"
+    },
+    {
+      "id": "euronews",
+      "type": "rss",
+      "enabled": true,
+      "name": "Euronews",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.euronews.com/rss?level=theme&name=news",
+      "filter": "security"
+    },
+    {
+      "id": "lemonde_intl",
+      "type": "rss",
+      "enabled": true,
+      "name": "Le Monde – International",
+      "license": "Titre + lien",
+      "lang": "fr",
+      "url": "https://www.lemonde.fr/international/rss_full.xml",
+      "filter": "security"
+    },
+    {
+      "id": "rfi_afrique",
+      "type": "rss",
+      "enabled": true,
+      "name": "RFI – Afrique",
+      "license": "Titre + lien",
+      "lang": "fr",
+      "url": "https://www.rfi.fr/fr/afrique/rss",
+      "filter": "security"
+    },
+    {
+      "id": "jeune_afrique",
+      "type": "rss",
+      "enabled": true,
+      "name": "Jeune Afrique",
+      "license": "Titre + lien",
+      "lang": "fr",
+      "url": "https://www.jeuneafrique.com/feed/",
+      "filter": "security"
+    },
+    {
+      "id": "al_monitor",
+      "type": "rss",
+      "enabled": true,
+      "name": "Al-Monitor (Moyen-Orient)",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.al-monitor.com/rss",
+      "filter": "security"
+    },
+    {
+      "id": "elpais_america",
+      "type": "rss",
+      "enabled": true,
+      "name": "El País – América",
+      "license": "Titre + lien",
+      "lang": "es",
+      "url": "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/america/portada",
+      "filter": "security"
+    },
+    {
+      "id": "mercopress",
+      "type": "rss",
+      "enabled": true,
+      "name": "MercoPress (Amérique du Sud)",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://en.mercopress.com/rss",
+      "filter": "security"
+    },
+    {
+      "id": "kyiv_independent",
+      "type": "rss",
+      "enabled": false,
+      "name": "Kyiv Independent",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://kyivindependent.com/feed/",
+      "filter": "security",
+      "country": "UA",
+      "_comment": "Désactivée : pas de flux RSS public (404). Ukraine couverte par Google News."
+    },
+    {
+      "id": "times_of_israel",
+      "type": "rss",
+      "enabled": true,
+      "name": "Times of Israel",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.timesofisrael.com/feed/",
+      "filter": "security",
+      "country": "IL"
+    },
+    {
+      "id": "dawn",
+      "type": "rss",
+      "enabled": true,
+      "name": "Dawn (Pakistan)",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.dawn.com/feeds/home",
+      "filter": "security",
+      "country": "PK"
+    },
+    {
+      "id": "the_hindu",
+      "type": "rss",
+      "enabled": true,
+      "name": "The Hindu (Inde)",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.thehindu.com/news/national/feeder/default.rss",
+      "filter": "security",
+      "country": "IN"
+    },
+    {
+      "id": "premium_times",
+      "type": "rss",
+      "enabled": true,
+      "name": "Premium Times (Nigeria)",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.premiumtimesng.com/feed",
+      "filter": "security",
+      "country": "NG"
+    },
+    {
+      "id": "news24",
+      "type": "rss",
+      "enabled": false,
+      "name": "News24 (Afrique du Sud)",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://feeds.news24.com/articles/news24/TopStories/rss",
+      "filter": "security",
+      "country": "ZA",
+      "_comment": "Désactivée : flux indisponible (403/404/DNS au 27/09/2026). Pays couvert par Google News."
+    },
+    {
+      "id": "japan_times",
+      "type": "rss",
+      "enabled": true,
+      "name": "Japan Times",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.japantimes.co.jp/feed/",
+      "filter": "security",
+      "country": "JP"
+    },
+    {
+      "id": "francetvinfo",
+      "type": "rss",
+      "enabled": true,
+      "name": "Franceinfo",
+      "license": "Titre + lien",
+      "lang": "fr",
+      "url": "https://www.francetvinfo.fr/titres.rss",
+      "filter": "security",
+      "country": "FR"
+    },
+    {
+      "id": "le_parisien",
+      "type": "rss",
+      "enabled": true,
+      "name": "Le Parisien",
+      "license": "Titre + lien",
+      "lang": "fr",
+      "url": "https://feeds.leparisien.fr/leparisien/rss",
+      "filter": "security",
+      "country": "FR"
+    },
+    {
+      "id": "vingt_minutes",
+      "type": "rss",
+      "enabled": true,
+      "name": "20 Minutes",
+      "license": "Titre + lien",
+      "lang": "fr",
+      "url": "https://www.20minutes.fr/feeds/rss-une.xml",
+      "filter": "security",
+      "country": "FR"
+    },
+    {
+      "id": "ouest_france",
+      "type": "rss",
+      "enabled": true,
+      "name": "Ouest-France",
+      "license": "Titre + lien",
+      "lang": "fr",
+      "url": "https://www.ouest-france.fr/rss/une",
+      "filter": "security",
+      "country": "FR"
+    },
+    {
+      "id": "crisis_group",
+      "type": "rss",
+      "enabled": true,
+      "name": "International Crisis Group",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.crisisgroup.org/rss.xml",
+      "filter": "none"
+    },
+    {
+      "id": "nato_news",
+      "type": "rss",
+      "enabled": false,
+      "name": "OTAN – actualités",
+      "license": "Libre",
+      "lang": "en",
+      "url": "https://www.nato.int/cps/rss/en/natohq/rssFeed.xsl/rssFeed.xml",
+      "filter": "none",
+      "_comment": "Désactivée : flux indisponible (403/404/DNS au 27/09/2026). Pays couvert par Google News."
+    },
+    {
+      "id": "us_state_press",
+      "type": "rss",
+      "enabled": true,
+      "name": "Département d'État US – communiqués",
+      "license": "Domaine public",
+      "lang": "en",
+      "url": "https://www.state.gov/rss-feed/press-releases/feed/",
+      "filter": "security"
+    },
+    {
+      "id": "uk_fcdo_news",
+      "type": "rss",
+      "enabled": true,
+      "name": "UK FCDO – communiqués",
+      "license": "Open Government Licence",
+      "lang": "en",
+      "url": "https://www.gov.uk/search/news-and-communications.atom?organisations%5B%5D=foreign-commonwealth-development-office",
+      "filter": "security"
+    },
+    {
+      "id": "bbc_business",
+      "type": "rss",
+      "enabled": true,
+      "name": "BBC – Business",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+      "filter": "economy"
+    },
+    {
+      "id": "guardian_business",
+      "type": "rss",
+      "enabled": true,
+      "name": "The Guardian – Business",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.theguardian.com/business/rss",
+      "filter": "economy"
+    },
+    {
+      "id": "economist_intl",
+      "type": "rss",
+      "enabled": true,
+      "name": "The Economist – International",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.economist.com/international/rss.xml",
+      "filter": "economy"
+    },
+    {
+      "id": "lesechos_monde",
+      "type": "rss",
+      "enabled": false,
+      "name": "Les Echos – Monde",
+      "license": "Titre + lien",
+      "lang": "fr",
+      "url": "https://services.lesechos.fr/rss/les-echos-monde.xml",
+      "filter": "economy",
+      "_comment": "Désactivée : flux indisponible (403/404/DNS au 27/09/2026). Pays couvert par Google News."
+    },
+    {
+      "id": "bbc_world",
+      "type": "rss",
+      "enabled": true,
+      "name": "BBC World",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://feeds.bbci.co.uk/news/world/rss.xml"
+    },
+    {
+      "id": "aljazeera",
+      "type": "rss",
+      "enabled": true,
+      "name": "Al Jazeera",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.aljazeera.com/xml/rss/all.xml"
+    },
+    {
+      "id": "france24_en",
+      "type": "rss",
+      "enabled": true,
+      "name": "France 24 (EN)",
+      "license": "Titre + lien",
+      "lang": "en",
+      "url": "https://www.france24.com/en/rss"
+    },
+    {
+      "id": "france24_fr",
+      "type": "rss",
+      "enabled": true,
+      "name": "France 24 (FR)",
+      "license": "Titre + lien",
+      "lang": "fr",
+      "url": "https://www.france24.com/fr/rss"
+    },
+    {
+      "id": "un_news",
+      "type": "rss",
+      "enabled": true,
+      "name": "UN News – Peace & Security",
+      "license": "Libre",
+      "lang": "en",
+      "url": "https://news.un.org/feed/subscribe/en/news/topic/peace-and-security/feed/rss.xml",
+      "filter": "none"
+    },
+    {
+      "id": "cert_fr",
+      "type": "rss",
+      "enabled": true,
+      "name": "CERT-FR (alertes)",
+      "license": "Licence Ouverte",
+      "lang": "fr",
+      "url": "https://www.cert.ssi.gouv.fr/alerte/feed/",
+      "filter": "none",
+      "category": "cyber"
+    },
+    {
+      "_comment": "EXEMPLE – flux réservé aux abonnés : le cookie de session est lu dans .env (PRESSE_ABONNE_COOKIE). Vérifiez que les CGU de l'éditeur autorisent cet usage.",
+      "id": "presse_abonne_exemple",
+      "type": "rss",
+      "enabled": false,
+      "name": "Presse sur abonnement (exemple)",
+      "license": "Contrat éditeur",
+      "lang": "fr",
+      "url": "https://www.exemple-journal.fr/rss/abonnes.xml",
+      "auth": {
+        "type": "cookie",
+        "env": "PRESSE_ABONNE_COOKIE"
+      }
+    },
+    {
+      "_comment": "EXEMPLE – fournisseur d'alertes payant branché sans code : décrire où se trouvent les champs dans sa réponse JSON.",
+      "id": "fournisseur_exemple",
+      "type": "jsonapi",
+      "enabled": false,
+      "name": "Fournisseur payant (exemple)",
+      "license": "Contrat",
+      "url": "https://api.fournisseur.example/v1/alerts",
+      "params": {
+        "since": "24h"
+      },
+      "auth": {
+        "type": "bearer",
+        "env": "FOURNISSEUR_TOKEN"
+      },
+      "items_path": "data",
+      "fields": {
+        "id": "id",
+        "title": "headline",
+        "summary": "summary",
+        "date": "published_at",
+        "lat": "location.lat",
+        "lon": "location.lon",
+        "url": "link",
+        "category": "type",
+        "severity": "risk_level"
+      },
+      "category_map": {
+        "Terrorism": "terrorism",
+        "Civil Unrest": "unrest",
+        "Crime": "crime"
+      },
+      "severity_map": {
+        "low": 1,
+        "medium": 2,
+        "high": 3,
+        "extreme": 4
+      }
+    },
+    {
+      "_comment": "Source sous licence : nécessite un compte ACLED adapté et une licence commerciale avant toute revente.",
+      "id": "acled",
+      "type": "acled",
+      "enabled": false,
+      "name": "ACLED",
+      "license": "Licence commerciale requise",
+      "days": 7
+    }
+  ]
+}

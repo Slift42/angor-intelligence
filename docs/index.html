@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Angor Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="vendor/markercluster/MarkerCluster.css">
+<link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <button class="icon-btn only-mobile" id="btn-panel" aria-label="Panneau"></button>
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name" id="brand-name">Angor Intelligence</span>
+    </div>
+    <div class="search" id="search">
+      <span class="search-ico" aria-hidden="true"></span>
+      <input id="search-input" type="search" autocomplete="off" data-i18n-placeholder="search_ph">
+      <div class="search-results" id="search-results" hidden></div>
+    </div>
+    <div class="period">
+      <div class="seg" id="time-seg" role="group">
+        <button data-h="24"></button><button data-h="72"></button><button data-h="168"></button><button data-h="720"></button>
+        <button data-h="2160"></button><button data-h="4320"></button><button data-h="8760"></button><button data-h="all"></button>
+        <button id="btn-range" type="button" aria-label="Période"></button>
+      </div>
+      <form class="range-pop" id="range-pop" hidden>
+        <div class="card-title" data-i18n="range"></div>
+        <label><span data-i18n="range_from"></span><input class="field" id="range-from" placeholder="JJ/MM/AAAA" inputmode="numeric"><input type="date" id="range-pick-from" class="pick"></label>
+        <label><span data-i18n="range_to"></span><input class="field" id="range-to" placeholder="JJ/MM/AAAA" inputmode="numeric"><input type="date" id="range-pick-to" class="pick"></label>
+        <button class="btn primary" type="submit" data-i18n="apply"></button>
+      </form>
+    </div>
+    <div class="top-right">
+      <button class="btn ghost" id="btn-analytics" type="button"></button>
+      <button class="health" id="health" type="button"></button>
+      <button class="icon-btn text" id="btn-lang" aria-label="Langue">EN</button>
+      <button class="icon-btn" id="btn-theme" aria-label="Thème"></button>
+    </div>
+  </header>
+
+  <aside class="panel" id="panel">
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="alerts"></button>
+      <button role="tab" data-tab="ongoing"></button>
+      <button role="tab" data-tab="countries"></button>
+      <button role="tab" data-tab="news"></button>
+      <button role="tab" data-tab="sites"></button>
+    </nav>
+
+    <section class="tab-body" data-body="alerts">
+      <div class="sev-summary" id="sev-summary"></div>
+      <details class="filters" id="filters">
+        <summary><span data-i18n="filters"></span><span class="filter-count" id="filter-count"></span></summary>
+        <div class="filter-groups" id="filter-groups"></div>
+        <label class="switch"><input type="checkbox" id="only-sites"><span data-i18n="only_sites"></span></label>
+        <label class="switch"><input type="checkbox" id="hide-auto"><span data-i18n="hide_auto"></span></label>
+      </details>
+      <div class="list-head"><span id="alerts-count"></span>
+        <span class="list-actions">
+          <button class="btn small" id="btn-export" type="button"></button>
+          <select id="sort" aria-label="Tri"><option value="date" data-i18n="sort_date"></option><option value="severity" data-i18n="sort_sev"></option></select>
+        </span>
+      </div>
+      <ol class="alert-list" id="alert-list"></ol>
+    </section>
+
+    <section class="tab-body" data-body="ongoing" hidden>
+      <p class="hint" data-i18n="ongoing_hint"></p>
+      <label class="switch"><input type="checkbox" id="only-ongoing"><span data-i18n="only_ongoing"></span></label>
+      <div class="list-head"><span id="ongoing-count"></span></div>
+      <ol class="crisis-list" id="ongoing-list"></ol>
+    </section>
+
+    <section class="tab-body" data-body="countries" hidden>
+      <p class="hint" data-i18n="countries_hint"></p>
+      <input class="field" id="country-filter" type="search" data-i18n-placeholder="country_ph">
+      <ol class="country-list" id="country-list"></ol>
+    </section>
+
+    <section class="tab-body" data-body="news" hidden>
+      <p class="hint" data-i18n="news_hint"></p>
+      <input class="field" id="news-filter" type="search" data-i18n-placeholder="news_ph">
+      <ol class="news-list" id="news-list"></ol>
+    </section>
+
+    <section class="tab-body" data-body="sites" hidden>
+      <p class="hint" data-i18n="sites_hint"></p>
+      <div class="site-actions">
+        <button class="btn primary" id="btn-add-site"></button>
+        <button class="btn" id="btn-export-sites"></button>
+      </div>
+      <form class="site-form" id="site-form" hidden>
+        <label><span data-i18n="site_name"></span><input class="field" id="site-name" required></label>
+        <label><span data-i18n="site_radius"></span><input class="field" id="site-radius" type="number" min="1" max="500" value="25"></label>
+        <p class="hint" id="site-coords"></p>
+        <div class="site-actions"><button class="btn primary" type="submit" data-i18n="save"></button><button class="btn" type="button" id="site-cancel" data-i18n="cancel"></button></div>
+      </form>
+      <ol class="site-list" id="site-list"></ol>
+    </section>
+  </aside>
+
+  <main class="map-wrap">
+    <div id="map" aria-label="Carte"></div>
+    <div class="map-card layers" id="layers">
+      <div class="card-title" data-i18n="layers"></div>
+      <label class="switch"><input type="checkbox" id="lyr-events" checked><span data-i18n="lyr_events"></span></label>
+      <label class="switch"><input type="checkbox" id="lyr-risk" checked><span data-i18n="lyr_risk"></span></label>
+      <label class="switch"><input type="checkbox" id="lyr-sites" checked><span data-i18n="lyr_sites"></span></label>
+      <label class="basemap-row"><span data-i18n="basemap"></span>
+        <select id="basemap">
+          <option value="esri" data-i18n="bm_esri"></option>
+          <option value="vector" data-i18n="bm_vector"></option>
+          <option value="plain" data-i18n="bm_plain"></option>
+        </select>
+      </label>
+    </div>
+    <div class="map-card legend" id="legend"></div>
+    <aside class="drawer" id="drawer" hidden>
+      <button class="icon-btn drawer-close" id="drawer-close" aria-label="Fermer"></button>
+      <div id="drawer-body"></div>
+    </aside>
+    <section class="analytics" id="analytics" hidden></section>
+    <div class="toast" id="toast" hidden></div>
+    <div class="empty-state" id="empty" hidden></div>
+  </main>
+</div>
+<div id="print-area" class="print-area"></div>
+
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="vendor/markercluster/leaflet.markercluster.js"></script>
+<script src="vendor/maplibre/maplibre-gl.js"></script>
+<script src="vendor/maplibre/leaflet-maplibre-gl.js"></script>
+<script src="vendor/chartjs/chart.umd.min.js"></script>
+<script src="vendor/icons.js"></script>
+<script src="data/countries.js"></script>
+<script src="data/data.js" onerror="window.VS_DATA_MISSING=true"></script>
+<script src="app.js"></script>
+</body>
+</html>
