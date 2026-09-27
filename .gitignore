@@ -3,7 +3,7 @@
 # Vos vrais sites clients (confidentiel)
 config/sites.local.json
 # Mémoire du robot et fichiers générés (recréés à chaque collecte)
-data/
+/data/
 docs/data/data.js
 docs/data/events.geojson
 docs/data/econ.js
