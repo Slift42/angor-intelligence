@@ -385,6 +385,9 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             g["outlets"].add(it["outlet"])
             if ai and ai.get("summary_en") and not g.get("summary"):
                 g["summary"] = ai["summary_en"]
+                g["summary_fr"] = ai.get("summary_fr") or ""
+            if it.get("snippet") and not g.get("snippet"):
+                g["snippet"] = it["snippet"]
             g["ai"] = g.get("ai") or ai is not None
 
     events = []
@@ -403,6 +406,10 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             confidence=conf, tags=["auto-detected", "unverified", "press"] + (["ai"] if g.get("ai") else []))
         ev["sources"] = [{"name": x["outlet"], "url": x["url"], "title": x["title"]} for x in items[:8]]
         ev["headline"] = first["title"]
+        if g.get("summary_fr"):
+            ev["summary_fr"] = g["summary_fr"]
+        if g.get("snippet"):
+            ev["snippet"] = g["snippet"]
         events.append(ev)
 
     econ, eseen = [], set()

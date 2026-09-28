@@ -9,9 +9,11 @@ Options (config/sources.json) :
                "none"              → tout va dans le Fil (ex. alertes CERT-FR) ;
   "country"  : pays par défaut du flux (presse locale), ex. "ML"
   "lang"     : langue du flux (information)
-Titre et lien uniquement, jamais le texte des articles (droit d'auteur).
+Titre, lien et chapeau (300 caractères maximum, publié par le média dans son flux) – jamais le texte
+des articles (droit d'auteur).
 """
 import hashlib
+import html
 import re
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
@@ -57,12 +59,12 @@ def _items(root):
         kind = _local(el.tag)
         if kind == "item":
             link = _text(el, "link") or el.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about", "")
-            yield {"title": _text(el, "title"), "link": link,
+            yield {"title": _text(el, "title"), "link": link, "desc": _text(el, "description"),
                    "date": _date(_text(el, "pubDate") or _text(el, "date"))}
         elif kind == "entry":
             link_el = _child(el, "link")
             yield {"title": _text(el, "title"), "link": link_el.get("href") if link_el is not None else "",
-                   "date": _date(_text(el, "updated") or _text(el, "published"))}
+                   "desc": _text(el, "summary"), "date": _date(_text(el, "updated") or _text(el, "published"))}
 
 
 def fetch(cfg, ctx):
@@ -77,7 +79,11 @@ def fetch(cfg, ctx):
         if not title or (keywords and not any(k in title.lower() for k in keywords)):
             continue
         date = it["date"] or ctx.now
+        snippet = html.unescape(re.sub(r"\s+", " ", TAG_RE.sub(" ", html.unescape(it.get("desc") or "")))).strip()
+        if snippet.lower().startswith(title.lower()[:40]):
+            snippet = snippet[len(title):].strip(" .:-–")
         item = {"title": title, "url": it["link"], "outlet": name, "date": date,
+                "snippet": snippet[:300] if len(snippet) >= 40 else "",
                 "country_hint": cfg.get("country"), "lang": cfg.get("lang", ""), "feed": name}
         if mode == "none":
             uid = hashlib.sha1((it["link"] or title).encode()).hexdigest()[:12]

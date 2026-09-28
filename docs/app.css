@@ -271,7 +271,9 @@ a.btn { text-decoration: none; color: var(--ink); }
 .alert .d { font-size: 12.5px; color: var(--ink-2); margin-top: 3px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .alert .m.src { margin-top: 5px; }
 .alert .m.src .tag { gap: 4px; }
-.d-desc { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink); }
+.d-sum { display: grid; gap: 4px; }
+.d-desc { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.d-sum-kind { font-size: 11px; color: var(--muted); letter-spacing: .02em; }
 .d-source { display: flex; gap: 7px; align-items: center; font-size: 13px; color: var(--ink-2); background: var(--surface-2); border-radius: 8px; padding: 7px 10px; }
 .d-head .btn.primary { justify-self: start; text-decoration: none; }
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
@@ -352,3 +354,8 @@ a.btn { text-decoration: none; color: var(--ink); }
 }
 .crisis-tag { display: inline-block; margin-left: 6px; padding: 0 7px; border-radius: 999px; font-size: 10.5px; font-weight: 700; vertical-align: 2px; color: #fff; }
 .crisis-tag.major { background: var(--sev4); } .crisis-tag.crisis { background: var(--sev3); } .crisis-tag.alert { background: var(--muted); }
+
+/* Avis des ministères : carte officielle en vignette */
+.mini-list li.adv > span:nth-child(2) { display: grid; gap: 6px; }
+.adv-map { display: block; margin-top: 4px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; max-width: 240px; background: var(--surface-2, #f3f4f6); }
+.adv-map img { display: block; width: 100%; height: auto; max-height: 170px; object-fit: contain; }

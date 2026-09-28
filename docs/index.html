@@ -112,12 +112,24 @@
     <div class="map-card layers" id="layers">
       <div class="card-title" data-i18n="layers"></div>
       <label class="switch"><input type="checkbox" id="lyr-events" checked><span data-i18n="lyr_events"></span></label>
-      <label class="switch"><input type="checkbox" id="lyr-risk" checked><span data-i18n="lyr_risk"></span></label>
+      <label class="basemap-row"><span data-i18n="lyr_country"></span>
+        <select id="country-layer">
+          <option value="risk" data-i18n="cl_risk"></option>
+          <option value="meae" data-i18n="cl_meae"></option>
+          <option value="fcdo" data-i18n="cl_fcdo"></option>
+          <option value="us" data-i18n="cl_us"></option>
+          <option value="none" data-i18n="cl_none"></option>
+        </select>
+      </label>
       <label class="switch"><input type="checkbox" id="lyr-sites" checked><span data-i18n="lyr_sites"></span></label>
       <label class="basemap-row"><span data-i18n="basemap"></span>
         <select id="basemap">
+          <option value="detail" data-i18n="bm_detail"></option>
+          <option value="bright" data-i18n="bm_bright"></option>
+          <option value="clean" data-i18n="bm_clean"></option>
+          <option value="satellite" data-i18n="bm_sat"></option>
+          <option value="topo" data-i18n="bm_topo"></option>
           <option value="esri" data-i18n="bm_esri"></option>
-          <option value="vector" data-i18n="bm_vector"></option>
           <option value="plain" data-i18n="bm_plain"></option>
         </select>
       </label>
@@ -142,6 +154,7 @@
 <script src="vendor/icons.js"></script>
 <script src="data/countries.js"></script>
 <script src="data/data.js" onerror="window.VS_DATA_MISSING=true"></script>
+<script src="data/history/index.js" onerror="window.VS_HIST_INDEX=null"></script>
 <script src="app.js"></script>
 </body>
 </html>

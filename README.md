@@ -13,7 +13,10 @@ Ce qu'elle fait :
   4. angles business ;
   5. spécificités du pays : gouvernance, corruption, sanctions, société, cadre des affaires.
 - **Tableau de bord analytique** : courbes, camemberts, classements.
-- **Fil de presse** : environ 110 pays, 12 langues, titres et liens uniquement.
+- **Fil de presse** : environ 110 pays en 12 langues (Google News), plus 650 médias de référence dans 206 pays (3 à 5 titres fiables par pays). Titres et liens uniquement.
+- **Base historique (5 ans)** : conflits UCDP, détections GDELT, séismes, catastrophes, épidémies, pour l'onglet Analyses et la carte sur les longues périodes.
+- **Calques des ministères** : heatmap MEAE (France), FCDO (Royaume-Uni), State Dept (États-Unis), avec la carte officielle de chaque pays.
+- **Fonds de carte** : détaillé (routes, villes), contrasté, épuré, satellite, topographique.
 - **Mes sites** : rayons de vigilance autour de vos sites, alertes de proximité, export PDF de la liste d'alertes.
 - **Interface** : bilingue FR/EN, thème clair ou sombre, utilisable sur mobile.
 
@@ -62,7 +65,9 @@ Une source qui échoue 3 fois de suite est mise en pause 24 h. Son état est vis
 | Conflits, attaques, manifestations | GDELT (presse mondiale, 65 langues, filtrée et recoupée) |
 | Presse locale | Google News (≈ 110 pays, sûreté + économie, en rotation) et flux RSS : BBC, Guardian, NYT, DW, Euronews, Al Jazeera, France 24, Le Monde, RFI Afrique, Jeune Afrique, Al-Monitor, El País, MercoPress, Kyiv Independent, Times of Israel, Dawn, The Hindu, Premium Times, News24, Japan Times, Franceinfo, Le Parisien, 20 Minutes, Ouest-France |
 | Institutions | ONU (Paix et sécurité), OTAN, Crisis Group, Département d'État US, FCDO britannique, CERT-FR |
-| Avis aux voyageurs | Département d'État US, Gouvernement du Canada |
+| Avis aux voyageurs | MEAE (France, conseils aux voyageurs), FCDO (Royaume-Uni), Département d'État US, Gouvernement du Canada |
+| Médias de référence | ≈ 650 quotidiens et sites d'information dans 206 pays (`config/press_outlets.json`, modifiable dans `tools/outlets_src.py`) |
+| Historique (5 ans) | UCDP GED et « candidate events » (Uppsala, CC BY 4.0), GDELT 1.0 quotidien, USGS, GDACS, NASA EONET, OMS – script `historique.py` |
 | Économie et gouvernance | Banque mondiale (indicateurs, gouvernance WGI, projets actifs), FMI (prévisions), REST Countries, presse économique (BBC, Guardian, The Economist, Les Echos) |
 | Contexte pays | CIA World Factbook (archive : publication arrêtée en février 2026, domaine public) |
 
@@ -73,7 +78,7 @@ Une source qui échoue 3 fois de suite est mise en pause 24 h. Son état est vis
 3. Le titre n'est placé sur la carte que si une ville est reconnue.
 4. Plusieurs médias qui rapportent le même fait, au même endroit et le même jour, forment un seul incident. Plus il y a de médias, plus la confiance monte.
 
-Tout est marqué « auto » et peut être masqué. L'étape IA prendra le relais pour classer finement et résumer en anglais.
+Tout est marqué « auto » et peut être masqué. Avec une clé IA, chaque incident reçoit un résumé de 2 à 3 phrases en français et en anglais ; sans clé, la fiche affiche le chapeau publié par le média (flux RSS) ou un résumé automatique (nature, lieu, date, médias).
 
 Les formulations de type « Paris met en garde Moscou » ne sont pas placées sur une capitale : le nom de la ville y désigne un gouvernement, pas un lieu.
 
@@ -110,7 +115,9 @@ collecte.py                  ← le chef d'orchestre (à lancer)
 config/sources.json          ← sources activées et réglages (46 sources, dont 3 modèles payants désactivés)
 config/sites.json            ← sites d'EXEMPLE ; vos vrais sites vont dans config/sites.local.json (non versionné)
 config/risk.json             ← poids de la note pays + corrections de l'analyste ("overrides")
-config/settings.json         ← nom, langue, durées de conservation
+config/settings.json         ← nom, langue, durées de conservation, IA, alertes
+config/press_outlets.json    ← médias de référence par pays (généré par tools/outlets_src.py)
+historique.py                ← base historique 5 ans (robot GitHub « Historique »)
 veille/connectors/           ← un fichier par source (gnews.py : liste des pays et mots-clés)
 veille/press.py              ← classement et géolocalisation des titres de presse
 veille/enrich.py             ← titres des articles pour décrire les détections GDELT

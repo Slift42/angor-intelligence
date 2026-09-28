@@ -10,8 +10,10 @@
   "ai": {
     "enabled": true,
     "model": "claude-haiku-4-5",
-    "max_items_per_run": 400,
-    "monthly_budget_usd": 20
+    "max_items_per_run": 150,
+    "monthly_budget_usd": 20,
+    "prefilter_keywords": true,
+    "_comment": "Budget lissé sur le mois. Résumés FR/EN de 2-3 phrases. prefilter_keywords : seuls les titres repérés par les mots-clés sont envoyés à l'IA."
   },
   "alerts": {
     "_comment": "Alertes Telegram/e-mail pour tout nouvel incident (plus de critère de rayon). countries/categories vides = tout. Ex. countries: [\"FR\",\"ML\"], categories: [\"terrorism\",\"unrest\"].",

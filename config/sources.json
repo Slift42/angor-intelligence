@@ -15,6 +15,25 @@
       "license": "Licence du gouvernement ouvert"
     },
     {
+      "id": "fr_advisories",
+      "type": "fr_advisories",
+      "enabled": true,
+      "name": "MEAE (France)",
+      "license": "diplomatie.gouv.fr – citer la source",
+      "pages_per_run": 45,
+      "refresh_days": 3,
+      "_comment": "Conseils aux voyageurs : niveau le plus élevé des zones du pays + carte officielle. Lecture progressive (45 pays par collecte)."
+    },
+    {
+      "id": "uk_advisories",
+      "type": "uk_advisories",
+      "enabled": true,
+      "name": "FCDO (UK)",
+      "license": "Open Government Licence v3.0",
+      "pages_per_run": 60,
+      "_comment": "GOV.UK Content API : statut d'alerte et carte officielle, relus seulement quand l'avis change."
+    },
+    {
       "id": "usgs",
       "type": "usgs",
       "enabled": true,
@@ -85,6 +104,18 @@
       "max_items_per_query": 20,
       "max_age_hours": 48,
       "_comment": "Rotation : 40 requêtes par collecte sur ~220 (sûreté + économie pour ~110 pays). Liste des pays et mots-clés : veille/connectors/gnews.py"
+    },
+    {
+      "id": "outlets",
+      "type": "outlets",
+      "enabled": true,
+      "name": "Médias de référence (≈ 200 pays, 3 à 5 titres par pays)",
+      "license": "Titre + lien",
+      "queries_per_run": 60,
+      "max_items_per_query": 25,
+      "max_age_hours": 48,
+      "time_budget_s": 120,
+      "_comment": "Catalogue : config/press_outlets.json (modifier tools/outlets_src.py puis le relancer). Rotation : 60 requêtes par collecte."
     },
     {
       "id": "guardian_world",

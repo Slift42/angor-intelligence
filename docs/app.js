@@ -35,8 +35,15 @@
       site_config: 'Défini dans config/sites.json', site_local: 'Ajouté dans ce navigateur', delete: 'Supprimer',
       hits: n => n ? `${n} alerte${n > 1 ? 's' : ''} dans le rayon` : 'Aucune alerte dans le rayon', radius: 'rayon',
       export_done: 'Fichier téléchargé : copiez-le dans config/sites.local.json pour que le robot surveille ces sites.',
-      layers: 'Couches', lyr_events: 'Alertes', lyr_risk: 'Risque pays', lyr_sites: 'Mes sites',
-      basemap: 'Fond', bm_esri: 'Épuré (Esri)', bm_vector: 'Vectoriel (OpenFreeMap)', bm_plain: 'Neutre (hors ligne)',
+      layers: 'Couches', lyr_events: 'Alertes', lyr_risk: 'Risque pays', lyr_sites: 'Mes sites', lyr_country: 'Calque pays',
+      cl_risk: 'Risque pays (Angor)', cl_meae: 'Heatmap MEAE (France)', cl_fcdo: 'FCDO (Royaume-Uni)', cl_us: 'State Dept (États-Unis)', cl_none: 'Aucun',
+      min_levels: { 1: 'Vigilance normale', 2: 'Vigilance renforcée', 3: 'Déconseillé sauf raison impérative', 4: 'Formellement déconseillé' },
+      us_levels: { 1: 'Précautions normales', 2: 'Prudence accrue', 3: 'Voyage à reconsidérer', 4: 'Ne pas voyager' },
+      zones_note: 'Pointillés : seules certaines zones sont concernées. Couleur = zone la plus sensible. La carte officielle fait foi.',
+      official_map: 'Carte officielle', parts: 'certaines zones', no_adv: 'Pas d\'avis connu', updated_on: 'mis à jour',
+      loading_hist: 'Chargement de la base historique…', hist_note: (a, b) => `base historique ${a} → ${b} (UCDP, GDELT, USGS, GDACS, NASA, OMS) puis veille en direct`,
+      bm_fallback: 'Fond de carte indisponible : repli sur un fond plus simple.', sum_ai: 'Résumé IA – à vérifier', sum_source: 'Extrait de la source', sum_auto: 'Résumé automatique',
+      basemap: 'Fond', bm_detail: 'Détaillé (routes, villes)', bm_bright: 'Contrasté', bm_clean: 'Épuré', bm_sat: 'Satellite', bm_topo: 'Topographique', bm_esri: 'Gris (Esri)', bm_plain: 'Neutre (hors ligne)',
       legend_sev: 'Gravité', legend_risk: 'Risque pays', legend_auto: 'Contour pointillé : détection automatique',
       sources_ok: (a, b) => `${a}/${b} <span class="src-word">sources</span>`, updated: 'Mise à jour', stale: 'Données anciennes',
       source_status: 'État des sources', ok: 'OK', error: 'Erreur', items: 'éléments', last_success: 'Dernier succès', paused: 'En pause (3 échecs)',
@@ -84,8 +91,15 @@
       site_config: 'Defined in config/sites.json', site_local: 'Added in this browser', delete: 'Delete',
       hits: n => n ? `${n} alert${n > 1 ? 's' : ''} within radius` : 'No alert within radius', radius: 'radius',
       export_done: 'File downloaded: copy it to config/sites.local.json so the collector monitors these sites.',
-      layers: 'Layers', lyr_events: 'Alerts', lyr_risk: 'Country risk', lyr_sites: 'My sites',
-      basemap: 'Basemap', bm_esri: 'Clean (Esri)', bm_vector: 'Vector (OpenFreeMap)', bm_plain: 'Neutral (offline)',
+      layers: 'Layers', lyr_events: 'Alerts', lyr_risk: 'Country risk', lyr_sites: 'My sites', lyr_country: 'Country layer',
+      cl_risk: 'Country risk (Angor)', cl_meae: 'MEAE heatmap (France)', cl_fcdo: 'FCDO (United Kingdom)', cl_us: 'State Dept (United States)', cl_none: 'None',
+      min_levels: { 1: 'Normal vigilance', 2: 'Increased vigilance', 3: 'Advised against except essential', 4: 'Advised against all travel' },
+      us_levels: { 1: 'Exercise normal precautions', 2: 'Exercise increased caution', 3: 'Reconsider travel', 4: 'Do not travel' },
+      zones_note: 'Dashed: only some areas are concerned. Colour = most sensitive area. The official map prevails.',
+      official_map: 'Official map', parts: 'some areas', no_adv: 'No known advice', updated_on: 'updated',
+      loading_hist: 'Loading historical database…', hist_note: (a, b) => `historical database ${a} → ${b} (UCDP, GDELT, USGS, GDACS, NASA, WHO) then live monitoring`,
+      bm_fallback: 'Basemap unavailable: switched to a simpler one.', sum_ai: 'AI summary – to be verified', sum_source: 'From the source', sum_auto: 'Automatic summary',
+      basemap: 'Basemap', bm_detail: 'Detailed (roads, towns)', bm_bright: 'High contrast', bm_clean: 'Clean', bm_sat: 'Satellite', bm_topo: 'Topographic', bm_esri: 'Grey (Esri)', bm_plain: 'Neutral (offline)',
       legend_sev: 'Severity', legend_risk: 'Country risk', legend_auto: 'Dashed outline: auto-detection',
       sources_ok: (a, b) => `${a}/${b} <span class="src-word">sources</span>`, updated: 'Updated', stale: 'Stale data',
       source_status: 'Source status', ok: 'OK', error: 'Error', items: 'items', last_success: 'Last success', paused: 'Paused (3 failures)',
@@ -122,19 +136,27 @@
   const RISK = (D && D.countries) || {};
   const NEWS = (D && D.news) || [];
   const STATUS = (D && D.status) || [];
+  /* Base historique (5 ans) : sommaire chargé au démarrage, années et mois chargés à la demande */
+  const HIDX = window.VS_HIST_INDEX || null;
+  const HIST_UNTIL = HIDX ? Date.parse(HIDX.until + 'T23:59:59Z') : -Infinity;
+  const HIST = [];
+  const histYears = new Set();
+  const HTAGS = [[], ['auto-detected'], ['multi-source'], ['auto-detected', 'multi-source']];
   const GROUP_COLORS = { security: '#B0182E', political: '#E0A21B', natural: '#3F86C6', health: '#7D5BA6', infrastructure: '#5E6B78' };
 
+  const BASEMAPS = ['detail', 'bright', 'clean', 'satellite', 'topo', 'esri', 'plain'];
   /* ------------------------------------------------------------------ état */
   const state = {
     lang: store.get('vs-lang', (D && D.settings && D.settings.default_lang) || 'fr'),
     theme: store.get('vs-theme', window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
-    basemap: ['esri', 'vector', 'plain'].includes(store.get('vs-basemap', 'esri')) ? store.get('vs-basemap', 'esri') : 'esri',
+    basemap: (b => BASEMAPS.includes(b) ? b : b === 'vector' ? 'clean' : 'detail')(store.get('vs-basemap', 'detail')),
     hours: store.get('vs-hours', 72), range: null, tab: 'alerts', aCountry: '', aGroup: '', aSev: 1, aSource: '', aAuto: true, sort: 'date', limit: 60,
     sev: store.get('vs-sev', { 1: true, 2: true, 3: true, 4: true }),
     cats: new Set(store.get('vs-cats', Object.keys(TAX.categories))),
     onlySites: false, onlyOngoing: false, hideAuto: store.get('vs-hideauto', false),
     selected: null, drawer: null, localSites: store.get('vs-sites', []), picking: false, pick: null,
-    countryFilter: '', newsFilter: '', analytics: false
+    countryFilter: '', newsFilter: '', analytics: false,
+    countryLayer: (v => ['risk', 'meae', 'fcdo', 'us', 'none'].includes(v) ? v : 'risk')(store.get('vs-clayer', 'risk'))
   };
 
   const $ = s => document.querySelector(s);
@@ -156,11 +178,40 @@
   COUNTRIES.features.forEach(f => { countryProps[f.properties.iso2] = f.properties; });
   const countryName = iso => iso && countryProps[iso] ? countryProps[iso]['name_' + state.lang] : '';
 
-  /** Description lisible : titre de l'article (presse, GDELT) ou résumé de la source officielle. */
+  /** Description lisible (liste) : résumé IA dans la langue choisie, chapeau de la source, titre d'article. */
   function describe(e) {
-    if (e.headline && e.headline !== e.title) return e.headline;
-    if (e.summary && !/^(Auto-detected|Detected in)/.test(e.summary)) return e.summary;
-    return '';
+    const fr = state.lang === 'fr';
+    let s = (fr && e.summary_fr) || (e.summary && !/^(Auto-detected|Detected in)/.test(e.summary) ? e.summary : '');
+    if (!s && e.snippet) s = e.snippet;
+    if (!s && e.headline && e.headline !== e.title) s = e.headline;
+    return s || '';
+  }
+  /** Résumé de 2 à 4 lignes pour la fiche : { text, kind } (kind = ai | source | auto). */
+  function summaryOf(e) {
+    const s = describe(e);
+    const ai = (e.tags || []).includes('ai') && (e.summary_fr || (e.summary && !/^(Auto-detected|Detected in)/.test(e.summary)));
+    if (ai) return { text: s, kind: 'ai' };
+    if (s && !isAuto(e)) return { text: s, kind: 'source' };
+    const auto = autoSummary(e);
+    return s && s !== e.title ? { text: `${s.replace(/[.\s]+$/, '')}. ${auto}`, kind: e.snippet ? 'source' : 'auto' } : { text: auto, kind: 'auto' };
+  }
+  function autoSummary(e) {
+    const fr = state.lang === 'fr';
+    const where = [e.place, e.country && countryName(e.country) !== e.place ? countryName(e.country) : ''].filter(Boolean).join(', ') || t('at_sea');
+    const day = new Date(e.date).toLocaleDateString(fr ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    const outlets = [...new Set((e.sources || []).map(x => x.name === 'Press (via GDELT)' ? hostOf(x.url) : x.name).filter(Boolean))];
+    let who;
+    if (e.source === 'GDELT') {
+      const m = /\((\d+) article\(s\), (\d+) outlet/.exec(e.summary || '');
+      who = m ? (fr ? `repéré dans ${m[1]} article(s) de ${m[2]} média(s) (GDELT)` : `picked up in ${m[1]} article(s) from ${m[2]} outlet(s) (GDELT)`)
+              : (fr ? 'repéré dans la presse (GDELT)' : 'picked up in the press (GDELT)');
+    } else {
+      const list = outlets.slice(0, 3).join(', ') + (outlets.length > 3 ? '…' : '');
+      who = outlets.length > 1 ? (fr ? `rapporté par ${outlets.length} médias (${list})` : `reported by ${outlets.length} outlets (${list})`)
+                               : (fr ? `rapporté par ${list || e.source}` : `reported by ${list || e.source}`);
+    }
+    return fr ? `${catLabel(e.category)} à ${where}, le ${day} : ${who}.${outlets.length > 1 ? ' Plusieurs sources concordent.' : ''}`
+              : `${catLabel(e.category)} in ${where} on ${day}: ${who}.${outlets.length > 1 ? ' Several sources concur.' : ''}`;
   }
   /** Libellé clair des sources : « GDELT · 5 médias » ou « USGS + GDACS ». */
   function sourceLabel(e) {
@@ -214,7 +265,7 @@
   }
 
   /* ------------------------------------------------------------------ carte */
-  const map = L.map('map', { zoomControl: false, worldCopyJump: true, minZoom: 2, maxZoom: 16 }).setView([28, 12], 3);
+  const map = L.map('map', { zoomControl: false, worldCopyJump: true, minZoom: 2, maxZoom: 18 }).setView([28, 12], 3);
   L.control.zoom({ position: 'bottomright' }).addTo(map);
   const OSM_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
   const OFM_ATTR = '<a href="https://openfreemap.org">OpenFreeMap</a> ' + OSM_ATTR;
@@ -229,36 +280,47 @@
   const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
   const ESRI_ATTR = 'Tiles &copy; Esri — Esri, HERE, Garmin, ' + OSM_ATTR;
   let labelLayer = null;
+  const ESRI_SVC = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
+  // Fonds vectoriels OpenFreeMap : nets à tous les zooms et sur écrans haute définition (routes, villes, relief)
+  const OFM_STYLES = { detail: ['liberty', 'dark'], bright: ['bright', 'fiord'], clean: ['positron', 'dark'] };
+  const DETAILED = new Set(['detail', 'bright', 'satellite', 'topo']);
   function setBasemap() {
     [baseLayer, labelLayer].forEach(l => { if (l) map.removeLayer(l); });
     baseLayer = labelLayer = null;
     map.removeLayer(landLayer);
     const mode = state.basemap;
-    if (mode === 'vector' && window.maplibregl && L.maplibreGL && maplibregl.supported && maplibregl.supported()) {
+    const dark = state.theme === 'dark';
+    if (OFM_STYLES[mode] && window.maplibregl && L.maplibreGL && (!maplibregl.supported || maplibregl.supported())) {
       try {
-        baseLayer = L.maplibreGL({ style: `https://tiles.openfreemap.org/styles/${state.theme === 'dark' ? 'dark' : 'positron'}`, attribution: OFM_ATTR, interactive: false });
+        baseLayer = L.maplibreGL({ style: `https://tiles.openfreemap.org/styles/${OFM_STYLES[mode][dark ? 1 : 0]}`, attribution: OFM_ATTR, interactive: false });
         baseLayer.addTo(map);
         const gl = baseLayer.getMaplibreMap && baseLayer.getMaplibreMap();
-        if (gl) gl.on('error', () => fallbackBasemap());
+        if (gl) gl.on('error', ev => { if (!gl.isStyleLoaded || !gl.isStyleLoaded()) fallbackBasemap(); });
+        refreshRiskStyle();
         return;
       } catch (e) { /* repli ci-dessous */ }
     }
-    if (mode === 'esri' || mode === 'vector') {
-      const v = state.theme === 'dark' ? 'Dark' : 'Light';
-      baseLayer = L.tileLayer(`${ESRI}World_${v}_Gray_Base/MapServer/tile/{z}/{y}/{x}`, { attribution: ESRI_ATTR, maxZoom: 16 });
-      labelLayer = L.tileLayer(`${ESRI}World_${v}_Gray_Reference/MapServer/tile/{z}/{y}/{x}`, { pane: 'labels', maxZoom: 16 });
-      let ok = 0, ko = 0;
-      baseLayer.on('tileload', () => { ok++; });
-      baseLayer.on('tileerror', () => { ko++; if (ko >= 6 && ok === 0) fallbackBasemap(true); });
-      baseLayer.addTo(map); labelLayer.addTo(map);
-      return;
+    let ok = 0, ko = 0;
+    const watch = l => { l.on('tileload', () => { ok++; }); l.on('tileerror', () => { ko++; if (ko >= 6 && ok === 0) fallbackBasemap(true); }); return l; };
+    if (mode === 'satellite') {
+      baseLayer = watch(L.tileLayer(`${ESRI_SVC}World_Imagery/MapServer/tile/{z}/{y}/{x}`, { attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics', maxNativeZoom: 18, maxZoom: 18 }));
+      labelLayer = L.tileLayer(`${ESRI_SVC}Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}`, { pane: 'labels', maxNativeZoom: 18, maxZoom: 18 });
+    } else if (mode === 'topo') {
+      baseLayer = watch(L.tileLayer(`${ESRI_SVC}World_Topo_Map/MapServer/tile/{z}/{y}/{x}`, { attribution: ESRI_ATTR, maxNativeZoom: 18, maxZoom: 18 }));
+    } else if (mode !== 'plain') {
+      const v = dark ? 'Dark' : 'Light';
+      baseLayer = watch(L.tileLayer(`${ESRI}World_${v}_Gray_Base/MapServer/tile/{z}/{y}/{x}`, { attribution: ESRI_ATTR, maxNativeZoom: 16, maxZoom: 18 }));
+      labelLayer = L.tileLayer(`${ESRI}World_${v}_Gray_Reference/MapServer/tile/{z}/{y}/{x}`, { pane: 'labels', maxNativeZoom: 16, maxZoom: 18 });
     }
+    if (baseLayer) { baseLayer.addTo(map); if (labelLayer) labelLayer.addTo(map); refreshRiskStyle(); return; }
     landLayer.setStyle(landStyle()); landLayer.addTo(map); landLayer.bringToBack();
+    refreshRiskStyle();
   }
   function fallbackBasemap(toPlain) {
     if (fallbackBasemap.done) return;
     fallbackBasemap.done = true;
     state.basemap = toPlain || state.basemap === 'esri' ? 'plain' : 'esri';
+    toast(t('bm_fallback'));
     $('#basemap').value = state.basemap; setBasemap();
   }
 
@@ -269,16 +331,44 @@
       layer.on('mouseover', () => { if (!state.picking) layer.setStyle({ weight: 1.6, color: cssVar('--ink-2') }); });
       layer.on('mouseout', () => riskLayer.resetStyle(layer));
       layer.bindTooltip(() => {
-        const r = RISK[f.properties.iso2];
-        return `<strong>${esc(countryName(f.properties.iso2))}</strong><br>${r ? `${t('risk_level')} : ${r.level} · ${esc(riskLabel(r.level))}` : t('no_data')}`;
+        const iso = f.properties.iso2, r = RISK[iso], mode = state.countryLayer;
+        if (MIN_SOURCES[mode]) {
+          const a = advisoryOf(iso, mode);
+          return `<strong>${esc(countryName(iso))}</strong><br>${esc(MIN_SOURCES[mode])} : ${a ? esc(minLabel(a, mode)) : t('no_adv')}`;
+        }
+        return `<strong>${esc(countryName(iso))}</strong><br>${r ? `${t('risk_level')} : ${r.level} · ${esc(riskLabel(r.level))}` : t('no_data')}`;
       }, { sticky: true, className: 'vs-tip', direction: 'top', offset: [0, -8] });
     }
   });
-  function countryStyle(iso) {
+  /* Calques des ministères des affaires étrangères (niveaux par pays, couleurs de la carte MEAE) */
+  const MIN_SOURCES = { meae: 'MEAE (France)', fcdo: 'FCDO (UK)', us: 'US State Dept' };
+  const MIN_COLORS = { 1: '#2E9E5B', 2: '#E3B505', 3: '#EE7D22', 4: '#D7263D' };
+  function advisoryOf(iso, mode) {
     const r = RISK[iso];
-    return { fillColor: riskColor(r ? r.level : 0), fillOpacity: r ? (state.theme === 'dark' ? 0.38 : 0.42) : 0.04,
-      color: state.theme === 'dark' ? '#3A4A5B' : '#FFFFFF', weight: 0.7 };
+    return r && r.advisories ? r.advisories[MIN_SOURCES[mode]] || null : null;
   }
+  const minLevel = (a, mode) => mode === 'us' ? a.level : (a.max || a.level);
+  function minLabel(a, mode) {
+    const lvl = minLevel(a, mode);
+    if (mode === 'fcdo' && a.label) return a.label;
+    const base = mode === 'us' ? t('us_levels')[lvl] : t('min_levels')[lvl];
+    return base + (a.parts && lvl > 1 ? ` (${t('parts')})` : '');
+  }
+  function countryStyle(iso) {
+    const mode = state.countryLayer, dark = state.theme === 'dark';
+    const line = dark ? '#3A4A5B' : '#FFFFFF';
+    const k = DETAILED.has(state.basemap) ? 0.6 : 1;
+    if (mode === 'none') return { fillOpacity: 0, opacity: 0, weight: 0 };
+    if (mode === 'risk') {
+      const r = RISK[iso];
+      return { fillColor: riskColor(r ? r.level : 0), fillOpacity: r ? (dark ? 0.38 : 0.42) * k : 0.04, color: line, weight: 0.7, dashArray: null };
+    }
+    const a = advisoryOf(iso, mode);
+    if (!a) return { fillColor: '#9AA5B1', fillOpacity: 0.05, color: line, weight: 0.5, dashArray: null };
+    return { fillColor: MIN_COLORS[minLevel(a, mode)] || '#9AA5B1', fillOpacity: (a.parts ? 0.32 : 0.55) * k,
+      color: a.parts ? MIN_COLORS[minLevel(a, mode)] : line, weight: a.parts ? 1.2 : 0.7, dashArray: a.parts ? '4 3' : null };
+  }
+  function refreshRiskStyle() { try { riskLayer.setStyle(f => countryStyle(f.properties.iso2)); } catch (e) { /* couche pas encore créée */ } }
 
   const cluster = L.markerClusterGroup({
     showCoverageOnHover: false, maxClusterRadius: 42, disableClusteringAtZoom: 9, spiderfyOnMaxZoom: true,
@@ -481,7 +571,8 @@
   function renderLegend() {
     $('#legend').innerHTML = `
       <div><div class="card-title">${t('legend_sev')}</div><div class="row">${[1, 2, 3, 4].map(s => `<span class="k"><i class="sw" style="background:${sevColor(s)}"></i>${esc(sevLabel(s))}</span>`).join('')}</div></div>
-      <div><div class="card-title">${t('legend_risk')}</div><div class="row">${[1, 2, 3, 4, 5].map(l => `<span class="k"><i class="sq" style="background:${riskColor(l)}"></i>${esc(riskLabel(l))}</span>`).join('')}</div></div>
+      ${MIN_SOURCES[state.countryLayer] ? `<div><div class="card-title">${esc(t('cl_' + state.countryLayer))}</div><div class="row">${[1, 2, 3, 4].map(l => `<span class="k"><i class="sq" style="background:${MIN_COLORS[l]}"></i>${esc((state.countryLayer === 'us' ? t('us_levels') : t('min_levels'))[l])}</span>`).join('')}</div>${state.countryLayer === 'us' ? '' : `<div class="legend-note">${t('zones_note')}</div>`}</div>`
+        : state.countryLayer === 'risk' ? `<div><div class="card-title">${t('legend_risk')}</div><div class="row">${[1, 2, 3, 4, 5].map(l => `<span class="k"><i class="sq" style="background:${riskColor(l)}"></i>${esc(riskLabel(l))}</span>`).join('')}</div></div>` : ''}
       <div class="legend-note">${t('legend_auto')}</div>`;
   }
 
@@ -524,7 +615,7 @@
       if (fly) cluster.zoomToShowLayer(m, show); else show();
     }
     const r = RISK[e.country];
-    const desc = describe(e);
+    const sum = summaryOf(e);
     const srcs = (e.sources || []).map(s => {
       const outlet = s.name === 'Press (via GDELT)' ? hostOf(s.url) : s.name;
       return `<li><strong>${esc(outlet)}</strong>${s.title ? ` — ${esc(s.title)}` : ''}<br><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(shortUrl(s.url))} ${icon('external-link', 11)}</a></li>`;
@@ -535,7 +626,7 @@
         <div class="d-kicker"><span class="pill" style="background:${sevColor(e.severity)}">${esc(sevLabel(e.severity))}</span>
           <span style="display:inline-flex;gap:5px;align-items:center">${icon(cat(e.category).icon, 14)}${esc(catLabel(e.category))}</span></div>
         <h2 class="d-title">${esc(e.title)}</h2>
-        ${desc ? `<p class="d-desc">${esc(desc)}</p>` : ''}
+        <div class="d-sum"><p class="d-desc">${esc(sum.text)}</p><span class="d-sum-kind">${esc(t('sum_' + sum.kind))}</span></div>
         <div class="d-source">${icon('newspaper', 14)}<span><strong>${t('source_lbl')} :</strong> ${esc(sourceLabel(e))}</span></div>
         ${isAuto(e) ? `<div class="notice">${t('auto_notice')}</div>` : ''}
         ${(e.tags || []).includes('multi-source') ? `<div class="notice" style="border-style:solid">✓ ${t('multi_source')}</div>` : ''}
@@ -575,8 +666,16 @@
     const counts = ['24h', '72h', '7d', '90d'].map(w => `<div class="stat"><div class="n">${(stats[w] || {}).total || 0}</div><div class="l">${w.replace('d', state.lang === 'fr' ? ' j' : ' d').replace('h', ' h')}</div></div>`).join('');
     const bars = r ? [['comp_adv', r.components.advisories], ['comp_sec', r.components.security], ['comp_haz', r.components.hazards]]
       .map(([k, v]) => `<div class="bar"><span>${t(k)}</span><span class="track"><span class="fill" style="width:${v == null ? 0 : Math.round(v * 100)}%"></span></span><span class="v">${v == null ? '—' : Math.round(v * 100)}</span></div>`).join('') : '';
-    const advs = r && Object.keys(r.advisories || {}).length ? Object.entries(r.advisories).map(([src, a]) =>
-      `<li><span class="dot" style="background:${riskColor(Math.min(5, a.level + 1))}"></span><span><strong>${esc(src)}</strong> · ${t('level')} ${a.level} ${t('of')} ${a.scale || 4}<br><span style="color:var(--muted)">${esc(a.label || '')}</span></span><a class="w" href="${esc(a.url)}" target="_blank" rel="noopener">↗</a></li>`).join('') : '';
+    const modeOf = { 'MEAE (France)': 'meae', 'FCDO (UK)': 'fcdo', 'US State Dept': 'us' };
+    const advs = r && Object.keys(r.advisories || {}).length ? Object.entries(r.advisories)
+      .sort(([a], [b]) => (modeOf[b] === state.countryLayer) - (modeOf[a] === state.countryLayer)).map(([src, a]) => {
+        const mode = modeOf[src];
+        const lvl = mode ? minLevel(a, mode) : a.level;
+        const color = mode ? MIN_COLORS[lvl] : riskColor(Math.min(5, a.level + 1));
+        const label = mode ? minLabel(a, mode) : a.label || '';
+        return `<li class="adv"><span class="dot" style="background:${color}"></span><span><strong>${esc(src)}</strong> · ${t('level')} ${lvl} ${t('of')} ${a.scale || 4}<br><span style="color:var(--muted)">${esc(label)}${a.updated ? ` · ${t('updated_on')} ${esc(String(a.updated).slice(0, 10))}` : ''}</span>
+          ${a.map ? `<a class="adv-map" href="${esc(a.map)}" target="_blank" rel="noopener" title="${esc(t('official_map'))}"><img src="${esc(a.map)}" alt="${esc(t('official_map'))} – ${esc(src)}" loading="lazy" referrerpolicy="no-referrer"></a>` : ''}</span><a class="w" href="${esc(a.url)}" target="_blank" rel="noopener">↗</a></li>`;
+      }).join('') : '';
     const f = COUNTRIES.features.find(x => x.properties.iso2 === iso);
     if (f && fly) map.flyToBounds(L.geoJSON(f).getBounds(), { padding: [40, 40], maxZoom: 6, duration: 0.8 });
     openDrawer(`
@@ -627,9 +726,15 @@
   }
   function renderAnalytics() {
     const el = $('#analytics');
+    const [h0] = windowBounds();
+    if (HIDX && h0 <= HIST_UNTIL && Object.keys(HIDX.years || {}).some(y => !histYears.has(y) && +y >= (isFinite(h0) ? new Date(h0).getUTCFullYear() : 0))) {
+      ensureHistory(() => { if (state.analytics) renderAnalytics(); });
+      return;
+    }
     charts.splice(0).forEach(c => c.destroy());
-    const win = EVENTS.filter(analyticsFilter);
-    const inPeriod = EVENTS.filter(inWindow);
+    const pool = analyticsPool();
+    const win = pool.filter(analyticsFilter);
+    const inPeriod = pool.filter(inWindow);
     const countries = [...new Set(inPeriod.map(e => e.country).filter(Boolean))].sort((a, b) => countryName(a).localeCompare(countryName(b)));
     const sources = [...new Set(inPeriod.map(e => e.source))].sort();
     const grpOpts = Object.entries(TAX.groups).map(([g, gl]) => `<optgroup label="${esc(gl[state.lang])}"><option value="g:${g}">${esc(gl[state.lang])} — ${t('all')}</option>${
@@ -640,7 +745,7 @@
       state.aCountry ? [t('risk_level'), rC ? `${rC.level} · ${riskLabel(rC.level)}` : '—'] : [t('k_countries'), Object.values(RISK).filter(r => r.level >= 4).length],
       [t('k_multi'), win.filter(e => (e.tags || []).includes('multi-source')).length], [t('k_auto'), win.length ? Math.round(100 * win.filter(isAuto).length / win.length) + ' %' : '—']
     ];
-    el.innerHTML = `<div class="a-head"><div><h2>${t('a_title')}${state.aCountry ? ' — ' + esc(countryName(state.aCountry)) : ''}</h2><div class="hint">${esc(t('a_period', periodLabel()))}</div></div>
+    el.innerHTML = `<div class="a-head"><div><h2>${t('a_title')}${state.aCountry ? ' — ' + esc(countryName(state.aCountry)) : ''}</h2><div class="hint">${esc(t('a_period', periodLabel()))}${HIDX && h0 <= HIST_UNTIL ? ' · ' + esc(t('hist_note', HIDX.from, HIDX.until)) : ''}</div></div>
       <button class="icon-btn" id="a-close" aria-label="${t('close')}">${icon('x')}</button></div>
       <div class="a-filters">
         <label>${t('country')}<select id="af-country"><option value="">${t('all_countries')}</option>${countries.map(c => `<option value="${c}">${esc(countryName(c))}</option>`).join('')}</select></label>
@@ -670,10 +775,12 @@
     // série temporelle calculée sur la période choisie (par jour, ou par semaine au-delà de 120 jours)
     let [a0, a1] = windowBounds();
     a1 = Math.min(a1, Date.now());
-    if (!isFinite(a0)) a0 = win.length ? Math.min(...win.map(e => e._t)) : a1 - 30 * 864e5;
-    const step = (a1 - a0) > 120 * 864e5 ? 7 * 864e5 : 864e5;
-    const nb = Math.max(1, Math.ceil((a1 - a0) / step));
-    const labels = Array.from({ length: nb }, (_, i) => new Date(a0 + i * step).toLocaleDateString(state.lang, { day: 'numeric', month: 'short' }));
+    if (!isFinite(a0)) a0 = win.length ? win.reduce((m, e) => Math.min(m, e._t), Infinity) : a1 - 30 * 864e5;
+    const span = a1 - a0;
+    const step = span > 730 * 864e5 ? 30.44 * 864e5 : span > 120 * 864e5 ? 7 * 864e5 : 864e5;
+    const nb = Math.max(1, Math.ceil(span / step));
+    const lfmt = step > 20 * 864e5 ? { month: 'short', year: '2-digit' } : span > 365 * 864e5 ? { day: 'numeric', month: 'short', year: '2-digit' } : { day: 'numeric', month: 'short' };
+    const labels = Array.from({ length: nb }, (_, i) => new Date(a0 + i * step).toLocaleDateString(state.lang, lfmt));
     const series = {};
     Object.keys(GROUP_COLORS).forEach(g => { series[g] = new Array(nb).fill(0); });
     win.forEach(e => { const i = Math.min(nb - 1, Math.floor((e._t - a0) / step)); if (i >= 0) series[cat(e.category).group][i]++; });
@@ -750,24 +857,57 @@
   }
   function persist() {
     store.set('vs-hours', state.hours); store.set('vs-sev', state.sev); store.set('vs-cats', [...state.cats]);
-    store.set('vs-hideauto', state.hideAuto); store.set('vs-lang', state.lang); store.set('vs-theme', state.theme); store.set('vs-basemap', state.basemap);
+    store.set('vs-hideauto', state.hideAuto); store.set('vs-lang', state.lang); store.set('vs-theme', state.theme); store.set('vs-basemap', state.basemap); store.set('vs-clayer', state.countryLayer);
+  }
+  /* Analyses sur plusieurs années : lignes compactes de la base historique (jusqu'à la veille de sa création) */
+  function ensureHistory(done) {
+    const [a0] = windowBounds();
+    if (!HIDX || a0 > HIST_UNTIL) return done();
+    const y0 = isFinite(a0) ? new Date(a0).getUTCFullYear() : 0;
+    const need = Object.keys(HIDX.years || {}).filter(y => +y >= y0 && !histYears.has(y));
+    if (!need.length) return done();
+    toast(t('loading_hist'), 0);
+    let left = need.length;
+    need.forEach(y => {
+      const sc = document.createElement('script');
+      sc.src = `data/history/stats-${y}.js`;
+      sc.onload = sc.onerror = () => {
+        histYears.add(y);
+        const d = (window.VS_HIST || {})[y];
+        if (d) {
+          d.rows.forEach(r => HIST.push({ _t: r[0] * 864e5 + 432e5, country: r[1] || null, category: HIDX.cats[r[2]], severity: r[3],
+            source: HIDX.srcs[r[4]], tags: HTAGS[r[5] & 3], confidence: r[5] & 2 ? 'high' : r[5] & 4 ? 'low' : 'medium', place: d.places[r[6]] || '', hist: true }));
+          delete window.VS_HIST[y];
+        }
+        if (--left === 0) { $('#toast').hidden = true; done(); }
+      };
+      document.head.appendChild(sc);
+    });
+  }
+  /** Données des analyses : base historique jusqu'à sa date de fin, puis la veille en direct. */
+  function analyticsPool() {
+    const live = EVENTS.filter(e => !e.hist && e._t > HIST_UNTIL);
+    return HIST.length ? HIST.concat(live) : live;
   }
   /* Historique au-delà de 30 jours : archives mensuelles chargées seulement si la période l'exige */
   const loadedMonths = new Set();
   function ensureArchives(done) {
-    const months = Object.keys((D && D.archives) || {});
     const [a] = windowBounds();
-    const need = months.filter(m => !loadedMonths.has(m) && Date.parse(m + '-01T00:00:00Z') + 31 * 864e5 >= a);
+    const inWin = m => Date.parse(m + '-01T00:00:00Z') + 31 * 864e5 >= a;
+    const need = Object.keys((D && D.archives) || {}).filter(m => !loadedMonths.has(m) && inWin(m)).map(m => ['a', m])
+      .concat(Object.keys((HIDX && HIDX.map_months) || {}).filter(m => !loadedMonths.has('h' + m) && inWin(m)).map(m => ['h', m]));
     if (!need.length) return done();
     toast(t('loading_archive'), 0);
     let left = need.length;
-    need.forEach(m => {
+    need.forEach(([kind, m]) => {
       const sc = document.createElement('script');
-      sc.src = `data/archive/${m}.js`;
+      sc.src = kind === 'a' ? `data/archive/${m}.js` : `data/history/map/${m}.js`;
       sc.onload = sc.onerror = () => {
-        loadedMonths.add(m);
+        loadedMonths.add(kind === 'a' ? m : 'h' + m);
         const known = new Set(EVENTS.map(e => e.id));
-        ((window.VS_ARCHIVE || {})[m] || []).forEach(e => { if (!known.has(e.id)) EVENTS.push(e); });
+        const list = kind === 'a' ? (window.VS_ARCHIVE || {})[m] : (window.VS_HMAP || {})[m];
+        (list || []).forEach(e => { if (!known.has(e.id)) { if (kind === 'h') e.hist = true; EVENTS.push(e); } });
+        if (kind === 'h' && window.VS_HMAP) delete window.VS_HMAP[m];
         if (--left === 0) { computeProximity(); $('#toast').hidden = true; done(); }
       };
       document.head.appendChild(sc);
@@ -859,7 +999,8 @@
     $('#btn-theme').addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; persist(); applyTheme(); renderAll(); reopenDrawer(); });
     $('#btn-panel').addEventListener('click', () => $('#app').classList.toggle('panel-open'));
     $('#lyr-events').addEventListener('change', ev => ev.target.checked ? map.addLayer(cluster) : map.removeLayer(cluster));
-    $('#lyr-risk').addEventListener('change', ev => ev.target.checked ? map.addLayer(riskLayer) : map.removeLayer(riskLayer));
+    $('#country-layer').value = state.countryLayer;
+    $('#country-layer').addEventListener('change', ev => { state.countryLayer = ev.target.value; persist(); refreshRiskStyle(); renderLegend(); });
     $('#lyr-sites').addEventListener('change', ev => ev.target.checked ? map.addLayer(sitesLayer) : map.removeLayer(sitesLayer));
     $('#basemap').addEventListener('change', ev => { state.basemap = ev.target.value; fallbackBasemap.done = false; persist(); setBasemap(); });
 

@@ -106,3 +106,29 @@ La carte est alors sur `https://carte.mondomaine.fr`.
 - **Cloudflare Access** (gratuit jusqu'à 50 utilisateurs, code par e-mail) devant le domaine. Limite : l'adresse `github.io` reste publique → pour une vraie confidentialité, héberger la carte sur **Cloudflare Pages** (Claude adaptera le robot).
 - **Obligatoire dès qu'une source payante est branchée** : ses données ne doivent pas être publiques (licences).
 - Avant toute ouverture publique : CGU « outil d'aide à la décision, sans garantie d'exhaustivité » et vérification de votre contrat de travail.
+
+---
+
+## Partie C – Base historique (5 ans) et résumés IA
+
+### C1. Installer le robot « Historique » (une fois)
+```
+copy tools\github-actions-historique.yml .github\workflows\historique.yml
+copy tools\github-actions-collecte.yml .github\workflows\collecte.yml
+```
+Tapez `O` si Windows demande de confirmer, puis double-cliquez sur **`publier.bat`**.
+
+### C2. Construire la base
+github.com → dépôt → onglet **Actions** → **Historique** (à gauche) → **Run workflow** → **Run workflow**.
+Durée : 30 à 90 minutes (5 ans de GDELT, UCDP, USGS, GDACS, NASA, OMS). À la fin, le robot enregistre la base
+dans le dépôt et republie la carte. Relancez-le une fois par mois pour l'actualiser.
+
+### C3. Récupérer la base sur votre PC
+`publier.bat` le fait tout seul : il récupère d'abord ce que le robot a enregistré (`git pull`), puis envoie vos changements.
+
+### C4. Résumés d'incidents par l'IA (recommandé)
+```
+gh secret set ANTHROPIC_API_KEY
+```
+Collez votre clé Anthropic (créée sur console.anthropic.com, avec un plafond de dépenses). Budget interne :
+20 $/mois, lissé jour par jour (`config/settings.json` → `ai`).

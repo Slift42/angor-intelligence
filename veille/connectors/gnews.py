@@ -117,6 +117,33 @@ def _queries(cfg):
     return [(c, t) for c in countries for t in themes]
 
 
+def parse_items(root, ctx, iso, lang, theme, max_age, max_items, feed="Google News"):
+    """Lit un flux Google News : titres de sûreté → ctx.press, titres économiques → ctx.econ."""
+    n = 0
+    for it in list(root.iter("item"))[:max_items]:
+        raw_title = (it.findtext("title") or "").strip()
+        src_el = it.find("source")
+        outlet = (src_el.text or "").strip() if src_el is not None and src_el.text else ""
+        m = TITLE_SOURCE.match(raw_title)
+        title = m.group(1).strip() if m else raw_title
+        outlet = outlet or (m.group(2).strip() if m else "Google News")
+        try:
+            date = parsedate_to_datetime(it.findtext("pubDate"))
+        except (TypeError, ValueError):
+            date = ctx.now
+        if ctx.now - date > max_age or not title:
+            continue
+        item = {"title": title, "url": (it.findtext("link") or "").strip(), "outlet": outlet,
+                "date": date, "country_hint": iso, "lang": lang, "feed": feed}
+        if theme == "economy":
+            item["id"] = "eco-" + hashlib.sha1(title.lower().encode()).hexdigest()[:12]
+            ctx.econ.append(item)
+        else:
+            ctx.press.append(item)
+        n += 1
+    return n
+
+
 def fetch(cfg, ctx):
     queries = _queries(cfg)
     per_run = int(cfg.get("queries_per_run", 40))
@@ -140,26 +167,7 @@ def fetch(cfg, ctx):
         except Exception:
             fails += 1
             continue
-        for it in list(root.iter("item"))[:max_items]:
-            raw_title = (it.findtext("title") or "").strip()
-            src_el = it.find("source")
-            outlet = (src_el.text or "").strip() if src_el is not None and src_el.text else ""
-            m = TITLE_SOURCE.match(raw_title)
-            title = m.group(1).strip() if m else raw_title
-            outlet = outlet or (m.group(2).strip() if m else "Google News")
-            try:
-                date = parsedate_to_datetime(it.findtext("pubDate"))
-            except (TypeError, ValueError):
-                date = ctx.now
-            if ctx.now - date > max_age or not title:
-                continue
-            item = {"title": title, "url": (it.findtext("link") or "").strip(), "outlet": outlet,
-                    "date": date, "country_hint": iso, "lang": lang, "feed": "Google News"}
-            if theme == "economy":
-                item["id"] = "eco-" + hashlib.sha1(title.lower().encode()).hexdigest()[:12]
-                ctx.econ.append(item)
-            else:
-                ctx.press.append(item)
+        parse_items(root, ctx, iso, lang, theme, max_age, max_items)
     ctx.state["gnews_cursor"] = (start + done) % len(queries)
     if fails:
         ctx.log(f"  Google News : {fails}/{done} requête(s) sans réponse")

@@ -2,7 +2,7 @@
 
 Pour chaque titre, l'IA renvoie une fiche structurée :
   relevant (incident réel et actuel ?), category, severity (1-4), country (ISO2), place (ville),
-  summary_en (résumé neutre en anglais, 25 mots maximum).
+  summary_en / summary_fr (résumé neutre de 2 à 3 phrases, 45 mots maximum, en anglais et en français).
 
 Activation : définir ANTHROPIC_API_KEY dans .env (ou dans les Secrets GitHub) et laisser
 "ai": {"enabled": true} dans config/settings.json. Sans clé, l'outil garde le classement par mots-clés.
@@ -10,7 +10,7 @@ Activation : définir ANTHROPIC_API_KEY dans .env (ou dans les Secrets GitHub) e
 Maîtrise des coûts :
 - seuls les titres jamais vus sont envoyés (cache dans data/store.json) ;
 - plafond par collecte (max_items_per_run) et budget mensuel en dollars (monthly_budget_usd) ;
-- titres envoyés par lots de 40 (une seule requête pour 40 titres).
+- titres envoyés par lots de 25 (une seule requête pour 25 titres).
 """
 import json
 import re
@@ -19,7 +19,7 @@ from . import http
 from .config import secret
 
 API = "https://api.anthropic.com/v1/messages"
-DEFAULTS = {"enabled": True, "model": "claude-haiku-4-5", "max_items_per_run": 400, "batch_size": 40,
+DEFAULTS = {"enabled": True, "model": "claude-haiku-4-5", "max_items_per_run": 400, "batch_size": 25,
             "monthly_budget_usd": 20.0, "price_in_per_mtok": 1.0, "price_out_per_mtok": 5.0}
 CATEGORIES = ["terrorism", "armed_conflict", "attack", "crime", "unrest", "political", "cyber", "infrastructure",
               "health", "earthquake", "cyclone", "storm", "flood", "wildfire", "volcano", "landslide",
@@ -38,7 +38,11 @@ Return ONLY a JSON array, one object per headline, in the same order:
   disruption, 4 critical: mass casualties, war escalation, national emergency),
   "country": ISO 3166-1 alpha-2 code of where the event happens (not the outlet's country) or null,
   "place": most precise city/locality name in English where it happens, or null,
-  "summary_en": neutral English summary, max 25 words, no speculation}}"""
+  "summary_en": neutral factual summary in English, 2-3 short sentences, max 45 words,
+  "summary_fr": the same summary in French, 2-3 short sentences, max 45 words}}
+Summaries: use ONLY the facts in the headline and snippet (who, what, where, when, toll if stated);
+you may add neutral geographic context (province/region, country) but NEVER invent casualties, actors,
+causes or consequences that are not stated. For irrelevant items, summaries may be null."""
 
 
 def _parse(text):
@@ -61,20 +65,31 @@ def analyze(items, store, settings, log, now):
     usage = store.setdefault("state", {}).setdefault("ai_usage", {})
     month = usage.setdefault(_month(now), {"in": 0, "out": 0, "usd": 0.0})
     todo, seen = [], set()
+    prefilter = cfg.get("prefilter_keywords", True)
+    if prefilter:
+        from .press import classify
     for it in items:
+        if prefilter and not classify(it["title"])[0]:
+            continue  # le filtre par mots-clés écarte d'office les titres hors sujet : économie de budget
         if it["title"] not in cache and it["title"] not in seen:
             seen.add(it["title"])
             todo.append(it)
     todo = todo[: int(cfg["max_items_per_run"])]
     done = 0
     for start in range(0, len(todo), int(cfg["batch_size"])):
-        if month["usd"] >= cfg["monthly_budget_usd"]:
-            log(f"  IA : budget mensuel atteint ({month['usd']:.2f} $) – retour aux mots-clés")
+        # budget lissé sur le mois : on ne dépense pas plus que la part des jours écoulés
+        import calendar
+        days = calendar.monthrange(now.year, now.month)[1]
+        allowed = cfg["monthly_budget_usd"] * min(1.0, (now.day + 1) / days)
+        if month["usd"] >= allowed:
+            log(f"  IA : budget atteint pour l'instant ({month['usd']:.2f} $ sur {allowed:.2f} $ autorisés à ce jour)"
+                " – retour aux mots-clés jusqu'à demain")
             break
         batch = todo[start:start + int(cfg["batch_size"])]
         lines = "\n".join(f"{i + 1}. [{b.get('country_hint') or '?'} | {b.get('outlet', '')}] {b['title']}"
+                          + (f" — snippet: {b['snippet'][:280]}" if b.get("snippet") else "")
                           for i, b in enumerate(batch))
-        body = {"model": cfg["model"], "max_tokens": 4000, "system": SYSTEM,
+        body = {"model": cfg["model"], "max_tokens": 8000, "system": SYSTEM,
                 "messages": [{"role": "user", "content": f"Headlines (country hint | outlet):\n{lines}"}]}
         try:
             r = http.post_json(API, body, headers={"x-api-key": key, "anthropic-version": "2023-06-01"})
@@ -97,7 +112,8 @@ def analyze(items, store, settings, log, now):
             row["severity"] = max(1, min(4, int(row.get("severity") or 1)))
             if row.get("country"):
                 row["country"] = str(row["country"]).upper()[:2]
-            fiche = {k: row.get(k) for k in ("relevant", "category", "severity", "country", "place", "summary_en")}
+            fiche = {k: row.get(k) for k in ("relevant", "category", "severity", "country", "place",
+                                             "summary_en", "summary_fr")}
             cache[b["title"]] = results[b["title"]] = fiche
             done += 1
     if len(cache) > 20000:  # le cache ne grossit pas indéfiniment
