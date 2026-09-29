@@ -40,17 +40,65 @@
    [
     "Amu TV",
     "amu.tv",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "TOLOnews",
     "tolonews.com",
-    "en"
+    "en",
+    "",
+    "C"
    ],
    [
     "8am Media",
     "8am.media",
-    "en"
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "KabulNow",
+    "kabulnow.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Etilaatroz",
+    "etilaatroz.com",
+    "fa",
+    "",
+    "B"
+   ],
+   [
+    "Khaama Press",
+    "khaama.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Rukhshana Media",
+    "rukhshana.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Afghanistan International",
+    "afintl.com",
+    "en",
+    "",
+    "D"
+   ],
+   [
+    "Ariana News",
+    "ariananews.af",
+    "en",
+    "",
+    "D"
    ]
   ],
   "AG": [
@@ -167,7 +215,9 @@
    [
     "ABC News",
     "abc.net.au",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "The Sydney Morning Herald",
@@ -178,6 +228,55 @@
     "The Age",
     "theage.com.au",
     "en"
+   ],
+   [
+    "The Guardian Australia",
+    "theguardian.com/au",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "SBS News",
+    "sbs.com.au/news",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "news.com.au",
+    "news.com.au",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "9News",
+    "9news.com.au",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "7NEWS",
+    "7news.com.au",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The New Daily",
+    "thenewdaily.com.au",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Conversation Australia",
+    "theconversation.com/au",
+    "en",
+    "+",
+    "B"
    ]
   ],
   "AZ": [
@@ -238,17 +337,65 @@
    [
     "The Daily Star",
     "thedailystar.net",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "The Business Standard",
     "tbsnews.net",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "bdnews24",
     "bdnews24.com",
-    "en"
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Prothom Alo",
+    "prothomalo.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "New Age",
+    "newagebd.net",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Dhaka Tribune",
+    "dhakatribune.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Financial Express",
+    "thefinancialexpress.com.bd",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Kaler Kantho",
+    "kalerkantho.com",
+    "bn",
+    "",
+    "C"
+   ],
+   [
+    "BSS",
+    "bssnews.net",
+    "en",
+    "",
+    "D"
    ]
   ],
   "BE": [
@@ -277,17 +424,65 @@
    [
     "Lefaso.net",
     "lefaso.net",
-    "fr"
+    "fr",
+    "",
+    "C"
    ],
    [
     "Burkina24",
     "burkina24.com",
-    "fr"
+    "fr",
+    "",
+    "C"
    ],
    [
     "Le Pays",
     "lepays.bf",
-    "fr"
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "L'Observateur Paalga",
+    "lobservateur.bf",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Aujourd'hui au Faso",
+    "aujourd8.net",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Wakat Séra",
+    "wakatsera.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Studio Yafa (Fondation Hirondelle)",
+    "studioyafa.org",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Sidwaya",
+    "sidwaya.info",
+    "fr",
+    "",
+    "D"
+   ],
+   [
+    "AIB – Agence d'information du Burkina",
+    "aib.media",
+    "fr",
+    "",
+    "D"
    ]
   ],
   "BG": [
@@ -546,17 +741,58 @@
    [
     "Actualite.cd",
     "actualite.cd",
-    "fr"
+    "fr",
+    "",
+    "B"
    ],
    [
     "Radio Okapi",
     "radiookapi.net",
-    "fr"
+    "fr",
+    "",
+    "B"
    ],
    [
     "7sur7.cd",
     "7sur7.cd",
-    "fr"
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Kivu Morning Post",
+    "kivumorningpost.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Politico.cd",
+    "politico.cd",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Studio Hirondelle RDC",
+    "studiohirondellerdc.org",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Habari RDC",
+    "habarirdc.net",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Mediacongo",
+    "mediacongo.net",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "CF": [
@@ -661,17 +897,51 @@
    [
     "Journal du Cameroun",
     "journalducameroun.com",
-    "fr"
+    "fr",
+    "",
+    "C"
    ],
    [
     "Actu Cameroun",
     "actucameroun.com",
-    "fr"
+    "fr",
+    "",
+    "C"
    ],
    [
     "Cameroon Tribune",
     "cameroon-tribune.cm",
-    "fr"
+    "fr",
+    "",
+    "D"
+   ],
+   [
+    "Mimi Mefo Info",
+    "mimimefoinfos.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Guardian Post",
+    "theguardianpostcameroon.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Cameroon News Agency",
+    "cameroonnewsagency.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Datacameroon",
+    "datacameroon.com",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "CN": [
@@ -691,6 +961,48 @@
     "reuters.com",
     "en",
     "+"
+   ],
+   [
+    "Hong Kong Free Press",
+    "hongkongfp.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "China Digital Times",
+    "chinadigitaltimes.net",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Standard (Hong Kong)",
+    "thestandard.com.hk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Paper (澎湃新闻)",
+    "thepaper.cn",
+    "zh",
+    "",
+    "D"
+   ],
+   [
+    "Sixth Tone",
+    "sixthtone.com",
+    "en",
+    "",
+    "D"
+   ],
+   [
+    "RTHK News",
+    "news.rthk.hk",
+    "en",
+    "",
+    "D"
    ]
   ],
   "CO": [
@@ -1003,17 +1315,58 @@
    [
     "Addis Standard",
     "addisstandard.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "The Reporter",
     "thereporterethiopia.com",
-    "en"
+    "en",
+    "",
+    "C"
    ],
    [
     "Addis Fortune",
     "addisfortune.news",
-    "en"
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Ethiopia Insight",
+    "ethiopia-insight.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Wazema",
+    "wazemaradio.com",
+    "am",
+    "",
+    "C"
+   ],
+   [
+    "Capital Ethiopia",
+    "capitalethiopia.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Borkena",
+    "borkena.com",
+    "en",
+    "",
+    "D"
+   ],
+   [
+    "ENA – Ethiopian News Agency",
+    "ena.et",
+    "en",
+    "",
+    "D"
    ]
   ],
   "FI": [
@@ -1122,17 +1475,77 @@
    [
     "The Guardian",
     "theguardian.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "The Independent",
     "independent.co.uk",
-    "en"
+    "en",
+    "",
+    "C"
    ],
    [
     "Financial Times",
     "ft.com",
     "en"
+   ],
+   [
+    "BBC News",
+    "bbc.co.uk/news",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Sky News",
+    "news.sky.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Evening Standard",
+    "standard.co.uk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Manchester Evening News",
+    "manchestereveningnews.co.uk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Metro",
+    "metro.co.uk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Daily Mirror",
+    "mirror.co.uk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Daily Record",
+    "dailyrecord.co.uk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Belfast Live",
+    "belfastlive.co.uk",
+    "en",
+    "",
+    "C"
    ]
   ],
   "GD": [
@@ -1440,17 +1853,56 @@
    [
     "Tempo",
     "tempo.co",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Kompas",
     "kompas.com",
-    "id"
+    "id",
+    "",
+    "B"
    ],
    [
     "Antara",
     "antaranews.com",
     "en"
+   ],
+   [
+    "Detik.com",
+    "detik.com",
+    "id",
+    "",
+    "C"
+   ],
+   [
+    "CNN Indonesia",
+    "cnnindonesia.com",
+    "id",
+    "",
+    "C"
+   ],
+   [
+    "Jakarta Globe",
+    "jakartaglobe.id",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Liputan6",
+    "liputan6.com",
+    "id",
+    "",
+    "C"
+   ],
+   [
+    "Republika",
+    "republika.co.id",
+    "id",
+    "",
+    "C"
    ]
   ],
   "IE": [
@@ -1474,7 +1926,9 @@
    [
     "The Times of Israel",
     "timesofisrael.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Haaretz",
@@ -1484,12 +1938,51 @@
    [
     "Ynetnews",
     "ynetnews.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "The Jerusalem Post",
     "jpost.com",
-    "en"
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Ynet",
+    "ynet.co.il",
+    "he",
+    "",
+    "B"
+   ],
+   [
+    "i24NEWS",
+    "i24news.tv",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "N12 (Mako)",
+    "mako.co.il",
+    "he",
+    "",
+    "C"
+   ],
+   [
+    "Israel Hayom",
+    "israelhayom.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "+972 Magazine",
+    "972mag.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "IN": [
@@ -1535,17 +2028,77 @@
    [
     "IranWire",
     "iranwire.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Iran International",
     "iranintl.com",
-    "en"
+    "en",
+    "",
+    "D"
    ],
    [
     "Financial Tribune",
     "financialtribune.com",
     "en"
+   ],
+   [
+    "Amwaj.media",
+    "amwaj.media",
+    "en",
+    "+",
+    "B"
+   ],
+   [
+    "BBC Persian",
+    "bbc.com/persian",
+    "fa",
+    "",
+    "B"
+   ],
+   [
+    "HRANA",
+    "en-hrana.org",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Hengaw",
+    "hengaw.net",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Radio Farda",
+    "radiofarda.com",
+    "fa",
+    "",
+    "B"
+   ],
+   [
+    "Shargh",
+    "sharghdaily.com",
+    "fa",
+    "",
+    "C"
+   ],
+   [
+    "Etemad",
+    "etemadonline.com",
+    "fa",
+    "",
+    "C"
+   ],
+   [
+    "ISNA",
+    "en.isna.ir",
+    "en",
+    "",
+    "D"
    ]
   ],
   "IS": [
@@ -1862,12 +2415,58 @@
    [
     "Naharnet",
     "naharnet.com",
-    "en"
+    "en",
+    "",
+    "C"
    ],
    [
     "An-Nahar",
     "annahar.com",
-    "ar"
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "NNA – Agence nationale d'information",
+    "nna-leb.gov.lb",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "LBCI",
+    "lbcgroup.tv",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "MTV Lebanon",
+    "mtv.com.lb",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Al Jadeed",
+    "aljadeed.tv",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Nidaa al-Watan",
+    "nidaalwatan.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Megaphone",
+    "megaphone.news",
+    "en",
+    "",
+    "B"
    ]
   ],
   "LC": [
@@ -2154,7 +2753,9 @@
    [
     "Maliweb",
     "maliweb.net",
-    "fr"
+    "fr",
+    "",
+    "C"
    ],
    [
     "Malijet",
@@ -2164,14 +2765,53 @@
    [
     "Studio Tamani",
     "studiotamani.org",
-    "fr"
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Journal du Mali",
+    "journaldumali.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Sahelien.com",
+    "sahelien.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "aBamako",
+    "news.abamako.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Mali Actu",
+    "maliactu.net",
+    "fr",
+    "",
+    "D"
+   ],
+   [
+    "L'Essor",
+    "lessormali.com",
+    "fr",
+    "",
+    "D"
    ]
   ],
   "MM": [
    [
     "The Irrawaddy",
     "irrawaddy.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Mizzima",
@@ -2186,7 +2826,37 @@
    [
     "Myanmar Now",
     "myanmar-now.org",
-    "en"
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "DVB – Democratic Voice of Burma",
+    "english.dvb.no",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "BNI – Burma News International",
+    "bnionline.net",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "SHAN – Shan Herald Agency for News",
+    "english.shannews.org",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Narinjara",
+    "narinjara.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "MN": [
@@ -2313,22 +2983,84 @@
    [
     "El Universal",
     "eluniversal.com.mx",
-    "es"
+    "es",
+    "",
+    "B"
    ],
    [
     "Milenio",
     "milenio.com",
-    "es"
+    "es",
+    "",
+    "C"
    ],
    [
     "Animal Político",
     "animalpolitico.com",
-    "es"
+    "es",
+    "",
+    "B"
    ],
    [
     "Proceso",
     "proceso.com.mx",
     "es"
+   ],
+   [
+    "La Jornada",
+    "jornada.com.mx",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Excélsior",
+    "excelsior.com.mx",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Aristegui Noticias",
+    "aristeguinoticias.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Infobae México",
+    "infobae.com/mexico",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "El Informador",
+    "informador.mx",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Zeta Tijuana",
+    "zetatijuana.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Ríodoce",
+    "riodoce.mx",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "El Financiero",
+    "elfinanciero.com.mx",
+    "es",
+    "",
+    "B"
    ]
   ],
   "MY": [
@@ -2410,7 +3142,9 @@
    [
     "ActuNiger",
     "actuniger.com",
-    "fr"
+    "fr",
+    "",
+    "C"
    ],
    [
     "aNiamey",
@@ -2422,28 +3156,127 @@
     "rfi.fr",
     "fr",
     "+"
+   ],
+   [
+    "Aïr Info",
+    "airinfoagadez.com",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Studio Kalangou (Fondation Hirondelle)",
+    "studiokalangou.org",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "L'Événement Niger",
+    "levenementniger.com",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Les Échos du Niger",
+    "lesechosduniger.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Labari Info (RTL Niger)",
+    "labarinfo.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Le Sahel",
+    "lesahel.org",
+    "fr",
+    "",
+    "D"
+   ],
+   [
+    "ANP – Agence nigérienne de presse",
+    "anp.ne",
+    "fr",
+    "",
+    "D"
    ]
   ],
   "NG": [
    [
     "Premium Times",
     "premiumtimesng.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Punch",
     "punchng.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "TheCable",
     "thecable.ng",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Vanguard",
     "vanguardngr.com",
-    "en"
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Daily Trust",
+    "dailytrust.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "HumAngle",
+    "humanglemedia.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Channels TV",
+    "channelstv.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Guardian Nigeria",
+    "guardian.ng",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "ThisDay",
+    "thisdaylive.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Leadership",
+    "leadership.ng",
+    "en",
+    "",
+    "C"
    ]
   ],
   "NI": [
@@ -2663,22 +3496,72 @@
    [
     "Dawn",
     "dawn.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "The News",
     "thenews.com.pk",
-    "en"
+    "en",
+    "",
+    "C"
    ],
    [
     "The Express Tribune",
     "tribune.com.pk",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Geo News",
     "geo.tv",
-    "en"
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Business Recorder",
+    "brecorder.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Daily Jang",
+    "jang.com.pk",
+    "ur",
+    "",
+    "C"
+   ],
+   [
+    "Pakistan Today",
+    "pakistantoday.com.pk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Samaa",
+    "samaa.tv",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Daily Express (ourdou)",
+    "express.pk",
+    "ur",
+    "",
+    "C"
+   ],
+   [
+    "The Balochistan Post",
+    "thebalochistanpost.net",
+    "en",
+    "",
+    "D"
    ]
   ],
   "PL": [
@@ -2853,22 +3736,79 @@
    [
     "Meduza",
     "meduza.io",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "The Moscow Times",
     "themoscowtimes.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Novaya Gazeta Europe",
     "novayagazeta.eu",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Kommersant",
     "kommersant.ru",
-    "ru"
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "Mediazona",
+    "zona.media",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Insider",
+    "theins.ru",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Verstka",
+    "verstka.media",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "7x7",
+    "semnasem.org",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "Sibir.Realii (RFE/RL)",
+    "sibreal.org",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Fontanka.ru",
+    "fontanka.ru",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "Interfax",
+    "interfax.ru",
+    "ru",
+    "",
+    "D"
    ]
   ],
   "RW": [
@@ -2943,18 +3883,71 @@
    [
     "Sudan Tribune",
     "sudantribune.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Radio Dabanga",
     "dabangasudan.org",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Radio Tamazuj",
     "radiotamazuj.org",
     "en",
     "+"
+   ],
+   [
+    "Al-Taghyeer",
+    "altaghyeer.info",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Ayin Network",
+    "3ayin.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Darfur24",
+    "darfur24.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Sudan War Monitor",
+    "sudanwarmonitor.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Sudans Post",
+    "sudanspost.com",
+    "en",
+    "+",
+    "C"
+   ],
+   [
+    "Alrakoba",
+    "alrakoba.net",
+    "ar",
+    "",
+    "D"
+   ],
+   [
+    "SUNA",
+    "suna-sd.net",
+    "en",
+    "",
+    "D"
    ]
   ],
   "SE": [
@@ -3081,17 +4074,65 @@
    [
     "Hiiraan Online",
     "hiiraan.com",
-    "en"
+    "en",
+    "",
+    "C"
    ],
    [
     "Garowe Online",
     "garoweonline.com",
-    "en"
+    "en",
+    "",
+    "C"
    ],
    [
     "Somali Guardian",
     "somaliguardian.com",
-    "en"
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Caasimada",
+    "caasimada.net",
+    "so",
+    "",
+    "C"
+   ],
+   [
+    "Radio Dalsan",
+    "radiodalsan.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Horseed Media",
+    "horseedmedia.net",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Horn Observer",
+    "hornobserver.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Horn Diplomat",
+    "horndiplomat.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "SONNA",
+    "sonna.so",
+    "en",
+    "",
+    "D"
    ]
   ],
   "SR": [
@@ -3173,13 +4214,57 @@
    [
     "Syria Direct",
     "syriadirect.org",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Al Jazeera",
     "aljazeera.com",
     "en",
     "+"
+   ],
+   [
+    "SOHR – Observatoire syrien des droits de l'homme",
+    "syriahr.com/en",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Syrian Observer",
+    "syrianobserver.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Zaman al-Wasl",
+    "zamanalwsl.net",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Syria TV",
+    "syria.tv",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "North Press Agency",
+    "npasyria.com/en",
+    "en",
+    "",
+    "D"
+   ],
+   [
+    "SANA",
+    "sana.sy/en",
+    "en",
+    "",
+    "D"
    ]
   ],
   "SZ": [
@@ -3238,22 +4323,58 @@
    [
     "Bangkok Post",
     "bangkokpost.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "The Nation",
     "nationthailand.com",
-    "en"
+    "en",
+    "",
+    "C"
    ],
    [
     "Thai PBS World",
     "thaipbsworld.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Khaosod English",
     "khaosodenglish.com",
-    "en"
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Prachatai English",
+    "prachatai.com/english",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Thairath",
+    "thairath.co.th",
+    "th",
+    "",
+    "C"
+   ],
+   [
+    "Matichon",
+    "matichon.co.th",
+    "th",
+    "",
+    "C"
+   ],
+   [
+    "Khaosod",
+    "khaosod.co.th",
+    "th",
+    "",
+    "C"
    ]
   ],
   "TJ": [
@@ -3443,22 +4564,65 @@
    [
     "The Kyiv Independent",
     "kyivindependent.com",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Ukrainska Pravda",
     "pravda.com.ua",
-    "en"
+    "en",
+    "",
+    "B"
    ],
    [
     "Suspilne",
     "suspilne.media",
-    "uk"
+    "uk",
+    "",
+    "B"
    ],
    [
     "Ukrinform",
     "ukrinform.net",
-    "en"
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Hromadske",
+    "hromadske.ua",
+    "uk",
+    "",
+    "B"
+   ],
+   [
+    "UNIAN",
+    "unian.info",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "RBC-Ukraine",
+    "newsukraine.rbc.ua",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "LB.ua",
+    "lb.ua",
+    "uk",
+    "",
+    "C"
+   ],
+   [
+    "Kyiv Post",
+    "kyivpost.com",
+    "en",
+    "",
+    "B"
    ]
   ],
   "UG": [

@@ -84,7 +84,8 @@ def fetch(cfg, ctx):
             snippet = snippet[len(title):].strip(" .:-–")
         item = {"title": title, "url": it["link"], "outlet": name, "date": date,
                 "snippet": snippet[:300] if len(snippet) >= 40 else "",
-                "country_hint": cfg.get("country"), "lang": cfg.get("lang", ""), "feed": name}
+                "country_hint": cfg.get("country"), "lang": cfg.get("lang", ""), "feed": name,
+                "site": re.sub(r"^(www|m|feeds)\.", "", (it["link"] or cfg["url"]).split("/")[2].lower()) if "//" in (it["link"] or cfg["url"]) else ""}
         if mode == "none":
             uid = hashlib.sha1((it["link"] or title).encode()).hexdigest()[:12]
             ctx.news.append({"id": f"rss-{cfg['id']}-{uid}", "source": name, "title": title, "url": it["link"],

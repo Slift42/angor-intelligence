@@ -11,7 +11,10 @@ Organisation :
 - pulse.py       : indice de stabilité « Pulse » (0-100), tendance et causes
 - quality.py     : validations de l'analyste (config/verified.json) et cotation de l'Amirauté (A1-F6)
 - notify.py      : alertes Telegram / e-mail, point quotidien, alertes Pulse
+- crises.py      : chronologies de crise (incidents liés sur plusieurs jours)
+- agenda.py      : jours fériés, élections, fêtes religieuses, échéances de l'analyste
+- llm.py         : socle IA commun (budget, cache, tâches activables)
 - publish.py     : historique local et fichiers lus par la carte
 """
 
-__version__ = "0.8.0"
+__version__ = "0.9.1"

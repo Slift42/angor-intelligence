@@ -29,5 +29,39 @@
       "radius_km": 100,
       "min_severity": 2
     }
+  ],
+  "_comment_corridors": "Trajets surveillés : points = étapes [lat, lon] dans l'ordre ; buffer_km = largeur de la bande de vigilance de part et d'autre de la route.",
+  "corridors": [
+    {
+      "name": "Lagos – Abuja par Lokoja (exemple)",
+      "points": [
+        [
+          6.524,
+          3.379
+        ],
+        [
+          7.377,
+          3.947
+        ],
+        [
+          7.25,
+          5.195
+        ],
+        [
+          7.55,
+          6.23
+        ],
+        [
+          7.8,
+          6.74
+        ],
+        [
+          9.076,
+          7.398
+        ]
+      ],
+      "buffer_km": 25,
+      "min_severity": 2
+    }
   ]
 }

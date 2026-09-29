@@ -26,7 +26,7 @@ from email.message import EmailMessage
 
 from . import http
 from .config import secret
-from .geo import haversine_km
+from .geo import distance_to
 from .model import CATEGORIES, parse_iso
 
 SEV = {1: "Faible", 2: "Modérée", 3: "Élevée", 4: "CRITIQUE"}
@@ -59,9 +59,9 @@ def select(events, store, cfg, now):
 def _nearest_site(ev, sites):
     best = None
     for s in sites:
-        d = haversine_km(s["lat"], s["lon"], ev["lat"], ev["lon"])
+        d = distance_to(s, ev["lat"], ev["lon"])
         if d <= s.get("radius_km", 50) and (best is None or d < best[1]):
-            best = (s["name"], round(d, 1))
+            best = (("trajet " if s.get("kind") == "corridor" else "") + s["name"], round(d, 1))
     return best
 
 
@@ -175,7 +175,7 @@ def _line(ev, countries):
     return f"• [{SEV.get(ev['severity'], ev['severity'])}] {head}{title}{mark}"
 
 
-def build_digest(events, country_risk, pulse, now, cfg, countries=None, news=None):
+def build_digest(events, country_risk, pulse, now, cfg, countries=None, news=None, crises=None, agenda=None):
     """Texte du point quotidien (liste de blocs)."""
     since = now - timedelta(hours=24)
     day = [e for e in events if parse_iso(e["date"]) >= since and e.get("confidence") != "low"]
@@ -203,6 +203,19 @@ def build_digest(events, country_risk, pulse, now, cfg, countries=None, news=Non
     if movers:
         blocks.append("Pulse – stabilité en baisse sur 7 jours\n" + "\n".join(
             f"• {_name(iso, countries)} : {p['value']}/100 ({p['d7']:+d})" + _cause(p) for iso, p in movers))
+    esc = [c for c in crises or [] if c["status"] == "active" and c["trend"] in ("escalating", "new")][:4]
+    if esc:
+        blocks.append("Chronologies en escalade ou nouvelles\n" + "\n".join(
+            f"• {c['title']} : {c['n']} incidents depuis le {c['start'][8:10]}/{c['start'][5:7]}"
+            f" (gravité max {c['max_severity']}/4)" for c in esc))
+    follow_set = {c.upper() for c in cfg.get("countries") or []}
+    a, b = now.date().isoformat(), (now + timedelta(days=7)).date().isoformat()
+    soon = [e for e in agenda or [] if a <= e["d"] <= b and e.get("prec", "day") == "day" and (
+        e["type"] in ("election", "religious") or e.get("src") == "Angor" or e.get("iso") in follow_set)]
+    if soon:
+        blocks.append("À venir (7 jours)\n" + "\n".join(
+            f"• {e['d'][8:10]}/{e['d'][5:7]} – {_name(e['iso'], countries) + ' : ' if e.get('iso') else ''}{e['t_fr']}"
+            for e in soon[:10]))
     kev = [n for n in news or [] if n.get("source") == "CISA KEV" and parse_iso(n["date"]) >= now - timedelta(hours=36)]
     if kev:
         kev.sort(key=lambda n: -(n.get("severity") or 0))
@@ -237,7 +250,8 @@ def _cause(p):
     return ""
 
 
-def send_digest(events, country_risk, pulse, store, settings, log, now, countries=None, news=None):
+def send_digest(events, country_risk, pulse, store, settings, log, now, countries=None, news=None, crises=None,
+                agenda=None):
     cfg = {**DIGEST, **(settings.get("digest") or {})}
     if not cfg["enabled"]:
         return False
@@ -245,7 +259,11 @@ def send_digest(events, country_risk, pulse, store, settings, log, now, countrie
     today = now.strftime("%Y-%m-%d")
     if now.hour < int(cfg["hour_utc"]) or st.get("digest_last") == today:
         return False
-    blocks = build_digest(events, country_risk, pulse, now, cfg, countries, news)
+    blocks = build_digest(events, country_risk, pulse, now, cfg, countries, news, crises, agenda)
+    from . import llm
+    edito = llm.digest_editorial(blocks, store, settings, now, log)
+    if edito:
+        blocks.insert(0, "L'essentiel du jour (synthèse IA)\n" + edito.strip())
     header = f"Angor Intelligence – point quotidien du {now:%d/%m/%Y}"
     if deliver(header, blocks, cfg, log):
         st["digest_last"] = today

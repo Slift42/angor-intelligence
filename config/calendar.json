@@ -1,0 +1,4 @@
+{
+  "_comment": "Vos échéances à surveiller (affichées dans l'onglet Agenda, les briefs et le point quotidien). type : strike, summit, anniversary, election, religious, sport, other. Exemple : {\"date\": \"2026-11-12\", \"end\": \"2026-11-13\", \"country\": \"FR\", \"type\": \"strike\", \"title\": \"Grève nationale interprofessionnelle\", \"note\": \"Transports perturbés\", \"url\": \"\"}",
+  "events": []
+}

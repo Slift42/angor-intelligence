@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aide – Angor Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root { --ink: #111B27; --ink-2: #3E4C5B; --muted: #6B7886; --line: #DDE3E8; --navy: #13263D; --bg: #F4F6F8; --surface: #fff; --accent: #1F5FD1; --soft: #E6EEFC;
+  --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #E7EDF3; --ink-2: #B7C3CF; --muted: #8A98A7; --line: #2A3847; --navy: #E7EDF3; --bg: #0F1823; --surface: #152231; --accent: #6A9BF4; --soft: #1B2B45; } }
+:root[data-theme="dark"] { --ink: #E7EDF3; --ink-2: #B7C3CF; --muted: #8A98A7; --line: #2A3847; --navy: #E7EDF3; --bg: #0F1823; --surface: #152231; --accent: #6A9BF4; --soft: #1B2B45; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+header.top { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 10px 20px; background: var(--surface); border-bottom: 1px solid var(--line); }
+header.top .brand { font-weight: 700; letter-spacing: -.01em; }
+header.top .sp { flex: 1; }
+header.top a.btn { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; text-decoration: none; color: var(--ink); font-size: 13.5px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 24px 20px 60px; display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 32px; }
+nav.toc { position: sticky; top: 72px; align-self: start; font-size: 13.5px; max-height: calc(100vh - 90px); overflow: auto; }
+nav.toc a { display: block; padding: 4px 8px; border-radius: 6px; color: var(--ink-2); text-decoration: none; }
+nav.toc a:hover { background: var(--soft); color: var(--ink); }
+nav.toc .grp { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 14px 8px 4px; }
+main { min-width: 0; }
+h1 { font-size: 30px; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 8px; }
+.lead { color: var(--ink-2); font-size: 16.5px; margin: 0 0 20px; max-width: 70ch; }
+section { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px 26px; margin: 0 0 16px; scroll-margin-top: 70px; }
+h2 { font-size: 21px; margin: 0 0 10px; letter-spacing: -.01em; }
+h3 { font-size: 15.5px; margin: 18px 0 6px; }
+p, li { max-width: 75ch; }
+ul, ol { padding-left: 22px; }
+li { margin: 3px 0; }
+.k { display: inline-block; font: 600 12.5px/1 var(--font); padding: 4px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); white-space: nowrap; }
+code { font-family: var(--mono); font-size: 13px; background: var(--bg); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--line); }
+.tip { border-left: 3px solid var(--accent); background: var(--soft); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 14px; }
+.warn { border-left-color: #D7263D; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 8px 0; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+.card { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.card h3 { margin-top: 0; }
+.muted { color: var(--muted); }
+footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 24px; }
+@media (max-width: 860px) { .wrap { grid-template-columns: 1fr; } nav.toc { position: static; max-height: none; } .grid2 { grid-template-columns: 1fr; } section { padding: 18px; } }
+@media print { header.top, nav.toc { display: none; } .wrap { display: block; } section { break-inside: avoid; border: 0; padding: 0 0 12px; } body { background: #fff; } }
+</style>
+</head>
+<body>
+<header class="top"><span class="brand">Angor Intelligence · Aide</span><span class="sp"></span><a class="btn" href="index.html">← Retour à la carte</a></header>
+<div class="wrap">
+<nav class="toc" aria-label="Sommaire">
+  <div class="grp">Démarrer</div>
+  <a href="#apercu">Vue d'ensemble</a><a href="#ecran">L'écran en un coup d'œil</a>
+  <div class="grp">Suivre la situation</div>
+  <a href="#alertes">Alertes et filtres</a><a href="#fiabilite">Fiabilité : cotation et « Vérifié »</a><a href="#encours">En cours et chronologies</a>
+  <a href="#pays">Pays, risque et Pulse</a><a href="#calques">Calques et fonds de carte</a><a href="#fil">Fil de presse</a><a href="#agenda">Agenda</a><a href="#analyses">Analyses</a>
+  <div class="grp">Protéger</div>
+  <a href="#sites">Mes sites et trajets</a><a href="#buddy">Travel buddy</a><a href="#gng">Go / no-go guidé</a><a href="#brief">Brief de mission</a><a href="#rapport">Rapport pays</a>
+  <div class="grp">Partager et être alerté</div>
+  <a href="#partage">Liens, vues, pays suivis</a><a href="#telegram">Alertes et point quotidien</a><a href="#export">Exports</a>
+  <div class="grp">Pour l'analyste</div>
+  <a href="#analyste">Mode analyste</a><a href="#ia">Intelligence artificielle</a>
+  <div class="grp">Référence</div>
+  <a href="#sources">Sources et mises à jour</a><a href="#confidentialite">Confidentialité</a><a href="#limites">Limites</a><a href="#glossaire">Glossaire</a><a href="#faq">Questions fréquentes</a>
+</nav>
+<main>
+  <h1>Guide d'utilisation</h1>
+  <p class="lead">Angor Intelligence est une carte de veille sûreté mondiale : elle rassemble des sources ouvertes (presse, organismes officiels, capteurs), classe chaque incident par nature et gravité, évalue le risque de chaque pays et vous aide à préparer et suivre les déplacements. Cette page explique chaque fonction, pas à pas.</p>
+
+  <section id="apercu">
+    <h2>Vue d'ensemble</h2>
+    <div class="grid2">
+      <div class="card"><h3>Voir</h3><p>Les incidents des dernières heures sur la carte, les crises en cours, le risque et la stabilité de chaque pays, les échéances à venir.</p></div>
+      <div class="card"><h3>Comprendre</h3><p>La fiabilité de chaque information (cotation A1 à F6), l'évolution d'une crise jour par jour, les causes d'une dégradation.</p></div>
+      <div class="card"><h3>Protéger</h3><p>Vos sites et vos trajets surveillés, un go / no-go guidé, un brief de mission imprimable qui trace la décision.</p></div>
+      <div class="card"><h3>Être alerté</h3><p>Alertes Telegram ou e-mail en cas d'incident grave, alerte de dégradation d'un pays, point quotidien chaque matin.</p></div>
+    </div>
+    <div class="tip">La carte se met à jour toute seule toutes les 30 minutes environ. L'heure de la dernière mise à jour s'affiche en haut à droite, à côté du nombre de sources actives.</div>
+  </section>
+
+  <section id="ecran">
+    <h2>L'écran en un coup d'œil</h2>
+    <h3>Barre du haut</h3>
+    <ul>
+      <li><strong>Recherche</strong> : tapez un pays, une ville ou un mot (« explosion », « Lagos ») puis Entrée.</li>
+      <li><strong>Période</strong> : <span class="k">24 h</span> <span class="k">72 h</span> <span class="k">7 j</span> <span class="k">30 j</span> … <span class="k">Tout</span>, ou le calendrier pour choisir des dates précises (JJ/MM/AAAA). Au-delà de 30 jours, l'historique est chargé à la demande (jusqu'à 5 ans).</li>
+      <li><strong>Analyses</strong> : tableau de bord (courbes, répartitions, classements).</li>
+      <li><strong>Vues</strong> et <strong>Partager</strong> : voir <a href="#partage">Liens, vues, pays suivis</a>.</li>
+      <li><strong>Pastille des sources</strong> : nombre de sources qui répondent ; cliquez pour le détail (source en panne, en pause…).</li>
+      <li><strong>?</strong> ouvre cette aide, <strong>EN/FR</strong> change la langue, la lune/le soleil change le thème.</li>
+    </ul>
+    <h3>Colonne de gauche (onglets)</h3>
+    <table>
+      <tr><th>Onglet</th><th>À quoi il sert</th></tr>
+      <tr><td>Alertes</td><td>La liste des incidents de la période, filtrable et triable.</td></tr>
+      <tr><td>En cours</td><td>Les situations actives des 72 dernières heures, regroupées par pays, et les chronologies de crise.</td></tr>
+      <tr><td>Pays</td><td>Tous les pays avec leur niveau de risque et leur Pulse ; tri, pays suivis.</td></tr>
+      <tr><td>Fil</td><td>Les titres de presse liés à la sûreté (et les vulnérabilités cyber exploitées), sans position sur la carte.</td></tr>
+      <tr><td>Mes sites</td><td>Vos sites et vos trajets surveillés, avec les alertes à proximité.</td></tr>
+      <tr><td>Agenda</td><td>Jours fériés, élections, fêtes religieuses et échéances à venir.</td></tr>
+      <tr><td>Travel buddy</td><td>L'assistant de voyage et le go / no-go guidé.</td></tr>
+    </table>
+    <h3>La carte</h3>
+    <p>Cliquez sur un marqueur pour ouvrir la fiche de l'incident, sur un pays pour sa fiche pays. Les marqueurs proches se regroupent ; zoomez pour les séparer. Le cadre <strong>Couches</strong> (en haut à droite) règle ce qui s'affiche ; la <strong>Légende</strong> (en bas à gauche) se replie d'un clic.</p>
+    <p class="muted">Sur téléphone, le bouton ☰ en haut à gauche ouvre et ferme la colonne.</p>
+  </section>
+
+  <section id="alertes">
+    <h2>Alertes et filtres</h2>
+    <p>Chaque alerte indique sa nature (icône et catégorie), sa gravité (couleur), le lieu, l'ancienneté et sa source.</p>
+    <table>
+      <tr><th>Gravité</th><th>Signification</th></tr>
+      <tr><td><span class="sw" style="background:#3F86C6"></span>1 · Faible</td><td>Nuisance locale, sans victime ni perturbation notable.</td></tr>
+      <tr><td><span class="sw" style="background:#E0A21B"></span>2 · Modérée</td><td>Blessés, perturbation locale.</td></tr>
+      <tr><td><span class="sw" style="background:#E0622B"></span>3 · Élevée</td><td>Victimes, forte perturbation, vigilance orange.</td></tr>
+      <tr><td><span class="sw" style="background:#B0182E"></span>4 · Critique</td><td>Nombreuses victimes, escalade d'un conflit, urgence nationale, vigilance rouge.</td></tr>
+    </table>
+    <h3>Filtrer</h3>
+    <ul>
+      <li>Les quatre <strong>tuiles de gravité</strong> en haut de l'onglet s'activent et se désactivent d'un clic.</li>
+      <li><strong>Filtres</strong> : catégories par famille (sécurité, politique, catastrophes, santé, cyber), et les options « uniquement près de mes sites », « masquer les détections automatiques », « uniquement les incidents vérifiés Angor », « uniquement mes pays suivis ».</li>
+      <li><strong>Tri</strong> : plus récentes ou plus graves. <strong>PDF</strong> imprime la liste filtrée.</li>
+    </ul>
+    <h3>La fiche d'un incident</h3>
+    <p>Résumé (extrait de la source, résumé automatique ou résumé IA, toujours signalé), date locale et UTC, lieu et précision de la localisation, niveau de risque du pays, confiance, <a href="#fiabilite">cotation</a>, sites concernés, et toutes les sources avec leurs liens. Si l'incident fait partie d'une <a href="#encours">chronologie de crise</a>, un lien y mène.</p>
+    <div class="tip">« auto » et le contour pointillé signalent une détection automatique (presse, GDELT) non vérifiée : lieu et nature à confirmer avant toute décision.</div>
+  </section>
+
+  <section id="fiabilite">
+    <h2>Fiabilité : cotation de l'Amirauté et « Vérifié Angor »</h2>
+    <p>Chaque incident porte une <strong>cote</strong> de type <span class="k">B2</span>, selon la grille de renseignement utilisée par l'OTAN : la lettre juge la <strong>source</strong>, le chiffre juge l'<strong>information</strong>.</p>
+    <div class="grid2">
+      <table><tr><th>Lettre</th><th>Fiabilité de la source</th></tr>
+        <tr><td>A</td><td>Totalement fiable : organismes officiels et capteurs (USGS, GDACS, NASA, OMS, services météo, CISA…)</td></tr>
+        <tr><td>B</td><td>Habituellement fiable : médias de référence</td></tr>
+        <tr><td>C</td><td>Assez fiable : autre presse</td></tr>
+        <tr><td>D</td><td>Pas toujours fiable : détection automatique GDELT</td></tr>
+        <tr><td>E</td><td>Peu fiable : réseaux sociaux, canaux Telegram</td></tr>
+        <tr><td>F</td><td>Fiabilité inconnue</td></tr></table>
+      <table><tr><th>Chiffre</th><th>Crédibilité de l'information</th></tr>
+        <tr><td>1</td><td>Confirmée (vérifiée par l'analyste, ou mesure officielle)</td></tr>
+        <tr><td>2</td><td>Probablement vraie (au moins 3 sources indépendantes)</td></tr>
+        <tr><td>3</td><td>Possiblement vraie (2 sources, ou 1 source bien classée)</td></tr>
+        <tr><td>4</td><td>Douteuse (source unique, classement incertain)</td></tr>
+        <tr><td>5</td><td>Improbable (infirmée par l'analyste)</td></tr>
+        <tr><td>6</td><td>Invérifiable</td></tr></table>
+    </div>
+    <p>Le badge vert <strong>✔ Vérifié Angor</strong> signifie qu'un analyste a contrôlé l'incident (avec parfois une correction de la gravité ou de la catégorie). Les incidents infirmés disparaissent de la carte, des alertes et des calculs.</p>
+  </section>
+
+  <section id="encours">
+    <h2>En cours et chronologies de crise</h2>
+    <p>L'onglet <strong>En cours</strong> retient les alertes des 72 dernières heures qui comptent : critiques, élevées et fiables, catastrophes actives, recoupées par plusieurs sources, évolutives ou proches de vos sites. Elles sont regroupées par pays et classées en <em>crise majeure</em>, <em>crise</em> ou <em>alerte</em>.</p>
+    <h3>Chronologies de crise</h3>
+    <p>Sous la liste, les <strong>chronologies</strong> regroupent automatiquement les incidents d'une même crise sur plusieurs jours (même pays, même famille d'événements, proches dans l'espace et dans le temps). Chacune indique ses dates, son nombre d'incidents, un mini-graphique par jour et sa tendance :</p>
+    <p><span class="k" style="background:#B0182E;color:#fff">Escalade</span> <span class="k" style="background:#E0622B;color:#fff">Nouvelle</span> <span class="k" style="background:#5E6B78;color:#fff">Stable</span> <span class="k" style="background:#2E9E5B;color:#fff">Décrue / apaisée</span></p>
+    <p>Cliquez pour ouvrir la chronologie : synthèse, incidents par jour, pic, puis la liste jour par jour. <strong>Afficher sur la carte</strong> isole ses incidents (un bandeau permet de revenir à toutes les alertes).</p>
+  </section>
+
+  <section id="pays">
+    <h2>Pays, risque et Pulse</h2>
+    <h3>Niveau de risque (1 à 5)</h3>
+    <p>Minimal, Faible, Modéré, Élevé, Extrême. Il combine les avis officiels (60 %), l'activité sécuritaire des 7 derniers jours (30 %) et les catastrophes et épidémies (10 %). Un pays « formellement déconseillé » par un gouvernement est au minimum Élevé.</p>
+    <h3>Pulse (0 à 100)</h3>
+    <p>L'indice de <strong>stabilité</strong> suit la dynamique : 100 = stable, 0 = très instable. Il tient compte des avis officiels, de l'activité sécuritaire récente, d'une <em>anomalie</em> (7 derniers jours comparés aux 3 semaines précédentes) et des catastrophes. La fiche pays affiche la valeur, la variation sur 7 et 30 jours, la courbe et les <strong>causes</strong> (hausse d'un type d'incident, changement d'avis officiel).</p>
+    <table><tr><th>Pulse</th><th>Lecture</th></tr>
+      <tr><td><span class="sw" style="background:#9E1B32"></span>moins de 25</td><td>Très instable</td></tr>
+      <tr><td><span class="sw" style="background:#E0592A"></span>25 à 44</td><td>Instable</td></tr>
+      <tr><td><span class="sw" style="background:#E3B505"></span>45 à 64</td><td>Fragile</td></tr>
+      <tr><td><span class="sw" style="background:#8DBF4E"></span>65 à 79</td><td>Plutôt stable</td></tr>
+      <tr><td><span class="sw" style="background:#2E9E5B"></span>80 et plus</td><td>Stable</td></tr></table>
+    <h3>La fiche pays</h3>
+    <p>Niveau de risque, Pulse, chronologies en cours, <strong>À venir</strong> (agenda des 90 prochains jours), incidents sur 24 h à 90 jours, composantes du score, avis officiels (MEAE, FCDO, US, Canada) avec la carte officielle, alertes récentes. Boutons <strong>Rapport pays (PDF)</strong> et <strong>Brief de mission</strong>. L'étoile ☆ ajoute le pays à vos <a href="#partage">pays suivis</a>.</p>
+    <p>Dans l'onglet Pays, le menu trie par risque, par Pulse (plus instables) ou par plus forte baisse. La mention <em>couverture faible</em> signale un pays où nos sources remontent nettement moins d'incidents que d'habitude : la situation est probablement sous-estimée.</p>
+  </section>
+
+  <section id="calques">
+    <h2>Calques et fonds de carte</h2>
+    <ul>
+      <li><strong>Calque pays</strong> : Risque pays (Angor), Pulse, Heatmap MEAE (France), FCDO (Royaume-Uni), State Dept (États-Unis), ou aucun. Pour les ministères, un contour pointillé signifie que seules certaines zones sont concernées : la carte officielle fait foi.</li>
+      <li><strong>Mes sites</strong> : rayons de vigilance et trajets surveillés.</li>
+      <li><strong>Fond</strong> : détaillé (routes, villes), contrasté, épuré, satellite, topographique, gris, neutre (hors ligne). Les noms s'affichent en alphabet latin et apparaissent progressivement (pays, régions, villes).</li>
+    </ul>
+  </section>
+
+  <section id="fil">
+    <h2>Fil de presse</h2>
+    <p>Titres de presse liés à la sûreté (environ 110 pays et près de 800 médias de référence, dont la presse locale de 25 pays à risque, en 21 langues), les vulnérabilités informatiques activement exploitées (CISA) et les alertes CERT-FR. Titre et lien uniquement : cliquez pour lire l'article chez l'éditeur. Le champ de filtre accepte un pays ou un mot-clé.</p>
+  </section>
+
+  <section id="agenda">
+    <h2>Agenda</h2>
+    <p>L'onglet <strong>Agenda</strong> liste ce qui est prévu : <strong>jours fériés</strong> (environ 120 pays), <strong>élections et référendums nationaux</strong>, <strong>grandes fêtes religieuses</strong> (début du Ramadan, Aïd el-Fitr, Aïd el-Adha, Achoura : dates indicatives à 1 ou 2 jours près) et les <strong>échéances ajoutées par l'analyste</strong> (grèves annoncées, sommets, anniversaires sensibles…).</p>
+    <ul>
+      <li>Choisissez l'horizon (7 jours à 12 mois) et « Tous les pays » ou « Mes pays suivis ».</li>
+      <li>Les boutons Fériés, Élections, Religieux, Analyste masquent ou affichent chaque type.</li>
+      <li>Les élections dont la date n'est pas encore fixée figurent en bas, sous « Échéances sans date précise ».</li>
+    </ul>
+    <div class="tip">Pourquoi c'est utile : administrations fermées, rassemblements, contrôles renforcés et transports perturbés. Le brief de mission reprend automatiquement les échéances qui tombent pendant le séjour.</div>
+  </section>
+
+  <section id="analyses">
+    <h2>Analyses</h2>
+    <p>Le bouton <strong>Analyses</strong> ouvre un tableau de bord pour la période choisie : évolution par famille, répartition par catégorie et par gravité, pays et lieux les plus touchés, contribution des sources. Les filtres (pays, famille, gravité minimale, source, détections automatiques) s'appliquent à tous les graphiques. Sur les longues périodes, la base historique (5 ans : UCDP, GDELT, USGS, GDACS, NASA, OMS) prend le relais.</p>
+  </section>
+
+  <section id="sites">
+    <h2>Mes sites et trajets surveillés</h2>
+    <h3>Ajouter un site</h3>
+    <ol><li>Onglet <strong>Mes sites</strong> → <strong>Ajouter un site</strong>.</li><li>Cliquez sur la carte à l'emplacement du site.</li><li>Donnez un nom et un rayon de vigilance (en km) → <strong>Enregistrer</strong>.</li></ol>
+    <p>Les alertes dans le rayon sont signalées partout (◉ nom du site · distance), comptées dans l'onglet et filtrables (« uniquement près de mes sites »).</p>
+    <h3>Ajouter un trajet surveillé</h3>
+    <p>Un trajet est une bande de vigilance autour d'un itinéraire, par exemple Lagos – Abuja par la route.</p>
+    <ol><li><strong>Ajouter un trajet</strong> → nom, ville de départ, étapes éventuelles (séparées par des virgules), ville d'arrivée, largeur de vigilance (km de part et d'autre) → <strong>Enregistrer</strong> ;</li>
+      <li>ou <strong>Tracer sur la carte</strong> : cliquez les étapes une à une, puis <strong>Terminer</strong>. C'est la méthode à utiliser pour les petites villes ou un itinéraire précis.</li></ol>
+    <p>Les incidents dans la bande sont signalés « ⟿ trajet … ». Le Travel buddy propose aussi <strong>Surveiller ce trajet</strong> quand vous l'interrogez sur un trajet entre deux villes.</p>
+    <div class="tip warn">Les sites et trajets ajoutés ici restent <strong>dans votre navigateur</strong> : ils ne sont ni envoyés ni publiés. Pour que le robot envoie des alertes Telegram à leur sujet, utilisez <strong>Exporter (sites.json)</strong> et transmettez le fichier à l'administrateur de l'outil (en ligne, les sites réels sont conservés dans un coffre sécurisé et jamais affichés publiquement).</div>
+  </section>
+
+  <section id="buddy">
+    <h2>Travel buddy</h2>
+    <p>Posez une question en langage courant sur une destination : « Quels vaccins avant le Nigeria ? », « Comment sécuriser un trajet Lagos – Abuja ? », « Tenue pour une femme en Indonésie ? », « Numéros d'urgence au Kenya ? », « Élections ou jours fériés au Sénégal ? ».</p>
+    <p>Il reconnaît pays et grandes villes et répond à partir des données Angor : avis officiels et extraits MEAE, incidents récents (autour de la ville ou le long du trajet), conseils de trajet selon le niveau de risque, fiche culturelle, santé, hôpitaux, urgences, télécoms, prestataires, agenda. Chaque réponse propose le rapport pays, le brief de mission et le go / no-go guidé.</p>
+    <p class="muted">Sans IA, les réponses sont construites à partir des données. Quand l'assistant IA est activé, la réponse est rédigée par Claude à partir des mêmes données, avec les sources citées entre crochets ; ne saisissez pas de données personnelles.</p>
+  </section>
+
+  <section id="gng">
+    <h2>Go / no-go guidé</h2>
+    <p>Dans le Travel buddy, bouton <strong>Go / no-go guidé</strong> (ou sous une réponse) : choisissez le pays, la ville, les dates, puis répondez à 10 questions (criticité de la mission, profil, expérience, appui sur place, transport, déplacements de nuit, hébergement, assurance, communications, préparation).</p>
+    <ul>
+      <li><strong>Menace</strong> (1 à 5) : calculée à partir du risque pays, des avis MEAE et US, du Pulse, des incidents graves à moins de 100 km, des crises en cours et des élections pendant le séjour.</li>
+      <li><strong>Vulnérabilité</strong> (1 à 5) : déduite de vos réponses.</li>
+      <li><strong>Risque résiduel</strong> = menace × vulnérabilité, placé sur une matrice 5 × 5.</li>
+    </ul>
+    <table><tr><th>Décision</th><th>Quand</th></tr>
+      <tr><td><span class="sw" style="background:#2E9E5B"></span>GO</td><td>Risque résiduel faible : mesures standard.</td></tr>
+      <tr><td><span class="sw" style="background:#E3B505"></span>GO sous conditions</td><td>Conditions listées à remplir avant le départ.</td></tr>
+      <tr><td><span class="sw" style="background:#EE7D22"></span>Escalade</td><td>Décision de la direction sûreté (toujours le cas si la menace est extrême).</td></tr>
+      <tr><td><span class="sw" style="background:#D7263D"></span>NO-GO</td><td>Risque trop élevé ; une mission reportable doit être reportée ou menée à distance.</td></tr></table>
+    <p>Le résultat liste les facteurs de menace et les conditions à remplir. <strong>Ouvrir le brief de mission</strong> reporte l'évaluation complète (matrice, réponses, conditions) dans le brief. L'évaluation reste indicative : la décision appartient au responsable sûreté ou à la direction.</p>
+  </section>
+
+  <section id="brief">
+    <h2>Brief de mission</h2>
+    <p>Depuis la fiche pays (<strong>Brief de mission</strong>), le Travel buddy ou le go / no-go. Renseignez pays, ville, dates, profil, nombre de voyageurs, objet, hébergement et émetteur : le document se construit instantanément.</p>
+    <ol>
+      <li>En-tête : référence unique, date et heure d'émission, date des données, <strong>recommandation</strong> (Go, sous conditions, déconseillée, non) et ses raisons ;</li>
+      <li>avis officiels et extraits MEAE, évaluation go / no-go si elle a été faite, échéances <strong>pendant votre séjour</strong> ;</li>
+      <li>situation sécuritaire : chronologies de crise, incidents à moins de 100 km de la ville sur 30 jours, avec leur cotation ;</li>
+      <li>mesures à cocher : avant le départ, sur place, menaces constatées, selon le profil ;</li>
+      <li>santé, urgences, hôpitaux, contacts à compléter à la main, prestataires ;</li>
+      <li>usages à respecter ; <strong>traçabilité</strong> : sources consultées et trois visas (voyageur, manager, responsable sûreté).</li>
+    </ol>
+    <p><strong>Imprimer / PDF</strong> → « Enregistrer au format PDF ». Conservez le PDF signé : c'est la trace de votre devoir de vigilance (« duty of care »).</p>
+    <div class="tip">Rien de ce que vous saisissez n'est envoyé : tout est calculé dans votre navigateur. N'y inscrivez pas de nom ; ils se complètent à la main sur le document imprimé.</div>
+  </section>
+
+  <section id="rapport">
+    <h2>Rapport pays</h2>
+    <p>Rapport imprimable en sept parties : informations générales, matrice des risques (24 h, 72 h, 7 j, 90 j), recommandations pour les personnels et les sites, angles business, spécificités du pays (gouvernance, corruption, sanctions), intelligence culturelle (tenue, religion, gestes, affaires, interdits, voyageuses), santé, secours, communications et prestataires.</p>
+  </section>
+
+  <section id="partage">
+    <h2>Liens partageables, vues enregistrées, pays suivis</h2>
+    <h3>Partager</h3>
+    <p>Le bouton <strong>Partager</strong> copie l'adresse de ce que vous voyez : période, gravités, catégories, calque, fond, zoom, onglet, fiche ou chronologie ouverte. La personne qui ouvre le lien retrouve exactement la même vue.</p>
+    <h3>Vues</h3>
+    <p><strong>Vues</strong> → nommez la vue (ex. « Sahel – 7 j ») → <strong>Enregistrer la vue actuelle</strong>. Vos vues restent dans ce navigateur ; l'icône 🔗 copie le lien d'une vue, la corbeille la supprime.</p>
+    <h3>Pays suivis</h3>
+    <p>L'étoile ☆ d'une fiche pays ajoute le pays à vos pays suivis. Ils servent de filtre (alertes, onglet Pays, agenda). Dans l'onglet Pays, <strong>Copier pour Telegram</strong> copie leur liste pour que le point quotidien les suive (voir ci-dessous).</p>
+  </section>
+
+  <section id="telegram">
+    <h2>Alertes et point quotidien</h2>
+    <ul>
+      <li><strong>Alerte immédiate</strong> : chaque nouvel incident élevé ou critique, fiable et récent, est envoyé une seule fois sur le canal Telegram (et/ou par e-mail). Le message précise s'il est proche d'un de vos sites ou trajets.</li>
+      <li><strong>Alerte de stabilité</strong> : quand le Pulse d'un pays chute fortement en 7 jours ou passe sous un seuil.</li>
+      <li><strong>Point quotidien</strong> (tôt le matin : 7 h à Paris l’été, 6 h l’hiver) : chiffres des dernières 24 h, incidents à retenir, crises en cours, chronologies en escalade, baisses de Pulse, échéances de la semaine, vulnérabilités cyber exploitées, focus sur les pays suivis, lien vers la carte. Avec l'IA, il commence par « L'essentiel du jour ».</li>
+    </ul>
+    <p class="muted">Réglages (gravité minimale, pays, catégories, heure du point quotidien, seuils du Pulse) : fichier <code>config/settings.json</code>, géré par l'administrateur.</p>
+  </section>
+
+  <section id="export">
+    <h2>Exports</h2>
+    <ul>
+      <li><strong>PDF</strong> de la liste d'alertes filtrée (onglet Alertes).</li>
+      <li><strong>Rapport pays</strong> et <strong>brief de mission</strong> en PDF.</li>
+      <li><strong>sites.json</strong> : vos sites et trajets (onglet Mes sites).</li>
+      <li>Données brutes : <code>data/events.geojson</code> (incidents de la carte, format GeoJSON lisible par QGIS ou ArcGIS).</li>
+    </ul>
+  </section>
+
+  <section id="analyste">
+    <h2>Mode analyste</h2>
+    <p>Ouvrez la carte avec <code>?analyste=1</code> à la fin de l'adresse. Le mode reste actif dans ce navigateur (bouton <strong>Quitter</strong> pour en sortir).</p>
+    <ol>
+      <li>Ouvrez un incident : un encadré <strong>Mode analyste</strong> propose <strong>Valider</strong>, <strong>Corriger</strong> (gravité, catégorie) ou <strong>Infirmer</strong>, avec une note (source de confirmation, commentaire).</li>
+      <li>Vos décisions s'appliquent tout de suite dans votre navigateur (un incident infirmé apparaît barré).</li>
+      <li><strong>Exporter verified.json</strong> télécharge l'ensemble des décisions ; l'administrateur remplace <code>config/verified.json</code> puis publie : le badge « Vérifié Angor » apparaît pour tous.</li>
+    </ol>
+    <p>Les échéances de l'agenda se complètent dans <code>config/calendar.json</code> ; les niveaux de risque d'un pays peuvent être corrigés dans <code>config/risk.json</code>.</p>
+  </section>
+
+  <section id="ia">
+    <h2>Intelligence artificielle</h2>
+    <p>L'outil fonctionne entièrement sans IA. Quand elle est activée (clé Anthropic, modèle Claude), elle intervient à des endroits précis, toujours signalés comme « IA – à vérifier » :</p>
+    <table><tr><th>Usage</th><th>Où</th></tr>
+      <tr><td>Tri et résumés des titres de presse (FR/EN)</td><td>Fiches d'incident</td></tr>
+      <tr><td>Synthèse des chronologies de crise</td><td>En cours → chronologie</td></tr>
+      <tr><td>Explication des variations du Pulse</td><td>Fiche pays</td></tr>
+      <tr><td>« L'essentiel du jour »</td><td>Point quotidien Telegram</td></tr>
+      <tr><td>Réponses rédigées et sourcées</td><td>Travel buddy</td></tr>
+      <tr><td>Avis motivé sur un go / no-go</td><td>Travel buddy</td></tr>
+      <tr><td>Synthèse du brief de mission</td><td>Brief (bouton « Synthèse IA »)</td></tr></table>
+    <p>L'IA ne travaille qu'à partir des données Angor fournies, cite ses appuis et n'invente ni fait ni chiffre ; un budget mensuel plafonne les coûts.</p>
+  </section>
+
+  <section id="sources">
+    <h2>Sources et mises à jour</h2>
+    <ul>
+      <li><strong>Officielles et capteurs</strong> : USGS (séismes), GDACS (ONU/UE), NASA EONET, OMS, NWS (météo États-Unis), Meteoalarm (vigilances orange et rouges de 38 pays européens), CISA et CERT-FR (cyber), UCDP (conflits, historique).</li>
+      <li><strong>Avis aux voyageurs</strong> : MEAE (France), FCDO (Royaume-Uni), Département d'État (États-Unis), Canada.</li>
+      <li><strong>Presse</strong> : Google News (environ 110 pays, 12 langues), près de 800 médias de référence dans 206 pays (dont la presse locale de 25 pays à risque, en 21 langues), grands flux internationaux, GDELT.</li>
+      <li><strong>Contexte</strong> : Banque mondiale, FMI, Wikidata (urgences, hôpitaux, opérateurs, élections), Nager.Date (jours fériés), CIA World Factbook (archive).</li>
+    </ul>
+    <p>Mise à jour automatique toutes les 30 minutes ; avis MEAE relus tous les 3 jours ; informations pratiques tous les 30 jours ; base historique une fois par mois.</p>
+  </section>
+
+  <section id="confidentialite">
+    <h2>Confidentialité</h2>
+    <ul>
+      <li>L'outil suit des <strong>événements</strong>, jamais des personnes.</li>
+      <li>Vos sites, trajets, vues, pays suivis, décisions d'analyste et saisies du brief restent <strong>dans votre navigateur</strong>.</li>
+      <li>Les sites réels utilisés pour les alertes sont conservés dans un coffre sécurisé et ne sont jamais publiés sur la carte.</li>
+      <li>Seules les questions posées à l'assistant IA (quand il est activé) partent vers le relais IA, avec les données Angor utiles à la réponse : n'y mettez pas de données personnelles.</li>
+      <li>Presse : titre, résumé et lien uniquement ; l'article reste chez l'éditeur.</li>
+    </ul>
+  </section>
+
+  <section id="limites">
+    <h2>Limites à connaître</h2>
+    <ul>
+      <li>Outil d'<strong>aide à la décision</strong> : informations issues de sources ouvertes, non exhaustives, à vérifier. Il ne remplace ni les consignes officielles ni l'avis d'un professionnel de la sûreté.</li>
+      <li>Les détections automatiques contiennent du bruit (d'où la cotation, le marquage « auto » et le recoupement).</li>
+      <li>Dans certains pays (zones de conflit, médias contrôlés), les sources ouvertes sous-estiment la situation : surveillez la mention <em>couverture faible</em>.</li>
+      <li>Dates des fêtes religieuses indicatives ; liste des élections incomplète (Wikidata) ; hôpitaux et prestataires indicatifs, à valider avec votre assisteur.</li>
+    </ul>
+  </section>
+
+  <section id="glossaire">
+    <h2>Glossaire</h2>
+    <table>
+      <tr><td><strong>Alerte en cours</strong></td><td>Incident des 72 dernières heures jugé actif (critique, élevé et fiable, catastrophe, recoupé, évolutif ou proche d'un site).</td></tr>
+      <tr><td><strong>Chronologie de crise</strong></td><td>Suite d'incidents liés (même pays, même famille, proches) sur plusieurs jours.</td></tr>
+      <tr><td><strong>Confiance</strong></td><td>Solidité de la détection (faible, moyenne, élevée), selon la source et le recoupement.</td></tr>
+      <tr><td><strong>Cotation (A1-F6)</strong></td><td>Fiabilité de la source × crédibilité de l'information (grille de l'Amirauté).</td></tr>
+      <tr><td><strong>Couverture faible</strong></td><td>Nos sources remontent beaucoup moins d'incidents que la moyenne historique du pays.</td></tr>
+      <tr><td><strong>Duty of care</strong></td><td>Obligation de l'employeur de protéger ses collaborateurs en déplacement ; le brief en garde la trace.</td></tr>
+      <tr><td><strong>HEAT</strong></td><td>Hostile Environment Awareness Training : formation aux environnements hostiles.</td></tr>
+      <tr><td><strong>Pulse</strong></td><td>Indice de stabilité d'un pays, de 0 (très instable) à 100 (stable).</td></tr>
+      <tr><td><strong>Trajet surveillé</strong></td><td>Bande de vigilance autour d'un itinéraire ; les incidents qui s'y produisent sont signalés.</td></tr>
+      <tr><td><strong>Vérifié Angor</strong></td><td>Incident contrôlé par un analyste Angor.</td></tr>
+    </table>
+  </section>
+
+  <section id="faq">
+    <h2>Questions fréquentes</h2>
+    <h3>Pourquoi un pays que je sais dangereux affiche peu d'incidents ?</h3>
+    <p>Les sources ouvertes y remontent peu d'informations (accès restreint, presse contrôlée). Fiez-vous au niveau de risque, aux avis officiels et à la mention « couverture faible ».</p>
+    <h3>Mes sites ont disparu.</h3>
+    <p>Ils sont stockés dans le navigateur : un autre navigateur, une navigation privée ou un nettoyage des données les efface. Exportez-les régulièrement (sites.json).</p>
+    <h3>Le lien partagé n'affiche pas mes sites à mon collègue.</h3>
+    <p>C'est voulu : un lien partage la vue et les filtres, jamais vos sites ni vos trajets.</p>
+    <h3>La carte n'a pas bougé depuis longtemps.</h3>
+    <p>Regardez la pastille des sources en haut à droite : si l'heure de mise à jour dépasse 3 heures, elle passe en « Données anciennes ». Rechargez la page ; si cela persiste, prévenez l'administrateur.</p>
+    <h3>Comment imprimer une fiche ?</h3>
+    <p>Rapport pays et brief : bouton « Imprimer / PDF ». Liste d'alertes : bouton « PDF » de l'onglet Alertes.</p>
+  </section>
+  <footer>Angor Intelligence – outil d'aide à la décision, informations non exhaustives, à vérifier. <a href="index.html">Retour à la carte</a></footer>
+</main>
+</div>
+<script>
+try { const th = JSON.parse(localStorage.getItem('vs-theme')); if (th) document.documentElement.dataset.theme = th; } catch (e) { /* thème par défaut */ }
+</script>
+</body>
+</html>

@@ -13,7 +13,14 @@
     "max_items_per_run": 150,
     "monthly_budget_usd": 20,
     "prefilter_keywords": true,
-    "_comment": "Budget lissé sur le mois. Résumés FR/EN de 2-3 phrases. prefilter_keywords : seuls les titres repérés par les mots-clés sont envoyés à l'IA."
+    "_comment": "Budget lissé sur le mois, partagé par toutes les tâches IA du robot. tasks : activer/couper chaque usage. Sans clé ANTHROPIC_API_KEY, tout fonctionne sans IA (textes automatiques).",
+    "tasks": {
+      "event_summaries": true,
+      "crisis_summaries": true,
+      "digest_editorial": true,
+      "pulse_explanations": true
+    },
+    "max_calls_per_run": 12
   },
   "alerts": {
     "_comment": "Alertes Telegram/e-mail pour tout nouvel incident (plus de critère de rayon). countries/categories vides = tout. Ex. countries: [\"FR\",\"ML\"], categories: [\"terrorism\",\"unrest\"].",
@@ -46,5 +53,11 @@
     "drop_alert": 12,
     "countries": [],
     "min_gap_days": 5
+  },
+  "ai_url": "",
+  "_ai_url_comment": "ai_url : adresse du relais Cloudflare (tools/buddy-worker.js) utilisé par la carte (Travel buddy, avis go/no-go, synthèse du brief). Vide = pas d'IA côté carte. buddy_url reste accepté.",
+  "agenda": {
+    "_comment": "Jours fériés Nager.Date (holidays_per_run pays par collecte), élections Wikidata, fêtes religieuses calculées, vos échéances dans config/calendar.json.",
+    "holidays_per_run": 30
   }
 }

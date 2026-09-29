@@ -43,6 +43,7 @@
       <div class="views-wrap"><button class="btn ghost" id="btn-views" type="button"></button><div class="views-pop" id="views-pop" hidden></div></div>
       <button class="btn ghost" id="btn-share" type="button"></button>
       <button class="health" id="health" type="button"></button>
+      <a class="icon-btn" id="btn-help" href="aide.html" target="_blank" rel="noopener" aria-label="Aide"></a>
       <button class="icon-btn text" id="btn-lang" aria-label="Langue">EN</button>
       <button class="icon-btn" id="btn-theme" aria-label="Thème"></button>
     </div>
@@ -55,6 +56,7 @@
       <button role="tab" data-tab="countries"></button>
       <button role="tab" data-tab="news"></button>
       <button role="tab" data-tab="sites"></button>
+      <button role="tab" data-tab="agenda"></button>
       <button role="tab" data-tab="buddy"></button>
     </nav>
 
@@ -68,6 +70,7 @@
         <label class="switch"><input type="checkbox" id="only-verified"><span data-i18n="only_verified"></span></label>
         <label class="switch"><input type="checkbox" id="only-watch"><span data-i18n="only_watch"></span></label>
       </details>
+      <div class="focus-bar" id="focus-bar" hidden></div>
       <div class="list-head"><span id="alerts-count"></span>
         <span class="list-actions">
           <button class="btn small" id="btn-export" type="button"></button>
@@ -82,6 +85,9 @@
       <label class="switch"><input type="checkbox" id="only-ongoing"><span data-i18n="only_ongoing"></span></label>
       <div class="list-head"><span id="ongoing-count"></span></div>
       <ol class="crisis-list" id="ongoing-list"></ol>
+      <div class="list-head chrono-head"><strong data-i18n="chrono_title"></strong><button class="btn small ghost" id="chrono-all" type="button"></button></div>
+      <p class="hint" id="chrono-count"></p>
+      <ol class="chrono-list" id="chrono-list"></ol>
     </section>
 
     <section class="tab-body" data-body="countries" hidden>
@@ -114,10 +120,31 @@
         <div class="site-actions"><button class="btn primary" type="submit" data-i18n="save"></button><button class="btn" type="button" id="site-cancel" data-i18n="cancel"></button></div>
       </form>
       <ol class="site-list" id="site-list"></ol>
+      <div class="list-head chrono-head"><strong data-i18n="corridors"></strong><button class="btn small" id="btn-add-corridor" type="button"></button></div>
+      <form class="site-form" id="corridor-form" hidden>
+        <label><span data-i18n="cor_name"></span><input class="field" id="cor-name" maxlength="80"></label>
+        <label><span data-i18n="cor_from"></span><input class="field" id="cor-from" maxlength="60"></label>
+        <label><span data-i18n="cor_via"></span><input class="field" id="cor-via" maxlength="200"></label>
+        <label><span data-i18n="cor_to"></span><input class="field" id="cor-to" maxlength="60"></label>
+        <label><span data-i18n="cor_buffer"></span><input class="field" id="cor-buffer" type="number" min="2" max="150" value="25"></label>
+        <div class="site-actions"><button class="btn primary" type="submit" data-i18n="save"></button><button class="btn" type="button" id="cor-draw"></button><button class="btn" type="button" id="cor-cancel" data-i18n="cancel"></button></div>
+      </form>
+      <ol class="site-list" id="corridor-list"></ol>
+    </section>
+
+    <section class="tab-body" data-body="agenda" hidden>
+      <p class="hint" data-i18n="ag_hint"></p>
+      <div class="country-tools">
+        <select id="ag-range" aria-label="Période"><option value="7"></option><option value="30"></option><option value="90"></option><option value="365"></option></select>
+        <select id="ag-scope" aria-label="Pays"><option value="all" data-i18n="ag_scope_all"></option><option value="watch" data-i18n="ag_scope_watch"></option></select>
+      </div>
+      <div class="chips" id="ag-types"></div>
+      <ol class="agenda-list" id="agenda-list"></ol>
     </section>
 
     <section class="tab-body buddy" data-body="buddy" hidden>
-      <div class="buddy-head"><h3 data-i18n="buddy_title"></h3><button class="btn small" id="buddy-clear" type="button" data-i18n="buddy_clear"></button></div>
+      <div class="buddy-head"><h3 data-i18n="buddy_title"></h3><span class="buddy-tools"><button class="btn small primary" id="gng-open" type="button"></button><button class="btn small" id="buddy-clear" type="button" data-i18n="buddy_clear"></button></span></div>
+      <div class="gng-panel" id="gng-panel" hidden></div>
       <div class="buddy-log" id="buddy-log" aria-live="polite"></div>
       <div class="buddy-suggest" id="buddy-suggest"></div>
       <form class="buddy-form" id="buddy-form">
@@ -163,6 +190,7 @@
     </aside>
     <section class="analytics" id="analytics" hidden></section>
     <div class="toast" id="toast" hidden></div>
+    <div class="draw-bar" id="draw-bar" hidden></div>
     <div class="empty-state" id="empty" hidden></div>
   </main>
 </div>
@@ -177,6 +205,7 @@
 <script src="data/countries.js"></script>
 <script src="data/data.js" onerror="window.VS_DATA_MISSING=true"></script>
 <script src="data/history/index.js" onerror="window.VS_HIST_INDEX=null"></script>
+<script src="gonogo.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

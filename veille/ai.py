@@ -60,7 +60,8 @@ def analyze(items, store, settings, log, now):
     key = secret("ANTHROPIC_API_KEY")
     cache = store.setdefault("ai_cache", {})
     results = {it["title"]: cache[it["title"]] for it in items if it["title"] in cache}
-    if not cfg["enabled"] or not key:
+    from . import llm
+    if not cfg["enabled"] or not key or not llm.available(settings, "event_summaries"):
         return results
     usage = store.setdefault("state", {}).setdefault("ai_usage", {})
     month = usage.setdefault(_month(now), {"in": 0, "out": 0, "usd": 0.0})

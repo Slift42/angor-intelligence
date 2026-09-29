@@ -36,6 +36,7 @@ EDITIONS = {  # clé : (hl, gl, ceid, langue des mots-clés)
     "ru-RU": ("ru", "RU", "RU:ru", "ru"), "uk-UA": ("uk", "UA", "UA:uk", "uk"), "ar-EG": ("ar", "EG", "EG:ar", "ar"),
     "ar-SA": ("ar", "SA", "SA:ar", "ar"), "ar-LB": ("ar", "LB", "LB:ar", "ar"), "ar-AE": ("ar", "AE", "AE:ar", "ar"),
     "he-IL": ("he", "IL", "IL:he", "he"), "id-ID": ("id", "ID", "ID:id", "id"),
+    "th-TH": ("th", "TH", "TH:th", "th"), "zh-CN": ("zh-CN", "CN", "CN:zh-Hans", "zh"), "bn-BD": ("bn", "BD", "BD:bn", "bn"),
 }
 
 TERMS = {
@@ -54,6 +55,13 @@ TERMS = {
         "ar": "هجوم OR انفجار OR احتجاجات OR اشتباكات OR اختطاف OR فيضانات OR زلزال",
         "he": "פיגוע OR פיצוץ OR ירי OR הפגנה OR חטיפה",
         "id": "serangan OR ledakan OR penembakan OR demo OR kerusuhan OR penculikan OR banjir OR gempa",
+        "th": "ระเบิด OR โจมตี OR ยิง OR ประท้วง OR ชุมนุม OR ปะทะ OR น้ำท่วม OR แผ่นดินไหว",
+        "zh": "爆炸 OR 袭击 OR 枪击 OR 抗议 OR 冲突 OR 绑架 OR 洪水 OR 地震",
+        "bn": "হামলা OR বিস্ফোরণ OR সংঘর্ষ OR বিক্ষোভ OR অপহরণ OR বন্যা OR ভূমিকম্প",
+        "fa": "حمله OR انفجار OR تیراندازی OR اعتراض OR درگیری OR سیل OR زلزله",
+        "ur": "حملہ OR دھماکہ OR فائرنگ OR احتجاج OR اغوا OR سیلاب OR زلزلہ",
+        "am": "ጥቃት OR ፍንዳታ OR ግጭት OR ተቃውሞ OR ጎርፍ",
+        "so": "weerar OR qarax OR dagaal OR banaanbax OR fatahaad",
     },
     "economy": {
         "fr": 'investissement OR contrat OR "appel d\'offres" OR privatisation OR usine OR acquisition OR sanctions OR "accord commercial" OR concession',
@@ -135,6 +143,9 @@ def parse_items(root, ctx, iso, lang, theme, max_age, max_items, feed="Google Ne
             continue
         item = {"title": title, "url": (it.findtext("link") or "").strip(), "outlet": outlet,
                 "date": date, "country_hint": iso, "lang": lang, "feed": feed}
+        site = src_el.get("url") if src_el is not None else ""
+        if site:  # domaine du média (sert à sa cotation de fiabilité)
+            item["site"] = re.sub(r"^(www|m)\.", "", re.sub(r"^https?://", "", site).split("/")[0].lower())
         if theme == "economy":
             item["id"] = "eco-" + hashlib.sha1(title.lower().encode()).hexdigest()[:12]
             ctx.econ.append(item)

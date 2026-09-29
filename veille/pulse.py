@@ -125,3 +125,16 @@ def alerts(pulse, store, settings, now):
             out.append({"iso": iso, **p, "reason": "threshold" if crossed else "drop"})
             sent[iso] = now.isoformat()
     return sorted(out, key=lambda a: a["value"])
+
+
+def explain(pulse, events, store, settings, now, log=print, countries=None, min_move=8, limit=6):
+    """Phrase explicative (IA, si la tâche « pulse_explanations » est active) pour les plus fortes variations."""
+    from . import llm
+    movers = sorted([(iso, p) for iso, p in pulse.items() if p.get("d7") is not None and abs(p["d7"]) >= min_move],
+                    key=lambda x: x[1]["d7"])[:limit]
+    for iso, p in movers:
+        evs = sorted([e for e in events if e.get("country") == iso], key=lambda e: (-e["severity"], e["date"]))
+        name = countries.name(iso, "fr") if countries else iso
+        r = llm.pulse_explanation(iso, name, p, evs, store, settings, now, log)
+        if isinstance(r, dict) and r.get("fr"):
+            p["explain_fr"], p["explain_en"] = r["fr"], r.get("en") or r["fr"]

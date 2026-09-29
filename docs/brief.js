@@ -167,7 +167,24 @@
     const near = pt ? EVENTS.filter(e => e.lat != null && hav(pt.lat, pt.lon, e.lat, e.lon) <= radius && Date.parse(e.date) >= since30)
       .map(e => ({ ...e, _d: hav(pt.lat, pt.lon, e.lat, e.lon) })) : [];
     const focus = (pt ? near : inCountry).filter(e => e.confidence !== 'low' || e.verified).sort((a, b) => b.severity - a.severity || (b.date > a.date ? 1 : -1));
-    const dec = decision(iso, pt ? near : [], r);  // sans ville : avis officiels et niveau pays seulement
+    let dec = decision(iso, pt ? near : [], r);  // sans ville : avis officiels et niveau pays seulement
+    // évaluation go/no-go guidée transmise par le Travel buddy (paramètre g) : elle prime sur la règle simple
+    const G = window.AngorGNG, gAns = G && GNG_ANS;
+    let gng = null;
+    if (gAns) {
+      const th = G.threat({ iso, point: pt, from: f.from, to: f.to, lang });
+      gng = { th, res: G.evaluate(gAns, th, lang) };
+      dec = { code: { go: 'go', conditions: 'conditions', escalate: 'restricted', nogo: 'nogo' }[gng.res.code], label: gng.res.label, color: gng.res.color,
+        why: [L(`go/no-go guidé : menace ${gng.res.T}/5 × vulnérabilité ${gng.res.V}/5`, `guided go/no-go: threat ${gng.res.T}/5 × vulnerability ${gng.res.V}/5`)] };
+    }
+    const CAL = ((window.VS_CALENDAR || {}).events || []);
+    const MUSLIM = new Set('AF AL AZ BH BD BN BF TD KM DJ EG GM GN ID IR IQ JO KZ XK KW KG LB LY MY MV ML MR MA NE NG OM PK PS QA SA SN SL SO SD SY TJ TN TR TM AE UZ EH YE'.split(' '));
+    const addD = (d, n) => { const x = new Date(d + 'T12:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
+    const during = f.from ? CAL.filter(e => (e.iso === iso || (!e.iso && e.type === 'religious' && MUSLIM.has(iso)) || (!e.iso && e.src === 'Angor'))
+      && e.prec !== 'year' && (e.e || e.d) >= addD(f.from, -2) && e.d <= addD(f.to, 2)) : [];
+    const crises = (D.crises || []).filter(c => c.country === iso && (c.status === 'active' || Date.now() - Date.parse(c.last) < 10 * 864e5)).slice(0, 4);
+    const TYPE = { holiday: L('Jour férié', 'Public holiday'), election: L('Élection', 'Election'), religious: L('Fête religieuse', 'Religious festival'), strike: L('Grève', 'Strike'), summit: L('Sommet', 'Summit'), anniversary: L('Anniversaire sensible', 'Sensitive anniversary'), other: L('Échéance', 'Event') };
+    const TREND = { escalating: L('escalade', 'escalating'), new: L('nouvelle', 'new'), stable: L('stable', 'stable'), declining: L('décrue', 'declining') };
     const days = f.from && f.to ? Math.max(1, Math.round((Date.parse(f.to) - Date.parse(f.from)) / 864e5) + 1) : 0;
     const cats = [...new Set(focus.filter(e => e.severity >= 2).map(e => e.category))];
     const meas = measures(r ? r.level : 2, f.profile, cats, days);
@@ -187,6 +204,8 @@
       us && us.url ? ['US State Department – Travel advisory', us.url] : null,
       [L('Angor Intelligence – incidents géolocalisés (presse, GDELT, USGS, GDACS, OMS, services météo…)', 'Angor Intelligence – geolocated incidents (press, GDELT, USGS, GDACS, WHO, weather services…)'), location.origin + location.pathname.replace(/brief\.html$/, '') + `?c=${iso}`],
       (x.hospitals || []).length ? ['Wikidata – ' + L('établissements de santé, urgences', 'hospitals, emergency numbers'), 'https://www.wikidata.org'] : null,
+      during.length ? [L('Agenda Angor – Nager.Date (jours fériés), Wikidata (élections), calendrier hégirien', 'Angor agenda – Nager.Date (holidays), Wikidata (elections), Hijri calendar'), 'https://date.nager.at'] : null,
+      gng ? [L('Questionnaire go/no-go guidé (réponses du demandeur)', 'Guided go/no-go questionnaire (requester\'s answers)'), ''] : null,
       g && Object.keys(g).length ? [L('Fiche culturelle Angor (rédaction assistée par IA, relue)', 'Angor cultural sheet (AI-assisted, reviewed)'), ''] : null,
     ].filter(Boolean);
 
@@ -217,11 +236,24 @@
         ${advRow('US State Dept', us, us && us.level, us && us.label)}
       </tbody></table>
       ${meae && (meae.excerpt || []).length ? `<blockquote class="quote">${meae.excerpt.slice(0, 4).map(q => `<p>« ${esc(q)} »</p>`).join('')}<footer>${L('Extraits MEAE – la page officielle fait foi.', 'French MFA excerpts – the official page prevails.')}</footer></blockquote>` : ''}
+      ${gng ? `<h2>${icon('clipboard-check', 18)} ${L('Évaluation go / no-go guidée', 'Guided go / no-go assessment')}</h2>
+        <div class="gng-brief">${G.matrix(gng.res.T, gng.res.V, lang, 170)}
+          <div><p><strong>${esc(gng.res.label)}</strong> — ${L('menace', 'threat')} ${gng.res.T}/5 × ${L('vulnérabilité', 'vulnerability')} ${gng.res.V}/5 = ${gng.res.R}/25</p>
+          ${gng.res.note ? `<p class="small"><strong>${esc(gng.res.note)}</strong></p>` : ''}
+          <p class="small"><strong>${L('Facteurs de menace', 'Threat factors')} :</strong> ${esc(gng.th.factors.join(' · '))}</p>
+          <p class="small"><strong>${L('Conditions à remplir', 'Conditions to meet')} :</strong></p>
+          ${gng.res.conditions.length ? `<ul class="check">${gng.res.conditions.map(c => `<li><span class="box"></span>${esc(c)}</li>`).join('')}</ul>` : `<p class="small">${L('Aucune condition supplémentaire.', 'No additional condition.')}</p>`}</div></div>
+        <table class="list small"><tbody>${G.QUESTIONS.map(q => { const o = q.opts.find(x => x[0] === gng.res.answers[q.id]) || q.opts[0]; return `<tr><td>${esc(lang === 'fr' ? q.fr : q.en)}</td><td><strong>${esc(lang === 'fr' ? o[1] : o[2])}</strong></td></tr>`; }).join('')}</tbody></table>` : ''}
+      ${window._briefAi ? `<h2>${icon('file-text', 18)} ${L('Synthèse', 'Summary')}</h2><div class="ai-synth"><p>${esc(window._briefAi).replace(/\n+/g, '</p><p>')}</p><p class="hint">${L('Rédigée par IA à partir des données du brief – à relire.', 'AI-written from the brief data – to be reviewed.')}</p></div>` : ''}
       ${p && (p.drivers || []).length ? `<p class="small"><strong>Pulse – ${L('causes', 'drivers')} :</strong> ${esc(p.drivers.map(d => d.type === 'category' ? L('hausse ', 'rise ') + catName(d.category).toLowerCase() : `${d.source} ${d.from} → ${d.to}`).join(' · '))}</p>` : ''}
     </section>
 
     <section class="page">
+      ${during.length ? `<h2>${icon('calendar', 18)} ${L('Pendant votre séjour', 'During your stay')}</h2>
+        <table class="list"><tbody>${during.map(e => `<tr><td class="nowrap">${fmtShort(e.d)}${e.e && e.e !== e.d ? ' → ' + fmtShort(e.e) : ''}</td><td class="nowrap small">${esc(TYPE[e.type] || TYPE.other)}</td><td>${esc(lang === 'fr' ? e.t_fr : e.t_en || e.t_fr)}${e.type === 'religious' ? ` <span class="small">(${L('date indicative', 'indicative date')})</span>` : ''}${e.prec === 'month' ? ` <span class="small">(${L('date à préciser', 'date tbc')})</span>` : ''}</td></tr>`).join('')}</tbody></table>
+        <p class="hint">${L('Jours fériés, élections et fêtes : fermetures d\'administrations, rassemblements, contrôles renforcés, transports perturbés.', 'Holidays, elections and festivals: closures, gatherings, reinforced checks, disrupted transport.')}</p>` : ''}
       <h2>${icon('siren', 18)} 2. ${L('Situation sécuritaire', 'Security situation')} ${pt ? `– ${esc(pt.name)} (${radius} km)` : `– ${esc(name)}`}, 30 ${L('jours', 'days')}</h2>
+      ${crises.length ? `<p class="small"><strong>${L('Chronologies de crise', 'Crisis timelines')} :</strong></p><ul class="small">${crises.map(c => `<li><strong>${esc(lang === 'fr' ? c.title : c.title_en || c.title)}</strong> — ${c.n} incidents, ${TREND[c.trend] || ''}${c.status !== 'active' ? L(' (apaisée)', ' (calmed)') : ''}. ${esc(lang === 'fr' ? c.summary_fr : c.summary_en)}</li>`).join('')}</ul>` : ''}
       ${focus.length ? `<table class="list"><thead><tr><th>${L('Date', 'Date')}</th><th>${L('Gravité', 'Severity')}</th><th>${L('Incident', 'Incident')}</th><th>${L('Lieu', 'Place')}</th><th title="${L('Cotation de l\'Amirauté', 'Admiralty rating')}">${L('Cot.', 'Rating')}</th></tr></thead><tbody>
         ${focus.slice(0, 14).map(e => `<tr><td class="nowrap">${fmtShort(e.date)}</td><td class="nowrap"><span class="dot" style="background:${SEV_COLORS[e.severity]}"></span> ${esc(sevName(e.severity))}</td>
           <td>${esc(e.title)}${e.verified ? ` <span class="tag">✔ ${L('Vérifié Angor', 'Angor verified')}</span>` : ''}<br><span class="small">${esc(catName(e.category))}${e._d != null ? ` · ${Math.round(e._d)} km` : ''}</span></td><td class="small">${esc(e.place || '')}</td><td class="mono small">${esc(e.admiralty || '')}</td></tr>`).join('')}</tbody></table>
@@ -286,12 +318,14 @@
     const iso = $('#f-country').value;
     $('#city-list').innerHTML = CITIES.filter(c => c[1] === iso).slice(0, 60).map(c => `<option value="${esc(c[0])}">`).join('');
   }
+  const GNG_ANS = (q => q && window.AngorGNG ? window.AngorGNG.decode(q) : null)(new URLSearchParams(location.search).get('g'));
   function saveState() {
     const f = read();
     try { localStorage.setItem('vs-brief', JSON.stringify({ profile: f.profile, issuer: f.issuer })); } catch (e) { /* */ }
     const q = new URLSearchParams({ c: f.iso });
     ['city', 'from', 'to', 'profile'].forEach(k => { if (f[k]) q.set(k === 'profile' ? 'p' : k, f[k]); });
     if (f.pax > 1) q.set('pax', f.pax);
+    const g0 = new URLSearchParams(location.search).get('g'); if (g0) q.set('g', g0);
     history.replaceState(null, '', '?' + q.toString());
   }
   function init() {
@@ -310,6 +344,23 @@
     $('#f-issuer').value = saved.issuer || '';
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
     cityList(); render(); saveState();
+    const ai = (D.settings || {}).ai_url || (D.settings || {}).buddy_url;
+    if (ai) {
+      const b = document.createElement('button'); b.className = 'tb-btn'; b.id = 'tb-ai'; b.textContent = L('Synthèse IA', 'AI summary');
+      $('#tb-print').before(b);
+      b.addEventListener('click', async () => {
+        const f = read(); b.disabled = true; b.textContent = L('Rédaction…', 'Writing…');
+        const text = $('#report').innerText.slice(0, 12000);
+        try {
+          const r = await fetch(ai, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ task: 'brief', lang,
+            q: L(`Synthèse du brief : ${cname(f.iso)}${f.city ? ' (' + f.city + ')' : ''}, du ${f.from} au ${f.to}, profil ${f.profile}.`, `Brief summary: ${cname(f.iso)}${f.city ? ' (' + f.city + ')' : ''}, ${f.from} to ${f.to}, profile ${f.profile}.`), context: text }) });
+          const j = await r.json(); if (!r.ok || !j.answer) throw new Error(j.error || r.status);
+          window._briefAi = j.answer; render();
+          b.textContent = L('Synthèse IA', 'AI summary');
+        } catch (e) { b.textContent = L('IA indisponible', 'AI unavailable'); }
+        b.disabled = false;
+      });
+    }
   }
   $('#brief-form').addEventListener('input', ev => { if (ev.target.id === 'f-country') { $('#f-city').value = ''; cityList(); } render(); saveState(); });
   $('#brief-form').addEventListener('submit', ev => ev.preventDefault());

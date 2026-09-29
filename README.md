@@ -13,7 +13,7 @@ Ce qu'elle fait :
   4. angles business ;
   5. spécificités du pays : gouvernance, corruption, sanctions, société, cadre des affaires.
 - **Tableau de bord analytique** : courbes, camemberts, classements.
-- **Fil de presse** : environ 110 pays en 12 langues (Google News), plus 650 médias de référence dans 206 pays (3 à 5 titres fiables par pays). Titres et liens uniquement.
+- **Fil de presse** : environ 110 pays en 12 langues (Google News), plus près de 800 médias de référence dans 206 pays, dont la presse locale de 25 pays à risque (21 langues). Titres et liens uniquement.
 - **Base historique (5 ans)** : conflits UCDP, détections GDELT, séismes, catastrophes, épidémies, pour l'onglet Analyses et la carte sur les longues périodes.
 - **Calques des ministères** : heatmap MEAE (France), FCDO (Royaume-Uni), State Dept (États-Unis), avec la carte officielle de chaque pays.
 - **Fonds de carte** : détaillé (routes, villes), contrasté, épuré, satellite, topographique ; noms en alphabet latin, affichage progressif (pays → régions → villes).
@@ -26,6 +26,12 @@ Ce qu'elle fait :
 - **Point quotidien Telegram** : chaque matin, incidents marquants, crises en cours, pays dont le Pulse baisse, vulnérabilités cyber exploitées et focus sur vos pays suivis.
 - **Liens partageables, vues enregistrées, pays suivis** : l'adresse de la carte reprend la vue et les filtres ; étoile sur les pays à suivre.
 - **Alertes officielles météo et cyber** : NWS (États-Unis), Meteoalarm (38 pays européens, vigilances orange et rouges), CISA KEV (vulnérabilités activement exploitées).
+- **Chronologies de crise** : les incidents d'une même crise sont regroupés sur plusieurs jours (tendance escalade / stable / décrue, graphique par jour, affichage sur la carte).
+- **Agenda** : jours fériés (Nager.Date), élections et référendums nationaux (Wikidata), grandes fêtes religieuses, vos échéances (`config/calendar.json`) ; repris dans les fiches pays, le brief et le point quotidien.
+- **Trajets surveillés** : bande de vigilance autour d'un itinéraire (villes ou tracé sur la carte), alertes comme pour les sites.
+- **Go / no-go guidé** (Travel buddy) : questionnaire → matrice menace × vulnérabilité → décision et conditions, reportées dans le brief.
+- **Aide intégrée** (`aide.html`, bouton « ? ») : guide d'utilisation complet.
+- **IA prête à brancher** : un socle commun (`veille/llm.py`) et un relais Cloudflare multi-tâches ; tout fonctionne sans clé.
 - **Interface** : bilingue FR/EN, thème clair ou sombre, utilisable sur mobile.
 
 ---
@@ -72,18 +78,19 @@ Une source qui échoue 3 fois de suite est mise en pause 24 h. Son état est vis
 | Santé | OMS – Disease Outbreak News |
 | Météo officielle | NWS (États-Unis, alertes « Severe » et « Extreme »), Meteoalarm / EUMETNET (vigilances orange et rouges de 38 pays européens) |
 | Cyber | CISA KEV (vulnérabilités activement exploitées), CERT-FR |
+| Agenda | Nager.Date (jours fériés, ~120 pays), Wikidata (élections nationales), calendrier hégirien calculé, `config/calendar.json` |
 | Conflits, attaques, manifestations | GDELT (presse mondiale, 65 langues, filtrée et recoupée) |
 | Presse locale | Google News (≈ 110 pays, sûreté + économie, en rotation) et flux RSS : BBC, Guardian, NYT, DW, Euronews, Al Jazeera, France 24, Le Monde, RFI Afrique, Jeune Afrique, Al-Monitor, El País, MercoPress, Kyiv Independent, Times of Israel, Dawn, The Hindu, Premium Times, News24, Japan Times, Franceinfo, Le Parisien, 20 Minutes, Ouest-France |
 | Institutions | ONU (Paix et sécurité), OTAN, Crisis Group, Département d'État US, FCDO britannique, CERT-FR |
 | Avis aux voyageurs | MEAE (France, conseils aux voyageurs), FCDO (Royaume-Uni), Département d'État US, Gouvernement du Canada |
-| Médias de référence | ≈ 650 quotidiens et sites d'information dans 206 pays (`config/press_outlets.json`, modifiable dans `tools/outlets_src.py`) |
+| Médias de référence | ≈ 800 quotidiens et sites d'information dans 206 pays (dont la presse locale de 25 pays à risque, cotée A-F) (`config/press_outlets.json`, modifiable dans `tools/outlets_src.py`) |
 | Historique (5 ans) | UCDP GED et « candidate events » (Uppsala, CC BY 4.0), GDELT 1.0 quotidien, USGS, GDACS, NASA EONET, OMS – script `historique.py` |
 | Économie et gouvernance | Banque mondiale (indicateurs, gouvernance WGI, projets actifs), FMI (prévisions), REST Countries, presse économique (BBC, Guardian, The Economist, Les Echos) |
 | Contexte pays | CIA World Factbook (archive : publication arrêtée en février 2026, domaine public) |
 
 **Comment un titre de presse devient une alerte** (`veille/press.py`) :
 
-1. Le titre est classé par mots-clés en 12 langues : catégorie et gravité.
+1. Le titre est classé par mots-clés en 21 langues (dont thaï, chinois, persan, ourdou, bengali, amharique, somali, hébreu, indonésien) : catégorie et gravité.
 2. Le lieu est reconnu : pays cité, puis ville de ce pays, grâce au dictionnaire GeoNames.
 3. Le titre n'est placé sur la carte que si une ville est reconnue.
 4. Plusieurs médias qui rapportent le même fait, au même endroit et le même jour, forment un seul incident. Plus il y a de médias, plus la confiance monte.

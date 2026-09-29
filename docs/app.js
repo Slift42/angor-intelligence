@@ -22,6 +22,31 @@
       buddy_thinking: 'Je rassemble les informations…', buddy_mode_ai: 'Réponse rédigée par IA à partir des données Angor – à vérifier', buddy_mode_local: 'Données Angor (sans IA)',
       buddy_ai_on: 'Assistant IA actif. Ne saisissez pas de données personnelles.', buddy_ai_off: 'Mode sans IA : réponses construites à partir des données Angor.', buddy_ai_down: 'Assistant IA indisponible : réponse construite à partir des données Angor.',
       legend: 'Légende',
+      tab_agenda: 'Agenda', help: 'Aide',
+      chrono_title: 'Chronologies de crise (30 j)', chrono_n: (a, b) => `${a} active${a > 1 ? 's' : ''} · ${b} au total`, chrono_all: 'Toutes', chrono_active: 'Actives',
+      chrono_none: 'Aucune chronologie sur la période.', trend: { escalating: 'Escalade', stable: 'Stable', declining: 'Décrue', new: 'Nouvelle' },
+      status_active: 'Active', status_calmed: 'Apaisée', chrono_days: n => `${n} jour${n > 1 ? 's' : ''}`, chrono_inc: n => `${n} incident${n > 1 ? 's' : ''}`,
+      chrono_show: 'Afficher sur la carte', chrono_focus: t2 => `Chronologie affichée : ${t2}`, chrono_exit: 'Revenir à toutes les alertes',
+      chrono_part: 'Fait partie de la chronologie', chrono_daily: 'Incidents par jour', chrono_timeline: 'Chronologie', sum_ai_crisis: 'Synthèse IA – à vérifier',
+      n_sources: n => `${n} source${n > 1 ? 's' : ''}`, peak: 'Pic', max_sev: 'Gravité max',
+      ag_hint: 'Jours fériés, élections et référendums nationaux, grandes fêtes religieuses et échéances ajoutées par l’analyste. Les rassemblements et fermetures peuvent perturber vos déplacements.',
+      ag_range: { 7: '7 jours', 30: '30 jours', 90: '3 mois', 365: '12 mois' }, ag_scope_all: 'Tous les pays', ag_scope_watch: 'Mes pays suivis',
+      ag_types: { holiday: 'Fériés', election: 'Élections', religious: 'Religieux', other: 'Analyste' }, ag_empty: 'Rien de prévu sur la période.',
+      ag_loading: 'Chargement de l’agenda…', ag_missing: 'Agenda pas encore disponible : il sera créé à la prochaine collecte.',
+      ag_world: 'Monde', ag_muslim: 'Pays à majorité musulmane', ag_month: 'date à préciser dans le mois', ag_year: 'Échéances sans date précise',
+      ag_type: { holiday: 'Jour férié', election: 'Élection', religious: 'Fête religieuse', strike: 'Grève', summit: 'Sommet', anniversary: 'Anniversaire sensible', sport: 'Sport', other: 'Échéance' },
+      upcoming: 'À venir (90 j)', no_upcoming: 'Rien de prévu dans nos sources.',
+      corridors: 'Trajets surveillés', add_corridor: 'Ajouter un trajet', cor_from: 'Départ (ville)', cor_to: 'Arrivée (ville)', cor_via: 'Étapes (facultatif, séparées par des virgules)',
+      cor_buffer: 'Largeur de vigilance de part et d’autre (km)', cor_name: 'Nom du trajet', cor_draw: 'Tracer sur la carte', cor_draw_hint: 'Cliquez les étapes du trajet sur la carte, puis « Terminer ».',
+      cor_finish: 'Terminer', cor_points: n => `${n} point${n > 1 ? 's' : ''}`, cor_saved: 'Trajet enregistré dans ce navigateur', cor_city_err: c => `Ville non reconnue : ${c}. Essayez une grande ville proche, ou tracez le trajet sur la carte.`,
+      cor_km: n => `≈ ${n} km`, cor_hits: n => n ? `${n} alerte${n > 1 ? 's' : ''} le long du trajet` : 'Aucune alerte le long du trajet', cor_watch: 'Surveiller ce trajet',
+      cor_hint: 'Un trajet surveillé est une bande de vigilance autour d’un itinéraire (ex. Lagos – Abuja). Les incidents dans cette bande sont signalés comme pour vos sites.',
+      on_route: 'trajet',
+      gng_open: 'Go / no-go guidé', gng_title: 'Go / no-go guidé', gng_intro: 'Répondez aux questions : la menace est calculée à partir des données Angor, la vulnérabilité à partir de vos réponses.',
+      gng_country: 'Pays', gng_city: 'Ville principale', gng_from: 'Départ', gng_to: 'Retour', gng_eval: 'Évaluer', gng_cancel: 'Annuler',
+      gng_threat: 'Menace', gng_vuln: 'Vulnérabilité', gng_resid: 'Risque résiduel', gng_factors: 'Facteurs de menace (données Angor)', gng_conditions: 'Conditions à remplir avant le départ',
+      gng_noconds: 'Aucune condition supplémentaire : appliquer les mesures standard.', gng_brief: 'Ouvrir le brief de mission (avec cette évaluation)', gng_ai: 'Avis rédigé par l’IA',
+      gng_disclaimer: 'Évaluation indicative : la décision finale revient au responsable sûreté ou à la direction.',
       pulse: 'Pulse', pulse_title: 'Pulse – indice de stabilité', cl_pulse: 'Pulse (stabilité)', legend_pulse: 'Pulse – stabilité (0 à 100)',
       pulse_hint: 'De 0 (très instable) à 100 (stable). Suit la dynamique : avis officiels, activité sécuritaire des 7 derniers jours, anomalie par rapport aux 3 semaines précédentes, catastrophes.',
       pulse_drivers: 'Causes principales', pulse_none: 'Pas de variation notable.', pulse_na: 'Tendance disponible après 7 jours d’historique.',
@@ -106,6 +131,31 @@
       buddy_thinking: 'Gathering information…', buddy_mode_ai: 'AI-written answer based on Angor data – to be verified', buddy_mode_local: 'Angor data (no AI)',
       buddy_ai_on: 'AI assistant on. Do not enter personal data.', buddy_ai_off: 'No-AI mode: answers built from Angor data.', buddy_ai_down: 'AI assistant unavailable: answer built from Angor data.',
       legend: 'Legend',
+      tab_agenda: 'Agenda', help: 'Help',
+      chrono_title: 'Crisis timelines (30 d)', chrono_n: (a, b) => `${a} active · ${b} in total`, chrono_all: 'All', chrono_active: 'Active',
+      chrono_none: 'No timeline over the period.', trend: { escalating: 'Escalating', stable: 'Stable', declining: 'Declining', new: 'New' },
+      status_active: 'Active', status_calmed: 'Calmed', chrono_days: n => `${n} day${n > 1 ? 's' : ''}`, chrono_inc: n => `${n} incident${n > 1 ? 's' : ''}`,
+      chrono_show: 'Show on map', chrono_focus: t2 => `Timeline shown: ${t2}`, chrono_exit: 'Back to all alerts',
+      chrono_part: 'Part of the timeline', chrono_daily: 'Incidents per day', chrono_timeline: 'Timeline', sum_ai_crisis: 'AI summary – to be verified',
+      n_sources: n => `${n} source${n > 1 ? 's' : ''}`, peak: 'Peak', max_sev: 'Max severity',
+      ag_hint: 'Public holidays, national elections and referendums, major religious festivals and analyst-added dates. Gatherings and closures may disrupt travel.',
+      ag_range: { 7: '7 days', 30: '30 days', 90: '3 months', 365: '12 months' }, ag_scope_all: 'All countries', ag_scope_watch: 'My followed countries',
+      ag_types: { holiday: 'Holidays', election: 'Elections', religious: 'Religious', other: 'Analyst' }, ag_empty: 'Nothing scheduled over the period.',
+      ag_loading: 'Loading agenda…', ag_missing: 'Agenda not available yet: it will be created at the next collection.',
+      ag_world: 'World', ag_muslim: 'Muslim-majority countries', ag_month: 'date to be confirmed within the month', ag_year: 'Dates not yet set',
+      ag_type: { holiday: 'Public holiday', election: 'Election', religious: 'Religious festival', strike: 'Strike', summit: 'Summit', anniversary: 'Sensitive anniversary', sport: 'Sport', other: 'Event' },
+      upcoming: 'Upcoming (90 d)', no_upcoming: 'Nothing scheduled in our sources.',
+      corridors: 'Watched routes', add_corridor: 'Add a route', cor_from: 'From (city)', cor_to: 'To (city)', cor_via: 'Waypoints (optional, comma-separated)',
+      cor_buffer: 'Watch width on each side (km)', cor_name: 'Route name', cor_draw: 'Draw on map', cor_draw_hint: 'Click the route waypoints on the map, then “Finish”.',
+      cor_finish: 'Finish', cor_points: n => `${n} point${n > 1 ? 's' : ''}`, cor_saved: 'Route saved in this browser', cor_city_err: c => `City not recognised: ${c}. Try a nearby large city, or draw the route on the map.`,
+      cor_km: n => `≈ ${n} km`, cor_hits: n => n ? `${n} alert${n > 1 ? 's' : ''} along the route` : 'No alert along the route', cor_watch: 'Watch this route',
+      cor_hint: 'A watched route is a vigilance band around an itinerary (e.g. Lagos – Abuja). Incidents in the band are flagged like your sites.',
+      on_route: 'route',
+      gng_open: 'Guided go / no-go', gng_title: 'Guided go / no-go', gng_intro: 'Answer the questions: threat is computed from Angor data, vulnerability from your answers.',
+      gng_country: 'Country', gng_city: 'Main city', gng_from: 'Departure', gng_to: 'Return', gng_eval: 'Assess', gng_cancel: 'Cancel',
+      gng_threat: 'Threat', gng_vuln: 'Vulnerability', gng_resid: 'Residual risk', gng_factors: 'Threat factors (Angor data)', gng_conditions: 'Conditions to meet before departure',
+      gng_noconds: 'No additional condition: apply standard measures.', gng_brief: 'Open the mission brief (with this assessment)', gng_ai: 'AI-written opinion',
+      gng_disclaimer: 'Indicative assessment: the final decision lies with the security manager or management.',
       pulse: 'Pulse', pulse_title: 'Pulse – stability index', cl_pulse: 'Pulse (stability)', legend_pulse: 'Pulse – stability (0 to 100)',
       pulse_hint: 'From 0 (very unstable) to 100 (stable). Tracks momentum: official advisories, security activity over 7 days, anomaly versus the previous 3 weeks, hazards.',
       pulse_drivers: 'Main drivers', pulse_none: 'No significant change.', pulse_na: 'Trend available after 7 days of history.',
@@ -215,9 +265,24 @@
     legendOpen: store.get('vs-legend', true),
     countryLayer: (v => ['risk', 'pulse', 'meae', 'fcdo', 'us', 'none'].includes(v) ? v : 'risk')(store.get('vs-clayer', 'risk')),
     onlyVerified: false, onlyWatch: false, countrySort: 'risk', watch: new Set(store.get('vs-watch', [])),
+    localCorridors: store.get('vs-corridors', []), drawing: null, crisisFocus: null, chronoAll: false,
+    agRange: 30, agScope: 'all', agTypes: new Set(['holiday', 'election', 'religious', 'other']),
     analyst: /[?&]analyste?=1/.test(location.search) || store.get('vs-analyst', false)
   };
   const PULSE = (D && D.pulse) || {};
+  const CRISES = (D && D.crises) || [];
+  const CRISIS_OF = {};
+  CRISES.forEach(c => c.events.forEach(id => { if (!CRISIS_OF[id] || CRISIS_OF[id].status !== 'active') CRISIS_OF[id] = c; }));
+  const AI_URL = (D && D.settings && (D.settings.ai_url || D.settings.buddy_url)) || '';
+  /** Appel au relais IA (Cloudflare Worker) pour une tâche : buddy, gonogo, brief. Lève une erreur si indisponible. */
+  async function aiCall(task, q, context, history) {
+    if (!AI_URL) throw new Error('no_ai');
+    const r = await fetch(AI_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ task, q, lang: state.lang, context: String(context || '').slice(0, 14000), history: history || [] }) });
+    const j = await r.json();
+    if (!r.ok || !j.answer) throw new Error(j.error || r.status);
+    return j.answer;
+  }
   /* ------------------------------------------------------------------ liens partageables (paramètres d'URL) */
   const PARAMS = new URLSearchParams(location.search);
   (function applyParams() {
@@ -233,7 +298,8 @@
     if (['risk', 'pulse', 'meae', 'fcdo', 'us', 'none'].includes(P.get('layer'))) state.countryLayer = P.get('layer');
     if (BASEMAPS.includes(P.get('base'))) state.basemap = P.get('base');
     if (['fr', 'en'].includes(P.get('lang'))) state.lang = P.get('lang');
-    if (['alerts', 'ongoing', 'countries', 'news', 'sites', 'buddy'].includes(P.get('tab'))) state.tab = P.get('tab');
+    if (['alerts', 'ongoing', 'countries', 'news', 'sites', 'buddy', 'agenda'].includes(P.get('tab'))) state.tab = P.get('tab');
+    if (P.get('focus')) state.crisisFocus = P.get('focus');
     if (P.get('analyste') === '0') state.analyst = false;
     try { localStorage.setItem('vs-analyst', JSON.stringify(state.analyst)); } catch (e) { /* stockage indisponible */ }
   })();
@@ -352,11 +418,29 @@
     const loc = state.localSites.map((s, i) => ({ ...s, origin: 'local', key: 'l' + i }));
     return cfg.concat(loc);
   }
+  function allCorridors() {
+    const cfg = ((D && D.corridors) || []).map((c, i) => ({ ...c, kind: 'corridor', origin: 'config', key: 'k' + i, radius_km: c.buffer_km || 25 }));
+    const loc = state.localCorridors.map((c, i) => ({ ...c, kind: 'corridor', origin: 'local', key: 'r' + i, radius_km: c.buffer_km || 25 }));
+    return cfg.concat(loc);
+  }
+  /** Distance (km) d'un point à un trajet : projection locale sur chaque segment. */
+  function routeKm(lat, lon, pts) {
+    let best = Infinity;
+    const k = Math.cos(lat * Math.PI / 180);
+    for (let i = 0; i < pts.length - 1; i++) {
+      const ax = (pts[i][1] - lon) * 111.32 * k, ay = (pts[i][0] - lat) * 110.57, bx = (pts[i + 1][1] - lon) * 111.32 * k, by = (pts[i + 1][0] - lat) * 110.57;
+      const dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy;
+      const tt = l2 ? Math.max(0, Math.min(1, -(ax * dx + ay * dy) / l2)) : 0;
+      best = Math.min(best, Math.hypot(ax + tt * dx, ay + tt * dy));
+    }
+    return best;
+  }
+  const routeLength = pts => Math.round(pts.slice(1).reduce((n, p, i) => n + haversine(pts[i][0], pts[i][1], p[0], p[1]), 0));
   function computeProximity() {
-    const sites = allSites();
+    const sites = allSites().concat(allCorridors());
     EVENTS.forEach(e => {
       e._t = Math.min(Date.parse(e.date), Date.now());
-      e._near = sites.map(s => ({ site: s, d: haversine(s.lat, s.lon, e.lat, e.lon) }))
+      e._near = e.lat == null ? [] : sites.map(s => ({ site: s, d: s.points ? routeKm(e.lat, e.lon, s.points) : haversine(s.lat, s.lon, e.lat, e.lon) }))
         .filter(x => x.d <= (x.site.radius_km || 50)).sort((a, b) => a.d - b.d);
     });
   }
@@ -446,7 +530,7 @@
   const riskLayer = L.geoJSON(COUNTRIES, {
     style: f => countryStyle(f.properties.iso2),
     onEachFeature: (f, layer) => {
-      layer.on('click', ev => { if (state.picking) return; L.DomEvent.stopPropagation(ev); openCountry(f.properties.iso2); });
+      layer.on('click', ev => { if (state.picking || state.drawing) return; L.DomEvent.stopPropagation(ev); openCountry(f.properties.iso2); });
       layer.on('mouseover', () => { if (!state.picking) layer.setStyle({ weight: 1.6, color: cssVar('--ink-2') }); });
       layer.on('mouseout', () => riskLayer.resetStyle(layer));
       layer.bindTooltip(() => {
@@ -538,7 +622,8 @@
   }
   const baseFilter = e => (!state.onlyOngoing || isOngoing(e)) && inWindow(e) && state.cats.has(e.category) && !(state.hideAuto && isAuto(e)) && !(state.onlySites && !e._near.length)
     && !(e._false && !state.analyst) && !(state.onlyVerified && !e.verified) && !(state.onlyWatch && !state.watch.has(e.country));
-  const visible = () => EVENTS.filter(e => baseFilter(e) && state.sev[e.severity]);
+  const visible = () => state.crisisFocus ? EVENTS.filter(e => (CRISES.find(c => c.id === state.crisisFocus) || { events: [] }).events.includes(e.id))
+    : EVENTS.filter(e => baseFilter(e) && state.sev[e.severity]);
   const sorted = list => list.slice().sort(state.sort === 'severity'
     ? (a, b) => b.severity - a.severity || b._t - a._t
     : (a, b) => b._t - a._t || b.severity - a.severity);
@@ -547,7 +632,7 @@
   function renderAll() {
     const list = visible();
     renderSevSummary(); renderFilters(); renderAlerts(list); renderMap(list);
-    renderCountries(); renderNews(); renderSites(); renderOngoing(); renderLegend(); renderHealth(); renderTabs();
+    renderCountries(); renderNews(); renderSites(); renderOngoing(); renderChrono(); renderLegend(); renderHealth(); renderTabs();
     $('#btn-analytics').innerHTML = icon('chart-column') + `<span>${esc(t('analytics'))}</span>`;
     $('#btn-export').innerHTML = icon('printer') + esc(t('export_pdf'));
     if (state.analytics) renderAnalytics();
@@ -569,10 +654,148 @@
       ${c.evs.length > 5 ? `<div class="hint">+ ${c.evs.length - 5}</div>` : ''}</li>`).join('') : `<li class="empty">${t('no_ongoing')}</li>`;
   }
 
+  const crisisTitle = c => state.lang === 'fr' ? c.title : (c.title_en || c.title);
+  function dailyBars(c, w = 120, h = 26) {
+    const days = [];
+    for (let d = new Date(c.start.slice(0, 10) + 'T12:00:00Z'); d.toISOString().slice(0, 10) <= c.last.slice(0, 10); d.setUTCDate(d.getUTCDate() + 1)) days.push(d.toISOString().slice(0, 10));
+    const mx = Math.max(...days.map(d => (c.daily[d] || [0])[0]), 1), bw = w / days.length;
+    return `<svg class="bars" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" preserveAspectRatio="none">${days.map((d, i) => { const v = (c.daily[d] || [0, 0]); const bh = Math.max(v[0] ? 2 : 0, v[0] / mx * (h - 2));
+      return `<rect x="${(i * bw + 0.5).toFixed(1)}" y="${(h - bh).toFixed(1)}" width="${Math.max(1, bw - 1).toFixed(1)}" height="${bh.toFixed(1)}" fill="${v[1] ? sevColor(v[1]) : 'transparent'}"><title>${d} : ${v[0]}</title></rect>`; }).join('')}</svg>`;
+  }
+  const trendChip = c => `<span class="trend t-${c.status === 'calmed' ? 'calmed' : c.trend}">${esc(c.status === 'calmed' ? t('status_calmed') : t('trend')[c.trend])}</span>`;
+  function renderChrono() {
+    const list = CRISES.filter(c => state.chronoAll || c.status === 'active').filter(c => !(state.onlyWatch && !state.watch.has(c.country)));
+    $('#chrono-count').textContent = t('chrono_n', CRISES.filter(c => c.status === 'active').length, CRISES.length);
+    $('#chrono-all').textContent = state.chronoAll ? t('chrono_active') : t('chrono_all');
+    $('#chrono-list').innerHTML = list.length ? list.map(c => `<li class="chrono" data-crisis="${c.id}">
+      <span class="lvl" style="background:${sevColor(c.max_severity)}">${c.n}</span>
+      <div><div class="n">${flagImg(c.country)}${esc(crisisTitle(c))}</div>
+        <div class="s">${esc(fmtDay(c.start.slice(0, 10)))} → ${esc(fmtDay(c.last.slice(0, 10)))} · ${esc(t('chrono_days', Object.keys(c.daily).length))} ${trendChip(c)}</div></div>
+      ${dailyBars(c, 70, 22)}</li>`).join('') : `<li class="empty">${t('chrono_none')}</li>`;
+  }
+  function openCrisis(id, fly = true) {
+    const c = CRISES.find(x => x.id === id); if (!c) return;
+    closeAnalytics();
+    const evs = EVENTS.filter(e => c.events.includes(e.id)).sort((a, b) => b._t - a._t);
+    const byDay = {};
+    evs.forEach(e => { (byDay[e.date.slice(0, 10)] = byDay[e.date.slice(0, 10)] || []).push(e); });
+    if (fly) map.flyToBounds([[c.bbox[0], c.bbox[1]], [c.bbox[2], c.bbox[3]]], { padding: [60, 60], maxZoom: 9, duration: 0.8 });
+    const sum = state.lang === 'fr' ? c.summary_fr : c.summary_en;
+    openDrawer(`<div class="d-head">
+        <div class="d-kicker">${icon('activity', 14)} ${esc(t('chrono_timeline'))} · ${trendChip(c)}</div>
+        <h2 class="d-title">${flagImg(c.country, 26)}${esc(crisisTitle(c))}</h2>
+        <div class="d-sum"><p class="d-desc">${esc(sum)}</p><span class="d-sum-kind">${esc(c.summary_kind === 'ai' ? t('sum_ai_crisis') : t('sum_auto'))}</span></div>
+        <div class="site-actions"><button class="btn primary" data-focus="${c.id}">${icon('map', 15)}${esc(t('chrono_show'))}</button>
+          <a class="btn" href="#" data-country="${c.country}">${icon('globe', 15)}${esc(countryName(c.country))}</a></div>
+      </div>
+      <div class="d-sec"><div class="stats">
+        <div class="stat"><div class="n">${c.n}</div><div class="l">${esc(t('incidents'))}</div></div>
+        <div class="stat"><div class="n">${Object.keys(c.daily).length}</div><div class="l">${esc(t('chrono_days', Object.keys(c.daily).length).replace(/^\d+ /, ''))}</div></div>
+        <div class="stat"><div class="n">${c.n_sources}</div><div class="l">${esc(t('sources'))}</div></div>
+        <div class="stat"><div class="n" style="color:${sevColor(c.max_severity)}">${c.max_severity}/4</div><div class="l">${esc(t('max_sev'))}</div></div></div></div>
+      <div class="d-sec"><h3>${t('chrono_daily')}</h3>${dailyBars(c, 320, 60)}<div class="hint">${esc(t('peak'))} : ${esc(fmtDay(c.peak))} · ${esc((c.places || []).join(', '))}</div></div>
+      <div class="d-sec"><h3>${t('chrono_timeline')}</h3><div class="timeline">${Object.entries(byDay).map(([d, list]) => `<div class="tl-day"><div class="tl-date">${esc(fmtDay(d))}</div>
+        <ul class="mini-list">${list.map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${esc(e.title)}<br><span class="muted small">${esc(new Date(e.date).toLocaleTimeString(state.lang === 'fr' ? 'fr-FR' : 'en-GB', { hour: '2-digit', minute: '2-digit' }))} · ${esc(e.place || '')}</span></span><span class="w">${admBadge(e)}</span></li>`).join('')}</ul></div>`).join('')}</div></div>`, 'crisis', id);
+  }
+  function focusCrisis(id) {
+    state.crisisFocus = id; state.tab = 'alerts'; renderTabs(); renderAll();
+    const c = CRISES.find(x => x.id === id);
+    if (c) map.flyToBounds([[c.bbox[0], c.bbox[1]], [c.bbox[2], c.bbox[3]]], { padding: [60, 60], maxZoom: 9, duration: 0.8 });
+  }
+
+  /* ------------------------------------------------------------------ agenda */
+  function ensureCalendar(done) {
+    if (window.VS_CALENDAR || ensureCalendar.failed) return done();
+    loadScript('data/calendar.js').then(() => { if (!window.VS_CALENDAR) ensureCalendar.failed = true; done(); }, () => { ensureCalendar.failed = true; done(); });
+  }
+  // pays à majorité musulmane (fêtes religieuses calculées affichées dans leur fiche)
+  const MUSLIM = new Set('AF AL AZ BH BD BN BF TD KM DJ EG GM GN ID IR IQ JO KZ XK KW KG LB LY MY MV ML MR MA NE NG OM PK PS QA SA SN SL SO SD SY TJ TN TR TM AE UZ EH YE'.split(' '));
+  const agTypeOf = e => ['holiday', 'election', 'religious'].includes(e.type) ? e.type : 'other';
+  const agPlace = e => e.iso ? flagImg(e.iso) + esc(countryName(e.iso) || e.iso) : esc(e.type === 'religious' ? t('ag_muslim') : t('ag_world'));
+  const agTitle = e => state.lang === 'fr' ? e.t_fr : (e.t_en || e.t_fr);
+  function agendaItems(from, to, isos) {
+    return (((window.VS_CALENDAR || {}).events) || []).filter(e => (e.e || e.d) >= from && e.d <= to && (!isos || !e.iso || isos.has(e.iso)));
+  }
+  function renderAgenda() {
+    const el = $('#agenda-list');
+    if (!window.VS_CALENDAR) { el.innerHTML = `<li class="empty">${esc(ensureCalendar.failed ? t('ag_missing') : t('ag_loading'))}</li>`; if (!ensureCalendar.failed) ensureCalendar(renderAgenda); return; }
+    $('#ag-range').value = String(state.agRange); $('#ag-scope').value = state.agScope;
+    $('#ag-types').innerHTML = Object.entries(t('ag_types')).map(([k, v]) => `<button class="chip" data-agt="${k}" aria-pressed="${state.agTypes.has(k)}">${esc(v)}</button>`).join('');
+    const today = new Date().toISOString().slice(0, 10), end = new Date(Date.now() + state.agRange * 864e5).toISOString().slice(0, 10);
+    const isos = state.agScope === 'watch' ? state.watch : null;
+    const items = agendaItems(today, end, isos).filter(e => state.agTypes.has(agTypeOf(e)));
+    const dated = items.filter(e => e.prec !== 'year'), undated = agendaItems(today, new Date(Date.now() + 400 * 864e5).toISOString().slice(0, 10), isos).filter(e => e.prec === 'year' && state.agTypes.has('election'));
+    const byDay = {};
+    dated.forEach(e => { const d = e.d < today ? today : e.d; (byDay[d] = byDay[d] || []).push(e); });
+    const row = e => `<li class="ag-item"${e.iso ? ` data-country="${e.iso}"` : ''}><span class="ag-type ag-${agTypeOf(e)}">${esc(t('ag_type')[e.type] || t('ag_type').other)}</span>
+      <div><div class="n">${agPlace(e)}</div><div class="s">${esc(agTitle(e))}${e.e && e.e !== e.d ? ` → ${esc(fmtDay(e.e))}` : ''}${e.prec === 'month' ? ` <span class="muted">(${esc(t('ag_month'))})</span>` : ''}</div>
+      ${e.note_fr ? `<div class="muted small">${esc(state.lang === 'fr' ? e.note_fr : e.note_en || e.note_fr)}</div>` : ''}</div></li>`;
+    el.innerHTML = (Object.keys(byDay).length ? Object.entries(byDay).sort().map(([d, list]) => `<li class="ag-day">${esc(new Date(d + 'T12:00:00').toLocaleDateString(state.lang === 'fr' ? 'fr-FR' : 'en-GB', { weekday: 'short', day: 'numeric', month: 'short' }))}</li>${list.map(row).join('')}`).join('')
+      : `<li class="empty">${t('ag_empty')}</li>`) + (undated.length ? `<li class="ag-day">${esc(t('ag_year'))}</li>` + undated.map(e => row({ ...e, t_fr: e.t_fr, prec: 'year' })).join('') : '');
+  }
+  function upcomingSection(iso) {
+    if (!window.VS_CALENDAR) return '';
+    const today = new Date().toISOString().slice(0, 10), end = new Date(Date.now() + 90 * 864e5).toISOString().slice(0, 10);
+    const items = agendaItems(today, end, new Set([iso])).filter(e => e.iso === iso || (e.type === 'religious' && MUSLIM.has(iso))).slice(0, 8);
+    const later = agendaItems(end, new Date(Date.now() + 400 * 864e5).toISOString().slice(0, 10), new Set([iso])).filter(e => e.iso === iso && e.type === 'election').slice(0, 2);
+    const all = items.concat(later);
+    return `<div class="d-sec"><h3>${icon('calendar', 14)} ${t('upcoming')}</h3>${all.length ? `<ul class="mini-list">${all.map(e => `<li><span class="dot ag-${agTypeOf(e)}"></span><span class="t">${esc(agTitle(e))}</span><span class="w">${e.prec === 'year' ? esc(e.d.slice(0, 4)) : esc(fmtDay(e.d))}</span></li>`).join('')}</ul>` : `<div class="hint">${t('no_upcoming')}</div>`}</div>`;
+  }
+
+  /* ------------------------------------------------------------------ trajets surveillés */
+  function cityPoint(name) {
+    const k = norm(name).trim(); if (!k) return null;
+    const c = CITY_INDEX.find(x => x.key === k) || CITY_INDEX.find(x => x.key.startsWith(k));
+    return c ? [c.lat, c.lon, c.name, c.iso] : null;
+  }
+  function saveCorridor(c) {
+    state.localCorridors.push(c); store.set('vs-corridors', state.localCorridors);
+    computeProximity(); renderAll(); toast(t('cor_saved'));
+    map.flyToBounds(L.latLngBounds(c.points), { padding: [60, 60], duration: 0.8 });
+  }
+  function startDrawing() {
+    state.drawing = []; $('#app').classList.add('picking'); closePanelMobile();
+    $('#draw-bar').hidden = false; renderDrawBar();
+  }
+  function renderDrawBar() {
+    $('#draw-bar').innerHTML = `<span>${esc(t('cor_draw_hint'))}</span><strong>${esc(t('cor_points', state.drawing.length))}</strong>
+      <button class="btn small primary" id="draw-finish"${state.drawing.length < 2 ? ' disabled' : ''}>${esc(t('cor_finish'))}</button><button class="btn small" id="draw-cancel">${esc(t('cancel'))}</button>`;
+  }
+  function stopDrawing(keep) {
+    const pts = state.drawing; state.drawing = null; $('#draw-bar').hidden = true; $('#app').classList.remove('picking'); renderSiteLayer();
+    if (keep && pts && pts.length >= 2) {
+      saveCorridor({ name: $('#cor-name').value.trim() || `${t('on_route')} ${state.localCorridors.length + 1}`, points: pts.map(p => [+p[0].toFixed(4), +p[1].toFixed(4)]),
+        buffer_km: +$('#cor-buffer').value || 25, min_severity: 1 });
+      $('#corridor-form').hidden = true;
+    }
+  }
+  function bindCorridors() {
+    $('#btn-add-corridor').addEventListener('click', () => { $('#corridor-form').hidden = !$('#corridor-form').hidden; ensureBuddyData(); $('#cor-draw').innerHTML = icon('map', 14) + esc(t('cor_draw')); });
+    $('#corridor-form').addEventListener('submit', async ev => {
+      ev.preventDefault(); await ensureBuddyData();
+      const names = [$('#cor-from').value, ...$('#cor-via').value.split(','), $('#cor-to').value].map(x => x.trim()).filter(Boolean);
+      const pts = [];
+      for (const n of names) { const p = cityPoint(n); if (!p) { toast(t('cor_city_err', n), 5000); return; } pts.push([p[0], p[1]]); }
+      if (pts.length < 2) return;
+      saveCorridor({ name: $('#cor-name').value.trim() || names[0] + ' – ' + names[names.length - 1], points: pts, buffer_km: +$('#cor-buffer').value || 25, min_severity: 1 });
+      $('#corridor-form').hidden = true; $('#corridor-form').reset();
+    });
+    $('#cor-cancel').addEventListener('click', () => { $('#corridor-form').hidden = true; });
+    $('#cor-draw').addEventListener('click', startDrawing);
+    $('#draw-bar').addEventListener('click', ev => { if (ev.target.closest('#draw-finish')) stopDrawing(true); if (ev.target.closest('#draw-cancel')) stopDrawing(false); });
+    map.on('click', ev => { if (!state.drawing) return; state.drawing.push([ev.latlng.lat, L.Util.wrapNum(ev.latlng.lng, [-180, 180], true)]); renderSiteLayer(); renderDrawBar(); });
+    $('#corridor-list').addEventListener('click', ev => {
+      const del = ev.target.closest('[data-cdel]');
+      if (del) { state.localCorridors.splice(+del.dataset.cdel.slice(1), 1); store.set('vs-corridors', state.localCorridors); computeProximity(); renderAll(); return; }
+      const row = ev.target.closest('[data-cor]'); const c = row && allCorridors().find(x => x.key === row.dataset.cor);
+      if (c) { map.flyToBounds(L.latLngBounds(c.points), { padding: [60, 60], duration: 0.8 }); closePanelMobile(); }
+    });
+  }
+
   function renderTabs() {
     $$('.tabs button').forEach(b => {
       b.setAttribute('aria-selected', String(b.dataset.tab === state.tab));
-      const ic = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle' }[b.dataset.tab];
+      const ic = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle', agenda: 'calendar' }[b.dataset.tab];
       let label = icon(ic, 20) + `<span>${esc(t('tab_' + b.dataset.tab))}</span>`;
       const n = b.dataset.tab === 'sites' ? EVENTS.filter(e => inWindow(e) && e._near.length && e.severity >= 2).length
         : b.dataset.tab === 'ongoing' ? EVENTS.filter(isOngoing).length : 0;
@@ -581,6 +804,7 @@
     });
     $$('.tab-body').forEach(s => { s.hidden = s.dataset.body !== state.tab; });
     if (state.tab === 'buddy') { renderBuddy(); ensureBuddyData(); }
+    if (state.tab === 'agenda') renderAgenda();
   }
 
   function renderSevSummary() {
@@ -613,12 +837,15 @@
   function nearLabel(e) {
     if (!e._near.length) return '';
     const n = e._near[0];
-    return `<span class="near">◉ ${esc(n.site.name)} · ${Math.round(n.d)} ${t('km')}</span>`;
+    return `<span class="near">${n.site.kind === 'corridor' ? '⟿ ' + esc(t('on_route')) + ' ' : '◉ '}${esc(n.site.name)} · ${Math.round(n.d)} ${t('km')}</span>`;
   }
 
   function renderAlerts(list) {
     const all = sorted(list);
     $('#alerts-count').textContent = t('n_alerts', all.length);
+    const fc = state.crisisFocus && CRISES.find(c => c.id === state.crisisFocus);
+    $('#focus-bar').hidden = !fc;
+    if (fc) $('#focus-bar').innerHTML = `${icon('activity', 14)}<span>${esc(t('chrono_focus', crisisTitle(fc)))}</span><button class="btn small" id="focus-exit">${esc(t('chrono_exit'))}</button>`;
     if (!all.length) { $('#alert-list').innerHTML = `<li class="empty">${t('no_alerts')}</li>`; return; }
     const shown = all.slice(0, state.limit);
     $('#alert-list').innerHTML = shown.map(e => {
@@ -648,8 +875,26 @@
     renderSiteLayer();
   }
 
+  /** Bande de vigilance d'un trajet : rectangles par segment + disques aux étapes (approximation à l'écran). */
+  function corridorShapes(c) {
+    const b = c.radius_km || 25, pts = c.points, out = [];
+    const style = { stroke: false, fillColor: cssVar('--accent'), fillOpacity: 0.07, interactive: false };
+    pts.forEach(p => out.push(L.circle(p, { ...style, radius: b * 1000 })));
+    for (let i = 0; i < pts.length - 1; i++) {
+      const [a, z] = [pts[i], pts[i + 1]];
+      const k = Math.cos((a[0] + z[0]) / 2 * Math.PI / 180);
+      const dx = (z[1] - a[1]) * 111.32 * k, dy = (z[0] - a[0]) * 110.57, len = Math.hypot(dx, dy) || 1;
+      const ox = -dy / len * b / (111.32 * k), oy = dx / len * b / 110.57;
+      out.push(L.polygon([[a[0] + oy, a[1] + ox], [z[0] + oy, z[1] + ox], [z[0] - oy, z[1] - ox], [a[0] - oy, a[1] - ox]], style));
+    }
+    out.push(L.polyline(pts, { color: cssVar('--accent'), weight: 2.5, dashArray: '6 5' })
+      .bindTooltip(`<strong>${esc(c.name)}</strong><br>${esc(t('cor_km', routeLength(pts)))} · ± ${b} ${t('km')}`, { className: 'vs-tip', sticky: true }));
+    return out;
+  }
   function renderSiteLayer() {
     sitesLayer.clearLayers();
+    allCorridors().forEach(c => corridorShapes(c).forEach(l => l.addTo(sitesLayer)));
+    if (state.drawing && state.drawing.length) L.polyline(state.drawing, { color: cssVar('--accent'), weight: 3 }).addTo(sitesLayer);
     allSites().forEach(s => {
       L.circle([s.lat, s.lon], { radius: (s.radius_km || 50) * 1000, color: cssVar('--accent'), weight: 1.2, dashArray: '4 4', fillOpacity: 0.05, interactive: false }).addTo(sitesLayer);
       L.marker([s.lat, s.lon], { icon: L.divIcon({ className: '', iconSize: [22, 22], html: `<div class="site-mk">${icon('building-2')}</div>` }), zIndexOffset: 1000 })
@@ -702,6 +947,16 @@
         <div class="s">${t('radius')} ${s.radius_km || 50} ${t('km')} · ${s.origin === 'config' ? t('site_config') : t('site_local')}</div>
         <div class="hits" style="color:${max ? sevColor(max) : 'var(--muted)'}">${t('hits', hits.length)}</div></li>`;
     }).join('');
+    $('#btn-add-corridor').innerHTML = icon('plus') + esc(t('add_corridor'));
+    const cors = allCorridors();
+    $('#corridor-list').innerHTML = cors.map(c => {
+      const hits = win.filter(e => e._near.some(n => n.site.key === c.key));
+      const max = hits.length ? Math.max(...hits.map(e => e.severity)) : 0;
+      return `<li class="site-row corridor-row" data-cor="${c.key}">
+        <div class="h"><span class="n">⟿ ${esc(c.name)}</span>${c.origin === 'local' ? `<button class="del" data-cdel="${c.key}" title="${t('delete')}">${icon('trash-2')}</button>` : ''}</div>
+        <div class="s">${esc(t('cor_km', routeLength(c.points)))} · ± ${c.radius_km} ${t('km')} · ${c.origin === 'config' ? t('site_config') : t('site_local')}</div>
+        <div class="hits" style="color:${max ? sevColor(max) : 'var(--muted)'}">${t('cor_hits', hits.length)}</div></li>`;
+    }).join('') || `<li class="hint">${esc(t('cor_hint'))}</li>`;
   }
 
   function renderLegend() {
@@ -771,6 +1026,7 @@
         ${(e.tags || []).includes('multi-source') ? `<div class="notice" style="border-style:solid">✓ ${t('multi_source')}</div>` : ''}
         ${e.verified && e.verified.status !== 'false' ? `<div class="notice verified-notice">${icon('badge-check', 15)} ${esc(t('verified_notice', e.verified.date ? fmtDay(e.verified.date) : ''))}${e.verified.status === 'corrected' ? ' ' + esc(t('corrected_notice')) : ''}${e.verified.note ? `<br><span class="muted">${esc(e.verified.note)}</span>` : ''}</div>` : ''}
       </div>
+      ${CRISIS_OF[e.id] ? `<div class="d-sec"><a href="#" class="crisis-link" data-crisis="${CRISIS_OF[e.id].id}">${icon('activity', 14)} ${esc(t('chrono_part'))} : <strong>${esc(crisisTitle(CRISIS_OF[e.id]))}</strong> (${esc(t('chrono_inc', CRISIS_OF[e.id].n))}) →</a></div>` : ''}
       ${state.analyst ? analystPanel(e) : ''}
       <div class="d-sec"><dl class="kv">
         <dt>${t('date')}</dt><dd>${esc(fmtDate(e.date))} <span style="color:var(--muted)">(${esc(ago(e.date))})</span><br><span class="mono">${esc(fmtUTC(e.date))}</span></dd>
@@ -793,6 +1049,7 @@
     if (d.kind === 'event') openEvent(d.id, false);
     else if (d.kind === 'country') openCountry(d.id, false);
     else if (d.kind === 'health') openHealth();
+    else if (d.kind === 'crisis') openCrisis(d.id, false);
   }
   function shortUrl(u) { try { const x = new URL(u); return x.hostname.replace(/^www\./, '') + (x.pathname.length > 1 ? x.pathname.slice(0, 32) + (x.pathname.length > 32 ? '…' : '') : ''); } catch (e) { return u; } }
 
@@ -833,11 +1090,14 @@
         ${r && r.data_quality === 'events-only' ? `<div class="notice">${t('events_only')}</div>` : ''}
       </div>
       ${pulseSection(iso)}
+      ${(cs => cs.length ? `<div class="d-sec"><h3>${icon('activity', 14)} ${t('chrono_title')}</h3><ul class="mini-list">${cs.map(c => `<li data-crisis="${c.id}"><span class="dot" style="background:${sevColor(c.max_severity)}"></span><span class="t">${esc(crisisTitle(c))}</span><span class="w">${trendChip(c)}</span></li>`).join('')}</ul></div>` : '')(CRISES.filter(c => c.country === iso).slice(0, 5))}
+      ${upcomingSection(iso)}
       <div class="d-sec"><h3>${t('incidents')}</h3><div class="stats">${counts}</div></div>
       ${r ? `<div class="d-sec"><h3>${t('components')}</h3>${bars}</div>` : ''}
       ${advs ? `<div class="d-sec"><h3>${t('advisories')}</h3><ul class="mini-list">${advs}</ul></div>` : ''}
       <div class="d-sec"><h3>${t('recent')}</h3>${recent.length ? `<ul class="mini-list">${recent.map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${esc(e.title)}</span><span class="w">${esc(ago(e.date))}</span></li>`).join('')}</ul>` : `<div class="hint">${t('no_recent')}</div>`}</div>
       <div class="d-sec"><div class="hint">${t('risk_notice')}</div></div>`, 'country', iso);
+    if (!window.VS_CALENDAR && !ensureCalendar.failed) ensureCalendar(() => { if (state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
   }
 
   function openHealth() {
@@ -995,6 +1255,8 @@
     $$('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
     $('#btn-lang').textContent = state.lang === 'fr' ? 'EN' : 'FR';
     $$('#time-seg button[data-h]').forEach(b => { b.textContent = t('period_lbl')[b.dataset.h]; });
+    $$('#ag-range option').forEach(o => { o.textContent = t('ag_range')[o.value]; });
+    $('#btn-help') && $('#btn-help').setAttribute('title', t('help'));
   }
   function applyTheme() {
     document.documentElement.dataset.theme = state.theme;
@@ -1118,6 +1380,16 @@
     $('#country-watch').addEventListener('click', () => { state.countryWatch = !state.countryWatch; renderCountries(); });
     $('#watch-copy').addEventListener('click', () => copyText(JSON.stringify([...state.watch]), t('watch_copied'), 9000));
     bindShare();
+    bindCorridors();
+    bindGng();
+    $('#btn-help').innerHTML = icon('circle-help', 17);
+    $('#chrono-all').addEventListener('click', () => { state.chronoAll = !state.chronoAll; renderChrono(); });
+    $('#chrono-list').addEventListener('click', ev => { const c = ev.target.closest('[data-crisis]'); if (c) { openCrisis(c.dataset.crisis); closePanelMobile(); } });
+    $('#focus-bar').addEventListener('click', ev => { if (ev.target.closest('#focus-exit')) { state.crisisFocus = null; renderAll(); } });
+    $('#ag-range').addEventListener('change', ev => { state.agRange = +ev.target.value; renderAgenda(); });
+    $('#ag-scope').addEventListener('change', ev => { state.agScope = ev.target.value; if (state.agScope === 'watch' && !state.watch.size) toast(t('watch_empty')); renderAgenda(); });
+    $('#ag-types').addEventListener('click', ev => { const b = ev.target.closest('[data-agt]'); if (!b) return; const k = b.dataset.agt; state.agTypes.has(k) ? state.agTypes.delete(k) : state.agTypes.add(k); renderAgenda(); });
+    $('#agenda-list').addEventListener('click', ev => { const c = ev.target.closest('[data-country]'); if (c) { openCountry(c.dataset.country); closePanelMobile(); } });
     $('#sort').addEventListener('change', ev => { state.sort = ev.target.value; renderAlerts(visible()); });
     $('#btn-export').addEventListener('click', exportList);
     $('#alert-list').addEventListener('click', ev => {
@@ -1130,6 +1402,9 @@
     $('#drawer').addEventListener('click', ev => {
       const c = ev.target.closest('[data-country]'); const e = ev.target.closest('[data-event]'); const z = ev.target.closest('[data-zoom]');
       const w = ev.target.closest('[data-watch]'); const an = ev.target.closest('[data-an]');
+      const cr = ev.target.closest('[data-crisis]'); const fo = ev.target.closest('[data-focus]');
+      if (fo) { focusCrisis(fo.dataset.focus); return; }
+      if (cr) { ev.preventDefault(); openCrisis(cr.dataset.crisis); return; }
       if (w) { toggleWatch(w.dataset.watch); return; }
       if (an) { analystAction(an.dataset.an, an.dataset.id); return; }
       if (c) { ev.preventDefault(); openCountry(c.dataset.country); }
@@ -1199,7 +1474,8 @@
     });
     $('#btn-export-sites').addEventListener('click', () => {
       const sites = allSites().map(({ origin, key, ...s }) => s);
-      const blob = new Blob([JSON.stringify({ sites }, null, 2)], { type: 'application/json' });
+      const corridors = allCorridors().map(({ origin, key, kind, radius_km, ...c }) => ({ ...c, buffer_km: c.buffer_km || radius_km }));
+      const blob = new Blob([JSON.stringify({ sites, corridors }, null, 2)], { type: 'application/json' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'sites.local.json';
       document.body.appendChild(a); a.click(); a.remove(); toast(t('export_done'), 6000);
     });
@@ -1277,7 +1553,8 @@
     if (state.basemap !== 'detail') P.set('base', state.basemap);
     if (state.tab !== 'alerts') P.set('tab', state.tab);
     const c = map.getCenter(); P.set('m', `${c.lat.toFixed(3)},${L.Util.wrapNum(c.lng, [-180, 180], true).toFixed(3)},${map.getZoom()}`);
-    if (state.drawer && !$('#drawer').hidden) P.set(state.drawer.kind === 'event' ? 'e' : state.drawer.kind === 'country' ? 'c' : 'x', state.drawer.id || '');
+    if (state.crisisFocus) P.set('focus', state.crisisFocus);
+    if (state.drawer && !$('#drawer').hidden) P.set({ event: 'e', country: 'c', crisis: 'k' }[state.drawer.kind] || 'x', state.drawer.id || '');
     P.delete('x');
     return P.toString();
   }
@@ -1372,12 +1649,98 @@
     document.body.appendChild(a); a.click(); a.remove(); toast(t('an_done'), 8000);
   }
 
+
+  /* ------------------------------------------------------------------ go / no-go guidé */
+  const GNG = window.AngorGNG || null;
+  /** Boutons d'action ajoutés sous une réponse du Travel buddy : surveiller le trajet, go/no-go guidé. */
+  function buddyExtras(det, intents) {
+    const btns = [];
+    const cs = det.cities || [];
+    if (intents.includes('route') && cs.length >= 2 && cs[0].iso === cs[1].iso) {
+      const data = esc(JSON.stringify({ name: cs[0].name + ' – ' + cs[1].name, points: [[cs[0].lat, cs[0].lon], [cs[1].lat, cs[1].lon]] }));
+      btns.push(`<button class="btn small" data-buddy-corridor="${data}">⟿ ${esc(t('cor_watch'))}</button>`);
+    }
+    if (GNG && det.isos.length) btns.push(`<button class="btn small" data-gng-start="${det.isos[0]}"${cs[0] ? ` data-gng-city="${esc(cs[0].name)}"` : ''}>${icon('clipboard-check', 13)}${esc(t('gng_open'))}</button>`);
+    return btns.length ? `<div class="site-actions buddy-actions">${btns.join('')}</div>` : '';
+  }
+  function gngForm(iso, city) {
+    const lang = state.lang, d0 = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10), d1 = new Date(Date.now() + 11 * 864e5).toISOString().slice(0, 10);
+    const opts = Object.values(countryProps).sort((a, b) => a['name_' + lang].localeCompare(b['name_' + lang]))
+      .map(p => `<option value="${p.iso2}"${p.iso2 === iso ? ' selected' : ''}>${esc(p['name_' + lang])}</option>`).join('');
+    const saved = store.get('vs-gng', {});
+    $('#gng-panel').innerHTML = `<div class="buddy-head"><h3>${esc(t('gng_title'))}</h3></div><p class="hint">${esc(t('gng_intro'))}</p>
+      <form id="gng-form" class="gng-form">
+        <label>${esc(t('gng_country'))}<select class="field" name="iso">${opts}</select></label>
+        <label>${esc(t('gng_city'))}<input class="field" name="city" value="${esc(city || '')}" list="gng-cities"></label>
+        <label>${esc(t('gng_from'))}<input class="field" type="date" name="from" value="${d0}"></label>
+        <label>${esc(t('gng_to'))}<input class="field" type="date" name="to" value="${d1}"></label>
+        ${GNG.QUESTIONS.map(q => `<label class="wide">${esc(lang === 'fr' ? q.fr : q.en)}<select class="field" name="${q.id}">${q.opts.map(o => `<option value="${o[0]}"${(saved[q.id] || GNG.DEFAULTS[q.id]) === o[0] ? ' selected' : ''}>${esc(lang === 'fr' ? o[1] : o[2])}</option>`).join('')}</select></label>`).join('')}
+        <div class="site-actions wide"><button class="btn primary" type="submit">${esc(t('gng_eval'))}</button><button class="btn" type="button" id="gng-cancel">${esc(t('gng_cancel'))}</button></div>
+      </form><datalist id="gng-cities"></datalist>`;
+    $('#gng-cities').innerHTML = CITY_INDEX.filter(c => c.iso === iso).slice(0, 50).map(c => `<option value="${esc(c.name)}">`).join('');
+  }
+  async function openGng(iso, city) {
+    if (!GNG) return;
+    await ensureBuddyData();
+    await new Promise(r => ensureCalendar(r));
+    iso = iso || (state.drawer && state.drawer.kind === 'country' ? state.drawer.id : '') || buddy.lastIso || 'FR';
+    gngForm(iso, city);
+    $('#gng-panel').hidden = false; $('#buddy-log').hidden = true; $('#buddy-suggest').hidden = true; $('#buddy-form').hidden = true;
+    $('#gng-panel').scrollIntoView({ block: 'start' });
+  }
+  function closeGng() { $('#gng-panel').hidden = true; $('#buddy-log').hidden = false; $('#buddy-suggest').hidden = false; $('#buddy-form').hidden = false; }
+  function gngResultHtml(f, th, res) {
+    const lang = state.lang, fr = lang === 'fr';
+    const q = new URLSearchParams({ c: f.iso, from: f.from, to: f.to, p: res.answers.profile, g: GNG.encode(res.answers) });
+    if (f.city) q.set('city', f.city);
+    return `<h4>${flagImg(f.iso)}${esc(countryName(f.iso))}${f.city ? ' · ' + esc(f.city) : ''} — ${esc(t('gng_title'))}</h4>
+      <div class="gng-res"><div class="gng-dec" style="border-color:${res.color}"><span class="dl" style="background:${res.color}"></span><strong>${esc(res.label)}</strong></div>
+        <div class="gng-grid">${GNG.matrix(res.T, res.V, lang, 170)}<div class="gng-nums"><div><span>${esc(t('gng_threat'))}</span><strong>${res.T}/5</strong></div>
+          <div><span>${esc(t('gng_vuln'))}</span><strong>${res.V}/5</strong></div><div><span>${esc(t('gng_resid'))}</span><strong>${res.R}/25</strong></div></div></div></div>
+      ${res.note ? `<p><strong>${esc(res.note)}</strong></p>` : ''}
+      <p><strong>${esc(t('gng_factors'))}</strong></p>${li(th.factors.map(esc))}
+      <p><strong>${esc(t('gng_conditions'))}</strong></p>${res.conditions.length ? li(res.conditions.map(esc)) : `<p>${esc(t('gng_noconds'))}</p>`}
+      <div class="site-actions buddy-actions"><a class="btn small primary" href="brief.html?${q.toString()}" target="_blank" rel="noopener">${icon('file-text', 13)}${esc(t('gng_brief'))}</a>
+        ${AI_URL ? `<button class="btn small" data-gng-ai="${esc(JSON.stringify({ iso: f.iso, city: f.city, from: f.from, to: f.to, T: res.T, V: res.V, R: res.R, label: res.label, cond: res.conditions, factors: th.factors }))}">${esc(t('gng_ai'))}</button>` : ''}</div>
+      <p class="muted">${esc(t('gng_disclaimer'))}</p>`;
+  }
+  function evalGng(form) {
+    const fd = Object.fromEntries(new FormData(form).entries());
+    const f = { iso: fd.iso, city: (fd.city || '').trim(), from: fd.from, to: fd.to };
+    const answers = {}; GNG.QUESTIONS.forEach(q => { answers[q.id] = fd[q.id]; });
+    store.set('vs-gng', answers);
+    const cp = f.city ? cityPoint(f.city) : null;
+    const th = GNG.threat({ iso: f.iso, point: cp && cp[3] === f.iso ? { lat: cp[0], lon: cp[1] } : null, from: f.from, to: f.to, lang: state.lang });
+    const res = GNG.evaluate(answers, th, state.lang);
+    buddy.log.push({ role: 'user', text: `${t('gng_title')} : ${countryName(f.iso)}${f.city ? ' (' + f.city + ')' : ''}, ${f.from} → ${f.to}` });
+    buddy.log.push({ role: 'assistant', html: gngResultHtml(f, th, res), text: `${res.label} (M${res.T} × V${res.V})`, mode: 'local' });
+    closeGng(); renderBuddy();
+  }
+  async function gngAi(data) {
+    buddy.busy = true; renderBuddy();
+    const c = collect(data.iso, { cities: [], isos: [data.iso] }, ['security', 'route']);
+    const cal = ((window.VS_CALENDAR || {}).events || []).filter(e => e.iso === data.iso && e.d >= data.from && e.d <= data.to).map(e => `AGENDA: ${e.d} ${e.t_fr}`).join('\n');
+    const q = `Évaluation go/no-go : ${countryName(data.iso)}${data.city ? ' (' + data.city + ')' : ''}, du ${data.from} au ${data.to}. Menace ${data.T}/5, vulnérabilité ${data.V}/5, risque résiduel ${data.R}/25. Décision calculée : ${data.label}. Facteurs : ${data.factors.join(' ; ')}. Conditions : ${data.cond.join(' ; ') || 'aucune'}.`;
+    try {
+      const answer = await aiCall('gonogo', q, contextText(c) + (cal ? '\n' + cal : ''));
+      buddy.log.push({ role: 'assistant', html: mdToHtml(answer), text: answer, mode: 'ai' });
+    } catch (e) { buddy.log.push({ role: 'assistant', html: `<p class="muted">${esc(t('buddy_ai_down'))}</p>`, mode: 'local' }); }
+    buddy.busy = false; renderBuddy();
+  }
+  function bindGng() {
+    $('#gng-open').innerHTML = icon('clipboard-check', 13) + esc(t('gng_open'));
+    $('#gng-open').hidden = !GNG;
+    $('#gng-open').addEventListener('click', () => openGng());
+    $('#gng-panel').addEventListener('submit', ev => { ev.preventDefault(); evalGng(ev.target); });
+    $('#gng-panel').addEventListener('click', ev => { if (ev.target.closest('#gng-cancel')) closeGng(); });
+    $('#gng-panel').addEventListener('change', ev => { if (ev.target.name === 'iso') $('#gng-cities').innerHTML = CITY_INDEX.filter(c => c.iso === ev.target.value).slice(0, 50).map(c => `<option value="${esc(c.name)}">`).join(''); });
+  }
+
   /* ------------------------------------------------------------------ My travel buddy */
   /* Assistant de voyage : repère le(s) pays et villes de la question, rassemble les données Angor
      (risque, avis MEAE/FCDO/US, incidents, fiche culturelle, santé, prestataires) puis :
      - avec un Worker IA configuré (settings.buddy_url) : réponse rédigée par Claude à partir de ce contexte ;
      - sinon : réponse structurée construite localement à partir des mêmes données (gratuit, hors ligne). */
-  const BUDDY_URL = (D && D.settings && D.settings.buddy_url) || '';
   const buddy = { log: [], busy: false, loaded: null };
   const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ' ');
   function loadScript(src) {
@@ -1421,6 +1784,7 @@
     security: /securi|risque|risk|danger|safe|sur\b|menace|threat|terror|enlev|kidnap|attentat|situation|manif|protest/,
     providers: /prestataire|protection rapprochee|garde du corps|bodyguard|escort|evacuation|provider|securite privee/,
     telecom: /telephone|sim|reseau|internet|4g|satellite|phone|prise|plug|voltage/,
+    agenda: /ferie|holiday|election|vote|scrutin|referendum|ramadan|aid |eid|fete|agenda|calendrier|calendar|greve|strike/,
   };
   const intentsOf = q => Object.entries(INTENTS).filter(([, re]) => re.test(norm(q))).map(([k]) => k);
   function kmToSegment(p, a, b) {
@@ -1472,6 +1836,11 @@
     if (p.emergency) L.push(`URGENCES: ${(p.emergency || []).join(', ')} ; indicatif ${(p.calling_code || []).join(', ')} ; prises ${(p.plugs || []).join(', ')} ; tension ${(p.voltage || []).join('/')} V ; opérateurs ${(p.operators || []).join(', ')}`);
     c.hospitals.forEach(h => L.push(`HÔPITAL: ${h.name} (${h.city || '?'})${h.beds ? ', ' + h.beds + ' lits' : ''}${h.web ? ', ' + h.web : ''}`));
     c.provs.forEach(pv => L.push(`PRESTATAIRE: ${pv.name} — ${(pv.services || []).join(',')} — ${pv.web || ''}`));
+    const pu = PULSE[c.iso]; if (pu) L.push(`PULSE (stabilité 0-100): ${pu.value}${pu.d7 != null ? ', variation 7 j ' + pu.d7 : ''}`);
+    CRISES.filter(x => x.country === c.iso && x.status === 'active').slice(0, 3).forEach(x => L.push(`CRISE EN COURS: ${x.title} — ${x.n} incidents depuis ${x.start.slice(0, 10)}, tendance ${x.trend} — ${x.summary_fr}`));
+    const today = new Date().toISOString().slice(0, 10), end = new Date(Date.now() + 120 * 864e5).toISOString().slice(0, 10);
+    agendaItems(today, end, new Set([c.iso])).filter(e => e.iso === c.iso || (e.type === 'religious' && MUSLIM.has(c.iso))).slice(0, 10)
+      .forEach(e => L.push(`AGENDA: ${e.d}${e.e ? '→' + e.e : ''} ${e.type} — ${e.t_fr}${e.prec && e.prec !== 'day' ? ' (date approximative)' : ''}`));
     return L.join('\n');
   }
   const li = xs => `<ul>${xs.filter(Boolean).map(x => `<li>${x}</li>`).join('')}</ul>`;
@@ -1522,12 +1891,17 @@
           ...c.hospitals.slice(0, 3).map(x => `${esc(x.name)}${x.city ? ' (' + esc(x.city) + ')' : ''}`)]));
       }
       if (all.includes('emergency') || all.includes('health')) parts.push(`<p><strong>${fr ? 'Urgences' : 'Emergency'}</strong> : ${esc((p.emergency || []).join(' · ') || '—')} · ${fr ? 'indicatif' : 'code'} ${esc((p.calling_code || []).join(', ') || '—')}</p>`);
+      if (all.includes('agenda')) {
+        const today = new Date().toISOString().slice(0, 10), end = new Date(Date.now() + 120 * 864e5).toISOString().slice(0, 10);
+        const items = agendaItems(today, end, new Set([iso])).filter(e => e.iso === iso || (e.type === 'religious' && MUSLIM.has(iso))).slice(0, 10);
+        parts.push(`<p><strong>${fr ? 'Agenda (4 prochains mois)' : 'Agenda (next 4 months)'}</strong></p>` + (items.length ? li(items.map(e => `${e.prec === 'year' ? esc(e.d.slice(0, 4)) + ` (${fr ? 'date à préciser' : 'date tbc'})` : esc(fmtDay(e.d))} — ${esc(agTitle(e))}${e.type === 'religious' ? ` <span class="muted">(${fr ? 'date indicative' : 'indicative date'})</span>` : ''}`)) : `<p class="muted">${esc(t('no_upcoming'))}</p>`));
+      }
       if (all.includes('telecom')) parts.push(`<p><strong>${fr ? 'Télécoms' : 'Telecoms'}</strong> : ${esc((p.operators || []).join(', ') || '—')} · ${fr ? 'prises' : 'plugs'} ${esc((p.plugs || []).join(', ') || '—')} · ${esc((p.voltage || []).join('/'))} V</p>`);
       if (all.includes('providers') || (all.includes('route') && (c.level || 0) >= 3)) parts.push(`<p><strong>${fr ? 'Prestataires (sécurité / évacuation)' : 'Providers (security / evacuation)'}</strong></p>` + li(c.provs.map(pv => `<a href="${esc(pv.web)}" target="_blank" rel="noopener">${esc(pv.name)}</a>`)));
       parts.push(`<p class="muted"><a href="report.html#${iso}" target="_blank" rel="noopener">${fr ? 'Rapport pays complet (PDF)' : 'Full country report (PDF)'}</a> · <a href="brief.html#${iso}${(cc => cc ? '|' + encodeURIComponent(cc.name) : '')((det.cities || []).find(x => x.iso === iso))}" target="_blank" rel="noopener">${fr ? 'Préparer un brief de mission' : 'Prepare a mission brief'}</a></p>`);
       out.push(parts.join(''));
     });
-    return out.join('<hr>') + `<p class="muted">${fr ? 'Réponse construite à partir des données Angor (avis officiels, incidents, fiches) — à vérifier avant décision.' : 'Answer built from Angor data — verify before deciding.'}</p>`;
+    return out.join('<hr>') + buddyExtras(det, intents) + `<p class="muted">${fr ? 'Réponse construite à partir des données Angor (avis officiels, incidents, fiches) — à vérifier avant décision.' : 'Answer built from Angor data — verify before deciding.'}</p>`;
   }
   function mdToHtml(md) {
     let h = esc(md).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/^#{1,4} (.+)$/gm, '<h4>$1</h4>');
@@ -1536,15 +1910,14 @@
   }
   async function ask(q) {
     await ensureBuddyData();
+    await new Promise(r => ensureCalendar(r));
     const det = detect(q), intents = intentsOf(q);
-    if (!BUDDY_URL || !det.isos.length) return { html: localAnswer(q, det, intents), mode: 'local' };
+    if (det.isos.length) buddy.lastIso = det.isos[0];
+    if (!AI_URL || !det.isos.length) return { html: localAnswer(q, det, intents), mode: 'local' };
     const ctx = det.isos.map(iso => contextText(collect(iso, det, intents.length ? intents : ['security']))).join('\n\n').slice(0, 14000);
     try {
-      const r = await fetch(BUDDY_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ q, lang: state.lang, context: ctx, history: buddy.log.slice(-4).map(m => ({ role: m.role, content: m.text.slice(0, 1500) })) }) });
-      const j = await r.json();
-      if (!r.ok || !j.answer) throw new Error(j.error || r.status);
-      return { html: mdToHtml(j.answer), mode: 'ai', text: j.answer };
+      const answer = await aiCall('buddy', q, ctx, buddy.log.slice(-4).map(m => ({ role: m.role, content: m.text.slice(0, 1500) })));
+      return { html: mdToHtml(answer) + buddyExtras(det, intents), mode: 'ai', text: answer };
     } catch (e) {
       return { html: `<p class="muted">${t('buddy_ai_down')}</p>` + localAnswer(q, det, intents), mode: 'local' };
     }
@@ -1559,7 +1932,7 @@
       : `<div class="bmsg bot">${esc(t('buddy_hello'))}</div>`;
     log.scrollTop = log.scrollHeight;
     $('#buddy-suggest').innerHTML = buddy.log.length ? '' : t('buddy_examples').map(x => `<button type="button" class="chip">${esc(x)}</button>`).join('');
-    $('#buddy-mode').textContent = BUDDY_URL ? t('buddy_ai_on') : t('buddy_ai_off');
+    $('#buddy-mode').textContent = AI_URL ? t('buddy_ai_on') : t('buddy_ai_off');
   }
   async function sendBuddy(q) {
     q = (q || '').trim();
@@ -1574,7 +1947,12 @@
     $('#buddy-form').addEventListener('submit', ev => { ev.preventDefault(); const v = $('#buddy-input').value; $('#buddy-input').value = ''; sendBuddy(v); });
     $('#buddy-input').addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); $('#buddy-form').requestSubmit(); } });
     $('#buddy-suggest').addEventListener('click', ev => { const b = ev.target.closest('.chip'); if (b) sendBuddy(b.textContent); });
-    $('#buddy-log').addEventListener('click', ev => { const a = ev.target.closest('[data-buddy-event]'); if (a) { ev.preventDefault(); openEvent(a.dataset.buddyEvent); } });
+    $('#buddy-log').addEventListener('click', ev => {
+      const a = ev.target.closest('[data-buddy-event]'); if (a) { ev.preventDefault(); openEvent(a.dataset.buddyEvent); return; }
+      const cor = ev.target.closest('[data-buddy-corridor]'); if (cor) { const c = JSON.parse(cor.dataset.buddyCorridor); saveCorridor({ ...c, buffer_km: 25, min_severity: 1 }); return; }
+      const g = ev.target.closest('[data-gng-start]'); if (g) { openGng(g.dataset.gngStart, g.dataset.gngCity || ''); return; }
+      const ai = ev.target.closest('[data-gng-ai]'); if (ai) { ai.disabled = true; gngAi(JSON.parse(ai.dataset.gngAi)); }
+    });
     $('#buddy-clear').addEventListener('click', () => { buddy.log = []; renderBuddy(); });
   }
 
@@ -1592,8 +1970,9 @@
   if (mv.length === 3 && mv.every(isFinite)) map.setView([mv[0], mv[1]], mv[2]);
   ensureArchives(() => {
     renderAll();
-    const ce = PARAMS.get('e'), cc = (PARAMS.get('c') || PARAMS.get('country') || '').toUpperCase();
-    if (ce && EVENTS.some(x => x.id === ce)) openEvent(ce, !mv.length || mv.length !== 3);
+    const ce = PARAMS.get('e'), cc = (PARAMS.get('c') || PARAMS.get('country') || '').toUpperCase(), ck = PARAMS.get('k');
+    if (ck && CRISES.some(x => x.id === ck)) openCrisis(ck, mv.length !== 3);
+    else if (ce && EVENTS.some(x => x.id === ce)) openEvent(ce, !mv.length || mv.length !== 3);
     else if (cc && countryProps[cc]) openCountry(cc, mv.length !== 3);
   });
   const hash = decodeURIComponent(location.hash.slice(1));

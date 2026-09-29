@@ -60,6 +60,30 @@ def haversine_km(lat1, lon1, lat2, lon2):
     return 2 * r * math.asin(math.sqrt(a))
 
 
+def km_to_segment(lat, lon, a, b):
+    """Distance (km) d'un point au segment [a, b] (a, b = (lat, lon)), projection locale équirectangulaire."""
+    k = math.cos(math.radians(lat))
+    ax, ay = (a[1] - lon) * 111.32 * k, (a[0] - lat) * 110.57
+    bx, by = (b[1] - lon) * 111.32 * k, (b[0] - lat) * 110.57
+    dx, dy = bx - ax, by - ay
+    t = 0.0 if dx == dy == 0 else max(0.0, min(1.0, -(ax * dx + ay * dy) / (dx * dx + dy * dy)))
+    return math.hypot(ax + t * dx, ay + t * dy)
+
+
+def km_to_route(lat, lon, points):
+    """Distance (km) d'un point à un trajet (liste de points [lat, lon])."""
+    if len(points) == 1:
+        return haversine_km(lat, lon, points[0][0], points[0][1])
+    return min(km_to_segment(lat, lon, points[i], points[i + 1]) for i in range(len(points) - 1))
+
+
+def distance_to(target, lat, lon):
+    """Distance d'un événement à un site (point) ou à un trajet surveillé (« points »)."""
+    if target.get("points"):
+        return km_to_route(lat, lon, target["points"])
+    return haversine_km(target["lat"], target["lon"], lat, lon)
+
+
 def _point_in_ring(x, y, ring):
     inside = False
     j = len(ring) - 1

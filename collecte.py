@@ -17,11 +17,11 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import (__version__, ai, analytics, config, enrich, notify, practical, press, profiles, publish, pulse,
-                    quality, risk)
+from veille import (__version__, agenda, ai, analytics, config, crises, enrich, notify, practical, press, profiles,
+                    publish, pulse, quality, risk)
 from veille.connectors import REGISTRY, Context
 from veille.dedupe import dedupe
-from veille.geo import Countries, haversine_km
+from veille.geo import Countries, distance_to
 from veille.http import AuthMissing
 from veille.model import now_iso, parse_iso, taxonomy, to_iso
 
@@ -42,16 +42,16 @@ def config_signature(src):
 
 
 def site_alerts(events, sites, min_severity):
-    """Événements situés dans le rayon de vigilance d'un site (base des futures alertes e-mail/Telegram)."""
+    """Événements situés dans le rayon de vigilance d'un site ou le long d'un trajet surveillé."""
     hits = []
     for site in sites:
         for ev in events:
             if ev["severity"] < site.get("min_severity", min_severity) or ev.get("confidence") == "low":
                 continue
-            d = haversine_km(site["lat"], site["lon"], ev["lat"], ev["lon"])
+            d = distance_to(site, ev["lat"], ev["lon"])
             if d <= site.get("radius_km", 50):
-                hits.append({"site": site["name"], "event": ev["id"], "distance_km": round(d, 1),
-                             "severity": ev["severity"], "title": ev["title"]})
+                hits.append({"site": site["name"], "kind": site.get("kind", "site"), "event": ev["id"],
+                             "distance_km": round(d, 1), "severity": ev["severity"], "title": ev["title"]})
     return sorted(hits, key=lambda h: (-h["severity"], h["distance_km"]))
 
 
@@ -71,9 +71,13 @@ def main():
     sources = config.load_json("sources.json")["sources"]
     settings = config.load_json("settings.json", {})
     # vos vrais sites vont dans config/sites.local.json (jamais envoyé sur GitHub)
-    sites = (config.load_json("sites.local.json") or config.load_json("sites.json", {"sites": []}))["sites"]
+    site_cfg = config.load_json("sites.local.json") or config.load_json("sites.json", {"sites": []})
     if os.environ.get("SITES_JSON"):  # en ligne : vrais sites fournis par un Secret GitHub, jamais publiés
-        sites = json.loads(os.environ["SITES_JSON"]).get("sites", [])
+        site_cfg = json.loads(os.environ["SITES_JSON"])
+    sites = site_cfg.get("sites", [])
+    # trajets surveillés (corridors) : traités comme des sites en forme de ligne (« points » + zone tampon)
+    corridors = [{**c, "kind": "corridor", "radius_km": c.get("buffer_km", 25)}
+                 for c in site_cfg.get("corridors", []) if len(c.get("points") or []) >= 2]
 
     if args.list:
         for s in sources:
@@ -181,8 +185,16 @@ def main():
 
     advisories = {v["name"]: v["data"] for v in store["advisories"].values()}
     country_risk = risk.compute(all_events, advisories, now, config.load_json("risk.json", {}))
-    alerts = site_alerts(events, sites, settings.get("site_alert_min_severity", 2))
+    watched = sites + corridors
+    alerts = site_alerts(events, watched, settings.get("site_alert_min_severity", 2))
     pulse_idx = pulse.compute(all_events, country_risk, store, now)
+    pulse.explain(pulse_idx, events, store, settings, now, log, countries)
+    crisis_list = crises.build(events, now, store=store, settings=settings, log=log, countries=countries)
+    try:
+        agenda_events = agenda.update(countries, store, settings, log, now) if not args.no_profiles else []
+    except Exception as exc:
+        agenda_events = []
+        log(f"✘ agenda : {type(exc).__name__}: {exc}")
 
     # En ligne (GitHub Pages), la localisation de vos sites ne doit jamais être publiée.
     public = os.environ.get("VS_PUBLIC") == "1" or not settings.get("publish_sites", True)
@@ -191,18 +203,22 @@ def main():
         "events": events, "countries": country_risk,
         "news": sorted(store["news"].values(), key=lambda n: n["date"], reverse=True),
         "status": list(store["status"].values()),
-        "sites": [] if public else sites, "site_alerts": [] if public else alerts,
+        "sites": [] if public else sites, "corridors": [] if public else corridors,
+        "site_alerts": [] if public else alerts,
         "settings": {"product_name": product, "default_lang": settings.get("default_lang", "fr"),
-                     "buddy_url": settings.get("buddy_url", "")},
+                     "buddy_url": settings.get("buddy_url", ""),
+                     "ai_url": settings.get("ai_url") or settings.get("buddy_url", "")},
+        "crises": crisis_list,
         "country_stats": analytics.country_stats(all_events, now), "archives": archives,
         "analytics": analytics.global_series(all_events, now),
         "pulse": pulse_idx,
         "verified": {k: {x: v[x] for x in ("status", "severity", "category", "note", "date", "admiralty") if x in v}
                      for k, v in verified.items()},
     }
-    notify.send(events, sites, store, settings, log, now)
+    notify.send(events, watched, store, settings, log, now)
     notify.send_pulse_alerts(pulse.alerts(pulse_idx, store, settings, now), settings, log, countries)
-    notify.send_digest(events, country_risk, pulse_idx, store, settings, log, now, countries, payload["news"])
+    notify.send_digest(events, country_risk, pulse_idx, store, settings, log, now, countries, payload["news"],
+                       crisis_list, agenda_events)
     publish.write_outputs(payload)
     econ_by_country = {}
     for e in sorted(store["econ"].values(), key=lambda x: x["date"], reverse=True):
@@ -212,7 +228,8 @@ def main():
     publish.save_store(store)
 
     log(f"→ {len(events)} événements publiés, {len(country_risk)} pays notés, "
-        f"{len(payload['news'])} articles dans le fil, {len(alerts)} alerte(s) près de vos sites.")
+        f"{len(payload['news'])} articles dans le fil, {len(crisis_list)} chronologie(s) de crise, "
+        f"{len(alerts)} alerte(s) près de vos sites et trajets.")
     for a in alerts[:5]:
         log(f"   ⚠ {a['site']} : {a['title']} à {a['distance_km']} km (gravité {a['severity']})")
     log("Ouvrez docs/index.html dans votre navigateur.")

@@ -1,5 +1,6 @@
 /**
- * « My travel buddy » – relais IA pour angor.fr (Cloudflare Worker, offre gratuite).
+ * Relais IA d'angor.fr (Cloudflare Worker, offre gratuite) : « My travel buddy », avis go/no-go, synthèse du brief.
+ * La carte envoie { task: "buddy" | "gonogo" | "brief", q, context, history, lang }.
  *
  * Le site est statique : il ne peut pas cacher de clé. Ce petit relais garde la clé Anthropic
  * côté serveur, n'accepte que les requêtes venant d'angor.fr, limite le nombre de questions par jour
@@ -31,6 +32,21 @@ Règles :
 - Refuse poliment toute demande illégale, d'atteinte à des personnes ou sans rapport avec le voyage et la sûreté.
 - Termine par une ligne « À vérifier avant décision » si la situation est évolutive.`;
 
+// Autres tâches demandées par la carte (même relais, même quota)
+const TASKS = {
+  buddy: { system: SYSTEM, max_tokens: 900 },
+  gonogo: { max_tokens: 700, system: `Tu es le responsable sûreté d'Angor Intelligence. On te donne une évaluation go/no-go
+déjà calculée (menace, vulnérabilité, décision, conditions) et le contexte Angor du pays. Rédige un avis motivé de
+120 mots maximum, en français (ou dans la langue demandée) : décision recommandée, 2 ou 3 raisons principales tirées
+du contexte (cite [MEAE], [FCDO], [US], [Incidents Angor], [Agenda]), conditions indispensables avant le départ.
+Ne contredis pas la décision calculée sauf incohérence manifeste, que tu signales alors explicitement.
+N'invente aucun fait. Termine par « Avis indicatif – décision finale : responsable sûreté / direction. »` },
+  brief: { max_tokens: 600, system: `Tu es analyste sûreté chez Angor Intelligence. À partir du CONTEXTE ANGOR fourni,
+rédige la synthèse d'un brief de mission : 4 à 6 phrases (110 mots maximum), factuelles, sans liste, sur la
+situation sécuritaire de la destination et de la ville pour les dates indiquées, les points d'attention et la
+posture recommandée. Cite tes appuis entre crochets. N'invente rien.` },
+};
+
 const json = (obj, status, headers) => new Response(JSON.stringify(obj), { status, headers: { ...headers, 'Content-Type': 'application/json' } });
 
 export default {
@@ -44,6 +60,7 @@ export default {
 
     let body;
     try { body = await req.json(); } catch (e) { return json({ error: 'bad_request' }, 400, cors); }
+    const task = TASKS[body.task] ? body.task : 'buddy';
     const q = String(body.q || '').slice(0, 800).trim();
     const context = String(body.context || '').slice(0, 14000);
     const history = Array.isArray(body.history) ? body.history.slice(-4)
@@ -72,7 +89,7 @@ export default {
     const r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model: env.MODEL || 'claude-haiku-4-5', max_tokens: 900, system: SYSTEM, messages: msgs }),
+      body: JSON.stringify({ model: env.MODEL || 'claude-haiku-4-5', max_tokens: TASKS[task].max_tokens, system: TASKS[task].system, messages: msgs }),
     });
     if (!r.ok) return json({ error: 'upstream_' + r.status }, 502, cors);
     const data = await r.json();

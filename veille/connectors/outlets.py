@@ -19,7 +19,10 @@ from .gnews import EDITIONS, TERMS, URL, parse_items
 KIND = "events"
 LANG_EDITION = {"fr": "fr-FR", "en": "en-US", "es": "es-MX", "pt": "pt-BR", "de": "de-DE", "it": "it-IT",
                 "nl": "nl-NL", "pl": "pl-PL", "tr": "tr-TR", "ru": "ru-RU", "uk": "uk-UA", "ar": "ar-EG",
-                "he": "he-IL", "id": "id-ID"}
+                "he": "he-IL", "id": "id-ID", "th": "th-TH", "zh": "zh-CN", "bn": "bn-BD",
+                # pas d'édition Google News dans ces langues : édition internationale, mots-clés dans la langue du média
+                "fa": "en-US", "ur": "en-US", "am": "en-US", "so": "en-US"}
+CHUNK = 6  # médias par requête (au-delà, la requête est découpée)
 
 
 def queries(catalog, countries, themes=("security",)):
@@ -31,14 +34,16 @@ def queries(catalog, countries, themes=("security",)):
             lang = o[2] if o[2] in LANG_EDITION else "en"
             groups.setdefault((lang, len(o) > 3 and o[3] == "+"), []).append(o)
         for (lang, with_name), items in sorted(groups.items()):
-            sites = " OR ".join(f"site:{o[1]}" for o in items)
             name = ""
             if with_name:
                 n = countries.name(iso, "fr" if lang == "fr" else "en") if countries else iso
                 name = f'"{n}" '
-            for theme in themes:
-                terms = TERMS[theme].get(lang, TERMS[theme]["en"])
-                out.append((iso, lang, theme, f"{name}({sites}) ({terms}) when:2d", [o[0] for o in items]))
+            for k in range(0, len(items), CHUNK):
+                part = items[k:k + CHUNK]
+                sites = " OR ".join(f"site:{o[1]}" for o in part)
+                for theme in themes:
+                    terms = TERMS[theme].get(lang, TERMS[theme]["en"])
+                    out.append((iso, lang, theme, f"{name}({sites}) ({terms}) when:2d", [o[0] for o in part]))
     return out
 
 

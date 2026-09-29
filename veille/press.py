@@ -1,6 +1,7 @@
 """Analyse légère des titres de presse, sans IA : thème, catégorie, gravité et lieu.
 
-- Catégorie et gravité : dictionnaires de mots-clés en 12 langues (en, fr, es, pt, de, it, nl, pl, tr, ru, uk, ar).
+- Catégorie et gravité : dictionnaires de mots-clés en 21 langues (en, fr, es, pt, de, it, nl, pl, tr, ru, uk, ar,
+  he, id, th, zh, fa, ur, bn, am, so).
 - Lieu : pays cité (noms anglais/français) puis ville de ce pays (GeoNames, villes > 15 000 hab.,
   noms dans toutes les langues). Le dictionnaire GeoNames (licence CC BY 4.0) est téléchargé
   automatiquement une seule fois dans data/geonames/.
@@ -84,6 +85,52 @@ CATEGORY_WORDS = {
                      "hitzewelle", "fala upałów", "sıcak hava dalgası", "жара", "موجة حر", "cold wave", "vague de froid"],
     "drought": ["drought", "sécheresse", "sequía", "seca", "siccità", "dürre", "susza", "kuraklık", "засух", "جفاف", "famine"],
 }
+# Langues ajoutées en v0.9 (presse des 25 pays) : hébreu, indonésien, thaï, chinois, persan, ourdou,
+# bengali, amharique, somali. Listes volontairement courtes : les mots les moins ambigus.
+EXTRA_WORDS = {
+    "terrorism": ["טרור", "מחבל", "teroris", "terorisme", "bom bunuh diri", "ก่อการร้าย", "恐怖袭击", "恐怖襲擊", "恐袭",
+                  "تروریست", "دہشت گرد", "دہشتگرد", "دہشت گردی", "জঙ্গি", "সন্ত্রাস", "አሸባሪ", "argagax"],
+    "attack": ["פיגוע", "פיצוץ", "ירי", "חטיפה", "חטוף", "serangan", "ledakan", "penembakan", "penculikan", "sandera",
+               "โจมตี", "ระเบิด", "ลอบยิง", "กราดยิง", "ลักพาตัว", "ตัวประกัน", "袭击", "襲擊", "爆炸", "枪击", "槍擊", "持刀",
+               "砍人", "绑架", "綁架", "人质", "人質", "纵火", "縱火", "حمله", "تیراندازی", "گروگان", "حملہ", "دھماکہ",
+               "دھماکا", "فائرنگ", "اغوا", "یرغمال", "হামলা", "বিস্ফোরণ", "গুলি", "অপহরণ", "ጥቃት", "ፍንዳታ", "እገታ",
+               "weerar", "qarax", "toogasho", "afduub"],
+    "armed_conflict": ["רקטות", "רקטה", "טילים", "יירוט", "אזעקות", "תקיפה", "bentrok", "kontak senjata", "kkb",
+                       "ปะทะ", "สู้รบ", "ขีปนาวุธ", "交火", "空袭", "空襲", "导弹", "導彈", "军事冲突", "軍事衝突",
+                       "درگیری", "پهپاد", "موشک", "بمباران", "جنگ", "جھڑپ", "ڈرون", "میزائل", "ውጊያ", "ግጭት",
+                       "dagaal", "duqeyn"],
+    "unrest": ["הפגנה", "הפגנות", "מהומות", "שביתה", "demonstrasi", "unjuk rasa", "kerusuhan", "mogok",
+               "gas air mata", "ชุมนุม", "ประท้วง", "จลาจล", "นัดหยุดงาน", "แก๊สน้ำตา", "抗议", "抗議", "示威",
+               "骚乱", "騷亂", "罢工", "罷工", "群体性事件", "催泪", "催淚", "اعتراض", "تجمع", "اعتصاب", "تظاهرات",
+               "ناآرامی", "احتجاج", "مظاہرہ", "ہڑتال", "دھرنا", "বিক্ষোভ", "সংঘর্ষ", "হরতাল", "অবরোধ", "কারফিউ",
+               "ተቃውሞ", "ሰልፍ", "banaanbax", "mudaaharaad"],
+    "political": ["מצב חירום", "בחירות", "kudeta", "keadaan darurat", "pemilu", "รัฐประหาร", "ภาวะฉุกเฉิน",
+                  "กฎอัยการศึก", "เลือกตั้ง", "政变", "政變", "紧急状态", "緊急狀態", "戒严", "戒嚴", "选举", "選舉",
+                  "کودتا", "انتخابات", "تحریم", "اعدام", "مارشل لاء", "ایمرجنسی", "জরুরি অবস্থা", "নির্বাচন",
+                  "አስቸኳይ ጊዜ", "ምርጫ", "doorasho", "xaalad degdeg"],
+    "crime": ["רצח", "נרצח", "pembunuhan", "perampokan", "narkoba", "ฆาตกรรม", "ปล้น", "ยาเสพติด", "谋杀", "謀殺",
+              "凶杀", "兇殺", "抢劫", "搶劫", "贩毒", "販毒", "黑帮", "黑幫", "سرقت", "قاچاق", "ڈکیتی", "منشیات",
+              "হত্যা", "ডাকাতি", "মাদক", "ግድያ"],
+    "cyber": ["סייבר", "peretasan", "serangan siber", "แฮก", "网络攻击", "網絡攻擊", "黑客", "勒索软件", "حمله سایبری", "هکر"],
+    "infrastructure": ["pemadaman listrik", "ไฟดับ", "ตกราง", "停电", "停電", "脱轨", "出軌", "坍塌", "矿难", "礦難",
+                       "قطعی برق", "خاموشی", "قطع اینترنت", "বিদ্যুৎ বিভ্রাট"],
+    "health": ["מגפה", "wabah", "demam berdarah", "kolera", "โรคระบาด", "ไข้เลือดออก", "อหิวาต์", "疫情", "霍乱", "霍亂",
+               "登革热", "登革熱", "禽流感", "شیوع", "وبا", "ڈینگی", "پولیو", "ہیضہ", "ডেঙ্গু", "কলেরা", "ወረርሽኝ",
+               "ኮሌራ", "daacuun"],
+    "earthquake": ["רעידת אדמה", "gempa", "แผ่นดินไหว", "地震", "زلزله", "زمین لرزه", "زلزلہ", "ভূমিকম্প",
+                   "የመሬት መንቀጥቀጥ", "dhulgariir"],
+    "flood": ["שיטפון", "שיטפונות", "banjir", "น้ำท่วม", "洪水", "洪灾", "洪災", "内涝", "سیل", "سیلاب", "বন্যা", "ጎርፍ",
+              "fatahaad"],
+    "cyclone": ["siklon", "ไต้ฝุ่น", "台风", "颱風", "ঘূর্ণিঝড়"],
+    "storm": ["puting beliung", "พายุ", "龙卷风", "龍捲風", "冰雹", "暴风", "طوفان", "آندھی", "ঝড়"],
+    "wildfire": ["kebakaran hutan", "karhutla", "ไฟป่า", "山火", "森林火灾", "森林火災", "آتش سوزی جنگل"],
+    "volcano": ["erupsi", "gunung api", "ภูเขาไฟ", "火山"],
+    "landslide": ["longsor", "ดินถล่ม", "山体滑坡", "山泥傾瀉", "泥石流", "رانش زمین", "لینڈ سلائیڈنگ", "ভূমিধস"],
+    "extreme_temp": ["gelombang panas", "คลื่นความร้อน", "热浪", "熱浪", "寒潮", "موج گرما", "ہیٹ ویو", "তাপপ্রবাহ"],
+    "drought": ["kekeringan", "ภัยแล้ง", "干旱", "乾旱", "خشکسالی", "খরা", "ድርቅ", "abaar"],
+}
+for _c, _ws in EXTRA_WORDS.items():
+    CATEGORY_WORDS[_c] = CATEGORY_WORDS[_c] + _ws
 # ordre de priorité quand plusieurs catégories correspondent
 PRIORITY = ["terrorism", "armed_conflict", "attack", "earthquake", "cyclone", "flood", "volcano", "wildfire",
             "landslide", "health", "political", "unrest", "cyber", "infrastructure", "crime", "storm",
@@ -138,12 +185,29 @@ def norm(text):
     return re.sub(r"\s+", " ", text.lower()).strip()
 
 
+# Écritures sans espace entre les mots (thaï, chinois, birman) ou à préfixes collés (éthiopien) :
+# recherche en sous-chaîne. Hébreu et écriture arabe : préfixes courants autorisés (ה/ב/ו/ל…, و/ب/ال…).
+_NOSPACE = re.compile(r"[\u0E00-\u0E7F\u3400-\u9FFF\uF900-\uFAFF\u1000-\u109F\u1200-\u139F]")
+_HEBREW = re.compile(r"[\u0590-\u05FF]")
+_ARABIC = re.compile(r"[\u0600-\u06FF]")
+
+
+def _alt(p):
+    if _NOSPACE.search(p):
+        return re.escape(p)
+    pre = r"(?<!\w)"
+    if _HEBREW.search(p):
+        pre += "(?:[הבולמשכ]{1,2})?"
+    elif _ARABIC.search(p):
+        pre += "(?:[وفبل])?(?:ال|لل)?"
+    return pre + re.escape(p) + (r"(?!\w)" if len(p) <= 4 else "")
+
+
 def _word_re(words):
     """Racines longues : début de mot (« manifest » → manifestation). Mots courts : mot entier
-    (« coup » ne doit pas trouver « coupure »)."""
-    parts = sorted({norm(w).strip() for w in words}, key=len, reverse=True)
-    alts = [re.escape(p) + (r"(?!\w)" if len(p) <= 4 else "") for p in parts]
-    return re.compile(r"(?<!\w)(?:" + "|".join(alts) + ")", re.I)
+    (« coup » ne doit pas trouver « coupure »). Voir _alt pour les écritures non latines."""
+    parts = sorted({norm(w).strip() for w in words if norm(w).strip()}, key=len, reverse=True)
+    return re.compile("|".join(_alt(p) for p in parts), re.I)
 
 
 _CAT_RE = {c: _word_re(ws) for c, ws in CATEGORY_WORDS.items()}
@@ -197,6 +261,7 @@ class Gazetteer:
         self.min_pop = min_pop
         self.big = {}              # grandes villes (> 1 M hab.) : nom → (ville, iso2)
         self.big_ambiguous = set()
+        self.nospace = {}          # iso2 → [(nom en thaï/chinois/birman…, entrée)] : recherche en sous-chaîne
 
     def load(self):
         if self.ready:
@@ -225,6 +290,10 @@ class Gazetteer:
                 d = self.by_country.setdefault(iso, {})
                 for n in names:
                     k = norm(n)
+                    if _NOSPACE.search(k):
+                        if len(k) >= 2 and pop >= 50000:
+                            self.nospace.setdefault(iso, []).append((k, entry))
+                        continue
                     if len(k) < 4 or k.isdigit() or k in STOP_PLACES or len(k.split()) > 4:
                         continue
                     if len(k) <= 3 and pop < 50000:
@@ -262,7 +331,15 @@ class Gazetteer:
         d = self.by_country.get(iso)
         if not d:
             return None
-        return self._match(title, d, allow_capital_bare, lang in PREP_LANGS)
+        hit = self._match(title, d, allow_capital_bare, lang in PREP_LANGS)
+        if hit or not _NOSPACE.search(title):
+            return hit
+        t = norm(title)  # titres en thaï, chinois… : nom de ville cherché dans le texte (le plus long, puis le plus peuplé)
+        found = [(len(k), e[3], e) for k, e in self.nospace.get(iso, []) if k in t]
+        if not found:
+            return None
+        e = max(found)[2]
+        return {"place": e[0], "lat": e[1], "lon": e[2], "capital": e[4]}
 
     def geocode(self, place, iso):
         """Coordonnées d'un lieu nommé (par l'IA) dans un pays donné."""
@@ -406,7 +483,8 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             url=first["url"], place=g["loc"]["place"], precision="city", country=g["loc"]["country"],
             confidence="low" if g.get("social") and n < 2 else conf,
             tags=["auto-detected", "unverified", "press"] + (["ai"] if g.get("ai") else []) + (["social"] if g.get("social") else []))
-        ev["sources"] = [{"name": x["outlet"], "url": x["url"], "title": x["title"]} for x in items[:8]]
+        ev["sources"] = [{"name": x["outlet"], "url": x["url"], "title": x["title"], **({"site": x["site"]} if x.get("site") else {})}
+                         for x in items[:8]]
         ev["headline"] = first["title"]
         if g.get("summary_fr"):
             ev["summary_fr"] = g["summary_fr"]

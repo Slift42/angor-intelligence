@@ -1,13 +1,16 @@
 """Source du catalogue config/press_outlets.json (médias de référence par pays).
 
-Format : ISO2 → liste de (nom, domaine, langue[, "+"])
-  langue : langue des mots-clés de recherche (fr, en, es, pt, de, it, nl, pl, tr, ru, uk, ar, he, id)
-  "+"    : média régional ou international → la requête ajoute le nom du pays
+Format : ISO2 → liste de (nom, domaine[/chemin], langue[, "+"[, fiabilité]])
+  langue    : langue des mots-clés de recherche (fr, en, es, pt, de, it, nl, pl, tr, ru, uk, ar, he, id,
+              th, zh, bn, fa, ur, am, so)
+  "+"       : média régional ou international → la requête ajoute le nom du pays ("" sinon)
+  fiabilité : lettre de la grille de l'Amirauté (A à F) ; « B » par défaut
 Critères : rédaction professionnelle identifiable, pas de relais de propagande d'État ;
 dans les pays sans presse libre, médias indépendants en exil ou références internationales.
 Regénérer : python tools/outlets_src.py
 """
 import json
+import re
 from pathlib import Path
 
 O = {
@@ -236,6 +239,110 @@ O = {
  "KY": [("Cayman Compass", "caymancompass.com", "en"), ("Cayman News Service", "caymannewsservice.com", "en"), ("Loop News", "loopnews.com", "en", "+")],
  "GL": [("Sermitsiaq", "sermitsiaq.ag", "en"), ("KNR", "knr.gl", "en"), ("Arctic Today", "arctictoday.com", "en", "+")],
 }
+
+# ---------------- Presse de 25 pays à risque (liste de Stef, presse_25_pays.csv, v0.9)
+# (nom, site, langue des mots-clés, "+" si le nom du pays est ajouté, fiabilité Amirauté A-F), par priorité P1 → P3
+PRESSE_25 = {
+ "NE": [('Aïr Info', 'airinfoagadez.com', 'fr', '', 'B'), ('Studio Kalangou (Fondation Hirondelle)', 'studiokalangou.org', 'fr', '', 'B'), ("L'Événement Niger", 'levenementniger.com', 'fr', '', 'B'), ('Les Échos du Niger', 'lesechosduniger.com', 'fr', '', 'C'), ('aNiamey', 'news.aniamey.com', 'fr', '', 'C'), ('Labari Info (RTL Niger)', 'labarinfo.com', 'fr', '', 'C'), ('Le Sahel', 'lesahel.org', 'fr', '', 'D'), ('ANP – Agence nigérienne de presse', 'anp.ne', 'fr', '', 'D')],
+ "BF": [("L'Observateur Paalga", 'lobservateur.bf', 'fr', '', 'C'), ("Aujourd'hui au Faso", 'aujourd8.net', 'fr', '', 'C'), ('Wakat Séra', 'wakatsera.com', 'fr', '', 'C'), ('Studio Yafa (Fondation Hirondelle)', 'studioyafa.org', 'fr', '', 'B'), ('Sidwaya', 'sidwaya.info', 'fr', '', 'D'), ("AIB – Agence d'information du Burkina", 'aib.media', 'fr', '', 'D')],
+ "ML": [('Journal du Mali', 'journaldumali.com', 'fr', '', 'C'), ('Sahelien.com', 'sahelien.com', 'fr', '', 'C'), ('aBamako', 'news.abamako.com', 'fr', '', 'C'), ('Mali Actu', 'maliactu.net', 'fr', '', 'D'), ("L'Essor", 'lessormali.com', 'fr', '', 'D')],
+ "TH": [('Prachatai English', 'prachatai.com/english', 'en', '', 'B'), ('Thairath', 'thairath.co.th', 'th', '', 'C'), ('Matichon', 'matichon.co.th', 'th', '', 'C'), ('Khaosod', 'khaosod.co.th', 'th', '', 'C')],
+ "ID": [('Antara News', 'en.antaranews.com', 'en', '', 'C'), ('Detik.com', 'detik.com', 'id', '', 'C'), ('CNN Indonesia', 'cnnindonesia.com', 'id', '', 'C'), ('Jakarta Globe', 'jakartaglobe.id', 'en', '', 'C'), ('Liputan6', 'liputan6.com', 'id', '', 'C'), ('Republika', 'republika.co.id', 'id', '', 'C')],
+ "CN": [('Hong Kong Free Press', 'hongkongfp.com', 'en', '', 'B'), ('China Digital Times', 'chinadigitaltimes.net', 'en', '', 'B'), ('The Standard (Hong Kong)', 'thestandard.com.hk', 'en', '', 'C'), ('The Paper (澎湃新闻)', 'thepaper.cn', 'zh', '', 'D'), ('Sixth Tone', 'sixthtone.com', 'en', '', 'D'), ('RTHK News', 'news.rthk.hk', 'en', '', 'D')],
+ "AU": [('The Guardian Australia', 'theguardian.com/au', 'en', '', 'B'), ('SBS News', 'sbs.com.au/news', 'en', '', 'B'), ('news.com.au', 'news.com.au', 'en', '', 'C'), ('9News', '9news.com.au', 'en', '', 'C'), ('7NEWS', '7news.com.au', 'en', '', 'C'), ('The New Daily', 'thenewdaily.com.au', 'en', '', 'C'), ('The Conversation Australia', 'theconversation.com/au', 'en', '+', 'B')],
+ "SD": [('Al-Taghyeer', 'altaghyeer.info', 'ar', '', 'C'), ('Ayin Network', '3ayin.com', 'en', '', 'B'), ('Darfur24', 'darfur24.com', 'en', '', 'C'), ('Sudan War Monitor', 'sudanwarmonitor.com', 'en', '', 'C'), ('Sudans Post', 'sudanspost.com', 'en', '+', 'C'), ('Alrakoba', 'alrakoba.net', 'ar', '', 'D'), ('SUNA', 'suna-sd.net', 'en', '', 'D')],
+ "CD": [('Kivu Morning Post', 'kivumorningpost.com', 'fr', '', 'C'), ('Politico.cd', 'politico.cd', 'fr', '', 'C'), ('Studio Hirondelle RDC', 'studiohirondellerdc.org', 'fr', '', 'B'), ('Habari RDC', 'habarirdc.net', 'fr', '', 'C'), ('Mediacongo', 'mediacongo.net', 'fr', '', 'C')],
+ "LB": [("NNA – Agence nationale d'information", 'nna-leb.gov.lb', 'en', '', 'C'), ('LBCI', 'lbcgroup.tv', 'en', '', 'C'), ('MTV Lebanon', 'mtv.com.lb', 'en', '', 'C'), ('Al Jadeed', 'aljadeed.tv', 'ar', '', 'C'), ('Nidaa al-Watan', 'nidaalwatan.com', 'ar', '', 'C'), ('Megaphone', 'megaphone.news', 'en', '', 'B')],
+ "IL": [('Ynet', 'ynet.co.il', 'he', '', 'B'), ('i24NEWS', 'i24news.tv', 'en', '', 'C'), ('N12 (Mako)', 'mako.co.il', 'he', '', 'C'), ('Israel Hayom', 'israelhayom.com', 'en', '', 'C'), ('+972 Magazine', '972mag.com', 'en', '', 'C')],
+ "ET": [('Ethiopia Insight', 'ethiopia-insight.com', 'en', '', 'B'), ('Wazema', 'wazemaradio.com', 'am', '', 'C'), ('Capital Ethiopia', 'capitalethiopia.com', 'en', '', 'C'), ('Borkena', 'borkena.com', 'en', '', 'D'), ('ENA – Ethiopian News Agency', 'ena.et', 'en', '', 'D')],
+ "SY": [('Enab Baladi', 'english.enabbaladi.net', 'en', '', 'B'), ("SOHR – Observatoire syrien des droits de l'homme", 'syriahr.com/en', 'en', '', 'C'), ('The Syrian Observer', 'syrianobserver.com', 'en', '', 'C'), ('Zaman al-Wasl', 'zamanalwsl.net', 'ar', '', 'C'), ('Syria TV', 'syria.tv', 'ar', '', 'C'), ('North Press Agency', 'npasyria.com/en', 'en', '', 'D'), ('SANA', 'sana.sy/en', 'en', '', 'D')],
+ "UA": [('Hromadske', 'hromadske.ua', 'uk', '', 'B'), ('UNIAN', 'unian.info', 'en', '', 'C'), ('RBC-Ukraine', 'newsukraine.rbc.ua', 'en', '', 'C'), ('LB.ua', 'lb.ua', 'uk', '', 'C'), ('Kyiv Post', 'kyivpost.com', 'en', '', 'B')],
+ "MM": [('DVB – Democratic Voice of Burma', 'english.dvb.no', 'en', '', 'B'), ('Mizzima', 'eng.mizzima.com', 'en', '', 'C'), ('BNI – Burma News International', 'bnionline.net', 'en', '', 'B'), ('SHAN – Shan Herald Agency for News', 'english.shannews.org', 'en', '', 'C'), ('Narinjara', 'narinjara.com', 'en', '', 'C')],
+ "CM": [('Mimi Mefo Info', 'mimimefoinfos.com', 'en', '', 'C'), ('The Guardian Post', 'theguardianpostcameroon.com', 'en', '', 'C'), ('Cameroon News Agency', 'cameroonnewsagency.com', 'en', '', 'C'), ('Datacameroon', 'datacameroon.com', 'fr', '', 'C')],
+ "IR": [('Amwaj.media', 'amwaj.media', 'en', '+', 'B'), ('BBC Persian', 'bbc.com/persian', 'fa', '', 'B'), ('HRANA', 'en-hrana.org', 'en', '', 'C'), ('Hengaw', 'hengaw.net', 'en', '', 'C'), ('Radio Farda', 'radiofarda.com', 'fa', '', 'B'), ('Shargh', 'sharghdaily.com', 'fa', '', 'C'), ('Etemad', 'etemadonline.com', 'fa', '', 'C'), ('ISNA', 'en.isna.ir', 'en', '', 'D')],
+ "SO": [('Caasimada', 'caasimada.net', 'so', '', 'C'), ('Radio Dalsan', 'radiodalsan.com', 'en', '', 'C'), ('Horseed Media', 'horseedmedia.net', 'en', '', 'C'), ('Horn Observer', 'hornobserver.com', 'en', '', 'C'), ('Horn Diplomat', 'horndiplomat.com', 'en', '', 'C'), ('SONNA', 'sonna.so', 'en', '', 'D')],
+ "GB": [('BBC News', 'bbc.co.uk/news', 'en', '', 'B'), ('Sky News', 'news.sky.com', 'en', '', 'B'), ('Evening Standard', 'standard.co.uk', 'en', '', 'C'), ('Manchester Evening News', 'manchestereveningnews.co.uk', 'en', '', 'C'), ('Metro', 'metro.co.uk', 'en', '', 'C'), ('Daily Mirror', 'mirror.co.uk', 'en', '', 'C'), ('Daily Record', 'dailyrecord.co.uk', 'en', '', 'C'), ('Belfast Live', 'belfastlive.co.uk', 'en', '', 'C')],
+ "PK": [('Business Recorder', 'brecorder.com', 'en', '', 'B'), ('Daily Jang', 'jang.com.pk', 'ur', '', 'C'), ('Pakistan Today', 'pakistantoday.com.pk', 'en', '', 'C'), ('Samaa', 'samaa.tv', 'en', '', 'C'), ('Daily Express (ourdou)', 'express.pk', 'ur', '', 'C'), ('The Balochistan Post', 'thebalochistanpost.net', 'en', '', 'D')],
+ "NG": [('Daily Trust', 'dailytrust.com', 'en', '', 'B'), ('HumAngle', 'humanglemedia.com', 'en', '', 'B'), ('Channels TV', 'channelstv.com', 'en', '', 'B'), ('The Guardian Nigeria', 'guardian.ng', 'en', '', 'C'), ('ThisDay', 'thisdaylive.com', 'en', '', 'C'), ('Leadership', 'leadership.ng', 'en', '', 'C')],
+ "RU": [('Mediazona', 'zona.media', 'en', '', 'B'), ('The Insider', 'theins.ru', 'en', '', 'B'), ('Verstka', 'verstka.media', 'ru', '', 'B'), ('7x7', 'semnasem.org', 'ru', '', 'C'), ('Sibir.Realii (RFE/RL)', 'sibreal.org', 'ru', '', 'B'), ('Fontanka.ru', 'fontanka.ru', 'ru', '', 'C'), ('Interfax', 'interfax.ru', 'ru', '', 'D')],
+ "BD": [('Prothom Alo', 'prothomalo.com', 'en', '', 'B'), ('New Age', 'newagebd.net', 'en', '', 'B'), ('Dhaka Tribune', 'dhakatribune.com', 'en', '', 'C'), ('The Financial Express', 'thefinancialexpress.com.bd', 'en', '', 'C'), ('Kaler Kantho', 'kalerkantho.com', 'bn', '', 'C'), ('BSS', 'bssnews.net', 'en', '', 'D')],
+ "MX": [('La Jornada', 'jornada.com.mx', 'es', '', 'C'), ('Excélsior', 'excelsior.com.mx', 'es', '', 'C'), ('Aristegui Noticias', 'aristeguinoticias.com', 'es', '', 'B'), ('Infobae México', 'infobae.com/mexico', 'es', '', 'C'), ('El Informador', 'informador.mx', 'es', '', 'C'), ('Zeta Tijuana', 'zetatijuana.com', 'es', '', 'B'), ('Ríodoce', 'riodoce.mx', 'es', '', 'B'), ('El Financiero', 'elfinanciero.com.mx', 'es', '', 'B')],
+ "AF": [('KabulNow', 'kabulnow.com', 'en', '', 'B'), ('Etilaatroz', 'etilaatroz.com', 'fa', '', 'B'), ('Khaama Press', 'khaama.com', 'en', '', 'C'), ('Rukhshana Media', 'rukhshana.com', 'en', '', 'B'), ('Afghanistan International', 'afintl.com', 'en', '', 'D'), ('Ariana News', 'ariananews.af', 'en', '', 'D')],
+}
+# fiabilité (grille de l'Amirauté) des médias déjà présents au catalogue, d'après la même liste
+FIABILITE = {"AF|8am.media": "B",
+ "AF|amu.tv": "B",
+ "AF|tolonews.com": "C",
+ "AU|abc.net.au": "B",
+ "BD|bdnews24.com": "C",
+ "BD|tbsnews.net": "B",
+ "BD|thedailystar.net": "B",
+ "BF|burkina24.com": "C",
+ "BF|lefaso.net": "C",
+ "BF|lepays.bf": "C",
+ "CD|7sur7.cd": "C",
+ "CD|actualite.cd": "B",
+ "CD|radiookapi.net": "B",
+ "CM|actucameroun.com": "C",
+ "CM|cameroon-tribune.cm": "D",
+ "CM|journalducameroun.com": "C",
+ "ET|addisfortune.news": "B",
+ "ET|addisstandard.com": "B",
+ "ET|thereporterethiopia.com": "C",
+ "GB|independent.co.uk": "C",
+ "GB|theguardian.com": "B",
+ "ID|kompas.com": "B",
+ "ID|tempo.co": "B",
+ "IL|jpost.com": "C",
+ "IL|timesofisrael.com": "B",
+ "IL|ynetnews.com": "B",
+ "IR|iranintl.com": "D",
+ "IR|iranwire.com": "B",
+ "LB|annahar.com": "B",
+ "LB|naharnet.com": "C",
+ "ML|maliweb.net": "C",
+ "ML|studiotamani.org": "B",
+ "MM|irrawaddy.com": "B",
+ "MM|myanmar-now.org": "B",
+ "MX|animalpolitico.com": "B",
+ "MX|eluniversal.com.mx": "B",
+ "MX|milenio.com": "C",
+ "NE|actuniger.com": "C",
+ "NG|premiumtimesng.com": "B",
+ "NG|punchng.com": "B",
+ "NG|thecable.ng": "B",
+ "NG|vanguardngr.com": "C",
+ "PK|dawn.com": "B",
+ "PK|geo.tv": "C",
+ "PK|thenews.com.pk": "C",
+ "PK|tribune.com.pk": "B",
+ "RU|kommersant.ru": "C",
+ "RU|meduza.io": "B",
+ "RU|novayagazeta.eu": "B",
+ "RU|themoscowtimes.com": "B",
+ "SD|dabangasudan.org": "B",
+ "SD|sudantribune.com": "B",
+ "SO|garoweonline.com": "C",
+ "SO|hiiraan.com": "C",
+ "SO|somaliguardian.com": "C",
+ "SY|syriadirect.org": "B",
+ "TH|bangkokpost.com": "B",
+ "TH|khaosodenglish.com": "B",
+ "TH|nationthailand.com": "C",
+ "TH|thaipbsworld.com": "B",
+ "UA|kyivindependent.com": "B",
+ "UA|pravda.com.ua": "B",
+ "UA|suspilne.media": "B",
+ "UA|ukrinform.net": "C"}
+for _iso, _items in PRESSE_25.items():  # ajoutés au catalogue du pays (sans doublon de domaine)
+    _base = lambda d: re.sub(r"^(news|www|m|en|english|eng)\.", "", d.split("/")[0])  # news.aniamey.com ~ aniamey.com
+    _known = {_base(o[1]) for o in O.get(_iso, [])}
+    O.setdefault(_iso, []).extend(o for o in _items if _base(o[1]) not in _known)
+for _iso, _items in O.items():
+    for _i, _o in enumerate(_items):
+        _l = FIABILITE.get(f"{_iso}|{_o[1].split('/')[0]}")
+        if _l and len(_o) < 5:
+            _items[_i] = tuple(_o) + (("",) if len(_o) == 3 else ()) + (_l,)
 
 if __name__ == "__main__":
     out = {"_comment": ("Médias de référence par pays, interrogés via Google News (site:). Généré par "

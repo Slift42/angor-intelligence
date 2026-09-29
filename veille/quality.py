@@ -21,6 +21,8 @@
    5  improbable (infirmée par l'analyste)                        6  invérifiable
 Cotation automatique, indicative : l'analyste la corrige via verified.json (champ "admiralty").
 """
+import re
+
 from . import config
 
 OFFICIAL = {"USGS", "GDACS", "NASA EONET", "WHO", "UCDP", "NWS", "Meteoalarm", "CISA", "MEAE", "FCDO"}
@@ -32,23 +34,42 @@ REFERENCE_EXTRA = {
     "UN News", "International Crisis Group", "Radio Okapi", "Kyiv Independent", "The Hindu", "Dawn", "Japan Times",
 }
 _REF = None
+_LETTER = None  # domaine ou nom du média → lettre de fiabilité (catalogue : 5e champ, sinon « B »)
+
+
+def _dom(u):
+    return re.sub(r"^(www|m|feeds)\.", "", re.sub(r"^https?://", "", u or "").split("/")[0].lower())
 
 
 def _reference():
     """Noms des médias de référence : catalogue par pays + flux RSS configurés + grandes agences."""
-    global _REF
+    global _REF, _LETTER
     if _REF is None:
         names = set(REFERENCE_EXTRA)
+        _LETTER = {}
         cat = config.load_json("press_outlets.json", {}) or {}
         for rows in (cat.get("countries") or {}).values():
             for row in rows:
                 if row:
                     names.add(str(row[0]))
+                    letter = row[4] if len(row) > 4 and row[4] in "ABCDEF" else "B"
+                    _LETTER[str(row[0]).lower()] = _LETTER[_dom(row[1])] = letter
         for s in (config.load_json("sources.json", {}) or {}).get("sources", []):
             if s.get("type") == "rss" and s.get("name"):
                 names.add(s["name"].split(" – ")[0].split(" (")[0])
+                if s.get("reliability"):
+                    _LETTER[s["name"].lower()] = _LETTER[_dom(s.get("url"))] = s["reliability"]
         _REF = {n.lower() for n in names if n}
     return _REF
+
+
+def _letter(src):
+    """Lettre de fiabilité d'une source d'incident (domaine d'abord, puis nom), ou None si inconnue."""
+    _reference()
+    for k in (src.get("site"), _dom(src.get("url")), (src.get("name") or "").lower()):
+        if k and k in _LETTER:
+            return _LETTER[k]
+    return None
 
 
 def _is_reference(name):
@@ -67,6 +88,9 @@ def reliability(ev):
     if src == "GDELT" or "gdelt" in ev.get("id", "")[:6]:
         return "D"
     names = [s.get("name", "") for s in ev.get("sources") or []]
+    letters = [x for x in (_letter(s) for s in ev.get("sources") or []) if x]
+    if letters:  # fiabilité notée dans le catalogue (ex. médias d'État « D ») : la meilleure source l'emporte
+        return min(letters)
     if "social" in tags and not any(_is_reference(n) for n in names):
         return "E"
     if any(_is_reference(n) for n in names) or _is_reference(src):

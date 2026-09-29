@@ -176,7 +176,8 @@ la clé Anthropic à l'abri (le site étant public, la clé ne peut pas y figure
 5. **Storage & Databases** → **KV** → **Create** `angor-quota`, puis dans le Worker **Settings** → **Bindings** →
    **KV namespace**, nom de variable `QUOTA` (limite les abus et donc les coûts).
 6. Copiez l'adresse du Worker (ex. `https://angor-buddy.<vous>.workers.dev`) dans `config/settings.json` :
-   `"buddy_url": "https://angor-buddy.<vous>.workers.dev"`, puis **publier.bat**.
+   `"ai_url": "https://angor-buddy.<vous>.workers.dev"`, puis **publier.bat**. Le même relais sert au Travel buddy,
+   à l'avis go/no-go et à la synthèse du brief.
 
 Coût : environ 0,5 centime par question avec Claude Haiku ; avec `DAILY_LIMIT` = 150, 1 $ par jour au maximum.
 
@@ -209,3 +210,26 @@ des alertes et des calculs.
 ### F4. Liens et vues
 Bouton **Partager** : copie l'adresse de la vue affichée (période, filtres, calque, zoom, fiche ouverte).
 Bouton **Vues** : enregistre des vues dans votre navigateur (ex. « Sahel – 7 j »).
+
+---
+
+## Partie G – Brancher l'IA (API Anthropic), quand toutes les fonctionnalités sont prêtes
+
+Tout est déjà câblé : sans clé, l'outil utilise ses textes automatiques ; avec la clé, chaque usage s'active.
+
+1. **Clé** : https://console.anthropic.com → **API Keys** → **Create Key**. Dans **Limits**, fixez un plafond mensuel
+   (ex. 25 $) : c'est la vraie sécurité financière.
+2. **Robot** (résumés d'incidents, chronologies, explications du Pulse, « L'essentiel du jour ») :
+   ```
+   gh secret set ANTHROPIC_API_KEY
+   ```
+3. **Carte** (Travel buddy, avis go/no-go, synthèse du brief) : relais Cloudflare, partie E (clé à mettre dans le Worker,
+   jamais dans le site), puis `"ai_url"` dans `config/settings.json`.
+4. **Réglages** (`config/settings.json` → `"ai"`) :
+   - `monthly_budget_usd` : budget interne du robot, lissé jour par jour (20 $ par défaut) ;
+   - `tasks` : `event_summaries`, `crisis_summaries`, `digest_editorial`, `pulse_explanations` (true / false) ;
+   - `max_calls_per_run` : nombre maximal d'appels par collecte hors résumés d'incidents (12).
+5. **publier.bat**. Les textes rédigés par l'IA sont toujours signalés « IA – à vérifier ».
+
+Ordre de grandeur avec Claude Haiku : 10 à 20 $ par mois pour le robot, moins de 1 $ par jour pour la carte
+(quota de 150 questions par jour dans le Worker).

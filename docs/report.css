@@ -121,3 +121,8 @@ ul.check .box { width: 11px; height: 11px; border: 1.3px solid var(--ink-2); bor
   .brief-page .mcard, .brief-page .signs, .brief-page .decision, .brief-page .facts { break-inside: avoid; }
 }
 @media print { .brief-page .page.trace { break-before: page; break-inside: avoid; } }
+.gng-brief { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 8px; }
+.gng-brief > div { flex: 1; min-width: 260px; }
+.gng-matrix { color: var(--ink-2); flex: none; }
+.gng-matrix rect { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.ai-synth { border-left: 3px solid var(--navy); padding: 4px 12px; background: #F4F7FB; border-radius: 0 8px 8px 0; }
