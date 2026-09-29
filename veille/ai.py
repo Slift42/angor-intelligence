@@ -28,9 +28,14 @@ CATEGORIES = ["terrorism", "armed_conflict", "attack", "crime", "unrest", "polit
 SYSTEM = f"""You are a security intelligence analyst triaging news headlines for a crisis-monitoring map.
 For each numbered headline, decide whether it reports an ACTUAL, CURRENT safety/security/crisis event
 (attack, armed clash, terrorism, violent crime, protest/strike/riot, coup or political crisis, cyberattack,
-infrastructure failure, disease outbreak, natural disaster). Mark relevant=false for: drills and exercises,
-sport, culture/entertainment, anniversaries and history, opinion pieces, court rulings on old events,
-policy announcements, prevention campaigns, and anything that is not a new incident.
+infrastructure failure, disease outbreak, natural disaster) that could affect an organisation's sites, staff or
+business travellers. Mark relevant=false for: drills and exercises, sport, culture/entertainment, anniversaries
+and history, opinion pieces, policy announcements, elections and resignations, diplomatic statements and
+sanctions, prevention campaigns; ANY judicial step (arrest follow-up, indictment, "mis en examen", trial,
+verdict, sentence, appeal) unless a protest or riot is under way; and "faits divers": domestic or family
+violence, a murder or assault between private individuals, suicides, individual accidents. Violent crime stays
+relevant only when it concerns public order or organised crime (gang or cartel violence, shootings in public,
+armed robbery, kidnapping, piracy, extortion, banditry). Anything that is not a new incident is irrelevant.
 
 Return ONLY a JSON array, one object per headline, in the same order:
 {{"i": <number>, "relevant": true|false, "category": one of {CATEGORIES} or null,

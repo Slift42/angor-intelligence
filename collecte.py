@@ -165,6 +165,13 @@ def main():
     # validations de l'analyste (config/verified.json) + cotation de l'Amirauté sur chaque incident
     verified = quality.load_verified()
     all_events = quality.filter_and_rate(all_events, verified)
+    # faits divers, procédures judiciaires… : écartés de la carte, y compris ceux déjà en mémoire
+    noise = [e for e in all_events if "press" in (e.get("tags") or []) and not e.get("verified")
+             and press.not_incident(e["title"], e["category"])]
+    if noise:
+        drop = {e["id"] for e in noise}
+        all_events = [e for e in all_events if e["id"] not in drop]
+        log(f"  Tri : {len(noise)} titre(s) écarté(s) (faits divers, procédures judiciaires)")
     all_events.sort(key=lambda e: e["date"], reverse=True)
     # 30 derniers jours dans data.js (chargement rapide) ; au-delà, archives mensuelles chargées à la demande
     map_limit = to_iso(now - timedelta(days=settings.get("map_days", 30)))
@@ -201,7 +208,9 @@ def main():
     payload = {
         "generated": now_iso(), "version": __version__, "taxonomy": taxonomy(),
         "events": events, "countries": country_risk,
-        "news": sorted(store["news"].values(), key=lambda n: n["date"], reverse=True),
+        "news": sorted((n for n in store["news"].values()
+                        if not (n.get("category") and press.not_incident(n["title"], n["category"]))),
+                       key=lambda n: n["date"], reverse=True),
         "status": list(store["status"].values()),
         "sites": [] if public else sites, "corridors": [] if public else corridors,
         "site_alerts": [] if public else alerts,

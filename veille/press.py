@@ -46,10 +46,7 @@ CATEGORY_WORDS = {
     "political": ["coup", "golpe", "putsch", "darbe", "переворот", "انقلاب", "state of emergency", "état d'urgence",
                   "estado de emergencia", "stato di emergenza", "ausnahmezustand", "stan wyjątkowy", "olağanüstü hal",
                   "чрезвычайн", "حالة الطوارئ", "martial law", "loi martiale", "ley marcial", "impeach", "destitution",
-                  "resign", "démission", "dimisión", "renúncia", "dimissioni", "rücktritt", "dymisj", "istifa",
-                  "отставк", "استقال", "election", "élection", "elección", "eleição", "elezion", "wahl", "wybor",
-                  "seçim", "выбор", "انتخاب", "sanction", "sanciones", "sanções", "sanktion", "санкц", "عقوبات",
-                  "expel", "expulse", "diplomat"],
+                  ],
     "crime": ["cartel", "gang", "narco", "trafic de drogue", "drug traffick", "narcotráfico", "mafia", "robbery",
               "braquage", "atraco", "assalto", "rapina", "raub", "napad rabunkowy", "soygun", "ограблен", "سطو",
               "homicid", "homicide", "murder", "meurtre", "asesinato", "omicidio", "mord", "zabójstw", "cinayet",
@@ -104,10 +101,10 @@ EXTRA_WORDS = {
                "骚乱", "騷亂", "罢工", "罷工", "群体性事件", "催泪", "催淚", "اعتراض", "تجمع", "اعتصاب", "تظاهرات",
                "ناآرامی", "احتجاج", "مظاہرہ", "ہڑتال", "دھرنا", "বিক্ষোভ", "সংঘর্ষ", "হরতাল", "অবরোধ", "কারফিউ",
                "ተቃውሞ", "ሰልፍ", "banaanbax", "mudaaharaad"],
-    "political": ["מצב חירום", "בחירות", "kudeta", "keadaan darurat", "pemilu", "รัฐประหาร", "ภาวะฉุกเฉิน",
-                  "กฎอัยการศึก", "เลือกตั้ง", "政变", "政變", "紧急状态", "緊急狀態", "戒严", "戒嚴", "选举", "選舉",
-                  "کودتا", "انتخابات", "تحریم", "اعدام", "مارشل لاء", "ایمرجنسی", "জরুরি অবস্থা", "নির্বাচন",
-                  "አስቸኳይ ጊዜ", "ምርጫ", "doorasho", "xaalad degdeg"],
+    "political": ["מצב חירום", "kudeta", "keadaan darurat", "รัฐประหาร", "ภาวะฉุกเฉิน",
+                  "กฎอัยการศึก", "政变", "政變", "紧急状态", "緊急狀態", "戒严", "戒嚴",
+                  "کودتا", "مارشل لاء", "ایمرجنسی", "জরুরি অবস্থা",
+                  "አስቸኳይ ጊዜ", "xaalad degdeg"],
     "crime": ["רצח", "נרצח", "pembunuhan", "perampokan", "narkoba", "ฆาตกรรม", "ปล้น", "ยาเสพติด", "谋杀", "謀殺",
               "凶杀", "兇殺", "抢劫", "搶劫", "贩毒", "販毒", "黑帮", "黑幫", "سرقت", "قاچاق", "ڈکیتی", "منشیات",
               "হত্যা", "ডাকাতি", "মাদক", "ግድያ"],
@@ -225,6 +222,52 @@ NOISE_WORDS = ["drill", "exercise", "exercice", "simulacro", "simulation", "tatb
                "biopic", "novel", "roman ", "podcast", "quiz"]
 _NOISE_RE = _word_re(NOISE_WORDS)
 
+# Pas un incident pour une organisation ou un voyageur : procédure judiciaire (mise en examen, procès,
+# condamnation…), sauf si le titre signale une mobilisation en cours (manifestation, émeute, blocage).
+JUDICIAL_WORDS = ["mis en examen", "mise en examen", "mis en cause", "proces", "condamne", "condamnation", "jugement", "juge ",
+                  "juges", "tribunal", "cour d'assises", "assises", "garde a vue", "verdict", "requisitoire", "requis",
+                  "peine de", "prison ferme", "detention provisoire", "inculpe", "comparution", "comparait", "audience",
+                  "relaxe", "plainte", "enquete ouverte", "ouvre une enquete", "parquet", "sentenced", "sentence",
+                  "trial", "convicted", "conviction", "charged with", "indicted", "pleads guilty", "pleaded", "jury",
+                  "court hears", "in court", "appeal court", "juicio", "condenado", "condena", "sentencia", "imputado",
+                  "processo", "condannato", "condenado", "julgamento", "prozess", "verurteilt", "angeklagt", "vonnis",
+                  "wyrok", "sad skazal", "mahkum", "hapis cezasi", "приговор", "осужден", "суд ", "حكم", "محاكمة",
+                  "משפט", "נגזר", "vonis", "sidang", "divonis", "判决", "判處", "審判", "دادگاه", "حکم"]
+_JUDICIAL_RE = _word_re(JUDICIAL_WORDS)
+_MOBILISATION_RE = _word_re(CATEGORY_WORDS["unrest"])
+# Fait divers : violence privée ou familiale, drame individuel. Aucun impact pour une organisation.
+PRIVATE_WORDS = ["sa compagne", "son compagnon", "son epouse", "sa femme", "son mari", "son ex", "sa fille", "son fils",
+                 "sa mere", "son pere", "ses enfants", "son bebe", "son voisin", "sa voisine", "conjugal", "conjugale",
+                 "feminicide", "infanticide", "parricide", "violences intrafamiliales", "drame familial", "familial",
+                 "septuagenaire", "octogenaire", "nonagenaire", "sexagenaire", "quinquagenaire", "quadragenaire",
+                 "retraite ", "adolescent", "collegien", "lyceenne", "lyceen", "ecolier", "enfant de", "bebe", "a coups de",
+                 "his wife", "her husband", "his girlfriend", "her boyfriend", "ex-wife", "ex-husband", "girlfriend",
+                 "boyfriend", "domestic", "his mother", "his father", "her mother", "neighbour", "neighbor", "toddler",
+                 "teenager", "teen ", "pensioner", "su esposa", "su pareja", "su marido", "feminicidio", "violencia de genero",
+                 "sua mulher", "companheira", "moglie", "compagna", "ehefrau", "freundin", "partnerin", "femizid",
+                 "suicide", "suicid", "se suicide", "overdose", "noyade", "drowned", "noye"]
+_PRIVATE_RE = _word_re(PRIVATE_WORDS)
+# Criminalité retenue seulement si elle relève de l'ordre public ou menace des entreprises et des voyageurs.
+PUBLIC_CRIME_WORDS = ["cartel", "gang", "narco", "trafic", "traffick", "mafia", "reglement de comptes", "reglements de comptes",
+                      "fusillade", "shooting", "tiroteo", "sparatoria", "braquage", "attaque a main armee", "armed robbery",
+                      "robo a mano armada", "car-jacking", "carjacking", "home-jacking", "extorsion", "extortion", "racket",
+                      "piraterie", "piracy", "pirates", "enlevement", "kidnap", "secuestro", "rapt", "rancon", "ransom",
+                      "pillage", "looting", "saqueo", "bandit", "banditisme", "hold-up", "narcotrafico", "sicario",
+                      "coupeurs de route", "embuscade", "ambush", "crime organise", "organized crime", "criminal group"]
+_PUBLIC_CRIME_RE = _word_re(PUBLIC_CRIME_WORDS)
+
+
+def not_incident(title, cat=None):
+    """Titre qui ne décrit pas un incident pouvant toucher une organisation ou un voyageur (motif), sinon None."""
+    t = norm(title)
+    if _JUDICIAL_RE.search(t) and not _MOBILISATION_RE.search(t):
+        return "judiciaire"
+    if _PRIVATE_RE.search(t) and not _PUBLIC_CRIME_RE.search(t):
+        return "fait divers"
+    if cat == "crime" and not _PUBLIC_CRIME_RE.search(t):
+        return "fait divers"
+    return None
+
 
 def classify(title):
     """Renvoie (catégorie, gravité) ou (None, None) si le titre ne relève pas de la sûreté."""
@@ -235,6 +278,8 @@ def classify(title):
     if not found:
         return None, None
     cat = found[0]
+    if not_incident(title, cat):
+        return None, None
     sev = BASE_SEVERITY[cat]
     if _ESC_RE.search(t):
         sev += 1
