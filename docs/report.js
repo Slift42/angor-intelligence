@@ -5,6 +5,11 @@
   const P = (window.VS_PROFILES || {}).countries || {};
   const FB = window.VS_FACTBOOK || {};
   const ECON = (window.VS_ECON || {}).countries || {};
+  const GUIDES = (window.VS_GUIDES || {}).countries || {};
+  const GUIDES_NOTE = ((window.VS_GUIDES || {}).meta || {}).note || '';
+  const PRACT = (window.VS_PRACTICAL || {}).countries || {};
+  const PROV = window.VS_PROVIDERS || { providers: [], services: {}, local: {} };
+  const flag = (iso, w = 40) => iso && iso.length === 2 ? `<img class="flag" src="https://flagcdn.com/w${w}/${iso.toLowerCase()}.png" alt="" loading="lazy" onerror="this.remove()">` : '';
   const COUNTRIES = (window.VS_COUNTRIES || { features: [] }).features.map(f => f.properties);
   const ICONS = window.VS_ICONS || {};
   const TAX = D.taxonomy || { categories: {}, risk_levels: {}, severity: {} };
@@ -158,7 +163,7 @@
     <section class="page cover">
       <div class="brand">${esc((D.settings || {}).product_name || 'Angor Intelligence')} · ${L('Rapport pays sûreté & intelligence économique', 'Country security & business intelligence brief')}</div>
       <div class="title-row">
-        <div><h1>${esc(name)}</h1><div class="sub">${esc([b.capital || fb.capital, (COUNTRIES.find(c => c.iso2 === iso) || {}).region].filter(Boolean).join(' · '))}</div></div>
+        <div><h1>${flag(iso, 80)}${esc(name)}</h1><div class="sub">${esc([b.capital || fb.capital, (COUNTRIES.find(c => c.iso2 === iso) || {}).region].filter(Boolean).join(' · '))}</div></div>
         <div class="risk-box" style="border-color:${RISK_COLORS[r ? r.level : 0]}">${lvlBadge(r && r.level)}<div><div class="rn">${L('Risque global', 'Overall risk')} : ${esc(riskName(r && r.level))}</div><div class="rd">${esc(riskDesc(r && r.level))}</div></div></div>
       </div>
       <div class="meta">${L('Édité le', 'Issued')} ${fmtDate(today)} · ${L('Données collectées le', 'Data collected')} ${D.generated ? fmtDate(D.generated) : '—'}</div>
@@ -196,6 +201,7 @@
 
     <section class="page">
       <h2>${icon('siren')} 3. ${L('Recommandations sûreté (personnels et sites)', 'Security recommendations (staff and sites)')}</h2>
+      ${meaeBlock(r)}
       ${recommendations(iso, rows).map(g2 => `<h3>${esc(g2.title)}</h3><ul>${g2.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`).join('')}
       <p class="hint">${L('Recommandations génériques à adapter par l\'analyste sûreté au contexte précis (zones, activité, profil des voyageurs).', 'Generic recommendations to be tailored by the security analyst (areas, activity, traveller profile).')}</p>
     </section>
@@ -234,14 +240,100 @@
               [L('Réfugiés et déplacés', 'Refugees and IDPs'), esc(fb.refugees)], [L('Internet', 'Internet users'), val(pr, 'internet_users') != null ? num(val(pr, 'internet_users'), 0) + ' %' : '']])}
       </div>
       <h3>${L('Sources et méthode', 'Sources and method')}</h3>
-      <p class="small">${L('Incidents : USGS, GDACS, NASA EONET, OMS, GDELT et presse locale/internationale (détection automatique, non vérifiée). Avis aux voyageurs : Département d\'État américain, Gouvernement du Canada. Économie et gouvernance : Banque mondiale (WDI, WGI, projets), FMI (World Economic Outlook). Contexte : CIA World Factbook (archive 2026, domaine public), REST Countries. Ce rapport est un outil d\'aide à la décision : il ne garantit pas l\'exhaustivité des informations et doit être complété par l\'analyse d\'un professionnel de la sûreté.', 'Incidents: USGS, GDACS, NASA EONET, WHO, GDELT and local/international press (automated, unverified detection). Travel advisories: US State Department, Government of Canada. Economy and governance: World Bank (WDI, WGI, projects), IMF (World Economic Outlook). Background: CIA World Factbook (2026 archive, public domain), REST Countries. This report is a decision-support tool: it does not guarantee completeness and must be complemented by a security professional\'s analysis.')}</p>
-    </section>`;
+      <p class="small">${L('Incidents : USGS, GDACS, NASA EONET, OMS, GDELT et presse locale/internationale (détection automatique, non vérifiée). Avis aux voyageurs : MEAE (France), FCDO (Royaume-Uni), Département d\'État américain, Gouvernement du Canada. Informations pratiques et hôpitaux : Wikidata (CC0). Usages culturels : fiches rédigées avec assistance IA, à valider. Économie et gouvernance : Banque mondiale (WDI, WGI, projets), FMI (World Economic Outlook). Contexte : CIA World Factbook (archive 2026, domaine public), REST Countries. Ce rapport est un outil d\'aide à la décision : il ne garantit pas l\'exhaustivité des informations et doit être complété par l\'analyse d\'un professionnel de la sûreté.', 'Incidents: USGS, GDACS, NASA EONET, WHO, GDELT and local/international press (automated, unverified detection). Travel advisories: US State Department, Government of Canada. Economy and governance: World Bank (WDI, WGI, projects), IMF (World Economic Outlook). Background: CIA World Factbook (2026 archive, public domain), REST Countries. This report is a decision-support tool: it does not guarantee completeness and must be complemented by a security professional\'s analysis.')}</p>
+    </section>
+    ${cultureSection(iso)}
+    ${practicalSection(iso, r, pr)}`;
   }
   function multicultural(b, fb) {
     const langs = (b.languages || []).length;
     const pct = ((fb.ethnic_groups || '').match(/\d+(\.\d+)?%/g) || []).length;
     if (langs >= 3 || pct >= 3) return L(`Société multiculturelle / multilingue (${langs} langue(s) officielle(s) ou majeure(s)). Tenir compte des équilibres communautaires dans le recrutement et la communication.`, `Multicultural / multilingual society (${langs} official or major language(s)). Consider community balances in hiring and communication.`);
     return L('Société relativement homogène sur le plan linguistique.', 'Relatively homogeneous linguistically.');
+  }
+
+
+  /* ------------------------------------------------ MEAE, culture, informations pratiques */
+  function meaeBlock(r) {
+    const a = r && r.advisories ? r.advisories['MEAE (France)'] : null;
+    const uk = r && r.advisories ? r.advisories['FCDO (UK)'] : null;
+    if (!a && !uk) return '';
+    const maps = [a && a.map ? [a.map, 'MEAE'] : null, uk && uk.map ? [uk.map, 'FCDO'] : null].filter(Boolean);
+    return `<h3>${L('Conseils officiels aux voyageurs', 'Official travel advice')}</h3>
+      ${a ? `<p><strong>MEAE (France)</strong> — ${esc(a.label)}${a.updated ? ` · ${L('mise à jour', 'updated')} ${esc(a.updated)}` : ''} · <a href="${esc(a.url)}">diplomatie.gouv.fr</a></p>
+        ${(a.excerpt || []).length ? `<blockquote class="quote">${a.excerpt.map(x => `<p>« ${esc(x)} »</p>`).join('')}<footer>${L('Extraits de la rubrique « Sécurité » des Conseils aux voyageurs du MEAE — la page officielle fait foi.', 'Excerpts from the French MFA travel advice (security section) — the official page prevails.')}</footer></blockquote>` : ''}` : ''}
+      ${uk ? `<p><strong>FCDO (UK)</strong> — ${esc(uk.label)} · <a href="${esc(uk.url)}">gov.uk</a></p>` : ''}
+      ${maps.length ? `<div class="maps">${maps.map(([u, s2]) => `<figure><img src="${esc(u)}" alt="${esc(s2)}" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"><figcaption>${L('Carte officielle', 'Official map')} ${esc(s2)}</figcaption></figure>`).join('')}</div>` : ''}`;
+  }
+
+  const GUIDE_KEYS = [['tenue', 'Tenue vestimentaire', 'Dress code', 'shirt'], ['religion', 'Religion et pratiques', 'Religion and practices', 'landmark'],
+    ['gestes', 'Gestes et attitudes à éviter', 'Gestures and behaviour to avoid', 'hand'], ['salutations', 'Salutations', 'Greetings', 'handshake'],
+    ['affaires', 'Culture des affaires', 'Business culture', 'briefcase'], ['interdits', 'Interdits et sujets sensibles', 'Red lines and sensitive topics', 'ban'],
+    ['voyageuses', 'Voyageuses', 'Women travellers', 'user']];
+  function cultureSection(iso) {
+    const g = GUIDES[iso];
+    if (!g) return '';
+    return `<section class="page">
+      <h2>${icon('users')} 6. ${L('Intelligence culturelle : usages et comportements', 'Cultural intelligence: customs and behaviour')}</h2>
+      ${lang === 'en' ? '<p class="hint">Content available in French only.</p>' : ''}
+      <div class="guide">${GUIDE_KEYS.filter(([k]) => (g[k] || []).length).map(([k, fr, en]) =>
+        `<div class="gcard"><h3>${esc(L(fr, en))}</h3><ul>${g[k].map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>`).join('')}</div>
+      <p class="hint">${esc(GUIDES_NOTE)}</p>
+    </section>`;
+  }
+
+  // Téléphones satellites : restrictions signalées (indicatif, à vérifier auprès de l'ambassade avant tout déplacement)
+  const SATPHONE = { IN: L('Thuraya et Iridium interdits sans autorisation (confiscation, poursuites).', 'Thuraya and Iridium banned without a licence (seizure, prosecution).'),
+    CN: L('Usage soumis à autorisation.', 'Use subject to authorisation.'), RU: L('Déclaration / enregistrement obligatoire.', 'Registration required.'),
+    KP: L('Interdits.', 'Banned.'), CU: L('Importation soumise à autorisation.', 'Import subject to authorisation.'),
+    BD: L('Restrictions signalées.', 'Restrictions reported.'), MM: L('Restrictions signalées.', 'Restrictions reported.') };
+  const REGION_OF = p => {
+    if (!p) return '';
+    if (p.region === 'Western Asia') return 'Moyen-Orient';
+    return { Africa: 'Afrique', Europe: 'Europe', Asia: 'Asie', 'North America': 'Amériques', 'South America': 'Amériques', Oceania: 'Océanie' }[p.continent] || '';
+  };
+  function practicalSection(iso, r, pr) {
+    const x = PRACT[iso] || {};
+    const cp = COUNTRIES.find(c => c.iso2 === iso);
+    const region = REGION_OF(cp);
+    const lvl = r ? r.level : 0;
+    const svc = k => ((PROV.services || {})[k] || {})[lang] || k;
+    const local = (PROV.local || {})[iso] || [];
+    const provs = local.map(p => ({ ...p, local: true })).concat((PROV.providers || []).filter(p => !region || p.regions.includes(region)))
+      .sort((a, b) => (b.local ? 1 : 0) - (a.local ? 1 : 0) || ['cp', 'ts', 'ev'].filter(k => b.services.includes(k)).length - ['cp', 'ts', 'ev'].filter(k => a.services.includes(k)).length)
+      .slice(0, 10);
+    const hosp = (x.hospitals || []).slice().sort((a, b) => (a.city || '~').localeCompare(b.city || '~'));
+    const pct = (k, u) => val(pr, k) != null ? `${num(val(pr, k), 0)}${u} (${yr(pr, k)})` : '';
+    return `<section class="page">
+      <h2>${icon('heart-pulse')} 7. ${L('Santé, secours, communications et prestataires', 'Health, emergency, communications and providers')}</h2>
+      <div class="cols">
+        ${kv([[L('Numéros d\'urgence', 'Emergency numbers'), esc((x.emergency || []).join(' · '))],
+              [L('Indicatif téléphonique', 'Calling code'), esc((x.calling_code || []).map(c => c.startsWith('+') ? c : '+' + c).join(', '))],
+              [L('Prises électriques', 'Plug types'), esc((x.plugs || []).join(', '))],
+              [L('Tension', 'Voltage'), (x.voltage || []).length ? esc(x.voltage.join(' / ')) + ' V' : ''],
+              [L('Accès à l\'électricité', 'Access to electricity'), pct('electricity_access', ' %')]])}
+        ${kv([[L('Abonnements mobiles', 'Mobile subscriptions'), val(pr, 'mobile_subs') != null ? `${num(val(pr, 'mobile_subs'), 0)} ${L('pour 100 hab.', 'per 100 people')} (${yr(pr, 'mobile_subs')})` : ''],
+              [L('Internautes', 'Internet users'), pct('internet_users', ' %')],
+              [L('Haut débit fixe', 'Fixed broadband'), val(pr, 'broadband_subs') != null ? `${num(val(pr, 'broadband_subs'), 1)} ${L('pour 100 hab.', 'per 100 people')}` : ''],
+              [L('Opérateurs mobiles', 'Mobile operators'), esc((x.operators || []).join(', '))],
+              [L('Téléphone satellite', 'Satellite phone'), esc(SATPHONE[iso] ? L('⚠ Restrictions : ', '⚠ Restrictions: ') + SATPHONE[iso] : (lvl >= 4 ? L('Recommandé (Iridium, Thuraya, Inmarsat) pour les équipes : couverture et coupures d\'Internet possibles. Vérifier la réglementation.', 'Recommended (Iridium, Thuraya, Inmarsat) for teams: coverage gaps and internet shutdowns possible. Check regulations.') : L('Non indispensable hors zones isolées ; vérifier la réglementation.', 'Not essential outside remote areas; check regulations.')))]])}
+      </div>
+      <p class="hint">${L('Couverture réseau : les villes principales sont généralement couvertes en 4G ; prévoir des coupures en zones rurales, frontalières ou lors d\'événements politiques (coupures d\'Internet). Carte de couverture détaillée : nperf.com ou opensignal.com.', 'Network coverage: main cities are generally covered by 4G; expect gaps in rural and border areas and during political events (internet shutdowns). Detailed coverage maps: nperf.com or opensignal.com.')}</p>
+
+      <h3>${L('Principaux établissements hospitaliers', 'Main hospitals')}</h3>
+      ${hosp.length ? `<table class="list"><thead><tr><th>${L('Établissement', 'Hospital')}</th><th>${L('Ville', 'City')}</th><th class="r">${L('Lits', 'Beds')}</th><th>${L('Site', 'Website')}</th></tr></thead><tbody>
+        ${hosp.map(h => `<tr><td><strong>${esc(h.name)}</strong></td><td>${esc(h.city)}</td><td class="r">${h.beds ? num(h.beds, 0) : '—'}</td><td class="small">${h.web ? `<a href="${esc(h.web)}">${esc(h.web.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a>` : ''}</td></tr>`).join('')}</tbody></table>`
+        : `<p class="hint">${L('Liste en cours de constitution (mise à jour progressive depuis Wikidata).', 'List being compiled (progressive update from Wikidata).')}</p>`}
+      <p class="hint">${L('Classement par capacité puis notoriété (Wikidata). Ce n\'est pas une liste agréée : valider avec votre assisteur/assureur et le consulat (liste des médecins et établissements recommandés).', 'Ranked by capacity then notability (Wikidata). Not an approved list: validate with your assistance provider/insurer and the consulate.')}</p>
+
+      <h3>${L('Prestataires de sécurité et d\'assistance', 'Security and assistance providers')}${region ? ` — ${esc(region)}` : ''}</h3>
+      <table class="list providers"><thead><tr><th>${L('Prestataire', 'Provider')}</th><th>${L('Services / capacités', 'Services / capabilities')}</th><th>${L('Liens', 'Links')}</th><th>${L('Contact', 'Contact')}</th></tr></thead><tbody>
+        ${provs.map(p => `<tr><td><strong>${esc(p.name)}</strong>${p.local ? ` <span class="tag">${L('local vérifié', 'verified local')}</span>` : ''}<br><span class="small">${esc(p.hq || '')}${p.note ? ' · ' + esc(p.note) : ''}</span></td>
+          <td class="small">${(p.services || []).map(svc).map(esc).join(' · ')}</td>
+          <td class="small nowrap">${p.web ? `<a href="${esc(p.web)}">${L('Site web', 'Website')}</a>` : ''}${p.linkedin ? `<br><a href="${esc(p.linkedin)}">LinkedIn</a>` : ''}</td>
+          <td class="small">${esc(p.contact || L('Formulaire ou ligne 24/7 du site', 'Website form or 24/7 line'))}</td></tr>`).join('')}</tbody></table>
+      <p class="hint">${esc(PROV.note || '')} ${L('Prestataires locaux vérifiés : à ajouter dans config/providers_local.json.', 'Verified local providers: add them to config/providers_local.json.')}</p>
+    </section>`;
   }
 
   /* ------------------------------------------------ démarrage */

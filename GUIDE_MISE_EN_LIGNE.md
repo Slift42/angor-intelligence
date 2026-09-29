@@ -132,3 +132,28 @@ gh secret set ANTHROPIC_API_KEY
 ```
 Collez votre clé Anthropic (créée sur console.anthropic.com, avec un plafond de dépenses). Budget interne :
 20 $/mois, lissé jour par jour (`config/settings.json` → `ai`).
+
+---
+
+## Partie D – Conflits UCDP (depuis votre PC) et nouvelles sources
+
+Le site de l'université d'Uppsala (UCDP) refuse les serveurs de GitHub : la partie « conflits vérifiés »
+se télécharge donc depuis votre PC, une fois par mois environ.
+
+```
+python historique.py --only ucdp
+```
+(quelques minutes ; le fichier `history_parts/ucdp.json.gz` est créé). Puis double-cliquez sur **`publier.bat`**,
+et relancez le robot **Historique** en laissant « Parties » vide : il réutilise la partie UCDP envoyée.
+
+### Mettre à jour les robots (après chaque nouvelle version de ces fichiers)
+```
+copy tools\github-actions-collecte.yml .github\workflows\collecte.yml
+copy tools\github-actions-historique.yml .github\workflows\historique.yml
+```
+
+### Sources optionnelles
+- **ReliefWeb (ONU OCHA)** : demander un nom d'application gratuit sur https://apidoc.reliefweb.int, puis
+  `gh secret set RELIEFWEB_APPNAME` et passer la source `reliefweb` à `"enabled": true` dans `config/sources.json`.
+- **Telegram** : ajouter des canaux publics dans la source `telegram` de `config/sources.json`.
+- **Prestataires locaux vérifiés** : `config/providers_local.json` puis `python tools/providers_src.py`.

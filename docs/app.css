@@ -359,3 +359,8 @@ a.btn { text-decoration: none; color: var(--ink); }
 .mini-list li.adv > span:nth-child(2) { display: grid; gap: 6px; }
 .adv-map { display: block; margin-top: 4px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; max-width: 240px; background: var(--surface-2, #f3f4f6); }
 .adv-map img { display: block; width: 100%; height: auto; max-height: 170px; object-fit: contain; }
+
+/* Drapeaux et couverture des sources */
+.flag { width: 20px; height: auto; margin-right: 7px; vertical-align: -2px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,.12); }
+.d-title .flag { width: 26px; vertical-align: -3px; margin-right: 9px; }
+.cov-low { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 999px; background: color-mix(in srgb, var(--sev3) 18%, transparent); color: var(--sev3); vertical-align: 1px; }

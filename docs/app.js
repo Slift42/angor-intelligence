@@ -42,6 +42,7 @@
       zones_note: 'Pointillés : seules certaines zones sont concernées. Couleur = zone la plus sensible. La carte officielle fait foi.',
       official_map: 'Carte officielle', parts: 'certaines zones', no_adv: 'Pas d\'avis connu', updated_on: 'mis à jour',
       loading_hist: 'Chargement de la base historique…', hist_note: (a, b) => `base historique ${a} → ${b} (UCDP, GDELT, USGS, GDACS, NASA, OMS) puis veille en direct`,
+      cov_low: 'couverture faible', cov_low_tip: 'Nos sources remontent beaucoup moins d\'incidents que la moyenne historique : la situation est probablement sous-estimée.', cov_notice: (a, b) => `Couverture des sources faible : ${a} incident(s) sûreté sur 30 jours contre ${Math.round(b)} par mois en moyenne historique. Les incidents affichés sont probablement sous-estimés.`, cov_title: 'Zones sous-couvertes', cov_hint: 'Incidents sûreté sur 30 jours / moyenne mensuelle historique (UCDP, GDELT). Indicatif.', per_month: '/ mois',
       bm_fallback: 'Fond de carte indisponible : repli sur un fond plus simple.', sum_ai: 'Résumé IA – à vérifier', sum_source: 'Extrait de la source', sum_auto: 'Résumé automatique',
       basemap: 'Fond', bm_detail: 'Détaillé (routes, villes)', bm_bright: 'Contrasté', bm_clean: 'Épuré', bm_sat: 'Satellite', bm_topo: 'Topographique', bm_esri: 'Gris (Esri)', bm_plain: 'Neutre (hors ligne)',
       legend_sev: 'Gravité', legend_risk: 'Risque pays', legend_auto: 'Contour pointillé : détection automatique',
@@ -98,6 +99,7 @@
       zones_note: 'Dashed: only some areas are concerned. Colour = most sensitive area. The official map prevails.',
       official_map: 'Official map', parts: 'some areas', no_adv: 'No known advice', updated_on: 'updated',
       loading_hist: 'Loading historical database…', hist_note: (a, b) => `historical database ${a} → ${b} (UCDP, GDELT, USGS, GDACS, NASA, WHO) then live monitoring`,
+      cov_low: 'low coverage', cov_low_tip: 'Our sources report far fewer incidents than the historical average: the situation is probably under-reported.', cov_notice: (a, b) => `Low source coverage: ${a} security incident(s) in 30 days vs ${Math.round(b)} per month historically. Displayed incidents are probably under-reported.`, cov_title: 'Under-covered areas', cov_hint: 'Security incidents in 30 days / historical monthly average (UCDP, GDELT). Indicative.', per_month: '/ month',
       bm_fallback: 'Basemap unavailable: switched to a simpler one.', sum_ai: 'AI summary – to be verified', sum_source: 'From the source', sum_auto: 'Automatic summary',
       basemap: 'Basemap', bm_detail: 'Detailed (roads, towns)', bm_bright: 'High contrast', bm_clean: 'Clean', bm_sat: 'Satellite', bm_topo: 'Topographic', bm_esri: 'Grey (Esri)', bm_plain: 'Neutral (offline)',
       legend_sev: 'Severity', legend_risk: 'Country risk', legend_auto: 'Dashed outline: auto-detection',
@@ -177,6 +179,22 @@
   const countryProps = {};
   COUNTRIES.features.forEach(f => { countryProps[f.properties.iso2] = f.properties; });
   const countryName = iso => iso && countryProps[iso] ? countryProps[iso]['name_' + state.lang] : '';
+  const flagImg = (iso, w = 20) => iso && iso.length === 2 ? `<img class="flag" src="https://flagcdn.com/w${w * 2}/${iso.toLowerCase()}.png" width="${w}" alt="" loading="lazy" onerror="this.remove()">` : '';
+  /* Couverture des sources : incidents sûreté des 30 derniers jours comparés à la moyenne mensuelle
+     de la base historique (12 derniers mois). Indicatif : signale les zones probablement sous-couvertes. */
+  const SEC_CATS = new Set(['armed_conflict', 'attack', 'terrorism', 'crime', 'unrest', 'political']);
+  function coverageMap() {
+    const base = (HIDX && HIDX.baseline_month) || {};
+    const since = Date.now() - 30 * 864e5, live = {};
+    EVENTS.forEach(e => { if (!e.hist && e.country && e._t >= since && SEC_CATS.has(e.category)) live[e.country] = (live[e.country] || 0) + 1; });
+    const out = {};
+    Object.entries(base).forEach(([iso, b]) => {
+      if (b < 15) return;
+      const ratio = (live[iso] || 0) / b;
+      out[iso] = { ratio, live: live[iso] || 0, base: b, level: ratio < 0.2 ? 'low' : ratio < 0.5 ? 'partial' : 'good' };
+    });
+    return out;
+  }
 
   /** Description lisible (liste) : résumé IA dans la langue choisie, chapeau de la source, titre d'article. */
   function describe(e) {
@@ -295,7 +313,10 @@
         baseLayer = L.maplibreGL({ style: `https://tiles.openfreemap.org/styles/${OFM_STYLES[mode][dark ? 1 : 0]}`, attribution: OFM_ATTR, interactive: false });
         baseLayer.addTo(map);
         const gl = baseLayer.getMaplibreMap && baseLayer.getMaplibreMap();
-        if (gl) gl.on('error', ev => { if (!gl.isStyleLoaded || !gl.isStyleLoaded()) fallbackBasemap(); });
+        if (gl) {
+          gl.on('error', ev => { if (!gl.isStyleLoaded || !gl.isStyleLoaded()) fallbackBasemap(); });
+          if (gl.isStyleLoaded && gl.isStyleLoaded()) tuneLabels(gl); else gl.once('load', () => tuneLabels(gl));
+        }
         refreshRiskStyle();
         return;
       } catch (e) { /* repli ci-dessous */ }
@@ -315,6 +336,25 @@
     if (baseLayer) { baseLayer.addTo(map); if (labelLayer) labelLayer.addTo(map); refreshRiskStyle(); return; }
     landLayer.setStyle(landStyle()); landLayer.addTo(map); landLayer.bringToBack();
     refreshRiskStyle();
+  }
+  /* Étiquettes du fond vectoriel : noms en alphabet latin uniquement (français ou anglais), et affichage
+     progressif – pays en vue monde, régions et capitales à partir du zoom 5, villes à 7, bourgs à 9, villages à 12.
+     (Le zoom MapLibre vaut le zoom Leaflet moins 1.) */
+  function tuneLabels(gl) {
+    try {
+      const pref = state.lang === 'fr' ? 'name:fr' : 'name:en';
+      const nameExpr = ['coalesce', ['get', pref], ['get', 'name:en'], ['get', 'name_en'], ['get', 'name:latin'], ['get', 'name_int']];
+      gl.getStyle().layers.forEach(l => {
+        if (l.type !== 'symbol') return;
+        const tf = gl.getLayoutProperty(l.id, 'text-field');
+        if (tf && /name/.test(JSON.stringify(tf))) gl.setLayoutProperty(l.id, 'text-field', nameExpr);
+        if (l['source-layer'] !== 'place') return;
+        const id = l.id.toLowerCase();
+        const min = /country/.test(id) ? null : /state|province/.test(id) ? 4 : /capital/.test(id) ? 4
+          : /city/.test(id) ? 6 : /town/.test(id) ? 8 : /village|hamlet|suburb|quarter|neighbo|other|isolated|island/.test(id) ? 11 : 6;
+        if (min != null) gl.setLayerZoomRange(l.id, Math.max(min, l.minzoom || 0), l.maxzoom || 24);
+      });
+    } catch (e) { /* style inattendu : on garde les étiquettes d'origine */ }
   }
   function fallbackBasemap(toPlain) {
     if (fallbackBasemap.done) return;
@@ -439,7 +479,7 @@
     $('#only-ongoing').checked = state.onlyOngoing;
     $('#ongoing-list').innerHTML = crises.length ? crises.map(c => `<li class="crisis">
       <div class="c-head" data-country="${c.iso === '_sea' ? '' : c.iso}"><span class="lvl" style="background:${sevColor(c.max)}">${c.evs.length}</span>
-        <div><div class="n">${esc(c.iso === '_sea' ? t('at_sea') : countryName(c.iso))} <span class="crisis-tag ${crisisLevel(c.evs)}">${t('crisis_' + crisisLevel(c.evs))}</span></div><div class="s">${c.risk ? `${t('risk_level')} ${c.risk} · ${esc(riskLabel(c.risk))}` : ''}</div></div></div>
+        <div><div class="n">${c.iso === '_sea' ? '' : flagImg(c.iso)}${esc(c.iso === '_sea' ? t('at_sea') : countryName(c.iso))} <span class="crisis-tag ${crisisLevel(c.evs)}">${t('crisis_' + crisisLevel(c.evs))}</span></div><div class="s">${c.risk ? `${t('risk_level')} ${c.risk} · ${esc(riskLabel(c.risk))}` : ''}</div></div></div>
       <ul class="mini-list">${c.evs.slice(0, 5).map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${esc(e.title)}</span><span class="w">${esc(ago(e.date))}</span></li>`).join('')}</ul>
       ${c.evs.length > 5 ? `<div class="hint">+ ${c.evs.length - 5}</div>` : ''}</li>`).join('') : `<li class="empty">${t('no_ongoing')}</li>`;
   }
@@ -535,12 +575,13 @@
       .map(([iso, r]) => ({ iso, r, name: countryName(iso) || iso }))
       .filter(x => !q || x.name.toLowerCase().includes(q))
       .sort((a, b) => b.r.level - a.r.level || b.r.score - a.r.score || a.name.localeCompare(b.name));
+    const cov = coverageMap();
     $('#country-list').innerHTML = rows.length ? rows.map(x => {
       const c = x.r.counts || {};
       const adv = Object.entries(x.r.advisories || {}).map(([src, a]) => `${esc(src.split(' ')[0])} ${a.level}/${a.scale || 4}`).join(' · ');
       const n = (c.security || 0) + (c.hazards || 0);
       return `<li class="country-row" data-iso="${x.iso}"><span class="lvl" style="background:${riskColor(x.r.level)}">${x.r.level}</span>
-        <div><div class="n">${esc(x.name)}</div><div class="s">${esc(riskLabel(x.r.level))}${adv ? ` · ${adv}` : ''}</div></div>
+        <div><div class="n">${flagImg(x.iso)}${esc(x.name)}${cov[x.iso] && cov[x.iso].level === 'low' ? ` <span class="cov-low" title="${esc(t('cov_low_tip'))}">${esc(t('cov_low'))}</span>` : ''}</div><div class="s">${esc(riskLabel(x.r.level))}${adv ? ` · ${adv}` : ''}</div></div>
         <div class="s">${n ? esc(t('n_alerts', n)) : ''}</div></li>`;
     }).join('') : `<li class="empty">${t('no_data')}</li>`;
   }
@@ -681,7 +722,8 @@
     openDrawer(`
       <div class="d-head">
         <div class="d-kicker">${esc((countryProps[iso] || {}).region || '')}</div>
-        <h2 class="d-title">${esc(name)}</h2>
+        <h2 class="d-title">${flagImg(iso, 26)}${esc(name)}</h2>
+        ${(c => c && c.level !== 'good' ? `<div class="notice">${esc(t('cov_notice', c.live, c.base))}</div>` : '')(coverageMap()[iso])}
         <div class="risk-big"><span class="lvl" style="background:${riskColor(lvl)}">${lvl || '–'}</span>
           <div><div class="name">${r ? esc(riskLabel(lvl)) : t('no_data')}</div><div class="desc">${esc(desc)}</div></div></div>
         <a class="btn primary" href="report.html#${iso}" target="_blank" rel="noopener">${icon('file-text')}${t('country_report')}</a>
@@ -701,7 +743,9 @@
       <span style="color:var(--muted)">${s.paused ? t('paused') : s.ok ? `${s.count} ${t('items')}` : esc(s.error || t('error'))}${s.last_success ? ` · ${t('last_success')} ${esc(ago(s.last_success))}` : ''}</span></span></li>`).join('');
     openDrawer(`<div class="d-head"><h2 class="d-title">${t('source_status')}</h2>
       <div class="hint">${t('updated')} ${esc(fmtDate(D.generated))} · v${esc(D.version)}</div></div>
-      <div class="d-sec"><ul class="mini-list" style="gap:10px">${rows}</ul></div>`, 'health');
+      <div class="d-sec"><ul class="mini-list" style="gap:10px">${rows}</ul></div>
+      ${(list => list.length ? `<div class="d-sec"><h3>${t('cov_title')}</h3><div class="hint">${t('cov_hint')}</div><ul class="mini-list">${list.map(([iso, c]) => `<li data-country="${iso}"><span class="t">${flagImg(iso)}${esc(countryName(iso) || iso)}</span><span class="w">${c.live} / ${Math.round(c.base)} ${t('per_month')}</span></li>`).join('')}</ul></div>` : '')(
+        Object.entries(coverageMap()).filter(([, c]) => c.level !== 'good').sort((a, b) => a[1].ratio - b[1].ratio).slice(0, 25))}`, 'health');
   }
 
   /* ------------------------------------------------------------------ analyses */
@@ -834,7 +878,7 @@
     if (q.length < 2) { box.hidden = true; return; }
     const cs = COUNTRIES.features.map(f => f.properties)
       .filter(p => (p.name_fr || '').toLowerCase().includes(q) || (p.name_en || '').toLowerCase().includes(q)).slice(0, 5)
-      .map(p => `<button data-country="${p.iso2}">${RISK[p.iso2] ? `<span class="pill" style="background:${riskColor(RISK[p.iso2].level)}">${RISK[p.iso2].level}</span>` : ''}${esc(p['name_' + state.lang])}<span class="kind">${t('country')}</span></button>`);
+      .map(p => `<button data-country="${p.iso2}">${RISK[p.iso2] ? `<span class="pill" style="background:${riskColor(RISK[p.iso2].level)}">${RISK[p.iso2].level}</span>` : ''}${flagImg(p.iso2)}${esc(p['name_' + state.lang])}<span class="kind">${t('country')}</span></button>`);
     const es = EVENTS.filter(e => (e.title + ' ' + e.place + ' ' + (e.headline || '')).toLowerCase().includes(q)).slice(0, 8)
       .map(e => `<button data-event="${esc(e.id)}"><span class="pill" style="background:${sevColor(e.severity)}">${e.severity}</span>${esc(e.title)}<span class="kind">${esc(ago(e.date))}</span></button>`);
     box.innerHTML = cs.concat(es).join('') || `<div class="empty">—</div>`;
@@ -995,7 +1039,8 @@
       else return;
       renderAnalytics();
     });
-    $('#btn-lang').addEventListener('click', () => { state.lang = state.lang === 'fr' ? 'en' : 'fr'; persist(); applyI18n(); renderAll(); reopenDrawer(); });
+    $('#btn-lang').addEventListener('click', () => { state.lang = state.lang === 'fr' ? 'en' : 'fr'; persist(); applyI18n(); renderAll(); reopenDrawer();
+      const gl = baseLayer && baseLayer.getMaplibreMap && baseLayer.getMaplibreMap(); if (gl) tuneLabels(gl); });
     $('#btn-theme').addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; persist(); applyTheme(); renderAll(); reopenDrawer(); });
     $('#btn-panel').addEventListener('click', () => $('#app').classList.toggle('panel-open'));
     $('#lyr-events').addEventListener('change', ev => ev.target.checked ? map.addLayer(cluster) : map.removeLayer(cluster));

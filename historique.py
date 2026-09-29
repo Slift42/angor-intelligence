@@ -13,8 +13,10 @@ Usage :
   python historique.py --only usgs who  → certaines parties seulement
   python historique.py --years 3
   python historique.py --build          → reconstruit docs/data/history à partir des parties déjà téléchargées
+  python historique.py --only ucdp      → télécharge UCDP seulement, SANS reconstruire (à lancer sur le PC :
+                                          ucdp.uu.se refuse les serveurs de GitHub), puis publier.bat
 Sorties :
-  data/history/<partie>.json.gz          parties brutes (non publiées)
+  history_parts/<partie>.json.gz         parties brutes (versionnées, réutilisées si une source est injoignable)
   docs/data/history/index.js             sommaire (période, volumes)
   docs/data/history/stats-AAAA.js        toutes les lignes, format compact (onglet Analyses)
   docs/data/history/map/AAAA-MM.js       incidents marquants, format complet (carte, périodes longues)
@@ -42,9 +44,10 @@ from veille.connectors.usgs import gravite
 from veille.geo import Countries
 from veille.model import CATEGORIES, make_event, parse_iso, to_iso
 
-PARTS_DIR = config.ROOT / "data" / "history"
+PARTS_DIR = config.ROOT / "history_parts"   # versionné : une partie téléchargée ailleurs (PC) est réutilisée par le robot
 OUT_DIR = config.ROOT / "docs" / "data" / "history"
 PARTS = ["usgs", "gdacs", "eonet", "who", "ucdp", "gdelt"]
+SECURITY_CATS = {"armed_conflict", "attack", "terrorism", "crime", "unrest", "political"}
 MAP_PER_MONTH = 600          # incidents marquants par mois sur la carte (les plus graves d'abord)
 UA = {"User-Agent": "AngorIntelligence/1.0 (veille sureté, sources ouvertes)"}
 
@@ -217,7 +220,7 @@ def _ucdp_links():
 
 
 def _ucdp_rows(url):
-    raw = requests.get(url, headers=UA, timeout=300).content
+    raw = requests.get(url, headers=UA, timeout=(20, 300)).content
     if url.endswith(".zip"):
         with zipfile.ZipFile(io.BytesIO(raw)) as z:
             name = [n for n in z.namelist() if n.lower().endswith(".csv")][0]
@@ -356,11 +359,11 @@ def _gdelt_day(day):
         dom = max(len(a["domains"]), a["nsrc"])
         tense = a["iso"] in _G["tense"]
         if a["root"] == "14":
-            need = (10, 2) if (tense or a["code"] == "145") else (20, 3)
+            need = (15, 3) if (tense or a["code"] == "145") else (30, 4)
         elif tense:
-            need = (5, 2)
+            need = (8, 3)
         else:
-            need = (12, 3) if a["root"] == "18" else (20, 3)
+            need = (15, 4) if a["root"] == "18" else (25, 4)
         if a["articles"] < need[0] or dom < need[1]:
             continue
         cat, sev, _ = CAMEO[a["code"]]
@@ -369,8 +372,16 @@ def _gdelt_day(day):
         if a["articles"] >= 50 and dom >= 5:
             sev = min(4, sev + 1)
         conf = "high" if dom >= 5 and a["articles"] >= 20 else "medium" if dom >= 3 else "low"
-        out.append((a["day"], a["iso"], cat, sev, a["place"], conf))
-    return day, out
+        out.append((a["articles"], a["day"], a["iso"], cat, sev, a["place"], conf))
+    # au plus 15 détections par pays et par jour (les plus reprises) : évite qu'un pays très médiatisé écrase tout
+    out.sort(key=lambda x: -x[0])
+    per, kept = {}, []
+    for x in out:
+        k = (x[2], x[1])
+        if per.get(k, 0) < 15:
+            per[k] = per.get(k, 0) + 1
+            kept.append(x[1:])
+    return day, kept
 
 
 def part_gdelt(start, end, countries, workers=8):
@@ -475,12 +486,17 @@ def build(start, until):
             evs.append(ev)
         write_js(OUT_DIR / "map" / f"{m}.js", f"(window.VS_HMAP = window.VS_HMAP || {{}})['{m}'] = ", evs)
         months[m] = len(evs)
-    counts = {}
+    counts, base = {}, {}
+    last12 = (until - timedelta(days=365)).isoformat()
     for r in records:
         counts[r["src"]] = counts.get(r["src"], 0) + 1
+        if r.get("iso") and r["t"][:10] >= last12 and r["cat"] in SECURITY_CATS:
+            base[r["iso"]] = base.get(r["iso"], 0) + 1
+    baseline = {iso: round(n / 12, 1) for iso, n in base.items()}
     write_js(OUT_DIR / "index.js", "window.VS_HIST_INDEX = ",
              {"generated": to_iso(datetime.now(timezone.utc)), "from": start.isoformat(), "until": until.isoformat(),
               "years": years, "map_months": months, "sources": counts, "cats": cats, "srcs": srcs,
+              "baseline_month": baseline,
               "credits": "UCDP GED (Uppsala University, CC BY 4.0), GDELT Project, USGS, GDACS, NASA EONET, WHO"})
     log(f"→ {len(records)} enregistrements, {sum(months.values())} incidents marquants sur la carte, "
         f"{len(years)} année(s) → docs/data/history/")
@@ -503,7 +519,7 @@ def main():
     start = today - timedelta(days=int(365.25 * args.years))
     log(f"Base historique du {start} au {until}")
     countries = Countries()
-    if not args.build:
+    if args.only or not args.build:
         for name in args.only or PARTS:
             t0 = time.time()
             log(f"• {name}")
@@ -511,11 +527,19 @@ def main():
                 fn = globals()[f"part_{name}"]
                 recs = fn(start, until + timedelta(days=1), countries, args.workers) if name == "gdelt" \
                     else fn(start, until + timedelta(days=1), countries)
-                save_part(name, recs)
-                log(f"  ✔ {name} : {len(recs)} enregistrement(s) en {time.time() - t0:.0f} s")
+                if recs:
+                    save_part(name, recs)
+                    log(f"  ✔ {name} : {len(recs)} enregistrement(s) en {time.time() - t0:.0f} s")
+                else:
+                    old = len(load_part(name))
+                    log(f"  ✘ {name} : aucun enregistrement téléchargé – partie précédente conservée ({old})")
             except Exception as exc:  # une source en panne ne bloque jamais les autres
                 log(f"  ✘ {name} : {type(exc).__name__}: {exc}")
-    build(start, until)
+    if not args.only or args.build:
+        build(start, until)
+    else:
+        log("Parties téléchargées. Reconstruction non lancée (--only sans --build) : envoyez avec publier.bat,"
+            " puis relancez le robot « Historique ».")
     return 0
 
 

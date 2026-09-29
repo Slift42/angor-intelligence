@@ -17,7 +17,7 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import __version__, ai, analytics, config, enrich, notify, press, profiles, publish, risk
+from veille import __version__, ai, analytics, config, enrich, notify, practical, press, profiles, publish, risk
 from veille.connectors import REGISTRY, Context
 from veille.dedupe import dedupe
 from veille.geo import Countries, haversine_km
@@ -168,6 +168,12 @@ def main():
             profiles.build(countries, log, now)
         except Exception as exc:
             log(f"✘ profils pays : {type(exc).__name__}: {exc}")
+
+    if not args.no_profiles:
+        try:
+            practical.update(countries, store, log, per_run=settings.get("practical_per_run", 25))
+        except Exception as exc:
+            log(f"✘ infos pratiques : {type(exc).__name__}: {exc}")
 
     advisories = {v["name"]: v["data"] for v in store["advisories"].values()}
     country_risk = risk.compute(all_events, advisories, now, config.load_json("risk.json", {}))

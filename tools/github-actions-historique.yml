@@ -11,7 +11,7 @@ on:
         description: "Nombre d'années"
         default: "5"
       only:
-        description: "Parties (vide = toutes) : usgs gdacs eonet who ucdp gdelt"
+        description: "Parties (vide = toutes) : usgs gdacs eonet who ucdp gdelt – UCDP se télécharge depuis le PC"
         default: ""
 
 permissions:
@@ -44,7 +44,7 @@ jobs:
       - name: Construire la base historique
         run: |
           if [ -n "${{ inputs.only }}" ]; then
-            python historique.py --years "${{ inputs.years }}" --only ${{ inputs.only }}
+            python historique.py --years "${{ inputs.years }}" --only ${{ inputs.only }} --build
           else
             python historique.py --years "${{ inputs.years }}"
           fi
@@ -52,7 +52,7 @@ jobs:
         run: |
           git config user.name "angor-robot"
           git config user.email "angor-robot@users.noreply.github.com"
-          git add docs/data/history
+          git add docs/data/history history_parts
           git commit -m "Base historique mise à jour" || echo "Rien de nouveau"
           git pull --rebase
           git push

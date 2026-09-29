@@ -51,6 +51,29 @@ def plain(text):
     return re.sub(r"\s+", " ", "".join(c for c in text if not unicodedata.combining(c)))
 
 
+KEY_RE = re.compile(r"deconseill|vigilance|recommand|il convient|eviter|prudence|couvre-feu|enlevement|terroris|"
+                    r"manifestation|criminalit|braquage|mines|checkpoint|barrage|zone|interdit", re.I)
+
+
+def sentences(page_html):
+    """Phrases de conseil de la page (texte original, accents conservés), pour un extrait cité."""
+    text = re.sub(r"<(script|style|nav|header|footer)[^>]*>.*?</\1>", " ", page_html, flags=re.S | re.I)
+    text = html.unescape(re.sub(r"<[^>]+>", " ", text))
+    text = re.sub(r"\s+", " ", text)
+    out = []
+    for sent in re.split(r"(?<=[.!?])\s+(?=[A-ZÀ-ÖØ-Ý«])", text):
+        sent = sent.strip()
+        if 40 <= len(sent) <= 360 and KEY_RE.search(plain(sent)) and sent not in out:
+            out.append(sent)
+        if len(out) >= 30:
+            break
+    return out
+
+
+def _key(sent):
+    return plain(sent)[:90]
+
+
 def slugify(name):
     s = unicodedata.normalize("NFKD", name.lower())
     s = "".join(c for c in s if not unicodedata.combining(c))
@@ -101,7 +124,8 @@ def fetch(cfg, ctx):
         if iso in SKIP or not item.get("name_fr"):
             continue
         page = st["pages"].get(iso)
-        if page and now - datetime.fromisoformat(page["fetched"]) < (refresh if page.get("ok") else timedelta(days=7)):
+        fresh = page and now - datetime.fromisoformat(page["fetched"]) < (refresh if page.get("ok") else timedelta(days=7))
+        if fresh and not (page.get("ok") and "sents" not in page):  # pages lues avant l'ajout des extraits : relues
             continue
         todo.append((page["fetched"] if page else "", iso, item))
     todo.sort()  # jamais lus d'abord, puis les plus anciens
@@ -131,7 +155,7 @@ def fetch(cfg, ctx):
             u = UPDATED_RE.search(html.unescape(text))
             entry.update(slug=slug_ok, counts={str(k): len(rx.findall(low)) for k, rx in PHRASES.items()},
                          map=(SITE + m.group(1) if m and m.group(1).startswith("/") else m.group(1) if m else None),
-                         updated=u.group(1) if u else None)
+                         updated=u.group(1) if u else None, sents=sentences(text))
             st["slugs"][iso] = slug_ok
             done += 1
         elif blocked:
@@ -145,12 +169,27 @@ def fetch(cfg, ctx):
         ctx.log(f"  MEAE : {len(ok)} page(s) lue(s) à ce jour, niveaux publiés à partir de 15")
         return {}
     baseline = {k: min(p["counts"].get(k, 0) for p in ok.values()) for k in ("1", "2", "3", "4")}
+    # phrases communes à beaucoup de pages (gabarit, conseils généraux) : écartées de l'extrait
+    freq = {}
+    for p in ok.values():
+        for k in {_key(x) for x in p.get("sents", [])}:
+            freq[k] = freq.get(k, 0) + 1
+    common = {k for k, n in freq.items() if n > max(3, 0.2 * len(ok))}
     out = {}
     for iso, p in ok.items():
+        excerpt, size = [], 0
+        for x in p.get("sents", []):
+            if _key(x) in common or size + len(x) > 900:
+                continue
+            excerpt.append(x)
+            size += len(x)
+            if len(excerpt) >= 6:
+                break
         level, parts, mx = assess(p["counts"], baseline)
         out[iso] = {"level": level, "scale": 4, "max": mx, "parts": parts,
                     "label": LABELS[mx] + (" (certaines zones)" if parts and mx > 1 else ""),
-                    "url": PAGE.format(slug=p["slug"]), "updated": p.get("updated"), "map": p.get("map")}
+                    "url": PAGE.format(slug=p["slug"]), "updated": p.get("updated"), "map": p.get("map"),
+                    "excerpt": excerpt}
     if todo:
         ctx.log(f"  MEAE : {done} page(s) lue(s), {len(todo) - done} en attente, {len(out)} pays connus")
     return out

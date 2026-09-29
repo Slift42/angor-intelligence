@@ -16,7 +16,9 @@ Ce qu'elle fait :
 - **Fil de presse** : environ 110 pays en 12 langues (Google News), plus 650 médias de référence dans 206 pays (3 à 5 titres fiables par pays). Titres et liens uniquement.
 - **Base historique (5 ans)** : conflits UCDP, détections GDELT, séismes, catastrophes, épidémies, pour l'onglet Analyses et la carte sur les longues périodes.
 - **Calques des ministères** : heatmap MEAE (France), FCDO (Royaume-Uni), State Dept (États-Unis), avec la carte officielle de chaque pays.
-- **Fonds de carte** : détaillé (routes, villes), contrasté, épuré, satellite, topographique.
+- **Fonds de carte** : détaillé (routes, villes), contrasté, épuré, satellite, topographique ; noms en alphabet latin, affichage progressif (pays → régions → villes).
+- **Rapports pays enrichis** : conseils et carte du MEAE, usages culturels (tenue, religion, gestes, affaires, interdits), urgences, hôpitaux (Wikidata), télécoms, prestataires de sécurité et d'assistance.
+- **Couverture des sources** : les pays où nos sources remontent beaucoup moins d'incidents que la moyenne historique sont signalés « couverture faible ».
 - **Mes sites** : rayons de vigilance autour de vos sites, alertes de proximité, export PDF de la liste d'alertes.
 - **Interface** : bilingue FR/EN, thème clair ou sombre, utilisable sur mobile.
 

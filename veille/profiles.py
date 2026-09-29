@@ -25,6 +25,7 @@ INDICATORS = {
     "homicide_rate": "VC.IHR.PSRC.P5", "internet_users": "IT.NET.USER.ZS", "urban_pct": "SP.URB.TOTL.IN.ZS",
     "military_pct_gdp": "MS.MIL.XPND.GD.ZS", "days_to_start_business": "IC.REG.DURS",
     "total_tax_rate": "IC.TAX.TOTL.CP.ZS", "refugees_origin": "SM.POP.REFG.OR",
+    "mobile_subs": "IT.CEL.SETS.P2", "broadband_subs": "IT.NET.BBND.P2", "electricity_access": "EG.ELC.ACCS.ZS",
 }
 WGI = {  # scores de gouvernance 0 (pire) à 100 (meilleur) – édition WGI révisée
     "wgi_corruption": "GOV_WGI_CC.SC", "wgi_rule_of_law": "GOV_WGI_RL.SC", "wgi_stability": "GOV_WGI_PV.SC",

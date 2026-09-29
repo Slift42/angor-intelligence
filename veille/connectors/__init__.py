@@ -9,8 +9,8 @@ Chaque connecteur est un module qui expose :
 Pour ajouter une source : créer un module ici, l'ajouter à REGISTRY,
 puis déclarer la source dans config/sources.json (avec "enabled": true).
 """
-from . import (acled, ca_advisories, eonet, fr_advisories, gdacs, gdelt_events, gnews, jsonapi, outlets, rss,
-               uk_advisories, us_advisories, usgs, who_don)
+from . import (acled, ca_advisories, eonet, fr_advisories, gdacs, gdelt_events, gnews, jsonapi, outlets, reliefweb,
+               rss, telegram, uk_advisories, us_advisories, usgs, who_don)
 
 REGISTRY = {
     "usgs": usgs,
@@ -25,6 +25,8 @@ REGISTRY = {
     "gnews": gnews,      # presse locale de ~110 pays via Google News (rotation)
     "outlets": outlets,  # médias de référence par pays (≈ 200 pays), via Google News
     "rss": rss,          # générique : flux RSS/Atom gratuits ou sous abonnement
+    "telegram": telegram,  # canaux Telegram publics (aperçu t.me/s/…)
+    "reliefweb": reliefweb,  # ONU OCHA – rapports humanitaires par pays (nom d'application requis)
     "jsonapi": jsonapi,  # générique : API JSON authentifiée (sources payantes)
     "acled": acled,      # exemple de source sous licence (désactivée par défaut)
 }

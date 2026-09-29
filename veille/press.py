@@ -383,6 +383,7 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             g["sev"] = max(g["sev"], sev)
             g["items"].append(it)
             g["outlets"].add(it["outlet"])
+            g["social"] = g.get("social") or bool(it.get("social"))
             if ai and ai.get("summary_en") and not g.get("summary"):
                 g["summary"] = ai["summary_en"]
                 g["summary_fr"] = ai.get("summary_fr") or ""
@@ -403,7 +404,8 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
                                          f"Location and category inferred automatically from headlines.",
             date=to_iso(last["date"]), start=to_iso(first["date"]), lat=g["loc"]["lat"], lon=g["loc"]["lon"],
             url=first["url"], place=g["loc"]["place"], precision="city", country=g["loc"]["country"],
-            confidence=conf, tags=["auto-detected", "unverified", "press"] + (["ai"] if g.get("ai") else []))
+            confidence="low" if g.get("social") and n < 2 else conf,
+            tags=["auto-detected", "unverified", "press"] + (["ai"] if g.get("ai") else []) + (["social"] if g.get("social") else []))
         ev["sources"] = [{"name": x["outlet"], "url": x["url"], "title": x["title"]} for x in items[:8]]
         ev["headline"] = first["title"]
         if g.get("summary_fr"):

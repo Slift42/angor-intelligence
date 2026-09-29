@@ -49,6 +49,7 @@ jobs:
           FOURNISSEUR_TOKEN: ${{ secrets.FOURNISSEUR_TOKEN }}
           PRESSE_ABONNE_COOKIE: ${{ secrets.PRESSE_ABONNE_COOKIE }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RELIEFWEB_APPNAME: ${{ secrets.RELIEFWEB_APPNAME }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
