@@ -55,6 +55,10 @@ def _reference():
                     letter = row[4] if len(row) > 4 and row[4] in "ABCDEF" else "B"
                     _LETTER[str(row[0]).lower()] = _LETTER[_dom(row[1])] = letter
         for s in (config.load_json("sources.json", {}) or {}).get("sources", []):
+            if s.get("type") == "telegram":
+                for ch in s.get("channels") or []:
+                    if ch.get("reliability") and ch.get("name"):
+                        _LETTER["t.me/" + ch["name"].lstrip("@").lower()] = ch["reliability"].upper()
             if s.get("type") == "rss" and s.get("name"):
                 names.add(s["name"].split(" – ")[0].split(" (")[0])
                 if s.get("reliability"):

@@ -59,5 +59,11 @@
   "agenda": {
     "_comment": "Jours fériés Nager.Date (holidays_per_run pays par collecte), élections Wikidata, fêtes religieuses calculées, vos échéances dans config/calendar.json.",
     "holidays_per_run": 30
+  },
+  "accounts": {
+    "_comment": "Comptes utilisateurs et safety checks (Supabase, gratuit). Vide = pas de compte : la carte reste publique et fonctionne comme avant. supabase_anon_key est une clé PUBLIQUE (protégée par les règles RLS) ; ne jamais mettre ici la clé « service_role ». Voir GUIDE_MISE_EN_LIGNE.md, partie H.",
+    "supabase_url": "",
+    "supabase_anon_key": "",
+    "vapid_public_key": ""
   }
 }

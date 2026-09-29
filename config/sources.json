@@ -595,19 +595,337 @@
       "max_items_per_channel": 20,
       "channels": [
         {
+          "name": "Actu17",
+          "country": "FR",
+          "lang": "fr",
+          "label": "Actu17",
+          "note": "Police, justice, faits divers (les faits divers sont écartés par le tri)"
+        },
+        {
+          "name": "ActuInternationale",
+          "lang": "fr",
+          "label": "Actu Internationale",
+          "note": "Agrégateur international francophone"
+        },
+        {
+          "name": "lemondediplo",
+          "lang": "fr",
+          "label": "Le Monde diplomatique",
+          "reliability": "B",
+          "note": "Canal officiel ; analyses plus qu'incidents"
+        },
+        {
+          "name": "rfi_fr",
+          "lang": "fr",
+          "label": "RFI",
+          "reliability": "B"
+        },
+        {
+          "name": "RFIAfrique",
+          "lang": "fr",
+          "label": "RFI Afrique",
+          "reliability": "C"
+        },
+        {
+          "name": "france24_fr",
+          "lang": "fr",
+          "label": "France 24",
+          "reliability": "B"
+        },
+        {
+          "name": "ouestfrance",
+          "country": "FR",
+          "lang": "fr",
+          "label": "Ouest-France (relais)",
+          "reliability": "C",
+          "note": "Relais non officiel"
+        },
+        {
+          "name": "Opex360",
+          "lang": "fr",
+          "label": "Opex360 – Zone Militaire",
+          "reliability": "C",
+          "note": "Défense et opérations"
+        },
+        {
+          "name": "wamaps",
+          "lang": "fr",
+          "label": "Wamaps (sécurité Afrique de l'Ouest)",
+          "reliability": "D",
+          "note": "Collectif africain, rythme faible"
+        },
+        {
+          "name": "rtsinfo",
+          "country": "CH",
+          "lang": "fr",
+          "label": "RTS Info (relais)",
+          "reliability": "C",
+          "note": "Relais non officiel"
+        },
+        {
+          "name": "LebUpdate",
+          "country": "LB",
+          "lang": "en",
+          "label": "Lebanese News and Updates"
+        },
+        {
+          "name": "LBCI_News",
+          "country": "LB",
+          "lang": "ar",
+          "label": "LBCI (relais)",
+          "reliability": "C",
+          "note": "Relais automatique des messages de la chaîne"
+        },
+        {
+          "name": "Levant24",
+          "country": "SY",
+          "lang": "en",
+          "label": "Levant24",
+          "reliability": "C"
+        },
+        {
+          "name": "enabbaladi",
+          "country": "SY",
+          "lang": "ar",
+          "label": "Enab Baladi",
+          "reliability": "B"
+        },
+        {
+          "name": "hawarnews",
+          "country": "SY",
+          "lang": "ar",
+          "label": "ANHA (agence kurde)",
+          "reliability": "D",
+          "note": "Agence de l'administration kurde : partisane"
+        },
+        {
+          "name": "Alhadath_Brk",
+          "lang": "ar",
+          "label": "Al Hadath – urgent",
+          "reliability": "C"
+        },
+        {
+          "name": "alarabiya",
+          "lang": "ar",
+          "label": "Al Arabiya",
+          "reliability": "C"
+        },
+        {
+          "name": "ajanews",
+          "lang": "ar",
+          "label": "Al Jazeera (arabe)",
+          "reliability": "C"
+        },
+        {
+          "name": "asharqnews",
+          "lang": "ar",
+          "label": "Asharq News",
+          "reliability": "C"
+        },
+        {
+          "name": "ynetalerts",
+          "country": "IL",
+          "lang": "he",
+          "label": "ynet – alertes",
+          "reliability": "C"
+        },
+        {
+          "name": "Mahsa_Alert",
+          "country": "IR",
+          "lang": "en",
+          "label": "MahsaAlert (alertes Iran)",
+          "note": "Alertes de sécurité, opposition"
+        },
+        {
+          "name": "iranintltv",
+          "country": "IR",
+          "lang": "fa",
+          "label": "Iran International",
+          "reliability": "C",
+          "note": "Chaîne d'opposition"
+        },
+        {
+          "name": "bbcpersian",
+          "country": "IR",
+          "lang": "fa",
+          "label": "BBC persan",
+          "reliability": "B"
+        },
+        {
+          "name": "radiofarda",
+          "country": "IR",
+          "lang": "fa",
+          "label": "Radio Farda (RFE/RL)",
+          "reliability": "B"
+        },
+        {
           "name": "meduzalive",
           "country": "RU",
           "lang": "ru",
-          "label": "Meduza"
+          "label": "Meduza",
+          "reliability": "B"
         },
         {
           "name": "astrapress",
           "country": "RU",
           "lang": "ru",
-          "label": "ASTRA (média indépendant)"
+          "label": "ASTRA (média indépendant)",
+          "reliability": "C"
+        },
+        {
+          "name": "bbcrussian",
+          "country": "RU",
+          "lang": "ru",
+          "label": "BBC russe",
+          "reliability": "B"
+        },
+        {
+          "name": "tvrain",
+          "country": "RU",
+          "lang": "ru",
+          "label": "Dojd (TV Rain)",
+          "reliability": "B"
+        },
+        {
+          "name": "nexta_live",
+          "country": "BY",
+          "lang": "ru",
+          "label": "NEXTA Live",
+          "reliability": "D"
+        },
+        {
+          "name": "kyivindependent_official",
+          "country": "UA",
+          "lang": "en",
+          "label": "The Kyiv Independent",
+          "reliability": "B"
+        },
+        {
+          "name": "suspilnenews",
+          "country": "UA",
+          "lang": "uk",
+          "label": "Suspilne (service public)",
+          "reliability": "B"
+        },
+        {
+          "name": "ukrpravda_news",
+          "country": "UA",
+          "lang": "uk",
+          "label": "Ukraïnska Pravda",
+          "reliability": "B"
+        },
+        {
+          "name": "UkraineNow",
+          "country": "UA",
+          "lang": "uk",
+          "label": "Ukraine NOW",
+          "reliability": "C"
+        },
+        {
+          "name": "DeepStateUA",
+          "country": "UA",
+          "lang": "uk",
+          "label": "DeepState (cartographie)",
+          "reliability": "D",
+          "note": "Cartographie du front, pro-ukrainien"
+        },
+        {
+          "name": "liveuamap",
+          "lang": "en",
+          "label": "Liveuamap",
+          "reliability": "C"
+        },
+        {
+          "name": "insiderpaper",
+          "lang": "en",
+          "label": "Insider Paper",
+          "note": "Agrégateur d'urgences"
+        },
+        {
+          "name": "clashreport",
+          "lang": "en",
+          "label": "Clash Report",
+          "note": "Agrégateur conflits"
+        },
+        {
+          "name": "AfricaIntel",
+          "lang": "en",
+          "label": "Africa Intel",
+          "note": "Agrégateur Afrique"
+        },
+        {
+          "name": "SCMPNews",
+          "country": "HK",
+          "lang": "en",
+          "label": "South China Morning Post",
+          "reliability": "B"
+        },
+        {
+          "name": "straitstimes",
+          "country": "SG",
+          "lang": "en",
+          "label": "Straits Times (relais)",
+          "reliability": "C"
+        },
+        {
+          "name": "anadoluajansi",
+          "country": "TR",
+          "lang": "tr",
+          "label": "Anadolu Ajansı",
+          "reliability": "C",
+          "note": "Agence d'État"
+        },
+        {
+          "name": "elpais",
+          "country": "ES",
+          "lang": "es",
+          "label": "El País",
+          "reliability": "B"
+        },
+        {
+          "name": "cnnbrasil",
+          "country": "BR",
+          "lang": "pt",
+          "label": "CNN Brasil",
+          "reliability": "B"
+        },
+        {
+          "name": "tagesschau",
+          "country": "DE",
+          "lang": "de",
+          "label": "Tagesschau (relais)",
+          "reliability": "C"
+        },
+        {
+          "name": "sitreports",
+          "lang": "en",
+          "label": "SITREP (OSINT)"
+        },
+        {
+          "name": "OSINTWarfare",
+          "lang": "en",
+          "label": "OSINTWarfare"
+        },
+        {
+          "name": "OSINTdefender",
+          "lang": "en",
+          "label": "OSINTdefender"
+        },
+        {
+          "name": "Osint613",
+          "lang": "en",
+          "label": "OSINT613",
+          "note": "Orientation pro-israélienne"
+        },
+        {
+          "name": "CIT_en",
+          "lang": "en",
+          "label": "Conflict Intelligence Team",
+          "reliability": "C"
         }
       ],
-      "_comment": "Ajouter des canaux PUBLICS de médias/ONG identifiés : {name (sans @), country, lang, label}. Lecture via t.me/s/<canal>."
+      "_comment": "Canaux PUBLICS lus via t.me/s/<canal> (vérifiés le 30/09/2026). Champs : name (sans @), country (vide = international), lang, label, reliability (B = canal officiel d'un média de référence, C = relais, D = partisan/OSINT établi, vide = E), note. Écartés volontairement : canaux de belligérants et de propagande (IDF, Forces aériennes UA, Rybar, TASS, Al Mayadeen, Quds News…). @max_conflits n'a pas d'aperçu public (compte personnel ou privé) : illisible sans compte.",
+      "time_budget_s": 90
     },
     {
       "id": "reliefweb",

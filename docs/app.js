@@ -22,6 +22,11 @@
       buddy_thinking: 'Je rassemble les informations…', buddy_mode_ai: 'Réponse rédigée par IA à partir des données Angor – à vérifier', buddy_mode_local: 'Données Angor (sans IA)',
       buddy_ai_on: 'Assistant IA actif. Ne saisissez pas de données personnelles.', buddy_ai_off: 'Mode sans IA : réponses construites à partir des données Angor.', buddy_ai_down: 'Assistant IA indisponible : réponse construite à partir des données Angor.',
       legend: 'Légende',
+      m_map: 'Carte', m_alerts: 'Alertes', m_ongoing: 'En cours', m_travel: 'Voyage', m_more: 'Plus', m_account: 'Mon compte', m_admin: 'Administration',
+      m_install: 'Installer l’application', layers_btn: 'Couches', offline: d => `Hors ligne : dernière situation enregistrée (${d}).`,
+      sc_title: 'Safety check', sc_safe: 'Je suis en sécurité', sc_help: 'J’ai besoin d’aide', sc_nc: 'Pas concerné', sc_later: 'Plus tard',
+      sc_done: 'Réponse envoyée. Merci.', sc_err: 'Réponse non envoyée : vérifiez votre connexion.', sc_launch: 'Lancer un safety check',
+      acc_login: 'Se connecter', acc_pending: 'Compte en attente de validation',
       tab_agenda: 'Agenda', help: 'Aide',
       chrono_title: 'Chronologies de crise (30 j)', chrono_n: (a, b) => `${a} active${a > 1 ? 's' : ''} · ${b} au total`, chrono_all: 'Toutes', chrono_active: 'Actives',
       chrono_none: 'Aucune chronologie sur la période.', trend: { escalating: 'Escalade', stable: 'Stable', declining: 'Décrue', new: 'Nouvelle' },
@@ -131,6 +136,11 @@
       buddy_thinking: 'Gathering information…', buddy_mode_ai: 'AI-written answer based on Angor data – to be verified', buddy_mode_local: 'Angor data (no AI)',
       buddy_ai_on: 'AI assistant on. Do not enter personal data.', buddy_ai_off: 'No-AI mode: answers built from Angor data.', buddy_ai_down: 'AI assistant unavailable: answer built from Angor data.',
       legend: 'Legend',
+      m_map: 'Map', m_alerts: 'Alerts', m_ongoing: 'Ongoing', m_travel: 'Travel', m_more: 'More', m_account: 'My account', m_admin: 'Administration',
+      m_install: 'Install the app', layers_btn: 'Layers', offline: d => `Offline: last saved situation (${d}).`,
+      sc_title: 'Safety check', sc_safe: 'I am safe', sc_help: 'I need help', sc_nc: 'Not concerned', sc_later: 'Later',
+      sc_done: 'Answer sent. Thank you.', sc_err: 'Answer not sent: check your connection.', sc_launch: 'Launch a safety check',
+      acc_login: 'Sign in', acc_pending: 'Account awaiting approval',
       tab_agenda: 'Agenda', help: 'Help',
       chrono_title: 'Crisis timelines (30 d)', chrono_n: (a, b) => `${a} active · ${b} in total`, chrono_all: 'All', chrono_active: 'Active',
       chrono_none: 'No timeline over the period.', trend: { escalating: 'Escalating', stable: 'Stable', declining: 'Declining', new: 'New' },
@@ -248,7 +258,7 @@
   const HIST = [];
   const histYears = new Set();
   const HTAGS = [[], ['auto-detected'], ['multi-source'], ['auto-detected', 'multi-source']];
-  const GROUP_COLORS = { security: '#B0182E', political: '#E0A21B', natural: '#3F86C6', health: '#7D5BA6', infrastructure: '#5E6B78' };
+  const GROUP_COLORS = { security: '#B0182E', political: '#E0A21B', natural: '#3F86C6', health: '#7D5BA6', infrastructure: '#5E6B78', diplomatic: '#4B6BAF' };
 
   const BASEMAPS = ['detail', 'bright', 'clean', 'satellite', 'topo', 'esri', 'plain'];
   /* ------------------------------------------------------------------ état */
@@ -533,15 +543,7 @@
       layer.on('click', ev => { if (state.picking || state.drawing) return; L.DomEvent.stopPropagation(ev); openCountry(f.properties.iso2); });
       layer.on('mouseover', () => { if (!state.picking) layer.setStyle({ weight: 1.6, color: cssVar('--ink-2') }); });
       layer.on('mouseout', () => riskLayer.resetStyle(layer));
-      layer.bindTooltip(() => {
-        const iso = f.properties.iso2, r = RISK[iso], mode = state.countryLayer;
-        if (MIN_SOURCES[mode]) {
-          const a = advisoryOf(iso, mode);
-          return `<strong>${esc(countryName(iso))}</strong><br>${esc(MIN_SOURCES[mode])} : ${a ? esc(minLabel(a, mode)) : t('no_adv')}`;
-        }
-        if (mode === 'pulse') { const p = PULSE[iso]; return `<strong>${esc(countryName(iso))}</strong><br>${p ? `${t('pulse')} ${p.value}/100${p.d7 != null ? ` (${p.d7 > 0 ? '+' : ''}${p.d7} / 7 j)` : ''} · ${esc(pulseLabel(p.value))}` : t('no_data')}`; }
-        return `<strong>${esc(countryName(iso))}</strong><br>${r ? `${t('risk_level')} : ${r.level} · ${esc(riskLabel(r.level))}` : t('no_data')}`;
-      }, { sticky: true, className: 'vs-tip', direction: 'top', offset: [0, -8] });
+      // pas d'étiquette au survol : seul le contour du pays est surligné (clic = fiche pays)
     }
   });
   /* Calques des ministères des affaires étrangères (niveaux par pays, couleurs de la carte MEAE) */
@@ -805,6 +807,7 @@
     $$('.tab-body').forEach(s => { s.hidden = s.dataset.body !== state.tab; });
     if (state.tab === 'buddy') { renderBuddy(); ensureBuddyData(); }
     if (state.tab === 'agenda') renderAgenda();
+    renderMobileNav();
   }
 
   function renderSevSummary() {
@@ -1027,6 +1030,7 @@
         ${e.verified && e.verified.status !== 'false' ? `<div class="notice verified-notice">${icon('badge-check', 15)} ${esc(t('verified_notice', e.verified.date ? fmtDay(e.verified.date) : ''))}${e.verified.status === 'corrected' ? ' ' + esc(t('corrected_notice')) : ''}${e.verified.note ? `<br><span class="muted">${esc(e.verified.note)}</span>` : ''}</div>` : ''}
       </div>
       ${CRISIS_OF[e.id] ? `<div class="d-sec"><a href="#" class="crisis-link" data-crisis="${CRISIS_OF[e.id].id}">${icon('activity', 14)} ${esc(t('chrono_part'))} : <strong>${esc(crisisTitle(CRISIS_OF[e.id]))}</strong> (${esc(t('chrono_inc', CRISIS_OF[e.id].n))}) →</a></div>` : ''}
+      ${ACC.profile && ACC.profile.role === 'admin' && ACC.profile.status === 'approved' ? `<div class="d-sec"><a class="btn" href="admin.html?tab=checks&check_title=${encodeURIComponent(e.title.slice(0, 110))}&lat=${e.lat}&lon=${e.lon}&place=${encodeURIComponent((e.place || '').split(',')[0])}&iso=${e.country || ''}&event=${encodeURIComponent(e.id)}">${icon('shield', 15)}${esc(t('sc_launch'))}</a></div>` : ''}
       ${state.analyst ? analystPanel(e) : ''}
       <div class="d-sec"><dl class="kv">
         <dt>${t('date')}</dt><dd>${esc(fmtDate(e.date))} <span style="color:var(--muted)">(${esc(ago(e.date))})</span><br><span class="mono">${esc(fmtUTC(e.date))}</span></dd>
@@ -1481,8 +1485,148 @@
     });
   }
   function stopPicking() { state.picking = false; $('#app').classList.remove('picking'); $('#toast').hidden = true; }
-  function closePanelMobile() { if (window.innerWidth <= 860) $('#app').classList.remove('panel-open'); }
+  function closePanelMobile() { if (window.innerWidth <= 860) { $('#app').classList.remove('panel-open'); renderMobileNav(); } }
 
+
+
+  /* ------------------------------------------------------------------ mobile : barre de navigation basse */
+  const MOBILE = () => window.innerWidth <= 860;
+  function buildMobileNav() {
+    const nav = document.createElement('nav');
+    nav.className = 'mnav'; nav.id = 'mnav'; nav.setAttribute('aria-label', 'Navigation');
+    document.body.appendChild(nav);
+    const menu = document.createElement('div');
+    menu.className = 'mmenu'; menu.id = 'mmenu'; menu.hidden = true;
+    document.body.appendChild(menu);
+    nav.addEventListener('click', ev => {
+      ev.stopPropagation();  // le menu est reconstruit : la cible serait détachée pour l'écouteur du document
+      const b = ev.target.closest('[data-m]'); if (!b) return;
+      const m = b.dataset.m;
+      if (m === 'more') { menu.hidden = !menu.hidden; renderMobileNav(); return; }
+      menu.hidden = true;
+      if (m === 'map') { $('#app').classList.remove('panel-open'); closeAnalytics(); }
+      else { state.tab = m; renderTabs(); $('#app').classList.add('panel-open'); closeDrawer(); }
+      renderMobileNav();
+    });
+    menu.addEventListener('click', ev => {
+      ev.stopPropagation();
+      const b = ev.target.closest('[data-mm]'); if (!b) return;
+      const k = b.dataset.mm; menu.hidden = true;
+      if (['countries', 'news', 'agenda', 'sites'].includes(k)) { state.tab = k; renderTabs(); $('#app').classList.add('panel-open'); closeDrawer(); }
+      else if (k === 'analytics') { $('#app').classList.remove('panel-open'); $('#btn-analytics').click(); }
+      else if (k === 'lang') $('#btn-lang').click();
+      else if (k === 'theme') $('#btn-theme').click();
+      else if (k === 'share') $('#btn-share').click();
+      else if (k === 'install' && installEvt) { installEvt.prompt(); installEvt = null; }
+      renderMobileNav();
+    });
+    document.addEventListener('click', ev => { if (!ev.target.closest('#mmenu') && !ev.target.closest('#mnav')) { if (!menu.hidden) { menu.hidden = true; renderMobileNav(); } } });
+    renderMobileNav();
+  }
+  function renderMobileNav() {
+    const nav = $('#mnav'), menu = $('#mmenu'); if (!nav) return;
+    const open = $('#app').classList.contains('panel-open');
+    const cur = !menu.hidden ? 'more' : !open ? 'map' : ['alerts', 'ongoing', 'buddy'].includes(state.tab) ? state.tab : 'more';
+    const n = EVENTS.filter(isOngoing).length;
+    nav.innerHTML = [['map', 'map', 'm_map'], ['alerts', 'siren', 'm_alerts'], ['ongoing', 'radio-tower', 'm_ongoing'], ['buddy', 'message-circle', 'm_travel'], ['more', 'list', 'm_more']]
+      .map(([k, ic, lb]) => `<button data-m="${k}" class="${cur === k ? 'on' : ''}" aria-label="${esc(t(lb))}">${icon(ic, 22)}<span>${esc(t(lb))}</span>${k === 'ongoing' && n ? `<b class="nb">${n}</b>` : ''}</button>`).join('');
+    const acc = window.AngorAccount && window.AngorAccount.enabled;
+    menu.innerHTML = [['countries', 'globe', t('tab_countries')], ['news', 'newspaper', t('tab_news')], ['agenda', 'calendar', t('tab_agenda')], ['sites', 'building-2', t('tab_sites')],
+      ['analytics', 'chart-column', t('analytics')], ['share', 'share-2', t('share')], ...(acc ? [['account', 'users', t('m_account')]] : []),
+      ...(ACC.profile && ACC.profile.role === 'admin' ? [['admin', 'shield', t('m_admin')]] : []), ['help', 'circle-help', t('help')],
+      ['lang', 'globe', state.lang === 'fr' ? 'English' : 'Français'], ['theme', state.theme === 'dark' ? 'sun-medium' : 'moon', state.theme === 'dark' ? 'Clair' : 'Sombre'],
+      ...(installEvt ? [['install', 'download', t('m_install')]] : [])]
+      .map(([k, ic, lb]) => k === 'account' ? `<a class="mm" href="compte.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>` : k === 'admin' ? `<a class="mm" href="admin.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>`
+        : k === 'help' ? `<a class="mm" href="aide.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>` : `<button class="mm" data-mm="${k}">${icon(ic, 20)}<span>${esc(lb)}</span></button>`).join('');
+  }
+  /* Couches repliables sur mobile */
+  function bindLayersToggle() {
+    const card = $('#layers');
+    const btn = document.createElement('button');
+    btn.className = 'layers-toggle'; btn.type = 'button'; btn.innerHTML = icon('layers', 18) + `<span>${esc(t('layers_btn'))}</span>`;
+    card.prepend(btn);
+    btn.addEventListener('click', () => card.classList.toggle('open'));
+  }
+
+  /* ------------------------------------------------------------------ application installable (PWA) */
+  let installEvt = null;
+  window.addEventListener('beforeinstallprompt', ev => { ev.preventDefault(); installEvt = ev; renderMobileNav(); });
+  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
+  function offlineNotice() { if (!navigator.onLine && D) toast(t('offline', fmtDate(D.generated)), 6000); }
+  window.addEventListener('offline', offlineNotice);
+
+  /* ------------------------------------------------------------------ compte, préférences, safety check */
+  const ACC = { profile: null };
+  async function initAccount() {
+    const A = window.AngorAccount;
+    const btn = $('#btn-account');
+    if (!A || !A.enabled) { if (btn) btn.hidden = true; return; }
+    btn.hidden = false;
+    const paint = () => {
+      const p = ACC.profile;
+      btn.innerHTML = p ? `<span class="avatar${p.status === 'approved' ? '' : ' pending'}">${esc((p.full_name || p.email || '?').trim().split(/\s+/).map(x => x[0]).slice(0, 2).join('').toUpperCase())}</span>` : icon('users', 17);
+      btn.title = p ? (p.status === 'approved' ? (p.full_name || p.email) : t('acc_pending')) : t('acc_login');
+    };
+    paint();
+    if (!A.session) return;
+    try { ACC.profile = await A.profile(); } catch (e) { ACC.profile = null; }
+    paint(); renderMobileNav();
+    const p = ACC.profile;
+    if (!p || p.status !== 'approved') return;
+    // préférences du compte → cette session (pays suivis fusionnés, sites et trajets complétés)
+    const pr = p.prefs || {};
+    let changed = false;
+    (pr.watch || []).forEach(iso => { if (!state.watch.has(iso)) { state.watch.add(iso); changed = true; } });
+    const key = x => (x.name || '') + '|' + (x.lat || ((x.points || [[0]])[0] || [0])[0]);
+    const addAll = (arr, from, k) => { const seen = new Set(arr.map(key)); from.forEach(x => { if (!seen.has(key(x))) { arr.push(x); changed = true; } }); store.set(k, arr); };
+    addAll(state.localSites, p.sites || [], 'vs-sites'); addAll(state.localCorridors, p.corridors || [], 'vs-corridors');
+    if (changed) { persist(); computeProximity(); renderAll(); }
+    // position (volontaire), au plus toutes les 30 minutes
+    if (p.consent_location && navigator.geolocation && (!p.location || Date.now() - Date.parse(p.location.at) > 30 * 60e3)) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        const lat = +pos.coords.latitude.toFixed(3), lon = +pos.coords.longitude.toFixed(3);
+        const f = COUNTRIES.features.find(ft => L.geoJSON(ft).getBounds().contains([lat, lon]) && pointIn(ft.geometry, lon, lat));
+        A.updateProfile({ location: { lat, lon, iso: f ? f.properties.iso2 : null, at: new Date().toISOString() } }).then(np => { ACC.profile = np || ACC.profile; }).catch(() => {});
+      }, () => {}, { timeout: 15000, maximumAge: 600000 });
+    }
+    // réponse directe depuis une notification (?safety=ID&answer=safe|help)
+    const sid = PARAMS.get('safety'), ans = PARAMS.get('answer');
+    if (sid && ['safe', 'help'].includes(ans)) { try { await A.respond(sid, ans); toast(t('sc_done')); } catch (e) { toast(t('sc_err')); } }
+    pollChecks();
+    setInterval(pollChecks, 120000);
+  }
+  function pointIn(g, x, y) {
+    const inRing = r => { let c = false; for (let i = 0, j = r.length - 1; i < r.length; j = i++) { if (((r[i][1] > y) !== (r[j][1] > y)) && (x < (r[j][0] - r[i][0]) * (y - r[i][1]) / (r[j][1] - r[i][1]) + r[i][0])) c = !c; } return c; };
+    return (g.type === 'Polygon' ? [g.coordinates] : g.coordinates).some(p => inRing(p[0]));
+  }
+  async function pollChecks() {
+    const A = window.AngorAccount, p = ACC.profile;
+    if (!A || !p || p.status !== 'approved' || document.hidden) return;
+    try {
+      const [checks, resp] = await Promise.all([A.openChecks(), A.myResponses()]);
+      const answered = new Set((resp || []).map(r => r.check_id));
+      const later = store.get('vs-sc-later', {});
+      const c = (checks || []).find(x => !answered.has(x.id) && A.concerned(x, p) && !(later[x.id] > Date.now()));
+      showCheck(c || null);
+    } catch (e) { /* hors ligne */ }
+  }
+  function showCheck(c) {
+    let el = $('#safety');
+    if (!c) { if (el) el.remove(); return; }
+    if (!el) { el = document.createElement('div'); el.id = 'safety'; el.className = 'safety'; el.setAttribute('role', 'alertdialog'); document.body.appendChild(el); }
+    el.innerHTML = `<div class="sc-k">${icon('shield', 16)} ${esc(t('sc_title'))}</div><div class="sc-t">${esc(c.title)}</div>${c.message ? `<div class="sc-m">${esc(c.message)}</div>` : ''}
+      <div class="sc-b"><button class="btn sc-safe" data-sc="safe">${esc(t('sc_safe'))}</button><button class="btn sc-help" data-sc="help">${esc(t('sc_help'))}</button></div>
+      <div class="sc-b2"><button class="btn small ghost" data-sc="not_concerned">${esc(t('sc_nc'))}</button><button class="btn small ghost" data-sc="later">${esc(t('sc_later'))}</button></div>`;
+    el.onclick = async ev => {
+      const b = ev.target.closest('[data-sc]'); if (!b) return;
+      if (b.dataset.sc === 'later') { const l = store.get('vs-sc-later', {}); l[c.id] = Date.now() + 30 * 60e3; store.set('vs-sc-later', l); el.remove(); return; }
+      b.disabled = true;
+      let pos = null;
+      if (ACC.profile.consent_location && navigator.geolocation) pos = await new Promise(r => navigator.geolocation.getCurrentPosition(x => r({ lat: +x.coords.latitude.toFixed(3), lon: +x.coords.longitude.toFixed(3) }), () => r(null), { timeout: 8000, maximumAge: 300000 }));
+      try { await window.AngorAccount.respond(c.id, b.dataset.sc, null, pos); el.remove(); toast(t('sc_done')); pollChecks(); }
+      catch (e) { b.disabled = false; toast(t('sc_err')); }
+    };
+  }
 
   /* ------------------------------------------------------------------ Pulse, cotation, vérification, suivis, partage */
   function pulseChip(iso) {
@@ -1965,6 +2109,10 @@
   riskLayer.addTo(map); cluster.addTo(map); sitesLayer.addTo(map);
   bind();
   bindBuddy();
+  buildMobileNav();
+  bindLayersToggle();
+  initAccount();
+  offlineNotice();
   renderAnalystBar();
   const mv = (PARAMS.get('m') || '').split(',').map(Number);
   if (mv.length === 3 && mv.every(isFinite)) map.setView([mv[0], mv[1]], mv[2]);

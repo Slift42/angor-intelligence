@@ -216,7 +216,9 @@ def main():
         "site_alerts": [] if public else alerts,
         "settings": {"product_name": product, "default_lang": settings.get("default_lang", "fr"),
                      "buddy_url": settings.get("buddy_url", ""),
-                     "ai_url": settings.get("ai_url") or settings.get("buddy_url", "")},
+                     "ai_url": settings.get("ai_url") or settings.get("buddy_url", ""),
+                     "accounts": {k: (settings.get("accounts") or {}).get(k, "")
+                                  for k in ("supabase_url", "supabase_anon_key", "vapid_public_key")}},
         "crises": crisis_list,
         "country_stats": analytics.country_stats(all_events, now), "archives": archives,
         "analytics": analytics.global_series(all_events, now),
@@ -234,6 +236,11 @@ def main():
         econ_by_country.setdefault(e["country"], []).append(e)
     publish.write_js("econ.js", "VS_ECON", {"generated": now_iso(), "countries": econ_by_country})
     publish.write_cities()
+    acc = settings.get("accounts") or {}
+    publish.write_js("config.js", "VS_CONFIG", {  # réglages publics lus par les pages Compte et Administration
+        "product_name": product, "ai_url": settings.get("ai_url") or settings.get("buddy_url", ""),
+        "accounts": {k: acc.get(k, "") for k in ("supabase_url", "supabase_anon_key", "vapid_public_key")}})
+    publish.bust_cache()
     publish.save_store(store)
 
     log(f"→ {len(events)} événements publiés, {len(country_risk)} pays notés, "

@@ -1,0 +1,62 @@
+/* Angor Intelligence – pages Compte et Administration (mobile d'abord) */
+:root { --ink: #111B27; --ink-2: #3E4C5B; --muted: #6B7886; --line: #DDE3E8; --navy: #13263D; --bg: #F4F6F8; --surface: #fff;
+  --accent: #1F5FD1; --soft: #E6EEFC; --ok: #2E9E5B; --warn: #E3A008; --bad: #D7263D;
+  --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #E7EDF3; --ink-2: #B7C3CF; --muted: #8A98A7; --line: #2A3847; --navy: #E7EDF3; --bg: #0F1823; --surface: #152231; --accent: #6A9BF4; --soft: #1B2B45; } }
+:root[data-theme="dark"] { --ink: #E7EDF3; --ink-2: #B7C3CF; --muted: #8A98A7; --line: #2A3847; --navy: #E7EDF3; --bg: #0F1823; --surface: #152231; --accent: #6A9BF4; --soft: #1B2B45; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--font); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+header.top { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 10px; padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top));
+  background: var(--surface); border-bottom: 1px solid var(--line); }
+header.top .brand { font-weight: 700; } header.top .sp { flex: 1; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 18px 16px 90px; display: grid; gap: 14px; }
+.wrap.wide { max-width: 1180px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+.card h2 { font-size: 18px; margin: 0 0 10px; } .card h3 { font-size: 15px; margin: 14px 0 6px; }
+.hint { color: var(--muted); font-size: 13px; }
+label.f { display: grid; gap: 4px; font-size: 13px; font-weight: 600; color: var(--ink-2); margin: 8px 0; }
+input.i, select.i, textarea.i { width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font: inherit; color: var(--ink); background: var(--surface); font-weight: 400; }
+textarea.i { min-height: 80px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink); font: 600 14px var(--font); cursor: pointer; text-decoration: none; }
+.btn.primary { background: var(--navy); color: var(--surface); border-color: var(--navy); }
+.btn.ok { background: var(--ok); color: #fff; border-color: var(--ok); }
+.btn.bad { background: var(--bad); color: #fff; border-color: var(--bad); }
+.btn.small { min-height: 34px; padding: 0 10px; font-size: 13px; }
+.btn[disabled] { opacity: .5; cursor: default; }
+.seg { display: inline-flex; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 3px; }
+.seg button { border: 0; background: none; padding: 8px 14px; border-radius: 8px; font: 600 14px var(--font); color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.msg { padding: 10px 12px; border-radius: 10px; font-size: 14px; margin: 8px 0; }
+.msg.err { background: color-mix(in srgb, var(--bad) 12%, var(--surface)); color: var(--bad); }
+.msg.ok { background: color-mix(in srgb, var(--ok) 12%, var(--surface)); color: var(--ok); }
+.msg.info { background: var(--soft); color: var(--ink-2); }
+.pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #fff; background: var(--muted); }
+.pill.pending { background: var(--warn); } .pill.approved { background: var(--ok); } .pill.rejected, .pill.suspended { background: var(--bad); }
+.pill.admin { background: var(--accent); }
+.switch { display: flex; gap: 10px; align-items: center; min-height: 40px; font-size: 14px; }
+.switch input { width: 20px; height: 20px; accent-color: var(--accent); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 6px 4px 10px; font-size: 13px; background: var(--bg); }
+.chip button { border: 0; background: none; color: var(--muted); font-size: 16px; cursor: pointer; line-height: 1; }
+table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.t th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: 8px; border-bottom: 1px solid var(--line); }
+table.t td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+.tabs button { border: 0; background: none; padding: 10px 14px; font: 600 14px var(--font); color: var(--muted); border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.badge { display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 4px; border-radius: 10px; background: var(--bad); color: #fff; font-size: 12px; line-height: 20px; text-align: center; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.stat { border: 1px solid var(--line); border-radius: 10px; padding: 10px; text-align: center; }
+.stat .n { font-size: 22px; font-weight: 700; } .stat .l { font-size: 12px; color: var(--muted); }
+.check-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin: 8px 0; }
+.check-card .h { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+@media (max-width: 640px) {
+  .grid2 { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2, 1fr); }
+  table.t.resp thead { display: none; } table.t.resp tr { display: grid; grid-template-columns: 1fr auto; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  table.t.resp td { border: 0; padding: 2px 4px; }
+}

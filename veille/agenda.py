@@ -178,7 +178,10 @@ def update(countries, store, settings, log, now):
                 continue
             for d, local, name, is_global in rows:
                 if start.isoformat() <= d <= end.isoformat() and is_global:
-                    events.append({"d": d, "iso": iso, "type": "holiday", "t_fr": local, "t_en": name, "src": "Nager.Date"})
+                    # nom local s'il est en alphabet latin (ex. « Fête nationale »), sinon nom anglais (国庆节 → National Day)
+                    latin = all(ord(c) < 0x250 for c in local)
+                    events.append({"d": d, "iso": iso, "type": "holiday", "t_fr": local if latin else name,
+                                   "t_en": name, "src": "Nager.Date"})
     events += elections(state, now, log)
     events += religious(start, end)
     for m in (config.load_json("calendar.json", {}) or {}).get("events", []):

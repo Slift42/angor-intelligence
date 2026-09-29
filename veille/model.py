@@ -38,6 +38,8 @@ GROUPS = {
     "natural": {"fr": "Catastrophes naturelles", "en": "Natural hazards"},
     "health": {"fr": "Santé", "en": "Health"},
     "infrastructure": {"fr": "Infrastructures & cyber", "en": "Infrastructure & cyber"},
+    # hors note de risque et hors Pulse : signaux diplomatiques et politiques (élections, démissions, sanctions…)
+    "diplomatic": {"fr": "Diplomatie & politique", "en": "Diplomacy & politics"},
 }
 
 CATEGORIES = {
@@ -59,6 +61,7 @@ CATEGORIES = {
     "health": {"group": "health", "icon": "biohazard", "fr": "Épidémie", "en": "Disease outbreak"},
     "cyber": {"group": "infrastructure", "icon": "radio-tower", "fr": "Cyber", "en": "Cyber"},
     "infrastructure": {"group": "infrastructure", "icon": "building-2", "fr": "Infrastructure", "en": "Infrastructure"},
+    "diplomatic": {"group": "diplomatic", "icon": "landmark", "fr": "Diplomatie / politique", "en": "Diplomatic / political"},
     "other": {"group": "natural", "icon": "circle-alert", "fr": "Autre", "en": "Other"},
 }
 

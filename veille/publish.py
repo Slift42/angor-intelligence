@@ -111,3 +111,22 @@ def write_cities(min_pop=250000):
     rows.sort(key=lambda r: -r[4])
     write_js("cities.js", "VS_CITIES", {"source": "GeoNames (CC BY 4.0)", "cities": rows})
     return len(rows)
+
+
+def bust_cache():
+    """Ajoute l'empreinte de chaque fichier de code dans les pages (app.js?v=1a2b3c4d) : après une mise à jour,
+    le navigateur recharge le nouveau code au lieu de garder l'ancien en cache. Idempotent."""
+    import hashlib
+    import re
+    docs = OUT_DIR.parent
+    rx = re.compile(r'((?:src|href)=")([\w/.-]+\.(?:js|css))\?v=[^"]*"')
+    for page in docs.glob("*.html"):
+        text = page.read_text(encoding="utf-8")
+
+        def sub(m):
+            f = docs / m.group(2)
+            v = hashlib.sha1(f.read_bytes()).hexdigest()[:8] if f.exists() else "0"
+            return f'{m.group(1)}{m.group(2)}?v={v}"'
+        new = rx.sub(sub, text)
+        if new != text:
+            page.write_text(new, encoding="utf-8")

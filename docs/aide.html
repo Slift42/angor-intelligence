@@ -62,7 +62,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
   <div class="grp">Protéger</div>
   <a href="#sites">Mes sites et trajets</a><a href="#buddy">Travel buddy</a><a href="#gng">Go / no-go guidé</a><a href="#brief">Brief de mission</a><a href="#rapport">Rapport pays</a>
   <div class="grp">Partager et être alerté</div>
-  <a href="#partage">Liens, vues, pays suivis</a><a href="#telegram">Alertes et point quotidien</a><a href="#export">Exports</a>
+  <a href="#mobile">Application mobile</a><a href="#compte">Mon compte</a><a href="#safety">Safety check</a><a href="#partage">Liens, vues, pays suivis</a><a href="#telegram">Alertes et point quotidien</a><a href="#export">Exports</a>
   <div class="grp">Pour l'analyste</div>
   <a href="#analyste">Mode analyste</a><a href="#ia">Intelligence artificielle</a>
   <div class="grp">Référence</div>
@@ -107,7 +107,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     </table>
     <h3>La carte</h3>
     <p>Cliquez sur un marqueur pour ouvrir la fiche de l'incident, sur un pays pour sa fiche pays. Les marqueurs proches se regroupent ; zoomez pour les séparer. Le cadre <strong>Couches</strong> (en haut à droite) règle ce qui s'affiche ; la <strong>Légende</strong> (en bas à gauche) se replie d'un clic.</p>
-    <p class="muted">Sur téléphone, le bouton ☰ en haut à gauche ouvre et ferme la colonne.</p>
+    <p class="muted">Sur téléphone, la navigation passe par la barre du bas : voir <a href="#mobile">Application mobile</a>.</p>
   </section>
 
   <section id="alertes">
@@ -123,11 +123,13 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <h3>Filtrer</h3>
     <ul>
       <li>Les quatre <strong>tuiles de gravité</strong> en haut de l'onglet s'activent et se désactivent d'un clic.</li>
-      <li><strong>Filtres</strong> : catégories par famille (sécurité, politique, catastrophes, santé, cyber), et les options « uniquement près de mes sites », « masquer les détections automatiques », « uniquement les incidents vérifiés Angor », « uniquement mes pays suivis ».</li>
+      <li><strong>Filtres</strong> : catégories par famille (sécurité, politique, catastrophes, santé, cyber, diplomatie &amp; politique), et les options « uniquement près de mes sites », « masquer les détections automatiques », « uniquement les incidents vérifiés Angor », « uniquement mes pays suivis ».</li>
       <li><strong>Tri</strong> : plus récentes ou plus graves. <strong>PDF</strong> imprime la liste filtrée.</li>
     </ul>
     <h3>La fiche d'un incident</h3>
     <p>Résumé (extrait de la source, résumé automatique ou résumé IA, toujours signalé), date locale et UTC, lieu et précision de la localisation, niveau de risque du pays, confiance, <a href="#fiabilite">cotation</a>, sites concernés, et toutes les sources avec leurs liens. Si l'incident fait partie d'une <a href="#encours">chronologie de crise</a>, un lien y mène.</p>
+    <h3>Diplomatie et politique</h3>
+    <p>Élections, démissions, remaniements, motions de censure, sanctions, expulsions de diplomates : ces faits ne sont pas des incidents, mais ils annoncent souvent des tensions. Ils sont classés dans la catégorie <strong>Diplomatie / politique</strong> (gravité 1 ou 2), restent consultables et filtrables, mais <strong>n'entrent ni dans la note de risque ni dans le Pulse</strong>. Les scrutins à venir figurent aussi dans l'<a href="#agenda">Agenda</a>.</p>
     <div class="tip">« auto » et le contour pointillé signalent une détection automatique (presse, GDELT) non vérifiée : lieu et nature à confirmer avant toute décision.</div>
   </section>
 
@@ -265,6 +267,49 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <p>Rapport imprimable en sept parties : informations générales, matrice des risques (24 h, 72 h, 7 j, 90 j), recommandations pour les personnels et les sites, angles business, spécificités du pays (gouvernance, corruption, sanctions), intelligence culturelle (tenue, religion, gestes, affaires, interdits, voyageuses), santé, secours, communications et prestataires.</p>
   </section>
 
+  <section id="mobile">
+    <h2>Application mobile</h2>
+    <p>Angor s'utilise sur téléphone comme une application : ouvrez <strong>angor.fr</strong> dans Chrome (Android) ou Safari (iPhone), puis <strong>Plus → Installer l'application</strong> (ou menu du navigateur → « Ajouter à l'écran d'accueil »). L'icône Angor apparaît parmi vos applications et s'ouvre en plein écran. Une version Android publiée sur Google Play est en préparation.</p>
+    <h3>Navigation</h3>
+    <ul>
+      <li><strong>Barre du bas</strong> : Carte, Alertes, En cours (avec le nombre d'incidents actifs), Voyage (Travel buddy) et <strong>Plus</strong> (pays, fil de presse, agenda, mes sites, analyses, partage, mon compte, aide, langue, thème).</li>
+      <li><strong>Fiches</strong> (incident, pays, chronologie) : elles s'ouvrent en bas de l'écran ; la croix les ferme.</li>
+      <li><strong>Couches</strong> : bouton flottant en haut à droite de la carte.</li>
+      <li><strong>Hors connexion</strong> : la dernière version téléchargée reste consultable, avec un message indiquant sa date.</li>
+    </ul>
+  </section>
+
+  <section id="compte">
+    <h2>Mon compte</h2>
+    <p>Un compte n'est pas nécessaire pour consulter la carte. Il sert à <strong>retrouver vos réglages sur tous vos appareils</strong> et à recevoir les <a href="#safety">safety checks</a> de votre organisation.</p>
+    <ol>
+      <li><strong>Créer un compte</strong> : icône de profil en haut de la carte (ou Plus → Mon compte) → « Créer un compte ». Nom, organisation, e-mail, mot de passe (10 caractères minimum).</li>
+      <li><strong>Confirmer votre e-mail</strong> avec le lien reçu.</li>
+      <li><strong>Validation</strong> : un administrateur Angor vérifie la demande et valide le compte. D'ici là, la page affiche « En attente de validation ».</li>
+    </ol>
+    <h3>Ce que vous pouvez régler</h3>
+    <ul>
+      <li><strong>Profil</strong> : nom, organisation, fonction, téléphone (facultatif, utile uniquement si vous signalez avoir besoin d'aide).</li>
+      <li><strong>Préférences</strong> : langue, thème, période affichée, fond de carte, pays de résidence, gravité minimale, pays suivis, déplacements prévus, point quotidien. Elles s'appliquent partout à la prochaine ouverture.</li>
+      <li><strong>Notifications et position</strong> : notifications sur l'appareil, partage de position (toujours facultatif).</li>
+      <li><strong>Mes sites et trajets</strong> : les enregistrer dans le compte, ou les récupérer sur un nouvel appareil.</li>
+      <li><strong>Sécurité</strong> : changer le mot de passe, se déconnecter, <strong>supprimer définitivement le compte</strong> (profil, préférences et réponses).</li>
+    </ul>
+    <p class="muted">Mot de passe oublié : « Mot de passe oublié ? » sur l'écran de connexion, un lien de réinitialisation arrive par e-mail.</p>
+  </section>
+
+  <section id="safety">
+    <h2>Safety check</h2>
+    <p>Après un événement grave, un administrateur peut demander aux personnes concernées de confirmer qu'elles vont bien.</p>
+    <ul>
+      <li><strong>Qui est concerné</strong> : tous les utilisateurs, ceux d'un pays (pays de résidence, déplacements déclarés ou dernière position partagée), ou ceux situés dans un rayon autour d'un lieu. Le ciblage peut être limité à une organisation.</li>
+      <li><strong>Comment vous êtes prévenu</strong> : une notification sur votre téléphone (si vous l'avez activée) et un bandeau rouge à l'ouverture de la carte.</li>
+      <li><strong>Répondre</strong> : « Je suis en sécurité », « J'ai besoin d'aide », « Pas concerné » ou « Plus tard » (le bandeau revient 30 minutes après). Depuis la notification, un seul geste suffit.</li>
+      <li><strong>Ce que voit l'administrateur</strong> : le nombre de personnes concernées, en sécurité, ayant besoin d'aide ou sans réponse, et pour chacune sa réponse, son téléphone et, si vous l'avez accepté, sa position au moment de la réponse.</li>
+    </ul>
+    <div class="tip">Le safety check complète vos procédures d'urgence, il ne les remplace pas. En danger immédiat, appelez les secours locaux.</div>
+  </section>
+
   <section id="partage">
     <h2>Liens partageables, vues enregistrées, pays suivis</h2>
     <h3>Partager</h3>
@@ -326,6 +371,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
       <li><strong>Officielles et capteurs</strong> : USGS (séismes), GDACS (ONU/UE), NASA EONET, OMS, NWS (météo États-Unis), Meteoalarm (vigilances orange et rouges de 38 pays européens), CISA et CERT-FR (cyber), UCDP (conflits, historique).</li>
       <li><strong>Avis aux voyageurs</strong> : MEAE (France), FCDO (Royaume-Uni), Département d'État (États-Unis), Canada.</li>
       <li><strong>Presse</strong> : Google News (environ 110 pays, 12 langues), près de 800 médias de référence dans 206 pays (dont la presse locale de 25 pays à risque, en 21 langues), grands flux internationaux, GDELT.</li>
+      <li><strong>Telegram</strong> : une cinquantaine de canaux publics (médias, agrégateurs d'urgence, comptes OSINT) en 9 langues. Les canaux officiels de médias sont cotés B ou C ; agrégateurs et comptes OSINT restent cotés E (« réseaux sociaux – non vérifié ») tant qu'une autre source ne confirme pas.</li>
       <li><strong>Contexte</strong> : Banque mondiale, FMI, Wikidata (urgences, hôpitaux, opérateurs, élections), Nager.Date (jours fériés), CIA World Factbook (archive).</li>
     </ul>
     <p>Mise à jour automatique toutes les 30 minutes ; avis MEAE relus tous les 3 jours ; informations pratiques tous les 30 jours ; base historique une fois par mois.</p>
@@ -335,7 +381,8 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <h2>Confidentialité</h2>
     <ul>
       <li>L'outil suit des <strong>événements</strong>, jamais des personnes.</li>
-      <li>Vos sites, trajets, vues, pays suivis, décisions d'analyste et saisies du brief restent <strong>dans votre navigateur</strong>.</li>
+      <li>Sans compte, vos sites, trajets, vues, pays suivis, décisions d'analyste et saisies du brief restent <strong>dans votre navigateur</strong>.</li>
+      <li>Avec un compte, seuls sont conservés votre profil, vos préférences, les sites et trajets que vous choisissez d'y enregistrer et vos réponses aux safety checks. La position n'est enregistrée que si vous l'acceptez, et vous pouvez supprimer votre compte à tout moment.</li>
       <li>Les sites réels utilisés pour les alertes sont conservés dans un coffre sécurisé et ne sont jamais publiés sur la carte.</li>
       <li>Seules les questions posées à l'assistant IA (quand il est activé) partent vers le relais IA, avec les données Angor utiles à la réponse : n'y mettez pas de données personnelles.</li>
       <li>Presse : titre, résumé et lien uniquement ; l'article reste chez l'éditeur.</li>

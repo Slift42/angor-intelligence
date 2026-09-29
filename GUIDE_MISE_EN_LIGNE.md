@@ -233,3 +233,77 @@ Tout est déjà câblé : sans clé, l'outil utilise ses textes automatiques ; a
 
 Ordre de grandeur avec Claude Haiku : 10 à 20 $ par mois pour le robot, moins de 1 $ par jour pour la carte
 (quota de 150 questions par jour dans le Worker).
+
+## Partie H – Comptes, administration, safety check et application Android
+
+Sans cette partie, la carte fonctionne comme avant (sans compte). Comptez ≈ 45 min la première fois.
+
+### H1. Créer la base des comptes (Supabase, offre gratuite)
+
+1. https://supabase.com → **Start your project** → connectez-vous avec GitHub → **New project**
+   (nom : `angor`, région : **Paris (eu-west-3)**, mot de passe de base : générez-le et gardez-le dans votre gestionnaire de mots de passe).
+2. **SQL Editor** → **New query** → collez tout le fichier `supabase/schema.sql` → **Run**. Le script peut être relancé sans risque.
+3. **Authentication → Sign In / Providers → Email** : laissez **Confirm email** activé.
+4. **Authentication → URL Configuration** :
+   - Site URL : `https://angor.fr`
+   - Redirect URLs : ajoutez `https://angor.fr/compte.html`
+5. **Project Settings → API** : copiez **Project URL** et la clé **anon public**, puis dans `config/settings.json` :
+   ```json
+   "accounts": { "supabase_url": "https://xxxx.supabase.co", "supabase_anon_key": "eyJ…", "vapid_public_key": "" }
+   ```
+   La clé *anon* est publique par nature : la sécurité repose sur les règles d'accès (RLS) du fichier SQL.
+   **Ne mettez jamais la clé `service_role`** dans ce fichier, dans le site ou dans un message.
+6. **publier.bat**, puis ouvrez https://angor.fr/compte.html → **Créer un compte** avec votre adresse, confirmez l'e-mail.
+7. Devenez administrateur : **SQL Editor** →
+   ```sql
+   update public.profiles set role = 'admin', status = 'approved', approved_at = now()
+    where email = 'votre-adresse@exemple.fr';
+   ```
+   L'entrée **Administration** apparaît alors dans Mon compte et dans le menu Plus. Les comptes suivants se valident depuis
+   https://angor.fr/admin.html (onglet Utilisateurs).
+
+### H2. Notifications des safety checks (Web Push)
+
+1. Générez une paire de clés VAPID (une seule fois, sur votre PC avec Node.js) :
+   ```
+   npx web-push generate-vapid-keys
+   ```
+   - la **clé publique** va dans `config/settings.json` → `accounts.vapid_public_key` ;
+   - la **clé privée** ne va que dans les secrets Supabase (étape suivante).
+2. Installez l'outil Supabase (`npm i -g supabase`), puis dans le dossier du projet :
+   ```
+   supabase login
+   supabase link --project-ref xxxx
+   supabase secrets set VAPID_PUBLIC_KEY=… VAPID_PRIVATE_KEY=… VAPID_SUBJECT=mailto:contact@angor.fr
+   supabase functions deploy safety-push
+   ```
+   (`xxxx` = identifiant du projet, visible dans l'adresse du projet Supabase.)
+3. **publier.bat**. Sur votre téléphone : Mon compte → **Notifications sur cet appareil**.
+   Test : admin.html → Safety checks → titre « Test », zone « Tous », durée 1 h → Envoyer.
+
+Sans l'étape H2, les safety checks fonctionnent quand même : bandeau à l'ouverture de l'application, sans notification.
+
+### H3. Application Android (Google Play)
+
+L'application Android est la carte elle-même, emballée (« Trusted Web Activity ») : chaque publication met l'application à jour,
+sans nouvelle version à soumettre.
+
+1. Testez d'abord sans Play Store : sur Android, Chrome → angor.fr → menu ⋮ → **Installer l'application**.
+2. https://www.pwabuilder.com → saisissez `https://angor.fr` → **Package for stores → Android** →
+   identifiant de paquet `fr.angor.app` → téléchargez le paquet (fichier `.aab` + clé de signature : **conservez la clé**,
+   elle est indispensable pour toute mise à jour).
+3. Copiez `tools/assetlinks.example.json` vers `docs/.well-known/assetlinks.json` et remplacez l'empreinte par la valeur
+   **SHA-256** fournie par PWABuilder (ou par Google Play → Intégrité de l'application → Signature). **publier.bat.**
+   Sans ce fichier, l'application affiche une barre d'adresse.
+4. Compte développeur Google Play (frais uniques ≈ 25 $) → **Créer une application** → envoyez le `.aab`.
+   Commencez en **test interne** (jusqu'à 100 testeurs par e-mail) : c'est le bon format pour la bêta.
+   Fiche Play : politique de confidentialité obligatoire (reprenez la section Confidentialité de l'aide).
+
+iOS : même principe plus tard (PWABuilder → iOS, compte Apple Developer ≈ 99 $/an). En attendant, sur iPhone, Safari →
+Partager → **Sur l'écran d'accueil** donne déjà l'application et, depuis iOS 16.4, les notifications.
+
+### Limite actuelle à connaître
+
+Les comptes protègent les **données personnelles** (profil, préférences, réponses aux safety checks), pas la carte :
+les données d'incidents restent publiques sur angor.fr. Réserver la carte aux comptes validés est l'étape suivante
+(données servies par Supabase au lieu de fichiers publics), à prévoir avant la commercialisation.

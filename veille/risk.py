@@ -48,6 +48,8 @@ def compute(events, advisories, now, cfg=None):
         if not iso or parse_iso(ev["date"]) < since:
             continue
         group = CATEGORIES.get(ev["category"], {}).get("group")
+        if group == "diplomatic":  # signal politique, pas une menace physique : hors note de risque
+            continue
         c = counts.setdefault(iso, {"security": 0, "hazards": 0})
         weight = cw.get(ev.get("confidence", "high"), 1.0)
         if "auto-detected" in ev.get("tags", []):

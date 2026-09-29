@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "fr.angor.app",
+    "sha256_cert_fingerprints": ["REMPLACEZ:PAR:L:EMPREINTE:SHA256:FOURNIE:PAR:PWABUILDER:OU:GOOGLE:PLAY"]
+  }
+}]

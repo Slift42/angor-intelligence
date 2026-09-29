@@ -41,7 +41,7 @@ CATEGORY_WORDS = {
     "unrest": ["protest", "manifest", "demonstrat", "riot", "émeute", "emeute", "disturbio", "motim", "rivolta",
                "unruhen", "zamieszki", "ayaklanma", "бунт", "протест", "احتجاج", "مظاهر", "strike", "grève",
                "greve", "huelga", "sciopero", "streik", "staking", "strajk", "grev", "забастов", "إضراب",
-               "blockade", "blocage", "bloqueo", "curfew", "couvre-feu", "toque de queda", "coprifuoco",
+               "blockade", "blocage", "bloqueo", "blocus", "heurts", "échauffourée", "echauffouree", "clashes with police", "curfew", "couvre-feu", "toque de queda", "coprifuoco",
                "ausgangssperre", "tear gas", "gaz lacrymogène", "lacrimógeno", "unrest", "troubles", "looting", "pillage", "saqueo"],
     "political": ["coup", "golpe", "putsch", "darbe", "переворот", "انقلاب", "state of emergency", "état d'urgence",
                   "estado de emergencia", "stato di emergenza", "ausnahmezustand", "stan wyjątkowy", "olağanüstü hal",
@@ -128,16 +128,28 @@ EXTRA_WORDS = {
 }
 for _c, _ws in EXTRA_WORDS.items():
     CATEGORY_WORDS[_c] = CATEGORY_WORDS[_c] + _ws
+# Diplomatie & politique (v0.9.2) : signaux sans menace physique directe, conservés dans une catégorie à part
+# (hors note de risque) – élections, démissions, sanctions, expulsions de diplomates, rupture de relations.
+CATEGORY_WORDS["diplomatic"] = [
+    "election", "élection", "elección", "eleição", "elezion", "wahl", "wybor", "seçim", "выбор", "انتخاب", "בחירות",
+    "pemilu", "เลือกตั้ง", "选举", "選舉", "انتخابات", "নির্বাচন", "ምርጫ", "doorasho", "referendum", "référendum",
+    "resign", "démission", "demission", "dimisión", "renúncia", "dimissioni", "rücktritt", "dymisj", "istifa",
+    "отставк", "استقال", "sanction", "sanciones", "sanções", "sanktion", "санкц", "عقوبات", "تحریم",
+    "expel", "expulse", "expulsion", "persona non grata", "ambassador", "ambassadeur", "embajador", "embaixador",
+    "ambasciatore", "botschafter", "посол", "سفير", "diplomat", "diplomatic ties", "relations diplomatiques",
+    "relaciones diplomáticas", "rompt ses relations", "severs ties", "cuts ties", "motion de censure", "no-confidence",
+    "no confidence", "remaniement", "reshuffle", "dissolution de l'assemblée", "government collapse", "chute du gouvernement"]
 # ordre de priorité quand plusieurs catégories correspondent
 PRIORITY = ["terrorism", "armed_conflict", "attack", "earthquake", "cyclone", "flood", "volcano", "wildfire",
             "landslide", "health", "political", "unrest", "cyber", "infrastructure", "crime", "storm",
-            "extreme_temp", "drought"]
+            "extreme_temp", "drought", "diplomatic"]
 # titres regroupés en un seul incident s'ils relèvent de la même famille, au même endroit, le même jour
 FAMILY = {"terrorism": "violence", "attack": "violence", "armed_conflict": "violence", "crime": "violence",
-          "unrest": "unrest", "political": "political"}
+          "unrest": "unrest", "political": "political", "diplomatic": "diplomatic"}
 BASE_SEVERITY = {"terrorism": 3, "armed_conflict": 2, "attack": 2, "political": 1, "unrest": 1, "crime": 1,
                  "cyber": 1, "infrastructure": 1, "health": 2, "earthquake": 2, "cyclone": 2, "flood": 2,
-                 "volcano": 2, "wildfire": 1, "landslide": 2, "storm": 1, "extreme_temp": 1, "drought": 1}
+                 "volcano": 2, "wildfire": 1, "landslide": 2, "storm": 1, "extreme_temp": 1, "drought": 1,
+                 "diplomatic": 1}
 ESCALATE = ["coup", "golpe", "putsch", "massacre", "masacre", "carnage", "mass shooting", "suicide bomb",
             "kamikaze", "state of emergency", "état d'urgence", "martial law", "loi martiale", "riot", "émeute"]
 DEATH_RE = re.compile(r"(\d{1,5})\s*(?:people\s+|personnes\s+|personas\s+|pessoas\s+|persone\s+|menschen\s+)?"

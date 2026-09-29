@@ -125,6 +125,14 @@ Sans clé, le classement par mots-clés continue de fonctionner. Garde-fous :
 
 Elles sont regroupées par pays et classées en crise majeure, crise ou alerte.
 
+## Comptes, safety check et application mobile (v0.10)
+
+- **Mobile** : barre de navigation en bas, fiches en bas d'écran, couches repliables ; installable comme application (PWA : `docs/manifest.webmanifest`, `docs/sw.js`), consultable hors connexion.
+- **Comptes** (`docs/compte.html`) : inscription par e-mail et mot de passe, **validation par un administrateur**, profil, préférences synchronisées entre appareils, sites et trajets, notifications, suppression du compte.
+- **Administration** (`docs/admin.html`) : validation, refus, suspension et rôles ; création et suivi des **safety checks** (tous, un pays, un rayon autour d'un lieu ; option organisation), avec notifications Web Push et tableau des réponses.
+- **Catégorie Diplomatie / politique** : élections, démissions, sanctions, expulsions de diplomates ; hors note de risque et hors Pulse.
+- Serveur : Supabase (offre gratuite) – `supabase/schema.sql` (tables et règles d'accès RLS) et `supabase/functions/safety-push`. Mise en place : `GUIDE_MISE_EN_LIGNE.md`, partie H. Sans configuration, l'outil fonctionne sans compte.
+
 ## Organisation du projet
 
 ```

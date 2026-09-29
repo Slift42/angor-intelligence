@@ -42,6 +42,8 @@ def compute(events, country_risk, store, now):
         if t < d30:
             continue
         grp = CATEGORIES.get(ev["category"], {}).get("group")
+        if grp == "diplomatic":
+            continue
         w = _weight(ev)
         if t >= d7:
             if grp in SEC_GROUPS:

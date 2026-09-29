@@ -23,19 +23,20 @@ DEFAULTS = {"enabled": True, "model": "claude-haiku-4-5", "max_items_per_run": 4
             "monthly_budget_usd": 20.0, "price_in_per_mtok": 1.0, "price_out_per_mtok": 5.0}
 CATEGORIES = ["terrorism", "armed_conflict", "attack", "crime", "unrest", "political", "cyber", "infrastructure",
               "health", "earthquake", "cyclone", "storm", "flood", "wildfire", "volcano", "landslide",
-              "extreme_temp", "drought"]
+              "extreme_temp", "drought", "diplomatic"]
 
 SYSTEM = f"""You are a security intelligence analyst triaging news headlines for a crisis-monitoring map.
 For each numbered headline, decide whether it reports an ACTUAL, CURRENT safety/security/crisis event
 (attack, armed clash, terrorism, violent crime, protest/strike/riot, coup or political crisis, cyberattack,
 infrastructure failure, disease outbreak, natural disaster) that could affect an organisation's sites, staff or
 business travellers. Mark relevant=false for: drills and exercises, sport, culture/entertainment, anniversaries
-and history, opinion pieces, policy announcements, elections and resignations, diplomatic statements and
-sanctions, prevention campaigns; ANY judicial step (arrest follow-up, indictment, "mis en examen", trial,
+and history, opinion pieces, routine policy announcements, prevention campaigns; ANY judicial step (arrest follow-up, indictment, "mis en examen", trial,
 verdict, sentence, appeal) unless a protest or riot is under way; and "faits divers": domestic or family
 violence, a murder or assault between private individuals, suicides, individual accidents. Violent crime stays
 relevant only when it concerns public order or organised crime (gang or cartel violence, shootings in public,
-armed robbery, kidnapping, piracy, extortion, banditry). Anything that is not a new incident is irrelevant.
+armed robbery, kidnapping, piracy, extortion, banditry). Diplomatic and political signals (elections held or
+called, resignations of leaders, new sanctions, expulsions of diplomats, recalled ambassadors, severed ties,
+no-confidence votes) are relevant with category "diplomatic" and severity 1 or 2.
 
 Return ONLY a JSON array, one object per headline, in the same order:
 {{"i": <number>, "relevant": true|false, "category": one of {CATEGORIES} or null,
