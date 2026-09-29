@@ -53,6 +53,7 @@
       <button role="tab" data-tab="countries"></button>
       <button role="tab" data-tab="news"></button>
       <button role="tab" data-tab="sites"></button>
+      <button role="tab" data-tab="buddy"></button>
     </nav>
 
     <section class="tab-body" data-body="alerts">
@@ -104,6 +105,17 @@
         <div class="site-actions"><button class="btn primary" type="submit" data-i18n="save"></button><button class="btn" type="button" id="site-cancel" data-i18n="cancel"></button></div>
       </form>
       <ol class="site-list" id="site-list"></ol>
+    </section>
+
+    <section class="tab-body buddy" data-body="buddy" hidden>
+      <div class="buddy-head"><h3 data-i18n="buddy_title"></h3><button class="btn small" id="buddy-clear" type="button" data-i18n="buddy_clear"></button></div>
+      <div class="buddy-log" id="buddy-log" aria-live="polite"></div>
+      <div class="buddy-suggest" id="buddy-suggest"></div>
+      <form class="buddy-form" id="buddy-form">
+        <textarea class="field" id="buddy-input" rows="2" maxlength="800" data-i18n-placeholder="buddy_ph"></textarea>
+        <button class="btn primary" type="submit" data-i18n="buddy_send"></button>
+      </form>
+      <p class="hint" id="buddy-mode"></p>
     </section>
   </aside>
 

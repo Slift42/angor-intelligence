@@ -25,5 +25,7 @@
     "max_per_message": 15,
     "telegram": true,
     "email": true
-  }
+  },
+  "buddy_url": "",
+  "_buddy_comment": "buddy_url : adresse du Worker Cloudflare de « My travel buddy » (IA). Vide = réponses construites à partir des seules données Angor, sans IA."
 }

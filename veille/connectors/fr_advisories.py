@@ -22,6 +22,9 @@ from .. import http
 KIND = "advisories"
 SITE = "https://www.diplomatie.gouv.fr"
 PAGE = SITE + "/fr/information-par-pays/{slug}/conseils-aux-voyageurs-securite"
+HEALTH_PAGE = SITE + "/fr/information-par-pays/{slug}/conseils-aux-voyageurs-sante"
+HEALTH_RE = re.compile(r"vaccin|paludisme|fievre jaune|rage|typhoide|cholera|meningite|dengue|chikungunya|hepatite|"
+                       r"zika|mpox|ebola|traitement preventif|eau potable|moustique", re.I)
 INDEXES = [SITE + "/fr/conseils-aux-voyageurs/conseils-par-pays-destination/", SITE + "/fr/information-par-pays/"]
 LINK_RE = re.compile(r'href="(?:https?://www\.diplomatie\.gouv\.fr)?/fr/(?:conseils-aux-voyageurs/conseils-par-pays-destination|information-par-pays)/([a-z0-9-]+)/?[^"]*"[^>]*>([^<]{2,80})<', re.I)
 MAP_RE = re.compile(r'((?:https?://www\.diplomatie\.gouv\.fr)?/files/files/cav/[^"\'\s>]+\.(?:jpe?g|png|gif|webp))', re.I)
@@ -55,7 +58,7 @@ KEY_RE = re.compile(r"deconseill|vigilance|recommand|il convient|eviter|prudence
                     r"manifestation|criminalit|braquage|mines|checkpoint|barrage|zone|interdit", re.I)
 
 
-def sentences(page_html):
+def sentences(page_html, key_re=None):
     """Phrases de conseil de la page (texte original, accents conservés), pour un extrait cité."""
     text = re.sub(r"<(script|style|nav|header|footer)[^>]*>.*?</\1>", " ", page_html, flags=re.S | re.I)
     text = html.unescape(re.sub(r"<[^>]+>", " ", text))
@@ -63,7 +66,7 @@ def sentences(page_html):
     out = []
     for sent in re.split(r"(?<=[.!?])\s+(?=[A-ZÀ-ÖØ-Ý«])", text):
         sent = sent.strip()
-        if 40 <= len(sent) <= 360 and KEY_RE.search(plain(sent)) and sent not in out:
+        if 40 <= len(sent) <= 360 and (key_re or KEY_RE).search(plain(sent)) and sent not in out:
             out.append(sent)
         if len(out) >= 30:
             break
@@ -158,6 +161,14 @@ def fetch(cfg, ctx):
                          updated=u.group(1) if u else None, sents=sentences(text))
             st["slugs"][iso] = slug_ok
             done += 1
+            old = st["pages"].get(iso) or {}
+            if old.get("health_status") != 404:  # onglet « Santé » : vaccins, paludisme… (s'il existe)
+                try:
+                    hr = http.get(HEALTH_PAGE.format(slug=slug_ok), retries=0, timeout=20)
+                    entry["health"] = sentences(hr.text, HEALTH_RE)[:12]
+                    entry["health_status"] = 200
+                except Exception as exc:
+                    entry["health_status"] = getattr(getattr(exc, "response", None), "status_code", None)
         elif blocked:
             fails += 1
             continue  # site injoignable : on réessaiera à la prochaine collecte
@@ -175,6 +186,11 @@ def fetch(cfg, ctx):
         for k in {_key(x) for x in p.get("sents", [])}:
             freq[k] = freq.get(k, 0) + 1
     common = {k for k, n in freq.items() if n > max(3, 0.2 * len(ok))}
+    hfreq = {}
+    for p in ok.values():
+        for k in {_key(x) for x in p.get("health", [])}:
+            hfreq[k] = hfreq.get(k, 0) + 1
+    hcommon = {k for k, n in hfreq.items() if n > max(3, 0.5 * len(ok))}  # vaccins communs à une région : conservés
     out = {}
     for iso, p in ok.items():
         excerpt, size = [], 0
@@ -189,7 +205,7 @@ def fetch(cfg, ctx):
         out[iso] = {"level": level, "scale": 4, "max": mx, "parts": parts,
                     "label": LABELS[mx] + (" (certaines zones)" if parts and mx > 1 else ""),
                     "url": PAGE.format(slug=p["slug"]), "updated": p.get("updated"), "map": p.get("map"),
-                    "excerpt": excerpt}
+                    "excerpt": excerpt, "health": [x for x in p.get("health", []) if _key(x) not in hcommon][:6]}
     if todo:
         ctx.log(f"  MEAE : {done} page(s) lue(s), {len(todo) - done} en attente, {len(out)} pays connus")
     return out

@@ -157,3 +157,25 @@ copy tools\github-actions-historique.yml .github\workflows\historique.yml
   `gh secret set RELIEFWEB_APPNAME` et passer la source `reliefweb` à `"enabled": true` dans `config/sources.json`.
 - **Telegram** : ajouter des canaux publics dans la source `telegram` de `config/sources.json`.
 - **Prestataires locaux vérifiés** : `config/providers_local.json` puis `python tools/providers_src.py`.
+
+---
+
+## Partie E – « My travel buddy » avec IA (facultatif)
+
+Sans rien configurer, le Travel buddy répond déjà à partir des données Angor (avis officiels, incidents,
+fiches pays), sans IA. Pour des réponses rédigées par Claude, il faut un petit relais gratuit qui garde
+la clé Anthropic à l'abri (le site étant public, la clé ne peut pas y figurer).
+
+1. Créez un compte gratuit sur https://dash.cloudflare.com (aucune carte bancaire).
+2. **Workers & Pages** → **Create** → **Create Worker** → nom `angor-buddy` → **Deploy**.
+3. **Edit code** : remplacez tout le contenu par celui de `tools/buddy-worker.js` → **Deploy**.
+4. **Settings** → **Variables and Secrets** :
+   - `ANTHROPIC_API_KEY` (type *Secret*) : votre clé Anthropic ;
+   - `ALLOWED_ORIGINS` : `https://angor.fr,https://www.angor.fr` ;
+   - `DAILY_LIMIT` : `150` ; `USER_LIMIT` : `20`.
+5. **Storage & Databases** → **KV** → **Create** `angor-quota`, puis dans le Worker **Settings** → **Bindings** →
+   **KV namespace**, nom de variable `QUOTA` (limite les abus et donc les coûts).
+6. Copiez l'adresse du Worker (ex. `https://angor-buddy.<vous>.workers.dev`) dans `config/settings.json` :
+   `"buddy_url": "https://angor-buddy.<vous>.workers.dev"`, puis **publier.bat**.
+
+Coût : environ 0,5 centime par question avec Claude Haiku ; avec `DAILY_LIMIT` = 150, 1 $ par jour au maximum.

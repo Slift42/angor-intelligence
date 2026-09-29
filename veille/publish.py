@@ -93,3 +93,21 @@ def write_archives(old_events):
         if f.stem not in by_month:
             f.unlink()
     return {m: len(v) for m, v in sorted(by_month.items())}
+
+
+def write_cities(min_pop=250000):
+    """docs/data/cities.js : grandes villes → pays (pour que « My travel buddy » reconnaisse « Lagos » ou
+    « Abuja »). Tiré du dictionnaire GeoNames déjà téléchargé (CC BY 4.0)."""
+    src = ROOT / "data" / "geonames" / "cities15000.txt"
+    if not src.exists():
+        return 0
+    rows = []
+    with open(src, encoding="utf-8") as fh:
+        for line in fh:
+            f = line.rstrip("\n").split("\t")
+            if len(f) < 15 or not f[14].isdigit() or int(f[14]) < min_pop:
+                continue
+            rows.append([f[2] or f[1], f[8], round(float(f[4]), 3), round(float(f[5]), 3), int(f[14])])
+    rows.sort(key=lambda r: -r[4])
+    write_js("cities.js", "VS_CITIES", {"source": "GeoNames (CC BY 4.0)", "cities": rows})
+    return len(rows)

@@ -9,6 +9,7 @@ docs/data/events.geojson
 docs/data/econ.js
 docs/data/profiles.js
 docs/data/practical.js
+docs/data/cities.js
 # Python
 __pycache__/
 *.pyc

@@ -187,7 +187,8 @@ def main():
         "news": sorted(store["news"].values(), key=lambda n: n["date"], reverse=True),
         "status": list(store["status"].values()),
         "sites": [] if public else sites, "site_alerts": [] if public else alerts,
-        "settings": {"product_name": product, "default_lang": settings.get("default_lang", "fr")},
+        "settings": {"product_name": product, "default_lang": settings.get("default_lang", "fr"),
+                     "buddy_url": settings.get("buddy_url", "")},
         "country_stats": analytics.country_stats(all_events, now), "archives": archives,
         "analytics": analytics.global_series(all_events, now),
     }
@@ -197,6 +198,7 @@ def main():
     for e in sorted(store["econ"].values(), key=lambda x: x["date"], reverse=True):
         econ_by_country.setdefault(e["country"], []).append(e)
     publish.write_js("econ.js", "VS_ECON", {"generated": now_iso(), "countries": econ_by_country})
+    publish.write_cities()
     publish.save_store(store)
 
     log(f"→ {len(events)} événements publiés, {len(country_risk)} pays notés, "

@@ -232,13 +232,14 @@
     {
       "id": "times_of_israel",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "Times of Israel",
       "license": "Titre + lien",
       "lang": "en",
       "url": "https://www.timesofisrael.com/feed/",
       "filter": "security",
-      "country": "IL"
+      "country": "IL",
+      "_comment": "Désactivé le 29/09 : le site refuse les serveurs de GitHub (HTTP 403). Ce média reste suivi via Google News (catalogue des médias de référence)."
     },
     {
       "id": "dawn",
@@ -427,14 +428,14 @@
     {
       "id": "sudan_tribune",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "Sudan Tribune",
       "license": "Titre + lien",
       "lang": "en",
       "url": "https://sudantribune.com/feed/",
       "country": "SD",
       "filter": "security",
-      "_comment": "Ajouté pour renforcer une zone sous-couverte (v0.6). En pause automatique si le flux ne répond pas."
+      "_comment": "Désactivé le 29/09 : le site refuse les serveurs de GitHub (HTTP 403). Ce média reste suivi via Google News (catalogue des médias de référence)."
     },
     {
       "id": "sudan_war_monitor",
@@ -475,26 +476,26 @@
     {
       "id": "humangle",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "HumAngle (conflits, Afrique)",
       "license": "Titre + lien",
       "lang": "en",
       "url": "https://humanglemedia.com/feed/",
       "country": "NG",
       "filter": "security",
-      "_comment": "Ajouté pour renforcer une zone sous-couverte (v0.6). En pause automatique si le flux ne répond pas."
+      "_comment": "Désactivé le 29/09 : le site refuse les serveurs de GitHub (HTTP 429). Ce média reste suivi via Google News (catalogue des médias de référence)."
     },
     {
       "id": "addis_standard",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "Addis Standard (Éthiopie)",
       "license": "Titre + lien",
       "lang": "en",
       "url": "https://addisstandard.com/feed/",
       "country": "ET",
       "filter": "security",
-      "_comment": "Ajouté pour renforcer une zone sous-couverte (v0.6). En pause automatique si le flux ne répond pas."
+      "_comment": "Désactivé le 29/09 : le site refuse les serveurs de GitHub (HTTP 403). Ce média reste suivi via Google News (catalogue des médias de référence)."
     },
     {
       "id": "zitamar",
@@ -511,26 +512,26 @@
     {
       "id": "club_mozambique",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "Club of Mozambique",
       "license": "Titre + lien",
       "lang": "en",
       "url": "https://clubofmozambique.com/feed/",
       "country": "MZ",
       "filter": "security",
-      "_comment": "Ajouté pour renforcer une zone sous-couverte (v0.6). En pause automatique si le flux ne répond pas."
+      "_comment": "Désactivé le 29/09 : le site refuse les serveurs de GitHub (HTTP 403). Ce média reste suivi via Google News (catalogue des médias de référence)."
     },
     {
       "id": "irrawaddy",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "The Irrawaddy (Birmanie)",
       "license": "Titre + lien",
       "lang": "en",
       "url": "https://www.irrawaddy.com/feed",
       "country": "MM",
       "filter": "security",
-      "_comment": "Ajouté pour renforcer une zone sous-couverte (v0.6). En pause automatique si le flux ne répond pas."
+      "_comment": "Désactivé le 29/09 : le site refuse les serveurs de GitHub (HTTP 403). Ce média reste suivi via Google News (catalogue des médias de référence)."
     },
     {
       "id": "myanmar_now",

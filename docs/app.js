@@ -15,7 +15,13 @@
     fr: {
       search_ph: 'Rechercher un pays, une ville, un événement…',
       crisis_major: 'Crise majeure', crisis_crisis: 'Crise', crisis_alert: 'Alerte', loading_archive: 'Chargement de l’historique…',
-      tab_alerts: 'Alertes', tab_ongoing: 'En cours', tab_countries: 'Pays', tab_news: 'Fil', tab_sites: 'Mes sites',
+      tab_alerts: 'Alertes', tab_ongoing: 'En cours', tab_countries: 'Pays', tab_news: 'Fil', tab_sites: 'Mes sites', tab_buddy: 'Travel buddy',
+      buddy_title: 'My travel buddy', buddy_ph: 'Votre question (pays, ville, trajet…)', buddy_send: 'Envoyer', buddy_clear: 'Effacer',
+      buddy_hello: 'Bonjour ! Posez-moi une question sur une destination : sécurité, trajet, santé, tenue, usages, urgences… Je réponds à partir des avis officiels (MEAE, FCDO, US), des incidents récents et des fiches pays.',
+      buddy_examples: ['Quels vaccins faire avant d\'aller au Nigeria ?', 'Comment sécuriser mon trajet entre Lagos et Abuja ?', 'Quelle tenue porter en étant une femme en Indonésie ?', 'Numéros d\'urgence au Kenya ?'],
+      buddy_thinking: 'Je rassemble les informations…', buddy_mode_ai: 'Réponse rédigée par IA à partir des données Angor – à vérifier', buddy_mode_local: 'Données Angor (sans IA)',
+      buddy_ai_on: 'Assistant IA actif. Ne saisissez pas de données personnelles.', buddy_ai_off: 'Mode sans IA : réponses construites à partir des données Angor.', buddy_ai_down: 'Assistant IA indisponible : réponse construite à partir des données Angor.',
+      legend: 'Légende',
       ongoing_hint: 'Alertes des 72 dernières heures jugées actives : gravité élevée ou critique, catastrophe en cours, situation évolutive, recoupée par plusieurs sources ou proche de vos sites. Regroupées par pays.',
       only_ongoing: 'Afficher uniquement les alertes en cours sur la carte', no_ongoing: 'Aucune crise en cours.',
       n_crises: (c, n) => `${c} pays · ${n} alerte${n > 1 ? 's' : ''} en cours`, range: 'Période personnalisée', range_from: 'Du', range_to: 'au', apply: 'Appliquer',
@@ -72,7 +78,13 @@
     en: {
       search_ph: 'Search a country, city or event…',
       crisis_major: 'Major crisis', crisis_crisis: 'Crisis', crisis_alert: 'Alert', loading_archive: 'Loading history…',
-      tab_alerts: 'Alerts', tab_ongoing: 'Ongoing', tab_countries: 'Countries', tab_news: 'Feed', tab_sites: 'My sites',
+      tab_alerts: 'Alerts', tab_ongoing: 'Ongoing', tab_countries: 'Countries', tab_news: 'Feed', tab_sites: 'My sites', tab_buddy: 'Travel buddy',
+      buddy_title: 'My travel buddy', buddy_ph: 'Your question (country, city, route…)', buddy_send: 'Send', buddy_clear: 'Clear',
+      buddy_hello: 'Hi! Ask me about a destination: security, routes, health, dress code, customs, emergency numbers… I answer from official advice (MEAE, FCDO, US), recent incidents and country sheets.',
+      buddy_examples: ['Which vaccines before travelling to Nigeria?', 'How to secure a road trip from Lagos to Abuja?', 'What should a woman wear in Indonesia?', 'Emergency numbers in Kenya?'],
+      buddy_thinking: 'Gathering information…', buddy_mode_ai: 'AI-written answer based on Angor data – to be verified', buddy_mode_local: 'Angor data (no AI)',
+      buddy_ai_on: 'AI assistant on. Do not enter personal data.', buddy_ai_off: 'No-AI mode: answers built from Angor data.', buddy_ai_down: 'AI assistant unavailable: answer built from Angor data.',
+      legend: 'Legend',
       ongoing_hint: 'Alerts from the last 72 hours considered active: high or critical severity, ongoing disaster, evolving situation, corroborated by several sources or close to your sites. Grouped by country.',
       only_ongoing: 'Show only ongoing alerts on the map', no_ongoing: 'No ongoing crisis.',
       n_crises: (c, n) => `${c} countries · ${n} ongoing alert${n > 1 ? 's' : ''}`, range: 'Custom period', range_from: 'From', range_to: 'to', apply: 'Apply',
@@ -158,6 +170,7 @@
     onlySites: false, onlyOngoing: false, hideAuto: store.get('vs-hideauto', false),
     selected: null, drawer: null, localSites: store.get('vs-sites', []), picking: false, pick: null,
     countryFilter: '', newsFilter: '', analytics: false,
+    legendOpen: store.get('vs-legend', true),
     countryLayer: (v => ['risk', 'meae', 'fcdo', 'us', 'none'].includes(v) ? v : 'risk')(store.get('vs-clayer', 'risk'))
   };
 
@@ -487,7 +500,7 @@
   function renderTabs() {
     $$('.tabs button').forEach(b => {
       b.setAttribute('aria-selected', String(b.dataset.tab === state.tab));
-      const ic = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2' }[b.dataset.tab];
+      const ic = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle' }[b.dataset.tab];
       let label = icon(ic, 20) + `<span>${esc(t('tab_' + b.dataset.tab))}</span>`;
       const n = b.dataset.tab === 'sites' ? EVENTS.filter(e => inWindow(e) && e._near.length && e.severity >= 2).length
         : b.dataset.tab === 'ongoing' ? EVENTS.filter(isOngoing).length : 0;
@@ -495,6 +508,7 @@
       b.innerHTML = label;
     });
     $$('.tab-body').forEach(s => { s.hidden = s.dataset.body !== state.tab; });
+    if (state.tab === 'buddy') { renderBuddy(); ensureBuddyData(); }
   }
 
   function renderSevSummary() {
@@ -610,11 +624,13 @@
   }
 
   function renderLegend() {
-    $('#legend').innerHTML = `
+    const open = state.legendOpen;
+    $('#legend').classList.toggle('collapsed', !open);
+    $('#legend').innerHTML = `<button class="legend-toggle" id="legend-toggle" type="button" aria-expanded="${open}">${esc(t('legend'))}<span class="chev">${icon('chevron-down', 14)}</span></button>` + (open ? `
       <div><div class="card-title">${t('legend_sev')}</div><div class="row">${[1, 2, 3, 4].map(s => `<span class="k"><i class="sw" style="background:${sevColor(s)}"></i>${esc(sevLabel(s))}</span>`).join('')}</div></div>
       ${MIN_SOURCES[state.countryLayer] ? `<div><div class="card-title">${esc(t('cl_' + state.countryLayer))}</div><div class="row">${[1, 2, 3, 4].map(l => `<span class="k"><i class="sq" style="background:${MIN_COLORS[l]}"></i>${esc((state.countryLayer === 'us' ? t('us_levels') : t('min_levels'))[l])}</span>`).join('')}</div>${state.countryLayer === 'us' ? '' : `<div class="legend-note">${t('zones_note')}</div>`}</div>`
         : state.countryLayer === 'risk' ? `<div><div class="card-title">${t('legend_risk')}</div><div class="row">${[1, 2, 3, 4, 5].map(l => `<span class="k"><i class="sq" style="background:${riskColor(l)}"></i>${esc(riskLabel(l))}</span>`).join('')}</div></div>` : ''}
-      <div class="legend-note">${t('legend_auto')}</div>`;
+      <div class="legend-note">${t('legend_auto')}</div>` : '');
   }
 
   function renderHealth() {
@@ -1029,6 +1045,7 @@
       state.analytics = true; $('#btn-analytics').classList.add('on'); closeDrawer(); renderAnalytics();
     });
     $('#analytics').addEventListener('click', ev => { if (ev.target.closest('#a-close')) closeAnalytics(); });
+    $('#legend').addEventListener('click', ev => { if (ev.target.closest('#legend-toggle')) { state.legendOpen = !state.legendOpen; store.set('vs-legend', state.legendOpen); renderLegend(); } });
     $('#analytics').addEventListener('change', ev => {
       const id = ev.target.id;
       if (id === 'af-country') state.aCountry = ev.target.value;
@@ -1092,6 +1109,212 @@
   function stopPicking() { state.picking = false; $('#app').classList.remove('picking'); $('#toast').hidden = true; }
   function closePanelMobile() { if (window.innerWidth <= 860) $('#app').classList.remove('panel-open'); }
 
+  /* ------------------------------------------------------------------ My travel buddy */
+  /* Assistant de voyage : repère le(s) pays et villes de la question, rassemble les données Angor
+     (risque, avis MEAE/FCDO/US, incidents, fiche culturelle, santé, prestataires) puis :
+     - avec un Worker IA configuré (settings.buddy_url) : réponse rédigée par Claude à partir de ce contexte ;
+     - sinon : réponse structurée construite localement à partir des mêmes données (gratuit, hors ligne). */
+  const BUDDY_URL = (D && D.settings && D.settings.buddy_url) || '';
+  const buddy = { log: [], busy: false, loaded: null };
+  const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ' ');
+  function loadScript(src) {
+    return new Promise(res => { const s = document.createElement('script'); s.src = src; s.onload = s.onerror = () => res(); document.head.appendChild(s); });
+  }
+  function ensureBuddyData() {
+    if (!buddy.loaded) buddy.loaded = Promise.all(['data/guides.js', 'data/practical.js', 'data/providers.js', 'data/cities.js']
+      .filter(src => !document.querySelector(`script[src="${src}"]`)).map(loadScript)).then(buildIndex);
+    return buddy.loaded;
+  }
+  const ALIASES = { usa: 'US', 'etats unis': 'US', amerique: 'US', uk: 'GB', angleterre: 'GB', 'grande bretagne': 'GB', rdc: 'CD', 'congo kinshasa': 'CD',
+    'congo brazzaville': 'CG', 'cote d ivoire': 'CI', 'ivory coast': 'CI', birmanie: 'MM', burma: 'MM', emirats: 'AE', dubai: 'AE', 'hong kong': 'HK',
+    'coree du sud': 'KR', 'coree du nord': 'KP', russie: 'RU', turquie: 'TR', turkiye: 'TR', holland: 'NL', hollande: 'NL', palestine: 'PS', gaza: 'PS' };
+  let NAME_INDEX = [], CITY_INDEX = [];
+  function buildIndex() {
+    NAME_INDEX = [];
+    Object.values(countryProps).forEach(p => [p.name_fr, p.name_en].forEach(n => { if (n && n.length > 3) NAME_INDEX.push([norm(n), p.iso2]); }));
+    Object.entries(ALIASES).forEach(([k, v]) => NAME_INDEX.push([k, v]));
+    NAME_INDEX.sort((a, b) => b[0].length - a[0].length);
+    CITY_INDEX = ((window.VS_CITIES || {}).cities || []).filter(c => c[0].length >= 4).map(c => ({ key: norm(c[0]), name: c[0], iso: c[1], lat: c[2], lon: c[3] }));
+  }
+  const wordIn = (hay, w) => new RegExp(`(^|[^a-z])${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^a-z]|$)`).test(hay);
+  function detect(q) {
+    const h = ' ' + norm(q) + ' ';
+    const isos = [], cities = [];
+    NAME_INDEX.forEach(([n, iso]) => { if (!isos.includes(iso) && wordIn(h, n)) isos.push(iso); });
+    for (const c of CITY_INDEX) {
+      if (cities.length >= 3) break;
+      if (wordIn(h, c.key) && !cities.some(x => x.key === c.key)) { cities.push(c); if (!isos.includes(c.iso)) isos.push(c.iso); }
+    }
+    if (!isos.length && state.drawer && state.drawer.kind === 'country') isos.push(state.drawer.id);
+    return { isos: isos.slice(0, 2), cities };
+  }
+  const INTENTS = {
+    health: /vaccin|sante|health|paludisme|malaria|medecin|docteur|hopita|hospital|maladie|disease|medic|pharma|eau potable|moustique/,
+    dress: /tenue|vetement|porter|habill|dress|wear|clothes|voile|foulard/,
+    culture: /culture|geste|salu|poignee|greet|affaire|business|cadeau|gift|religion|ramadan|coutume|custom|etiquette|interdit|alcool|photo/,
+    women: /femme|woman|women|voyageuse|female/,
+    route: /trajet|route|itinera|aller de|entre .* et|voiture|convoi|transport|deplac|axe|road|drive|between|transfer|aeroport|airport/,
+    emergency: /urgence|emergency|police|ambulance|numero|number|pompier/,
+    security: /securi|risque|risk|danger|safe|sur\b|menace|threat|terror|enlev|kidnap|attentat|situation|manif|protest/,
+    providers: /prestataire|protection rapprochee|garde du corps|bodyguard|escort|evacuation|provider|securite privee/,
+    telecom: /telephone|sim|reseau|internet|4g|satellite|phone|prise|plug|voltage/,
+  };
+  const intentsOf = q => Object.entries(INTENTS).filter(([, re]) => re.test(norm(q))).map(([k]) => k);
+  function kmToSegment(p, a, b) {
+    let best = Infinity;
+    for (let i = 0; i <= 20; i++) { const f = i / 20; best = Math.min(best, haversine(p.lat, p.lon, a.lat + (b.lat - a.lat) * f, a.lon + (b.lon - a.lon) * f)); }
+    return best;
+  }
+  const REGION_OF = p => !p ? '' : p.region === 'Western Asia' ? 'Moyen-Orient'
+    : ({ Africa: 'Afrique', Europe: 'Europe', Asia: 'Asie', 'North America': 'Amériques', 'South America': 'Amériques', Oceania: 'Océanie' }[p.continent] || '');
+  /** Données Angor utiles à la question, pour un pays (et éventuellement un trajet entre deux villes). */
+  function collect(iso, det, intents) {
+    const r = RISK[iso] || {}, adv = r.advisories || {};
+    const g = ((window.VS_GUIDES || {}).countries || {})[iso] || {};
+    const pr = ((window.VS_PRACTICAL || {}).countries || {})[iso] || {};
+    const prov = (window.VS_PROVIDERS || {}).providers || [];
+    const local = ((window.VS_PROVIDERS || {}).local || {})[iso] || [];
+    const cities = det.cities.filter(c => c.iso === iso);
+    const since = Date.now() - 30 * 864e5;
+    let evs = EVENTS.filter(e => !e.hist && e.country === iso && e._t >= since);
+    let corridor = null;
+    if (cities.length >= 2) {
+      corridor = { from: cities[0].name, to: cities[1].name, km: Math.round(haversine(cities[0].lat, cities[0].lon, cities[1].lat, cities[1].lon)) };
+      evs = evs.filter(e => kmToSegment(e, cities[0], cities[1]) <= 60);
+    } else if (cities.length === 1) {
+      evs = evs.filter(e => haversine(e.lat, e.lon, cities[0].lat, cities[0].lon) <= 100);
+    }
+    evs.sort((a, b) => b.severity - a.severity || b._t - a._t);
+    const region = REGION_OF(countryProps[iso]);
+    const provs = local.concat(prov.filter(p => !region || p.regions.includes(region)))
+      .filter(p => !intents.includes('route') || p.services.some(s => ['ts', 'cp', 'ev'].includes(s))).slice(0, 5);
+    const hospitals = (pr.hospitals || []).filter(h => !cities.length || cities.some(c => norm(h.city).includes(c.key))).concat(pr.hospitals || [])
+      .filter((h, i, a) => a.findIndex(x => x.name === h.name) === i).slice(0, 5);
+    return { iso, name: countryName(iso), level: r.level, levelLabel: r.level ? riskLabel(r.level) : '', adv, guide: g, practical: pr,
+      hospitals, events: evs.slice(0, 8), nEvents: evs.length, corridor, cities, provs, ongoing: EVENTS.some(e => e.country === iso && isOngoing(e)) };
+  }
+  function contextText(c) {
+    const L = [];
+    L.push(`PAYS: ${c.name} (${c.iso}) — niveau de risque Angor ${c.level || '?'}/5 (${c.levelLabel})${c.ongoing ? ' — crise/alerte en cours' : ''}`);
+    Object.entries(c.adv).forEach(([src, a]) => {
+      L.push(`AVIS ${src}: niveau ${a.level}/${a.scale || 4} — ${a.label || ''}${a.updated ? ' (maj ' + a.updated + ')' : ''}`);
+      (a.excerpt || []).forEach(x => L.push(`  [${src} sécurité] ${x}`));
+      (a.health || []).forEach(x => L.push(`  [${src} santé] ${x}`));
+    });
+    if (c.corridor) L.push(`TRAJET: ${c.corridor.from} → ${c.corridor.to}, ~${c.corridor.km} km à vol d'oiseau`);
+    L.push(`INCIDENTS ANGOR 30 J (${c.corridor ? 'corridor ±60 km' : c.cities.length ? 'rayon 100 km' : 'pays'}): ${c.nEvents}`);
+    c.events.forEach(e => L.push(`  - ${new Date(e.date).toISOString().slice(0, 10)} ${catLabel(e.category)} gravité ${e.severity}/4 à ${e.place || '?'} : ${e.title}${e.confidence === 'low' ? ' (non vérifié)' : ''}`));
+    Object.entries(c.guide).forEach(([k, v]) => L.push(`FICHE ${k.toUpperCase()}: ${(v || []).join(' | ')}`));
+    const p = c.practical;
+    if (p.emergency) L.push(`URGENCES: ${(p.emergency || []).join(', ')} ; indicatif ${(p.calling_code || []).join(', ')} ; prises ${(p.plugs || []).join(', ')} ; tension ${(p.voltage || []).join('/')} V ; opérateurs ${(p.operators || []).join(', ')}`);
+    c.hospitals.forEach(h => L.push(`HÔPITAL: ${h.name} (${h.city || '?'})${h.beds ? ', ' + h.beds + ' lits' : ''}${h.web ? ', ' + h.web : ''}`));
+    c.provs.forEach(pv => L.push(`PRESTATAIRE: ${pv.name} — ${(pv.services || []).join(',')} — ${pv.web || ''}`));
+    return L.join('\n');
+  }
+  const li = xs => `<ul>${xs.filter(Boolean).map(x => `<li>${x}</li>`).join('')}</ul>`;
+  function routeAdvice(level) {
+    const fr = state.lang === 'fr';
+    if (level >= 4) return fr ? ['Privilégier un vol intérieur plutôt que la route lorsque c\'est possible.', 'Si la route est indispensable : chauffeur local expérimenté, deux véhicules (convoi), escorte ou prestataire de transport sécurisé.',
+      'Rouler uniquement de jour (départ après le lever du soleil, arrivée avant la nuit), sans arrêt non planifié ; varier horaires et itinéraires.',
+      'Points de contact (check-in) toutes les 1 à 2 h avec un correspondant, téléphone satellite, trousse de secours et plan d\'évacuation.', 'Se renseigner la veille sur les barrages, manifestations et incidents le long de l\'axe.']
+      : ['Prefer a domestic flight over road travel where possible.', 'If road travel is essential: experienced local driver, two vehicles (convoy), escort or secure-transport provider.', 'Daylight only, no unplanned stops; vary times and routes.', 'Check-ins every 1–2 h, satellite phone, first-aid kit and evacuation plan.', 'Check checkpoints, protests and incidents along the route the day before.'];
+    if (level === 3) return fr ? ['Véhicule avec chauffeur de confiance (société recommandée par l\'hôtel ou l\'entreprise), pas de taxi hélé dans la rue.', 'Éviter la route de nuit ; prévoir un itinéraire de repli et informer un contact de l\'heure d\'arrivée.', 'Vérifier l\'actualité locale (manifestations, barrages) avant le départ.']
+      : ['Vehicle with a trusted driver (hotel/company-recommended), no street-hailed taxis.', 'Avoid night driving; plan an alternative route and share your ETA.', 'Check local news (protests, roadblocks) before departure.'];
+    return fr ? ['Précautions usuelles : transports officiels ou VTC reconnus, vigilance aux vols dans les gares et aéroports.', 'Garder sur soi les numéros d\'urgence et une copie des documents.']
+      : ['Usual precautions: official transport or reputable ride-hailing, watch for theft at stations and airports.', 'Keep emergency numbers and document copies with you.'];
+  }
+  function localAnswer(q, det, intents) {
+    const fr = state.lang === 'fr';
+    if (!det.isos.length) return fr ? `<p>Je n'ai pas reconnu de pays ou de ville dans votre question. Précisez la destination (ex. « Quelle tenue porter en Indonésie ? »), ou ouvrez d'abord la fiche d'un pays.</p>`
+      : `<p>I could not recognise a country or city. Please name the destination, or open a country card first.</p>`;
+    const out = [];
+    const all = intents.length ? intents : ['security', 'culture', 'emergency'];
+    det.isos.forEach(iso => {
+      const c = collect(iso, det, all);
+      const g = c.guide, p = c.practical, meae = c.adv['MEAE (France)'];
+      const parts = [`<h4>${flagImg(iso)}${esc(c.name)} — ${t('risk_level')} ${c.level || '?'} · ${esc(c.levelLabel)}</h4>`];
+      if (all.includes('security') || all.includes('route')) {
+        parts.push(li(Object.entries(c.adv).map(([s, a]) => `<strong>${esc(s)}</strong> : ${esc(a.label || '')}`)));
+        if (meae && (meae.excerpt || []).length) parts.push(`<blockquote>${meae.excerpt.slice(0, 3).map(x => `« ${esc(x)} »`).join('<br>')}</blockquote>`);
+      }
+      if (all.includes('route')) {
+        if (c.corridor) parts.push(`<p><strong>${esc(c.corridor.from)} → ${esc(c.corridor.to)}</strong> (~${c.corridor.km} km ${fr ? 'à vol d\'oiseau' : 'as the crow flies'})</p>`);
+        parts.push(`<p><strong>${fr ? 'Recommandations' : 'Recommendations'}</strong></p>` + li(routeAdvice(c.level || 2).map(esc)));
+      }
+      if (all.includes('security') || all.includes('route')) {
+        parts.push(`<p><strong>${fr ? 'Incidents récents' : 'Recent incidents'} (30 ${fr ? 'j' : 'd'}${c.corridor ? (fr ? ', le long de l\'axe' : ', along the route') : ''}) : ${c.nEvents}</strong></p>`
+          + li(c.events.slice(0, 5).map(e => `<a href="#" data-buddy-event="${esc(e.id)}">${esc(e.title)}</a> <span class="muted">— ${esc(e.place || '')}, ${esc(ago(e.date))}</span>`)));
+      }
+      if (all.includes('dress') || all.includes('women')) parts.push(`<p><strong>${fr ? 'Tenue' : 'Dress'}</strong></p>` + li((g.tenue || []).map(esc)));
+      if (all.includes('women')) parts.push(`<p><strong>${fr ? 'Voyageuses' : 'Women travellers'}</strong></p>` + li((g.voyageuses || []).map(esc)));
+      if (all.includes('culture')) ['religion', 'gestes', 'salutations', 'affaires', 'interdits'].forEach(k => {
+        if ((g[k] || []).length && (intents.length === 0 || new RegExp({ religion: 'religion|ramadan', gestes: 'geste', salutations: 'salu|greet|poignee', affaires: 'affaire|business|cadeau|gift', interdits: 'interdit|alcool|photo|loi' }[k]).test(norm(q)) || !/religion|ramadan|geste|salu|greet|affaire|business|cadeau|gift|interdit|alcool|photo/.test(norm(q))))
+          parts.push(`<p><strong>${esc({ religion: 'Religion', gestes: fr ? 'Gestes à éviter' : 'Gestures', salutations: fr ? 'Salutations' : 'Greetings', affaires: fr ? 'Affaires' : 'Business', interdits: fr ? 'Interdits' : 'Red lines' }[k])}</strong></p>` + li(g[k].map(esc)));
+      });
+      if (all.includes('health')) {
+        const h = (meae && meae.health) || [];
+        parts.push(`<p><strong>${fr ? 'Santé' : 'Health'}</strong></p>` + li([
+          ...h.slice(0, 4).map(x => `« ${esc(x)} » <span class="muted">(MEAE)</span>`),
+          h.length ? '' : esc(fr ? 'Vaccins : consultez un centre de vaccinations internationales 4 à 6 semaines avant le départ (vaccins recommandés ou obligatoires selon la destination, prévention du paludisme).' : 'Vaccines: see a travel clinic 4–6 weeks before departure.'),
+          ...c.hospitals.slice(0, 3).map(x => `${esc(x.name)}${x.city ? ' (' + esc(x.city) + ')' : ''}`)]));
+      }
+      if (all.includes('emergency') || all.includes('health')) parts.push(`<p><strong>${fr ? 'Urgences' : 'Emergency'}</strong> : ${esc((p.emergency || []).join(' · ') || '—')} · ${fr ? 'indicatif' : 'code'} ${esc((p.calling_code || []).join(', ') || '—')}</p>`);
+      if (all.includes('telecom')) parts.push(`<p><strong>${fr ? 'Télécoms' : 'Telecoms'}</strong> : ${esc((p.operators || []).join(', ') || '—')} · ${fr ? 'prises' : 'plugs'} ${esc((p.plugs || []).join(', ') || '—')} · ${esc((p.voltage || []).join('/'))} V</p>`);
+      if (all.includes('providers') || (all.includes('route') && (c.level || 0) >= 3)) parts.push(`<p><strong>${fr ? 'Prestataires (sécurité / évacuation)' : 'Providers (security / evacuation)'}</strong></p>` + li(c.provs.map(pv => `<a href="${esc(pv.web)}" target="_blank" rel="noopener">${esc(pv.name)}</a>`)));
+      parts.push(`<p class="muted"><a href="report.html#${iso}" target="_blank" rel="noopener">${fr ? 'Rapport pays complet (PDF)' : 'Full country report (PDF)'}</a></p>`);
+      out.push(parts.join(''));
+    });
+    return out.join('<hr>') + `<p class="muted">${fr ? 'Réponse construite à partir des données Angor (avis officiels, incidents, fiches) — à vérifier avant décision.' : 'Answer built from Angor data — verify before deciding.'}</p>`;
+  }
+  function mdToHtml(md) {
+    let h = esc(md).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/^#{1,4} (.+)$/gm, '<h4>$1</h4>');
+    h = h.replace(/(?:^|\n)((?:[-•] .+(?:\n|$))+)/g, (m, block) => `\n<ul>${block.trim().split('\n').map(l => `<li>${l.replace(/^[-•] /, '')}</li>`).join('')}</ul>\n`);
+    return h.split(/\n{2,}/).map(p => /^\s*<(ul|h4)/.test(p) ? p : `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+  }
+  async function ask(q) {
+    await ensureBuddyData();
+    const det = detect(q), intents = intentsOf(q);
+    if (!BUDDY_URL || !det.isos.length) return { html: localAnswer(q, det, intents), mode: 'local' };
+    const ctx = det.isos.map(iso => contextText(collect(iso, det, intents.length ? intents : ['security']))).join('\n\n').slice(0, 14000);
+    try {
+      const r = await fetch(BUDDY_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ q, lang: state.lang, context: ctx, history: buddy.log.slice(-4).map(m => ({ role: m.role, content: m.text.slice(0, 1500) })) }) });
+      const j = await r.json();
+      if (!r.ok || !j.answer) throw new Error(j.error || r.status);
+      return { html: mdToHtml(j.answer), mode: 'ai', text: j.answer };
+    } catch (e) {
+      return { html: `<p class="muted">${t('buddy_ai_down')}</p>` + localAnswer(q, det, intents), mode: 'local' };
+    }
+  }
+  function renderBuddy() {
+    const log = $('#buddy-log');
+    if (!log) return;
+    log.innerHTML = buddy.log.length ? buddy.log.map(m => m.role === 'user'
+      ? `<div class="bmsg me">${esc(m.text)}</div>`
+      : `<div class="bmsg bot">${m.html}${m.mode ? `<div class="bmode">${esc(t('buddy_mode_' + m.mode))}</div>` : ''}</div>`).join('')
+      + (buddy.busy ? `<div class="bmsg bot typing">${esc(t('buddy_thinking'))}</div>` : '')
+      : `<div class="bmsg bot">${esc(t('buddy_hello'))}</div>`;
+    log.scrollTop = log.scrollHeight;
+    $('#buddy-suggest').innerHTML = buddy.log.length ? '' : t('buddy_examples').map(x => `<button type="button" class="chip">${esc(x)}</button>`).join('');
+    $('#buddy-mode').textContent = BUDDY_URL ? t('buddy_ai_on') : t('buddy_ai_off');
+  }
+  async function sendBuddy(q) {
+    q = (q || '').trim();
+    if (!q || buddy.busy) return;
+    buddy.log.push({ role: 'user', text: q }); buddy.busy = true; renderBuddy();
+    const a = await ask(q);
+    buddy.busy = false;
+    buddy.log.push({ role: 'assistant', html: a.html, text: a.text || '', mode: a.mode });
+    renderBuddy();
+  }
+  function bindBuddy() {
+    $('#buddy-form').addEventListener('submit', ev => { ev.preventDefault(); const v = $('#buddy-input').value; $('#buddy-input').value = ''; sendBuddy(v); });
+    $('#buddy-input').addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); $('#buddy-form').requestSubmit(); } });
+    $('#buddy-suggest').addEventListener('click', ev => { const b = ev.target.closest('.chip'); if (b) sendBuddy(b.textContent); });
+    $('#buddy-log').addEventListener('click', ev => { const a = ev.target.closest('[data-buddy-event]'); if (a) { ev.preventDefault(); openEvent(a.dataset.buddyEvent); } });
+    $('#buddy-clear').addEventListener('click', () => { buddy.log = []; renderBuddy(); });
+  }
+
   /* ------------------------------------------------------------------ démarrage */
   if (D && D.settings && D.settings.product_name) { $('#brand-name').textContent = D.settings.product_name; document.title = D.settings.product_name; }
   computeProximity();
@@ -1099,6 +1322,7 @@
   applyTheme();
   riskLayer.addTo(map); cluster.addTo(map); sitesLayer.addTo(map);
   bind();
+  bindBuddy();
   ensureArchives(renderAll);
   const hash = decodeURIComponent(location.hash.slice(1));
   if (hash && countryProps[hash]) openCountry(hash);
