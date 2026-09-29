@@ -125,6 +125,13 @@ Sans clé, le classement par mots-clés continue de fonctionner. Garde-fous :
 
 Elles sont regroupées par pays et classées en crise majeure, crise ou alerte.
 
+## Rapports, alerte précoce et sources (v0.11)
+
+- **Tri du contenu renforcé** (`veille/press.py`) : une « attaque » n'est retenue que si elle est violente et pertinente (bilan lourd, lieu public ou cible institutionnelle, groupe armé, enlèvement) ; écartés : sport, métaphores (« Google attaque… »), animaux, accidents domestiques, feux d'artifice, suites judiciaires et hommages, menaces sans suite, séismes faibles déjà couverts par l'USGS.
+- **Sources** : ≈ 45 nouveaux flux (presse Afrique, Amérique latine, Asie, Moyen-Orient, Ukraine, presse régionale française, ONU), avertissements de l'Auswärtiges Amt (calque « Allemagne »), bulletins officiels NOAA NHC, tsunamis PTWC/NTWC, Smithsonian GVP, Copernicus EMS, ECDC (`veille/connectors/official_rss.py`, `de_advisories.py`). Flux RSS téléchargés en parallèle. Le compteur affiche le volume réel surveillé (flux + médias du catalogue + canaux Telegram + producteurs de rapports).
+- **Onglet Rapports** (`veille/reports.py`, `config/reports.json`) : dernières publications d'une trentaine de think tanks, ONG et organisations internationales, avec pays, régions et thèmes détectés ; rapports récents dans la fiche pays. Ajout manuel possible (`"manual"`).
+- **Onglet Alerte précoce** (`veille/early_warning.py`, `docs/ew.js`, `config/early_warning.json`) : par unité administrative (Corne de l'Afrique, Sahel – lac Tchad), précipitations, température et humidité du sol (NASA POWER), incidents et conflits liés aux ressources, insécurité alimentaire IPC et déplacés (HDX HAPI), indice expérimental de convergence des risques.
+
 ## Comptes, safety check et application mobile (v0.10)
 
 - **Mobile** : barre de navigation en bas, fiches en bas d'écran, couches repliables ; installable comme application (PWA : `docs/manifest.webmanifest`, `docs/sw.js`), consultable hors connexion.

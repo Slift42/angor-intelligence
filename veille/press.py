@@ -27,7 +27,7 @@ CATEGORY_WORDS = {
                   "al-shabaab", "boko haram", "attentat", "suicide bomb", "kamikaze", "terör", "террор", "теракт",
                   "إرهاب", "انتحاري", "zamach terror", "anschlag"],
     "attack": ["attack", "attaque", "ataque", "atentado", "attacco", "angriff", "aanval", "atak", "saldırı", "напад",
-               "нападение", "هجوم", "bomb", "bombs", "bombe", "bombing", "bomba", "explos", "blast", "gunm", "shooting", "fusillade", "tiroteo",
+               "нападение", "هجوم", "bomb", "bombs", "bombe$", "bombes$", "bombing", "bomba$", "bombas$", "explos", "blast", "gunm", "shooting", "fusillade", "tiroteo",
                "tiroteio", "sparatoria", "schießerei", "schiesserei", "strzelanin", "silahlı", "стрельб", "استهداف",
                "stabbing", "poignard", "kidnap", "enlèvement", "enleve", "secuestro", "sequestro", "rapimento",
                "entführ", "porwan", "kaçırıl", "похищ", "اختطاف", "hostage", "otage", "rehén", "refém", "ostaggi", "geisel",
@@ -209,7 +209,9 @@ def _alt(p):
         pre += "(?:[הבולמשכ]{1,2})?"
     elif _ARABIC.search(p):
         pre += "(?:[وفبل])?(?:ال|لل)?"
-    return pre + re.escape(p) + (r"(?!\w)" if len(p) <= 4 else "")
+    exact = p.endswith("$")  # « proces$ » : mot entier (sinon racine : « proces » trouverait « processus »)
+    p = p.rstrip("$")
+    return pre + re.escape(p) + (r"(?!\w)" if exact or len(p) <= 4 else "")
 
 
 def _word_re(words):
@@ -219,6 +221,13 @@ def _word_re(words):
     return re.compile("|".join(_alt(p) for p in parts), re.I)
 
 
+# Variantes des racines courtes (≤ 4 lettres = mot entier) : « gunm » ne trouvait pas « gunmen ».
+for _c, _ws in {"attack": ["gunmen", "gunman", "gunned down", "shot dead", "abduct", "tue par balle", "tues par balle",
+                           "tuee par balle", "abattu", "abattus", "narchomicide", "ataku", "ataki", "enlevent", "enleves",
+                           "enlevees", "rapt"],
+                "unrest": ["riots", "rioting", "rioters"], "cyber": ["hacked", "hackers", "hacking"],
+                "crime": ["gangs", "mordes", "raububerfall"], "flood": ["crues"], "diplomatic": ["wahlen"]}.items():
+    CATEGORY_WORDS[_c] = CATEGORY_WORDS[_c] + _ws
 _CAT_RE = {c: _word_re(ws) for c, ws in CATEGORY_WORDS.items()}
 _ESC_RE = _word_re(ESCALATE)
 _ECO_RE = _word_re(ECONOMY_WORDS)
@@ -231,12 +240,23 @@ NOISE_WORDS = ["drill", "exercise", "exercice", "simulacro", "simulation", "tatb
                "anniversary", "anniversaire", "aniversario", "commemorat", "commémor", "hornet", "frelon", "wasp",
                "help desk", "helpdesk", "recipe", "horoscope", "museum", "musée", "exhibition", "exposition",
                "video game", "jeu vidéo", "acquit", "acquitte", "absuelto", "years ago", "il y a 10 ans",
-               "biopic", "novel", "roman ", "podcast", "quiz"]
+               "biopic", "novel", "roman$", "podcast", "quiz", "bombay", "shooting stars", "npfl", "striker", "buteur",
+               "goleador", "delantero", "attaquant", "offensive line", "theatre", "theater", "photo shoot", "shooting photo",
+               "videoclip", "trailer", "bande-annonce", "attack on titan", "panic attack", "crise de panique",
+               "heart attack", "crise cardiaque", "infarto", "herzinfarkt",
+               "rinde protesta", "toma protesta", "tomo protesta", "manifestation culturelle", "manifestation sportive",
+               "cinema", "journee mondiale", "memorializ", "fact check", "fact-check", "no muestra", "ne montre pas",
+               "fausse video", "fake video", "punk", "runs riot", "octobre rose", "cf$", "fc$", "futbol", "partido de futbol",
+               "debate", "pape", "pope", "papa leon", "offensive diplomatique", "diplomatic offensive", "charm offensive",
+               "offensive de charme", "long combat", "combat pour", "combat contre", "fight against", "lucha contra",
+               "analyst reveals", "opinion", "[opinia]", "editorial", "tribune libre", "interview", "entretien avec",
+               "player ratings", "ratings", "debut", "debutto", "derby", "tournoi", "torneo", "tournament", "championship",
+               "championnat", "asian games", "olympi", "medal", "medaille d'or"]
 _NOISE_RE = _word_re(NOISE_WORDS)
 
 # Pas un incident pour une organisation ou un voyageur : procédure judiciaire (mise en examen, procès,
 # condamnation…), sauf si le titre signale une mobilisation en cours (manifestation, émeute, blocage).
-JUDICIAL_WORDS = ["mis en examen", "mise en examen", "mis en cause", "proces", "condamne", "condamnation", "jugement", "juge ",
+JUDICIAL_WORDS = ["mis en examen", "mise en examen", "mis en cause", "proces$", "condamne", "condamnation", "jugement", "juge ",
                   "juges", "tribunal", "cour d'assises", "assises", "garde a vue", "verdict", "requisitoire", "requis",
                   "peine de", "prison ferme", "detention provisoire", "inculpe", "comparution", "comparait", "audience",
                   "relaxe", "plainte", "enquete ouverte", "ouvre une enquete", "parquet", "sentenced", "sentence",
@@ -268,16 +288,243 @@ PUBLIC_CRIME_WORDS = ["cartel", "gang", "narco", "trafic", "traffick", "mafia", 
                       "coupeurs de route", "embuscade", "ambush", "crime organise", "organized crime", "criminal group"]
 _PUBLIC_CRIME_RE = _word_re(PUBLIC_CRIME_WORDS)
 
+# ------------------------------------------------------------------ pertinence des « attaques » (v0.11)
+# Les mots « attaque / ataque / attack / explosion » sont très ambigus : sport, politique, animaux, accidents
+# domestiques, faits divers locaux. Une attaque n'est retenue que si elle est violente ET pertinente pour une
+# organisation ou un voyageur : bilan lourd, lieu public ou cible institutionnelle, groupe armé, enlèvement.
+GENERIC_ATTACK = ["attack", "attacks", "attacked", "attaque", "attaques", "attaqué", "ataque", "ataques", "atacan",
+                  "atacado", "attacco", "angriff", "aanval", "atak", "saldırı", "saldiri", "saldırıya", "напад", "нападение",
+                  "هجوم"]
+EXPLOSION_WORDS = ["explos", "blast", "explosie", "patlama", "взрыв", "انفجار", "פיצוץ", "爆炸", "ระเบิด", "ledakan"]
+INTENT_WORDS = ["bomb", "bombs", "bombe$", "bombes$", "bombing", "attentat", "atentado", "attentato", "anschlag", "terror", "ied",
+                "engin explosif", "artefacto explosivo", "explosive device", "car bomb", "voiture piegee", "coche bomba",
+                "grenade", "granada", "molotov", "drone", "missile", "rocket", "roquette", "suicide bomber", "kamikaze",
+                "sabotage", "sabotaje", "attack", "attaque", "ataque", "angriff", "saldiri", "militant", "jihad",
+                "insurg", "rebel", "rebelle", "gunmen", "hommes armes", "hombres armados", "shelling", "strike", "target", "targets",
+                "targeted", "targeting", "visant", "vise", "cible", "ciblant", "contra ", "against"]
+ACCIDENT_WORDS = ["gas", "gaz", "fuite", "leak", "combustiv", "combustible", "carburant", "fuel", "station-service",
+                  "gas station", "gasolinera", "petrol", "tanker truck", "camion-citerne", "fuga", "vazamento", "pirotecnia", "cohete", "fireworks", "feu d'artifice",
+                  "feux d'artifice", "petard", "boller", "transformador", "transformer", "transformateur", "chaudiere",
+                  "boiler", "caldera", "cilindro", "bonbonne", "garrafa"]
+FIREWORK_WORDS = ["pirotecnia", "cohete", "cohetes", "fireworks", "feu d'artifice", "feux d'artifice", "petard",
+                  "petards", "boller", "polvora", "fogos"]
+ANIMAL_WORDS = ["dog", "dogs", "chien", "chiens", "perro", "perros", "cachorro", "rottweiler", "pitbull", "pit bull",
+                "kopek", "собак", "hund", "hunde", "elephant", "requin", "shark", "tiburon", "bear attack", "ours",
+                "crocodile", "cocodrilo", "lion", "tigre", "tiger", "serpent", "snake", "loup", "wolf", "jaguar",
+                "leopard", "cougar", "puma", "abeilles", "bees", "wasps"]
+VIOLENCE_WORDS = ["kill", "killed", "killing", "kills", "dead", "death", "died", "dies", "mort", "morts", "tue", "tues", "tuee", "decede",
+                  "muerto", "muertos", "muere", "murio", "fallecido", "morto", "mortos", "morre", "tot", "tote", "getotet",
+                  "ermordet", "mata", "matan", "mato", "asesina", "asesinan", "asesinado", "asesinato", "assassin", "murder", "meurtre", "homicid", "muerte", "muertes", "morte", "mortes", "bala", "violent attack", "attaque violente", "olu", "oldu", "hayatini kaybetti", "убит", "погиб", "قتيل", "قتلى", "شهيد", "martyr",
+                  "injur", "wound", "hurt", "blesse", "blesses", "herido", "heridos", "lesionad", "ferido", "feridos",
+                  "verletzt", "yarali", "ранен", "جرحى", "مصاب", "casualt", "victim", "victime", "victima", "vitima",
+                  "gunman", "gunmen", "gunfire", "gunshot", "shot", "shots", "disparo", "disparos", "balazo", "balazos",
+                  "balacera", "a tiros", "tiros", "baleado", "arme", "armes", "arma", "armas", "armado", "armados",
+                  "armed", "silahli", "knife", "couteau", "cuchillo", "faca", "messer", "machete", "stabb", "poignard",
+                  "apunal", "esfaque", "niedergestochen", "erstochen", "bomb", "bombe$", "bomba$", "ied", "grenade", "granada", "explosive", "explosif",
+                  "molotov", "drone", "missile", "rocket", "roquette", "mortar", "mortier", "hostage", "otage", "rehen",
+                  "refem", "kidnap", "enlev", "secuestr", "sequestr", "entfuhr", "rapt", "arson", "incendiaire",
+                  "incendiario", "sabotage", "sabotaje", "terror", "jihad", "militant", "insurg", "rebel", "bandit",
+                  "gang", "cartel", "sicario", "massacre", "masacre", "tuerie", "chacina", "lynch", "fusillade",
+                  "shooting", "tiroteo", "tiroteio", "sparatoria", "schiesserei", "strzelanin", "стрельб"]
+MASS_WORDS = ["massacre", "masacre", "tuerie", "mass shooting", "chacina", "carnage", "bain de sang", "matanza",
+              "strage", "blutbad", "katliam", "бойня", "مجزرة"]
+PUBLIC_TARGET_WORDS = [
+    # lieux publics et transports
+    "school", "ecole", "lycee", "college$", "university", "universite", "universidad", "universidade", "campus",
+    "colegio", "escuela", "escola", "schule", "okul", "universitesi", "hospital$", "hospitals$", "hopital$", "hopitaux", "clinic$", "clinique$",
+    "market", "marche", "mercado", "markt", "bazaar", "souk", "mall", "centre commercial", "shopping", "supermarket",
+    "supermarche", "hotel", "restaurant", "cafe", "kahvehane", "bar", "nightclub", "discotheque", "boite de nuit",
+    "discoteca", "festival", "bus", "autobus", "omnibus", "combi", "minibus", "train", "tren", "metro", "subway",
+    "tram", "station", "gare", "estacion", "bahnhof", "hauptbahnhof", "airport", "aeroport", "aeropuerto", "aeroporto",
+    "flughafen", "port ", "ferry", "highway", "autoroute", "carretera", "rodovia", "axe ", "route ", "road ",
+    "church", "eglise", "iglesia", "igreja", "kirche", "mosque", "mosquee", "mezquita", "moschee", "synagog", "temple",
+    "pagoda", "shrine", "pilgrim", "pelerin", "crowd", "foule", "multitud", "rassemblement", "parade", "defile",
+    # cibles institutionnelles, économiques, humanitaires
+    "embassy", "ambassade", "embajada", "consulat", "consulate", "police officer", "police officers", "policeman", "policemen", "police station", "police post", "police hq",
+    "police headquarters", "police personnel", "police patrol", "cop", "cops", "officers", "law enforcement",
+    "policier", "policiers", "commissariat", "gendarm", "policias", "agente", "agentes", "agent", "reten", "carabinero",
+    "polizist", "polizisten", "polisi", "полицейск", "tavern", "taverne", "pub", "supplier", "defence", "defense company", "army", "armee", "ejercito", "exercito", "military",
+    "militaire", "militar", "soldier", "soldat", "soldado", "troops", "checkpoint", "security post", "security forces",
+    "forces de securite", "fuerzas de seguridad", "base ", "barracks", "caserne", "cuartel", "convoy", "convoi",
+    "patrol", "patrouille", "government", "gouvernement", "gobierno", "ministry", "ministere", "ministerio",
+    "parliament", "parlement", "congres", "town hall", "mairie", "prefecture", "court house", "palais de justice",
+    "prison", "carcel", "company", "entreprise", "empresa", "factory", "usine", "fabrica", "plant", "mine ", "minas",
+    "pipeline", "oleoduc", "gazoduc", "refinery", "raffinerie", "oil field", "power station", "centrale", "tanker",
+    "ship", "navire", "buque", "vessel", "tourist", "touriste", "turista", "tourismus", "foreigner", "etranger",
+    "extranjero", "expat", "aid worker", "humanitar", "ngo", "ong", "united nations", "onu", "peacekeep", "casque bleu",
+    "journalist", "journaliste", "periodista", "jornalista", "reporter",
+    # personnalités politiques
+    "mayor", "maire", "alcalde", "exalcalde", "prefeito", "sindaco", "burgermeister", "politician", "politicien",
+    "politico", "politiker", "candidate", "candidat", "candidato", "deputy", "depute", "diputado", "deputado", "mp ",
+    "senator", "senateur", "senador", "minister", "ministre", "ministro", "governor", "gouverneur", "gobernador",
+    "governador", "president", "leader", "chef de parti", "party", "parti$", "partido", "opposition", "activist",
+    "militant politique", "elu ", "councillor", "conseiller", "concejal", "vereador", "official", "responsable",
+    # lieux de sûreté spécifiques
+    "business", "commerce", "commerçant", "comerciante", "negocio", "is yeri", "boutique", "shop ", "store ", "bank",
+    "banque", "banco", "atm", "jewel", "bijouterie"]
+ARMED_GROUP_WORDS = ["gang", "gangs", "cartel", "narco", "sicario", "sicarios", "bandit", "bandits", "bandidos",
+                     "gunmen", "armed men", "hommes armes", "individus armes", "hombres armados", "homens armados",
+                     "bewaffnete", "silahli kisi", "militant", "militants", "jihad", "terror", "insurg", "rebel",
+                     "rebelle", "rebeldes", "russia", "point de deal", "narcotrafic", "narchomicide", "narcobandit", "trafic de drogue", "drug-related", "russian", "russians", "russe", "russes", "ruso", "rusos", "israeli", "israelien", "idf", "tsahal", "rsf", "wagner", "africa corps", "taliban", "pkk", "m23", "adf", "codeco", "janjaweed", "tatmadaw", "junta", "militia", "milice", "milicia", "isis", "isil", "daech", "daesh", "etat islamique",
+                     "islamic state", "al-shabaab", "shabaab", "boko haram", "iswap", "jnim", "aqmi", "al-qaeda",
+                     "al qaida", "hamas", "hezbollah", "houthi", "ttp", "bla ", "farc", "eln ", "clan del golfo",
+                     "mara ", "maras", "ms-13", "barrio 18", "crime organise", "organized crime", "crimen organizado",
+                     "ataque armado", "attaque armee", "armed attack", "silahli saldiri", "vooraad", "ajuste de cuentas",
+                     "reglement de comptes", "coupeurs de route", "embuscade", "ambush", "emboscada",
+                     "kidnap", "enlev", "secuestr", "sequestr", "entfuhr", "rapt", "hostage", "otage", "rehen", "ransom",
+                     "rancon", "rescate", "piracy", "pirates", "piraterie", "extorsion", "extortion"]
+AFTERMATH_WORDS = [
+    "arrested", "arrests", "arrest ", "charged", "charges", "suspect identified", "identified", "arraign", "indictment",
+    "accused", "accuse ", "accusee", "remand", "custody", "detains", "detained", "sentencing", "lawyer", "captured",
+    "suspects named", "named as", "witnesses", "buried", "burial", "enterre", "sepultan", "identidad", "identity",
+    "crime scene", "old video", "ancienne video", "allanamiento", "retienen", "pedido de secuestro", "la trama",
+    "families of", "family of", "familles de", "familias de", "familia de", "justice march",
+    "attorney", "interpelle", "interpelles", "interpellation", "arrete", "arretes", "interpellee", "avocat", "la defense",
+    "l'enquete", "enqueteur", "enqueteurs", "temoin", "temoins", "appel a temoin", "instruction", "juge d'instruction",
+    "capturan", "capturaron", "capturado", "detenido", "detenidos", "demoraron", "se entrega", "carcel para",
+    "judicializado", "imputan", "formalizado", "prision preventiva", "preso", "presos", "suspeito foi", "gefasst",
+    "festgenommen", "verhaftet", "opgepakt", "aangehouden", "voorgeleid", "tutuklandi", "gozalti", "yakalandi",
+    "задержан", "арестован", "mourns", "mourned", "funeral", "obseques", "hommage", "tribute", "honors", "honoured",
+    "honored", "medaille", "decore", "heroism", "hero", "heros", "what we know", "ce que l'on sait", "lo que se sabe",
+    "o que se sabe", "was wir wissen", "asi fue", "nuevo video", "new video", "details emerge", "new details",
+    "nowe informacje", "reacts", "reagit", "first lesson", "ilk ders", "son yolculuguna", "urges probe",
+    "independent probe", "rights group", "survivors", "survivants", "sobrevivientes", "one year after", "un an apres",
+    "a year after", "years after", "ans apres", "anos despues", "memorial", "gedenk", "vigil", "veillee",
+    "trial", "proces$", "juicio", "prozess"]
+EVACUATION_WORDS = ["evacuat", "evacu", "evacua", "shelter in place", "shelter-in-place", "lockdown", "confinement",
+                    "bouclage", "perimetre de securite", "эвакуац", "tahliye", "raeumung", "räumung"]
+SPECIFIC_ATTACK = ["atentado", "attentat", "attentato", "anschlag", "bombing", "bomb", "car bomb", "voiture piegee",
+                   "coche bomba", "ied", "grenade", "suicide bomber", "kamikaze", "sabotage", "sabotaje", "terror",
+                   "jihad", "hostage", "otage", "rehen", "refem", "kidnap", "enlev", "secuestr", "sequestr", "entfuhr",
+                   "rapt", "ambush", "embuscade", "emboscada", "massacre", "masacre", "fusillade", "shooting",
+                   "tiroteo", "tiroteio", "sparatoria", "stabbing", "arson", "incendie criminel"]
+SECURITY_TARGET_WORDS = ["security post", "checkpoint", "police", "policier", "gendarm", "army", "armee", "military",
+                         "militaire", "soldier", "soldat", "troops", "base$", "barracks", "caserne", "convoy", "convoi",
+                         "patrol", "patrouille", "government", "gouvernement", "govt", "ministry", "ministere", "embassy",
+                         "ambassade", "consulate", "consulat", "mosque", "mosquee", "church", "eglise", "synagog",
+                         "temple", "shrine", "market", "marche", "bazaar", "souk", "bus$", "buses$", "school", "ecole",
+                         "university", "universite", "mall", "hotel", "restaurant", "cafe", "stadium", "crowd", "foule",
+                         "rally", "meeting", "embassy", "pipeline", "oleoduc", "gazoduc", "rail", "railway", "via ferrea",
+                         "voie ferree", "bridge", "pont", "airport", "aeroport", "checkpoint", "office of", "headquarters",
+                         "siege"]
+THREAT_WORDS = ["threat", "threats", "menace", "menaces", "amenaza", "amenazas", "ameaca", "drohung", "tehdit", "угроз",
+                "hoax", "canular", "alerte a la bombe", "bomb threat", "alerta de bomba", "fausse alerte"]
+_GENERIC_ATTACK_RE = _word_re(GENERIC_ATTACK)
+_EXPLOSION_RE = _word_re(EXPLOSION_WORDS)
+_INTENT_RE = _word_re(INTENT_WORDS)
+_ACCIDENT_RE = _word_re(ACCIDENT_WORDS)
+_FIREWORK_RE = _word_re(FIREWORK_WORDS)
+_ANIMAL_RE = _word_re(ANIMAL_WORDS)
+_VIOLENCE_RE = _word_re(VIOLENCE_WORDS)
+_MASS_RE = _word_re(MASS_WORDS)
+_PUBLIC_TARGET_RE = _word_re(PUBLIC_TARGET_WORDS)
+_ARMED_GROUP_RE = _word_re(ARMED_GROUP_WORDS)
+_AFTERMATH_RE = _word_re(AFTERMATH_WORDS)
+_THREAT_RE = _word_re(THREAT_WORDS)
+_EVAC_RE = _word_re(EVACUATION_WORDS)
+_SECURITY_TARGET_RE = _word_re(SECURITY_TARGET_WORDS)
+_SPECIFIC_RE = _word_re(SPECIFIC_ATTACK)
+_NONLATIN = re.compile(r"[\u0590-\u06FF\u0750-\u077F\u0E00-\u0E7F\u0980-\u09FF\u1200-\u139F\u3400-\u9FFF]")
+_TOLL2_RE = re.compile(r"(?:toll|bilan|saldo|balance)\D{0,25}?(\d{1,4})", re.I)
+_NUM_WORDS = {"three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "dozen": 12,
+              "dozens": 24, "trois": 3, "quatre": 4, "cinq": 5, "sept": 7, "huit": 8, "neuf": 9, "dix": 10,
+              "dizaine": 10, "dizaines": 20, "tres": 3, "cuatro": 4, "cinco": 5, "seis": 6, "siete": 7, "ocho": 8,
+              "nueve": 9, "diez": 10, "decena": 10, "decenas": 20, "quatro": 4, "sete": 7, "oito": 8, "dez": 10,
+              "tre": 3, "quattro": 4, "cinque": 5, "drei": 3, "vier": 4, "funf": 5, "sechs": 6, "zehn": 10}
+_TOLL_RE = re.compile(r"(?<!\w)(\d{1,4}|" + "|".join(_NUM_WORDS) + r")(?!\w)"
+                      r"(?!\s*-?\s*(?:year|yr|ans?\b|anos|ano\b|jahr|yas|month|mois|meses))(?:\W+\w+){0,3}?\W+"
+                      r"(?:dead|killed|die|morts?|tues?|blesses?|muertos?|muertes|heridos?|lesionados?|mortos?|feridos?|"
+                      r"morti|feriti|tote|verletzte|olu|yarali|people|personnes|personas|pessoas|persone|menschen|"
+                      r"victims?|victimes?|victimas?|injured|wounded|casualties)", re.I)
+
+
+_DEAD_TOLL_RE = re.compile(r"(?<!\w)(\d{1,4}|" + "|".join(_NUM_WORDS) + r")(?!\w)"
+                           r"(?!\s*-?\s*(?:year|yr|ans?\b|anos|ano\b|jahr|yas|month|mois|meses))(?:\W+\w+){0,3}?\W+"
+                           r"(?:dead|killed|die[ds]?|morts?|tues?|muertos?|muertes|mortos?|morti|tote|olu|fallecidos)", re.I)
+
+
+def casualty_toll(t, dead_only=False):
+    """Plus grand bilan (morts, ou morts et blessés) lisible dans le titre normalisé, 0 sinon."""
+    best = 0
+    for m in _TOLL2_RE.finditer(t):
+        n = int(m.group(1))
+        best = max(best, 0 if 1900 <= n <= 2100 else n)
+    for m in (_DEAD_TOLL_RE if dead_only else _TOLL_RE).finditer(t):
+        v = m.group(1)
+        n = int(v) if v.isdigit() else _NUM_WORDS.get(v, 0)
+        if 1900 <= n <= 2100:  # une année, pas un bilan
+            continue
+        best = max(best, n)
+    return best
+
+
+def heavy_toll(t):
+    """Bilan lourd : au moins 3 morts ou 5 victimes."""
+    return casualty_toll(t, dead_only=True) >= 3 or casualty_toll(t) >= 5
+
+
+def attack_relevance(t):
+    """Motif d'exclusion d'un titre classé « attaque » (texte normalisé), ou None s'il faut le garder."""
+    if _ANIMAL_RE.search(t):
+        return "animal"
+    if _FIREWORK_RE.search(t):
+        return "accident"
+    if _THREAT_RE.search(t) and casualty_toll(t) == 0 and not _MASS_RE.search(t) and not _EVAC_RE.search(t) \
+            and not _NONLATIN.search(t):
+        return "menace"
+    if _EXPLOSION_RE.search(t) and not _INTENT_RE.search(t) and not _GENERIC_ATTACK_RE.search(t):
+        # explosion sans intention affichée : retenue comme attaque seulement si elle frappe une cible de sûreté
+        return None if _SECURITY_TARGET_RE.search(t) and not _ACCIDENT_RE.search(t) else "accident"
+    if _NONLATIN.search(t):
+        return None  # mots-clés hébreu, arabe, thaï, chinois… déjà spécifiques (tir, enlèvement)
+    if _ARMED_GROUP_RE.search(t) or _MASS_RE.search(t):
+        return None
+    if not _VIOLENCE_RE.search(t) and not _SPECIFIC_RE.search(t):
+        return "hors sujet"  # « Google attaque… », « le maire attaque l'opposition », sport
+    if heavy_toll(t) or _PUBLIC_TARGET_RE.search(t):
+        return None
+    return "fait divers"
+
+
+RETRO_WORDS = ["obras", "project", "projet", "proyecto", "projeto", "delayed", "recensement", "how to protect",
+               "como protegerse", "comment se proteger", "is ready for", "ready for the next", "prepared for", "simulazione",
+               "simulacion", "iddia", "one year after", "un an apres", "a un ano", "a un trimestre", "years after",
+               "ans apres", "balance con", "parti'de", "lessons from", "lecons", "retour sur", "look back", "recuerdan",
+               "remember", "se souvenir", "study", "etude", "investigaciones", "research", "recherche", "report finds",
+               "critica", "criticises", "criticizes"]
+_RETRO_RE = _word_re(RETRO_WORDS)
+_MAG_RE = re.compile(r"(?:magnitud[eo]?|mag\.?|m|mw|ml|magnitude|sismo|seisme|earthquake|quake|terremoto|temblor|deprem)\s*(?:de\s*|of\s*|:\s*)?(\d(?:[.,]\d)?)(?!\d)"
+                     r"|(\d(?:[.,]\d)?)\s*(?:de\s+|-)?(?:magnitud[eo]?|magnitude|buyuklugunde|درجات|richter|sr\b)", re.I)
+QUAKE_IMPACT = ["dead", "killed", "died", "mort", "morts", "muerto", "muertos", "mortos", "olu", "injur", "blesse",
+                "herido", "ferido", "yarali", "damage", "degats", "danos", "hasar", "collapse", "effondr", "derrumb",
+                "desab", "tsunami", "victim", "victime", "evacu", "destroy", "detruit", "destruy", "houses", "maisons",
+                "viviendas", "casas", "jolts", "strong", "powerful", "violent", "puissant", "fuerte", "forte", "guclu",
+                "siddetli", "injuries"]
+_QUAKE_IMPACT_RE = _word_re(QUAKE_IMPACT)
+
 
 def not_incident(title, cat=None):
     """Titre qui ne décrit pas un incident pouvant toucher une organisation ou un voyageur (motif), sinon None."""
     t = norm(title)
+    if cat in ("earthquake", "flood", "cyclone", "storm", "wildfire", "landslide", "volcano", "drought") and _RETRO_RE.search(t):
+        return "rétrospective ou projet"
+    if cat == "earthquake":
+        mags = [float((m.group(1) or m.group(2)).replace(",", ".")) for m in _MAG_RE.finditer(t)]
+        if mags and max(mags) < 5:
+            return "séisme faible (couvert par l'USGS)"
+        if not mags and not _QUAKE_IMPACT_RE.search(t):
+            return "séisme sans impact"
     if _JUDICIAL_RE.search(t) and not _MOBILISATION_RE.search(t):
         return "judiciaire"
     if _PRIVATE_RE.search(t) and not _PUBLIC_CRIME_RE.search(t):
         return "fait divers"
     if cat == "crime" and not _PUBLIC_CRIME_RE.search(t):
         return "fait divers"
+    if cat in ("attack", "crime", "terrorism") and _AFTERMATH_RE.search(t) \
+            and not _MOBILISATION_RE.search(t):
+        return "suites judiciaires ou hommage"
+    if cat in ("attack", "crime"):
+        return attack_relevance(t)
     return None
 
 
@@ -290,6 +537,19 @@ def classify(title):
     if not found:
         return None, None
     cat = found[0]
+    if cat == "attack" and _EXPLOSION_RE.search(t) and not _INTENT_RE.search(t) and not _GENERIC_ATTACK_RE.search(t):
+        # explosion sans intention affichée : volcan, accident industriel ou domestique, ou attaque contre une cible
+        others = [c for c in found[1:] if c not in ("attack", "crime")]
+        if _FIREWORK_RE.search(t):
+            return None, None
+        if others:
+            cat = others[0]
+        elif _SECURITY_TARGET_RE.search(t) and not _ACCIDENT_RE.search(t):
+            pass  # attaque probable (poste de sécurité, marché, bus…)
+        elif _VIOLENCE_RE.search(t) or casualty_toll(t) or _ACCIDENT_RE.search(t):
+            cat = "infrastructure"
+        else:
+            return None, None
     if not_incident(title, cat):
         return None, None
     sev = BASE_SEVERITY[cat]

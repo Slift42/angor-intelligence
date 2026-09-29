@@ -307,3 +307,21 @@ Partager → **Sur l'écran d'accueil** donne déjà l'application et, depuis iO
 Les comptes protègent les **données personnelles** (profil, préférences, réponses aux safety checks), pas la carte :
 les données d'incidents restent publiques sur angor.fr. Réserver la carte aux comptes validés est l'étape suivante
 (données servies par Supabase au lieu de fichiers publics), à prévoir avant la commercialisation.
+
+
+## Partie I – Rapports et alerte précoce (rien à installer)
+
+Les deux onglets se remplissent seuls après **publier.bat** :
+- **Rapports** : premiers titres dès la collecte suivante, puis mise à jour toutes les 3 heures (`config/reports.json` pour ajouter un
+  producteur ou un rapport à la main, section `"manual"`).
+- **Alerte précoce** : limites administratives et données humanitaires à la première collecte ; le climat NASA POWER arrive
+  par lots de 30 unités par collecte (≈ 4 heures pour les 230 unités des deux régions). Ajouter une région : `config/early_warning.json`.
+
+Pour aller plus loin (facultatif) :
+- **ReliefWeb** (rapports de situation de l'ONU et des ONG, par pays) : demander un nom d'application gratuit sur
+  https://apidoc.reliefweb.int, le mettre dans le secret GitHub `RELIEFWEB_APPNAME`, puis `"enabled": true` pour `reliefweb`
+  dans `config/sources.json`.
+- **HDX HAPI** : l'identifiant d'application par défaut est générique ; vous pouvez générer le vôtre (nom + e-mail) sur
+  https://hapi.humdata.org/docs et le mettre dans `config/early_warning.json` → `hapi_app_identifier`.
+- **Presse régionale française** : 6 titres ajoutés (Télégramme, Progrès, DNA, Est Républicain, Dauphiné, La 1ère) sans
+  vérification possible depuis l'atelier ; ceux qui ne répondent pas passent en pause (voir « État des sources »).

@@ -58,7 +58,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
   <a href="#apercu">Vue d'ensemble</a><a href="#ecran">L'écran en un coup d'œil</a>
   <div class="grp">Suivre la situation</div>
   <a href="#alertes">Alertes et filtres</a><a href="#fiabilite">Fiabilité : cotation et « Vérifié »</a><a href="#encours">En cours et chronologies</a>
-  <a href="#pays">Pays, risque et Pulse</a><a href="#calques">Calques et fonds de carte</a><a href="#fil">Fil de presse</a><a href="#agenda">Agenda</a><a href="#analyses">Analyses</a>
+  <a href="#pays">Pays, risque et Pulse</a><a href="#calques">Calques et fonds de carte</a><a href="#fil">Fil de presse</a><a href="#agenda">Agenda</a><a href="#rapports">Rapports</a><a href="#alerte">Alerte précoce</a><a href="#analyses">Analyses</a>
   <div class="grp">Protéger</div>
   <a href="#sites">Mes sites et trajets</a><a href="#buddy">Travel buddy</a><a href="#gng">Go / no-go guidé</a><a href="#brief">Brief de mission</a><a href="#rapport">Rapport pays</a>
   <div class="grp">Partager et être alerté</div>
@@ -184,7 +184,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
   <section id="calques">
     <h2>Calques et fonds de carte</h2>
     <ul>
-      <li><strong>Calque pays</strong> : Risque pays (Angor), Pulse, Heatmap MEAE (France), FCDO (Royaume-Uni), State Dept (États-Unis), ou aucun. Pour les ministères, un contour pointillé signifie que seules certaines zones sont concernées : la carte officielle fait foi.</li>
+      <li><strong>Calque pays</strong> : Risque pays (Angor), Pulse, Heatmap MEAE (France), FCDO (Royaume-Uni), State Dept (États-Unis), Auswärtiges Amt (Allemagne), ou aucun. Pour les ministères, un contour pointillé signifie que seules certaines zones sont concernées : la carte officielle fait foi.</li>
       <li><strong>Mes sites</strong> : rayons de vigilance et trajets surveillés.</li>
       <li><strong>Fond</strong> : détaillé (routes, villes), contrasté, épuré, satellite, topographique, gris, neutre (hors ligne). Les noms s'affichent en alphabet latin et apparaissent progressivement (pays, régions, villes).</li>
     </ul>
@@ -204,6 +204,38 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
       <li>Les élections dont la date n'est pas encore fixée figurent en bas, sous « Échéances sans date précise ».</li>
     </ul>
     <div class="tip">Pourquoi c'est utile : administrations fermées, rassemblements, contrôles renforcés et transports perturbés. Le brief de mission reprend automatiquement les échéances qui tombent pendant le séjour.</div>
+  </section>
+
+  <section id="rapports">
+    <h2>Rapports</h2>
+    <p>L'onglet <strong>Rapports</strong> rassemble les dernières publications de fond sur les pays et les crises : think tanks (Chatham House, RUSI, IRIS, SWP, CFR, Atlantic Council, Lowy…), ONG et organisations spécialisées (International Crisis Group, INSO, Global Initiative, Human Rights Watch, Amnesty, MSF…), agences publiques (FEWS NET, ECDC) et cabinets. Une trentaine de producteurs, mis à jour toutes les 3 heures.</p>
+    <ul>
+      <li>Chaque fiche donne l'organisation, la date, le titre, le résumé publié par l'éditeur et le lien vers le rapport (le texte reste chez l'éditeur).</li>
+      <li><strong>Filtres</strong> : pays ou région (Sahel, Corne de l'Afrique, Moyen-Orient…), type de producteur, thème (conflits, terrorisme, économie, climat, sécurité alimentaire, migrations, criminalité, cyber, énergie, maritime…), période, recherche libre.</li>
+      <li>Les pays cités sont cliquables. La <strong>fiche pays</strong> affiche aussi les rapports récents sur ce pays.</li>
+    </ul>
+    <div class="tip">Pays, régions et thèmes sont détectés automatiquement dans le titre et le résumé : un rapport régional peut ne citer aucun pays.</div>
+  </section>
+
+  <section id="alerte">
+    <h2>Alerte précoce</h2>
+    <p>L'onglet <strong>Alerte précoce</strong> croise, région par région (niveau administratif 1 : régions, États, provinces), le climat, la sécurité et la situation humanitaire, pour repérer les zones où les risques convergent avant une dégradation. Régions couvertes : Corne de l'Afrique et Sahel – bassin du lac Tchad.</p>
+    <table>
+      <tr><th>Donnée</th><th>Ce qu'elle montre</th><th>Source</th></tr>
+      <tr><td>Précipitations</td><td>Pluie du mois comparée à la moyenne des 15 années précédentes (en %). Les mois de saison sèche sont grisés.</td><td>NASA POWER (MERRA-2)</td></tr>
+      <tr><td>Température</td><td>Écart à la normale du mois (°C).</td><td>NASA POWER</td></tr>
+      <tr><td>Humidité du sol</td><td>Humidité de la zone racinaire, écart à la normale : sécheresse agricole.</td><td>NASA POWER</td></tr>
+      <tr><td>Incidents de sécurité</td><td>Incidents Angor du mois dans l'unité, et ceux liés aux ressources (eau, terres, bétail, pêche, orpaillage).</td><td>Angor, UCDP, GDELT</td></tr>
+      <tr><td>Insécurité alimentaire</td><td>Part de la population en phase IPC 3 ou plus (crise, urgence, famine), dernière analyse disponible.</td><td>IPC via HDX HAPI (OCHA)</td></tr>
+      <tr><td>Personnes déplacées</td><td>Déplacés internes recensés, dernier relevé.</td><td>OIM-DTM via HDX HAPI</td></tr>
+    </table>
+    <h3>Indice de convergence des risques</h3>
+    <p>Indice expérimental de 0 à 100 : <strong>climat</strong> (40 points : déficit ou excès de pluie sur 3 mois, chaleur anormale, sols secs), <strong>sécurité</strong> (35 : volume d'incidents sur 3 mois, hausse par rapport aux 12 mois précédents, conflits liés aux ressources), <strong>humanitaire</strong> (25 : insécurité alimentaire, déplacés). Niveaux : faible, modéré, élevé, très élevé.</p>
+    <ul>
+      <li>Cliquez sur une unité (ou dans la liste « Unités les plus exposées ») : fiche avec les facteurs explicatifs, les courbes des 12 derniers mois comparées aux années précédentes, et les données humanitaires datées.</li>
+      <li>La case « Superposer les incidents du mois » ajoute des cercles proportionnels au nombre d'incidents.</li>
+    </ul>
+    <div class="tip">L'indice signale des convergences, pas des certitudes : il ne dit rien des intentions des acteurs. Confrontez-le toujours à l'analyse (onglet Rapports, fiche pays).</div>
   </section>
 
   <section id="analyses">
@@ -368,9 +400,11 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
   <section id="sources">
     <h2>Sources et mises à jour</h2>
     <ul>
-      <li><strong>Officielles et capteurs</strong> : USGS (séismes), GDACS (ONU/UE), NASA EONET, OMS, NWS (météo États-Unis), Meteoalarm (vigilances orange et rouges de 38 pays européens), CISA et CERT-FR (cyber), UCDP (conflits, historique).</li>
-      <li><strong>Avis aux voyageurs</strong> : MEAE (France), FCDO (Royaume-Uni), Département d'État (États-Unis), Canada.</li>
-      <li><strong>Presse</strong> : Google News (environ 110 pays, 12 langues), près de 800 médias de référence dans 206 pays (dont la presse locale de 25 pays à risque, en 21 langues), grands flux internationaux, GDELT.</li>
+      <li><strong>Officielles et capteurs</strong> : USGS (séismes), GDACS (ONU/UE), NASA EONET, OMS, NWS et NOAA NHC (météo et cyclones, États-Unis), alertes tsunami (PTWC, NTWC), Smithsonian GVP (volcans), Copernicus EMS (cartographie d'urgence), ECDC (santé), Meteoalarm (vigilances orange et rouges de 38 pays européens), CISA et CERT-FR (cyber), UCDP (conflits, historique).</li>
+      <li><strong>Avis aux voyageurs</strong> : MEAE (France), FCDO (Royaume-Uni), Département d'État (États-Unis), Auswärtiges Amt (Allemagne), Canada.</li>
+      <li><strong>Presse</strong> : Google News (environ 110 pays, 12 langues), près de 800 médias de référence dans 206 pays (dont la presse locale de 25 pays à risque, en 21 langues), grands flux internationaux et presse régionale française, GDELT.</li>
+      <li><strong>Rapports</strong> : une trentaine de think tanks, ONG et organisations internationales (onglet Rapports).</li>
+      <li><strong>Alerte précoce</strong> : NASA POWER (climat), HDX HAPI (insécurité alimentaire, déplacés), geoBoundaries (limites administratives).</li>
       <li><strong>Telegram</strong> : une cinquantaine de canaux publics (médias, agrégateurs d'urgence, comptes OSINT) en 9 langues. Les canaux officiels de médias sont cotés B ou C ; agrégateurs et comptes OSINT restent cotés E (« réseaux sociaux – non vérifié ») tant qu'une autre source ne confirme pas.</li>
       <li><strong>Contexte</strong> : Banque mondiale, FMI, Wikidata (urgences, hôpitaux, opérateurs, élections), Nager.Date (jours fériés), CIA World Factbook (archive).</li>
     </ul>

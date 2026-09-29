@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="vendor/markercluster/MarkerCluster.css">
 <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
-<link rel="stylesheet" href="app.css?v=40712b19">
+<link rel="stylesheet" href="app.css?v=98b828d5">
 </head>
 <body>
 <div class="app" id="app">
@@ -65,6 +65,8 @@
       <button role="tab" data-tab="news"></button>
       <button role="tab" data-tab="sites"></button>
       <button role="tab" data-tab="agenda"></button>
+      <button role="tab" data-tab="reports"></button>
+      <button role="tab" data-tab="ew"></button>
       <button role="tab" data-tab="buddy"></button>
     </nav>
 
@@ -150,6 +152,23 @@
       <ol class="agenda-list" id="agenda-list"></ol>
     </section>
 
+    <section class="tab-body" data-body="reports" hidden>
+      <p class="hint" data-i18n="rep_hint"></p>
+      <input class="field" id="rep-q" type="search" data-i18n-placeholder="rep_ph">
+      <div class="country-tools">
+        <select id="rep-geo" aria-label="Pays ou région"></select>
+        <select id="rep-type" aria-label="Type de producteur"></select>
+        <select id="rep-theme" aria-label="Thème"></select>
+        <select id="rep-period" aria-label="Période"><option value="30"></option><option value="90"></option><option value="365"></option></select>
+      </div>
+      <div class="hint" id="rep-count"></div>
+      <ol class="rep-list" id="rep-list"></ol>
+    </section>
+
+    <section class="tab-body ew" data-body="ew" hidden>
+      <div id="ew-body"></div>
+    </section>
+
     <section class="tab-body buddy" data-body="buddy" hidden>
       <div class="buddy-head"><h3 data-i18n="buddy_title"></h3><span class="buddy-tools"><button class="btn small primary" id="gng-open" type="button"></button><button class="btn small" id="buddy-clear" type="button" data-i18n="buddy_clear"></button></span></div>
       <div class="gng-panel" id="gng-panel" hidden></div>
@@ -175,6 +194,7 @@
           <option value="meae" data-i18n="cl_meae"></option>
           <option value="fcdo" data-i18n="cl_fcdo"></option>
           <option value="us" data-i18n="cl_us"></option>
+          <option value="de" data-i18n="cl_de"></option>
           <option value="none" data-i18n="cl_none"></option>
         </select>
       </label>
@@ -209,13 +229,14 @@
 <script src="vendor/maplibre/maplibre-gl.js"></script>
 <script src="vendor/maplibre/leaflet-maplibre-gl.js"></script>
 <script src="vendor/chartjs/chart.umd.min.js"></script>
-<script src="vendor/icons.js?v=e731d6f7"></script>
+<script src="vendor/icons.js?v=8129fbd5"></script>
 <script src="data/countries.js"></script>
 <script src="data/data.js" onerror="window.VS_DATA_MISSING=true"></script>
 <script src="data/history/index.js" onerror="window.VS_HIST_INDEX=null"></script>
 <script src="data/config.js" onerror="window.VS_CONFIG=null"></script>
 <script src="account.js?v=838b29fb"></script>
 <script src="gonogo.js?v=ae66a6e1"></script>
-<script src="app.js?v=3987a13b"></script>
+<script src="ew.js?v=a1de10fb"></script>
+  <script src="app.js?v=a1d43832"></script>
 </body>
 </html>

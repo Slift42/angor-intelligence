@@ -25,8 +25,9 @@ import re
 
 from . import config
 
-OFFICIAL = {"USGS", "GDACS", "NASA EONET", "WHO", "UCDP", "NWS", "Meteoalarm", "CISA", "MEAE", "FCDO"}
-SENSORS = {"USGS", "GDACS", "NASA EONET", "NWS", "Meteoalarm", "CISA"}  # mesure ou bulletin officiel direct
+OFFICIAL = {"USGS", "GDACS", "NASA EONET", "WHO", "UCDP", "NWS", "Meteoalarm", "CISA", "MEAE", "FCDO", "NOAA NHC",
+            "Smithsonian GVP", "Copernicus EMS", "PTWC", "NTWC", "ECDC", "Auswärtiges Amt"}
+SENSORS = {"USGS", "GDACS", "NASA EONET", "NWS", "Meteoalarm", "CISA", "NOAA NHC", "PTWC", "NTWC"}  # mesure ou bulletin officiel direct
 REFERENCE_EXTRA = {
     "Reuters", "AFP", "Associated Press", "AP", "BBC", "BBC World", "The Guardian", "New York Times", "Le Monde",
     "Deutsche Welle", "DW", "France 24", "RFI", "Al Jazeera", "Euronews", "Franceinfo", "Le Figaro", "Financial Times",

@@ -68,7 +68,11 @@ def _items(root):
 
 
 def fetch(cfg, ctx):
-    r = http.get(cfg["url"], auth=cfg.get("auth"), retries=1, timeout=25)
+    r = (getattr(ctx, "prefetch", None) or {}).get(cfg["url"])
+    if isinstance(r, Exception):
+        raise r
+    if r is None:
+        r = http.get(cfg["url"], auth=cfg.get("auth"), retries=1, timeout=25)
     root = ET.fromstring(r.content)
     name = cfg.get("name", cfg["id"])
     mode = cfg.get("filter", "security")

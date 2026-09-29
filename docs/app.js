@@ -27,7 +27,15 @@
       sc_title: 'Safety check', sc_safe: 'Je suis en sécurité', sc_help: 'J’ai besoin d’aide', sc_nc: 'Pas concerné', sc_later: 'Plus tard',
       sc_done: 'Réponse envoyée. Merci.', sc_err: 'Réponse non envoyée : vérifiez votre connexion.', sc_launch: 'Lancer un safety check',
       acc_login: 'Se connecter', acc_pending: 'Compte en attente de validation',
-      tab_agenda: 'Agenda', help: 'Aide',
+      tab_agenda: 'Agenda', help: 'Aide', tab_reports: 'Rapports', tab_ew: 'Alerte précoce',
+      rep_hint: 'Les derniers rapports et analyses de fond sur les pays et les crises : think tanks, organisations internationales, ONG, cabinets. Titre, résumé de l’éditeur et lien vers la publication.',
+      rep_ph: 'Rechercher un rapport, un pays, une organisation…', rep_all_geo: 'Tous pays et régions', rep_all_type: 'Tous producteurs', rep_all_theme: 'Tous thèmes',
+      rep_days: n => `${n} derniers jours`, rep_count: (n, o) => `${n} publication(s) · ${o} producteur(s)`, rep_more: 'Afficher plus', rep_none: 'Aucun rapport pour ces critères.',
+      rep_loading: 'Chargement des rapports…', rep_missing: 'Rapports pas encore disponibles : le robot les rassemble toutes les 3 heures.', rep_country: 'Rapports récents', rep_all_country: 'Tous les rapports sur ce pays',
+      rep_regions: { sahel: 'Sahel', horn: 'Corne de l’Afrique', great_lakes: 'Grands Lacs', west_africa: 'Afrique de l’Ouest', central_africa: 'Afrique centrale', north_africa: 'Afrique du Nord', middle_east: 'Moyen-Orient', gulf: 'Golfe et mer Rouge', balkans: 'Balkans', caucasus: 'Caucase', central_asia: 'Asie centrale', south_asia: 'Asie du Sud', southeast_asia: 'Asie du Sud-Est', indo_pacific: 'Indo-Pacifique', latin_america: 'Amérique latine', europe: 'Europe', arctic: 'Arctique' },
+      rep_themes: { conflict: 'Conflits et sécurité', terrorism: 'Terrorisme', politics: 'Politique et gouvernance', economy: 'Économie', climate: 'Climat et environnement', food: 'Sécurité alimentaire', migration: 'Migrations et déplacements', crime: 'Criminalité organisée', cyber: 'Cyber et technologies', energy: 'Énergie et ressources', maritime: 'Maritime', health: 'Santé', rights: 'Droits humains', diplomacy: 'Diplomatie' },
+      rep_types: { think_tank: 'Think tanks', io: 'Organisations internationales', ngo: 'ONG', gov: 'Agences publiques', consultancy: 'Cabinets', media: 'Revues spécialisées' },
+      rep_regions_h: 'Régions', rep_countries_h: 'Pays',
       chrono_title: 'Chronologies de crise (30 j)', chrono_n: (a, b) => `${a} active${a > 1 ? 's' : ''} · ${b} au total`, chrono_all: 'Toutes', chrono_active: 'Actives',
       chrono_none: 'Aucune chronologie sur la période.', trend: { escalating: 'Escalade', stable: 'Stable', declining: 'Décrue', new: 'Nouvelle' },
       status_active: 'Active', status_calmed: 'Apaisée', chrono_days: n => `${n} jour${n > 1 ? 's' : ''}`, chrono_inc: n => `${n} incident${n > 1 ? 's' : ''}`,
@@ -93,7 +101,7 @@
       hits: n => n ? `${n} alerte${n > 1 ? 's' : ''} dans le rayon` : 'Aucune alerte dans le rayon', radius: 'rayon',
       export_done: 'Fichier téléchargé : copiez-le dans config/sites.local.json pour que le robot surveille ces sites.',
       layers: 'Couches', lyr_events: 'Alertes', lyr_risk: 'Risque pays', lyr_sites: 'Mes sites', lyr_country: 'Calque pays',
-      cl_risk: 'Risque pays (Angor)', cl_meae: 'Heatmap MEAE (France)', cl_fcdo: 'FCDO (Royaume-Uni)', cl_us: 'State Dept (États-Unis)', cl_none: 'Aucun',
+      cl_risk: 'Risque pays (Angor)', cl_meae: 'Heatmap MEAE (France)', cl_fcdo: 'FCDO (Royaume-Uni)', cl_us: 'State Dept (États-Unis)', cl_de: 'Auswärtiges Amt (Allemagne)', cl_none: 'Aucun',
       min_levels: { 1: 'Vigilance normale', 2: 'Vigilance renforcée', 3: 'Déconseillé sauf raison impérative', 4: 'Formellement déconseillé' },
       us_levels: { 1: 'Précautions normales', 2: 'Prudence accrue', 3: 'Voyage à reconsidérer', 4: 'Ne pas voyager' },
       zones_note: 'Pointillés : seules certaines zones sont concernées. Couleur = zone la plus sensible. La carte officielle fait foi.',
@@ -104,6 +112,8 @@
       basemap: 'Fond', bm_detail: 'Détaillé (routes, villes)', bm_bright: 'Contrasté', bm_clean: 'Épuré', bm_sat: 'Satellite', bm_topo: 'Topographique', bm_esri: 'Gris (Esri)', bm_plain: 'Neutre (hors ligne)',
       legend_sev: 'Gravité', legend_risk: 'Risque pays', legend_auto: 'Contour pointillé : détection automatique',
       sources_ok: (a, b) => `${a}/${b} <span class="src-word">sources</span>`, updated: 'Mise à jour', stale: 'Données anciennes',
+      sources_total: n => `${n.toLocaleString('fr-FR')} <span class="src-word">sources</span>`,
+      cov_breakdown: c => `<strong>${c.total.toLocaleString('fr-FR')} sources surveillées</strong> : ${c.feeds} flux officiels, de presse et API · ${c.outlets.toLocaleString('fr-FR')} médias de référence dans ${c.countries} pays · ${c.telegram} canaux Telegram · ${c.report_feeds} producteurs de rapports. Flux en service : ${c.ok}/${c.checked}.`,
       source_status: 'État des sources', ok: 'OK', error: 'Erreur', items: 'éléments', last_success: 'Dernier succès', paused: 'En pause (3 échecs)',
       date: 'Date', start: 'Début', place: 'Lieu', country: 'Pays', precision: 'Précision', coords: 'Coordonnées',
       confidence: 'Confiance', sources: 'Sources', source_lbl: 'Source', outlets: n => `${n} média${n > 1 ? 's' : ''}`,
@@ -141,7 +151,15 @@
       sc_title: 'Safety check', sc_safe: 'I am safe', sc_help: 'I need help', sc_nc: 'Not concerned', sc_later: 'Later',
       sc_done: 'Answer sent. Thank you.', sc_err: 'Answer not sent: check your connection.', sc_launch: 'Launch a safety check',
       acc_login: 'Sign in', acc_pending: 'Account awaiting approval',
-      tab_agenda: 'Agenda', help: 'Help',
+      tab_agenda: 'Agenda', help: 'Help', tab_reports: 'Reports', tab_ew: 'Early warning',
+      rep_hint: 'The latest in-depth reports and analysis on countries and crises: think tanks, international organisations, NGOs, consultancies. Title, publisher summary and link to the publication.',
+      rep_ph: 'Search a report, country, organisation…', rep_all_geo: 'All countries and regions', rep_all_type: 'All publishers', rep_all_theme: 'All themes',
+      rep_days: n => `Last ${n} days`, rep_count: (n, o) => `${n} publication(s) · ${o} publisher(s)`, rep_more: 'Show more', rep_none: 'No report for these criteria.',
+      rep_loading: 'Loading reports…', rep_missing: 'Reports not available yet: the robot gathers them every 3 hours.', rep_country: 'Recent reports', rep_all_country: 'All reports on this country',
+      rep_regions: { sahel: 'Sahel', horn: 'Horn of Africa', great_lakes: 'Great Lakes', west_africa: 'West Africa', central_africa: 'Central Africa', north_africa: 'North Africa', middle_east: 'Middle East', gulf: 'Gulf & Red Sea', balkans: 'Balkans', caucasus: 'Caucasus', central_asia: 'Central Asia', south_asia: 'South Asia', southeast_asia: 'Southeast Asia', indo_pacific: 'Indo-Pacific', latin_america: 'Latin America', europe: 'Europe', arctic: 'Arctic' },
+      rep_themes: { conflict: 'Conflict & security', terrorism: 'Terrorism', politics: 'Politics & governance', economy: 'Economy', climate: 'Climate & environment', food: 'Food security', migration: 'Migration & displacement', crime: 'Organised crime', cyber: 'Cyber & tech', energy: 'Energy & resources', maritime: 'Maritime', health: 'Health', rights: 'Human rights', diplomacy: 'Diplomacy' },
+      rep_types: { think_tank: 'Think tanks', io: 'International organisations', ngo: 'NGOs', gov: 'Public agencies', consultancy: 'Consultancies', media: 'Specialist journals' },
+      rep_regions_h: 'Regions', rep_countries_h: 'Countries',
       chrono_title: 'Crisis timelines (30 d)', chrono_n: (a, b) => `${a} active · ${b} in total`, chrono_all: 'All', chrono_active: 'Active',
       chrono_none: 'No timeline over the period.', trend: { escalating: 'Escalating', stable: 'Stable', declining: 'Declining', new: 'New' },
       status_active: 'Active', status_calmed: 'Calmed', chrono_days: n => `${n} day${n > 1 ? 's' : ''}`, chrono_inc: n => `${n} incident${n > 1 ? 's' : ''}`,
@@ -207,7 +225,7 @@
       hits: n => n ? `${n} alert${n > 1 ? 's' : ''} within radius` : 'No alert within radius', radius: 'radius',
       export_done: 'File downloaded: copy it to config/sites.local.json so the collector monitors these sites.',
       layers: 'Layers', lyr_events: 'Alerts', lyr_risk: 'Country risk', lyr_sites: 'My sites', lyr_country: 'Country layer',
-      cl_risk: 'Country risk (Angor)', cl_meae: 'MEAE heatmap (France)', cl_fcdo: 'FCDO (United Kingdom)', cl_us: 'State Dept (United States)', cl_none: 'None',
+      cl_risk: 'Country risk (Angor)', cl_meae: 'MEAE heatmap (France)', cl_fcdo: 'FCDO (United Kingdom)', cl_us: 'State Dept (United States)', cl_de: 'Auswärtiges Amt (Germany)', cl_none: 'None',
       min_levels: { 1: 'Normal vigilance', 2: 'Increased vigilance', 3: 'Advised against except essential', 4: 'Advised against all travel' },
       us_levels: { 1: 'Exercise normal precautions', 2: 'Exercise increased caution', 3: 'Reconsider travel', 4: 'Do not travel' },
       zones_note: 'Dashed: only some areas are concerned. Colour = most sensitive area. The official map prevails.',
@@ -218,6 +236,8 @@
       basemap: 'Basemap', bm_detail: 'Detailed (roads, towns)', bm_bright: 'High contrast', bm_clean: 'Clean', bm_sat: 'Satellite', bm_topo: 'Topographic', bm_esri: 'Grey (Esri)', bm_plain: 'Neutral (offline)',
       legend_sev: 'Severity', legend_risk: 'Country risk', legend_auto: 'Dashed outline: auto-detection',
       sources_ok: (a, b) => `${a}/${b} <span class="src-word">sources</span>`, updated: 'Updated', stale: 'Stale data',
+      sources_total: n => `${n.toLocaleString('en-GB')} <span class="src-word">sources</span>`,
+      cov_breakdown: c => `<strong>${c.total.toLocaleString('en-GB')} monitored sources</strong>: ${c.feeds} official, press and API feeds · ${c.outlets.toLocaleString('en-GB')} reference outlets in ${c.countries} countries · ${c.telegram} Telegram channels · ${c.report_feeds} report publishers. Feeds working: ${c.ok}/${c.checked}.`,
       source_status: 'Source status', ok: 'OK', error: 'Error', items: 'items', last_success: 'Last success', paused: 'Paused (3 failures)',
       date: 'Date', start: 'Start', place: 'Location', country: 'Country', precision: 'Precision', coords: 'Coordinates',
       confidence: 'Confidence', sources: 'Sources', source_lbl: 'Source', outlets: n => `${n} outlet${n > 1 ? 's' : ''}`,
@@ -273,9 +293,10 @@
     selected: null, drawer: null, localSites: store.get('vs-sites', []), picking: false, pick: null,
     countryFilter: '', newsFilter: '', analytics: false,
     legendOpen: store.get('vs-legend', true),
-    countryLayer: (v => ['risk', 'pulse', 'meae', 'fcdo', 'us', 'none'].includes(v) ? v : 'risk')(store.get('vs-clayer', 'risk')),
+    countryLayer: (v => ['risk', 'pulse', 'meae', 'fcdo', 'us', 'de', 'none'].includes(v) ? v : 'risk')(store.get('vs-clayer', 'risk')),
     onlyVerified: false, onlyWatch: false, countrySort: 'risk', watch: new Set(store.get('vs-watch', [])),
     localCorridors: store.get('vs-corridors', []), drawing: null, crisisFocus: null, chronoAll: false,
+    rep: { q: '', geo: '', type: '', theme: '', period: '90', shown: 60 },
     agRange: 30, agScope: 'all', agTypes: new Set(['holiday', 'election', 'religious', 'other']),
     analyst: /[?&]analyste?=1/.test(location.search) || store.get('vs-analyst', false)
   };
@@ -305,10 +326,10 @@
     if (P.get('verified') === '1') state.onlyVerified = true;
     if (P.get('watch') === '1') state.onlyWatch = true;
     if (P.has('watchlist')) P.get('watchlist').split(',').filter(x => /^[A-Z]{2}$/.test(x)).forEach(x => state.watch.add(x));
-    if (['risk', 'pulse', 'meae', 'fcdo', 'us', 'none'].includes(P.get('layer'))) state.countryLayer = P.get('layer');
+    if (['risk', 'pulse', 'meae', 'fcdo', 'us', 'de', 'none'].includes(P.get('layer'))) state.countryLayer = P.get('layer');
     if (BASEMAPS.includes(P.get('base'))) state.basemap = P.get('base');
     if (['fr', 'en'].includes(P.get('lang'))) state.lang = P.get('lang');
-    if (['alerts', 'ongoing', 'countries', 'news', 'sites', 'buddy', 'agenda'].includes(P.get('tab'))) state.tab = P.get('tab');
+    if (['alerts', 'ongoing', 'countries', 'news', 'sites', 'buddy', 'agenda', 'reports', 'ew'].includes(P.get('tab'))) state.tab = P.get('tab');
     if (P.get('focus')) state.crisisFocus = P.get('focus');
     if (P.get('analyste') === '0') state.analyst = false;
     try { localStorage.setItem('vs-analyst', JSON.stringify(state.analyst)); } catch (e) { /* stockage indisponible */ }
@@ -547,7 +568,7 @@
     }
   });
   /* Calques des ministères des affaires étrangères (niveaux par pays, couleurs de la carte MEAE) */
-  const MIN_SOURCES = { meae: 'MEAE (France)', fcdo: 'FCDO (UK)', us: 'US State Dept' };
+  const MIN_SOURCES = { meae: 'MEAE (France)', fcdo: 'FCDO (UK)', us: 'US State Dept', de: 'Auswärtiges Amt (DE)' };
   const MIN_COLORS = { 1: '#2E9E5B', 2: '#E3B505', 3: '#EE7D22', 4: '#D7263D' };
   function advisoryOf(iso, mode) {
     const r = RISK[iso];
@@ -744,6 +765,53 @@
     return `<div class="d-sec"><h3>${icon('calendar', 14)} ${t('upcoming')}</h3>${all.length ? `<ul class="mini-list">${all.map(e => `<li><span class="dot ag-${agTypeOf(e)}"></span><span class="t">${esc(agTitle(e))}</span><span class="w">${e.prec === 'year' ? esc(e.d.slice(0, 4)) : esc(fmtDay(e.d))}</span></li>`).join('')}</ul>` : `<div class="hint">${t('no_upcoming')}</div>`}</div>`;
   }
 
+  /* ------------------------------------------------------------------ rapports */
+  function ensureReports(done) {
+    if (window.VS_REPORTS || ensureReports.failed) return done();
+    loadScript('data/reports.js').then(() => { if (!window.VS_REPORTS) ensureReports.failed = true; done(); });
+  }
+  const REP_TYPE_COLORS = { think_tank: '#1F5FD1', io: '#0E8A7E', ngo: '#B0182E', gov: '#6B4FB3', consultancy: '#B7791F', media: '#4A5A6B' };
+  const repOrg = r => ((window.VS_REPORTS || {}).orgs || {})[r.o] || { n: r.o, type: 'think_tank' };
+  function reportRow(r) {
+    const o = repOrg(r), geo = (r.c || []).slice(0, 4).map(iso => `<button class="rep-geo" data-rep-geo="${iso}" title="${esc(countryName(iso) || iso)}">${flagImg(iso)}${esc(countryName(iso) || iso)}</button>`).join('');
+    return `<li class="rep-item"><a href="${esc(r.u)}" target="_blank" rel="noopener">
+      <div class="m"><span class="rep-org" style="--c:${REP_TYPE_COLORS[o.type] || '#4A5A6B'}">${esc(o.n)}</span><span>${esc(fmtDay(r.d.slice(0, 10)))}</span>${r.l && r.l !== state.lang ? `<span class="muted">${esc(r.l.toUpperCase())}</span>` : ''}</div>
+      <div class="t">${esc(r.t)}</div>${r.s ? `<div class="s">${esc(r.s)}</div>` : ''}</a>
+      ${geo || (r.th || []).length ? `<div class="rep-tags">${geo}${(r.th || []).slice(0, 2).map(th => `<span class="rep-th">${esc((t('rep_themes') || {})[th] || th)}</span>`).join('')}</div>` : ''}</li>`;
+  }
+  function renderReports() {
+    const el = $('#rep-list'), R = window.VS_REPORTS;
+    if (!R) { el.innerHTML = `<li class="empty">${esc(ensureReports.failed ? t('rep_missing') : t('rep_loading'))}</li>`; if (!ensureReports.failed) ensureReports(renderReports); return; }
+    const S = state.rep, items = R.items || [];
+    // listes de choix : pays et régions présents, avec leur nombre de publications
+    const cc = {}, rc = {};
+    items.forEach(r => { (r.c || []).forEach(c => { cc[c] = (cc[c] || 0) + 1; }); (r.r || []).forEach(x => { rc[x] = (rc[x] || 0) + 1; }); });
+    const regs = t('rep_regions') || {};
+    $('#rep-geo').innerHTML = `<option value="">${esc(t('rep_all_geo'))}</option>` +
+      (Object.keys(rc).length ? `<optgroup label="${esc(t('rep_regions_h'))}">${Object.entries(rc).sort((a, b) => b[1] - a[1]).map(([k, n]) => `<option value="r:${k}">${esc(regs[k] || k)} (${n})</option>`).join('')}</optgroup>` : '') +
+      `<optgroup label="${esc(t('rep_countries_h'))}">${Object.entries(cc).sort((a, b) => (countryName(a[0]) || a[0]).localeCompare(countryName(b[0]) || b[0])).map(([k, n]) => `<option value="${k}">${esc(countryName(k) || k)} (${n})</option>`).join('')}</optgroup>`;
+    $('#rep-type').innerHTML = `<option value="">${esc(t('rep_all_type'))}</option>` + Object.entries(t('rep_types') || {}).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('');
+    $('#rep-theme').innerHTML = `<option value="">${esc(t('rep_all_theme'))}</option>` + Object.entries(t('rep_themes') || {}).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('');
+    $$('#rep-period option').forEach(o => { o.textContent = t('rep_days', o.value); });
+    $('#rep-geo').value = S.geo; $('#rep-type').value = S.type; $('#rep-theme').value = S.theme; $('#rep-period').value = S.period; $('#rep-q').value = S.q;
+    const since = new Date(Date.now() - (+S.period || 365) * 864e5).toISOString();
+    const q = norm(S.q || '').trim();
+    const list = items.filter(r => r.d >= since
+      && (!S.geo || (S.geo.startsWith('r:') ? (r.r || []).includes(S.geo.slice(2)) : (r.c || []).includes(S.geo)))
+      && (!S.type || repOrg(r).type === S.type) && (!S.theme || (r.th || []).includes(S.theme))
+      && (!q || norm(`${r.t} ${r.s} ${repOrg(r).n} ${(r.c || []).map(countryName).join(' ')}`).includes(q)));
+    $('#rep-count').textContent = t('rep_count', list.length, new Set(list.map(r => repOrg(r).n)).size);
+    el.innerHTML = list.length ? list.slice(0, S.shown).map(reportRow).join('') + (list.length > S.shown ? `<li><button class="btn small" data-rep-more>${esc(t('rep_more'))}</button></li>` : '')
+      : `<li class="empty">${esc(t('rep_none'))}</li>`;
+  }
+  function reportsSection(iso) {
+    const R = window.VS_REPORTS; if (!R) return '';
+    const list = (R.items || []).filter(r => (r.c || []).includes(iso)).slice(0, 4);
+    if (!list.length) return '';
+    return `<div class="d-sec"><h3>${icon('library', 14)} ${t('rep_country')}</h3><ol class="rep-list compact">${list.map(reportRow).join('')}</ol>
+      <button class="btn small" data-rep-country="${iso}">${esc(t('rep_all_country'))}</button></div>`;
+  }
+
   /* ------------------------------------------------------------------ trajets surveillés */
   function cityPoint(name) {
     const k = norm(name).trim(); if (!k) return null;
@@ -797,7 +865,7 @@
   function renderTabs() {
     $$('.tabs button').forEach(b => {
       b.setAttribute('aria-selected', String(b.dataset.tab === state.tab));
-      const ic = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle', agenda: 'calendar' }[b.dataset.tab];
+      const ic = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle', agenda: 'calendar', reports: 'library', ew: 'radar' }[b.dataset.tab];
       let label = icon(ic, 20) + `<span>${esc(t('tab_' + b.dataset.tab))}</span>`;
       const n = b.dataset.tab === 'sites' ? EVENTS.filter(e => inWindow(e) && e._near.length && e.severity >= 2).length
         : b.dataset.tab === 'ongoing' ? EVENTS.filter(isOngoing).length : 0;
@@ -807,6 +875,8 @@
     $$('.tab-body').forEach(s => { s.hidden = s.dataset.body !== state.tab; });
     if (state.tab === 'buddy') { renderBuddy(); ensureBuddyData(); }
     if (state.tab === 'agenda') renderAgenda();
+    if (state.tab === 'reports') renderReports();
+    if (window.AngorEW) { if (state.tab === 'ew' && !window.AngorEW.active) window.AngorEW.open(); else if (state.tab !== 'ew' && window.AngorEW.active) window.AngorEW.close(); }
     renderMobileNav();
   }
 
@@ -980,7 +1050,9 @@
     const ok = active.filter(s => s.ok).length;
     const ageH = (Date.now() - Date.parse(D.generated)) / 3600e3;
     el.className = 'health' + (ok < active.length ? ' warn' : '') + (ageH > 3 || ok === 0 ? ' bad' : '');
-    el.innerHTML = `<span class="dot"></span><span>${t('sources_ok', ok, STATUS.length)}</span><span class="lbl">· ${ageH > 3 ? t('stale') : t('updated')} ${esc(ago(D.generated))}</span>`;
+    const cov = D.coverage;
+    el.title = cov ? `${ok}/${active.length} flux OK` : '';
+    el.innerHTML = `<span class="dot"></span><span>${cov ? t('sources_total', cov.total) : t('sources_ok', ok, STATUS.length)}</span><span class="lbl">· ${ageH > 3 ? t('stale') : t('updated')} ${esc(ago(D.generated))}</span>`;
   }
 
   /* ------------------------------------------------------------------ fiches */
@@ -1053,6 +1125,7 @@
     if (d.kind === 'event') openEvent(d.id, false);
     else if (d.kind === 'country') openCountry(d.id, false);
     else if (d.kind === 'health') openHealth();
+    else if (d.kind === 'ew' && window.AngorEW) window.AngorEW.reopen(d.id);
     else if (d.kind === 'crisis') openCrisis(d.id, false);
   }
   function shortUrl(u) { try { const x = new URL(u); return x.hostname.replace(/^www\./, '') + (x.pathname.length > 1 ? x.pathname.slice(0, 32) + (x.pathname.length > 32 ? '…' : '') : ''); } catch (e) { return u; } }
@@ -1069,7 +1142,7 @@
     const counts = ['24h', '72h', '7d', '90d'].map(w => `<div class="stat"><div class="n">${(stats[w] || {}).total || 0}</div><div class="l">${w.replace('d', state.lang === 'fr' ? ' j' : ' d').replace('h', ' h')}</div></div>`).join('');
     const bars = r ? [['comp_adv', r.components.advisories], ['comp_sec', r.components.security], ['comp_haz', r.components.hazards]]
       .map(([k, v]) => `<div class="bar"><span>${t(k)}</span><span class="track"><span class="fill" style="width:${v == null ? 0 : Math.round(v * 100)}%"></span></span><span class="v">${v == null ? '—' : Math.round(v * 100)}</span></div>`).join('') : '';
-    const modeOf = { 'MEAE (France)': 'meae', 'FCDO (UK)': 'fcdo', 'US State Dept': 'us' };
+    const modeOf = { 'MEAE (France)': 'meae', 'FCDO (UK)': 'fcdo', 'US State Dept': 'us', 'Auswärtiges Amt (DE)': 'de' };
     const advs = r && Object.keys(r.advisories || {}).length ? Object.entries(r.advisories)
       .sort(([a], [b]) => (modeOf[b] === state.countryLayer) - (modeOf[a] === state.countryLayer)).map(([src, a]) => {
         const mode = modeOf[src];
@@ -1096,12 +1169,14 @@
       ${pulseSection(iso)}
       ${(cs => cs.length ? `<div class="d-sec"><h3>${icon('activity', 14)} ${t('chrono_title')}</h3><ul class="mini-list">${cs.map(c => `<li data-crisis="${c.id}"><span class="dot" style="background:${sevColor(c.max_severity)}"></span><span class="t">${esc(crisisTitle(c))}</span><span class="w">${trendChip(c)}</span></li>`).join('')}</ul></div>` : '')(CRISES.filter(c => c.country === iso).slice(0, 5))}
       ${upcomingSection(iso)}
+      ${reportsSection(iso)}
       <div class="d-sec"><h3>${t('incidents')}</h3><div class="stats">${counts}</div></div>
       ${r ? `<div class="d-sec"><h3>${t('components')}</h3>${bars}</div>` : ''}
       ${advs ? `<div class="d-sec"><h3>${t('advisories')}</h3><ul class="mini-list">${advs}</ul></div>` : ''}
       <div class="d-sec"><h3>${t('recent')}</h3>${recent.length ? `<ul class="mini-list">${recent.map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${esc(e.title)}</span><span class="w">${esc(ago(e.date))}</span></li>`).join('')}</ul>` : `<div class="hint">${t('no_recent')}</div>`}</div>
       <div class="d-sec"><div class="hint">${t('risk_notice')}</div></div>`, 'country', iso);
     if (!window.VS_CALENDAR && !ensureCalendar.failed) ensureCalendar(() => { if (state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
+    if (!window.VS_REPORTS && !ensureReports.failed) ensureReports(() => { if (window.VS_REPORTS && state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
   }
 
   function openHealth() {
@@ -1109,7 +1184,8 @@
       <span><strong>${esc(s.name)}</strong> <span style="color:var(--muted)">· ${esc(s.license || '')}</span><br>
       <span style="color:var(--muted)">${s.paused ? t('paused') : s.ok ? `${s.count} ${t('items')}` : esc(s.error || t('error'))}${s.last_success ? ` · ${t('last_success')} ${esc(ago(s.last_success))}` : ''}</span></span></li>`).join('');
     openDrawer(`<div class="d-head"><h2 class="d-title">${t('source_status')}</h2>
-      <div class="hint">${t('updated')} ${esc(fmtDate(D.generated))} · v${esc(D.version)}</div></div>
+      <div class="hint">${t('updated')} ${esc(fmtDate(D.generated))} · v${esc(D.version)}</div>
+      ${D.coverage ? `<p class="hint" style="margin-top:8px">${t('cov_breakdown', D.coverage)}</p>` : ''}</div>
       <div class="d-sec"><ul class="mini-list" style="gap:10px">${rows}</ul></div>
       ${(list => list.length ? `<div class="d-sec"><h3>${t('cov_title')}</h3><div class="hint">${t('cov_hint')}</div><ul class="mini-list">${list.map(([iso, c]) => `<li data-country="${iso}"><span class="t">${flagImg(iso)}${esc(countryName(iso) || iso)}</span><span class="w">${c.live} / ${Math.round(c.base)} ${t('per_month')}</span></li>`).join('')}</ul></div>` : '')(
         Object.entries(coverageMap()).filter(([, c]) => c.level !== 'good').sort((a, b) => a[1].ratio - b[1].ratio).slice(0, 25))}`, 'health');
@@ -1403,12 +1479,21 @@
     $('#country-list').addEventListener('click', ev => { const li = ev.target.closest('[data-iso]'); if (li) { openCountry(li.dataset.iso); closePanelMobile(); } });
     $('#country-filter').addEventListener('input', ev => { state.countryFilter = ev.target.value; renderCountries(); });
     $('#news-filter').addEventListener('input', ev => { state.newsFilter = ev.target.value; renderNews(); });
+    $('#rep-q').addEventListener('input', ev => { state.rep.q = ev.target.value; state.rep.shown = 60; renderReports(); });
+    ['geo', 'type', 'theme', 'period'].forEach(k => $('#rep-' + k).addEventListener('change', ev => { state.rep[k] = ev.target.value; state.rep.shown = 60; renderReports(); }));
+    $('#rep-list').addEventListener('click', ev => {
+      const m = ev.target.closest('[data-rep-more]'); if (m) { state.rep.shown += 60; renderReports(); return; }
+      const c = ev.target.closest('[data-rep-geo]'); if (c) { ev.preventDefault(); state.rep.geo = c.dataset.repGeo; state.rep.shown = 60; renderReports(); }
+    });
     $('#drawer').addEventListener('click', ev => {
       const c = ev.target.closest('[data-country]'); const e = ev.target.closest('[data-event]'); const z = ev.target.closest('[data-zoom]');
       const w = ev.target.closest('[data-watch]'); const an = ev.target.closest('[data-an]');
       const cr = ev.target.closest('[data-crisis]'); const fo = ev.target.closest('[data-focus]');
       if (fo) { focusCrisis(fo.dataset.focus); return; }
       if (cr) { ev.preventDefault(); openCrisis(cr.dataset.crisis); return; }
+      const rg = ev.target.closest('[data-rep-country],[data-rep-geo]');
+      if (rg) { ev.preventDefault(); Object.assign(state.rep, { geo: rg.dataset.repCountry || rg.dataset.repGeo, q: '', shown: 60, period: '365' });
+        state.tab = 'reports'; renderTabs(); $('#app').classList.add('panel-open'); return; }
       if (w) { toggleWatch(w.dataset.watch); return; }
       if (an) { analystAction(an.dataset.an, an.dataset.id); return; }
       if (c) { ev.preventDefault(); openCountry(c.dataset.country); }
@@ -1433,9 +1518,9 @@
       else return;
       renderAnalytics();
     });
-    $('#btn-lang').addEventListener('click', () => { state.lang = state.lang === 'fr' ? 'en' : 'fr'; persist(); applyI18n(); renderAll(); reopenDrawer();
+    $('#btn-lang').addEventListener('click', () => { state.lang = state.lang === 'fr' ? 'en' : 'fr'; persist(); applyI18n(); renderAll(); reopenDrawer(); if (window.AngorEW) window.AngorEW.refresh();
       const gl = baseLayer && baseLayer.getMaplibreMap && baseLayer.getMaplibreMap(); if (gl) tuneLabels(gl); });
-    $('#btn-theme').addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; persist(); applyTheme(); renderAll(); reopenDrawer(); });
+    $('#btn-theme').addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; persist(); applyTheme(); renderAll(); reopenDrawer(); if (window.AngorEW) window.AngorEW.refresh(); });
     $('#btn-panel').addEventListener('click', () => $('#app').classList.toggle('panel-open'));
     $('#lyr-events').addEventListener('change', ev => ev.target.checked ? map.addLayer(cluster) : map.removeLayer(cluster));
     $('#country-layer').value = state.countryLayer;
@@ -1512,7 +1597,7 @@
       ev.stopPropagation();
       const b = ev.target.closest('[data-mm]'); if (!b) return;
       const k = b.dataset.mm; menu.hidden = true;
-      if (['countries', 'news', 'agenda', 'sites'].includes(k)) { state.tab = k; renderTabs(); $('#app').classList.add('panel-open'); closeDrawer(); }
+      if (['countries', 'news', 'agenda', 'sites', 'reports', 'ew'].includes(k)) { state.tab = k; renderTabs(); $('#app').classList.add('panel-open'); closeDrawer(); }
       else if (k === 'analytics') { $('#app').classList.remove('panel-open'); $('#btn-analytics').click(); }
       else if (k === 'lang') $('#btn-lang').click();
       else if (k === 'theme') $('#btn-theme').click();
@@ -1532,6 +1617,7 @@
       .map(([k, ic, lb]) => `<button data-m="${k}" class="${cur === k ? 'on' : ''}" aria-label="${esc(t(lb))}">${icon(ic, 22)}<span>${esc(t(lb))}</span>${k === 'ongoing' && n ? `<b class="nb">${n}</b>` : ''}</button>`).join('');
     const acc = window.AngorAccount && window.AngorAccount.enabled;
     menu.innerHTML = [['countries', 'globe', t('tab_countries')], ['news', 'newspaper', t('tab_news')], ['agenda', 'calendar', t('tab_agenda')], ['sites', 'building-2', t('tab_sites')],
+      ['reports', 'library', t('tab_reports')], ['ew', 'radar', t('tab_ew')],
       ['analytics', 'chart-column', t('analytics')], ['share', 'share-2', t('share')], ...(acc ? [['account', 'users', t('m_account')]] : []),
       ...(ACC.profile && ACC.profile.role === 'admin' ? [['admin', 'shield', t('m_admin')]] : []), ['help', 'circle-help', t('help')],
       ['lang', 'globe', state.lang === 'fr' ? 'English' : 'Français'], ['theme', state.theme === 'dark' ? 'sun-medium' : 'moon', state.theme === 'dark' ? 'Clair' : 'Sombre'],
@@ -2111,6 +2197,12 @@
   bindBuddy();
   buildMobileNav();
   bindLayersToggle();
+  if (window.AngorEW) window.AngorEW.init({ map, esc, icon, flagImg, countryName, openDrawer, loadScript,
+    lang: () => state.lang, theme: () => state.theme, closeDrawer, closePanelMobile,
+    enter: () => { map.removeLayer(riskLayer); $('#legend').hidden = true; },
+    leave: () => { if (!map.hasLayer(riskLayer)) riskLayer.addTo(map); $('#legend').hidden = false; },
+    showIncidents: b => { state.tab = 'alerts'; renderTabs(); closeDrawer(); map.flyToBounds(b, { padding: [40, 40], maxZoom: 8, duration: 0.8 }); } });
+  if (state.tab === 'ew' || state.tab === 'reports') renderTabs();
   initAccount();
   offlineNotice();
   renderAnalystBar();

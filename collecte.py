@@ -17,7 +17,8 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import (__version__, agenda, ai, analytics, config, crises, enrich, notify, practical, press, profiles,
+from veille import (__version__, agenda, ai, analytics, config, crises, early_warning, enrich, notify, practical, press,
+                    profiles, reports,
                     publish, pulse, quality, risk)
 from veille.connectors import REGISTRY, Context
 from veille.dedupe import dedupe
@@ -53,6 +54,49 @@ def site_alerts(events, sites, min_severity):
                 hits.append({"site": site["name"], "kind": site.get("kind", "site"), "event": ev["id"],
                              "distance_km": round(d, 1), "severity": ev["severity"], "title": ev["title"]})
     return sorted(hits, key=lambda h: (-h["severity"], h["distance_km"]))
+
+
+def coverage(sources, store):
+    """Volume réel de sources surveillées : flux et API, médias de référence, canaux Telegram, producteurs de rapports."""
+    on = [s for s in sources if s.get("enabled")]
+    tg = sum(len(s.get("channels") or []) for s in on if s["type"] == "telegram")
+    feeds = sum(1 for s in on if s["type"] not in ("telegram", "outlets", "gnews"))
+    cat = (config.load_json("press_outlets.json", {}) or {}).get("countries") or {}
+    outlets = sum(len(v) for v in cat.values())
+    rep = [f for f in ((config.load_json("reports.json", {}) or {}).get("feeds") or []) if f.get("enabled", True)]
+    ok = sum(1 for st in store["status"].values() if st.get("ok"))
+    return {"feeds": feeds, "outlets": outlets, "telegram": tg, "report_feeds": len(rep), "countries": len(cat),
+            "total": feeds + outlets + tg + len(rep), "ok": ok, "checked": len(store["status"])}
+
+
+def prefetch_feeds(sources, store, args, now, log, workers=8):
+    """Télécharge en parallèle les flux RSS / Atom (une centaine) : la collecte reste sous quelques minutes."""
+    from concurrent.futures import ThreadPoolExecutor
+    from veille import http
+    urls = []
+    for src in sources:
+        if not src.get("enabled") or src.get("type") not in ("rss", "official_rss") or src.get("auth") \
+                or (args.only and src["id"] not in args.only):
+            continue
+        st = store["status"].get(src["id"], {})
+        if st.get("fail_streak", 0) >= 3 and st.get("last_attempt") and \
+                (now - parse_iso(st["last_attempt"])).total_seconds() < 86400:
+            continue
+        urls.append(src["url"])
+    out = {}
+
+    def one(url):
+        try:
+            return url, http.get(url, retries=1, timeout=25)
+        except Exception as exc:  # l'erreur est rejouée par le connecteur, comme sans préchargement
+            return url, exc
+    t0 = time.time()
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for url, res in pool.map(one, sorted(set(urls))):
+            out[url] = res
+    if urls:
+        log(f"  Flux RSS préchargés : {len(out)} en {time.time() - t0:.0f} s")
+    return out
 
 
 def main():
@@ -94,6 +138,7 @@ def main():
     new_events = []
     ctx = Context(countries, store["state"], log, now)
     ctx.advisories = {v["name"]: v["data"] for v in store["advisories"].values()}
+    ctx.prefetch = prefetch_feeds(sources, store, args, now, log)
     for src in sources:
         if not src.get("enabled") or (args.only and src["id"] not in args.only):
             continue
@@ -167,11 +212,12 @@ def main():
     all_events = quality.filter_and_rate(all_events, verified)
     # faits divers, procédures judiciaires… : écartés de la carte, y compris ceux déjà en mémoire
     noise = [e for e in all_events if "press" in (e.get("tags") or []) and not e.get("verified")
-             and press.not_incident(e["title"], e["category"])]
+             and (press.not_incident(e["title"], e["category"])
+                  or ("ai" not in (e.get("tags") or []) and not press.classify(e["title"])[0]))]
     if noise:
         drop = {e["id"] for e in noise}
         all_events = [e for e in all_events if e["id"] not in drop]
-        log(f"  Tri : {len(noise)} titre(s) écarté(s) (faits divers, procédures judiciaires)")
+        log(f"  Tri : {len(noise)} titre(s) écarté(s) (faits divers, procédures judiciaires, hors sujet)")
     all_events.sort(key=lambda e: e["date"], reverse=True)
     # 30 derniers jours dans data.js (chargement rapide) ; au-delà, archives mensuelles chargées à la demande
     map_limit = to_iso(now - timedelta(days=settings.get("map_days", 30)))
@@ -202,6 +248,22 @@ def main():
     except Exception as exc:
         agenda_events = []
         log(f"✘ agenda : {type(exc).__name__}: {exc}")
+    # rapports de fond (think tanks, OI, ONG) : toutes les 3 heures
+    last = store["state"].get("reports_last", "")
+    due = not last or (now - parse_iso(last)).total_seconds() > 3 * 3600
+    if not args.no_profiles:
+        try:
+            reports.update(store, countries, log, now, fetch=due)  # fichier réécrit à chaque collecte
+            if due:
+                store["state"]["reports_last"] = now_iso()
+        except Exception as exc:
+            log(f"✘ rapports : {type(exc).__name__}: {exc}")
+    # alerte précoce climat-conflit (unités administratives, mensuel) : incrémental à chaque collecte
+    if not args.no_profiles:
+        try:
+            early_warning.update(store, countries, events, settings, log, now)
+        except Exception as exc:
+            log(f"✘ alerte précoce : {type(exc).__name__}: {exc}")
 
     # En ligne (GitHub Pages), la localisation de vos sites ne doit jamais être publiée.
     public = os.environ.get("VS_PUBLIC") == "1" or not settings.get("publish_sites", True)
@@ -212,6 +274,7 @@ def main():
                         if not (n.get("category") and press.not_incident(n["title"], n["category"]))),
                        key=lambda n: n["date"], reverse=True),
         "status": list(store["status"].values()),
+        "coverage": coverage(sources, store),
         "sites": [] if public else sites, "corridors": [] if public else corridors,
         "site_alerts": [] if public else alerts,
         "settings": {"product_name": product, "default_lang": settings.get("default_lang", "fr"),

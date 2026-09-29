@@ -12,6 +12,8 @@ docs/data/practical.js
 docs/data/calendar.js
 docs/data/config.js
 docs/data/cities.js
+docs/data/reports.js
+docs/data/early_warning.js
 # Python
 __pycache__/
 *.pyc

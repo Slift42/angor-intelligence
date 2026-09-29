@@ -1,0 +1,354 @@
+{
+  "_comment": "Agrégateur de rapports (onglet Rapports) : think tanks, organisations internationales, ONG, cabinets. Flux vérifiés le 30/09/2026. Champs : id, org, type (think_tank | io | ngo | gov | consultancy | media), url, lang, focus, keep_link / drop_title (expressions régulières), require_geo (ne garder que les rapports qui citent un pays ou une région). « manual » : rapports ajoutés à la main (PDF, publications sans flux : INSO trimestriel, Deloitte Africa, Allianz Risk Barometer…).",
+  "max_age_days": 365,
+  "max_items": 1500,
+  "per_feed": 40,
+  "feeds": [
+    {
+      "id": "crisisgroup",
+      "org": "International Crisis Group",
+      "type": "ngo",
+      "url": "https://www.crisisgroup.org/rss.xml",
+      "lang": "en",
+      "focus": "global",
+      "enabled": true,
+      "keep_link": "/(rpt|b)/"
+    },
+    {
+      "id": "crisisgroup_africa",
+      "org": "International Crisis Group",
+      "type": "ngo",
+      "url": "https://www.crisisgroup.org/rss/1",
+      "lang": "en",
+      "focus": "Africa",
+      "enabled": true,
+      "keep_link": "/(rpt|b)/"
+    },
+    {
+      "id": "crisisgroup_mena",
+      "org": "International Crisis Group",
+      "type": "ngo",
+      "url": "https://www.crisisgroup.org/rss/81",
+      "lang": "en",
+      "focus": "MENA",
+      "enabled": true,
+      "keep_link": "/(rpt|b)/"
+    },
+    {
+      "id": "crisisgroup_asia",
+      "org": "International Crisis Group",
+      "type": "ngo",
+      "url": "https://www.crisisgroup.org/rss/30",
+      "lang": "en",
+      "focus": "Asia",
+      "enabled": true,
+      "keep_link": "/(rpt|b)/"
+    },
+    {
+      "id": "crisisgroup_europe",
+      "org": "International Crisis Group",
+      "type": "ngo",
+      "url": "https://www.crisisgroup.org/rss/56",
+      "lang": "en",
+      "focus": "Europe & Central Asia",
+      "enabled": true,
+      "keep_link": "/(rpt|b)/"
+    },
+    {
+      "id": "crisisgroup_latam",
+      "org": "International Crisis Group",
+      "type": "ngo",
+      "url": "https://www.crisisgroup.org/rss/73",
+      "lang": "en",
+      "focus": "Latin America",
+      "enabled": true,
+      "keep_link": "/(rpt|b)/"
+    },
+    {
+      "id": "inso",
+      "org": "INSO – International NGO Safety Organisation",
+      "type": "ngo",
+      "url": "https://www.ngosafety.org/feed/",
+      "lang": "en",
+      "focus": "humanitarian security",
+      "enabled": true
+    },
+    {
+      "id": "chathamhouse",
+      "org": "Chatham House",
+      "type": "think_tank",
+      "url": "https://www.chathamhouse.org/path/whatsnew.xml",
+      "lang": "en",
+      "focus": "global",
+      "enabled": true,
+      "drop_title": "podcast|webinar|event|livestream|in conversation"
+    },
+    {
+      "id": "rusi",
+      "org": "RUSI",
+      "type": "think_tank",
+      "url": "https://www.rusi.org/rss/latest-publications.xml",
+      "lang": "en",
+      "focus": "defence & security",
+      "enabled": true
+    },
+    {
+      "id": "swp",
+      "org": "SWP Berlin",
+      "type": "think_tank",
+      "url": "https://www.swp-berlin.org/en/SWPPublications.xml",
+      "lang": "en",
+      "focus": "global",
+      "enabled": true
+    },
+    {
+      "id": "clingendael",
+      "org": "Clingendael",
+      "type": "think_tank",
+      "url": "https://www.clingendael.org/rss.xml",
+      "lang": "en",
+      "focus": "global",
+      "enabled": true
+    },
+    {
+      "id": "iris",
+      "org": "IRIS",
+      "type": "think_tank",
+      "url": "https://www.iris-france.org/feed/",
+      "lang": "fr",
+      "focus": "global",
+      "enabled": true
+    },
+    {
+      "id": "rand",
+      "org": "RAND",
+      "type": "think_tank",
+      "url": "https://www.rand.org/pubs/new.xml",
+      "lang": "en",
+      "focus": "global",
+      "enabled": true,
+      "require_geo": true
+    },
+    {
+      "id": "cfr",
+      "org": "Council on Foreign Relations",
+      "type": "think_tank",
+      "url": "https://www.cfr.org/feed",
+      "lang": "en",
+      "focus": "global",
+      "enabled": true
+    },
+    {
+      "id": "atlantic_council",
+      "org": "Atlantic Council",
+      "type": "think_tank",
+      "url": "https://www.atlanticcouncil.org/feed/",
+      "lang": "en",
+      "focus": "global",
+      "enabled": true
+    },
+    {
+      "id": "stimson",
+      "org": "Stimson Center",
+      "type": "think_tank",
+      "url": "https://www.stimson.org/feed/",
+      "lang": "en",
+      "focus": "global",
+      "enabled": true
+    },
+    {
+      "id": "soufan",
+      "org": "The Soufan Center (IntelBrief)",
+      "type": "think_tank",
+      "url": "https://thesoufancenter.org/feed/",
+      "lang": "en",
+      "focus": "terrorism",
+      "enabled": true
+    },
+    {
+      "id": "lwj",
+      "org": "FDD's Long War Journal",
+      "type": "media",
+      "url": "https://www.longwarjournal.org/feed",
+      "lang": "en",
+      "focus": "jihadism",
+      "enabled": true
+    },
+    {
+      "id": "pcns",
+      "org": "Policy Center for the New South",
+      "type": "think_tank",
+      "url": "https://www.policycenter.ma/rss.xml",
+      "lang": "fr",
+      "focus": "Africa",
+      "enabled": true,
+      "drop_title": "podcast|webinar|event"
+    },
+    {
+      "id": "gitoc",
+      "org": "Global Initiative Against Transnational Organized Crime",
+      "type": "ngo",
+      "url": "https://globalinitiative.net/feed/",
+      "lang": "en",
+      "focus": "organised crime",
+      "enabled": true
+    },
+    {
+      "id": "small_arms_survey",
+      "org": "Small Arms Survey",
+      "type": "think_tank",
+      "url": "https://smallarmssurvey.org/rss.xml",
+      "lang": "en",
+      "focus": "arms",
+      "enabled": true
+    },
+    {
+      "id": "freedom_house",
+      "org": "Freedom House",
+      "type": "ngo",
+      "url": "https://freedomhouse.org/rss.xml",
+      "lang": "en",
+      "focus": "governance",
+      "enabled": true
+    },
+    {
+      "id": "hrw",
+      "org": "Human Rights Watch",
+      "type": "ngo",
+      "url": "https://www.hrw.org/rss",
+      "lang": "en",
+      "focus": "human rights",
+      "enabled": true
+    },
+    {
+      "id": "amnesty",
+      "org": "Amnesty International (recherche)",
+      "type": "ngo",
+      "url": "https://www.amnesty.org/en/latest/research/feed/",
+      "lang": "en",
+      "focus": "human rights",
+      "enabled": true
+    },
+    {
+      "id": "fewsnet",
+      "org": "FEWS NET",
+      "type": "gov",
+      "url": "https://fews.net/taxonomy/term/551/feed",
+      "lang": "en",
+      "focus": "food security",
+      "enabled": true
+    },
+    {
+      "id": "ecdc_cdtr",
+      "org": "ECDC – menaces sanitaires (hebdomadaire)",
+      "type": "io",
+      "url": "https://www.ecdc.europa.eu/en/taxonomy/term/1505/feed",
+      "lang": "en",
+      "focus": "health",
+      "enabled": true
+    },
+    {
+      "id": "lowy",
+      "org": "Lowy Institute",
+      "type": "think_tank",
+      "url": "https://www.lowyinstitute.org/publications/rss.xml",
+      "lang": "en",
+      "focus": "Indo-Pacific",
+      "enabled": true
+    },
+    {
+      "id": "lowy_interpreter",
+      "org": "Lowy Institute – The Interpreter",
+      "type": "think_tank",
+      "url": "https://www.lowyinstitute.org/the-interpreter/rss.xml",
+      "lang": "en",
+      "focus": "Indo-Pacific",
+      "enabled": true
+    },
+    {
+      "id": "gmf",
+      "org": "German Marshall Fund",
+      "type": "think_tank",
+      "url": "https://www.gmfus.org/rss.xml",
+      "lang": "en",
+      "focus": "transatlantic",
+      "enabled": true
+    },
+    {
+      "id": "insightcrime",
+      "org": "InSight Crime",
+      "type": "ngo",
+      "url": "https://insightcrime.org/feed/",
+      "lang": "en",
+      "focus": "Latin America",
+      "enabled": true
+    },
+    {
+      "id": "igarape",
+      "org": "Instituto Igarapé",
+      "type": "think_tank",
+      "url": "https://igarape.org.br/en/feed/",
+      "lang": "en",
+      "focus": "Latin America",
+      "enabled": true
+    },
+    {
+      "id": "msf",
+      "org": "Médecins Sans Frontières",
+      "type": "ngo",
+      "url": "https://www.msf.org/rss/all",
+      "lang": "en",
+      "focus": "humanitarian",
+      "enabled": true
+    },
+    {
+      "id": "srm",
+      "org": "S-RM",
+      "type": "consultancy",
+      "url": "https://www.s-rminform.com/latest-thinking/rss.xml",
+      "lang": "en",
+      "focus": "global",
+      "enabled": true
+    },
+    {
+      "id": "warontherocks",
+      "org": "War on the Rocks",
+      "type": "media",
+      "url": "https://warontherocks.com/feed/",
+      "lang": "en",
+      "focus": "defence",
+      "enabled": true
+    },
+    {
+      "id": "smallwars",
+      "org": "Small Wars Journal",
+      "type": "media",
+      "url": "https://smallwarsjournal.com/feed/",
+      "lang": "en",
+      "focus": "defence",
+      "enabled": true
+    },
+    {
+      "id": "tnh_reports",
+      "org": "The New Humanitarian",
+      "type": "media",
+      "url": "https://www.thenewhumanitarian.org/rss/all.xml",
+      "lang": "en",
+      "focus": "humanitarian",
+      "enabled": true,
+      "keep_link": "/(analysis|investigations|feature|news-feature|opinion)/"
+    }
+  ],
+  "manual": [
+    {
+      "_comment": "Exemple à dupliquer, laisser vide sinon",
+      "title": "",
+      "org": "",
+      "type": "ngo",
+      "url": "",
+      "date": "",
+      "countries": [],
+      "summary": ""
+    }
+  ]
+}

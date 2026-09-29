@@ -1,0 +1,38 @@
+{
+  "_comment": "Alerte précoce climat-conflit (onglet « Alerte précoce »). Régions : pays suivis (ISO2) ; unités = niveau administratif 1 (geoBoundaries). NASA POWER : 30 unités par collecte, rafraîchies tous les 10 jours. HDX HAPI : chaque semaine. hapi_app_identifier = base64(« application:e-mail »), voir https://hapi.humdata.org/docs.",
+  "enabled": true,
+  "regions": {
+    "horn": {
+      "fr": "Corne de l'Afrique",
+      "en": "Horn of Africa",
+      "countries": [
+        "DJ",
+        "ER",
+        "ET",
+        "KE",
+        "SO",
+        "SS",
+        "SD",
+        "UG"
+      ]
+    },
+    "sahel": {
+      "fr": "Sahel et bassin du lac Tchad",
+      "en": "Sahel & Lake Chad Basin",
+      "countries": [
+        "ML",
+        "BF",
+        "NE",
+        "TD",
+        "MR",
+        "NG",
+        "CM"
+      ]
+    }
+  },
+  "power_per_run": 30,
+  "power_refresh_days": 10,
+  "hapi_refresh_days": 7,
+  "simplify_tolerance": 0.015,
+  "hapi_app_identifier": "YW5nb3ItaW50ZWxsaWdlbmNlOmNvbnRhY3RAYW5nb3IuZnI="
+}

@@ -575,3 +575,53 @@ svg.bars { display: block; }
 
 /* pas de cadre de focus autour des pays cliqués (le contour surligné suffit) */
 .leaflet-interactive:focus, .leaflet-container path:focus { outline: none; }
+
+/* ------------------------------------------------------------------ v0.11 : rapports */
+.rep-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.rep-item { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 10px 12px; }
+.rep-item > a { color: inherit; text-decoration: none; display: grid; gap: 4px; }
+.rep-item > a:hover .t { color: var(--accent); }
+.rep-item .m { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+.rep-item .t { font-weight: 600; line-height: 1.3; }
+.rep-item .s { font-size: 13px; color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.rep-org { font-weight: 600; color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); padding: 1px 7px; border-radius: 999px; }
+.rep-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.rep-geo, .rep-th { font-size: 11.5px; border: 1px solid var(--line-2); border-radius: 999px; padding: 1px 7px; background: var(--surface-2); color: var(--ink-2); display: inline-flex; align-items: center; gap: 4px; }
+.rep-geo { cursor: pointer; } .rep-geo:hover { border-color: var(--accent); color: var(--accent); }
+.rep-geo img { width: 14px; height: auto; }
+.rep-list.compact .rep-item { padding: 8px 10px; }
+.rep-list.compact .s { -webkit-line-clamp: 2; }
+#rep-count { margin-top: -4px; }
+
+/* ------------------------------------------------------------------ v0.11 : alerte précoce */
+.ew-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ew-controls label { display: grid; gap: 3px; font-size: 12px; color: var(--muted); }
+.ew-controls select { height: 32px; border: 1px solid var(--line-2); border-radius: 7px; background: var(--surface); color: var(--ink); font: inherit; font-size: 13px; }
+.ew-datasets { display: grid; gap: 8px; }
+.ew-group { display: grid; gap: 3px; }
+.ew-ds { display: flex; align-items: center; gap: 8px; padding: 6px 9px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; font-size: 13px; background: var(--surface); }
+.ew-ds input { accent-color: var(--accent); margin: 0; }
+.ew-ds.on { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.ew-legend { border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 10px; background: var(--surface); }
+.ew-legend .row { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 4px; font-size: 12px; }
+.ew-legend .k { display: inline-flex; align-items: center; gap: 5px; }
+.ew-legend .sq { width: 12px; height: 12px; border-radius: 3px; display: inline-block; border: 1px solid rgba(0,0,0,.08); }
+.ew-rank { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.ew-rank li { display: grid; grid-template-columns: 12px 1fr auto; gap: 8px; align-items: center; padding: 6px 6px; border-radius: 7px; cursor: pointer; font-size: 13px; }
+.ew-rank li:hover, .ew-rank li.on { background: var(--surface-2); }
+.ew-rank .sw { width: 12px; height: 12px; border-radius: 3px; }
+.ew-rank .t { display: flex; gap: 6px; align-items: center; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ew-rank .w { color: var(--muted); font-size: 12px; white-space: nowrap; }
+.ew-method summary { cursor: pointer; font-size: 13px; color: var(--muted); }
+.ew-drivers { margin: 0; padding-left: 18px; display: grid; gap: 3px; font-size: 13px; }
+.ew-chart { margin: 0 0 12px; }
+.ew-chart figcaption { font-size: 12px; font-weight: 600; color: var(--ink-2); margin-bottom: 2px; }
+.ew-chart svg { width: 100%; height: auto; display: block; }
+.ew-chart text { font-size: 9px; fill: var(--muted); font-family: var(--font); }
+.ew-chart .grid { stroke: var(--line); stroke-width: 1; }
+.ew-chart .band { fill: var(--ink-2); opacity: .12; }
+.ew-chart .avg { fill: none; stroke: var(--ink-2); stroke-width: 1.4; stroke-dasharray: 4 3; }
+.ew-key { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: var(--muted); }
+.ew-key i { display: inline-block; width: 12px; height: 8px; margin-right: 4px; vertical-align: middle; border-radius: 2px; }
+.ew-key .k-avg { height: 0; border-top: 1.5px dashed var(--ink-2); }
+.ew-key .k-band { background: var(--ink-2); opacity: .2; }

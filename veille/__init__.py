@@ -14,7 +14,9 @@ Organisation :
 - crises.py      : chronologies de crise (incidents liés sur plusieurs jours)
 - agenda.py      : jours fériés, élections, fêtes religieuses, échéances de l'analyste
 - llm.py         : socle IA commun (budget, cache, tâches activables)
+- reports.py     : agrégateur de rapports (think tanks, OI, ONG) → onglet Rapports
+- early_warning.py : alerte précoce climat-conflit par unité administrative → onglet Alerte précoce
 - publish.py     : historique local et fichiers lus par la carte
 """
 
-__version__ = "0.10.0"
+__version__ = "0.11.0"
