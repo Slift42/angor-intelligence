@@ -20,7 +20,7 @@ FAMILIES = {
     "unrest": ("unrest", 15, 24),
 }
 # plus le chiffre est petit, plus la source fait référence pour la fiche fusionnée
-PRIORITY = {"USGS": 0, "WHO": 0, "GDACS": 1, "NASA EONET": 2, "GDELT": 3, "Press": 4}
+PRIORITY = {"USGS": 0, "WHO": 0, "NWS": 1, "Meteoalarm": 1, "GDACS": 1, "NASA EONET": 2, "GDELT": 3, "Press": 4}
 
 
 def dedupe(events):

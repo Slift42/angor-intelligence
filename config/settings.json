@@ -27,5 +27,24 @@
     "email": true
   },
   "buddy_url": "",
-  "_buddy_comment": "buddy_url : adresse du Worker Cloudflare de « My travel buddy » (IA). Vide = réponses construites à partir des seules données Angor, sans IA."
+  "_buddy_comment": "buddy_url : adresse du Worker Cloudflare de « My travel buddy » (IA). Vide = réponses construites à partir des seules données Angor, sans IA.",
+  "digest": {
+    "_comment": "Point quotidien sur le canal Telegram des alertes. hour_utc 5 = 7 h à Paris l'été (6 h l'hiver). countries : vos pays suivis, ex. [\"ML\",\"NG\",\"UA\"] (vide = vue monde).",
+    "enabled": true,
+    "hour_utc": 5,
+    "countries": [],
+    "max_items": 8,
+    "min_severity": 3,
+    "telegram": true,
+    "email": false,
+    "site_url": "https://angor.fr"
+  },
+  "pulse": {
+    "_comment": "Indice de stabilité 0-100. Alerte si chute d'au moins drop_alert points en 7 jours, ou passage sous threshold. countries vide = tous les pays.",
+    "alerts": true,
+    "threshold": 40,
+    "drop_alert": 12,
+    "countries": [],
+    "min_gap_days": 5
+  }
 }

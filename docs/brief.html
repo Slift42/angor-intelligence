@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brief de mission – Angor Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="report.css">
+</head>
+<body class="brief-page">
+<div class="toolbar no-print">
+  <a class="tb-btn" href="index.html" id="tb-back"></a>
+  <span class="tb-title" id="tb-title"></span>
+  <span class="tb-space"></span>
+  <button class="tb-btn" id="tb-lang">EN</button>
+  <button class="tb-btn primary" id="tb-print"></button>
+</div>
+<form class="brief-form no-print" id="brief-form" autocomplete="off">
+  <label><span data-l="country"></span><select id="f-country" required></select></label>
+  <label><span data-l="city"></span><input id="f-city" list="city-list" maxlength="80"><datalist id="city-list"></datalist></label>
+  <label><span data-l="from"></span><input id="f-from" type="date" required></label>
+  <label><span data-l="to"></span><input id="f-to" type="date" required></label>
+  <label><span data-l="profile"></span><select id="f-profile"></select></label>
+  <label><span data-l="pax"></span><input id="f-pax" type="number" min="1" max="500" value="1"></label>
+  <label class="wide"><span data-l="purpose"></span><input id="f-purpose" maxlength="140"></label>
+  <label class="wide"><span data-l="lodging"></span><input id="f-lodging" maxlength="140"></label>
+  <label class="wide"><span data-l="issuer"></span><input id="f-issuer" maxlength="100"></label>
+  <p class="hint wide" data-l="privacy"></p>
+</form>
+<main id="report" class="report"></main>
+<script src="vendor/icons.js"></script>
+<script src="data/countries.js"></script>
+<script src="data/data.js" onerror="window.VS_DATA_MISSING=true"></script>
+<script src="data/profiles.js" onerror="window.VS_PROFILES_MISSING=true"></script>
+<script src="data/guides.js" onerror="window.VS_GUIDES=null"></script>
+<script src="data/practical.js" onerror="window.VS_PRACTICAL=null"></script>
+<script src="data/providers.js" onerror="window.VS_PROVIDERS=null"></script>
+<script src="data/cities.js" onerror="window.VS_CITIES=null"></script>
+<script src="brief.js"></script>
+</body>
+</html>

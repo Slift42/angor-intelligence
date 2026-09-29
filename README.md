@@ -20,6 +20,12 @@ Ce qu'elle fait :
 - **Rapports pays enrichis** : conseils et carte du MEAE, usages culturels (tenue, religion, gestes, affaires, interdits), urgences, hôpitaux (Wikidata), télécoms, prestataires de sécurité et d'assistance.
 - **Couverture des sources** : les pays où nos sources remontent beaucoup moins d'incidents que la moyenne historique sont signalés « couverture faible ».
 - **Mes sites** : rayons de vigilance autour de vos sites, alertes de proximité, export PDF de la liste d'alertes.
+- **Pulse** : indice de stabilité par pays (0 à 100), tendance 7 et 30 jours, causes de variation, calque dédié et alerte Telegram en cas de chute rapide.
+- **Brief de mission** (`brief.html`) : pays, ville, dates, profil du voyageur → recommandation indicative, avis officiels, incidents autour de la ville, mesures à cocher, santé, sources consultées et visas de validation. Imprimable en PDF, trace « duty of care ».
+- **Vérifié Angor et cotation de l'Amirauté** : chaque incident porte une cote de A1 à F6 ; l'analyste valide, corrige ou infirme en mode analyste (`?analyste=1`), puis exporte `config/verified.json`.
+- **Point quotidien Telegram** : chaque matin, incidents marquants, crises en cours, pays dont le Pulse baisse, vulnérabilités cyber exploitées et focus sur vos pays suivis.
+- **Liens partageables, vues enregistrées, pays suivis** : l'adresse de la carte reprend la vue et les filtres ; étoile sur les pays à suivre.
+- **Alertes officielles météo et cyber** : NWS (États-Unis), Meteoalarm (38 pays européens, vigilances orange et rouges), CISA KEV (vulnérabilités activement exploitées).
 - **Interface** : bilingue FR/EN, thème clair ou sombre, utilisable sur mobile.
 
 ---
@@ -64,6 +70,8 @@ Une source qui échoue 3 fois de suite est mise en pause 24 h. Son état est vis
 |---|---|
 | Catastrophes | USGS (séismes, alerte PAGER), GDACS (ONU/UE), NASA EONET |
 | Santé | OMS – Disease Outbreak News |
+| Météo officielle | NWS (États-Unis, alertes « Severe » et « Extreme »), Meteoalarm / EUMETNET (vigilances orange et rouges de 38 pays européens) |
+| Cyber | CISA KEV (vulnérabilités activement exploitées), CERT-FR |
 | Conflits, attaques, manifestations | GDELT (presse mondiale, 65 langues, filtrée et recoupée) |
 | Presse locale | Google News (≈ 110 pays, sûreté + économie, en rotation) et flux RSS : BBC, Guardian, NYT, DW, Euronews, Al Jazeera, France 24, Le Monde, RFI Afrique, Jeune Afrique, Al-Monitor, El País, MercoPress, Kyiv Independent, Times of Israel, Dawn, The Hindu, Premium Times, News24, Japan Times, Franceinfo, Le Parisien, 20 Minutes, Ouest-France |
 | Institutions | ONU (Paix et sécurité), OTAN, Crisis Group, Département d'État US, FCDO britannique, CERT-FR |

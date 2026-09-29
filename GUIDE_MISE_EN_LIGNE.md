@@ -71,7 +71,7 @@ Rond jaune = en cours (3 à 5 min), coche verte = réussi. Cliquez sur l'exécut
 Le robot en ligne envoie désormais les alertes Telegram. Sur votre PC, mettez un `#` devant `TELEGRAM_BOT_TOKEN=` dans `.env`, sinon chaque collecte locale renverra les mêmes alertes.
 
 ### Mises à jour ensuite
-Claude modifie les fichiers sur votre PC → vous double-cliquez **`publier.bat`** (depuis l'Explorateur Windows). Le robot publie la nouvelle version à sa prochaine exécution (ou lancez **Run workflow**).
+Claude modifie les fichiers sur votre PC → vous double-cliquez **`publier.bat`** (depuis l'Explorateur Windows). Le robot publie la nouvelle version dans les 5 minutes qui suivent l'envoi (déclenchement automatique à chaque `publier.bat`, à condition d'avoir recopié la dernière version du robot : voir « Mettre à jour les robots », partie D).
 
 ---
 
@@ -179,3 +179,33 @@ la clé Anthropic à l'abri (le site étant public, la clé ne peut pas y figure
    `"buddy_url": "https://angor-buddy.<vous>.workers.dev"`, puis **publier.bat**.
 
 Coût : environ 0,5 centime par question avec Claude Haiku ; avec `DAILY_LIMIT` = 150, 1 $ par jour au maximum.
+
+---
+
+## Partie F – Point quotidien, pays suivis et mode analyste
+
+### F1. Point quotidien sur Telegram
+Rien à installer : il part sur le même canal que les alertes, une fois par jour à partir de 5 h UTC (7 h à Paris l'été).
+Réglages dans `config/settings.json` → `"digest"` :
+- `hour_utc` : heure d'envoi (UTC) ;
+- `countries` : vos pays suivis, ex. `["ML", "NG", "UA"]` (vide = vue monde) ;
+- `enabled` : `false` pour le couper.
+
+Le plus simple pour remplir `countries` : sur la carte, cliquez sur l'étoile des pays à suivre (fiche pays), puis onglet
+**Pays** → **Copier pour Telegram**, collez la liste dans `countries`, et double-cliquez sur **publier.bat**.
+
+### F2. Alertes Pulse
+`config/settings.json` → `"pulse"` : alerte Telegram si l'indice de stabilité d'un pays chute d'au moins `drop_alert`
+points en 7 jours, ou passe sous `threshold`. `countries` vide = tous les pays. Au démarrage, il faut quelques jours
+d'historique avant les premières tendances.
+
+### F3. Mode analyste (« Vérifié Angor »)
+1. Ouvrez `https://angor.fr/?analyste=1` (le mode reste actif dans ce navigateur ; bouton **Quitter** pour en sortir).
+2. Sur un incident : **Valider**, **Corriger** (gravité, catégorie) ou **Infirmer**, avec une note (source de confirmation).
+3. Bouton **Exporter verified.json** → remplacez `config/verified.json` par le fichier téléchargé → **publier.bat**.
+Les incidents validés portent le badge « Vérifié Angor » et la cote 1 ; les incidents infirmés disparaissent de la carte,
+des alertes et des calculs.
+
+### F4. Liens et vues
+Bouton **Partager** : copie l'adresse de la vue affichée (période, filtres, calque, zoom, fiche ouverte).
+Bouton **Vues** : enregistre des vues dans votre navigateur (ex. « Sahel – 7 j »).

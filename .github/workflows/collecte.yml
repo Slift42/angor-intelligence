@@ -1,4 +1,5 @@
-# Robot de collecte + publication automatique de la carte (GitHub Pages), toutes les 30 minutes.
+# Robot de collecte + publication automatique de la carte (GitHub Pages), toutes les 30 minutes
+# et à chaque envoi de code (publier.bat).
 # À placer dans .github/workflows/collecte.yml (voir GUIDE_MISE_EN_LIGNE.md).
 # L'historique du robot (data/) est conservé dans le cache GitHub : aucun commit toutes les 30 min,
 # le dépôt reste léger.
@@ -8,6 +9,8 @@ on:
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch: {}
+  push:              # chaque publier.bat met le site à jour tout de suite
+    branches: [main]
 
 permissions:
   contents: read

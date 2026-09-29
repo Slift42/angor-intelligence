@@ -1,0 +1,4 @@
+{
+  "_comment": "Décisions de l'analyste, exportées depuis la carte en mode analyste (https://angor.fr/?analyste=1 → « Exporter verified.json »). status : verified | corrected | false. Champs facultatifs : severity, category, title, place, note, admiralty (ex. \"B2\").",
+  "events": {}
+}

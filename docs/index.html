@@ -40,6 +40,8 @@
     </div>
     <div class="top-right">
       <button class="btn ghost" id="btn-analytics" type="button"></button>
+      <div class="views-wrap"><button class="btn ghost" id="btn-views" type="button"></button><div class="views-pop" id="views-pop" hidden></div></div>
+      <button class="btn ghost" id="btn-share" type="button"></button>
       <button class="health" id="health" type="button"></button>
       <button class="icon-btn text" id="btn-lang" aria-label="Langue">EN</button>
       <button class="icon-btn" id="btn-theme" aria-label="Thème"></button>
@@ -63,6 +65,8 @@
         <div class="filter-groups" id="filter-groups"></div>
         <label class="switch"><input type="checkbox" id="only-sites"><span data-i18n="only_sites"></span></label>
         <label class="switch"><input type="checkbox" id="hide-auto"><span data-i18n="hide_auto"></span></label>
+        <label class="switch"><input type="checkbox" id="only-verified"><span data-i18n="only_verified"></span></label>
+        <label class="switch"><input type="checkbox" id="only-watch"><span data-i18n="only_watch"></span></label>
       </details>
       <div class="list-head"><span id="alerts-count"></span>
         <span class="list-actions">
@@ -83,6 +87,11 @@
     <section class="tab-body" data-body="countries" hidden>
       <p class="hint" data-i18n="countries_hint"></p>
       <input class="field" id="country-filter" type="search" data-i18n-placeholder="country_ph">
+      <div class="country-tools">
+        <select id="country-sort" aria-label="Tri"><option value="risk" data-i18n="sort_risk"></option><option value="pulse" data-i18n="sort_pulse"></option><option value="move" data-i18n="sort_move"></option></select>
+        <button class="chip" id="country-watch" type="button" aria-pressed="false"></button>
+        <button class="btn small ghost" id="watch-copy" type="button" hidden></button>
+      </div>
       <ol class="country-list" id="country-list"></ol>
     </section>
 
@@ -127,6 +136,7 @@
       <label class="basemap-row"><span data-i18n="lyr_country"></span>
         <select id="country-layer">
           <option value="risk" data-i18n="cl_risk"></option>
+          <option value="pulse" data-i18n="cl_pulse"></option>
           <option value="meae" data-i18n="cl_meae"></option>
           <option value="fcdo" data-i18n="cl_fcdo"></option>
           <option value="us" data-i18n="cl_us"></option>

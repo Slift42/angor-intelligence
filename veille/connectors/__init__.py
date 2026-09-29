@@ -9,8 +9,8 @@ Chaque connecteur est un module qui expose :
 Pour ajouter une source : créer un module ici, l'ajouter à REGISTRY,
 puis déclarer la source dans config/sources.json (avec "enabled": true).
 """
-from . import (acled, ca_advisories, eonet, fr_advisories, gdacs, gdelt_events, gnews, jsonapi, outlets, reliefweb,
-               rss, telegram, uk_advisories, us_advisories, usgs, who_don)
+from . import (acled, ca_advisories, cisa_kev, eonet, fr_advisories, gdacs, gdelt_events, gnews, jsonapi, meteoalarm,
+               nws, outlets, reliefweb, rss, telegram, uk_advisories, us_advisories, usgs, who_don)
 
 REGISTRY = {
     "usgs": usgs,
@@ -18,6 +18,9 @@ REGISTRY = {
     "eonet": eonet,
     "gdelt_events": gdelt_events,
     "who_don": who_don,
+    "nws": nws,                # alertes météo officielles États-Unis (Severe/Extreme)
+    "meteoalarm": meteoalarm,  # vigilances orange/rouge des services météo européens
+    "cisa_kev": cisa_kev,      # vulnérabilités activement exploitées (CISA) → fil cyber
     "us_advisories": us_advisories,
     "ca_advisories": ca_advisories,
     "fr_advisories": fr_advisories,  # MEAE – Conseils aux voyageurs (France)

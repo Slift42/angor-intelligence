@@ -95,6 +95,34 @@
       "max_age_days": 60
     },
     {
+      "id": "nws",
+      "type": "nws",
+      "enabled": true,
+      "name": "NWS – alertes météo (États-Unis)",
+      "license": "Domaine public (NOAA/NWS)",
+      "severities": [
+        "Extreme",
+        "Severe"
+      ]
+    },
+    {
+      "id": "meteoalarm",
+      "type": "meteoalarm",
+      "enabled": true,
+      "name": "Meteoalarm – vigilances Europe",
+      "license": "EUMETNET Meteoalarm – attribution requise",
+      "countries": [],
+      "time_budget_s": 45
+    },
+    {
+      "id": "cisa_kev",
+      "type": "cisa_kev",
+      "enabled": true,
+      "name": "CISA – vulnérabilités exploitées (KEV)",
+      "license": "Domaine public (CISA)",
+      "max_age_days": 3
+    },
+    {
       "id": "gnews",
       "type": "gnews",
       "enabled": true,

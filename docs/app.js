@@ -22,6 +22,27 @@
       buddy_thinking: 'Je rassemble les informations…', buddy_mode_ai: 'Réponse rédigée par IA à partir des données Angor – à vérifier', buddy_mode_local: 'Données Angor (sans IA)',
       buddy_ai_on: 'Assistant IA actif. Ne saisissez pas de données personnelles.', buddy_ai_off: 'Mode sans IA : réponses construites à partir des données Angor.', buddy_ai_down: 'Assistant IA indisponible : réponse construite à partir des données Angor.',
       legend: 'Légende',
+      pulse: 'Pulse', pulse_title: 'Pulse – indice de stabilité', cl_pulse: 'Pulse (stabilité)', legend_pulse: 'Pulse – stabilité (0 à 100)',
+      pulse_hint: 'De 0 (très instable) à 100 (stable). Suit la dynamique : avis officiels, activité sécuritaire des 7 derniers jours, anomalie par rapport aux 3 semaines précédentes, catastrophes.',
+      pulse_drivers: 'Causes principales', pulse_none: 'Pas de variation notable.', pulse_na: 'Tendance disponible après 7 jours d’historique.',
+      drv_cat: (c, d) => `Hausse : ${c} (+${d} pts pondérés en 7 j)`, drv_adv: (s, a, b, d) => `Avis ${s} : niveau ${a} → ${b} (${d})`,
+      pulse_scale: ['Très instable', 'Instable', 'Fragile', 'Plutôt stable', 'Stable'],
+      sort_risk: 'Risque', sort_pulse: 'Pulse (plus instables)', sort_move: 'Pulse (plus forte baisse)',
+      adm: 'Cotation', adm_title: 'Cotation (grille de l’Amirauté)', adm_rel: { A: 'Source totalement fiable', B: 'Source habituellement fiable', C: 'Source assez fiable', D: 'Source pas toujours fiable', E: 'Source peu fiable', F: 'Fiabilité inconnue' },
+      adm_cred: { 1: 'information confirmée', 2: 'probablement vraie', 3: 'possiblement vraie', 4: 'douteuse', 5: 'improbable', 6: 'invérifiable' },
+      adm_note: 'Lettre = fiabilité de la source, chiffre = crédibilité de l’information (grille OTAN, A1 à F6). Cotation automatique, corrigée par l’analyste.',
+      verified: 'Vérifié Angor', verified_notice: d => `Incident vérifié par un analyste Angor${d ? ' le ' + d : ''}.`, corrected_notice: 'Fiche corrigée par l’analyste.',
+      only_verified: 'Uniquement les incidents vérifiés Angor', only_watch: 'Uniquement mes pays suivis',
+      watch_add: 'Suivre ce pays', watch_remove: 'Ne plus suivre ce pays', watch_filter: 'Suivis', watch_copy: 'Copier pour Telegram',
+      watch_copied: 'Liste copiée : collez-la dans config/settings.json → "digest" → "countries", puis publier.bat. Le point quotidien Telegram suivra ces pays.',
+      watch_empty: 'Aucun pays suivi : cliquez sur l’étoile dans la fiche d’un pays.', watch_added: 'Pays ajouté à vos pays suivis', watch_removed: 'Pays retiré de vos pays suivis',
+      share: 'Partager', share_done: 'Lien copié : il ouvre la carte avec la même vue et les mêmes filtres.', views: 'Vues', views_title: 'Vues enregistrées',
+      view_ph: 'Nom de la vue (ex. Sahel – 7 j)', view_save: 'Enregistrer la vue actuelle', views_empty: 'Aucune vue enregistrée.', view_saved: 'Vue enregistrée dans ce navigateur', view_link: 'Copier le lien',
+      brief: 'Brief de mission',
+      an_mode: 'Mode analyste', an_valid: 'Valider', an_false: 'Infirmer', an_fix: 'Corriger', an_reset: 'Annuler ma décision', an_note: 'Note : source de confirmation, commentaire…',
+      an_export: n => `Exporter verified.json (${n})`, an_exit: 'Quitter', an_done: 'Fichier téléchargé : remplacez config/verified.json par ce fichier, puis double-cliquez sur publier.bat.',
+      an_status: { verified: 'Validé', false: 'Infirmé', corrected: 'Corrigé' }, an_local: 'Décision enregistrée dans ce navigateur – à exporter', an_hint: 'Vos décisions s’appliquent tout de suite ici ; exportez-les pour les publier sur angor.fr.',
+      an_sev: 'Gravité', an_cat: 'Catégorie',
       ongoing_hint: 'Alertes des 72 dernières heures jugées actives : gravité élevée ou critique, catastrophe en cours, situation évolutive, recoupée par plusieurs sources ou proche de vos sites. Regroupées par pays.',
       only_ongoing: 'Afficher uniquement les alertes en cours sur la carte', no_ongoing: 'Aucune crise en cours.',
       n_crises: (c, n) => `${c} pays · ${n} alerte${n > 1 ? 's' : ''} en cours`, range: 'Période personnalisée', range_from: 'Du', range_to: 'au', apply: 'Appliquer',
@@ -85,6 +106,27 @@
       buddy_thinking: 'Gathering information…', buddy_mode_ai: 'AI-written answer based on Angor data – to be verified', buddy_mode_local: 'Angor data (no AI)',
       buddy_ai_on: 'AI assistant on. Do not enter personal data.', buddy_ai_off: 'No-AI mode: answers built from Angor data.', buddy_ai_down: 'AI assistant unavailable: answer built from Angor data.',
       legend: 'Legend',
+      pulse: 'Pulse', pulse_title: 'Pulse – stability index', cl_pulse: 'Pulse (stability)', legend_pulse: 'Pulse – stability (0 to 100)',
+      pulse_hint: 'From 0 (very unstable) to 100 (stable). Tracks momentum: official advisories, security activity over 7 days, anomaly versus the previous 3 weeks, hazards.',
+      pulse_drivers: 'Main drivers', pulse_none: 'No significant change.', pulse_na: 'Trend available after 7 days of history.',
+      drv_cat: (c, d) => `Rise: ${c} (+${d} weighted pts in 7 d)`, drv_adv: (s, a, b, d) => `${s} advisory: level ${a} → ${b} (${d})`,
+      pulse_scale: ['Very unstable', 'Unstable', 'Fragile', 'Fairly stable', 'Stable'],
+      sort_risk: 'Risk', sort_pulse: 'Pulse (least stable)', sort_move: 'Pulse (biggest drop)',
+      adm: 'Rating', adm_title: 'Rating (Admiralty grading)', adm_rel: { A: 'Completely reliable source', B: 'Usually reliable source', C: 'Fairly reliable source', D: 'Not usually reliable source', E: 'Unreliable source', F: 'Reliability unknown' },
+      adm_cred: { 1: 'confirmed', 2: 'probably true', 3: 'possibly true', 4: 'doubtful', 5: 'improbable', 6: 'cannot be judged' },
+      adm_note: 'Letter = source reliability, digit = information credibility (NATO grading, A1 to F6). Automatic rating, corrected by the analyst.',
+      verified: 'Angor verified', verified_notice: d => `Incident verified by an Angor analyst${d ? ' on ' + d : ''}.`, corrected_notice: 'Record corrected by the analyst.',
+      only_verified: 'Angor-verified incidents only', only_watch: 'My followed countries only',
+      watch_add: 'Follow this country', watch_remove: 'Unfollow this country', watch_filter: 'Followed', watch_copy: 'Copy for Telegram',
+      watch_copied: 'List copied: paste it into config/settings.json → "digest" → "countries", then publier.bat. The daily Telegram digest will follow these countries.',
+      watch_empty: 'No followed country: click the star on a country card.', watch_added: 'Country added to your followed countries', watch_removed: 'Country removed from your followed countries',
+      share: 'Share', share_done: 'Link copied: it opens the map with the same view and filters.', views: 'Views', views_title: 'Saved views',
+      view_ph: 'View name (e.g. Sahel – 7 d)', view_save: 'Save current view', views_empty: 'No saved view.', view_saved: 'View saved in this browser', view_link: 'Copy link',
+      brief: 'Mission brief',
+      an_mode: 'Analyst mode', an_valid: 'Validate', an_false: 'Reject', an_fix: 'Correct', an_reset: 'Undo my decision', an_note: 'Note: confirming source, comment…',
+      an_export: n => `Export verified.json (${n})`, an_exit: 'Exit', an_done: 'File downloaded: replace config/verified.json with it, then double-click publier.bat.',
+      an_status: { verified: 'Validated', false: 'Rejected', corrected: 'Corrected' }, an_local: 'Decision saved in this browser – export it', an_hint: 'Your decisions apply here immediately; export them to publish on angor.fr.',
+      an_sev: 'Severity', an_cat: 'Category',
       ongoing_hint: 'Alerts from the last 72 hours considered active: high or critical severity, ongoing disaster, evolving situation, corroborated by several sources or close to your sites. Grouped by country.',
       only_ongoing: 'Show only ongoing alerts on the map', no_ongoing: 'No ongoing crisis.',
       n_crises: (c, n) => `${c} countries · ${n} ongoing alert${n > 1 ? 's' : ''}`, range: 'Custom period', range_from: 'From', range_to: 'to', apply: 'Apply',
@@ -171,8 +213,30 @@
     selected: null, drawer: null, localSites: store.get('vs-sites', []), picking: false, pick: null,
     countryFilter: '', newsFilter: '', analytics: false,
     legendOpen: store.get('vs-legend', true),
-    countryLayer: (v => ['risk', 'meae', 'fcdo', 'us', 'none'].includes(v) ? v : 'risk')(store.get('vs-clayer', 'risk'))
+    countryLayer: (v => ['risk', 'pulse', 'meae', 'fcdo', 'us', 'none'].includes(v) ? v : 'risk')(store.get('vs-clayer', 'risk')),
+    onlyVerified: false, onlyWatch: false, countrySort: 'risk', watch: new Set(store.get('vs-watch', [])),
+    analyst: /[?&]analyste?=1/.test(location.search) || store.get('vs-analyst', false)
   };
+  const PULSE = (D && D.pulse) || {};
+  /* ------------------------------------------------------------------ liens partageables (paramètres d'URL) */
+  const PARAMS = new URLSearchParams(location.search);
+  (function applyParams() {
+    const P = PARAMS;
+    if (P.has('h')) { const h = P.get('h'); state.hours = h === 'all' ? 'all' : (+h || state.hours); }
+    if (P.get('from') && P.get('to')) state.range = { from: P.get('from'), to: P.get('to') };
+    if (P.has('sev')) { const v = P.get('sev'); state.sev = { 1: v.includes('1'), 2: v.includes('2'), 3: v.includes('3'), 4: v.includes('4') }; }
+    if (P.has('cats')) { const c = P.get('cats').split(',').filter(k => TAX.categories[k]); if (c.length) state.cats = new Set(c); }
+    if (P.has('auto')) state.hideAuto = P.get('auto') === '0';
+    if (P.get('verified') === '1') state.onlyVerified = true;
+    if (P.get('watch') === '1') state.onlyWatch = true;
+    if (P.has('watchlist')) P.get('watchlist').split(',').filter(x => /^[A-Z]{2}$/.test(x)).forEach(x => state.watch.add(x));
+    if (['risk', 'pulse', 'meae', 'fcdo', 'us', 'none'].includes(P.get('layer'))) state.countryLayer = P.get('layer');
+    if (BASEMAPS.includes(P.get('base'))) state.basemap = P.get('base');
+    if (['fr', 'en'].includes(P.get('lang'))) state.lang = P.get('lang');
+    if (['alerts', 'ongoing', 'countries', 'news', 'sites', 'buddy'].includes(P.get('tab'))) state.tab = P.get('tab');
+    if (P.get('analyste') === '0') state.analyst = false;
+    try { localStorage.setItem('vs-analyst', JSON.stringify(state.analyst)); } catch (e) { /* stockage indisponible */ }
+  })();
 
   const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
@@ -186,12 +250,14 @@
   const catLabel = c => cat(c)[state.lang];
   const sevLabel = s => (TAX.severity[s] || {})[state.lang] || s;
   const riskLabel = l => (TAX.risk_levels[l] || {})[state.lang] || '—';
-  const isAuto = e => (e.tags || []).includes('auto-detected');
+  const isAuto = e => (e.tags || []).includes('auto-detected') && !e.verified;
   const hostOf = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } };
 
   const countryProps = {};
   COUNTRIES.features.forEach(f => { countryProps[f.properties.iso2] = f.properties; });
   const countryName = iso => iso && countryProps[iso] ? countryProps[iso]['name_' + state.lang] : '';
+  const pulseColor = v => v < 25 ? '#9E1B32' : v < 45 ? '#E0592A' : v < 65 ? '#E3B505' : v < 80 ? '#8DBF4E' : '#2E9E5B';
+  const pulseLabel = v => t('pulse_scale')[v < 25 ? 0 : v < 45 ? 1 : v < 65 ? 2 : v < 80 ? 3 : 4];
   const flagImg = (iso, w = 20) => iso && iso.length === 2 ? `<img class="flag" src="https://flagcdn.com/w${w * 2}/${iso.toLowerCase()}.png" width="${w}" alt="" loading="lazy" onerror="this.remove()">` : '';
   /* Couverture des sources : incidents sûreté des 30 derniers jours comparés à la moyenne mensuelle
      de la base historique (12 derniers mois). Indicatif : signale les zones probablement sous-couvertes. */
@@ -389,6 +455,7 @@
           const a = advisoryOf(iso, mode);
           return `<strong>${esc(countryName(iso))}</strong><br>${esc(MIN_SOURCES[mode])} : ${a ? esc(minLabel(a, mode)) : t('no_adv')}`;
         }
+        if (mode === 'pulse') { const p = PULSE[iso]; return `<strong>${esc(countryName(iso))}</strong><br>${p ? `${t('pulse')} ${p.value}/100${p.d7 != null ? ` (${p.d7 > 0 ? '+' : ''}${p.d7} / 7 j)` : ''} · ${esc(pulseLabel(p.value))}` : t('no_data')}`; }
         return `<strong>${esc(countryName(iso))}</strong><br>${r ? `${t('risk_level')} : ${r.level} · ${esc(riskLabel(r.level))}` : t('no_data')}`;
       }, { sticky: true, className: 'vs-tip', direction: 'top', offset: [0, -8] });
     }
@@ -412,6 +479,10 @@
     const line = dark ? '#3A4A5B' : '#FFFFFF';
     const k = DETAILED.has(state.basemap) ? 0.6 : 1;
     if (mode === 'none') return { fillOpacity: 0, opacity: 0, weight: 0 };
+    if (mode === 'pulse') {
+      const p = PULSE[iso];
+      return { fillColor: p ? pulseColor(p.value) : '#9AA5B1', fillOpacity: p ? (dark ? 0.42 : 0.5) * k : 0.04, color: line, weight: 0.7, dashArray: null };
+    }
     if (mode === 'risk') {
       const r = RISK[iso];
       return { fillColor: riskColor(r ? r.level : 0), fillOpacity: r ? (dark ? 0.38 : 0.42) * k : 0.04, color: line, weight: 0.7, dashArray: null };
@@ -465,7 +536,8 @@
     if (evs.some(e => e.severity >= 4) || evs.length >= 5) return 'major';
     return evs.length >= 2 ? 'crisis' : 'alert';
   }
-  const baseFilter = e => (!state.onlyOngoing || isOngoing(e)) && inWindow(e) && state.cats.has(e.category) && !(state.hideAuto && isAuto(e)) && !(state.onlySites && !e._near.length);
+  const baseFilter = e => (!state.onlyOngoing || isOngoing(e)) && inWindow(e) && state.cats.has(e.category) && !(state.hideAuto && isAuto(e)) && !(state.onlySites && !e._near.length)
+    && !(e._false && !state.analyst) && !(state.onlyVerified && !e.verified) && !(state.onlyWatch && !state.watch.has(e.country));
   const visible = () => EVENTS.filter(e => baseFilter(e) && state.sev[e.severity]);
   const sorted = list => list.slice().sort(state.sort === 'severity'
     ? (a, b) => b.severity - a.severity || b._t - a._t
@@ -533,6 +605,9 @@
     const total = Object.keys(TAX.categories).length;
     $('#filter-count').textContent = state.cats.size < total ? `${state.cats.size}/${total}` : '';
     $('#only-sites').checked = state.onlySites; $('#hide-auto').checked = state.hideAuto;
+    $('#only-verified').checked = state.onlyVerified; $('#only-watch').checked = state.onlyWatch;
+    const nf = [state.onlyVerified, state.onlyWatch, state.onlySites, state.hideAuto].filter(Boolean).length;
+    if (nf) $('#filter-count').textContent = ($('#filter-count').textContent ? $('#filter-count').textContent + ' · ' : '') + '+' + nf;
   }
 
   function nearLabel(e) {
@@ -549,13 +624,13 @@
     $('#alert-list').innerHTML = shown.map(e => {
       const place = e.place || countryName(e.country) || t('at_sea');
       const desc = describe(e);
-      return `<li class="alert${state.selected === e.id ? ' active' : ''}" data-id="${esc(e.id)}">
+      return `<li class="alert${state.selected === e.id ? ' active' : ''}${e._false ? ' is-false' : ''}" data-id="${esc(e.id)}">
         <span class="stripe" style="background:${sevColor(e.severity)}"></span>
         <span class="ico" style="background:${sevColor(e.severity)}">${icon(cat(e.category).icon)}</span>
         <div><div class="t">${esc(e.title)}</div>
           ${desc ? `<div class="d">${esc(desc)}</div>` : ''}
           <div class="m"><span>${esc(catLabel(e.category))}</span><span>${esc(ago(e.date))}</span><span>${esc(place)}</span>${nearLabel(e)}</div>
-          <div class="m src"><span class="tag${isAuto(e) ? ' auto' : ''}">${icon('newspaper', 11)} ${esc(sourceLabel(e))}</span>${isAuto(e) ? `<span class="tag auto">auto</span>` : ''}</div></div></li>`;
+          <div class="m src"><span class="tag${isAuto(e) ? ' auto' : ''}">${icon('newspaper', 11)} ${esc(sourceLabel(e))}</span>${isAuto(e) ? `<span class="tag auto">auto</span>` : ''}${admBadge(e)}${verBadge(e)}</div></div></li>`;
     }).join('') + (all.length > shown.length ? `<li><button class="more" id="more">${t('show_more', Math.min(60, all.length - shown.length))}</button></li>` : '');
   }
 
@@ -585,19 +660,25 @@
 
   function renderCountries() {
     const q = state.countryFilter.toLowerCase();
+    const pv = iso => (PULSE[iso] || {}).value ?? 101, pd = iso => (PULSE[iso] || {}).d7 ?? 0;
     const rows = Object.entries(RISK)
       .map(([iso, r]) => ({ iso, r, name: countryName(iso) || iso }))
-      .filter(x => !q || x.name.toLowerCase().includes(q))
-      .sort((a, b) => b.r.level - a.r.level || b.r.score - a.r.score || a.name.localeCompare(b.name));
+      .filter(x => (!q || x.name.toLowerCase().includes(q)) && (!state.countryWatch || state.watch.has(x.iso)))
+      .sort(state.countrySort === 'pulse' ? (a, b) => pv(a.iso) - pv(b.iso) || b.r.level - a.r.level
+        : state.countrySort === 'move' ? (a, b) => pd(a.iso) - pd(b.iso) || pv(a.iso) - pv(b.iso)
+        : (a, b) => b.r.level - a.r.level || b.r.score - a.r.score || a.name.localeCompare(b.name));
+    $('#country-watch').setAttribute('aria-pressed', String(!!state.countryWatch));
+    $('#country-watch').innerHTML = icon('star', 13) + `${esc(t('watch_filter'))} <span class="c">${state.watch.size}</span>`;
+    $('#watch-copy').hidden = !state.watch.size; $('#watch-copy').innerHTML = icon('clipboard-check', 13) + esc(t('watch_copy'));
     const cov = coverageMap();
     $('#country-list').innerHTML = rows.length ? rows.map(x => {
       const c = x.r.counts || {};
       const adv = Object.entries(x.r.advisories || {}).map(([src, a]) => `${esc(src.split(' ')[0])} ${a.level}/${a.scale || 4}`).join(' · ');
       const n = (c.security || 0) + (c.hazards || 0);
       return `<li class="country-row" data-iso="${x.iso}"><span class="lvl" style="background:${riskColor(x.r.level)}">${x.r.level}</span>
-        <div><div class="n">${flagImg(x.iso)}${esc(x.name)}${cov[x.iso] && cov[x.iso].level === 'low' ? ` <span class="cov-low" title="${esc(t('cov_low_tip'))}">${esc(t('cov_low'))}</span>` : ''}</div><div class="s">${esc(riskLabel(x.r.level))}${adv ? ` · ${adv}` : ''}</div></div>
-        <div class="s">${n ? esc(t('n_alerts', n)) : ''}</div></li>`;
-    }).join('') : `<li class="empty">${t('no_data')}</li>`;
+        <div><div class="n">${flagImg(x.iso)}${esc(x.name)}${state.watch.has(x.iso) ? `<span class="star-mini">${icon('star', 11)}</span>` : ''}${cov[x.iso] && cov[x.iso].level === 'low' ? ` <span class="cov-low" title="${esc(t('cov_low_tip'))}">${esc(t('cov_low'))}</span>` : ''}</div><div class="s">${esc(riskLabel(x.r.level))}${adv ? ` · ${adv}` : ''}</div></div>
+        <div class="s">${pulseChip(x.iso)}${n ? `<div>${esc(t('n_alerts', n))}</div>` : ''}</div></li>`;
+    }).join('') : `<li class="empty">${state.countryWatch && !state.watch.size ? t('watch_empty') : t('no_data')}</li>`;
   }
 
   function renderNews() {
@@ -629,6 +710,7 @@
     $('#legend').innerHTML = `<button class="legend-toggle" id="legend-toggle" type="button" aria-expanded="${open}">${esc(t('legend'))}<span class="chev">${icon('chevron-down', 14)}</span></button>` + (open ? `
       <div><div class="card-title">${t('legend_sev')}</div><div class="row">${[1, 2, 3, 4].map(s => `<span class="k"><i class="sw" style="background:${sevColor(s)}"></i>${esc(sevLabel(s))}</span>`).join('')}</div></div>
       ${MIN_SOURCES[state.countryLayer] ? `<div><div class="card-title">${esc(t('cl_' + state.countryLayer))}</div><div class="row">${[1, 2, 3, 4].map(l => `<span class="k"><i class="sq" style="background:${MIN_COLORS[l]}"></i>${esc((state.countryLayer === 'us' ? t('us_levels') : t('min_levels'))[l])}</span>`).join('')}</div>${state.countryLayer === 'us' ? '' : `<div class="legend-note">${t('zones_note')}</div>`}</div>`
+        : state.countryLayer === 'pulse' ? `<div><div class="card-title">${t('legend_pulse')}</div><div class="row">${[10, 35, 55, 72, 90].map(v => `<span class="k"><i class="sq" style="background:${pulseColor(v)}"></i>${esc(pulseLabel(v))}</span>`).join('')}</div></div>`
         : state.countryLayer === 'risk' ? `<div><div class="card-title">${t('legend_risk')}</div><div class="row">${[1, 2, 3, 4, 5].map(l => `<span class="k"><i class="sq" style="background:${riskColor(l)}"></i>${esc(riskLabel(l))}</span>`).join('')}</div></div>` : ''}
       <div class="legend-note">${t('legend_auto')}</div>` : '');
   }
@@ -687,7 +769,9 @@
         <div class="d-source">${icon('newspaper', 14)}<span><strong>${t('source_lbl')} :</strong> ${esc(sourceLabel(e))}</span></div>
         ${isAuto(e) ? `<div class="notice">${t('auto_notice')}</div>` : ''}
         ${(e.tags || []).includes('multi-source') ? `<div class="notice" style="border-style:solid">✓ ${t('multi_source')}</div>` : ''}
+        ${e.verified && e.verified.status !== 'false' ? `<div class="notice verified-notice">${icon('badge-check', 15)} ${esc(t('verified_notice', e.verified.date ? fmtDay(e.verified.date) : ''))}${e.verified.status === 'corrected' ? ' ' + esc(t('corrected_notice')) : ''}${e.verified.note ? `<br><span class="muted">${esc(e.verified.note)}</span>` : ''}</div>` : ''}
       </div>
+      ${state.analyst ? analystPanel(e) : ''}
       <div class="d-sec"><dl class="kv">
         <dt>${t('date')}</dt><dd>${esc(fmtDate(e.date))} <span style="color:var(--muted)">(${esc(ago(e.date))})</span><br><span class="mono">${esc(fmtUTC(e.date))}</span></dd>
         ${e.start && e.start !== e.date ? `<dt>${t('start')}</dt><dd>${esc(fmtDate(e.start))}</dd>` : ''}
@@ -696,6 +780,7 @@
         <dt>${t('precision')}</dt><dd>${esc(t('prec')[e.precision] || e.precision)}</dd>
         <dt>${t('coords')}</dt><dd class="mono">${e.lat.toFixed(3)}, ${e.lon.toFixed(3)}</dd>
         <dt>${t('confidence')}</dt><dd>${esc(t('conf')[e.confidence] || e.confidence)}</dd>
+        ${e.admiralty ? `<dt>${t('adm')}</dt><dd>${admBadge(e, true)} ${esc(admText(e.admiralty))}<br><span class="muted small">${esc(t('adm_note'))}</span></dd>` : ''}
       </dl></div>
       ${near}
       <div class="d-sec"><h3>${t('sources')} (${(e.sources || []).length})</h3><ul class="src-list">${srcs}</ul>
@@ -738,14 +823,16 @@
     openDrawer(`
       <div class="d-head">
         <div class="d-kicker">${esc((countryProps[iso] || {}).region || '')}</div>
-        <h2 class="d-title">${flagImg(iso, 26)}${esc(name)}</h2>
+        <h2 class="d-title">${flagImg(iso, 26)}${esc(name)}<button class="star-btn${state.watch.has(iso) ? ' on' : ''}" data-watch="${iso}" title="${esc(t(state.watch.has(iso) ? 'watch_remove' : 'watch_add'))}" aria-pressed="${state.watch.has(iso)}">${icon('star', 18)}</button></h2>
         ${(c => c && c.level !== 'good' ? `<div class="notice">${esc(t('cov_notice', c.live, c.base))}</div>` : '')(coverageMap()[iso])}
         <div class="risk-big"><span class="lvl" style="background:${riskColor(lvl)}">${lvl || '–'}</span>
           <div><div class="name">${r ? esc(riskLabel(lvl)) : t('no_data')}</div><div class="desc">${esc(desc)}</div></div></div>
-        <a class="btn primary" href="report.html#${iso}" target="_blank" rel="noopener">${icon('file-text')}${t('country_report')}</a>
+        <div class="site-actions"><a class="btn primary" href="report.html#${iso}" target="_blank" rel="noopener">${icon('file-text')}${t('country_report')}</a>
+        <a class="btn" href="brief.html#${iso}" target="_blank" rel="noopener">${icon('plane')}${t('brief')}</a></div>
         ${r && r.basis === 'analyst' ? `<div class="notice" style="border-style:solid">${t('analyst')}</div>` : ''}
         ${r && r.data_quality === 'events-only' ? `<div class="notice">${t('events_only')}</div>` : ''}
       </div>
+      ${pulseSection(iso)}
       <div class="d-sec"><h3>${t('incidents')}</h3><div class="stats">${counts}</div></div>
       ${r ? `<div class="d-sec"><h3>${t('components')}</h3>${bars}</div>` : ''}
       ${advs ? `<div class="d-sec"><h3>${t('advisories')}</h3><ul class="mini-list">${advs}</ul></div>` : ''}
@@ -918,6 +1005,7 @@
   function persist() {
     store.set('vs-hours', state.hours); store.set('vs-sev', state.sev); store.set('vs-cats', [...state.cats]);
     store.set('vs-hideauto', state.hideAuto); store.set('vs-lang', state.lang); store.set('vs-theme', state.theme); store.set('vs-basemap', state.basemap); store.set('vs-clayer', state.countryLayer);
+    store.set('vs-watch', [...state.watch]);
   }
   /* Analyses sur plusieurs années : lignes compactes de la base historique (jusqu'à la veille de sa création) */
   function ensureHistory(done) {
@@ -1023,6 +1111,13 @@
     });
     $('#only-sites').addEventListener('change', ev => { state.onlySites = ev.target.checked; refresh(); });
     $('#hide-auto').addEventListener('change', ev => { state.hideAuto = ev.target.checked; refresh(); });
+    $('#only-verified').addEventListener('change', ev => { state.onlyVerified = ev.target.checked; refresh(); });
+    $('#only-watch').addEventListener('change', ev => { state.onlyWatch = ev.target.checked; if (state.onlyWatch && !state.watch.size) toast(t('watch_empty')); refresh(); });
+    $('#country-sort').value = state.countrySort;
+    $('#country-sort').addEventListener('change', ev => { state.countrySort = ev.target.value; renderCountries(); });
+    $('#country-watch').addEventListener('click', () => { state.countryWatch = !state.countryWatch; renderCountries(); });
+    $('#watch-copy').addEventListener('click', () => copyText(JSON.stringify([...state.watch]), t('watch_copied'), 9000));
+    bindShare();
     $('#sort').addEventListener('change', ev => { state.sort = ev.target.value; renderAlerts(visible()); });
     $('#btn-export').addEventListener('click', exportList);
     $('#alert-list').addEventListener('click', ev => {
@@ -1034,6 +1129,9 @@
     $('#news-filter').addEventListener('input', ev => { state.newsFilter = ev.target.value; renderNews(); });
     $('#drawer').addEventListener('click', ev => {
       const c = ev.target.closest('[data-country]'); const e = ev.target.closest('[data-event]'); const z = ev.target.closest('[data-zoom]');
+      const w = ev.target.closest('[data-watch]'); const an = ev.target.closest('[data-an]');
+      if (w) { toggleWatch(w.dataset.watch); return; }
+      if (an) { analystAction(an.dataset.an, an.dataset.id); return; }
       if (c) { ev.preventDefault(); openCountry(c.dataset.country); }
       else if (e) openEvent(e.dataset.event);
       else if (z) { const x = EVENTS.find(y => y.id === z.dataset.zoom); if (x) map.flyTo([x.lat, x.lon], 9, { duration: 0.8 }); }
@@ -1108,6 +1206,171 @@
   }
   function stopPicking() { state.picking = false; $('#app').classList.remove('picking'); $('#toast').hidden = true; }
   function closePanelMobile() { if (window.innerWidth <= 860) $('#app').classList.remove('panel-open'); }
+
+
+  /* ------------------------------------------------------------------ Pulse, cotation, vérification, suivis, partage */
+  function pulseChip(iso) {
+    const p = PULSE[iso]; if (!p) return '';
+    const d = p.d7;
+    const tr = d == null ? '' : d <= -3 ? `<span class="tr down">▼${-d}</span>` : d >= 3 ? `<span class="tr up">▲${d}</span>` : '';
+    return `<span class="pulse-chip" title="${esc(t('pulse_title'))}"><i style="background:${pulseColor(p.value)}"></i>${p.value}${tr}</span>`;
+  }
+  function spark(vals, w = 220, h = 44) {
+    if (!vals || vals.length < 2) return '';
+    const mn = Math.max(0, Math.min(...vals) - 5), mx = Math.min(100, Math.max(...vals) + 5), span = Math.max(1, mx - mn);
+    const pts = vals.map((v, i) => `${(i / (vals.length - 1) * (w - 4) + 2).toFixed(1)},${(h - 2 - (v - mn) / span * (h - 4)).toFixed(1)}`).join(' ');
+    const last = vals[vals.length - 1];
+    return `<svg class="spark" viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="${pulseColor(last)}" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>`;
+  }
+  function driverText(d) {
+    if (d.type === 'category') return t('drv_cat', catLabel(d.category).toLowerCase(), d.delta);
+    if (d.type === 'advisory') return t('drv_adv', d.source, d.from, d.to, fmtDay(d.date));
+    return '';
+  }
+  function pulseSection(iso) {
+    const p = PULSE[iso]; if (!p) return '';
+    const fmt = v => v == null ? '—' : (v > 0 ? '+' : '') + v;
+    return `<div class="d-sec"><h3>${icon('activity', 14)} ${t('pulse_title')}</h3>
+      <div class="pulse-big"><span class="pv" style="background:${pulseColor(p.value)}">${p.value}</span>
+        <div><div class="name">${esc(pulseLabel(p.value))}</div><div class="desc">7 ${state.lang === 'fr' ? 'j' : 'd'} : <strong>${fmt(p.d7)}</strong> · 30 ${state.lang === 'fr' ? 'j' : 'd'} : <strong>${fmt(p.d30)}</strong></div></div></div>
+      ${spark(p.spark)}
+      ${p.d7 == null ? `<div class="hint">${t('pulse_na')}</div>` : ''}
+      <div class="small"><strong>${t('pulse_drivers')}</strong></div>
+      ${(p.drivers || []).length ? `<ul class="plain">${p.drivers.map(d => `<li>${esc(driverText(d))}</li>`).join('')}</ul>` : `<div class="hint">${t('pulse_none')}</div>`}
+      <div class="hint">${t('pulse_hint')}</div></div>`;
+  }
+  function admText(code) {
+    if (!code) return '';
+    return `${t('adm_rel')[code[0]] || ''}, ${t('adm_cred')[code[1]] || ''}`;
+  }
+  function admBadge(e, big) {
+    if (!e.admiralty) return '';
+    const c = e.admiralty, cls = 'adm adm-' + c[0].toLowerCase() + (big ? ' big' : '');
+    return `<span class="${cls}" title="${esc(t('adm_title') + ' : ' + c + ' – ' + admText(c))}">${esc(c)}</span>`;
+  }
+  const verBadge = e => e.verified && e.verified.status !== 'false' ? `<span class="tag verified" title="${esc(t('verified'))}">${icon('badge-check', 11)} ${esc(t('verified'))}</span>` : '';
+  function toggleWatch(iso) {
+    if (state.watch.has(iso)) { state.watch.delete(iso); toast(t('watch_removed')); } else { state.watch.add(iso); toast(t('watch_added')); }
+    persist(); renderCountries(); reopenDrawer(); if (state.onlyWatch) refresh();
+  }
+  function copyText(text, msg, ms) {
+    const done = () => toast(msg, ms || 4000);
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+    else fallbackCopy(text, done);
+  }
+  function fallbackCopy(text, done) {
+    const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) { /* copie impossible */ }
+    ta.remove(); done();
+  }
+  /** Paramètres d'URL décrivant la vue courante (période, filtres, calques, carte, fiche ouverte). */
+  function viewParams() {
+    const P = new URLSearchParams();
+    if (state.range) { P.set('from', state.range.from); P.set('to', state.range.to); } else P.set('h', String(state.hours));
+    const sev = [1, 2, 3, 4].filter(x => state.sev[x]).join(''); if (sev !== '1234') P.set('sev', sev);
+    if (state.cats.size < Object.keys(TAX.categories).length) P.set('cats', [...state.cats].join(','));
+    if (state.hideAuto) P.set('auto', '0');
+    if (state.onlyVerified) P.set('verified', '1');
+    if (state.onlyWatch) { P.set('watch', '1'); if (state.watch.size) P.set('watchlist', [...state.watch].join(',')); }
+    if (state.countryLayer !== 'risk') P.set('layer', state.countryLayer);
+    if (state.basemap !== 'detail') P.set('base', state.basemap);
+    if (state.tab !== 'alerts') P.set('tab', state.tab);
+    const c = map.getCenter(); P.set('m', `${c.lat.toFixed(3)},${L.Util.wrapNum(c.lng, [-180, 180], true).toFixed(3)},${map.getZoom()}`);
+    if (state.drawer && !$('#drawer').hidden) P.set(state.drawer.kind === 'event' ? 'e' : state.drawer.kind === 'country' ? 'c' : 'x', state.drawer.id || '');
+    P.delete('x');
+    return P.toString();
+  }
+  const viewUrl = () => location.origin + location.pathname + '?' + viewParams();
+  function renderViews() {
+    const views = store.get('vs-views', []);
+    $('#views-pop').innerHTML = `<div class="card-title">${t('views_title')}</div>
+      <form id="view-form" class="view-form"><input class="field" id="view-name" maxlength="60" placeholder="${esc(t('view_ph'))}"><button class="btn primary small" type="submit">${icon('bookmark', 13)}${esc(t('view_save'))}</button></form>
+      ${views.length ? `<ul class="views-list">${views.map((v, i) => `<li><a href="?${esc(v.q)}" data-view="${i}">${esc(v.name)}</a>
+        <button class="icon-btn small" data-vlink="${i}" title="${esc(t('view_link'))}">${icon('link', 13)}</button><button class="icon-btn small" data-vdel="${i}" title="${esc(t('delete'))}">${icon('trash-2', 13)}</button></li>`).join('')}</ul>` : `<p class="hint">${t('views_empty')}</p>`}`;
+  }
+  function bindShare() {
+    $('#btn-share').innerHTML = icon('share-2', 15) + `<span>${esc(t('share'))}</span>`;
+    $('#btn-views').innerHTML = icon('bookmark', 15) + `<span>${esc(t('views'))}</span>`;
+    $('#btn-share').addEventListener('click', () => { const u = viewUrl(); history.replaceState(null, '', '?' + viewParams()); copyText(u, t('share_done')); });
+    $('#btn-views').addEventListener('click', ev => { ev.stopPropagation(); const pop = $('#views-pop'); pop.hidden = !pop.hidden; if (!pop.hidden) { renderViews(); $('#view-name').focus(); } });
+    $('#views-pop').addEventListener('submit', ev => {
+      ev.preventDefault();
+      const name = $('#view-name').value.trim() || `${periodLabel()} – ${new Date().toLocaleDateString()}`;
+      const views = store.get('vs-views', []); views.unshift({ name, q: viewParams() }); store.set('vs-views', views.slice(0, 30));
+      renderViews(); toast(t('view_saved'));
+    });
+    $('#views-pop').addEventListener('click', ev => {
+      ev.stopPropagation();
+      const views = store.get('vs-views', []);
+      const del = ev.target.closest('[data-vdel]'), lk = ev.target.closest('[data-vlink]');
+      if (del) { views.splice(+del.dataset.vdel, 1); store.set('vs-views', views); renderViews(); }
+      else if (lk) copyText(location.origin + location.pathname + '?' + views[+lk.dataset.vlink].q, t('share_done'));
+    });
+    document.addEventListener('click', ev => { if (!ev.target.closest('#views-pop') && !ev.target.closest('#btn-views')) $('#views-pop').hidden = true; });
+  }
+  /* Mode analyste (?analyste=1) : valider, infirmer ou corriger un incident ; décisions gardées dans ce navigateur
+     puis exportées en config/verified.json (publiées par le robot à la collecte suivante). */
+  const LOCAL_V = store.get('vs-verified-local', {});
+  function applyDecision(e, v) {
+    if (!e._orig) e._orig = { severity: e.severity, category: e.category, title: e.title, verified: e.verified, admiralty: e.admiralty, confidence: e.confidence };
+    const o = e._orig;
+    Object.assign(e, { severity: o.severity, category: o.category, title: o.title, verified: o.verified, admiralty: o.admiralty, confidence: o.confidence });
+    e._false = false;
+    if (!v) return;
+    if (v.status === 'false') { e._false = true; e.verified = null; if (e.admiralty) e.admiralty = e.admiralty[0] + '5'; return; }
+    if (v.severity) e.severity = +v.severity;
+    if (v.category && TAX.categories[v.category]) e.category = v.category;
+    e.verified = { status: v.status, note: v.note || '', date: v.date || '' };
+    e.confidence = 'high';
+    if (e.admiralty) e.admiralty = e.admiralty[0] + '1';
+  }
+  function applyLocalDecisions() { EVENTS.forEach(e => { if (LOCAL_V[e.id] || e._orig) applyDecision(e, LOCAL_V[e.id]); }); }
+  function analystPanel(e) {
+    const v = LOCAL_V[e.id] || (D && D.verified || {})[e.id] || null;
+    const sevOpts = [1, 2, 3, 4].map(s => `<option value="${s}"${s === e.severity ? ' selected' : ''}>${esc(sevLabel(s))}</option>`).join('');
+    const catOpts = Object.keys(TAX.categories).map(k => `<option value="${k}"${k === e.category ? ' selected' : ''}>${esc(catLabel(k))}</option>`).join('');
+    return `<div class="d-sec analyst-panel"><h3>${icon('clipboard-check', 14)} ${t('an_mode')}${v ? ` · <span class="an-st an-${v.status}">${esc(t('an_status')[v.status])}</span>` : ''}</h3>
+      ${LOCAL_V[e.id] ? `<div class="hint">${t('an_local')}</div>` : ''}
+      <div class="an-grid"><label>${t('an_sev')}<select class="field" id="an-sev">${sevOpts}</select></label><label>${t('an_cat')}<select class="field" id="an-cat">${catOpts}</select></label></div>
+      <input class="field" id="an-note" maxlength="300" placeholder="${esc(t('an_note'))}" value="${esc((v && v.note) || '')}">
+      <div class="site-actions"><button class="btn primary small" data-an="verified" data-id="${esc(e.id)}">${icon('check', 13)}${t('an_valid')}</button>
+        <button class="btn small" data-an="corrected" data-id="${esc(e.id)}">${icon('pencil', 13)}${t('an_fix')}</button>
+        <button class="btn small danger" data-an="false" data-id="${esc(e.id)}">${icon('circle-x', 13)}${t('an_false')}</button>
+        ${LOCAL_V[e.id] ? `<button class="btn small ghost" data-an="reset" data-id="${esc(e.id)}">${t('an_reset')}</button>` : ''}</div></div>`;
+  }
+  function analystAction(kind, id) {
+    const e = EVENTS.find(x => x.id === id); if (!e) return;
+    if (kind === 'reset') delete LOCAL_V[id];
+    else {
+      const v = { status: kind, note: ($('#an-note') || {}).value || '', date: new Date().toISOString().slice(0, 10) };
+      if (kind === 'corrected') { v.severity = +$('#an-sev').value; v.category = $('#an-cat').value; }
+      LOCAL_V[id] = v;
+    }
+    store.set('vs-verified-local', LOCAL_V);
+    applyDecision(e, LOCAL_V[id]);
+    renderAll(); openEvent(id, false); renderAnalystBar();
+  }
+  function renderAnalystBar() {
+    let bar = $('#analyst-bar');
+    if (!state.analyst) { if (bar) bar.remove(); return; }
+    if (!bar) { bar = document.createElement('div'); bar.id = 'analyst-bar'; bar.className = 'analyst-bar'; $('.map-wrap').appendChild(bar);
+      bar.addEventListener('click', ev => {
+        if (ev.target.closest('#an-export')) exportVerified();
+        if (ev.target.closest('#an-exit')) { state.analyst = false; store.set('vs-analyst', false); renderAnalystBar(); renderAll(); reopenDrawer(); }
+      }); }
+    const n = Object.keys(LOCAL_V).length;
+    bar.title = t('an_hint');
+    bar.innerHTML = `${icon('clipboard-check', 15)}<strong>${t('an_mode')}</strong>
+      <button class="btn small primary" id="an-export">${icon('download', 13)}${esc(t('an_export', n))}</button><button class="btn small ghost" id="an-exit">${esc(t('an_exit'))}</button>`;
+  }
+  function exportVerified() {
+    const events = Object.assign({}, (D && D.verified) || {}, LOCAL_V);
+    const out = { _comment: 'Décisions de l’analyste Angor (mode analyste de la carte). status : verified | corrected | false.', events };
+    const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'verified.json';
+    document.body.appendChild(a); a.click(); a.remove(); toast(t('an_done'), 8000);
+  }
 
   /* ------------------------------------------------------------------ My travel buddy */
   /* Assistant de voyage : repère le(s) pays et villes de la question, rassemble les données Angor
@@ -1261,7 +1524,7 @@
       if (all.includes('emergency') || all.includes('health')) parts.push(`<p><strong>${fr ? 'Urgences' : 'Emergency'}</strong> : ${esc((p.emergency || []).join(' · ') || '—')} · ${fr ? 'indicatif' : 'code'} ${esc((p.calling_code || []).join(', ') || '—')}</p>`);
       if (all.includes('telecom')) parts.push(`<p><strong>${fr ? 'Télécoms' : 'Telecoms'}</strong> : ${esc((p.operators || []).join(', ') || '—')} · ${fr ? 'prises' : 'plugs'} ${esc((p.plugs || []).join(', ') || '—')} · ${esc((p.voltage || []).join('/'))} V</p>`);
       if (all.includes('providers') || (all.includes('route') && (c.level || 0) >= 3)) parts.push(`<p><strong>${fr ? 'Prestataires (sécurité / évacuation)' : 'Providers (security / evacuation)'}</strong></p>` + li(c.provs.map(pv => `<a href="${esc(pv.web)}" target="_blank" rel="noopener">${esc(pv.name)}</a>`)));
-      parts.push(`<p class="muted"><a href="report.html#${iso}" target="_blank" rel="noopener">${fr ? 'Rapport pays complet (PDF)' : 'Full country report (PDF)'}</a></p>`);
+      parts.push(`<p class="muted"><a href="report.html#${iso}" target="_blank" rel="noopener">${fr ? 'Rapport pays complet (PDF)' : 'Full country report (PDF)'}</a> · <a href="brief.html#${iso}${(cc => cc ? '|' + encodeURIComponent(cc.name) : '')((det.cities || []).find(x => x.iso === iso))}" target="_blank" rel="noopener">${fr ? 'Préparer un brief de mission' : 'Prepare a mission brief'}</a></p>`);
       out.push(parts.join(''));
     });
     return out.join('<hr>') + `<p class="muted">${fr ? 'Réponse construite à partir des données Angor (avis officiels, incidents, fiches) — à vérifier avant décision.' : 'Answer built from Angor data — verify before deciding.'}</p>`;
@@ -1317,13 +1580,22 @@
 
   /* ------------------------------------------------------------------ démarrage */
   if (D && D.settings && D.settings.product_name) { $('#brand-name').textContent = D.settings.product_name; document.title = D.settings.product_name; }
+  applyLocalDecisions();
   computeProximity();
   applyI18n();
   applyTheme();
   riskLayer.addTo(map); cluster.addTo(map); sitesLayer.addTo(map);
   bind();
   bindBuddy();
-  ensureArchives(renderAll);
+  renderAnalystBar();
+  const mv = (PARAMS.get('m') || '').split(',').map(Number);
+  if (mv.length === 3 && mv.every(isFinite)) map.setView([mv[0], mv[1]], mv[2]);
+  ensureArchives(() => {
+    renderAll();
+    const ce = PARAMS.get('e'), cc = (PARAMS.get('c') || PARAMS.get('country') || '').toUpperCase();
+    if (ce && EVENTS.some(x => x.id === ce)) openEvent(ce, !mv.length || mv.length !== 3);
+    else if (cc && countryProps[cc]) openCountry(cc, mv.length !== 3);
+  });
   const hash = decodeURIComponent(location.hash.slice(1));
   if (hash && countryProps[hash]) openCountry(hash);
   if (!D) {

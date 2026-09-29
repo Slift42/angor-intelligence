@@ -17,7 +17,8 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import __version__, ai, analytics, config, enrich, notify, practical, press, profiles, publish, risk
+from veille import (__version__, ai, analytics, config, enrich, notify, practical, press, profiles, publish, pulse,
+                    quality, risk)
 from veille.connectors import REGISTRY, Context
 from veille.dedupe import dedupe
 from veille.geo import Countries, haversine_km
@@ -157,6 +158,9 @@ def main():
     enrich.add_headlines(list(store["events"].values()), store["headlines"], log,
                          max_fetch=settings.get("headline_fetch_per_run", 150))
     all_events = dedupe(list(store["events"].values()))
+    # validations de l'analyste (config/verified.json) + cotation de l'Amirauté sur chaque incident
+    verified = quality.load_verified()
+    all_events = quality.filter_and_rate(all_events, verified)
     all_events.sort(key=lambda e: e["date"], reverse=True)
     # 30 derniers jours dans data.js (chargement rapide) ; au-delà, archives mensuelles chargées à la demande
     map_limit = to_iso(now - timedelta(days=settings.get("map_days", 30)))
@@ -178,6 +182,7 @@ def main():
     advisories = {v["name"]: v["data"] for v in store["advisories"].values()}
     country_risk = risk.compute(all_events, advisories, now, config.load_json("risk.json", {}))
     alerts = site_alerts(events, sites, settings.get("site_alert_min_severity", 2))
+    pulse_idx = pulse.compute(all_events, country_risk, store, now)
 
     # En ligne (GitHub Pages), la localisation de vos sites ne doit jamais être publiée.
     public = os.environ.get("VS_PUBLIC") == "1" or not settings.get("publish_sites", True)
@@ -191,8 +196,13 @@ def main():
                      "buddy_url": settings.get("buddy_url", "")},
         "country_stats": analytics.country_stats(all_events, now), "archives": archives,
         "analytics": analytics.global_series(all_events, now),
+        "pulse": pulse_idx,
+        "verified": {k: {x: v[x] for x in ("status", "severity", "category", "note", "date", "admiralty") if x in v}
+                     for k, v in verified.items()},
     }
     notify.send(events, sites, store, settings, log, now)
+    notify.send_pulse_alerts(pulse.alerts(pulse_idx, store, settings, now), settings, log, countries)
+    notify.send_digest(events, country_risk, pulse_idx, store, settings, log, now, countries, payload["news"])
     publish.write_outputs(payload)
     econ_by_country = {}
     for e in sorted(store["econ"].values(), key=lambda x: x["date"], reverse=True):

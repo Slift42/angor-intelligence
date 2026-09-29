@@ -8,7 +8,10 @@ Organisation :
 - connectors/    : un fichier par source (gratuites aujourd'hui, payantes demain)
 - dedupe.py      : fusion des doublons entre sources
 - risk.py        : note de risque pays (1 Minimal → 5 Extrême)
+- pulse.py       : indice de stabilité « Pulse » (0-100), tendance et causes
+- quality.py     : validations de l'analyste (config/verified.json) et cotation de l'Amirauté (A1-F6)
+- notify.py      : alertes Telegram / e-mail, point quotidien, alertes Pulse
 - publish.py     : historique local et fichiers lus par la carte
 """
 
-__version__ = "0.1.0"
+__version__ = "0.8.0"
