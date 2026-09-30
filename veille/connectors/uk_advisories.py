@@ -14,7 +14,7 @@ Niveaux (échelle 1-4, alignée sur les autres gouvernements) :
 import re
 import time
 
-from .. import http
+from .. import fcdo, http
 
 KIND = "advisories"
 INDEX = "https://www.gov.uk/api/content/foreign-travel-advice"
@@ -77,7 +77,7 @@ def fetch(cfg, ctx):
             unmatched.append(name)
             continue
         old = cache.get(iso)
-        if not old or old.get("updated") != ch.get("public_updated_at"):
+        if not old or old.get("updated") != ch.get("public_updated_at") or not fcdo.has(iso):
             todo.append((iso, ch))
     budget = time.time() + float(cfg.get("time_budget_s", 60))
     done = 0
@@ -89,6 +89,7 @@ def fetch(cfg, ctx):
         except Exception:
             continue
         d = page.get("details") or {}
+        fcdo.save(iso, page)  # texte détaillé (rubriques) pour le rapport pays
         lvl, parts, mx = levels(d.get("alert_status"))
         cache[iso] = {"level": lvl, "scale": 4, "max": mx, "parts": parts, "label": LABELS.get((lvl, parts), ""),
                       "url": ch.get("web_url") or WEB + ch["base_path"], "updated": ch.get("public_updated_at"),

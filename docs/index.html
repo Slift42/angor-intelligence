@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="vendor/markercluster/MarkerCluster.css">
 <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
-<link rel="stylesheet" href="app.css?v=30722c9f">
+<link rel="stylesheet" href="app.css?v=5d1c8abe">
 </head>
 <body>
 <div class="app" id="app">
@@ -33,10 +33,12 @@
       <div class="search-results" id="search-results" hidden></div>
     </div>
     <div class="period">
-      <div class="seg" id="time-seg" role="group">
-        <button data-h="24"></button><button data-h="72"></button><button data-h="168"></button><button data-h="720"></button>
-        <button data-h="2160"></button><button data-h="4320"></button><button data-h="8760"></button><button data-h="all"></button>
-        <button id="btn-range" type="button" aria-label="Période"></button>
+      <button class="period-btn" id="period-btn" type="button" aria-haspopup="listbox" aria-expanded="false"></button>
+      <div class="period-menu" id="period-menu" role="listbox" hidden>
+        <button role="option" data-h="24"></button><button role="option" data-h="72"></button><button role="option" data-h="168"></button><button role="option" data-h="720"></button>
+        <button role="option" data-h="2160"></button><button role="option" data-h="4320"></button><button role="option" data-h="8760"></button><button role="option" data-h="all"></button>
+        <div class="pm-sep"></div>
+        <button role="option" id="btn-range" type="button"></button>
       </div>
       <form class="range-pop" id="range-pop" hidden>
         <div class="card-title" data-i18n="range"></div>
@@ -232,7 +234,7 @@
 <script src="vendor/maplibre/maplibre-gl.js"></script>
 <script src="vendor/maplibre/leaflet-maplibre-gl.js"></script>
 <script src="vendor/chartjs/chart.umd.min.js"></script>
-<script src="vendor/icons.js?v=c8fbdf75"></script>
+<script src="vendor/icons.js?v=fe9e4c02"></script>
 <script src="data/countries.js"></script>
 <script src="data/data.js" onerror="window.VS_DATA_MISSING=true"></script>
 <script src="data/history/index.js" onerror="window.VS_HIST_INDEX=null"></script>
@@ -240,6 +242,6 @@
 <script src="account.js?v=838b29fb"></script>
 <script src="gonogo.js?v=ae66a6e1"></script>
 <script src="ew.js?v=aad4d360"></script>
-  <script src="app.js?v=781a1621"></script>
+  <script src="app.js?v=3a06b758"></script>
 </body>
 </html>

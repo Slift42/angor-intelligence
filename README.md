@@ -125,6 +125,13 @@ Sans clé, le classement par mots-clés continue de fonctionner. Garde-fous :
 
 Elles sont regroupées par pays et classées en crise majeure, crise ou alerte.
 
+## Dossier pays et carte (v0.14)
+
+- **Période** : menu déroulant (24 h → tout l'historique, période personnalisée).
+- **Carte** : plus de zones noires au déplacement (rendu étendu autour de l'écran) ; thème sombre « Angor Night » (mers bleu nuit, terres ardoise, relief Natural Earth) et couleurs de risque lumineuses.
+- **Rapport pays refondu** (`docs/report.html`, `report.js`, `dossier.css`) : couverture, synthèse, sûreté détaillée par menace avec le texte FCDO, villes, voyage, santé et secours, calendrier… PDF A4 avec pied de page numéroté.
+- **Données** : `veille/fcdo.py` (texte FCDO découpé en rubriques, OGL v3), `veille/country_detail.py` → `docs/data/country/<ISO>.js` (villes Natural Earth, aéroports OurAirports, numéros d'urgence worldhotlines.org, santé `config/health.json`, notes `config/city_notes.json`), motifs des avis américains (`reasons`).
+
 ## Lot 1 – crédibilité et ergonomie (v0.13)
 
 - **Quatre espaces** (Veille, Pays, Mes sites, Anticipation) avec sous-onglets, sur ordinateur et sur mobile.

@@ -9,6 +9,11 @@ URL = "https://cadataapi.state.gov/api/TravelAdvisories"
 # Territoires sans polygone propre dans Natural Earth : leur avis ne doit pas écraser celui du pays
 IGNORE = {"guadeloupe", "martinique", "french guiana", "french west indies", "bonaire", "saba",
           "sint eustatius", "reunion", "mayotte", "saint martin", "saint barthelemy"}
+# Motifs cités dans la phrase d'ouverture (« … due to crime, terrorism, kidnapping and wrongful detention »)
+REASONS = [("terrorism", r"terroris"), ("crime", r"\bcrime"), ("unrest", r"civil unrest|demonstrations|protests"),
+           ("kidnapping", r"kidnap|hostage"), ("detention", r"wrongful detention|arbitrary detention|detained"),
+           ("conflict", r"armed conflict|war\b|military conflict|hostilities"), ("health", r"health|disease|medical"),
+           ("natural", r"natural disaster|hurricane|earthquake|flooding|volcan"), ("landmines", r"landmine|unexploded")]
 TITLE_RE = re.compile(r"^(.*?)\s*(?:Travel Advisory)?\s*[-–]\s*Level\s*(\d)\s*:?\s*(.*)$", re.I)
 
 
@@ -31,7 +36,10 @@ def fetch(cfg, ctx):
         if not item:
             unmatched.append(name)
             continue
-        out[item["iso2"]] = {"level": level, "scale": 4, "label": label,
+        head = re.sub(r"<[^>]+>", " ", (it.get("Summary") or "")[:600])
+        head = re.split(r"\.\s", head, maxsplit=1)[0].lower()
+        reasons = [k for k, rx in REASONS if re.search(rx, head)]
+        out[item["iso2"]] = {"level": level, "scale": 4, "label": label, "reasons": reasons,
                              "url": it.get("Link") or "https://travel.state.gov",
                              "updated": it.get("Updated") or it.get("Published")}
     if unmatched:

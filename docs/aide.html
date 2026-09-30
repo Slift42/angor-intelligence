@@ -188,7 +188,8 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <ul>
       <li><strong>Calque pays</strong> : Risque pays (Angor), Pulse, Heatmap MEAE (France), FCDO (Royaume-Uni), State Dept (États-Unis), Auswärtiges Amt (Allemagne), ou aucun. Pour les ministères, un contour pointillé signifie que seules certaines zones sont concernées : la carte officielle fait foi.</li>
       <li><strong>Mes sites</strong> : rayons de vigilance et trajets surveillés.</li>
-      <li><strong>Fond</strong> : détaillé (routes, villes), contrasté, épuré, satellite, topographique, gris, neutre (hors ligne). Les noms s'affichent en alphabet latin et apparaissent progressivement (pays, régions, villes).</li>
+      <li><strong>Fond</strong> : détaillé (routes, villes), contrasté, épuré, satellite, topographique, gris, neutre (hors ligne). Les noms s'affichent en alphabet latin et apparaissent progressivement (pays, régions, villes). En thème sombre, le fond « Angor Night » (mers bleu nuit, relief discret) et des couleurs de risque plus lumineuses.</li>
+      <li><strong>Période</strong> : menu déroulant en haut (24 h à tout l'historique, ou période personnalisée).</li>
     </ul>
   </section>
 
@@ -306,7 +307,19 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
 
   <section id="rapport">
     <h2>Rapport pays</h2>
-    <p>Rapport imprimable en sept parties : informations générales, matrice des risques (24 h, 72 h, 7 j, 90 j), recommandations pour les personnels et les sites, angles business, spécificités du pays (gouvernance, corruption, sanctions), intelligence culturelle (tenue, religion, gestes, affaires, interdits, voyageuses), santé, secours, communications et prestataires.</p>
+    <p>Dossier pays complet, lisible à l'écran (sommaire à gauche) et exportable en PDF A4 haut de gamme (couverture, pied de page numéroté, mention « confidentiel »). Quinze parties :</p>
+    <ol>
+      <li><strong>Synthèse</strong> : l'essentiel en une page (niveau global, menaces principales, motifs cités par les États-Unis, tendance des incidents, villes à suivre, échéances), avis des quatre ministères, profil de menace et un encadré <strong>Appréciation de l'analyste</strong> où vous écrivez votre propre avis (imprimé dans le PDF, enregistré sur votre appareil).</li>
+      <li><strong>Évaluation des risques</strong> : matrice par menace (24 h à 90 jours, tendance, fondement) et indicateurs de gouvernance.</li>
+      <li><strong>Sûreté détaillée</strong> : terrorisme, conflit armé, enlèvements, détention arbitraire, criminalité, troubles civils, surveillance et photographie, catastrophes naturelles, cyber. Pour chacune : le niveau Angor, les indices issus des données, puis le texte officiel britannique (FCDO) cité intégralement.</li>
+      <li><strong>Recommandations</strong> pour les voyageurs, les personnels et les sites.</li>
+      <li><strong>Villes</strong> : carte, tableau comparatif puis une fiche par grande ville (capitale, villes de plus d'un million d'habitants, villes suivies par l'analyste comme Goma, Maiduguri ou Culiacán) : niveau de l'analyste, zones sensibles, conseils, us et coutumes, ce qu'en dit le FCDO, incidents dans un rayon de 20 à 40 km sur 90 jours, aéroport et hôpitaux. Les notes par ville sont dans <code>config/city_notes.json</code> (premier jet rédigé avec assistance IA, à valider).</li>
+      <li><strong>Incidents récents</strong> (30 jours), <strong>avis officiels</strong> (France, Royaume-Uni, États-Unis, Allemagne, extraits et cartes).</li>
+      <li><strong>Voyage</strong> : aéroports, sens de circulation, formalités d'entrée, route, taxis, avion, bateau, activités de plein air.</li>
+      <li><strong>Santé et secours</strong> : numéros d'urgence (police, ambulance, pompiers), vaccinations à envisager, risques sanitaires (paludisme, dengue, fièvre jaune, méningite…), alertes sanitaires récentes, offre de soins, hôpitaux.</li>
+      <li><strong>Lois, usages et culture</strong>, <strong>calendrier</strong> des 12 prochains mois, <strong>économie</strong>, <strong>contexte pays</strong>, <strong>communications et prestataires</strong>, <strong>sources</strong>.</li>
+    </ol>
+    <p>Boutons de la barre du haut : <strong>Traduire</strong> (extraits en anglais traduits sur votre appareil par Chrome ou Edge récents), <strong>Contenu</strong> (choisir les parties du PDF, avec les modèles « Voyageur » et « Direction »), <strong>EN / FR</strong> et <strong>Exporter en PDF</strong> (choisir « Enregistrer au format PDF » et cocher « Graphiques d'arrière-plan »). Un lien direct vers une partie : <code>report.html#ML/villes</code>.</p>
   </section>
 
   <section id="mobile">
@@ -473,7 +486,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <h3>La carte n'a pas bougé depuis longtemps.</h3>
     <p>Regardez la pastille des sources en haut à droite : si l'heure de mise à jour dépasse 3 heures, elle passe en « Données anciennes ». Rechargez la page ; si cela persiste, prévenez l'administrateur.</p>
     <h3>Comment imprimer une fiche ?</h3>
-    <p>Rapport pays et brief : bouton « Imprimer / PDF ». Liste d'alertes : bouton « PDF » de l'onglet Alertes.</p>
+    <p>Rapport pays : bouton « Exporter en PDF ». Brief : bouton « Imprimer / PDF ». Liste d'alertes : bouton « PDF » de l'onglet Alertes.</p>
   </section>
   <footer>Angor Intelligence – outil d'aide à la décision, informations non exhaustives, à vérifier. <a href="index.html">Retour à la carte</a></footer>
 </main>

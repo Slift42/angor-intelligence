@@ -14,6 +14,8 @@ docs/data/config.js
 docs/data/cities.js
 docs/data/reports.js
 docs/data/early_warning.js
+docs/data/country/
+docs/data/health.js
 # Python
 __pycache__/
 *.pyc

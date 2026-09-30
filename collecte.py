@@ -17,8 +17,8 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import (__version__, agenda, ai, analytics, config, crises, early_warning, enrich, notify, practical, press,
-                    profiles, reports,
+from veille import (__version__, agenda, ai, analytics, config, country_detail, crises, early_warning, enrich, notify,
+                    practical, press, profiles, reports,
                     publish, pulse, quality, risk)
 from veille.connectors import REGISTRY, Context
 from veille.dedupe import dedupe
@@ -270,6 +270,13 @@ def main():
             early_warning.update(store, countries, events, settings, log, now)
         except Exception as exc:
             log(f"✘ alerte précoce : {type(exc).__name__}: {exc}")
+
+    # fiches pays détaillées (villes, aéroports, secours, santé, conseils FCDO) pour le rapport pays
+    if not args.no_profiles:
+        try:
+            country_detail.build(all_events, countries, now, log)
+        except Exception as exc:
+            log(f"✘ fiches pays détaillées : {type(exc).__name__}: {exc}")
 
     # En ligne (GitHub Pages), la localisation de vos sites ne doit jamais être publiée.
     public = os.environ.get("VS_PUBLIC") == "1" or not settings.get("publish_sites", True)

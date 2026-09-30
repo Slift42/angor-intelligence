@@ -48,6 +48,7 @@
       rep_hint: 'Les derniers rapports et analyses de fond sur les pays et les crises : think tanks, organisations internationales, ONG, cabinets. Titre, résumé de l’éditeur et lien vers la publication.',
       rep_ph: 'Rechercher un rapport, un pays, une organisation…', rep_all_geo: 'Tous pays et régions', rep_all_type: 'Tous producteurs', rep_all_theme: 'Tous thèmes',
       rep_days: n => `${n} derniers jours`, rep_count: (n, o) => `${n} publication(s) · ${o} producteur(s)`, rep_more: 'Afficher plus', rep_none: 'Aucun rapport pour ces critères.',
+      ci_title: 'Villes', ci_none: 'aucun incident', ci_low: 'activité faible', ci_mod: 'activité modérée', ci_high: 'activité élevée', ci_vhigh: 'activité très élevée', ci_capital: 'capitale', ci_level: 'niveau', ci_hint: 'Nombre = incidents à proximité sur 90 jours. Le détail (zones sensibles, conseils, aéroport, hôpitaux) est dans le rapport pays.',
       rep_loading: 'Chargement des rapports…', rep_missing: 'Rapports pas encore disponibles : le robot les rassemble toutes les 3 heures.', rep_country: 'Rapports récents', rep_all_country: 'Tous les rapports sur ce pays',
       rep_regions: { sahel: 'Sahel', horn: 'Corne de l’Afrique', great_lakes: 'Grands Lacs', west_africa: 'Afrique de l’Ouest', central_africa: 'Afrique centrale', north_africa: 'Afrique du Nord', middle_east: 'Moyen-Orient', gulf: 'Golfe et mer Rouge', balkans: 'Balkans', caucasus: 'Caucase', central_asia: 'Asie centrale', south_asia: 'Asie du Sud', southeast_asia: 'Asie du Sud-Est', indo_pacific: 'Indo-Pacifique', latin_america: 'Amérique latine', europe: 'Europe', arctic: 'Arctique' },
       rep_themes: { conflict: 'Conflits et sécurité', terrorism: 'Terrorisme', politics: 'Politique et gouvernance', economy: 'Économie', climate: 'Climat et environnement', food: 'Sécurité alimentaire', migration: 'Migrations et déplacements', crime: 'Criminalité organisée', cyber: 'Cyber et technologies', energy: 'Énergie et ressources', maritime: 'Maritime', health: 'Santé', rights: 'Droits humains', diplomacy: 'Diplomatie' },
@@ -151,7 +152,8 @@
       c_daily: 'Évolution des alertes par famille', c_cats: 'Répartition par catégorie', c_top: 'Pays les plus touchés', c_sev: 'Répartition par gravité',
       c_risk: 'Pays par niveau de risque', c_src: 'Contribution des sources',
       print_title: 'Extraction des alertes', print_filters: 'Filtres', print_generated: 'Généré le',
-      period_lbl: { 24: '24 h', 72: '72 h', 168: '7 j', 720: '30 j', 2160: '3 mois', 4320: '6 mois', 8760: '1 an', all: 'Tout' }
+      period_lbl: { 24: '24 h', 72: '72 h', 168: '7 j', 720: '30 j', 2160: '3 mois', 4320: '6 mois', 8760: '1 an', all: 'Tout' },
+      period_long: { 24: 'Dernières 24 heures', 72: 'Dernières 72 heures', 168: '7 derniers jours', 720: '30 derniers jours', 2160: '3 derniers mois', 4320: '6 derniers mois', 8760: '12 derniers mois', all: 'Tout l\'historique' }, range_custom: 'Période personnalisée…'
     },
     en: {
       search_ph: 'Search a country, city or event…',
@@ -189,6 +191,7 @@
       rep_hint: 'The latest in-depth reports and analysis on countries and crises: think tanks, international organisations, NGOs, consultancies. Title, publisher summary and link to the publication.',
       rep_ph: 'Search a report, country, organisation…', rep_all_geo: 'All countries and regions', rep_all_type: 'All publishers', rep_all_theme: 'All themes',
       rep_days: n => `Last ${n} days`, rep_count: (n, o) => `${n} publication(s) · ${o} publisher(s)`, rep_more: 'Show more', rep_none: 'No report for these criteria.',
+      ci_title: 'Cities', ci_none: 'no incident', ci_low: 'low activity', ci_mod: 'moderate activity', ci_high: 'high activity', ci_vhigh: 'very high activity', ci_capital: 'capital', ci_level: 'level', ci_hint: 'Number = nearby incidents over 90 days. Details (sensitive areas, advice, airport, hospitals) are in the country report.',
       rep_loading: 'Loading reports…', rep_missing: 'Reports not available yet: the robot gathers them every 3 hours.', rep_country: 'Recent reports', rep_all_country: 'All reports on this country',
       rep_regions: { sahel: 'Sahel', horn: 'Horn of Africa', great_lakes: 'Great Lakes', west_africa: 'West Africa', central_africa: 'Central Africa', north_africa: 'North Africa', middle_east: 'Middle East', gulf: 'Gulf & Red Sea', balkans: 'Balkans', caucasus: 'Caucasus', central_asia: 'Central Asia', south_asia: 'South Asia', southeast_asia: 'Southeast Asia', indo_pacific: 'Indo-Pacific', latin_america: 'Latin America', europe: 'Europe', arctic: 'Arctic' },
       rep_themes: { conflict: 'Conflict & security', terrorism: 'Terrorism', politics: 'Politics & governance', economy: 'Economy', climate: 'Climate & environment', food: 'Food security', migration: 'Migration & displacement', crime: 'Organised crime', cyber: 'Cyber & tech', energy: 'Energy & resources', maritime: 'Maritime', health: 'Health', rights: 'Human rights', diplomacy: 'Diplomacy' },
@@ -292,7 +295,8 @@
       c_daily: 'Alerts over time by family', c_cats: 'Breakdown by category', c_top: 'Most affected countries', c_sev: 'Breakdown by severity',
       c_risk: 'Countries by risk level', c_src: 'Source contribution',
       print_title: 'Alert extract', print_filters: 'Filters', print_generated: 'Generated on',
-      period_lbl: { 24: '24 h', 72: '72 h', 168: '7 d', 720: '30 d', 2160: '3 months', 4320: '6 months', 8760: '1 year', all: 'All' }
+      period_lbl: { 24: '24 h', 72: '72 h', 168: '7 d', 720: '30 d', 2160: '3 months', 4320: '6 months', 8760: '1 year', all: 'All' },
+      period_long: { 24: 'Last 24 hours', 72: 'Last 72 hours', 168: 'Last 7 days', 720: 'Last 30 days', 2160: 'Last 3 months', 4320: 'Last 6 months', 8760: 'Last 12 months', all: 'All history' }, range_custom: 'Custom range…'
     }
   };
 
@@ -388,7 +392,8 @@
   const countryProps = {};
   COUNTRIES.features.forEach(f => { countryProps[f.properties.iso2] = f.properties; });
   const countryName = iso => iso && countryProps[iso] ? countryProps[iso]['name_' + state.lang] : '';
-  const pulseColor = v => v < 25 ? '#9E1B32' : v < 45 ? '#E0592A' : v < 65 ? '#E3B505' : v < 80 ? '#8DBF4E' : '#2E9E5B';
+  const pulseColor = v => state.theme === 'dark' ? (v < 25 ? '#FF4D6A' : v < 45 ? '#FF8C42' : v < 65 ? '#FFC93C' : v < 80 ? '#B8E04A' : '#2FD08F')
+    : (v < 25 ? '#9E1B32' : v < 45 ? '#E0592A' : v < 65 ? '#E3B505' : v < 80 ? '#8DBF4E' : '#2E9E5B');
   const pulseLabel = v => t('pulse_scale')[v < 25 ? 0 : v < 45 ? 1 : v < 65 ? 2 : v < 80 ? 3 : 4];
   const flagImg = (iso, w = 20) => iso && iso.length === 2 ? `<img class="flag" src="https://flagcdn.com/w${w * 2}/${iso.toLowerCase()}.png" width="${w}" alt="" loading="lazy" onerror="this.remove()">` : '';
   /* Couverture des sources : incidents sûreté des 30 derniers jours comparés à la moyenne mensuelle
@@ -513,7 +518,8 @@
   }
 
   /* ------------------------------------------------------------------ carte */
-  const map = L.map('map', { zoomControl: false, worldCopyJump: true, minZoom: 2, maxZoom: 18 }).setView([28, 12], 3);
+  // Rendu vectoriel étendu bien au-delà de l'écran : plus de zones vides (noires) pendant un déplacement de la carte
+  const map = L.map('map', { zoomControl: false, worldCopyJump: true, minZoom: 2, maxZoom: 18, renderer: L.svg({ padding: 0.9 }) }).setView([28, 12], 3);
   L.control.zoom({ position: 'bottomright' }).addTo(map);
   const OSM_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
   const OFM_ATTR = '<a href="https://openfreemap.org">OpenFreeMap</a> ' + OSM_ATTR;
@@ -540,12 +546,13 @@
     const dark = state.theme === 'dark';
     if (OFM_STYLES[mode] && window.maplibregl && L.maplibreGL && (!maplibregl.supported || maplibregl.supported())) {
       try {
-        baseLayer = L.maplibreGL({ style: `https://tiles.openfreemap.org/styles/${OFM_STYLES[mode][dark ? 1 : 0]}`, attribution: OFM_ATTR, interactive: false });
+        baseLayer = L.maplibreGL({ style: `https://tiles.openfreemap.org/styles/${OFM_STYLES[mode][dark ? 1 : 0]}`, attribution: OFM_ATTR, interactive: false, padding: 0.4, updateInterval: 16 });
         baseLayer.addTo(map);
         const gl = baseLayer.getMaplibreMap && baseLayer.getMaplibreMap();
         if (gl) {
           gl.on('error', ev => { if (!gl.isStyleLoaded || !gl.isStyleLoaded()) fallbackBasemap(); });
-          if (gl.isStyleLoaded && gl.isStyleLoaded()) tuneLabels(gl); else gl.once('load', () => tuneLabels(gl));
+          const styled = () => { if (dark && OFM_STYLES[mode][1] === 'dark') nightStyle(gl); tuneLabels(gl); };
+          if (gl.isStyleLoaded && gl.isStyleLoaded()) styled(); else gl.once('load', styled);
         }
         refreshRiskStyle();
         return;
@@ -566,6 +573,43 @@
     if (baseLayer) { baseLayer.addTo(map); if (labelLayer) labelLayer.addTo(map); refreshRiskStyle(); return; }
     landLayer.setStyle(landStyle()); landLayer.addTo(map); landLayer.bringToBack();
     refreshRiskStyle();
+  }
+  /* « Angor Night » : le style sombre d'OpenFreeMap est presque noir et gris. On le recolore en bleu nuit / ardoise
+     (mers plus profondes que les terres, frontières lisibles), avec un léger relief coloré (Natural Earth) aux petits
+     zooms pour redonner du volume et de la couleur aux pays. */
+  const NIGHT = {
+    background: { 'background-color': '#1A2536' },
+    water: { 'fill-color': '#0B1828' }, waterway: { 'line-color': '#0F2238' },
+    landcover_ice_shelf: { 'fill-color': '#26364A' }, landcover_glacier: { 'fill-color': '#26364A' },
+    landuse_residential: { 'fill-color': '#1E2A3C' }, landcover_wood: { 'fill-color': '#1B2B30' }, landuse_park: { 'fill-color': '#1B2D2E' },
+    building: { 'fill-color': '#223046', 'fill-outline-color': '#2B3A52' },
+    'aeroway-area': { 'fill-color': '#202D40' }, 'aeroway-runway': { 'line-color': '#34445C' }, 'aeroway-taxiway': { 'line-color': '#2A384C' }, 'aeroway-runway-casing': { 'line-color': 'rgba(70,88,112,0.6)' },
+    road_area_pier: { 'fill-color': '#1A2536' }, road_pier: { 'line-color': '#1A2536' },
+    highway_path: { 'line-color': '#26334A' }, highway_minor: { 'line-color': '#26334A' },
+    highway_major_casing: { 'line-color': 'rgba(64,82,106,0.85)' }, highway_major_inner: { 'line-color': '#2D3C52' }, highway_major_subtle: { 'line-color': '#2C3A50' },
+    highway_motorway_casing: { 'line-color': 'rgba(88,108,136,0.9)' }, highway_motorway_subtle: { 'line-color': '#34465E' },
+    highway_motorway_inner: { 'line-color': ['interpolate', ['linear'], ['zoom'], 5.8, 'hsla(213,35%,62%,0.45)', 6, '#3A4D67'] },
+    railway: { 'line-color': '#304055' }, railway_minor: { 'line-color': '#304055' }, railway_transit: { 'line-color': '#304055' },
+    railway_dashline: { 'line-color': '#1A2536' }, railway_minor_dashline: { 'line-color': '#1A2536' }, railway_transit_dashline: { 'line-color': '#1A2536' },
+    boundary_state: { 'line-color': '#3A4C64' }, 'boundary_country_z0-4': { 'line-color': '#7189A8' }, 'boundary_country_z5-': { 'line-color': '#7189A8' },
+    water_name: { 'text-color': '#56779C', 'text-halo-color': 'rgba(11,24,40,0.7)' },
+    highway_name_other: { 'text-color': '#7D8CA2', 'text-halo-color': '#152031' }, highway_name_motorway: { 'text-color': '#8A9AB0' },
+  };
+  const NIGHT_PLACES = { country: ['#D3DDE9', 'rgba(10,18,30,0.9)'], city_large: ['#C3CEDC', 'rgba(10,18,30,0.85)'], city: ['#AEBACA', 'rgba(10,18,30,0.85)'],
+    state: ['#7486A0', 'rgba(10,18,30,0.8)'], other: ['#8795A9', 'rgba(10,18,30,0.8)'] };
+  function nightStyle(gl) {
+    try {
+      Object.entries(NIGHT).forEach(([id, paint]) => { if (gl.getLayer(id)) Object.entries(paint).forEach(([k, v]) => gl.setPaintProperty(id, k, v)); });
+      gl.getStyle().layers.filter(l => l.type === 'symbol' && l['source-layer'] === 'place').forEach(l => {
+        const k = /country/.test(l.id) ? 'country' : /city_large/.test(l.id) ? 'city_large' : /city/.test(l.id) ? 'city' : /state/.test(l.id) ? 'state' : 'other';
+        gl.setPaintProperty(l.id, 'text-color', NIGHT_PLACES[k][0]); gl.setPaintProperty(l.id, 'text-halo-color', NIGHT_PLACES[k][1]);
+      });
+      if (gl.getSource('ne2_shaded') && !gl.getLayer('angor-relief')) {
+        gl.addLayer({ id: 'angor-relief', type: 'raster', source: 'ne2_shaded', maxzoom: 8,
+          paint: { 'raster-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.5, 4, 0.42, 6.5, 0.18, 7.5, 0],
+            'raster-saturation': -0.25, 'raster-brightness-max': 0.42, 'raster-brightness-min': 0.06, 'raster-contrast': 0.05, 'raster-fade-duration': 0 } }, 'water');
+      }
+    } catch (e) { /* style inattendu : on garde le style d'origine */ }
   }
   /* Étiquettes du fond vectoriel : noms en alphabet latin uniquement (français ou anglais), et affichage
      progressif – pays en vue monde, régions et capitales à partir du zoom 5, villes à 7, bourgs à 9, villages à 12.
@@ -621,19 +665,24 @@
     const mode = state.countryLayer, dark = state.theme === 'dark';
     const line = dark ? '#3A4A5B' : '#FFFFFF';
     const k = DETAILED.has(state.basemap) ? 0.6 : 1;
+    // thème sombre : couleurs lumineuses, voile plus dense et contour teinté (effet « néon » discret)
+    const fill = (color, lightOp, darkOp) => dark
+      ? { fillColor: color, fillOpacity: darkOp, color, opacity: 0.8, weight: 0.9, dashArray: null }
+      : { fillColor: color, fillOpacity: lightOp * k, color: line, opacity: 1, weight: 0.7, dashArray: null };
     if (mode === 'none') return { fillOpacity: 0, opacity: 0, weight: 0 };
     if (mode === 'pulse') {
       const p = PULSE[iso];
-      return { fillColor: p ? pulseColor(p.value) : '#9AA5B1', fillOpacity: p ? (dark ? 0.42 : 0.5) * k : 0.04, color: line, weight: 0.7, dashArray: null };
+      return p ? fill(pulseColor(p.value), 0.5, 0.4) : { fillColor: '#9AA5B1', fillOpacity: dark ? 0.02 : 0.04, color: line, opacity: dark ? 0.35 : 1, weight: 0.6, dashArray: null };
     }
     if (mode === 'risk') {
       const r = RISK[iso];
-      return { fillColor: riskColor(r ? r.level : 0), fillOpacity: r ? (dark ? 0.38 : 0.42) * k : 0.04, color: line, weight: 0.7, dashArray: null };
+      return r ? fill(riskColor(r.level), 0.42, 0.4) : { fillColor: '#9AA5B1', fillOpacity: dark ? 0.02 : 0.04, color: line, opacity: dark ? 0.35 : 1, weight: 0.6, dashArray: null };
     }
     const a = advisoryOf(iso, mode);
-    if (!a) return { fillColor: '#9AA5B1', fillOpacity: 0.05, color: line, weight: 0.5, dashArray: null };
-    return { fillColor: MIN_COLORS[minLevel(a, mode)] || '#9AA5B1', fillOpacity: (a.parts ? 0.32 : 0.55) * k,
-      color: a.parts ? MIN_COLORS[minLevel(a, mode)] : line, weight: a.parts ? 1.2 : 0.7, dashArray: a.parts ? '4 3' : null };
+    if (!a) return { fillColor: '#9AA5B1', fillOpacity: dark ? 0.02 : 0.05, color: line, opacity: dark ? 0.35 : 1, weight: 0.5, dashArray: null };
+    const c = MIN_COLORS[minLevel(a, mode)] || '#9AA5B1';
+    if (a.parts) return { fillColor: c, fillOpacity: (dark ? 0.24 : 0.32 * k), color: c, opacity: dark ? 0.8 : 1, weight: 1.2, dashArray: '4 3' };
+    return fill(c, 0.55, 0.42);
   }
   function refreshRiskStyle() { try { riskLayer.setStyle(f => countryStyle(f.properties.iso2)); } catch (e) { /* couche pas encore créée */ } }
 
@@ -965,6 +1014,21 @@
     $('#rep-count').textContent = t('rep_count', list.length, new Set(list.map(r => repOrg(r).n)).size);
     el.innerHTML = list.length ? list.slice(0, S.shown).map(reportRow).join('') + (list.length > S.shown ? `<li><button class="btn small" data-rep-more>${esc(t('rep_more'))}</button></li>` : '')
       : `<li class="empty">${esc(t('rep_none'))}</li>`;
+  }
+  /* Villes du pays (fiche détaillée chargée à la demande) : niveau analyste ou activité des incidents sur 90 j */
+  function ensureDetail(iso, done) {
+    if ((window.VS_CDETAIL || {})[iso] || (ensureDetail.failed || new Set()).has(iso)) return done();
+    loadScript(`data/country/${iso}.js?v=${encodeURIComponent(String(D.generated || '').slice(0, 13))}`).then(done, () => { (ensureDetail.failed = ensureDetail.failed || new Set()).add(iso); });
+  }
+  function citiesSection(iso) {
+    const dt = (window.VS_CDETAIL || {})[iso];
+    if (!dt || !(dt.cities || []).length) return '';
+    const act = [t('ci_none'), t('ci_low'), t('ci_mod'), t('ci_high'), t('ci_vhigh')];
+    return `<div class="d-sec"><h3>${icon('building', 14)} ${t('ci_title')}</h3><ul class="mini-list">${dt.cities.map(c => {
+      const lvl = c.note ? c.note.level : null;
+      return `<li><span class="dot" style="background:${lvl ? riskColor(lvl) : ['var(--risk0)', 'var(--risk2)', 'var(--risk3)', 'var(--risk4)', 'var(--risk5)'][c.stats.level]}"></span>
+        <a class="t" href="report.html#${iso}/ville-${esc(c.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().replace(/ /g, '-'))}" target="_blank" rel="noopener">${esc(state.lang === 'fr' ? (c.name_fr || c.name) : c.name)}${c.capital ? ` <span style="color:var(--muted)">· ${t('ci_capital')}</span>` : ''}</a>
+        <span class="w">${lvl ? `${t('ci_level')} ${lvl}` : esc(act[c.stats.level])} · ${c.stats.n90}</span></li>`; }).join('')}</ul><div class="hint">${t('ci_hint')}</div></div>`;
   }
   function reportsSection(iso) {
     const R = window.VS_REPORTS; if (!R) return '';
@@ -1379,6 +1443,7 @@
       ${pulseSection(iso)}
       ${(cs => cs.length ? `<div class="d-sec"><h3>${icon('activity', 14)} ${t('chrono_title')}</h3><ul class="mini-list">${cs.map(c => `<li data-crisis="${c.id}"><span class="dot" style="background:${sevColor(c.max_severity)}"></span><span class="t">${esc(crisisTitle(c))}</span><span class="w">${trendChip(c)}</span></li>`).join('')}</ul></div>` : '')(CRISES.filter(c => c.country === iso).slice(0, 5))}
       ${upcomingSection(iso)}
+      ${citiesSection(iso)}
       ${reportsSection(iso)}
       <div class="d-sec"><h3>${t('incidents')}</h3><div class="stats">${counts}</div></div>
       ${r ? `<div class="d-sec"><h3>${t('components')}</h3>${bars}</div>` : ''}
@@ -1387,6 +1452,7 @@
       <div class="d-sec"><div class="hint">${t('risk_notice')}</div></div>`, 'country', iso);
     if (!window.VS_CALENDAR && !ensureCalendar.failed) ensureCalendar(() => { if (state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
     if (!window.VS_REPORTS && !ensureReports.failed) ensureReports(() => { if (window.VS_REPORTS && state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
+    if (!(window.VS_CDETAIL || {})[iso]) ensureDetail(iso, () => { if ((window.VS_CDETAIL || {})[iso] && state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
   }
 
   function openHealth() {
@@ -1556,12 +1622,14 @@
   }
 
   /* ------------------------------------------------------------------ interactions */
+  let markPeriod = null;
   function applyI18n() {
     document.documentElement.lang = state.lang;
     $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     $$('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
     $('#btn-lang').textContent = state.lang === 'fr' ? 'EN' : 'FR';
-    $$('#time-seg button[data-h]').forEach(b => { b.textContent = t('period_lbl')[b.dataset.h]; });
+    $$('#period-menu button[data-h]').forEach(b => { b.innerHTML = `<span>${esc(t('period_long')[b.dataset.h])}</span><span class="pm-short">${esc(t('period_lbl')[b.dataset.h])}</span>`; });
+    if (typeof markPeriod === 'function') markPeriod();
     $$('#ag-range option').forEach(o => { o.textContent = t('ag_range')[o.value]; });
     $('#btn-help') && $('#btn-help').setAttribute('title', t('help'));
   }
@@ -1637,15 +1705,33 @@
     $('#drawer-close').innerHTML = icon('x');
     $('#btn-panel').innerHTML = icon('list');
     $('#basemap').value = state.basemap;
-    const markPeriod = () => {
-      $$('#time-seg button[data-h]').forEach(x => x.setAttribute('aria-pressed', String(!state.range && String(state.hours) === x.dataset.h)));
-      $('#btn-range').setAttribute('aria-pressed', String(!!state.range));
-      $('#btn-range').innerHTML = icon('calendar', 15) + (state.range ? `<span>${esc(periodLabel())}</span>` : '');
+    markPeriod = () => {
+      $$('#period-menu button[data-h]').forEach(x => x.setAttribute('aria-selected', String(!state.range && String(state.hours) === x.dataset.h)));
+      $('#btn-range').setAttribute('aria-selected', String(!!state.range));
+      $('#btn-range').innerHTML = icon('calendar', 15) + `<span>${esc(state.range ? periodLabel() : t('range_custom'))}</span>`;
+      $('#period-btn').innerHTML = icon('clock', 15) + `<span class="pb-l">${esc(state.range ? periodLabel() : t('period_long')[state.hours] || periodLabel())}</span><span class="pb-s">${esc(state.range ? periodLabel() : periodLabel())}</span>` + icon('chevron-down', 14);
     };
-    $$('#time-seg button[data-h]').forEach(b => b.addEventListener('click', () => {
-      state.hours = b.dataset.h === 'all' ? 'all' : +b.dataset.h; state.range = null; $('#range-pop').hidden = true; markPeriod(); refresh();
+    const periodMenu = open => {
+      const m = $('#period-menu'); m.hidden = !open; $('#period-btn').setAttribute('aria-expanded', String(open));
+      if (!open) return;
+      $('#range-pop').hidden = true;
+      const cur = m.querySelector('[aria-selected="true"]'); if (cur) cur.focus();
+    };
+    $('#period-btn').addEventListener('click', ev => { ev.stopPropagation(); periodMenu($('#period-menu').hidden); });
+    $$('#period-menu button[data-h]').forEach(b => b.addEventListener('click', () => {
+      state.hours = b.dataset.h === 'all' ? 'all' : +b.dataset.h; state.range = null; $('#range-pop').hidden = true; periodMenu(false); markPeriod(); refresh();
     }));
-    $('#btn-range').addEventListener('click', () => { $('#range-pop').hidden = !$('#range-pop').hidden; });
+    $('#btn-range').addEventListener('click', ev => { ev.stopPropagation(); periodMenu(false); $('#range-pop').hidden = false; const f = $('#range-from'); if (f) f.focus(); });
+    $('#period-menu').addEventListener('keydown', ev => {
+      const items = $$('#period-menu button'); const i = items.indexOf(document.activeElement);
+      if (ev.key === 'ArrowDown') { ev.preventDefault(); items[(i + 1) % items.length].focus(); }
+      else if (ev.key === 'ArrowUp') { ev.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+      else if (ev.key === 'Escape') { periodMenu(false); $('#period-btn').focus(); }
+    });
+    document.addEventListener('click', ev => {
+      if (!ev.target.closest('#period-menu') && !ev.target.closest('#period-btn')) periodMenu(false);
+      if (!ev.target.closest('#range-pop') && !ev.target.closest('#btn-range') && !ev.target.closest('#period-btn')) $('#range-pop').hidden = true;
+    });
     $('#range-pop').addEventListener('submit', ev => {
       ev.preventDefault();
       const parse = v => { v = v.trim(); const m = v.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/); return m ? `${m[3]}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}` : (/^\d{4}-\d{2}-\d{2}$/.test(v) ? v : null); };

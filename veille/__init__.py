@@ -16,7 +16,9 @@ Organisation :
 - llm.py         : socle IA commun (budget, cache, tâches activables)
 - reports.py     : agrégateur de rapports (think tanks, OI, ONG) → onglet Rapports
 - early_warning.py : alerte précoce climat-conflit par unité administrative → onglet Alerte précoce
+- fcdo.py        : texte détaillé des conseils FCDO par rubrique (rapport pays)
+- country_detail.py : villes, aéroports, secours, santé par pays → docs/data/country/<ISO>.js
 - publish.py     : historique local et fichiers lus par la carte
 """
 
-__version__ = "0.13.0"
+__version__ = "0.14.0"
