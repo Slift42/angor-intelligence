@@ -325,3 +325,29 @@ Pour aller plus loin (facultatif) :
   https://hapi.humdata.org/docs et le mettre dans `config/early_warning.json` → `hapi_app_identifier`.
 - **Presse régionale française** : 6 titres ajoutés (Télégramme, Progrès, DNA, Est Républicain, Dauphiné, La 1ère) sans
   vérification possible depuis l'atelier ; ceux qui ne répondent pas passent en pause (voir « État des sources »).
+
+
+## Partie J – Bouton « Actualiser » : collecte immédiate (facultatif, nécessite la partie H)
+
+Sans cette partie, le bouton ⟳ recharge simplement les dernières données publiées et indique l'heure de la prochaine
+collecte automatique. Avec elle, un utilisateur connecté et validé peut lancer une collecte tout de suite (≈ 5 min).
+Garde-fous : une seule collecte à la fois, et au plus une demande toutes les 10 minutes pour tout le monde.
+
+1. GitHub → photo de profil → **Settings → Developer settings → Personal access tokens → Fine-grained tokens →
+   Generate new token** : nom « angor-actualiser », expiration 1 an, **Only select repositories** → `angor-intelligence`,
+   **Repository permissions → Actions : Read and write**. Copiez le jeton (il ne sera plus affiché).
+2. Dans le dossier du projet :
+   ```
+   supabase secrets set GITHUB_TOKEN=… GITHUB_REPO=Slift42/angor-intelligence GITHUB_WORKFLOW=collecte.yml
+   supabase functions deploy trigger-collect
+   ```
+3. **publier.bat**. Le jeton ne quitte jamais Supabase : il n'est ni dans le site ni dans le dépôt.
+
+## Traduction automatique
+
+- **Dans le navigateur** (Chrome et Edge récents, sur ordinateur) : les titres sont traduits sur l'appareil, gratuitement,
+  sans rien envoyer à un tiers. La première fois, le navigateur télécharge le modèle de langue au premier clic.
+  Bouton 文A pour activer ou couper la traduction.
+- **Pour tous les navigateurs** (Firefox, Safari, mobile) : dès que la clé Anthropic est branchée (partie G), le robot traduit
+  chaque titre en français et en anglais pendant l'analyse (coût négligeable : même appel que le résumé).
+- Sinon, la fiche d'un incident propose un lien « Traduire avec Google ».

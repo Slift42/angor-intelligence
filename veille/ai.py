@@ -44,6 +44,8 @@ Return ONLY a JSON array, one object per headline, in the same order:
   disruption, 4 critical: mass casualties, war escalation, national emergency),
   "country": ISO 3166-1 alpha-2 code of where the event happens (not the outlet's country) or null,
   "place": most precise city/locality name in English where it happens, or null,
+  "title_en": the headline translated into plain English (max 18 words; copy it if already English),
+  "title_fr": the headline translated into French (max 18 words; copy it if already French),
   "summary_en": neutral factual summary in English, 2-3 short sentences, max 45 words,
   "summary_fr": the same summary in French, 2-3 short sentences, max 45 words}}
 Summaries: use ONLY the facts in the headline and snippet (who, what, where, when, toll if stated);
@@ -120,7 +122,7 @@ def analyze(items, store, settings, log, now):
             if row.get("country"):
                 row["country"] = str(row["country"]).upper()[:2]
             fiche = {k: row.get(k) for k in ("relevant", "category", "severity", "country", "place",
-                                             "summary_en", "summary_fr")}
+                                             "summary_en", "summary_fr", "title_en", "title_fr")}
             cache[b["title"]] = results[b["title"]] = fiche
             done += 1
     if len(cache) > 20000:  # le cache ne grossit pas indéfiniment

@@ -764,7 +764,10 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             elif it.get("country_hint"):
                 loc = {"country": it["country_hint"]}
         uid = hashlib.sha1(key.encode()).hexdigest()[:12]
+        if ai:  # titres traduits par l'IA (affichés dans la langue de la plateforme)
+            it["_tfr"], it["_ten"] = ai.get("title_fr") or "", ai.get("title_en") or ""
         news.append({"id": f"press-{uid}", "source": it["outlet"], "title": it["title"], "url": it["url"],
+                     **({"title_fr": it["_tfr"]} if it.get("_tfr") else {}), **({"title_en": it["_ten"]} if it.get("_ten") else {}),
                      "summary_en": (ai or {}).get("summary_en", ""),
                      "date": to_iso(it["date"]), "lang": it.get("lang", ""), "category": cat, "severity": sev,
                      "country": (loc or {}).get("country"), "place": (loc or {}).get("place", "")})
@@ -803,6 +806,11 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
         ev["sources"] = [{"name": x["outlet"], "url": x["url"], "title": x["title"], **({"site": x["site"]} if x.get("site") else {})}
                          for x in items[:8]]
         ev["headline"] = first["title"]
+        if first.get("lang"):
+            ev["lang"] = first["lang"][:2]
+        for k, f in (("title_fr", "_tfr"), ("title_en", "_ten")):
+            if first.get(f):
+                ev[k] = first[f]
         if g.get("summary_fr"):
             ev["summary_fr"] = g["summary_fr"]
         if g.get("snippet"):

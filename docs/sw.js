@@ -3,7 +3,7 @@
    - pages, code et données : réseau d'abord, copie locale si pas de réseau ;
    - bibliothèques et icônes : copie locale d'abord ;
    - fonds de carte et API externes : jamais mis en cache ici. */
-const CACHE = 'angor-v1';
+const CACHE = 'angor-v2';  // v2 : les bibliothèques sont versionnées (?v=…), une nouvelle version n'est plus masquée
 const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'gonogo.js', 'account.js', 'compte.html', 'aide.html',
   'vendor/icons.js', 'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css', 'vendor/markercluster/leaflet.markercluster.js',
   'vendor/markercluster/MarkerCluster.css', 'data/countries.js', 'data/data.js', 'manifest.webmanifest', 'icons/icon-192.png'];
@@ -21,14 +21,15 @@ self.addEventListener('fetch', ev => {
   if (url.origin !== location.origin) return;                         // tuiles, Supabase, IA : réseau direct
   const cacheFirst = /\/(vendor|icons)\//.test(url.pathname);
   if (cacheFirst) {
-    ev.respondWith(caches.match(req, { ignoreSearch: true }).then(hit => hit || fetch(req).then(r => { put(req, r.clone()); return r; })));
+    // copie locale d'abord, mais par adresse complète : app.js?v=nouveau n'est jamais servi par une ancienne copie
+    ev.respondWith(caches.match(req).then(hit => hit || fetch(req).then(r => { if (r.ok) put(req, r.clone(), true); return r; })));
     return;
   }
   ev.respondWith(fetch(req).then(r => { if (r.ok) put(req, r.clone()); return r; })
     .catch(() => caches.match(req, { ignoreSearch: true }).then(hit => hit || (req.mode === 'navigate' ? caches.match('index.html') : Response.error()))));
 });
-function put(req, res) {
-  const u = new URL(req.url); u.search = '';                          // une seule copie par fichier (sans ?v=)
+function put(req, res, keepSearch) {
+  const u = new URL(req.url); if (!keepSearch) u.search = '';        // réseau d'abord : une seule copie par fichier
   caches.open(CACHE).then(c => c.put(u.toString(), res)).catch(() => {});
 }
 

@@ -625,3 +625,12 @@ svg.bars { display: block; }
 .ew-key i { display: inline-block; width: 12px; height: 8px; margin-right: 4px; vertical-align: middle; border-radius: 2px; }
 .ew-key .k-avg { height: 0; border-top: 1.5px dashed var(--ink-2); }
 .ew-key .k-band { background: var(--ink-2); opacity: .2; }
+
+/* ------------------------------------------------------------------ v0.12 : actualiser, traduction */
+#btn-refresh.spin svg { animation: vs-spin 1.1s linear infinite; }
+@keyframes vs-spin { to { transform: rotate(360deg); } }
+#btn-autotr.on { color: var(--accent); background: var(--accent-soft); }
+.trd { text-decoration: underline dotted color-mix(in srgb, var(--muted) 55%, transparent); text-underline-offset: 3px; }
+.tr-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; margin: -2px 0 6px; }
+.toast-act { margin-left: 8px; border: 0; border-radius: 6px; padding: 3px 10px; background: var(--accent); color: #fff; font-weight: 600; }
+@media (max-width: 860px) { #btn-autotr { display: none; } }

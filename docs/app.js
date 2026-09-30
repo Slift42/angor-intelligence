@@ -28,6 +28,13 @@
       sc_done: 'Réponse envoyée. Merci.', sc_err: 'Réponse non envoyée : vérifiez votre connexion.', sc_launch: 'Lancer un safety check',
       acc_login: 'Se connecter', acc_pending: 'Compte en attente de validation',
       tab_agenda: 'Agenda', help: 'Aide', tab_reports: 'Rapports', tab_ew: 'Alerte précoce',
+      rf_title: 'Actualiser : dernières données, ou lancer une collecte immédiate', rf_checking: 'Recherche des dernières données…',
+      rf_new: 'Nouvelles données disponibles : rechargement…', rf_started: 'Collecte lancée : nouvelles données dans 5 minutes environ. La carte se mettra à jour toute seule.',
+      rf_running: 'Une collecte est déjà en cours : la carte se mettra à jour dès qu’elle sera terminée.', rf_recent: 'Une collecte vient d’avoir lieu (il y a moins de 10 minutes) : les données sont à jour.',
+      rf_uptodate: (a, b) => `Données à jour (collecte de ${a}). Prochaine collecte automatique vers ${b}. Connectez-vous pour lancer une collecte immédiate.`,
+      rf_err: 'Collecte immédiate indisponible pour le moment.', rf_ready: 'Nouvelles données prêtes.', rf_show: 'Afficher', rf_wait: 'Collecte en cours…',
+      tr_on: 'Traduction automatique activée', tr_off: 'Traduction automatique désactivée : titres dans leur langue d’origine',
+      tr_title: 'Traduire automatiquement les titres dans la langue de la plateforme', tr_google: 'Traduire avec Google', tr_original: 'Texte original', tr_auto: 'traduction automatique',
       rep_hint: 'Les derniers rapports et analyses de fond sur les pays et les crises : think tanks, organisations internationales, ONG, cabinets. Titre, résumé de l’éditeur et lien vers la publication.',
       rep_ph: 'Rechercher un rapport, un pays, une organisation…', rep_all_geo: 'Tous pays et régions', rep_all_type: 'Tous producteurs', rep_all_theme: 'Tous thèmes',
       rep_days: n => `${n} derniers jours`, rep_count: (n, o) => `${n} publication(s) · ${o} producteur(s)`, rep_more: 'Afficher plus', rep_none: 'Aucun rapport pour ces critères.',
@@ -152,6 +159,13 @@
       sc_done: 'Answer sent. Thank you.', sc_err: 'Answer not sent: check your connection.', sc_launch: 'Launch a safety check',
       acc_login: 'Sign in', acc_pending: 'Account awaiting approval',
       tab_agenda: 'Agenda', help: 'Help', tab_reports: 'Reports', tab_ew: 'Early warning',
+      rf_title: 'Refresh: latest data, or start an immediate collection', rf_checking: 'Looking for the latest data…',
+      rf_new: 'New data available: reloading…', rf_started: 'Collection started: new data in about 5 minutes. The map will update by itself.',
+      rf_running: 'A collection is already running: the map will update as soon as it finishes.', rf_recent: 'A collection just ran (less than 10 minutes ago): data is up to date.',
+      rf_uptodate: (a, b) => `Data up to date (collected ${a}). Next automatic collection around ${b}. Sign in to start an immediate collection.`,
+      rf_err: 'Immediate collection unavailable right now.', rf_ready: 'New data ready.', rf_show: 'Show', rf_wait: 'Collecting…',
+      tr_on: 'Automatic translation on', tr_off: 'Automatic translation off: titles in their original language',
+      tr_title: 'Automatically translate titles into the platform language', tr_google: 'Translate with Google', tr_original: 'Original text', tr_auto: 'automatic translation',
       rep_hint: 'The latest in-depth reports and analysis on countries and crises: think tanks, international organisations, NGOs, consultancies. Title, publisher summary and link to the publication.',
       rep_ph: 'Search a report, country, organisation…', rep_all_geo: 'All countries and regions', rep_all_type: 'All publishers', rep_all_theme: 'All themes',
       rep_days: n => `Last ${n} days`, rep_count: (n, o) => `${n} publication(s) · ${o} publisher(s)`, rep_more: 'Show more', rep_none: 'No report for these criteria.',
@@ -438,8 +452,9 @@
     const a = Math.sin(dp / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) ** 2;
     return 2 * r * Math.asin(Math.sqrt(a));
   }
-  function toast(msg, ms = 2800) {
+  function toast(msg, ms = 2800, action) {
     const el = $('#toast'); el.textContent = msg; el.hidden = false;
+    if (action) { const b = document.createElement('button'); b.className = 'toast-act'; b.textContent = action.label; b.onclick = () => { el.hidden = true; action.fn(); }; el.append(' ', b); }
     clearTimeout(toast._t); if (ms) toast._t = setTimeout(() => { el.hidden = true; }, ms);
   }
 
@@ -673,7 +688,7 @@
     $('#ongoing-list').innerHTML = crises.length ? crises.map(c => `<li class="crisis">
       <div class="c-head" data-country="${c.iso === '_sea' ? '' : c.iso}"><span class="lvl" style="background:${sevColor(c.max)}">${c.evs.length}</span>
         <div><div class="n">${c.iso === '_sea' ? '' : flagImg(c.iso)}${esc(c.iso === '_sea' ? t('at_sea') : countryName(c.iso))} <span class="crisis-tag ${crisisLevel(c.evs)}">${t('crisis_' + crisisLevel(c.evs))}</span></div><div class="s">${c.risk ? `${t('risk_level')} ${c.risk} · ${esc(riskLabel(c.risk))}` : ''}</div></div></div>
-      <ul class="mini-list">${c.evs.slice(0, 5).map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${esc(e.title)}</span><span class="w">${esc(ago(e.date))}</span></li>`).join('')}</ul>
+      <ul class="mini-list">${c.evs.slice(0, 5).map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${ttl(e)}</span><span class="w">${esc(ago(e.date))}</span></li>`).join('')}</ul>
       ${c.evs.length > 5 ? `<div class="hint">+ ${c.evs.length - 5}</div>` : ''}</li>`).join('') : `<li class="empty">${t('no_ongoing')}</li>`;
   }
 
@@ -718,7 +733,7 @@
         <div class="stat"><div class="n" style="color:${sevColor(c.max_severity)}">${c.max_severity}/4</div><div class="l">${esc(t('max_sev'))}</div></div></div></div>
       <div class="d-sec"><h3>${t('chrono_daily')}</h3>${dailyBars(c, 320, 60)}<div class="hint">${esc(t('peak'))} : ${esc(fmtDay(c.peak))} · ${esc((c.places || []).join(', '))}</div></div>
       <div class="d-sec"><h3>${t('chrono_timeline')}</h3><div class="timeline">${Object.entries(byDay).map(([d, list]) => `<div class="tl-day"><div class="tl-date">${esc(fmtDay(d))}</div>
-        <ul class="mini-list">${list.map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${esc(e.title)}<br><span class="muted small">${esc(new Date(e.date).toLocaleTimeString(state.lang === 'fr' ? 'fr-FR' : 'en-GB', { hour: '2-digit', minute: '2-digit' }))} · ${esc(e.place || '')}</span></span><span class="w">${admBadge(e)}</span></li>`).join('')}</ul></div>`).join('')}</div></div>`, 'crisis', id);
+        <ul class="mini-list">${list.map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${ttl(e)}<br><span class="muted small">${esc(new Date(e.date).toLocaleTimeString(state.lang === 'fr' ? 'fr-FR' : 'en-GB', { hour: '2-digit', minute: '2-digit' }))} · ${esc(e.place || '')}</span></span><span class="w">${admBadge(e)}</span></li>`).join('')}</ul></div>`).join('')}</div></div>`, 'crisis', id);
   }
   function focusCrisis(id) {
     state.crisisFocus = id; state.tab = 'alerts'; renderTabs(); renderAll();
@@ -765,6 +780,124 @@
     return `<div class="d-sec"><h3>${icon('calendar', 14)} ${t('upcoming')}</h3>${all.length ? `<ul class="mini-list">${all.map(e => `<li><span class="dot ag-${agTypeOf(e)}"></span><span class="t">${esc(agTitle(e))}</span><span class="w">${e.prec === 'year' ? esc(e.d.slice(0, 4)) : esc(fmtDay(e.d))}</span></li>`).join('')}</ul>` : `<div class="hint">${t('no_upcoming')}</div>`}</div>`;
   }
 
+  /* ------------------------------------------------------------------ traduction automatique */
+  // 1) titres traduits par le robot (IA, quand la clé Anthropic est branchée) ; 2) sinon, traduction dans le
+  // navigateur (API Translator de Chrome / Edge : sur l'appareil, gratuite, rien n'est envoyé) ; 3) sinon, texte original.
+  const TR = { mem: {}, jobs: [], busy: false, tr: {}, same: new Set(), gesture: false, count: 0, enabled: store.get('vs-autotr', true) };
+  try { TR.mem = JSON.parse(localStorage.getItem('vs-tr') || '{}') || {}; } catch (e) { TR.mem = {}; }
+  const trSupported = () => 'Translator' in self;
+  const trHash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+  const OFFICIAL_EN = new Set(['USGS', 'GDACS', 'NASA EONET', 'WHO', 'NWS', 'CISA', 'NOAA NHC', 'Smithsonian GVP', 'Copernicus EMS', 'PTWC', 'NTWC', 'ECDC', 'GDELT', 'UCDP']);
+  function srcLangOf(x) {
+    const l = String(x.lang || x.l || '').slice(0, 2).toLowerCase();
+    if (l) return l;
+    return OFFICIAL_EN.has(x.source) || String(x.source || '').startsWith('UCDP') ? 'en' : '';
+  }
+  function trHtml(text, src, robot) {
+    if (robot) return esc(robot);
+    if (!text) return '';
+    const tgt = state.lang;
+    if (!TR.enabled || src === tgt) return esc(text);
+    const k = tgt + '|' + text;
+    if (TR.mem[k]) return `<span class="trd" title="${esc(t('tr_original'))} : ${esc(text)}">${esc(TR.mem[k])}</span>`;
+    if (trSupported() && !TR.same.has(k) && TR.count < 800) trQueue(text, src, tgt, k);
+    return `<span data-trk="${trHash(k)}">${esc(text)}</span>`;
+  }
+  const ttl = x => trHtml(x.title, srcLangOf(x), TR.enabled ? (state.lang === 'fr' ? x.title_fr : x.title_en) : null);
+  function trQueue(text, src, tgt, k) {
+    if (TR.jobs.some(j => j.k === k)) return;
+    TR.jobs.push({ text, src, tgt, k });
+    if (!TR.busy) setTimeout(trRun, 30);
+  }
+  async function trDetect(text) {
+    if (!('LanguageDetector' in self)) return '';
+    try { TR.det = TR.det || await self.LanguageDetector.create(); const r = await TR.det.detect(text); return r && r[0] && r[0].confidence > 0.5 ? r[0].detectedLanguage.slice(0, 2) : ''; } catch (e) { return ''; }
+  }
+  async function trGet(src, tgt) {
+    const key = src + '>' + tgt;
+    if (key in TR.tr) return TR.tr[key];
+    let av = 'unavailable';
+    try { av = await self.Translator.availability({ sourceLanguage: src, targetLanguage: tgt }); } catch (e) { /* paire inconnue */ }
+    if (av === 'unavailable') return (TR.tr[key] = null);
+    if (av !== 'available' && !(navigator.userActivation && navigator.userActivation.isActive)) { TR.gesture = true; return undefined; }  // téléchargement du modèle : il faut un clic
+    TR.tr[key] = self.Translator.create({ sourceLanguage: src, targetLanguage: tgt }).catch(() => null);
+    return TR.tr[key];
+  }
+  async function trRun() {
+    if (TR.busy) return; TR.busy = true;
+    const waiting = [];
+    while (TR.jobs.length) {
+      const j = TR.jobs.shift();
+      const src = j.src || await trDetect(j.text);
+      if (!src) { TR.same.add(j.k); continue; }  // langue inconnue : on laisse le texte original
+      if (src === j.tgt) { TR.same.add(j.k); continue; }
+      const tr = await trGet(src, j.tgt);
+      if (tr === undefined) { waiting.push(j); continue; }
+      if (!tr) { TR.same.add(j.k); continue; }
+      try {
+        const out = await tr.translate(j.text); TR.count++;
+        if (out && out !== j.text) {
+          TR.mem[j.k] = out;
+          document.querySelectorAll(`[data-trk="${trHash(j.k)}"]`).forEach(el => { el.textContent = out; el.className = 'trd'; el.title = `${t('tr_original')} : ${j.text}`; el.removeAttribute('data-trk'); });
+        } else TR.same.add(j.k);
+      } catch (e) { TR.same.add(j.k); }
+    }
+    TR.jobs.push(...waiting); TR.busy = false;
+    clearTimeout(TR.saveT); TR.saveT = setTimeout(() => {
+      const ks = Object.keys(TR.mem); if (ks.length > 3000) ks.slice(0, ks.length - 3000).forEach(k => delete TR.mem[k]);
+      try { localStorage.setItem('vs-tr', JSON.stringify(TR.mem)); } catch (e) { /* stockage plein */ }
+    }, 1500);
+  }
+  // premier clic : autorise le téléchargement des modèles de traduction (exigé par le navigateur)
+  document.addEventListener('pointerdown', () => { if (TR.gesture && TR.jobs.length) { TR.gesture = false; trRun(); } }, true);
+  function bindAutoTr() {
+    const b = $('#btn-autotr'); if (!b) return;
+    const paint = () => { b.innerHTML = icon('languages', 17); b.classList.toggle('on', TR.enabled); b.title = t('tr_title'); b.setAttribute('aria-pressed', String(TR.enabled)); };
+    paint();
+    b.addEventListener('click', () => { TR.enabled = !TR.enabled; store.set('vs-autotr', TR.enabled); paint(); toast(t(TR.enabled ? 'tr_on' : 'tr_off')); renderAll(); reopenDrawer(); });
+  }
+  const googleTr = text => `https://translate.google.com/?sl=auto&tl=${state.lang}&text=${encodeURIComponent(text)}&op=translate`;
+
+  /* ------------------------------------------------------------------ actualiser */
+  const readGenerated = txt => ((txt || '').slice(0, 400).match(/"generated"\s*:\s*"([^"]+)"/) || [])[1] || '';
+  async function latestGenerated() {
+    try { const r = await fetch('data/data.js?t=' + Date.now(), { cache: 'no-store' }); return r.ok ? readGenerated(await r.text()) : ''; } catch (e) { return ''; }
+  }
+  function nextAutoRun() {
+    const d = new Date(); d.setSeconds(0, 0);
+    d.setMinutes(d.getMinutes() < 30 ? 30 : 60); d.setMinutes(d.getMinutes() + 8);  // robot toutes les 30 min, ~8 min de collecte et de mise en ligne
+    return d.toLocaleTimeString(state.lang === 'fr' ? 'fr-FR' : 'en-GB', { hour: '2-digit', minute: '2-digit' });
+  }
+  function reloadView() {
+    ['data/data.js', 'data/calendar.js', 'data/reports.js', 'data/early_warning.js'].forEach(u => fetch(u, { cache: 'reload' }).catch(() => {}));
+    setTimeout(() => location.replace(viewUrl()), 500);
+  }
+  function pollNewData(since) {
+    clearInterval(pollNewData.t); const t0 = Date.now();
+    $('#btn-refresh').classList.add('spin'); $('#btn-refresh').title = t('rf_wait');
+    pollNewData.t = setInterval(async () => {
+      const g = await latestGenerated();
+      if (g && g > since) { clearInterval(pollNewData.t); $('#btn-refresh').classList.remove('spin'); toast(t('rf_ready'), 0, { label: t('rf_show'), fn: reloadView }); }
+      else if (Date.now() - t0 > 20 * 60000) { clearInterval(pollNewData.t); $('#btn-refresh').classList.remove('spin'); $('#btn-refresh').title = t('rf_title'); }
+    }, 40000);
+  }
+  async function forceRefresh() {
+    const btn = $('#btn-refresh'); if (btn.classList.contains('spin') && pollNewData.t) { toast(t('rf_running')); return; }
+    btn.classList.add('spin'); toast(t('rf_checking'), 0);
+    const cur = (D && D.generated) || '';
+    const g = await latestGenerated();
+    if (g && g > cur) { toast(t('rf_new')); reloadView(); return; }
+    const A = window.AngorAccount;
+    if (A && A.enabled && ACC.profile && ACC.profile.status === 'approved') {
+      try {
+        const r = await A.fn('trigger-collect', {});
+        if (r && (r.status === 'started' || r.status === 'running')) { toast(t(r.status === 'started' ? 'rf_started' : 'rf_running'), 9000); pollNewData(cur); return; }
+        toast(t('rf_recent'), 6000);
+      } catch (e) { toast(t('rf_err'), 5000); }
+    } else toast(t('rf_uptodate', fmtDate(cur), nextAutoRun()), 8000);
+    btn.classList.remove('spin');
+  }
+
   /* ------------------------------------------------------------------ rapports */
   function ensureReports(done) {
     if (window.VS_REPORTS || ensureReports.failed) return done();
@@ -776,7 +909,7 @@
     const o = repOrg(r), geo = (r.c || []).slice(0, 4).map(iso => `<button class="rep-geo" data-rep-geo="${iso}" title="${esc(countryName(iso) || iso)}">${flagImg(iso)}${esc(countryName(iso) || iso)}</button>`).join('');
     return `<li class="rep-item"><a href="${esc(r.u)}" target="_blank" rel="noopener">
       <div class="m"><span class="rep-org" style="--c:${REP_TYPE_COLORS[o.type] || '#4A5A6B'}">${esc(o.n)}</span><span>${esc(fmtDay(r.d.slice(0, 10)))}</span>${r.l && r.l !== state.lang ? `<span class="muted">${esc(r.l.toUpperCase())}</span>` : ''}</div>
-      <div class="t">${esc(r.t)}</div>${r.s ? `<div class="s">${esc(r.s)}</div>` : ''}</a>
+      <div class="t">${trHtml(r.t, r.l)}</div>${r.s ? `<div class="s">${trHtml(r.s, r.l)}</div>` : ''}</a>
       ${geo || (r.th || []).length ? `<div class="rep-tags">${geo}${(r.th || []).slice(0, 2).map(th => `<span class="rep-th">${esc((t('rep_themes') || {})[th] || th)}</span>`).join('')}</div>` : ''}</li>`;
   }
   function renderReports() {
@@ -808,7 +941,7 @@
     const R = window.VS_REPORTS; if (!R) return '';
     const list = (R.items || []).filter(r => (r.c || []).includes(iso)).slice(0, 4);
     if (!list.length) return '';
-    return `<div class="d-sec"><h3>${icon('library', 14)} ${t('rep_country')}</h3><ol class="rep-list compact">${list.map(reportRow).join('')}</ol>
+    return `<div class="d-sec"><h3>${icon('book-open-text', 14)} ${t('rep_country')}</h3><ol class="rep-list compact">${list.map(reportRow).join('')}</ol>
       <button class="btn small" data-rep-country="${iso}">${esc(t('rep_all_country'))}</button></div>`;
   }
 
@@ -865,7 +998,7 @@
   function renderTabs() {
     $$('.tabs button').forEach(b => {
       b.setAttribute('aria-selected', String(b.dataset.tab === state.tab));
-      const ic = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle', agenda: 'calendar', reports: 'library', ew: 'radar' }[b.dataset.tab];
+      const ic = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle', agenda: 'calendar', reports: 'book-open-text', ew: 'radar' }[b.dataset.tab];
       let label = icon(ic, 20) + `<span>${esc(t('tab_' + b.dataset.tab))}</span>`;
       const n = b.dataset.tab === 'sites' ? EVENTS.filter(e => inWindow(e) && e._near.length && e.severity >= 2).length
         : b.dataset.tab === 'ongoing' ? EVENTS.filter(isOngoing).length : 0;
@@ -927,7 +1060,7 @@
       return `<li class="alert${state.selected === e.id ? ' active' : ''}${e._false ? ' is-false' : ''}" data-id="${esc(e.id)}">
         <span class="stripe" style="background:${sevColor(e.severity)}"></span>
         <span class="ico" style="background:${sevColor(e.severity)}">${icon(cat(e.category).icon)}</span>
-        <div><div class="t">${esc(e.title)}</div>
+        <div><div class="t">${ttl(e)}</div>
           ${desc ? `<div class="d">${esc(desc)}</div>` : ''}
           <div class="m"><span>${esc(catLabel(e.category))}</span><span>${esc(ago(e.date))}</span><span>${esc(place)}</span>${nearLabel(e)}</div>
           <div class="m src"><span class="tag${isAuto(e) ? ' auto' : ''}">${icon('newspaper', 11)} ${esc(sourceLabel(e))}</span>${isAuto(e) ? `<span class="tag auto">auto</span>` : ''}${admBadge(e)}${verBadge(e)}</div></div></li>`;
@@ -1003,7 +1136,7 @@
     const q = state.newsFilter.toLowerCase();
     const items = NEWS.filter(n => !q || (n.title + ' ' + n.source + ' ' + countryName(n.country)).toLowerCase().includes(q)).slice(0, 200);
     $('#news-list').innerHTML = items.length ? items.map(n =>
-      `<li class="news-item"><a href="${esc(n.url)}" target="_blank" rel="noopener"><div class="t">${esc(n.title)}</div>
+      `<li class="news-item"><a href="${esc(n.url)}" target="_blank" rel="noopener"><div class="t">${ttl(n)}</div>
         <div class="m">${n.severity ? `<i class="dot" style="background:${sevColor(n.severity)}"></i>` : ''}${esc(n.source)} · ${esc(ago(n.date))}${n.country ? ' · ' + esc(countryName(n.country)) : ''}${n.category ? ' · ' + esc(catLabel(n.category)) : ''}${n.lang ? ' · ' + esc(n.lang.toUpperCase()) : ''}</div></a></li>`
     ).join('') : `<li class="empty">${t('no_news')}</li>`;
   }
@@ -1094,8 +1227,10 @@
       <div class="d-head">
         <div class="d-kicker"><span class="pill" style="background:${sevColor(e.severity)}">${esc(sevLabel(e.severity))}</span>
           <span style="display:inline-flex;gap:5px;align-items:center">${icon(cat(e.category).icon, 14)}${esc(catLabel(e.category))}</span></div>
-        <h2 class="d-title">${esc(e.title)}</h2>
-        <div class="d-sum"><p class="d-desc">${esc(sum.text)}</p><span class="d-sum-kind">${esc(t('sum_' + sum.kind))}</span></div>
+        <h2 class="d-title">${ttl(e)}</h2>
+        ${(src => TR.enabled && !trSupported() && !(state.lang === 'fr' ? e.title_fr : e.title_en) && (src ? src !== state.lang : (e.tags || []).includes('press'))
+          ? `<a class="tr-link" href="${esc(googleTr(e.title))}" target="_blank" rel="noopener">${icon('languages', 13)} ${esc(t('tr_google'))} ↗</a>` : '')(srcLangOf(e))}
+        <div class="d-sum"><p class="d-desc">${sum.kind === 'source' ? trHtml(sum.text, srcLangOf(e)) : esc(sum.text)}</p><span class="d-sum-kind">${esc(t('sum_' + sum.kind))}</span></div>
         <div class="d-source">${icon('newspaper', 14)}<span><strong>${t('source_lbl')} :</strong> ${esc(sourceLabel(e))}</span></div>
         ${isAuto(e) ? `<div class="notice">${t('auto_notice')}</div>` : ''}
         ${(e.tags || []).includes('multi-source') ? `<div class="notice" style="border-style:solid">✓ ${t('multi_source')}</div>` : ''}
@@ -1173,7 +1308,7 @@
       <div class="d-sec"><h3>${t('incidents')}</h3><div class="stats">${counts}</div></div>
       ${r ? `<div class="d-sec"><h3>${t('components')}</h3>${bars}</div>` : ''}
       ${advs ? `<div class="d-sec"><h3>${t('advisories')}</h3><ul class="mini-list">${advs}</ul></div>` : ''}
-      <div class="d-sec"><h3>${t('recent')}</h3>${recent.length ? `<ul class="mini-list">${recent.map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${esc(e.title)}</span><span class="w">${esc(ago(e.date))}</span></li>`).join('')}</ul>` : `<div class="hint">${t('no_recent')}</div>`}</div>
+      <div class="d-sec"><h3>${t('recent')}</h3>${recent.length ? `<ul class="mini-list">${recent.map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${ttl(e)}</span><span class="w">${esc(ago(e.date))}</span></li>`).join('')}</ul>` : `<div class="hint">${t('no_recent')}</div>`}</div>
       <div class="d-sec"><div class="hint">${t('risk_notice')}</div></div>`, 'country', iso);
     if (!window.VS_CALENDAR && !ensureCalendar.failed) ensureCalendar(() => { if (state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
     if (!window.VS_REPORTS && !ensureReports.failed) ensureReports(() => { if (window.VS_REPORTS && state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
@@ -1323,7 +1458,7 @@
       .filter(p => (p.name_fr || '').toLowerCase().includes(q) || (p.name_en || '').toLowerCase().includes(q)).slice(0, 5)
       .map(p => `<button data-country="${p.iso2}">${RISK[p.iso2] ? `<span class="pill" style="background:${riskColor(RISK[p.iso2].level)}">${RISK[p.iso2].level}</span>` : ''}${flagImg(p.iso2)}${esc(p['name_' + state.lang])}<span class="kind">${t('country')}</span></button>`);
     const es = EVENTS.filter(e => (e.title + ' ' + e.place + ' ' + (e.headline || '')).toLowerCase().includes(q)).slice(0, 8)
-      .map(e => `<button data-event="${esc(e.id)}"><span class="pill" style="background:${sevColor(e.severity)}">${e.severity}</span>${esc(e.title)}<span class="kind">${esc(ago(e.date))}</span></button>`);
+      .map(e => `<button data-event="${esc(e.id)}"><span class="pill" style="background:${sevColor(e.severity)}">${e.severity}</span>${ttl(e)}<span class="kind">${esc(ago(e.date))}</span></button>`);
     box.innerHTML = cs.concat(es).join('') || `<div class="empty">—</div>`;
     box.hidden = false;
   }
@@ -1617,7 +1752,7 @@
       .map(([k, ic, lb]) => `<button data-m="${k}" class="${cur === k ? 'on' : ''}" aria-label="${esc(t(lb))}">${icon(ic, 22)}<span>${esc(t(lb))}</span>${k === 'ongoing' && n ? `<b class="nb">${n}</b>` : ''}</button>`).join('');
     const acc = window.AngorAccount && window.AngorAccount.enabled;
     menu.innerHTML = [['countries', 'globe', t('tab_countries')], ['news', 'newspaper', t('tab_news')], ['agenda', 'calendar', t('tab_agenda')], ['sites', 'building-2', t('tab_sites')],
-      ['reports', 'library', t('tab_reports')], ['ew', 'radar', t('tab_ew')],
+      ['reports', 'book-open-text', t('tab_reports')], ['ew', 'radar', t('tab_ew')],
       ['analytics', 'chart-column', t('analytics')], ['share', 'share-2', t('share')], ...(acc ? [['account', 'users', t('m_account')]] : []),
       ...(ACC.profile && ACC.profile.role === 'admin' ? [['admin', 'shield', t('m_admin')]] : []), ['help', 'circle-help', t('help')],
       ['lang', 'globe', state.lang === 'fr' ? 'English' : 'Français'], ['theme', state.theme === 'dark' ? 'sun-medium' : 'moon', state.theme === 'dark' ? 'Clair' : 'Sombre'],
@@ -2197,6 +2332,9 @@
   bindBuddy();
   buildMobileNav();
   bindLayersToggle();
+  bindAutoTr();
+  $('#btn-refresh').innerHTML = icon('refresh-cw', 17); $('#btn-refresh').title = t('rf_title');
+  $('#btn-refresh').addEventListener('click', forceRefresh);
   if (window.AngorEW) window.AngorEW.init({ map, esc, icon, flagImg, countryName, openDrawer, loadScript,
     lang: () => state.lang, theme: () => state.theme, closeDrawer, closePanelMobile,
     enter: () => { map.removeLayer(riskLayer); $('#legend').hidden = true; },

@@ -125,6 +125,12 @@ Sans clé, le classement par mots-clés continue de fonctionner. Garde-fous :
 
 Elles sont regroupées par pays et classées en crise majeure, crise ou alerte.
 
+## Actualiser et traduire (v0.12)
+
+- **Bouton ⟳** : recharge les dernières données ; pour un utilisateur validé, lance une collecte immédiate via la fonction Supabase `supabase/functions/trigger-collect` (jeton GitHub côté serveur, garde-fous anti-abus). Guide, partie J.
+- **Traduction automatique** des titres (alertes, fil, rapports) : robot (IA, champs `title_fr` / `title_en`) quand la clé Anthropic est branchée, sinon traduction sur l'appareil (API Translator de Chrome / Edge), sinon lien Google Traduction.
+- Correctif : le service worker gardait d'anciennes versions des bibliothèques (icônes manquantes) ; icône Rapports en forme de livre.
+
 ## Rapports, alerte précoce et sources (v0.11)
 
 - **Tri du contenu renforcé** (`veille/press.py`) : une « attaque » n'est retenue que si elle est violente et pertinente (bilan lourd, lieu public ou cible institutionnelle, groupe armé, enlèvement) ; écartés : sport, métaphores (« Google attaque… »), animaux, accidents domestiques, feux d'artifice, suites judiciaires et hommages, menaces sans suite, séismes faibles déjà couverts par l'USGS.
