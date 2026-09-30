@@ -206,9 +206,15 @@ def main():
                   new_econ=econ)
     enrich.add_headlines(list(store["events"].values()), store["headlines"], log,
                          max_fetch=settings.get("headline_fetch_per_run", 150))
+    # langue des titres de presse déjà en mémoire (traduction dans la plateforme) et précision des lieux
+    for ev in store["events"].values():
+        if not ev.get("lang") and "press" in (ev.get("tags") or []):
+            ev["lang"] = press.guess_lang(ev.get("title", ""))
+    press.refine_regional(list(store["events"].values()), countries, log)
     all_events = dedupe(list(store["events"].values()))
     # validations de l'analyste (config/verified.json) + cotation de l'Amirauté sur chaque incident
     verified = quality.load_verified()
+    source_quality = quality.learn(store, all_events, verified)  # sources souvent infirmées : lettre abaissée
     all_events = quality.filter_and_rate(all_events, verified)
     # faits divers, procédures judiciaires… : écartés de la carte, y compris ceux déjà en mémoire
     noise = [e for e in all_events if "press" in (e.get("tags") or []) and not e.get("verified")
@@ -275,6 +281,7 @@ def main():
                        key=lambda n: n["date"], reverse=True),
         "status": list(store["status"].values()),
         "coverage": coverage(sources, store),
+        "source_quality": source_quality,
         "sites": [] if public else sites, "corridors": [] if public else corridors,
         "site_alerts": [] if public else alerts,
         "settings": {"product_name": product, "default_lang": settings.get("default_lang", "fr"),

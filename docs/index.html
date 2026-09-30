@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="vendor/markercluster/MarkerCluster.css">
 <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
-<link rel="stylesheet" href="app.css?v=d53c180c">
+<link rel="stylesheet" href="app.css?v=30722c9f">
 </head>
 <body>
 <div class="app" id="app">
@@ -60,17 +60,13 @@
   </header>
 
   <aside class="panel" id="panel">
-    <nav class="tabs" role="tablist">
-      <button role="tab" data-tab="alerts"></button>
-      <button role="tab" data-tab="ongoing"></button>
-      <button role="tab" data-tab="countries"></button>
-      <button role="tab" data-tab="news"></button>
-      <button role="tab" data-tab="sites"></button>
-      <button role="tab" data-tab="agenda"></button>
-      <button role="tab" data-tab="reports"></button>
-      <button role="tab" data-tab="ew"></button>
-      <button role="tab" data-tab="buddy"></button>
+    <nav class="tabs" role="tablist" aria-label="Espaces">
+      <button role="tab" data-space="veille"></button>
+      <button role="tab" data-space="pays"></button>
+      <button role="tab" data-space="sites"></button>
+      <button role="tab" data-space="anticipation"></button>
     </nav>
+    <div class="subtabs" id="subtabs" role="tablist"></div>
 
     <section class="tab-body" data-body="alerts">
       <div class="sev-summary" id="sev-summary"></div>
@@ -83,6 +79,7 @@
         <label class="switch"><input type="checkbox" id="only-watch"><span data-i18n="only_watch"></span></label>
       </details>
       <div class="focus-bar" id="focus-bar" hidden></div>
+      <button class="reliable-chip on" id="reliable-chip" type="button"></button>
       <div class="list-head"><span id="alerts-count"></span>
         <span class="list-actions">
           <button class="btn small" id="btn-export" type="button"></button>
@@ -167,6 +164,10 @@
       <ol class="rep-list" id="rep-list"></ol>
     </section>
 
+    <section class="tab-body" data-body="analytics" hidden>
+      <div id="analytics-intro"></div>
+    </section>
+
     <section class="tab-body ew" data-body="ew" hidden>
       <div id="ew-body"></div>
     </section>
@@ -231,14 +232,14 @@
 <script src="vendor/maplibre/maplibre-gl.js"></script>
 <script src="vendor/maplibre/leaflet-maplibre-gl.js"></script>
 <script src="vendor/chartjs/chart.umd.min.js"></script>
-<script src="vendor/icons.js?v=f44cafe8"></script>
+<script src="vendor/icons.js?v=c8fbdf75"></script>
 <script src="data/countries.js"></script>
 <script src="data/data.js" onerror="window.VS_DATA_MISSING=true"></script>
 <script src="data/history/index.js" onerror="window.VS_HIST_INDEX=null"></script>
 <script src="data/config.js" onerror="window.VS_CONFIG=null"></script>
 <script src="account.js?v=838b29fb"></script>
 <script src="gonogo.js?v=ae66a6e1"></script>
-<script src="ew.js?v=a1de10fb"></script>
-  <script src="app.js?v=18be263f"></script>
+<script src="ew.js?v=aad4d360"></script>
+  <script src="app.js?v=781a1621"></script>
 </body>
 </html>

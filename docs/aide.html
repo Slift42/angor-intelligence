@@ -87,24 +87,26 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <h2>L'écran en un coup d'œil</h2>
     <h3>Barre du haut</h3>
     <ul>
-      <li><strong>Recherche</strong> : tapez un pays, une ville ou un mot (« explosion », « Lagos ») puis Entrée.</li>
+      <li><strong>Recherche unique</strong> : un pays, une ville, un de vos sites, un incident ou un rapport (« Lagos », « explosion », « Crisis Group »). Les résultats sont groupés par type ; Entrée ouvre le premier.</li>
       <li><strong>Période</strong> : <span class="k">24 h</span> <span class="k">72 h</span> <span class="k">7 j</span> <span class="k">30 j</span> … <span class="k">Tout</span>, ou le calendrier pour choisir des dates précises (JJ/MM/AAAA). Au-delà de 30 jours, l'historique est chargé à la demande (jusqu'à 5 ans).</li>
       <li><strong>Analyses</strong> : tableau de bord (courbes, répartitions, classements).</li>
       <li><strong>Vues</strong> et <strong>Partager</strong> : voir <a href="#partage">Liens, vues, pays suivis</a>.</li>
       <li><strong>Pastille des sources</strong> : nombre de sources qui répondent ; cliquez pour le détail (source en panne, en pause…).</li>
       <li><strong>?</strong> ouvre cette aide, <strong>EN/FR</strong> change la langue, la lune/le soleil change le thème.</li>
     </ul>
-    <h3>Colonne de gauche (onglets)</h3>
+    <h3>Colonne de gauche : quatre espaces</h3>
+    <p>La barre de gauche regroupe l'outil en quatre espaces ; chacun a ses onglets en haut de la colonne.</p>
     <table>
-      <tr><th>Onglet</th><th>À quoi il sert</th></tr>
-      <tr><td>Alertes</td><td>La liste des incidents de la période, filtrable et triable.</td></tr>
-      <tr><td>En cours</td><td>Les situations actives des 72 dernières heures, regroupées par pays, et les chronologies de crise.</td></tr>
-      <tr><td>Pays</td><td>Tous les pays avec leur niveau de risque et leur Pulse ; tri, pays suivis.</td></tr>
-      <tr><td>Fil</td><td>Les titres de presse liés à la sûreté (et les vulnérabilités cyber exploitées), sans position sur la carte.</td></tr>
-      <tr><td>Mes sites</td><td>Vos sites et vos trajets surveillés, avec les alertes à proximité.</td></tr>
-      <tr><td>Agenda</td><td>Jours fériés, élections, fêtes religieuses et échéances à venir.</td></tr>
-      <tr><td>Travel buddy</td><td>L'assistant de voyage et le go / no-go guidé.</td></tr>
+      <tr><th>Espace</th><th>Onglets</th><th>À quoi il sert</th></tr>
+      <tr><td>Veille</td><td>Alertes · En cours · Fil</td><td>Les incidents de la période, les situations actives (72 h) et les chronologies de crise, les titres de presse sans position.</td></tr>
+      <tr><td>Pays</td><td>Pays · Agenda · Rapports</td><td>Niveau de risque et Pulse de chaque pays, échéances à venir, rapports de fond des think tanks et ONG.</td></tr>
+      <tr><td>Mes sites</td><td>Mes sites · Travel buddy</td><td>Vos sites et trajets surveillés, l'assistant de voyage et le go / no-go.</td></tr>
+      <tr><td>Anticipation</td><td>Alerte précoce · Analyses</td><td>Convergence climat-sécurité-humanitaire par région, tableaux de bord.</td></tr>
     </table>
+    <h3>Mode fiable (activé par défaut)</h3>
+    <p>Au-dessus de la liste des alertes, l'interrupteur <strong>Mode fiable</strong> masque les détections automatiques issues de sources peu fiables (cotées D, E ou F : GDELT, réseaux sociaux…) tant qu'aucune autre source ne les confirme. Elles restent visibles si elles sont proches d'un de vos sites. Cliquez pour tout afficher.</p>
+    <h3>Les fiches d'alerte</h3>
+    <p>Chaque alerte donne en une ligne <strong>pourquoi elle compte</strong> : distance à votre site ou à votre trajet le plus proche, crise en cours, pays suivi, recoupement par plusieurs sources, alerte officielle… puis la catégorie, le lieu, l'heure et la cotation de fiabilité.</p>
     <h3>La carte</h3>
     <p>Cliquez sur un marqueur pour ouvrir la fiche de l'incident, sur un pays pour sa fiche pays. Les marqueurs proches se regroupent ; zoomez pour les séparer. Le cadre <strong>Couches</strong> (en haut à droite) règle ce qui s'affiche ; la <strong>Légende</strong> (en bas à gauche) se replie d'un clic.</p>
     <p class="muted">Sur téléphone, la navigation passe par la barre du bas : voir <a href="#mobile">Application mobile</a>.</p>
@@ -389,7 +391,10 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
       <li><strong>Exporter verified.json</strong> télécharge l'ensemble des décisions ; l'administrateur remplace <code>config/verified.json</code> puis publie : le badge « Vérifié Angor » apparaît pour tous.</li>
     </ol>
     <p>Les échéances de l'agenda se complètent dans <code>config/calendar.json</code> ; les niveaux de risque d'un pays peuvent être corrigés dans <code>config/risk.json</code>.</p>
-  </section>
+      <h3>Valider en un clic et mesurer la qualité des sources</h3>
+    <p>En mode analyste (lien <code>?analyste=1</code>, ou « Mode analyste » dans État des sources et dans le menu Plus), chaque fiche d'incident affiche en haut <strong>Valider</strong> et <strong>Fausse alerte</strong>. Le bouton <strong>Enregistrer</strong> écrit directement dans <code>config/verified.json</code> (Chrome et Edge : choisissez le fichier la première fois), puis double-cliquez sur publier.bat.</p>
+    <p>Chaque décision alimente la <strong>qualité mesurée des sources</strong> (État des sources) : à partir de 5 décisions, une source souvent infirmée perd automatiquement une lettre de fiabilité (deux au-delà de 80 % de fausses alertes) ; une source confirmée à 90 % en gagne une.</p>
+</section>
 
   <section id="ia">
     <h2>Intelligence artificielle</h2>

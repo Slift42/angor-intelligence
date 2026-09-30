@@ -35,7 +35,7 @@ CATEGORY_WORDS = {
     "armed_conflict": ["airstrike", "air strike", "frappe", "bombard", "shelling", "artiller", "missile", "drone strike",
                        "drones", "clashes", "affrontement", "enfrentamiento", "confronto", "combat", "offensive",
                        "ofensiva", "gefecht", "kämpfe", "walki", "çatışma", "бой", "обстрел", "удар", "اشتباك",
-                       "غارة", "قصف", "strikes kill", "strike kills", "strikes hit", "strikes on", "strike on", "frappes", "troops", "militants", "rebels", "rebelles", "rebeldes", "insurg", "ceasefire",
+                       "غارة", "قصف", "strikes kill", "strike kills", "strikes hit", "strikes on", "strike on", "strike hits", "strike hit", "deadly strike", "russian strike", "israeli strike", "missile strike", "hit by russian", "hit by israeli", "guided bomb", "frappes", "troops", "militants", "rebels", "rebelles", "rebeldes", "insurg", "ceasefire",
                        "cessez-le-feu", "alto el fuego", "invasion", "incursion", "militia", "milice", "milicia",
                        "war ", "guerre", "guerra", "krieg", "wojna", "savaş", "войн", "حرب"],
     "unrest": ["protest", "manifest", "demonstrat", "riot", "émeute", "emeute", "disturbio", "motim", "rivolta",
@@ -74,7 +74,7 @@ CATEGORY_WORDS = {
               "шторм", "буря", "عاصفة", "tornado", "blizzard", "hailstorm", "grêle", "granizo", "snowstorm"],
     "wildfire": ["wildfire", "forest fire", "bushfire", "feu de forêt", "incendie de forêt", "incendios forestales",
                  "incendio forestal", "incêndio florestal", "incendio boschivo", "waldbrand", "bosbrand",
-                 "pożar lasu", "orman yangını", "лесной пожар", "حريق غابات", "incendie"],
+                 "pożar lasu", "orman yangını", "лесной пожар", "حريق غابات"],
     "volcano": ["volcan", "volcano", "vulcão", "vulcano", "vulkan", "wulkan", "yanardağ", "вулкан", "بركان", "eruption", "éruption", "erupción"],
     "landslide": ["landslide", "glissement de terrain", "deslizamiento", "deslizamento", "frana", "erdrutsch",
                   "osuwisko", "heyelan", "оползень", "انهيار أرضي", "mudslide", "coulée de boue", "avalanche"],
@@ -226,7 +226,9 @@ for _c, _ws in {"attack": ["gunmen", "gunman", "gunned down", "shot dead", "abdu
                            "tuee par balle", "abattu", "abattus", "narchomicide", "ataku", "ataki", "enlevent", "enleves",
                            "enlevees", "rapt"],
                 "unrest": ["riots", "rioting", "rioters"], "cyber": ["hacked", "hackers", "hacking"],
-                "crime": ["gangs", "mordes", "raububerfall"], "flood": ["crues"], "diplomatic": ["wahlen"]}.items():
+                "crime": ["gangs", "mordes", "raububerfall"], "flood": ["crues"], "diplomatic": ["wahlen"],
+                "wildfire": ["feux de foret", "incendie de vegetation", "incendies de foret", "feu de broussailles",
+                             "brush fire"]}.items():
     CATEGORY_WORDS[_c] = CATEGORY_WORDS[_c] + _ws
 _CAT_RE = {c: _word_re(ws) for c, ws in CATEGORY_WORDS.items()}
 _ESC_RE = _word_re(ESCALATE)
@@ -251,7 +253,8 @@ NOISE_WORDS = ["drill", "exercise", "exercice", "simulacro", "simulation", "tatb
                "offensive de charme", "long combat", "combat pour", "combat contre", "fight against", "lucha contra",
                "analyst reveals", "opinion", "[opinia]", "editorial", "tribune libre", "interview", "entretien avec",
                "player ratings", "ratings", "debut", "debutto", "derby", "tournoi", "torneo", "tournament", "championship",
-               "championnat", "asian games", "olympi", "medal", "medaille d'or"]
+               "championnat", "asian games", "olympi", "medal", "medaille d'or", "documentary", "documentaire",
+               "audience award", "explosive ordnance", "munitions cleared", "deminage", "demining"]
 _NOISE_RE = _word_re(NOISE_WORDS)
 
 # Pas un incident pour une organisation ou un voyageur : procédure judiciaire (mise en examen, procès,
@@ -277,7 +280,8 @@ PRIVATE_WORDS = ["sa compagne", "son compagnon", "son epouse", "sa femme", "son 
                  "boyfriend", "domestic", "his mother", "his father", "her mother", "neighbour", "neighbor", "toddler",
                  "teenager", "teen ", "pensioner", "su esposa", "su pareja", "su marido", "feminicidio", "violencia de genero",
                  "sua mulher", "companheira", "moglie", "compagna", "ehefrau", "freundin", "partnerin", "femizid",
-                 "suicide", "suicid", "se suicide", "overdose", "noyade", "drowned", "noye"]
+                 "suicide", "suicid", "se suicide", "overdose", "noyade", "drowned", "noye", "family members",
+                 "membres d'une meme famille", "miembros de una familia", "familiares"]
 _PRIVATE_RE = _word_re(PRIVATE_WORDS)
 # Criminalité retenue seulement si elle relève de l'ordre public ou menace des entreprises et des voyageurs.
 PUBLIC_CRIME_WORDS = ["cartel", "gang", "narco", "trafic", "traffick", "mafia", "reglement de comptes", "reglements de comptes",
@@ -330,13 +334,13 @@ MASS_WORDS = ["massacre", "masacre", "tuerie", "mass shooting", "chacina", "carn
               "strage", "blutbad", "katliam", "бойня", "مجزرة"]
 PUBLIC_TARGET_WORDS = [
     # lieux publics et transports
-    "school", "ecole", "lycee", "college$", "university", "universite", "universidad", "universidade", "campus",
+    "school", "elementary", "ecole", "lycee", "college$", "university", "universite", "universidad", "universidade", "campus",
     "colegio", "escuela", "escola", "schule", "okul", "universitesi", "hospital$", "hospitals$", "hopital$", "hopitaux", "clinic$", "clinique$",
     "market", "marche", "mercado", "markt", "bazaar", "souk", "mall", "centre commercial", "shopping", "supermarket",
     "supermarche", "hotel", "restaurant", "cafe", "kahvehane", "bar", "nightclub", "discotheque", "boite de nuit",
     "discoteca", "festival", "bus", "autobus", "omnibus", "combi", "minibus", "train", "tren", "metro", "subway",
     "tram", "station", "gare", "estacion", "bahnhof", "hauptbahnhof", "airport", "aeroport", "aeropuerto", "aeroporto",
-    "flughafen", "port ", "ferry", "highway", "autoroute", "carretera", "rodovia", "axe ", "route ", "road ",
+    "flughafen", "port ", "ferry", "highway", "autoroute", "carretera", "rodovia", "axe ",
     "church", "eglise", "iglesia", "igreja", "kirche", "mosque", "mosquee", "mezquita", "moschee", "synagog", "temple",
     "pagoda", "shrine", "pilgrim", "pelerin", "crowd", "foule", "multitud", "rassemblement", "parade", "defile",
     # cibles institutionnelles, économiques, humanitaires
@@ -491,7 +495,10 @@ RETRO_WORDS = ["obras", "project", "projet", "proyecto", "projeto", "delayed", "
                "simulacion", "iddia", "one year after", "un an apres", "a un ano", "a un trimestre", "years after",
                "ans apres", "balance con", "parti'de", "lessons from", "lecons", "retour sur", "look back", "recuerdan",
                "remember", "se souvenir", "study", "etude", "investigaciones", "research", "recherche", "report finds",
-               "critica", "criticises", "criticizes"]
+               "critica", "criticises", "criticizes", "podria", "could", "pourrait", "may face", "risk of", "climate change",
+               "changement climatique", "cambio climatico", "work on", "works on", "travaux", "remise de", "donation", "don de",
+               "malgre", "despite", "faits et informations", "facts and", "ce qui va changer", "face aux", "tanggul",
+               "perbaikan", "salles rafraichies"]
 _RETRO_RE = _word_re(RETRO_WORDS)
 _MAG_RE = re.compile(r"(?:magnitud[eo]?|mag\.?|m|mw|ml|magnitude|sismo|seisme|earthquake|quake|terremoto|temblor|deprem)\s*(?:de\s*|of\s*|:\s*)?(\d(?:[.,]\d)?)(?!\d)"
                      r"|(\d(?:[.,]\d)?)\s*(?:de\s+|-)?(?:magnitud[eo]?|magnitude|buyuklugunde|درجات|richter|sr\b)", re.I)
@@ -501,13 +508,39 @@ QUAKE_IMPACT = ["dead", "killed", "died", "mort", "morts", "muerto", "muertos", 
                 "viviendas", "casas", "jolts", "strong", "powerful", "violent", "puissant", "fuerte", "forte", "guclu",
                 "siddetli", "injuries"]
 _QUAKE_IMPACT_RE = _word_re(QUAKE_IMPACT)
+_CONFLICT_EVENT_RE = _word_re(["strike", "strikes", "frappe", "clash", "clashes", "affrontement", "enfrentamiento", "attack",
+                               "attaque", "ataque", "offensive", "ofensiva", "shelling", "bombard", "drone", "missile",
+                               "captur", "seize", "seized", "advance", "avance", "fighting", "combats", "battle", "bataille",
+                               "ambush", "embuscade", "raid", "incursion", "invasion", "ceasefire", "cessez-le-feu",
+                               "enfrentamientos", "confrontos", "gefecht", "kampfe", "удар", "обстрел", "бой", "غارة", "قصف",
+                               "اشتباك"])
+_LOCAL_POLITICS_RE = _word_re(["municipal", "municipales", "maire", "mayor", "alcalde", "conseil municipal", "city council",
+                               "mla", "state assembly", "assembly election", "election petition", "la justice annule",
+                               "high court", "supreme court", "cour supreme", "cour d'appel"])
+_INDUSTRIAL_RE = _word_re(["plant", "planta", "usine", "factory", "fabrica", "refinery", "raffinerie", "refineria", "mine$",
+                           "pipeline", "gazoduc", "oleoduc", "depot", "entrepot", "warehouse", "chemical", "chimique",
+                           "quimica", "port$", "terminal", "power station", "centrale"])
+_INFRA_IMPACT_RE = _word_re(["blackout", "power outage", "panne", "coupure", "apagon", "apagao", "stromausfall", "closed",
+                             "ferme", "cerrado", "shutdown", "derail", "deraill", "descarril", "plane crash", "crash d'avion",
+                             "dam$", "barrage", "pipeline", "gazoduc", "internet", "traffic", "trafic", "disrupt", "perturb"])
+_SMALL_ACCIDENT_RE = _word_re(["crane", "grue", "scaffold", "echafaudage", "construction site", "chantier", "balcon",
+                               "balcony", "wall collapse", "mur$", "building site"])
 
 
 def not_incident(title, cat=None):
     """Titre qui ne décrit pas un incident pouvant toucher une organisation ou un voyageur (motif), sinon None."""
     t = norm(title)
-    if cat in ("earthquake", "flood", "cyclone", "storm", "wildfire", "landslide", "volcano", "drought") and _RETRO_RE.search(t):
+    if cat in ("earthquake", "flood", "cyclone", "storm", "wildfire", "landslide", "volcano", "drought", "extreme_temp") and _RETRO_RE.search(t):
         return "rétrospective ou projet"
+    if cat == "armed_conflict" and not _VIOLENCE_RE.search(t) and not _CONFLICT_EVENT_RE.search(t):
+        return "analyse (pas d'incident)"  # « Poutine intensifie l'effort de guerre », « la guerre dans les esprits »
+    if cat == "diplomatic" and (_LOCAL_POLITICS_RE.search(t) or _JUDICIAL_RE.search(t)):
+        return "politique locale ou judiciaire"
+    if cat == "infrastructure" and _EXPLOSION_RE.search(t) and not (heavy_toll(t) or _INDUSTRIAL_RE.search(t)
+                                                                     or _SECURITY_TARGET_RE.search(t)):
+        return "accident domestique"
+    if cat == "infrastructure" and not (heavy_toll(t) or _INFRA_IMPACT_RE.search(t)) and _SMALL_ACCIDENT_RE.search(t):
+        return "accident de chantier"
     if cat == "earthquake":
         mags = [float((m.group(1) or m.group(2)).replace(",", ".")) for m in _MAG_RE.finditer(t)]
         if mags and max(mags) < 5:
@@ -546,7 +579,7 @@ def classify(title):
             cat = others[0]
         elif _SECURITY_TARGET_RE.search(t) and not _ACCIDENT_RE.search(t):
             pass  # attaque probable (poste de sécurité, marché, bus…)
-        elif _VIOLENCE_RE.search(t) or casualty_toll(t) or _ACCIDENT_RE.search(t):
+        elif _VIOLENCE_RE.search(t) or casualty_toll(t) or _ACCIDENT_RE.search(t) or _INDUSTRIAL_RE.search(t):
             cat = "infrastructure"
         else:
             return None, None
@@ -721,6 +754,128 @@ def _extra_country_aliases():
             "south korea": "KR", "coree du sud": "KR", "taiwan": "TW", "kosovo": "XK"}
 
 
+_GAZ = {}
+
+
+def gazetteer(countries, log=print):
+    """Dictionnaire de villes partagé par la collecte (chargé une fois), ou None s'il est indisponible."""
+    if "g" not in _GAZ:
+        try:
+            _GAZ["g"] = Gazetteer(countries, log).load()
+        except Exception as exc:
+            log(f"  Presse : dictionnaire de villes indisponible ({exc}) – pas de géolocalisation")
+            _GAZ["g"] = None
+    return _GAZ["g"]
+
+
+def refine_regional(events, countries, log):
+    """Incidents placés au niveau d'une région (GDELT, provinces) : si le titre de l'article cite une ville du pays,
+    proche du point actuel (< 400 km), on la retient (précision « ville »)."""
+    from .geo import haversine_km
+    gaz = None
+    moved = 0
+    for ev in events:
+        if ev.get("precision") not in ("region", "country") or not ev.get("country"):
+            continue
+        text = " ".join(x for x in (ev.get("headline"), ev.get("title") if ev.get("source") == "Press" else "") if x)
+        if not text:
+            continue
+        gaz = gaz or gazetteer(countries, log)
+        if not gaz:
+            return 0
+        city = gaz.find_city(text, ev["country"], False, ev.get("lang", ""))
+        if city and (ev.get("lat") is None or haversine_km(ev["lat"], ev["lon"], city["lat"], city["lon"]) < 400):
+            ev.update(lat=city["lat"], lon=city["lon"], place=city["place"], precision="city")
+            moved += 1
+    if moved:
+        log(f"  Géolocalisation : {moved} incident(s) précisé(s) au niveau de la ville grâce au titre de l'article")
+    return moved
+
+
+# ------------------------------------------------------------------ géolocalisation complémentaire
+def refine_location(loc, it, gaz, countries, log=None):
+    """Titre sans ville reconnue : on cherche une ville dans le chapeau, puis une province (titre + chapeau)."""
+    if loc and "lat" in loc:
+        return loc
+    iso = (loc or {}).get("country") or it.get("country_hint")
+    if not iso:
+        return loc
+    snippet = it.get("snippet") or ""
+    if gaz and snippet:
+        city = gaz.find_city(snippet, iso, False, it.get("lang", ""))
+        if city:
+            return {"country": iso, "place": city["place"], "lat": city["lat"], "lon": city["lon"], "precision": "city"}
+    from . import admin1
+    reg = admin1.find(f"{it.get('title', '')} {snippet}", iso, countries, log)
+    if reg:
+        return dict(reg, country=iso)
+    return loc
+
+
+# ------------------------------------------------------------------ langue
+_STOP = {
+    "fr": " le la les des du une un et est dans pour sur avec par pas qui que aux au ont sont été après contre selon près "
+          "morts mort blessés trois deux plusieurs lors cette ces ",
+    "en": " the of and to a for on with is at by from after as are was has have over amid police say says said killed "
+          "kill people dead injured near two three after ",
+    "es": " el los las del y en un una por con para que se tras según contra muertos heridos dos tres ",
+    "pt": " o os do da dos das e em um uma por com para que no na após contra mortos feridos dois três ",
+    "de": " der die das und den von zu mit im nach bei auf ist ein eine für gegen tote verletzte zwei drei ",
+    "it": " il lo gli di del della e un una per con che dopo contro nel morti feriti due tre ",
+    "nl": " het een en van op met voor bij na tegen doden gewonden twee drie ",
+    "tr": " ve bir bu ile için olarak sonra karşı ölü yaralı ",
+    "id": " dan di yang ke dari untuk dengan pada ini itu tewas ",
+    "pl": " i w na z do się nie że po dla przez ",
+}
+_STOPSETS = {k: set(v.split()) for k, v in _STOP.items()}
+_CHAR_HINTS = {"fr": "éèêëçàùâîôœ", "es": "ñ¿¡áíóú", "pt": "ãõçáâêô", "de": "ßäöü", "tr": "ığşçöü", "pl": "ąęłńśźż"}
+
+
+def guess_lang(text):
+    """Langue probable d'un titre (écriture, puis mots-outils et accents) ; "" si incertain."""
+    t = text or ""
+    if re.search(r"[\u0590-\u05FF]", t):
+        return "he"
+    if re.search(r"[\u0600-\u06FF]", t):
+        return "ur" if re.search(r"[ٹڈڑںےۓ]", t) else "fa" if re.search(r"[پچژگکی]", t) else "ar"
+    if re.search(r"[\u0400-\u04FF]", t):
+        return "uk" if re.search(r"[іїєґ]", t.lower()) else "ru"
+    if re.search(r"[\u0E00-\u0E7F]", t):
+        return "th"
+    if re.search(r"[\u3040-\u30FF]", t):
+        return "ja"
+    if re.search(r"[\uAC00-\uD7AF]", t):
+        return "ko"
+    if re.search(r"[\u4E00-\u9FFF]", t):
+        return "zh"
+    if re.search(r"[\u1200-\u137F]", t):
+        return "am"
+    if re.search(r"[\u0980-\u09FF]", t):
+        return "bn"
+    if re.search(r"[\u0900-\u097F]", t):
+        return "hi"
+    low = t.lower()
+    words = re.findall(r"[a-zà-ÿğışçöüñãõąęłńśźżœ]+", low)
+    if len(words) < 3:
+        return ""
+    scores = {k: sum(2 if len(w) > 3 else 1 for w in words if w in st) for k, st in _STOPSETS.items()}
+    for k, chars in _CHAR_HINTS.items():
+        scores[k] += 2 * min(2, sum(1 for c in low if c in chars))
+    best = max(scores, key=scores.get)
+    ranked = sorted(scores.values(), reverse=True)
+    return best if ranked[0] >= 2 and ranked[0] > ranked[1] else ""
+
+
+def item_lang(it):
+    """Langue d'un titre : celle du flux, corrigée quand l'écriture ou les mots-outils la contredisent."""
+    declared = (it.get("lang") or "")[:2].lower()
+    g = guess_lang(it.get("title", ""))
+    if g and (not declared or (g != declared and (g in ("he", "ar", "fa", "ur", "ru", "uk", "th", "zh", "ja", "ko", "am", "bn", "hi")
+                                                  or declared == "en"))):
+        return g
+    return declared or g
+
+
 # ------------------------------------------------------------------ assemblage
 def build(press_items, econ_items, countries, log, now, ai_results=None):
     """Transforme les titres collectés en : événements cartographiés, articles du Fil, veille économique."""
@@ -728,12 +883,7 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
     from datetime import timedelta
     from .model import make_event, to_iso
 
-    gaz = None
-    if press_items:
-        try:
-            gaz = Gazetteer(countries, log).load()
-        except Exception as exc:
-            log(f"  Presse : dictionnaire de villes indisponible ({exc}) – pas de géolocalisation")
+    gaz = gazetteer(countries, log) if press_items else None
 
     seen, news, groups = set(), [], {}
     for it in press_items:
@@ -763,6 +913,8 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
                 loc = gaz.locate(it["title"], it.get("country_hint"), cat, it.get("lang", ""))
             elif it.get("country_hint"):
                 loc = {"country": it["country_hint"]}
+        it["lang"] = item_lang(it)
+        loc = refine_location(loc, it, gaz, countries, log)
         uid = hashlib.sha1(key.encode()).hexdigest()[:12]
         if ai:  # titres traduits par l'IA (affichés dans la langue de la plateforme)
             it["_tfr"], it["_ten"] = ai.get("title_fr") or "", ai.get("title_en") or ""
@@ -800,7 +952,7 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             title=first["title"], summary=g.get("summary") or f"Detected in local and international press ({n} outlet(s)). "
                                          f"Location and category inferred automatically from headlines.",
             date=to_iso(last["date"]), start=to_iso(first["date"]), lat=g["loc"]["lat"], lon=g["loc"]["lon"],
-            url=first["url"], place=g["loc"]["place"], precision="city", country=g["loc"]["country"],
+            url=first["url"], place=g["loc"]["place"], precision=g["loc"].get("precision", "city"), country=g["loc"]["country"],
             confidence="low" if g.get("social") and n < 2 else conf,
             tags=["auto-detected", "unverified", "press"] + (["ai"] if g.get("ai") else []) + (["social"] if g.get("social") else []))
         ev["sources"] = [{"name": x["outlet"], "url": x["url"], "title": x["title"], **({"site": x["site"]} if x.get("site") else {})}

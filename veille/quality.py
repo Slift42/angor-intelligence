@@ -35,7 +35,9 @@ REFERENCE_EXTRA = {
     "UN News", "International Crisis Group", "Radio Okapi", "Kyiv Independent", "The Hindu", "Dawn", "Japan Times",
 }
 _REF = None
-_LETTER = None  # domaine ou nom du média → lettre de fiabilité (catalogue : 5e champ, sinon « B »)
+_LETTER = None
+_ADJ = {}   # source → décalage de lettre appris des décisions de l'analyste (+1 = moins fiable)
+LETTERS = "ABCDEF"  # domaine ou nom du média → lettre de fiabilité (catalogue : 5e champ, sinon « B »)
 
 
 def _dom(u):
@@ -68,13 +70,66 @@ def _reference():
     return _REF
 
 
+def _src_key(src):
+    return (src.get("site") or _dom(src.get("url")) or (src.get("name") or "")).lower()
+
+
+def _shift(letter, key):
+    d = _ADJ.get(key, 0)
+    if not d:
+        return letter
+    i = min(len(LETTERS) - 1, max(1, LETTERS.index(letter) + d))  # jamais « A » par apprentissage
+    return LETTERS[i]
+
+
 def _letter(src):
-    """Lettre de fiabilité d'une source d'incident (domaine d'abord, puis nom), ou None si inconnue."""
+    """Lettre de fiabilité d'une source d'incident (domaine d'abord, puis nom), ou None si inconnue ;
+    corrigée par l'historique des décisions de l'analyste sur cette source."""
     _reference()
+    key = _src_key(src)
     for k in (src.get("site"), _dom(src.get("url")), (src.get("name") or "").lower()):
         if k and k in _LETTER:
-            return _LETTER[k]
+            return _shift(_LETTER[k], key)
+    if key in _ADJ:  # source hors catalogue mais jugée par l'analyste : lettre par défaut de la presse (C)
+        return _shift("C", key)
     return None
+
+
+def learn(store, events, verified):
+    """Qualité mesurée de chaque source : part des incidents confirmés ou infirmés par l'analyste.
+    À partir de 5 décisions, une source souvent infirmée perd une lettre (deux si ≥ 80 % de fausses alertes),
+    une source confirmée à ≥ 90 % sur 8 décisions en gagne une. Renvoie le tableau publié dans « État des sources »."""
+    stats = store.setdefault("state", {}).setdefault("source_quality", {})
+    for ev in events:
+        v = verified.get(ev["id"]) or next((verified[m] for m in ev.get("merged") or [] if m in verified), None)
+        if not v or v.get("status") not in ("verified", "corrected", "false"):
+            continue
+        for src in ev.get("sources") or []:
+            key = _src_key(src)
+            if not key or key in ("usgs", "gdacs", "nasa eonet", "nws", "who"):
+                continue
+            st = stats.setdefault(key, {"name": src.get("name") or key, "ok": 0, "false": 0, "ids": []})
+            if ev["id"] in st["ids"]:
+                continue
+            st["ids"] = (st["ids"] + [ev["id"]])[-500:]
+            st["false" if v["status"] == "false" else "ok"] += 1
+    _ADJ.clear()
+    table = []
+    for key, st in stats.items():
+        n = st["ok"] + st["false"]
+        fr = st["false"] / n if n else 0
+        adj = 0
+        if n >= 5 and fr >= 0.8:
+            adj = 2
+        elif n >= 5 and fr >= 0.5:
+            adj = 1
+        elif n >= 8 and st["ok"] / n >= 0.9:
+            adj = -1
+        if adj:
+            _ADJ[key] = adj
+        table.append({"source": st["name"], "key": key, "decisions": n, "false_rate": round(fr, 2), "adjust": adj})
+    table.sort(key=lambda r: (-r["decisions"], r["source"]))
+    return table[:100]
 
 
 def _is_reference(name):
@@ -142,7 +197,7 @@ def filter_and_rate(events, verified=None):
     kept = []
     for ev in events:
         ev = dict(ev)  # copie : la mémoire du robot garde la version d'origine
-        v = verified.get(ev["id"])
+        v = verified.get(ev["id"]) or next((verified[m] for m in ev.get("merged") or [] if m in verified), None)
         if v and v["status"] == "false":
             continue
         if v:

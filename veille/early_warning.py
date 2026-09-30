@@ -373,12 +373,12 @@ def update_security(units, cache, events, now, log):
             row[1] += 1
         added += 1
     # base historique (UCDP, GDELT) : une fois, pour les mois antérieurs aux premiers comptages en direct
-    if HISTORY_PARTS.exists() and cache.get("history_done") != sorted(isos):
+    if HISTORY_PARTS.exists() and cache.get("history_done_v2") != sorted(isos):
         n = backfill_history(by_iso, sec, now)
-        cache["history_done"] = sorted(isos)
+        cache["history_done_v2"] = sorted(isos)  # v2 : 4 ans d'historique (validation sur le Soudan 2023)
         if n:
             log(f"  Alerte précoce : {n} incident(s) historiques rattachés aux unités administratives")
-    cutoff = _month_key(now - timedelta(days=800))
+    cutoff = _month_key(now - timedelta(days=1900))
     for d in (sec, seen):
         for ym in [k for k in d if k < cutoff]:
             d.pop(ym)
@@ -386,9 +386,11 @@ def update_security(units, cache, events, now, log):
 
 
 def backfill_history(by_iso, sec, now):
-    live_months = set(sec)
+    live_months = {ym for ym, units in sec.items() if units and ym >= _month_key(now - timedelta(days=100))}
     first_live = min(live_months) if live_months else _month_key(now)
-    start = _month_key(now - timedelta(days=760))
+    for ym in [k for k in sec if k < first_live]:  # on reconstruit l'historique ancien (pas de double comptage)
+        sec.pop(ym)
+    start = _month_key(now - timedelta(days=1830))
     n = 0
     for f in [HISTORY_PARTS / "ucdp.json.gz", HISTORY_PARTS / "gdelt.json.gz"]:
         if not f.exists():
@@ -539,6 +541,50 @@ def update(store, countries, events, settings, log, now=None):
     return build(units, cache, regions, now, countries)
 
 
+def backtest(units, cache, now, months_back=40, horizon=3):
+    """Validation a posteriori de l'indice : pour chaque unité et chaque mois passé, indice calculé avec les seules
+    données disponibles à ce moment (climat + sécurité ; l'humanitaire n'a pas d'historique ici), puis on regarde si les
+    incidents ont nettement augmenté dans les 3 mois suivants (≥ 1,5 fois le rythme des 12 mois précédents et ≥ 3).
+    Un indice utile doit montrer un taux d'aggravation croissant avec le niveau."""
+    clim_all = cache.get("climate") or {}
+    sec = cache.get("security") or {}
+    if len(sec) < 18:
+        return None
+    end = _month_key(now.replace(day=1) - timedelta(days=1))
+    all_months = _months_back(end, months_back + horizon + 15)
+    stats = {lvl: [0, 0] for lvl in (1, 2, 3, 4)}
+    cases = []
+    for u in units.values():
+        data = (clim_all.get(u["id"]) or {}).get("data") or {}
+        counts = [((sec.get(ym) or {}).get(u["id"]) or [0, 0]) for ym in all_months]
+        for k in range(15, len(all_months) - horizon):
+            m = all_months[k]
+            if m < min(sec):
+                continue
+            win = all_months[k - 11:k + 1]
+            clim = {key: climate_stats(data.get(key) or {}, win) for key in ("P", "T", "W") if data.get(key)}
+            s_all = [c[0] for c in counts[k - 14:k + 1]]
+            s_res = [c[1] for c in counts[k - 14:k + 1]]
+            sc = score_unit(clim, s_all, s_res, {})
+            v = round(sc["v"] * 100 / 75)  # sans la part humanitaire (25 points)
+            lvl = 4 if v >= 60 else 3 if v >= 40 else 2 if v >= 20 else 1
+            before = sum(s_all[-12:]) / 12 * horizon
+            after = sum(c[0] for c in counts[k + 1:k + 1 + horizon])
+            esc = after >= 3 and after >= 1.5 * max(before, 1)
+            stats[lvl][0] += 1
+            stats[lvl][1] += 1 if esc else 0
+            if esc and lvl >= 3 and len(cases) < 400:
+                cases.append([u["id"], m, v, after])
+    n = sum(v[0] for v in stats.values())
+    if not n:
+        return None
+    base = sum(v[1] for v in stats.values()) / n
+    return {"period": [all_months[15], all_months[-horizon - 1]], "horizon_months": horizon, "unit_months": n,
+            "base_rate": round(base, 3),
+            "by_level": {str(k): {"n": v[0], "rate": round(v[1] / v[0], 3) if v[0] else None} for k, v in stats.items()},
+            "hits": cases[-40:]}
+
+
 def build(units, cache, regions, now, countries):
     clim_all = cache.get("climate") or {}
     # dernier mois disponible dans les données climatiques (sinon le mois précédent)
@@ -571,7 +617,19 @@ def build(units, cache, regions, now, countries):
         if bbs:
             regs[rid] = {"fr": reg.get("fr", rid), "en": reg.get("en", rid), "countries": reg["countries"],
                          "bbox": [min(b[0] for b in bbs), min(b[1] for b in bbs), max(b[2] for b in bbs), max(b[3] for b in bbs)]}
+    # validation a posteriori : recalculée une fois par jour (quelques secondes)
+    val = cache.get("validation")
+    if not val or val.get("computed", "")[:10] != now.date().isoformat():
+        try:
+            val = backtest(units, cache, now)
+            if val:
+                val["computed"] = now.isoformat()
+                cache["validation"] = val
+                save_cache(cache)
+        except Exception:
+            val = None
     payload = {"generated": now.isoformat(), "months": months, "sec_months": sec_months, "regions": regs,
+               "validation": val,
                "units": out_units, "levels": levels,
                "credits": "NASA POWER (MERRA-2) · HDX HAPI (OCHA : IPC, OIM-DTM, population) · incidents Angor, UCDP, GDELT · "
                           "limites administratives geoBoundaries (CC BY 4.0)"}

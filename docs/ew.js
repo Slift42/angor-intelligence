@@ -32,6 +32,8 @@
       ipc_src: 'IPC via HDX HAPI', idp_src: 'OIM-DTM via HDX HAPI', at: 'au', people: 'personnes', incidents12: 'Incidents sur 12 mois',
       rain_chart: 'Précipitations mensuelles (mm)', temp_chart: 'Température moyenne (°C)', soil_chart: 'Humidité du sol racinaire (0–1)',
       credits: 'Sources', see_incidents: 'Voir les incidents de la zone', score_at: 'Indice au',
+      val_title: 'Validation sur les crises passées', val_level: 'Niveau de l’indice', val_n: 'Unités × mois', val_rate: 'Aggravation dans les 3 mois',
+      val_txt: (a, b, h, base) => `De ${a} à ${b}, l’indice a été recalculé chaque mois avec les seules données disponibles à ce moment (climat et sécurité ; l’humanitaire n’a pas d’historique). Aggravation = incidents au moins 1,5 fois plus nombreux dans les ${h} mois suivants (taux moyen : ${base}). Un indice utile montre un taux qui monte avec le niveau.`,
     },
     en: {
       hint: 'Cross climate, security and humanitarian data, area by area, to spot where risks converge before things deteriorate. Monthly data.',
@@ -54,6 +56,8 @@
       ipc_src: 'IPC via HDX HAPI', idp_src: 'IOM-DTM via HDX HAPI', at: 'at', people: 'people', incidents12: 'Incidents over 12 months',
       rain_chart: 'Monthly rainfall (mm)', temp_chart: 'Mean temperature (°C)', soil_chart: 'Root-zone soil wetness (0–1)',
       credits: 'Sources', see_incidents: 'Show incidents in this area', score_at: 'Index as of',
+      val_title: 'Back-test on past crises', val_level: 'Index level', val_n: 'Areas × months', val_rate: 'Escalation within 3 months',
+      val_txt: (a, b, h, base) => `From ${a} to ${b}, the index was recomputed each month using only the data available at the time (climate and security; humanitarian data has no history). Escalation = at least 1.5 times more incidents over the next ${h} months (average rate: ${base}). A useful index shows a rate rising with the level.`,
     },
   };
   const tx = k => (TXT[B.lang()] || TXT.fr)[k];
@@ -178,12 +182,20 @@
       <label class="switch"><input type="checkbox" id="ew-overlay"${S.overlay ? ' checked' : ''}><span>${tx('overlay')}</span></label>
       <div class="ew-legend"><div class="card-title">${B.esc(tx(S.dataset))}${S.dataset === 'score' ? ` · ${tx('score_at')} ${B.esc(monthLabel(d.months[d.months.length - 1], true))}` : S.dataset === 'ipc' || S.dataset === 'idp' ? '' : ` · ${B.esc(monthLabel(S.month, true))}`}</div><div class="row">${legend(S.dataset)}</div></div>
       <div class="d-sec"><h3>${tx('top')}</h3><ol class="ew-rank">${ranked.map(({ u, v }) => `<li data-ew="${u.id}"><span class="sw" style="background:${v.color}"></span><span class="t">${B.flagImg(u.iso)}${B.esc(u.n)}</span><span class="w">${B.esc(v.label)}</span></li>`).join('') || `<li class="empty">${tx('no_data')}</li>`}</ol></div>
-      <details class="ew-method"><summary>${tx('method')}</summary><p class="hint">${tx('method_txt')}</p><p class="hint">${tx('credits')} : ${B.esc(d.credits)}</p></details>`;
+      <details class="ew-method"><summary>${tx('method')}</summary><p class="hint">${tx('method_txt')}</p>${validation(d)}<p class="hint">${tx('credits')} : ${B.esc(d.credits)}</p></details>`;
     el.querySelector('#ew-region').onchange = ev => { S.region = ev.target.value; S.selected = null; save(); B.closeDrawer(); render(); drawLayer(); fitRegion(); };
     el.querySelector('#ew-month').onchange = ev => { S.month = ev.target.value; render(); drawLayer(); };
     el.querySelectorAll('input[name="ew-ds"]').forEach(r => { r.onchange = () => { S.dataset = r.value; save(); render(); drawLayer(); }; });
     el.querySelector('#ew-overlay').onchange = ev => { S.overlay = ev.target.checked; save(); drawLayer(); };
     el.querySelectorAll('[data-ew]').forEach(li => { li.onclick = () => { B.closePanelMobile(); select(li.dataset.ew, true); }; });
+  }
+
+  function validation(d) {
+    const v = d.validation; if (!v || !v.by_level) return '';
+    const pct = x => x == null ? '—' : `${Math.round(x * 1000) / 10} %`;
+    const rows = [1, 2, 3, 4].map(l => { const b = v.by_level[l] || {}; return `<tr><td><i class="sq" style="background:${LEVEL_COLORS[l]}"></i> ${B.esc(tx('levels')[l])}</td><td>${fmtN(b.n || 0)}</td><td><strong>${pct(b.rate)}</strong></td></tr>`; }).join('');
+    return `<div class="ew-valid"><div class="card-title">${B.esc(tx('val_title'))}</div><p class="hint">${B.esc(tx('val_txt')(monthLabel(v.period[0], true), monthLabel(v.period[1], true), v.horizon_months, pct(v.base_rate)))}</p>
+      <table class="ew-vt"><thead><tr><th>${B.esc(tx('val_level'))}</th><th>${B.esc(tx('val_n'))}</th><th>${B.esc(tx('val_rate'))}</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   }
 
   /* ------------------------------------------------------------------ fiche d'une unité */

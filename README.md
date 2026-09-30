@@ -125,6 +125,19 @@ Sans clé, le classement par mots-clés continue de fonctionner. Garde-fous :
 
 Elles sont regroupées par pays et classées en crise majeure, crise ou alerte.
 
+## Lot 1 – crédibilité et ergonomie (v0.13)
+
+- **Quatre espaces** (Veille, Pays, Mes sites, Anticipation) avec sous-onglets, sur ordinateur et sur mobile.
+- **Mode fiable** par défaut : détections automatiques cotées D/E/F masquées tant qu'elles ne sont pas recoupées.
+- **Recherche unique** : pays, villes, vos sites, incidents, rapports.
+- **Fiches d'alerte** : une ligne « pourquoi c'est important » (distance au site, crise, pays suivi, recoupement…), un seul badge.
+- **Dédoublonnage** : fusion des fiches d'une même source (presse sur plusieurs jours, alertes NWS/Meteoalarm par zone).
+- **Géolocalisation** : ville cherchée dans le chapeau, puis province (`veille/admin1.py`, geoBoundaries) ; incidents GDELT régionaux précisés par le titre de l'article.
+- **Langue** devinée pour chaque titre (écriture, mots-outils) : la traduction automatique en profite.
+- **Fiabilité mesurée** : `tests/gold_tri.csv` (120 titres étiquetés) et `python tools/eval_tri.py --erreurs` ; qualité des sources apprise des décisions de l'analyste (`quality.learn`).
+- **Boucle analyste** : boutons Valider / Fausse alerte dans chaque fiche, enregistrement direct dans `config/verified.json`.
+- **Alerte précoce** : validation a posteriori sur 40 mois (dont Soudan 2023), affichée dans « Méthode ».
+
 ## Actualiser et traduire (v0.12)
 
 - **Bouton ⟳** : recharge les dernières données ; pour un utilisateur validé, lance une collecte immédiate via la fonction Supabase `supabase/functions/trigger-collect` (jeton GitHub côté serveur, garde-fous anti-abus). Guide, partie J.
