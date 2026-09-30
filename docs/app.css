@@ -684,3 +684,38 @@ svg.bars { display: block; }
 .ew-vt th, .ew-vt td { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--line); }
 .ew-vt .sq { display: inline-block; width: 10px; height: 10px; border-radius: 3px; vertical-align: middle; }
 .tabs button[data-space] span:not(.badge) { font-size: 10.5px; letter-spacing: -.1px; }
+
+/* v0.15 : analyses — sélection multiple de catégories */
+.ms-wrap { position: relative; display: grid; gap: 3px; }
+.ms-lab { font-size: 11.5px; color: var(--muted); font-weight: 600; }
+.ms-btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 190px; max-width: 280px; border: 1px solid var(--line); background: var(--surface);
+  color: var(--ink); border-radius: 6px; padding: 5px 8px; font-size: 13px; text-align: left; }
+.ms-btn svg { color: var(--muted); flex: none; }
+.ms-pop { position: absolute; top: 100%; left: 0; margin-top: 4px; z-index: 30; width: 300px; max-height: 60vh; overflow: auto; padding: 6px; display: grid; gap: 4px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+.ms-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); padding: 2px 4px 4px; border-bottom: 1px solid var(--line); }
+.ms-grp { display: grid; padding: 2px 0 4px; border-bottom: 1px solid var(--line); }
+.ms-grp:last-child { border-bottom: 0; }
+.a-filters .ms-grp label, .ms-grp label { display: flex; grid-template-columns: none; font-weight: 400; align-items: center; gap: 7px; padding: 3px 6px 3px 22px; border-radius: 6px; font-size: 12.5px; color: var(--ink-2); cursor: pointer; }
+.a-filters .ms-grp label.ms-g, .ms-grp label.ms-g { padding-left: 6px; font-weight: 700; color: var(--ink); }
+.ms-grp input { margin: 0; flex: none; }
+.ms-grp label:hover { background: var(--surface-2); }
+.ms-grp label i { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+
+/* v0.15 : espace Trafic (aérien, maritime) */
+.tr-intro { display: grid; gap: 8px; padding: 12px 14px 4px; }
+.tr-view { display: inline-flex; align-items: center; gap: 6px; font: 500 11.5px var(--mono); color: var(--ink-2); background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 5px 8px; width: fit-content; }
+.tr-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.tr-list li { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px; background: var(--surface); }
+.tr-list li > div:first-child { display: grid; gap: 2px; }
+.tr-act { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.tr-zones { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip-btn { border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); border-radius: 999px; padding: 4px 10px; font-size: 12px; }
+.chip-btn:hover { border-color: var(--accent); color: var(--accent); }
+.traffic-view { position: absolute; inset: 12px; z-index: 915; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow);
+  display: grid; grid-template-rows: auto 1fr; overflow: hidden; }
+.tv-head { display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 14px; border-bottom: 1px solid var(--line); }
+.tv-head strong { display: inline-flex; align-items: center; gap: 6px; }
+.tv-head .hint { flex: 1; }
+.traffic-view iframe { width: 100%; height: 100%; border: 0; background: var(--surface-2); }
+@media (max-width: 860px) { .traffic-view { inset: 6px 6px 70px; } .tv-head .hint { display: none; } .tr-list li { grid-template-columns: 1fr; } .tr-act { justify-content: flex-start; } }

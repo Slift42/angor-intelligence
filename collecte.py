@@ -316,7 +316,9 @@ def main():
     acc = settings.get("accounts") or {}
     publish.write_js("config.js", "VS_CONFIG", {  # réglages publics lus par les pages Compte et Administration
         "product_name": product, "ai_url": settings.get("ai_url") or settings.get("buddy_url", ""),
-        "accounts": {k: acc.get(k, "") for k in ("supabase_url", "supabase_anon_key", "vapid_public_key")}})
+        "accounts": {k: acc.get(k, "") for k in ("supabase_url", "supabase_anon_key", "vapid_public_key")},
+        # flux de trafic : seul le nom du fournisseur est publié, jamais une clé
+        "traffic": {k: {"provider": ((settings.get("traffic") or {}).get(k) or {}).get("provider", "")} for k in ("air", "sea")}})
     publish.bust_cache()
     publish.save_store(store)
 

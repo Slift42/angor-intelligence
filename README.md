@@ -125,6 +125,11 @@ Sans clé, le classement par mots-clés continue de fonctionner. Garde-fous :
 
 Elles sont regroupées par pays et classées en crise majeure, crise ou alerte.
 
+## Analyses multi-catégories et espace Trafic (v0.15)
+
+- **Analyses** : plusieurs catégories cochables à la fois ; l'évolution affiche une courbe par sélection, superposées pour comparer.
+- **Espace Trafic** (préparé) : onglets Aérien et Maritime, liens vers Flightradar24, ADS-B Exchange, adsb.lol, airplanes.live, MarineTraffic, VesselFinder et MyShipTracking calés sur la vue de la carte, aperçu intégré quand le service l'autorise, zones d'intérêt (Bab el-Mandeb, Ormuz, Suez, mer Noire…). Flux sur la carte à brancher via `config/settings.json` → `traffic` (clés dans les secrets).
+
 ## Dossier pays et carte (v0.14)
 
 - **Période** : menu déroulant (24 h → tout l'historique, période personnalisée).

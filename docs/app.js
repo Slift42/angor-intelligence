@@ -48,7 +48,20 @@
       rep_hint: 'Les derniers rapports et analyses de fond sur les pays et les crises : think tanks, organisations internationales, ONG, cabinets. Titre, résumé de l’éditeur et lien vers la publication.',
       rep_ph: 'Rechercher un rapport, un pays, une organisation…', rep_all_geo: 'Tous pays et régions', rep_all_type: 'Tous producteurs', rep_all_theme: 'Tous thèmes',
       rep_days: n => `${n} derniers jours`, rep_count: (n, o) => `${n} publication(s) · ${o} producteur(s)`, rep_more: 'Afficher plus', rep_none: 'Aucun rapport pour ces critères.',
-      ci_title: 'Villes', ci_none: 'aucun incident', ci_low: 'activité faible', ci_mod: 'activité modérée', ci_high: 'activité élevée', ci_vhigh: 'activité très élevée', ci_capital: 'capitale', ci_level: 'niveau', ci_hint: 'Nombre = incidents à proximité sur 90 jours. Le détail (zones sensibles, conseils, aéroport, hôpitaux) est dans le rapport pays.',
+      sp_trafic: 'Trafic', tab_air: 'Aérien', tab_sea: 'Maritime',
+      tr_air_intro: 'Suivi des vols en temps réel autour de la zone affichée sur la carte : déplacez ou zoomez la carte, les liens suivent. Utile pour vérifier une fermeture d\'espace aérien, un détournement, une évacuation ou une activité militaire.',
+      tr_sea_intro: 'Suivi des navires (AIS) autour de la zone affichée : routes commerciales, détroits sensibles, ports. Utile pour la chaîne d\'approvisionnement, la piraterie et les zones de conflit maritime.',
+      tr_view: 'Vue courante', tr_open: 'Ouvrir un traceur', tr_go: 'Ouvrir', tr_preview: 'Aperçu intégré', tr_zones: 'Zones d\'intérêt',
+      tr_fr24: 'Référence grand public ; abonnement pour l\'historique et les alertes.', tr_adsbx: 'Données ADS-B non filtrées, y compris de nombreux vols militaires.',
+      tr_adsblol: 'Réseau communautaire ouvert (licence ODbL), API gratuite.', tr_apl: 'Réseau communautaire, sans filtrage des vols militaires.',
+      tr_mt: 'Référence AIS ; données détaillées et historique sur abonnement.', tr_vf: 'Alternative AIS, positions et escales.', tr_mst: 'Alternative AIS gratuite.',
+      tr_embed_note: 'Si l\'aperçu reste vide, le service refuse l\'affichage intégré : utilisez « Ouvrir ».',
+      tr_feed: 'Calque sur la carte Angor', tr_feed_on: p => `Flux branché : ${p}. Positions affichées sur la carte dès la prochaine version.`,
+      tr_feed_air: 'Prêt à recevoir un flux (ADS-B communautaire ou fournisseur sous licence) : positions des aéronefs sur la carte, alerte sur fermeture d\'espace aérien et vols militaires près de vos sites. À activer dans config/settings.json → traffic.air.',
+      tr_feed_sea: 'Prêt à recevoir un flux AIS (AISHub, aisstream.io ou fournisseur sous licence) : navires près de vos ports et trajets, alertes sur les détroits sensibles. À activer dans config/settings.json → traffic.sea.',
+      tz_ukraine: 'Ukraine', tz_levant: 'Levant', tz_gulf: 'Golfe', tz_sahel: 'Sahel', tz_redsea_air: 'Mer Rouge', tz_taiwan: 'Détroit de Taïwan', tz_baltic: 'Baltique',
+      tz_bab: 'Bab el-Mandeb', tz_hormuz: 'Ormuz', tz_suez: 'Canal de Suez', tz_blacksea: 'Mer Noire', tz_guinea: 'Golfe de Guinée', tz_malacca: 'Malacca', tz_channel: 'Manche',
+      ms_hint: 'Cochez plusieurs catégories pour superposer leurs courbes', ms_clear: 'Effacer', ci_title: 'Villes', ci_none: 'aucun incident', ci_low: 'activité faible', ci_mod: 'activité modérée', ci_high: 'activité élevée', ci_vhigh: 'activité très élevée', ci_capital: 'capitale', ci_level: 'niveau', ci_hint: 'Nombre = incidents à proximité sur 90 jours. Le détail (zones sensibles, conseils, aéroport, hôpitaux) est dans le rapport pays.',
       rep_loading: 'Chargement des rapports…', rep_missing: 'Rapports pas encore disponibles : le robot les rassemble toutes les 3 heures.', rep_country: 'Rapports récents', rep_all_country: 'Tous les rapports sur ce pays',
       rep_regions: { sahel: 'Sahel', horn: 'Corne de l’Afrique', great_lakes: 'Grands Lacs', west_africa: 'Afrique de l’Ouest', central_africa: 'Afrique centrale', north_africa: 'Afrique du Nord', middle_east: 'Moyen-Orient', gulf: 'Golfe et mer Rouge', balkans: 'Balkans', caucasus: 'Caucase', central_asia: 'Asie centrale', south_asia: 'Asie du Sud', southeast_asia: 'Asie du Sud-Est', indo_pacific: 'Indo-Pacifique', latin_america: 'Amérique latine', europe: 'Europe', arctic: 'Arctique' },
       rep_themes: { conflict: 'Conflits et sécurité', terrorism: 'Terrorisme', politics: 'Politique et gouvernance', economy: 'Économie', climate: 'Climat et environnement', food: 'Sécurité alimentaire', migration: 'Migrations et déplacements', crime: 'Criminalité organisée', cyber: 'Cyber et technologies', energy: 'Énergie et ressources', maritime: 'Maritime', health: 'Santé', rights: 'Droits humains', diplomacy: 'Diplomatie' },
@@ -191,7 +204,20 @@
       rep_hint: 'The latest in-depth reports and analysis on countries and crises: think tanks, international organisations, NGOs, consultancies. Title, publisher summary and link to the publication.',
       rep_ph: 'Search a report, country, organisation…', rep_all_geo: 'All countries and regions', rep_all_type: 'All publishers', rep_all_theme: 'All themes',
       rep_days: n => `Last ${n} days`, rep_count: (n, o) => `${n} publication(s) · ${o} publisher(s)`, rep_more: 'Show more', rep_none: 'No report for these criteria.',
-      ci_title: 'Cities', ci_none: 'no incident', ci_low: 'low activity', ci_mod: 'moderate activity', ci_high: 'high activity', ci_vhigh: 'very high activity', ci_capital: 'capital', ci_level: 'level', ci_hint: 'Number = nearby incidents over 90 days. Details (sensitive areas, advice, airport, hospitals) are in the country report.',
+      sp_trafic: 'Traffic', tab_air: 'Air', tab_sea: 'Maritime',
+      tr_air_intro: 'Live flight tracking around the area shown on the map: pan or zoom the map and the links follow. Useful to check airspace closures, diversions, evacuations or military activity.',
+      tr_sea_intro: 'Vessel tracking (AIS) around the area shown: trade routes, sensitive straits, ports. Useful for supply chains, piracy and maritime conflict zones.',
+      tr_view: 'Current view', tr_open: 'Open a tracker', tr_go: 'Open', tr_preview: 'Embedded preview', tr_zones: 'Areas of interest',
+      tr_fr24: 'Mainstream reference; subscription for history and alerts.', tr_adsbx: 'Unfiltered ADS-B data, including many military flights.',
+      tr_adsblol: 'Open community network (ODbL licence), free API.', tr_apl: 'Community network, military flights not filtered.',
+      tr_mt: 'AIS reference; detailed data and history on subscription.', tr_vf: 'AIS alternative, positions and port calls.', tr_mst: 'Free AIS alternative.',
+      tr_embed_note: 'If the preview stays blank, the service refuses embedding: use “Open”.',
+      tr_feed: 'Layer on the Angor map', tr_feed_on: p => `Feed connected: ${p}. Positions shown on the map from the next version.`,
+      tr_feed_air: 'Ready for a feed (community ADS-B or licensed provider): aircraft positions on the map, alerts on airspace closures and military flights near your sites. Enable in config/settings.json → traffic.air.',
+      tr_feed_sea: 'Ready for an AIS feed (AISHub, aisstream.io or licensed provider): vessels near your ports and routes, alerts on sensitive straits. Enable in config/settings.json → traffic.sea.',
+      tz_ukraine: 'Ukraine', tz_levant: 'Levant', tz_gulf: 'Gulf', tz_sahel: 'Sahel', tz_redsea_air: 'Red Sea', tz_taiwan: 'Taiwan Strait', tz_baltic: 'Baltic',
+      tz_bab: 'Bab el-Mandeb', tz_hormuz: 'Hormuz', tz_suez: 'Suez Canal', tz_blacksea: 'Black Sea', tz_guinea: 'Gulf of Guinea', tz_malacca: 'Malacca', tz_channel: 'English Channel',
+      ms_hint: 'Tick several categories to overlay their curves', ms_clear: 'Clear', ci_title: 'Cities', ci_none: 'no incident', ci_low: 'low activity', ci_mod: 'moderate activity', ci_high: 'high activity', ci_vhigh: 'very high activity', ci_capital: 'capital', ci_level: 'level', ci_hint: 'Number = nearby incidents over 90 days. Details (sensitive areas, advice, airport, hospitals) are in the country report.',
       rep_loading: 'Loading reports…', rep_missing: 'Reports not available yet: the robot gathers them every 3 hours.', rep_country: 'Recent reports', rep_all_country: 'All reports on this country',
       rep_regions: { sahel: 'Sahel', horn: 'Horn of Africa', great_lakes: 'Great Lakes', west_africa: 'West Africa', central_africa: 'Central Africa', north_africa: 'North Africa', middle_east: 'Middle East', gulf: 'Gulf & Red Sea', balkans: 'Balkans', caucasus: 'Caucasus', central_asia: 'Central Asia', south_asia: 'South Asia', southeast_asia: 'Southeast Asia', indo_pacific: 'Indo-Pacific', latin_america: 'Latin America', europe: 'Europe', arctic: 'Arctic' },
       rep_themes: { conflict: 'Conflict & security', terrorism: 'Terrorism', politics: 'Politics & governance', economy: 'Economy', climate: 'Climate & environment', food: 'Food security', migration: 'Migration & displacement', crime: 'Organised crime', cyber: 'Cyber & tech', energy: 'Energy & resources', maritime: 'Maritime', health: 'Health', rights: 'Human rights', diplomacy: 'Diplomacy' },
@@ -324,7 +350,7 @@
     lang: store.get('vs-lang', (D && D.settings && D.settings.default_lang) || 'fr'),
     theme: store.get('vs-theme', window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
     basemap: (b => BASEMAPS.includes(b) ? b : b === 'vector' ? 'clean' : 'detail')(store.get('vs-basemap', 'detail')),
-    hours: store.get('vs-hours', 72), range: null, tab: 'alerts', aCountry: '', aGroup: '', aSev: 1, aSource: '', aAuto: true, sort: 'date', limit: 60,
+    hours: store.get('vs-hours', 72), range: null, tab: 'alerts', aCountry: '', aGroups: [], aSev: 1, aSource: '', aAuto: true, sort: 'date', limit: 60,
     sev: store.get('vs-sev', { 1: true, 2: true, 3: true, 4: true }),
     cats: new Set(store.get('vs-cats', Object.keys(TAX.categories))),
     onlySites: false, onlyOngoing: false, hideAuto: store.get('vs-hideauto', false), reliable: store.get('vs-reliable', true),
@@ -368,7 +394,7 @@
     if (['risk', 'pulse', 'meae', 'fcdo', 'us', 'de', 'none'].includes(P.get('layer'))) state.countryLayer = P.get('layer');
     if (BASEMAPS.includes(P.get('base'))) state.basemap = P.get('base');
     if (['fr', 'en'].includes(P.get('lang'))) state.lang = P.get('lang');
-    if (['alerts', 'ongoing', 'countries', 'news', 'sites', 'buddy', 'agenda', 'reports', 'ew'].includes(P.get('tab'))) state.tab = P.get('tab');
+    if (['alerts', 'ongoing', 'countries', 'news', 'sites', 'buddy', 'agenda', 'reports', 'ew', 'air', 'sea'].includes(P.get('tab'))) state.tab = P.get('tab');
     if (P.get('focus')) state.crisisFocus = P.get('focus');
     if (P.get('analyste') === '0') state.analyst = false;
     try { localStorage.setItem('vs-analyst', JSON.stringify(state.analyst)); } catch (e) { /* stockage indisponible */ }
@@ -1089,9 +1115,9 @@
   }
 
   /* Quatre espaces (barre de gauche), chacun avec ses sous-onglets */
-  const SPACES = { veille: ['alerts', 'ongoing', 'news'], pays: ['countries', 'agenda', 'reports'], sites: ['sites', 'buddy'], anticipation: ['ew', 'analytics'] };
-  const SPACE_ICON = { veille: 'siren', pays: 'globe', sites: 'building-2', anticipation: 'radar' };
-  const TAB_ICON = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle', agenda: 'calendar', reports: 'book-open-text', ew: 'radar', analytics: 'chart-column' };
+  const SPACES = { veille: ['alerts', 'ongoing', 'news'], pays: ['countries', 'agenda', 'reports'], sites: ['sites', 'buddy'], anticipation: ['ew', 'analytics'], trafic: ['air', 'sea'] };
+  const SPACE_ICON = { veille: 'siren', pays: 'globe', sites: 'building-2', anticipation: 'radar', trafic: 'plane' };
+  const TAB_ICON = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle', agenda: 'calendar', reports: 'book-open-text', ew: 'radar', analytics: 'chart-column', air: 'plane', sea: 'ship' };
   const spaceOf = tab => Object.keys(SPACES).find(k => SPACES[k].includes(tab)) || 'veille';
   const lastTab = store.get('vs-lasttab', {});
   function tabBadge(tab) {
@@ -1115,9 +1141,68 @@
     if (state.tab === 'agenda') renderAgenda();
     if (state.tab === 'reports') renderReports();
     if (state.tab === 'analytics') renderAnalyticsIntro();
+    if (state.tab === 'air' || state.tab === 'sea') renderTraffic(); else closeTrafficView();
     if (window.AngorEW) { if (state.tab === 'ew' && !window.AngorEW.active) window.AngorEW.open(); else if (state.tab !== 'ew' && window.AngorEW.active) window.AngorEW.close(); }
     renderMobileNav();
   }
+  /* ------------------------------------------------------------------ trafic aérien et maritime (préparation)
+     Flightradar24 et MarineTraffic n'autorisent ni l'intégration ni la réutilisation de leurs données sans abonnement :
+     on ouvre leurs cartes calées sur la vue courante, on propose un aperçu intégré via des services ouverts (ADS-B
+     communautaire) et l'onglet est prêt à recevoir un flux sous licence (config/settings.json → traffic). */
+  const TRAFFIC = {
+    air: [
+      { id: 'fr24', name: 'Flightradar24', url: v => `https://www.flightradar24.com/${v.lat.toFixed(2)},${v.lon.toFixed(2)}/${Math.round(v.z)}`, note: 'tr_fr24' },
+      { id: 'adsbx', name: 'ADS-B Exchange', url: v => `https://globe.adsbexchange.com/?lat=${v.lat.toFixed(3)}&lon=${v.lon.toFixed(3)}&zoom=${v.z.toFixed(1)}`, note: 'tr_adsbx', embed: true },
+      { id: 'adsblol', name: 'adsb.lol', url: v => `https://globe.adsb.lol/?lat=${v.lat.toFixed(3)}&lon=${v.lon.toFixed(3)}&zoom=${v.z.toFixed(1)}`, note: 'tr_adsblol', embed: true },
+      { id: 'airplaneslive', name: 'airplanes.live', url: v => `https://globe.airplanes.live/?lat=${v.lat.toFixed(3)}&lon=${v.lon.toFixed(3)}&zoom=${v.z.toFixed(1)}`, note: 'tr_apl', embed: true },
+    ],
+    sea: [
+      { id: 'mt', name: 'MarineTraffic', url: v => `https://www.marinetraffic.com/en/ais/home/centerx:${v.lon.toFixed(1)}/centery:${v.lat.toFixed(1)}/zoom:${Math.round(v.z)}`, note: 'tr_mt',
+        embed: true, embedUrl: v => `https://www.marinetraffic.com/en/ais/embed/zoom:${Math.round(v.z)}/centery:${v.lat.toFixed(2)}/centerx:${v.lon.toFixed(2)}/maptype:4/shownames:false/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:/showmenu:/remember:false` },
+      { id: 'vf', name: 'VesselFinder', url: v => `https://www.vesselfinder.com/?lat=${v.lat.toFixed(3)}&lon=${v.lon.toFixed(3)}&zoom=${Math.round(v.z)}`, note: 'tr_vf' },
+      { id: 'mst', name: 'MyShipTracking', url: v => `https://www.myshiptracking.com/?lat=${v.lat.toFixed(3)}&lng=${v.lon.toFixed(3)}&zoom=${Math.round(v.z)}`, note: 'tr_mst' },
+    ],
+  };
+  // zones d'intérêt sûreté (espace aérien et routes maritimes sensibles)
+  const TRAFFIC_ZONES = {
+    air: [['tz_ukraine', 49, 32, 6], ['tz_levant', 33.5, 36, 6], ['tz_gulf', 27, 52, 6], ['tz_sahel', 15, 2, 5], ['tz_redsea_air', 16, 42, 5], ['tz_taiwan', 24, 121, 6], ['tz_baltic', 57, 20, 5]],
+    sea: [['tz_bab', 13, 43.3, 7], ['tz_hormuz', 26.4, 56.4, 7], ['tz_suez', 30.2, 32.5, 8], ['tz_blacksea', 44, 34, 6], ['tz_guinea', 3, 3, 5], ['tz_malacca', 2.5, 101.5, 6], ['tz_channel', 50.5, 0.5, 7], ['tz_taiwan', 24, 120, 6]],
+  };
+  const trafficView = () => { const c = map.getCenter().wrap(); return { lat: c.lat, lon: c.lng, z: map.getZoom() }; };
+  function renderTraffic() {
+    const kind = state.tab === 'sea' ? 'sea' : 'air';
+    if ($('#traffic-view').dataset.kind && $('#traffic-view').dataset.kind !== kind) closeTrafficView();
+    const el = document.querySelector(`.tab-body[data-body="${kind}"]`); if (!el) return;
+    const v = trafficView();
+    const cfg = ((window.VS_CONFIG || {}).traffic || {})[kind] || {};
+    el.innerHTML = `<div class="tr-intro"><p class="hint">${esc(t(kind === 'air' ? 'tr_air_intro' : 'tr_sea_intro'))}</p>
+      <div class="tr-view">${icon('crosshair', 14)}<span>${esc(t('tr_view'))} : ${v.lat.toFixed(2)}, ${v.lon.toFixed(2)} · zoom ${Math.round(v.z)}</span></div></div>
+      <div class="d-sec"><h3>${icon('external-link', 14)} ${esc(t('tr_open'))}</h3><ul class="tr-list">${TRAFFIC[kind].map(p => `<li>
+        <div><strong>${esc(p.name)}</strong><span class="hint">${esc(t(p.note))}</span></div>
+        <div class="tr-act">${p.embed ? `<button class="btn small" data-tr-embed="${p.id}">${icon('eye', 13)}${esc(t('tr_preview'))}</button>` : ''}<a class="btn small primary" href="${esc(p.url(v))}" target="_blank" rel="noopener">${icon('external-link', 13)}${esc(t('tr_go'))}</a></div></li>`).join('')}</ul></div>
+      <div class="d-sec"><h3>${icon('map-pin', 14)} ${esc(t('tr_zones'))}</h3><div class="tr-zones">${TRAFFIC_ZONES[kind].map(([k, la, lo, z]) => `<button class="chip-btn" data-tr-zone="${la},${lo},${z}">${esc(t(k))}</button>`).join('')}</div></div>
+      <div class="d-sec"><h3>${icon('layers', 14)} ${esc(t('tr_feed'))}</h3><div class="notice" style="border-style:solid">${esc(cfg.provider ? t('tr_feed_on', cfg.provider) : t(kind === 'air' ? 'tr_feed_air' : 'tr_feed_sea'))}</div></div>`;
+  }
+  function openTrafficView(id) {
+    const kind = state.tab === 'sea' ? 'sea' : 'air';
+    const p = TRAFFIC[kind].find(x => x.id === id); if (!p) return;
+    const v = trafficView(), url = (p.embedUrl || p.url)(v);
+    const box = $('#traffic-view');
+    box.innerHTML = `<div class="tv-head"><strong>${icon(kind === 'air' ? 'plane' : 'ship', 15)} ${esc(p.name)}</strong><span class="hint">${esc(t('tr_embed_note'))}</span>
+      <a class="btn small" href="${esc(p.url(v))}" target="_blank" rel="noopener">${icon('external-link', 13)}${esc(t('tr_go'))}</a><button class="icon-btn" id="tv-close" aria-label="${esc(t('close'))}">${icon('x')}</button></div>
+      <iframe src="${esc(url)}" title="${esc(p.name)}" loading="lazy" referrerpolicy="no-referrer" allow="fullscreen"></iframe>`;
+    box.hidden = false; box.dataset.kind = kind;
+    $('#tv-close').onclick = closeTrafficView;
+    closePanelMobile();
+  }
+  function closeTrafficView() { const b = $('#traffic-view'); if (b && !b.hidden) { b.hidden = true; b.innerHTML = ''; b.dataset.kind = ''; } }
+  document.addEventListener('click', ev => {
+    const e = ev.target.closest('[data-tr-embed]'); if (e) { openTrafficView(e.dataset.trEmbed); return; }
+    const z = ev.target.closest('[data-tr-zone]');
+    if (z) { const [la, lo, zz] = z.dataset.trZone.split(',').map(Number); closeTrafficView(); map.flyTo([la, lo], zz, { duration: 0.8 }); }
+  });
+  map.on('moveend', () => { if (state.tab === 'air' || state.tab === 'sea') renderTraffic(); });
+
   function renderAnalyticsIntro() {
     $('#analytics-intro').innerHTML = `<div class="analytics-intro"><p class="hint">${esc(t('an_intro'))}</p>
       <button class="btn primary" id="open-analytics">${icon('chart-column', 15)}${esc(t('an_open'))}</button></div>`;
@@ -1477,15 +1562,14 @@
     state.analytics = false; $('#analytics').hidden = true; $('#btn-analytics').classList.remove('on');
     charts.splice(0).forEach(c => c.destroy());
   }
+  // sélection multiple de catégories : « g:security » (tout un groupe) ou « c:terrorism » (une catégorie)
+  const matchSel = (sel, e) => { const [k, v] = sel.split(':'); return k === 'g' ? cat(e.category).group === v : e.category === v; };
+  const selLabel = sel => { const [k, v] = sel.split(':'); return k === 'g' ? ((TAX.groups[v] || {})[state.lang] || v) : catLabel(v); };
   function analyticsFilter(e) {
     if (!inWindow(e)) return false;
     if (!state.aAuto && isAuto(e)) return false;
     if (state.aCountry && e.country !== state.aCountry) return false;
-    if (state.aGroup) {
-      const [k, v] = state.aGroup.split(':');
-      if (k === 'g' && cat(e.category).group !== v) return false;
-      if (k === 'c' && e.category !== v) return false;
-    }
+    if (state.aGroups.length && !state.aGroups.some(sel => matchSel(sel, e))) return false;
     if (e.severity < state.aSev) return false;
     if (state.aSource && e.source !== state.aSource) return false;
     return true;
@@ -1503,8 +1587,10 @@
     const inPeriod = pool.filter(inWindow);
     const countries = [...new Set(inPeriod.map(e => e.country).filter(Boolean))].sort((a, b) => countryName(a).localeCompare(countryName(b)));
     const sources = [...new Set(inPeriod.map(e => e.source))].sort();
-    const grpOpts = Object.entries(TAX.groups).map(([g, gl]) => `<optgroup label="${esc(gl[state.lang])}"><option value="g:${g}">${esc(gl[state.lang])} — ${t('all')}</option>${
-      Object.entries(TAX.categories).filter(([, c]) => c.group === g).map(([k]) => `<option value="c:${k}">${esc(catLabel(k))}</option>`).join('')}</optgroup>`).join('');
+    const selOn = v => state.aGroups.includes(v) ? ' checked' : '';
+    const grpOpts = Object.entries(TAX.groups).map(([g, gl]) => `<div class="ms-grp"><label class="ms-g"><input type="checkbox" value="g:${g}"${selOn('g:' + g)}><i style="background:${GROUP_COLORS[g] || '#888'}"></i>${esc(gl[state.lang])} — ${t('all')}</label>${
+      Object.entries(TAX.categories).filter(([, c]) => c.group === g).map(([k]) => `<label><input type="checkbox" value="c:${k}"${selOn('c:' + k)}>${esc(catLabel(k))}</label>`).join('')}</div>`).join('');
+    const grpLbl = !state.aGroups.length ? t('all') : state.aGroups.slice(0, 2).map(selLabel).join(', ') + (state.aGroups.length > 2 ? ` +${state.aGroups.length - 2}` : '');
     const rC = state.aCountry ? RISK[state.aCountry] : null;
     const kpis = [
       [t('k_events'), win.length], [t('k_critical'), win.filter(e => e.severity >= 3).length],
@@ -1515,7 +1601,8 @@
       <button class="icon-btn" id="a-close" aria-label="${t('close')}">${icon('x')}</button></div>
       <div class="a-filters">
         <label>${t('country')}<select id="af-country"><option value="">${t('all_countries')}</option>${countries.map(c => `<option value="${c}">${esc(countryName(c))}</option>`).join('')}</select></label>
-        <label>${t('risk_cat')}<select id="af-group"><option value="">${t('all')}</option>${grpOpts}</select></label>
+        <div class="ms-wrap"><span class="ms-lab">${t('risk_cat')}</span><button type="button" class="ms-btn" id="af-group-btn" aria-expanded="${!!state.aGroupOpen}">${esc(grpLbl)}${icon('chevron-down', 14)}</button>
+          <div class="ms-pop" id="af-group-pop"${state.aGroupOpen ? '' : ' hidden'}><div class="ms-head"><span>${esc(t('ms_hint'))}</span><button type="button" class="btn small" id="af-group-clear">${esc(t('ms_clear'))}</button></div>${grpOpts}</div></div>
         <label>${t('min_sev')}<select id="af-sev">${[1, 2, 3, 4].map(v => `<option value="${v}">${v === 1 ? t('all') : '≥ ' + esc(sevLabel(v))}</option>`).join('')}</select></label>
         <label>${t('source_lbl')}<select id="af-source"><option value="">${t('all')}</option>${sources.map(x => `<option>${esc(x)}</option>`).join('')}</select></label>
         <label class="switch"><input type="checkbox" id="af-auto"${state.aAuto ? ' checked' : ''}><span>${t('incl_auto')}</span></label>
@@ -1530,7 +1617,7 @@
         <div class="a-card"><h3>${t('c_src')}</h3><div class="cv"><canvas id="ch-src"></canvas></div></div>
         ${state.aCountry ? '' : `<div class="a-card"><h3>${t('c_risk')}</h3><div class="cv"><canvas id="ch-risk"></canvas></div></div>`}
       </div>`;
-    $('#af-country').value = state.aCountry; $('#af-group').value = state.aGroup; $('#af-sev').value = String(state.aSev); $('#af-source').value = state.aSource;
+    $('#af-country').value = state.aCountry; $('#af-sev').value = String(state.aSev); $('#af-source').value = state.aSource;
     el.hidden = false;
     if (!window.Chart) return;
     const ink = cssVar('--ink-2'), grid = cssVar('--line');
@@ -1550,9 +1637,18 @@
     const series = {};
     Object.keys(GROUP_COLORS).forEach(g => { series[g] = new Array(nb).fill(0); });
     win.forEach(e => { const i = Math.min(nb - 1, Math.floor((e._t - a0) / step)); if (i >= 0) series[cat(e.category).group][i]++; });
-    charts.push(new Chart($('#ch-daily'), { type: 'line', data: { labels, datasets: Object.entries(series).filter(([, v]) => v.some(Boolean)).map(([g, v]) => ({
-      label: (TAX.groups[g] || {})[state.lang] || g, data: v, borderColor: GROUP_COLORS[g], backgroundColor: GROUP_COLORS[g] + '55', fill: true, tension: 0.3, pointRadius: 0, borderWidth: 1.5 })) },
-      options: { ...base, interaction: { mode: 'index', intersect: false }, scales: { x: { ...axes.x, ticks: { maxTicksLimit: 12 } }, y: { ...axes.y, stacked: true } } } }));
+    // plusieurs catégories choisies : une courbe par sélection, superposées (non empilées) pour comparer
+    const overlay = state.aGroups.length > 0;
+    const OVL = ['#1F5FD1', '#D7263D', '#E0A21B', '#0E8A7E', '#7B4FB3', '#E0622B', '#3F86C6', '#5C8A2E', '#B7791F', '#C2185B'];
+    const datasets = overlay ? state.aGroups.map((sel, i) => {
+      const v = new Array(nb).fill(0);
+      win.forEach(e => { if (!matchSel(sel, e)) return; const k = Math.min(nb - 1, Math.floor((e._t - a0) / step)); if (k >= 0) v[k]++; });
+      const col = sel.startsWith('g:') ? (GROUP_COLORS[sel.slice(2)] || OVL[i % OVL.length]) : OVL[i % OVL.length];
+      return { label: selLabel(sel), data: v, borderColor: col, backgroundColor: col + '22', fill: state.aGroups.length === 1, tension: 0.3, pointRadius: 0, borderWidth: 2 };
+    }) : Object.entries(series).filter(([, v]) => v.some(Boolean)).map(([g, v]) => ({
+      label: (TAX.groups[g] || {})[state.lang] || g, data: v, borderColor: GROUP_COLORS[g], backgroundColor: GROUP_COLORS[g] + '55', fill: true, tension: 0.3, pointRadius: 0, borderWidth: 1.5 }));
+    charts.push(new Chart($('#ch-daily'), { type: 'line', data: { labels, datasets },
+      options: { ...base, interaction: { mode: 'index', intersect: false }, scales: { x: { ...axes.x, ticks: { maxTicksLimit: 12 } }, y: { ...axes.y, stacked: !overlay } } } }));
     const count = f => { const o = {}; win.forEach(e => { const k = f(e); if (k) o[k] = (o[k] || 0) + 1; }); return Object.entries(o).sort((a, b) => b[1] - a[1]); };
     const cats = count(e => e.category);
     charts.push(new Chart($('#ch-cats'), { type: 'doughnut', data: { labels: cats.map(([c]) => catLabel(c)), datasets: [{
@@ -1822,12 +1918,21 @@
       if (state.analytics) { closeAnalytics(); return; }
       state.analytics = true; $('#btn-analytics').classList.add('on'); closeDrawer(); renderAnalytics();
     });
-    $('#analytics').addEventListener('click', ev => { if (ev.target.closest('#a-close')) closeAnalytics(); });
+    $('#analytics').addEventListener('click', ev => {
+      if (ev.target.closest('#a-close')) closeAnalytics();
+      else if (ev.target.closest('#af-group-btn')) { state.aGroupOpen = !state.aGroupOpen; $('#af-group-pop').hidden = !state.aGroupOpen; $('#af-group-btn').setAttribute('aria-expanded', String(state.aGroupOpen)); }
+      else if (ev.target.closest('#af-group-clear')) { state.aGroups = []; state.aGroupOpen = true; renderAnalytics(); }
+      else if (state.aGroupOpen && !ev.target.closest('#af-group-pop')) { state.aGroupOpen = false; const p = $('#af-group-pop'); if (p) p.hidden = true; }
+    });
     $('#legend').addEventListener('click', ev => { if (ev.target.closest('#legend-toggle')) { state.legendOpen = !state.legendOpen; store.set('vs-legend', state.legendOpen); renderLegend(); } });
     $('#analytics').addEventListener('change', ev => {
       const id = ev.target.id;
       if (id === 'af-country') state.aCountry = ev.target.value;
-      else if (id === 'af-group') state.aGroup = ev.target.value;
+      else if (ev.target.closest('#af-group-pop')) {
+        const v = ev.target.value;
+        state.aGroups = ev.target.checked ? [...new Set(state.aGroups.concat(v))] : state.aGroups.filter(x => x !== v);
+        state.aGroupOpen = true;
+      }
       else if (id === 'af-sev') state.aSev = +ev.target.value;
       else if (id === 'af-source') state.aSource = ev.target.value;
       else if (id === 'af-auto') state.aAuto = ev.target.checked;
@@ -1919,7 +2024,7 @@
       ev.stopPropagation();
       const b = ev.target.closest('[data-mm]'); if (!b) return;
       const k = b.dataset.mm; menu.hidden = true;
-      if (['countries', 'news', 'agenda', 'sites', 'reports', 'ew'].includes(k)) { state.tab = k; renderTabs(); $('#app').classList.add('panel-open'); closeDrawer(); }
+      if (['countries', 'news', 'agenda', 'sites', 'reports', 'ew', 'air'].includes(k)) { state.tab = k; renderTabs(); $('#app').classList.add('panel-open'); closeDrawer(); }
       else if (k === 'analytics') { $('#app').classList.remove('panel-open'); $('#btn-analytics').click(); }
       else if (k === 'refresh') forceRefresh();
       else if (k === 'reliable') { state.reliable = !state.reliable; refresh(); toast(state.reliable ? t('rel_on', 0) : t('rel_off')); }
@@ -1942,7 +2047,7 @@
         return `<button data-m="${k}" class="${cur === k ? 'on' : ''}" aria-label="${esc(t(lb))}">${icon(ic, 22)}<span>${esc(t(lb))}</span>${n ? `<b class="nb">${n}</b>` : ''}</button>`; }).join('')
       + `<button data-m="more" class="${cur === 'more' ? 'on' : ''}" aria-label="${esc(t('m_more'))}">${icon('list', 22)}<span>${esc(t('m_more'))}</span></button>`;
     const acc = window.AngorAccount && window.AngorAccount.enabled;
-    menu.innerHTML = [['refresh', 'refresh-cw', t('rf_title').split(' :')[0].split(':')[0]], ['reliable', state.reliable ? 'shield-check' : 'shield', state.reliable ? t('rel_off').split(' (')[0] : t('rel_on', 0)],
+    menu.innerHTML = [['air', 'plane', t('sp_trafic')], ['refresh', 'refresh-cw', t('rf_title').split(' :')[0].split(':')[0]], ['reliable', state.reliable ? 'shield-check' : 'shield', state.reliable ? t('rel_off').split(' (')[0] : t('rel_on', 0)],
       ['analyst', 'clipboard-check', t('an_menu')], ['share', 'share-2', t('share')], ...(acc ? [['account', 'users', t('m_account')]] : []),
       ...(ACC.profile && ACC.profile.role === 'admin' ? [['admin', 'shield', t('m_admin')]] : []), ['help', 'circle-help', t('help')],
       ['lang', 'globe', state.lang === 'fr' ? 'English' : 'Français'], ['theme', state.theme === 'dark' ? 'sun-medium' : 'moon', state.theme === 'dark' ? 'Clair' : 'Sombre'],
