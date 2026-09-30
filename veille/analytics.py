@@ -1,7 +1,7 @@
 """Statistiques pour les graphiques et les rapports pays."""
 from datetime import timedelta
 
-from .model import CATEGORIES, parse_iso
+from .model import CATEGORIES, GROUPS, parse_iso
 
 WINDOWS = {"24h": 1, "72h": 3, "7d": 7, "30d": 30, "90d": 90}
 
@@ -30,7 +30,7 @@ def global_series(events, now, days=90):
     start = (now - timedelta(days=days - 1)).date()
     dates = [(start + timedelta(days=i)).isoformat() for i in range(days)]
     index = {d: i for i, d in enumerate(dates)}
-    groups = {g: [0] * days for g in ("security", "political", "natural", "health", "infrastructure")}
+    groups = {g: [0] * days for g in GROUPS}  # toutes les familles, y compris celles ajoutées plus tard
     sev = {str(s): [0] * days for s in (1, 2, 3, 4)}
     by_source = {}
     for ev in events:
@@ -39,7 +39,7 @@ def global_series(events, now, days=90):
         if i is None:
             continue
         g = CATEGORIES.get(ev["category"], {}).get("group", "natural")
-        groups[g][i] += 1
+        groups.setdefault(g, [0] * days)[i] += 1
         sev[str(ev["severity"])][i] += 1
         by_source[ev["source"]] = by_source.get(ev["source"], 0) + 1
     return {"dates": dates, "groups": groups, "severity": sev, "by_source": by_source}

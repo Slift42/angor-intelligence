@@ -26,7 +26,7 @@ from datetime import timedelta
 
 from .. import http
 from ..model import make_event, to_iso
-from .rss import TAG_RE, _date, _local
+from .rss import TAG_RE, _date, _local, parse_xml
 
 KIND = "events"
 AUTO_CATEGORY = [("flood", r"flood|inondation|crue"), ("wildfire", r"wildfire|forest fire|incendie|fire"),
@@ -105,7 +105,7 @@ def fetch(cfg, ctx):
         raise r
     if r is None:
         r = http.get(cfg["url"], retries=1, timeout=30)
-    root = ET.fromstring(r.content)
+    root = parse_xml(r.content)
     keep = re.compile(cfg["keep"], re.I) if cfg.get("keep") else None
     drop = re.compile(cfg["drop"], re.I) if cfg.get("drop") else None
     max_age = timedelta(days=int(cfg.get("max_age_days", 10)))

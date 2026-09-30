@@ -53,6 +53,29 @@ def _date(value):
             return None
 
 
+_BAD_AMP = re.compile(r"&(?!#?\w+;)")
+_CTRL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
+
+
+def parse_xml(content):
+    """Analyse un flux, en réparant les défauts courants (texte avant l'en-tête, « & » non échappé,
+    caractères de contrôle) qui font échouer un analyseur strict."""
+    try:
+        root = ET.fromstring(content)
+    except ET.ParseError:
+        text = content.decode("utf-8", "replace") if isinstance(content, bytes) else content
+        text = text.lstrip("\ufeff \r\n\t")
+        start = text.find("<")
+        if start < 0:
+            raise
+        text = _CTRL.sub("", _BAD_AMP.sub("&amp;", text[start:]))
+        text = re.sub(r"^<\?xml[^>]*\?>", "", text)  # l'encodage déclaré ne s'applique plus à une chaîne
+        root = ET.fromstring(text)
+    if _local(root.tag).lower() == "html":
+        raise ValueError("page HTML au lieu d'un flux RSS")
+    return root
+
+
 def _items(root):
     """RSS 2.0, RDF (RSS 1.0) et Atom, quels que soient les espaces de noms."""
     for el in root.iter():
@@ -73,7 +96,7 @@ def fetch(cfg, ctx):
         raise r
     if r is None:
         r = http.get(cfg["url"], auth=cfg.get("auth"), retries=1, timeout=25)
-    root = ET.fromstring(r.content)
+    root = parse_xml(r.content)
     name = cfg.get("name", cfg["id"])
     mode = cfg.get("filter", "security")
     keywords = [k.lower() for k in cfg.get("keywords", [])]

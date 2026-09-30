@@ -464,14 +464,14 @@
     {
       "id": "sudan_tribune",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "Sudan Tribune",
       "license": "Titre + lien",
       "lang": "en",
       "url": "https://sudantribune.com/feed",
       "country": "SD",
       "filter": "security",
-      "_comment": "v0.11 : adresse corrigée (sans « / » final)."
+      "_comment": "v0.11.1 : désactivé (403 depuis les serveurs GitHub, 30/09/2026)."
     },
     {
       "id": "sudan_war_monitor",
@@ -1281,14 +1281,14 @@
     {
       "id": "apanews",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "APA News",
       "license": "Titre + lien",
       "lang": "en",
       "url": "https://apanews.net/feed/",
       "filter": "security",
       "reliability": "B",
-      "_comment": "v0.11 – vérifié le 30/09/2026. En pause automatique si le flux ne répond pas."
+      "_comment": "v0.11.1 : désactivé (403 depuis les serveurs GitHub, 30/09/2026)."
     },
     {
       "id": "allafrica",
@@ -1499,7 +1499,7 @@
     {
       "id": "arabnews",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "Arab News",
       "license": "Titre + lien",
       "lang": "en",
@@ -1507,7 +1507,7 @@
       "country": "SA",
       "filter": "security",
       "reliability": "C",
-      "_comment": "v0.11 – vérifié le 30/09/2026. En pause automatique si le flux ne répond pas."
+      "_comment": "v0.11.1 : désactivé (403 depuis les serveurs GitHub, 30/09/2026)."
     },
     {
       "id": "thenational_ae",
@@ -1663,7 +1663,7 @@
     {
       "id": "letelegramme",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "Le Télégramme (Bretagne)",
       "license": "Titre + lien",
       "lang": "fr",
@@ -1671,7 +1671,7 @@
       "country": "FR",
       "filter": "security",
       "reliability": "B",
-      "_comment": "v0.11 – adresse non vérifiable depuis l'atelier (robots/pare-feu) : testée par le robot, en pause automatique si elle échoue."
+      "_comment": "v0.11.1 : désactivé (403 depuis les serveurs GitHub, 30/09/2026)."
     },
     {
       "id": "leprogres",
@@ -1728,7 +1728,7 @@
     {
       "id": "la1ere",
       "type": "rss",
-      "enabled": true,
+      "enabled": false,
       "name": "Outre-mer La 1ère",
       "license": "Titre + lien",
       "lang": "fr",
@@ -1736,7 +1736,7 @@
       "country": "FR",
       "filter": "security",
       "reliability": "B",
-      "_comment": "v0.11 – adresse non vérifiable depuis l'atelier (robots/pare-feu) : testée par le robot, en pause automatique si elle échoue."
+      "_comment": "v0.11.1 : désactivé (l'adresse renvoie une page HTML, pas un flux, 30/09/2026)."
     },
     {
       "id": "ecdc_epi",

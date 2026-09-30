@@ -15,7 +15,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 
 from . import config, http
-from .connectors.rss import TAG_RE, _items
+from .connectors.rss import TAG_RE, _items, parse_xml
 from .geo import ALIASES, normalize
 from .model import to_iso
 from .publish import write_js
@@ -129,7 +129,7 @@ def _clean(s):
 
 def fetch_feed(feed):
     r = http.get(feed["url"], retries=1, timeout=30)
-    return list(_items(ET.fromstring(r.content)))
+    return list(_items(parse_xml(r.content)))
 
 
 def update(store, countries, log, now, fetch=True):
