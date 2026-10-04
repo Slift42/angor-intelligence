@@ -1,0 +1,12 @@
+# Réglages des outils de développement. Le robot n'utilise que requirements.txt.
+[tool.ruff]
+line-length = 140
+target-version = "py311"
+
+[tool.ruff.lint]
+# Erreurs réelles (noms indéfinis, imports inutiles, clés en double…) et pièges classiques.
+# Le style (longueur de ligne, complexité) est suivi dans doc/DETTE_TECHNIQUE.md, pas bloquant.
+select = ["F", "B006", "B008", "B033", "E9"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

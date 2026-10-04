@@ -175,8 +175,7 @@ SPEECH_VERBS = ("says", "said", "warns", "warned", "accuses", "accused", "announ
                 "rejects", "dit", "affirme", "accuse", "annonce", "dénonce", "appelle", "rejette", "dice",
                 "afirma", "acusa", "anuncia", "denuncia", "diz", "sagt", "warnt", "wirft", "говорит", "заявил")
 
-LOC_PREP = {"in", "at", "near", "outside", "around", "a", "au", "aux", "en", "pres", "dans", "vers", "en",
-            "cerca", "de", "del", "em", "no", "na", "nel", "nella", "bei", "nahe", "im", "w", "we", "pod", "yakinlarinda",
+LOC_PREP = {"in", "at", "near", "outside", "around", "a", "au", "aux", "en", "pres", "dans", "vers", "cerca", "de", "del", "em", "no", "na", "nel", "nella", "bei", "nahe", "im", "w", "we", "pod", "yakinlarinda",
             "в", "под", "у", "في", "قرب"}
 PREP_LANGS = {"en", "fr", "es", "pt", "it", "de", "nl", ""}
 NATURAL = {"earthquake", "flood", "cyclone", "storm", "wildfire", "volcano", "landslide", "extreme_temp", "drought"}
@@ -283,6 +282,8 @@ PRIVATE_WORDS = ["sa compagne", "son compagnon", "son epouse", "sa femme", "son 
                  "suicide", "suicid", "se suicide", "overdose", "noyade", "drowned", "noye", "family members",
                  "membres d'une meme famille", "miembros de una familia", "familiares"]
 _PRIVATE_RE = _word_re(PRIVATE_WORDS)
+# « suicide » désigne ici un mode opératoire terroriste, pas un drame privé (corrigé lors de l'audit v0.17)
+_SUICIDE_ATTACK_RE = re.compile(r"suicide[ -]?(bomb\w*|attack\w*|car|truck|vest|drone|blast|explosion)|(attentat|attaque)s?[ -]suicide|kamikaze|bombe humaine")
 # Criminalité retenue seulement si elle relève de l'ordre public ou menace des entreprises et des voyageurs.
 PUBLIC_CRIME_WORDS = ["cartel", "gang", "narco", "trafic", "traffick", "mafia", "reglement de comptes", "reglements de comptes",
                       "fusillade", "shooting", "tiroteo", "sparatoria", "braquage", "attaque a main armee", "armed robbery",
@@ -549,7 +550,7 @@ def not_incident(title, cat=None):
             return "séisme sans impact"
     if _JUDICIAL_RE.search(t) and not _MOBILISATION_RE.search(t):
         return "judiciaire"
-    if _PRIVATE_RE.search(t) and not _PUBLIC_CRIME_RE.search(t):
+    if _PRIVATE_RE.search(_SUICIDE_ATTACK_RE.sub(" ", t)) and not _PUBLIC_CRIME_RE.search(t):
         return "fait divers"
     if cat == "crime" and not _PUBLIC_CRIME_RE.search(t):
         return "fait divers"
@@ -880,7 +881,6 @@ def item_lang(it):
 def build(press_items, econ_items, countries, log, now, ai_results=None):
     """Transforme les titres collectés en : événements cartographiés, articles du Fil, veille économique."""
     import hashlib
-    from datetime import timedelta
     from .model import make_event, to_iso
 
     gaz = gazetteer(countries, log) if press_items else None

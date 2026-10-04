@@ -10,7 +10,6 @@ import html
 import re
 import time
 import unicodedata
-import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 
@@ -39,9 +38,9 @@ DEMONYMS = {
     "tunisian": "TN", "turkish": "TR", "ugandan": "UG", "ukrainian": "UA", "uzbek": "UZ", "venezuelan": "VE",
     "vietnamese": "VN", "yemeni": "YE", "zambian": "ZM", "zimbabwean": "ZW",
     # français
-    "malien": "ML", "malienne": "ML", "burkinabe": "BF", "nigerienne": "NE", "tchadien": "TD", "soudanais": "SD",
+    "malien": "ML", "malienne": "ML", "nigerienne": "NE", "tchadien": "TD", "soudanais": "SD",
     "somalien": "SO", "ethiopien": "ET", "libyen": "LY", "syrien": "SY", "irakien": "IQ", "iranien": "IR",
-    "israelien": "IL", "libanais": "LB", "yemenite": "YE", "afghan": "AF", "ukrainien": "UA", "russe": "RU",
+    "israelien": "IL", "libanais": "LB", "yemenite": "YE", "ukrainien": "UA", "russe": "RU",
     "chinois": "CN", "algerien": "DZ", "marocain": "MA", "tunisien": "TN", "congolais": "CD", "centrafricain": "CF",
     "camerounais": "CM", "senegalais": "SN", "ivoirien": "CI", "haitien": "HT", "venezuelien": "VE", "mexicain": "MX",
 }

@@ -56,9 +56,15 @@
       tr_adsblol: 'Réseau communautaire ouvert (licence ODbL), API gratuite.', tr_apl: 'Réseau communautaire, sans filtrage des vols militaires.',
       tr_mt: 'Référence AIS ; données détaillées et historique sur abonnement.', tr_vf: 'Alternative AIS, positions et escales.', tr_mst: 'Alternative AIS gratuite.',
       tr_embed_note: 'Si l\'aperçu reste vide, le service refuse l\'affichage intégré : utilisez « Ouvrir ».',
-      tr_feed: 'Calque sur la carte Angor', tr_feed_on: p => `Flux branché : ${p}. Positions affichées sur la carte dès la prochaine version.`,
-      tr_feed_air: 'Prêt à recevoir un flux (ADS-B communautaire ou fournisseur sous licence) : positions des aéronefs sur la carte, alerte sur fermeture d\'espace aérien et vols militaires près de vos sites. À activer dans config/settings.json → traffic.air.',
-      tr_feed_sea: 'Prêt à recevoir un flux AIS (AISHub, aisstream.io ou fournisseur sous licence) : navires près de vos ports et trajets, alertes sur les détroits sensibles. À activer dans config/settings.json → traffic.sea.',
+      tr_onmap: 'Sur la carte Angor', tr_l_emerg: 'En détresse (7500 / 7600 / 7700)', tr_l_mil: 'Militaires (monde)', tr_l_zones: 'Tous les vols des zones d\'intérêt',
+      tr_snap: m => `Instantané d'il y a ${m} min (actualisé à chaque collecte, toutes les 30 min)`, tr_snap_missing: 'Instantané pas encore disponible : il apparaîtra après la prochaine collecte.',
+      tr_mil: 'Aéronef militaire', tr_ground: 'au sol', tr_sq_hijack: '7500 – détournement', tr_sq_radio: '7600 – panne radio', tr_sq_emergency: '7700 – urgence',
+      tr_l_baltic: 'Navires en Baltique (direct)', tr_ship_hint: 'AIS ouvert de Digitraffic (Finlande, CC BY 4.0), actualisé chaque minute : Baltique et golfe de Finlande. Autres mers : clé aisstream.io à brancher.',
+      tr_ship_err: 'Digitraffic ne répond pas pour le moment : nouvel essai dans une minute.',
+      tr_st_cargo: 'cargo', tr_st_tanker: 'pétrolier', tr_st_pass: 'passagers', tr_st_fish: 'pêche', tr_st_other: 'autre',
+      tr_feed: 'Autres sources', tr_feed_on: p => `Flux branché : ${p}. Positions affichées sur la carte dès la prochaine version.`,
+      tr_feed_air: 'Avions : adsb.lol (ODbL, sans inscription). Suivi en direct sur la carte possible avec OpenSky (compte gratuit, usage non commercial) ou un relais Supabase ; alertes de proximité de vos sites à venir.',
+      tr_feed_sea: 'Navires : Digitraffic couvre la Baltique. Pour le monde entier : aisstream.io (clé gratuite) ou Global Fishing Watch (navires « éteints »), à brancher par le robot.',
       tz_ukraine: 'Ukraine', tz_levant: 'Levant', tz_gulf: 'Golfe', tz_sahel: 'Sahel', tz_redsea_air: 'Mer Rouge', tz_taiwan: 'Détroit de Taïwan', tz_baltic: 'Baltique',
       tz_bab: 'Bab el-Mandeb', tz_hormuz: 'Ormuz', tz_suez: 'Canal de Suez', tz_blacksea: 'Mer Noire', tz_guinea: 'Golfe de Guinée', tz_malacca: 'Malacca', tz_channel: 'Manche',
       ms_hint: 'Cochez plusieurs catégories pour superposer leurs courbes', ms_clear: 'Effacer', ci_title: 'Villes', ci_none: 'aucun incident', ci_low: 'activité faible', ci_mod: 'activité modérée', ci_high: 'activité élevée', ci_vhigh: 'activité très élevée', ci_capital: 'capitale', ci_level: 'niveau', ci_hint: 'Nombre = incidents à proximité sur 90 jours. Le détail (zones sensibles, conseils, aéroport, hôpitaux) est dans le rapport pays.',
@@ -212,9 +218,15 @@
       tr_adsblol: 'Open community network (ODbL licence), free API.', tr_apl: 'Community network, military flights not filtered.',
       tr_mt: 'AIS reference; detailed data and history on subscription.', tr_vf: 'AIS alternative, positions and port calls.', tr_mst: 'Free AIS alternative.',
       tr_embed_note: 'If the preview stays blank, the service refuses embedding: use “Open”.',
-      tr_feed: 'Layer on the Angor map', tr_feed_on: p => `Feed connected: ${p}. Positions shown on the map from the next version.`,
-      tr_feed_air: 'Ready for a feed (community ADS-B or licensed provider): aircraft positions on the map, alerts on airspace closures and military flights near your sites. Enable in config/settings.json → traffic.air.',
-      tr_feed_sea: 'Ready for an AIS feed (AISHub, aisstream.io or licensed provider): vessels near your ports and routes, alerts on sensitive straits. Enable in config/settings.json → traffic.sea.',
+      tr_onmap: 'On the Angor map', tr_l_emerg: 'In distress (7500 / 7600 / 7700)', tr_l_mil: 'Military (worldwide)', tr_l_zones: 'All flights in areas of interest',
+      tr_snap: m => `Snapshot from ${m} min ago (refreshed at each collection, every 30 min)`, tr_snap_missing: 'Snapshot not available yet: it will appear after the next collection.',
+      tr_mil: 'Military aircraft', tr_ground: 'on ground', tr_sq_hijack: '7500 – hijack', tr_sq_radio: '7600 – radio failure', tr_sq_emergency: '7700 – emergency',
+      tr_l_baltic: 'Vessels in the Baltic (live)', tr_ship_hint: 'Open AIS from Digitraffic (Finland, CC BY 4.0), refreshed every minute: Baltic and Gulf of Finland. Other seas: plug an aisstream.io key.',
+      tr_ship_err: 'Digitraffic is not responding right now: retrying in a minute.',
+      tr_st_cargo: 'cargo', tr_st_tanker: 'tanker', tr_st_pass: 'passenger', tr_st_fish: 'fishing', tr_st_other: 'other',
+      tr_feed: 'Other sources', tr_feed_on: p => `Feed connected: ${p}. Positions shown on the map from the next version.`,
+      tr_feed_air: 'Aircraft: adsb.lol (ODbL, no sign-up). Live tracking possible with OpenSky (free account, non-commercial) or a Supabase relay; proximity alerts for your sites to come.',
+      tr_feed_sea: 'Vessels: Digitraffic covers the Baltic. Worldwide: aisstream.io (free key) or Global Fishing Watch (dark vessels), to be plugged via the robot.',
       tz_ukraine: 'Ukraine', tz_levant: 'Levant', tz_gulf: 'Gulf', tz_sahel: 'Sahel', tz_redsea_air: 'Red Sea', tz_taiwan: 'Taiwan Strait', tz_baltic: 'Baltic',
       tz_bab: 'Bab el-Mandeb', tz_hormuz: 'Hormuz', tz_suez: 'Suez Canal', tz_blacksea: 'Black Sea', tz_guinea: 'Gulf of Guinea', tz_malacca: 'Malacca', tz_channel: 'English Channel',
       ms_hint: 'Tick several categories to overlay their curves', ms_clear: 'Clear', ci_title: 'Cities', ci_none: 'no incident', ci_low: 'low activity', ci_mod: 'moderate activity', ci_high: 'high activity', ci_vhigh: 'very high activity', ci_capital: 'capital', ci_level: 'level', ci_hint: 'Number = nearby incidents over 90 days. Details (sensitive areas, advice, airport, hospitals) are in the country report.',
@@ -1044,7 +1056,7 @@
   /* Villes du pays (fiche détaillée chargée à la demande) : niveau analyste ou activité des incidents sur 90 j */
   function ensureDetail(iso, done) {
     if ((window.VS_CDETAIL || {})[iso] || (ensureDetail.failed || new Set()).has(iso)) return done();
-    loadScript(`data/country/${iso}.js?v=${encodeURIComponent(String(D.generated || '').slice(0, 13))}`).then(done, () => { (ensureDetail.failed = ensureDetail.failed || new Set()).add(iso); });
+    loadScript(`data/country/${iso}.js?v=${encodeURIComponent(String((D && D.generated) || '').slice(0, 13))}`).then(done, () => { (ensureDetail.failed = ensureDetail.failed || new Set()).add(iso); });
   }
   function citiesSection(iso) {
     const dt = (window.VS_CDETAIL || {})[iso];
@@ -1141,7 +1153,7 @@
     if (state.tab === 'agenda') renderAgenda();
     if (state.tab === 'reports') renderReports();
     if (state.tab === 'analytics') renderAnalyticsIntro();
-    if (state.tab === 'air' || state.tab === 'sea') renderTraffic(); else closeTrafficView();
+    if (state.tab === 'air' || state.tab === 'sea') { renderTraffic(); trafficLayers(true); } else { closeTrafficView(); trafficLayers(false); }
     if (window.AngorEW) { if (state.tab === 'ew' && !window.AngorEW.active) window.AngorEW.open(); else if (state.tab !== 'ew' && window.AngorEW.active) window.AngorEW.close(); }
     renderMobileNav();
   }
@@ -1177,12 +1189,102 @@
     const cfg = ((window.VS_CONFIG || {}).traffic || {})[kind] || {};
     el.innerHTML = `<div class="tr-intro"><p class="hint">${esc(t(kind === 'air' ? 'tr_air_intro' : 'tr_sea_intro'))}</p>
       <div class="tr-view">${icon('crosshair', 14)}<span>${esc(t('tr_view'))} : ${v.lat.toFixed(2)}, ${v.lon.toFixed(2)} · zoom ${Math.round(v.z)}</span></div></div>
+      ${kind === 'air' ? trAirSection() : trSeaSection()}
       <div class="d-sec"><h3>${icon('external-link', 14)} ${esc(t('tr_open'))}</h3><ul class="tr-list">${TRAFFIC[kind].map(p => `<li>
         <div><strong>${esc(p.name)}</strong><span class="hint">${esc(t(p.note))}</span></div>
         <div class="tr-act">${p.embed ? `<button class="btn small" data-tr-embed="${p.id}">${icon('eye', 13)}${esc(t('tr_preview'))}</button>` : ''}<a class="btn small primary" href="${esc(p.url(v))}" target="_blank" rel="noopener">${icon('external-link', 13)}${esc(t('tr_go'))}</a></div></li>`).join('')}</ul></div>
-      <div class="d-sec"><h3>${icon('map-pin', 14)} ${esc(t('tr_zones'))}</h3><div class="tr-zones">${TRAFFIC_ZONES[kind].map(([k, la, lo, z]) => `<button class="chip-btn" data-tr-zone="${la},${lo},${z}">${esc(t(k))}</button>`).join('')}</div></div>
-      <div class="d-sec"><h3>${icon('layers', 14)} ${esc(t('tr_feed'))}</h3><div class="notice" style="border-style:solid">${esc(cfg.provider ? t('tr_feed_on', cfg.provider) : t(kind === 'air' ? 'tr_feed_air' : 'tr_feed_sea'))}</div></div>`;
+      <div class="d-sec"><h3>${icon('map-pin', 14)} ${esc(t('tr_zones'))}</h3><div class="tr-zones">${TRAFFIC_ZONES[kind].map(([k, la, lo, z]) => `<button class="chip-btn" data-tr-zone="${la},${lo},${z}">${esc(t(k))}${kind === 'air' ? zoneCount(k) : ''}</button>`).join('')}</div></div>
+      <div class="d-sec"><h3>${icon('layers', 14)} ${esc(t('tr_feed'))}</h3><div class="hint">${esc(cfg.provider ? t('tr_feed_on', cfg.provider) : t(kind === 'air' ? 'tr_feed_air' : 'tr_feed_sea'))}</div></div>`;
   }
+  /* Calques trafic sur la carte : avions (instantané adsb.lol publié par le robot toutes les 30 min, l'API n'étant pas
+     appelable depuis le navigateur) et navires en Baltique (Digitraffic, Finlande : AIS ouvert, en direct, CC BY 4.0). */
+  const trafficLayer = L.layerGroup(), shipLayer = L.layerGroup();
+  const TRS = { air: store.get('vs-tr-air', { mil: true, emerg: true, zones: true }), sea: store.get('vs-tr-sea', true), ships: null, vessels: null, shipT: null, shipAt: 0, shipErr: false };
+  const ZONE_KEY = { tz_ukraine: 'ukraine', tz_levant: 'levant', tz_gulf: 'gulf', tz_sahel: 'sahel', tz_redsea_air: 'redsea', tz_taiwan: 'taiwan', tz_baltic: 'baltic' };
+  function zoneCount(k) {
+    const z = ((window.VS_TRAFFIC || {}).zones || {})[ZONE_KEY[k]];
+    return z ? ` <b class="zc">${z.n}${z.mil ? ` · ${z.mil} mil.` : ''}</b>` : '';
+  }
+  function ensureTraffic(done) {
+    if (window.VS_TRAFFIC || ensureTraffic.failed) return done && done();
+    loadScript(`data/traffic.js?v=${encodeURIComponent(String((D && D.generated) || '').slice(0, 16))}`).then(() => { if (!window.VS_TRAFFIC) ensureTraffic.failed = true; done && done(); });
+  }
+  const PLANE = '<path d="M12 2c.8 0 1.3.8 1.3 1.8v5.4l7.2 4.3v2l-7.2-2.2v4.4l2.2 1.7v1.6L12 20.1 8.5 21v-1.6l2.2-1.7v-4.4l-7.2 2.2v-2l7.2-4.3V3.8C10.7 2.8 11.2 2 12 2z" fill="currentColor" stroke="none"/>';
+  function planeIcon(a, kind) {
+    const col = kind === 'emerg' ? '#FF3355' : a[10] ? '#FF8C1A' : state.theme === 'dark' ? '#9FC2FF' : '#2F5E9E';
+    return L.divIcon({ className: '', iconSize: [20, 20], html: `<div class="ac${kind === 'emerg' ? ' em' : ''}" style="color:${col};transform:rotate(${a[8] || 0}deg)"><svg viewBox="0 0 24 24" width="20" height="20">${PLANE}</svg></div>` });
+  }
+  function acTip(a, kind) {
+    const alt = a[6] == null ? '—' : a[6] === 0 ? t('tr_ground') : `${Math.round(a[6]).toLocaleString(state.lang)} ft`;
+    return `<strong>${esc(a[1] || a[2] || a[0])}</strong>${a[3] ? ` · ${esc(a[3])}` : ''}${a[2] && a[1] ? ` · ${esc(a[2])}` : ''}<br>${esc(alt)}${a[7] != null ? ` · ${a[7]} kt` : ''}${a[9] ? ` · squawk ${esc(a[9])}` : ''}${a[10] ? `<br><b style="color:#E0722C">${esc(t('tr_mil'))}</b>` : ''}${kind === 'emerg' ? `<br><b style="color:#D7263D">${esc(t('tr_sq_' + a[11]) || a[11])}</b>` : ''}`;
+  }
+  function drawAircraft() {
+    trafficLayer.clearLayers();
+    const T = window.VS_TRAFFIC; if (!T) return;
+    const seen = new Set();
+    const add = (a, kind) => { if (seen.has(a[0])) return; seen.add(a[0]); L.marker([a[4], a[5]], { icon: planeIcon(a, kind), zIndexOffset: kind === 'emerg' ? 1000 : a[10] ? 500 : 0 }).bindTooltip(acTip(a, kind), { direction: 'top' }).addTo(trafficLayer); };
+    if (TRS.air.emerg) (T.emergency || []).forEach(a => add(a, 'emerg'));
+    if (TRS.air.mil) (T.mil || []).forEach(a => add(a, 'mil'));
+    if (TRS.air.zones) Object.values(T.zones || {}).forEach(z => (z.ac || []).forEach(a => add(a, a[10] ? 'mil' : 'civ')));
+  }
+  function trAirSection() {
+    const T = window.VS_TRAFFIC;
+    if (!T && !ensureTraffic.failed) ensureTraffic(() => { if (state.tab === 'air') { renderTraffic(); drawAircraft(); } });
+    const age = T ? Math.round((Date.now() - Date.parse(T.generated)) / 60000) : null;
+    const box = (k, n) => `<label class="switch"><input type="checkbox" data-tr-air="${k}"${TRS.air[k] ? ' checked' : ''}><span>${esc(t('tr_l_' + k))}${n != null ? ` <b class="zc">${n}</b>` : ''}</span></label>`;
+    return `<div class="d-sec"><h3>${icon('plane', 14)} ${esc(t('tr_onmap'))}</h3>
+      ${T ? `<div class="tr-toggles">${box('emerg', (T.emergency || []).length)}${box('mil', (T.mil || []).length)}${box('zones', Object.values(T.zones || {}).reduce((n, z) => n + z.n, 0))}</div>
+        <div class="hint">${esc(t('tr_snap', age))} · ${esc(T.license || 'adsb.lol')}</div>` : `<div class="hint">${esc(ensureTraffic.failed ? t('tr_snap_missing') : t('ag_loading'))}</div>`}</div>`;
+  }
+  function trSeaSection() {
+    const n = TRS.ships ? TRS.ships.length : null;
+    return `<div class="d-sec"><h3>${icon('ship', 14)} ${esc(t('tr_onmap'))}</h3>
+      <div class="tr-toggles"><label class="switch"><input type="checkbox" data-tr-sea="1"${TRS.sea ? ' checked' : ''}><span>${esc(t('tr_l_baltic'))}${n != null ? ` <b class="zc">${n}</b>` : ''}</span></label></div>
+      <div class="hint">${esc(TRS.shipErr ? t('tr_ship_err') : t('tr_ship_hint'))}</div>
+      <div class="tr-legend"><span><i style="background:#2FB36B"></i>${esc(t('tr_st_cargo'))}</span><span><i style="background:#E5484D"></i>${esc(t('tr_st_tanker'))}</span><span><i style="background:#3F86C6"></i>${esc(t('tr_st_pass'))}</span><span><i style="background:#B08D57"></i>${esc(t('tr_st_fish'))}</span><span><i style="background:#8A96A3"></i>${esc(t('tr_st_other'))}</span></div></div>`;
+  }
+  const shipColor = ty => ty >= 70 && ty < 80 ? '#2FB36B' : ty >= 80 && ty < 90 ? '#E5484D' : ty >= 60 && ty < 70 ? '#3F86C6' : ty === 30 ? '#B08D57' : '#8A96A3';
+  async function loadShips() {
+    const H = { headers: { 'Digitraffic-User': 'AngorIntelligence/1.0' } };
+    try {
+      const [loc, ves] = await Promise.all([fetch('https://meri.digitraffic.fi/api/ais/v1/locations', H).then(r => r.json()),
+        TRS.vessels ? Promise.resolve(null) : fetch('https://meri.digitraffic.fi/api/ais/v1/vessels', H).then(r => r.json()).catch(() => null)]);
+      if (ves) TRS.vessels = Object.fromEntries(ves.map(v => [v.mmsi, v]));
+      const limit = Date.now() - 30 * 60e3;
+      TRS.ships = (loc.features || []).filter(f => f.properties.timestampExternal > limit);
+      TRS.shipErr = false; TRS.shipAt = Date.now();
+    } catch (e) { TRS.shipErr = true; }
+    drawShips();
+    if (state.tab === 'sea') renderTraffic();
+  }
+  function drawShips() {
+    shipLayer.clearLayers();
+    if (!TRS.sea || !TRS.ships) return;
+    TRS.ships.forEach(f => {
+      const p = f.properties, v = (TRS.vessels || {})[p.mmsi] || {};
+      const [lon, lat] = f.geometry.coordinates;
+      L.circleMarker([lat, lon], { radius: 3.6, weight: 1, color: state.theme === 'dark' ? '#0B1828' : '#fff', fillColor: shipColor(v.shipType), fillOpacity: 0.95 })
+        .bindTooltip(`<strong>${esc(v.name || p.mmsi)}</strong>${v.destination ? ` → ${esc(v.destination)}` : ''}<br>${p.sog != null ? `${p.sog} kn` : ''}${v.imo ? ` · IMO ${v.imo}` : ''} · MMSI ${p.mmsi}`, { direction: 'top' }).addTo(shipLayer);
+    });
+  }
+  function trafficLayers(on) {
+    if (on) {
+      if (!map.hasLayer(trafficLayer)) trafficLayer.addTo(map);
+      if (!map.hasLayer(shipLayer)) shipLayer.addTo(map);
+      ensureTraffic(drawAircraft);
+      if (TRS.sea && !TRS.shipT) { loadShips(); TRS.shipT = setInterval(() => { if (TRS.sea) loadShips(); }, 60e3); }
+    } else {
+      [trafficLayer, shipLayer].forEach(l => { if (map.hasLayer(l)) map.removeLayer(l); });
+      if (TRS.shipT) { clearInterval(TRS.shipT); TRS.shipT = null; }
+    }
+  }
+  document.addEventListener('change', ev => {
+    const a = ev.target.closest('[data-tr-air]');
+    if (a) { TRS.air[a.dataset.trAir] = a.checked; store.set('vs-tr-air', TRS.air); drawAircraft(); return; }
+    const sh = ev.target.closest('[data-tr-sea]');
+    if (sh) { TRS.sea = sh.checked; store.set('vs-tr-sea', TRS.sea); if (TRS.sea) trafficLayers(true); else { shipLayer.clearLayers(); if (TRS.shipT) { clearInterval(TRS.shipT); TRS.shipT = null; } } }
+  });
+
   function openTrafficView(id) {
     const kind = state.tab === 'sea' ? 'sea' : 'air';
     const p = TRAFFIC[kind].find(x => x.id === id); if (!p) return;

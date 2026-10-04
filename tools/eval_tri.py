@@ -23,7 +23,10 @@ def fam(c):
     return FAMILY.get(c, c)
 
 
-def evaluate(path=Path(__file__).resolve().parent.parent / "tests" / "gold_tri.csv"):
+GOLD = Path(__file__).resolve().parent.parent / "tests" / "gold_tri.csv"
+
+
+def evaluate(path=GOLD):
     rows = list(csv.DictReader(open(path, encoding="utf-8")))
     tp = fp = fn = tn = cat_ok = 0
     errors = []

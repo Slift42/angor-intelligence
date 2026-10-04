@@ -237,7 +237,7 @@ def build_digest(events, country_risk, pulse, now, cfg, countries=None, news=Non
                 lines.append("   " + _line(e, countries))
         blocks.append("Vos pays suivis\n" + "\n".join(lines))
     url = cfg.get("site_url") or "https://angor.fr"
-    blocks.append(f"Carte : {url}/?h=24" + (f"&watch=1" if follow else ""))
+    blocks.append(f"Carte : {url}/?h=24" + ("&watch=1" if follow else ""))
     return blocks
 
 

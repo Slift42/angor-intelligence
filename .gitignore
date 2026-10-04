@@ -16,6 +16,7 @@ docs/data/reports.js
 docs/data/early_warning.js
 docs/data/country/
 docs/data/health.js
+docs/data/traffic.js
 # Python
 __pycache__/
 *.pyc
@@ -23,3 +24,7 @@ __pycache__/
 docs/data/archive/
 # Captures et exports de travail
 Claude outputs/
+# Tests de bout en bout
+tests/e2e/node_modules/
+.pytest_cache/
+.ruff_cache/

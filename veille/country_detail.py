@@ -21,7 +21,6 @@ import re
 import time
 import unicodedata
 from datetime import timedelta
-from pathlib import Path
 
 from . import fcdo, http
 from .config import ROOT

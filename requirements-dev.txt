@@ -1,0 +1,3 @@
+# Outils de développement (pas nécessaires au robot de collecte)
+pytest>=8
+ruff>=0.6

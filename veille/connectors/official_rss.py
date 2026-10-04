@@ -21,7 +21,6 @@ Titre, lien et résumé court uniquement."""
 import hashlib
 import html
 import re
-import xml.etree.ElementTree as ET
 from datetime import timedelta
 
 from .. import http

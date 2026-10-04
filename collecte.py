@@ -18,7 +18,7 @@ import time
 from datetime import datetime, timedelta, timezone
 
 from veille import (__version__, agenda, ai, analytics, config, country_detail, crises, early_warning, enrich, notify,
-                    practical, press, profiles, reports,
+                    practical, press, profiles, reports, traffic,
                     publish, pulse, quality, risk)
 from veille.connectors import REGISTRY, Context
 from veille.dedupe import dedupe
@@ -270,6 +270,12 @@ def main():
             early_warning.update(store, countries, events, settings, log, now)
         except Exception as exc:
             log(f"✘ alerte précoce : {type(exc).__name__}: {exc}")
+
+    # trafic aérien (instantané adsb.lol : militaires, détresse, zones d'intérêt)
+    try:
+        traffic.update(settings, log, now)
+    except Exception as exc:
+        log(f"✘ trafic aérien : {type(exc).__name__}: {exc}")
 
     # fiches pays détaillées (villes, aéroports, secours, santé, conseils FCDO) pour le rapport pays
     if not args.no_profiles:

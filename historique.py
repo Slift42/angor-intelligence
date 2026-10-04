@@ -30,7 +30,6 @@ import re
 import sys
 import time
 import zipfile
-from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 from multiprocessing import Pool
 

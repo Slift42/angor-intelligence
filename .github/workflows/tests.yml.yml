@@ -1,0 +1,45 @@
+# Modèle : à copier une fois dans .github/workflows/tests.yml (voir doc/EXPLOITATION.md).
+# Contrôle qualité à chaque envoi de code : analyse statique, tests unitaires (Python) et test de fumée du site.
+# Indépendant du robot de collecte : un échec ici n'empêche pas la mise en ligne, mais doit être corrigé
+# avant tout nouveau développement (voir CONTRIBUTING.md).
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Analyse statique (erreurs réelles uniquement)
+        run: ruff check veille collecte.py historique.py tools tests
+      - name: Tests unitaires
+        run: pytest -q
+
+  site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - name: Test de fumée (pages sans erreur JavaScript, ordinateur et mobile)
+        working-directory: tests/e2e
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+          npm test

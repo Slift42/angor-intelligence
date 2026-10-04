@@ -1,0 +1,132 @@
+# Contrats de données
+
+Le robot et le site ne communiquent **que** par les fichiers de `docs/data/`. Toute modification d'un champ
+listé ici est une modification d'interface : mettre à jour ce document, le producteur, **tous** les
+consommateurs (recherche : `grep -rn "NOM_DU_CHAMP" docs/*.js`) et les tests.
+
+Les fichiers publiés sont des scripts (`window.VS_XXX = {…};`) plutôt que du JSON : ils se chargent avec une
+simple balise `<script>`, y compris en ouvrant `docs/index.html` depuis le disque, sans serveur.
+
+## 1. Événement (format standard)
+
+Produit par `veille/model.py → make_event`, complété au fil de la chaîne. C'est le seul format que la carte connaît.
+
+| Champ | Type | Obligatoire | Description |
+|---|---|---|---|
+| `id` | str | oui | Identifiant stable, préfixé par la source (`usgs:…`, `press:…`) : sert au dédoublonnage et à la purge |
+| `source` | str | oui | Nom affiché de la source principale |
+| `sources` | list[{name, url}] | oui | Toutes les sources ayant rapporté l'événement (après fusion), 25 au plus |
+| `category` | str | oui | Clé de `model.CATEGORIES` (`attack`, `unrest`, `earthquake`…) ; inconnue → `other` |
+| `severity` | int 1–4 | oui | Faible, modérée, élevée, critique |
+| `title` | str | oui | Titre d'origine (langue de la source) |
+| `title_fr`, `title_en` | str | non | Traductions produites par l'IA quand la clé est branchée |
+| `lang` | str | non | Langue détectée du titre (`fr`, `en`, `es`…) |
+| `summary` | str | non | Résumé court (jamais l'article complet) |
+| `headline` | str | non | Titre de l'article lié (GDELT, `enrich.py`) |
+| `date` | ISO 8601 UTC | oui | Date de l'événement (dernière mise à jour si fusionné) |
+| `start` | ISO 8601 UTC | oui | Début (le plus ancien des événements fusionnés) |
+| `first_seen` | ISO 8601 UTC | — | Première détection par le robot |
+| `lat`, `lon` | float (4 décimales) | oui | Position |
+| `precision` | `exact` \| `city` \| `region` \| `country` | oui | Précision de la position |
+| `place` | str | non | Lieu lisible |
+| `country` | ISO2 | non | Pays (calculé par point dans polygone si absent) |
+| `url` | str | oui | Lien vers la source |
+| `confidence` | `high` \| `medium` \| `low` | oui | Confiance (multi-source = `high`) |
+| `tags` | list[str] | oui | `press`, `auto-detected`, `ai`, `multi-source`, `verified`… |
+| `merged` | list[str] | — | Identifiants absorbés par le dédoublonnage |
+| `admiralty` | str `A1`–`F6` | — | Cotation de l'Amirauté (`quality.py`) |
+| `verified` | dict | — | Validation de l'analyste (`config/verified.json`) |
+
+## 2. Fichiers publiés (`docs/data/`)
+
+| Fichier | Variable | Producteur | Rythme | Consommateurs |
+|---|---|---|---|---|
+| `data.js` | `VS_DATA` | `collecte.py` → `publish.write_outputs` | 30 min | toutes les pages |
+| `events.geojson` | — | `publish.write_outputs` | 30 min | réutilisation externe (« API » statique) |
+| `archive/AAAA-MM.js` | `VS_ARCHIVE[mois]` | `publish.write_archives` | 30 min | `app.js` (périodes > 30 j) |
+| `history/index.js`, `stats-AAAA.js`, `map/AAAA-MM.js` | `VS_HIST_INDEX`, `VS_HIST`, `VS_HMAP` | `historique.py` (manuel) | mensuel | `app.js` (Analyses) |
+| `profiles.js` | `VS_PROFILES` | `profiles.py` | hebdo | `report.js`, `brief.js`, `app.js` |
+| `practical.js` | `VS_PRACTICAL` | `practical.py` (Wikidata, progressif) | 30 min | `report.js`, Travel buddy |
+| `calendar.js` | `VS_CALENDAR` | `agenda.py` | 30 min | Agenda, fiche pays, rapport |
+| `reports.js` | `VS_REPORTS` | `reports.py` (flux toutes les 3 h) | 30 min | onglet Rapports, fiche pays |
+| `early_warning.js` | `VS_EW` | `early_warning.py` | 30 min | `ew.js` |
+| `country/<ISO2>.js` | `VS_CDETAIL[iso]` | `country_detail.py` | 30 min | `report.js`, fiche pays (villes) |
+| `health.js` | `VS_HEALTH` | `country_detail.py` (copie de `config/health.json`) | 30 min | `report.js` |
+| `traffic.js` | `VS_TRAFFIC` | `traffic.py` | 30 min | espace Trafic |
+| `econ.js` | `VS_ECON` | `collecte.py` | 30 min | rapport pays |
+| `cities.js` | `VS_CITIES` | `publish.write_cities` (GeoNames) | 30 min | recherche, Travel buddy |
+| `config.js` | `VS_CONFIG` | `collecte.py` | 30 min | comptes, trafic (aucun secret : URL et clé **publique** Supabase seulement) |
+| `countries.js` | `VS_COUNTRIES` | `tools/build_countries.py` | figé (versionné) | toutes les pages |
+| `factbook.js`, `guides.js`, `providers.js` | `VS_FACTBOOK`, `VS_GUIDES`, `VS_PROVIDERS` | outils ponctuels | figés (versionnés) | rapport, Travel buddy |
+
+Les fichiers générés sont listés dans `.gitignore` : ils sont produits par le robot en ligne et déployés avec
+le site, jamais versionnés (sauf les fichiers « figés »).
+
+### `data.js` (`VS_DATA`)
+
+| Clé | Contenu |
+|---|---|
+| `generated`, `version` | Date de génération (ISO), version du robot |
+| `taxonomy` | `{severity, risk_levels, groups, categories}` exportés de `model.py` |
+| `events` | Événements des 30 derniers jours (`settings.map_days`) |
+| `countries` | `{ISO2: {level 1–5, score, basis "computed"/"analyst", components{advisories, security, hazards}, counts, advisories{nom: avis}, data_quality}}` |
+| `countries[iso].advisories[nom]` | `{level, scale, label, url, updated}` + selon la source : `max`, `parts` (zones), `map` (carte officielle), `excerpt` (MEAE), `reasons` (motifs US : `terrorism`, `crime`, `unrest`, `kidnapping`, `detention`, `conflict`, `health`, `natural`, `landmines`) |
+| `news` | Fil d'actualité (titres sans position) |
+| `status` | État de chaque source : `ok`, `count`, `error`, `last_success`, `fail_streak`, `paused`, `duration_s`, `license` |
+| `coverage`, `source_quality` | Couverture par pays, qualité mesurée par source |
+| `sites`, `corridors`, `site_alerts` | Vides en ligne (`VS_PUBLIC=1`) |
+| `settings` | Réglages publics (nom du produit, langue, URL du relais IA, configuration publique des comptes) |
+| `crises` | Chronologies de crise |
+| `country_stats` | `{ISO2: {"24h"/"72h"/"7d"/"30d"/"90d": {total, by_cat}}}` |
+| `archives` | `{"AAAA-MM": nombre}` des archives disponibles |
+| `analytics` | Séries quotidiennes par groupe (onglet Analyses) |
+| `pulse` | `{ISO2: {value 0–100, d7, d30, anomaly, spark, drivers}}` |
+| `verified` | Validations de l'analyste (statut, gravité, catégorie, note) |
+
+### `country/<ISO2>.js` (`VS_CDETAIL[iso]`)
+
+`{iso, generated, cities[], country_activity, airports[], emergency, driving, health, fcdo}`
+
+- `cities[]` : `{name, name_fr, lat, lon, pop, capital, adm1, tz, radius_km, airport{name, iata, icao, km}, stats{n90, n30, severe90, score, level 0–4, by_cat, share}, top[événements compacts], fcdo[phrases], note}`
+  - `note` : copie de l'entrée de `config/city_notes.json` (niveau, résumé, zones, conseils, usages)
+  - événement compact : `{id, t, tf, te, d, s, c, src, u}` = titre, titre FR, titre EN, date, gravité, catégorie, source, lien
+- `emergency` : `{general[], notes, lines[], fcdo[{service, number}]}`
+- `health` : `{risks[], vaccines[], malaria: "high" | "limited" | null}` — clés de `config/health.json`
+- `fcdo` : `{updated, reviewed, url, parts{warnings, entry, safety, health, help}}`, chaque partie étant une liste de rubriques `{h: titre, l: niveau 2–4, b: [["p", texte] | ["ul", [éléments]]]}`
+
+### `traffic.js` (`VS_TRAFFIC`)
+
+`{generated, source, license, mil[], emergency[], zones{id: {n, mil, ac[]}}}`.
+Aéronef compact (liste, pour réduire la taille) :
+`[hex, indicatif, immatriculation, type, lat, lon, altitude_ft | 0 au sol | null, vitesse_kt, cap, squawk, militaire 0/1]`,
+plus pour `emergency` un 12e élément : `hijack` | `radio` | `emergency`.
+
+## 3. Configuration (`config/`)
+
+| Fichier | Rôle | Modifié par |
+|---|---|---|
+| `settings.json` | Réglages généraux : nom, langue, rétention, IA, alertes, point quotidien, Pulse, comptes, trafic | analyste / développeur |
+| `sources.json` | Liste des sources : `{id, type, enabled, name, license, …paramètres du connecteur}` | développeur |
+| `risk.json` | Pondérations et seuils de la note de risque, niveaux imposés par l'analyste (`overrides`) | analyste |
+| `verified.json` | Validations « Vérifié Angor » et fausses alertes | analyste (mode analyste du site) |
+| `sites.json` | Sites et trajets **d'exemple** ; les vrais vont dans `sites.local.json` (ignoré par git) ou le secret `SITES_JSON` | analyste |
+| `calendar.json` | Échéances ajoutées à la main | analyste |
+| `reports.json` | Flux de rapports et ajouts manuels | analyste |
+| `early_warning.json` | Régions de l'alerte précoce et paramètres | développeur |
+| `press_outlets.json` | Médias de référence par pays et cotation | développeur |
+| `city_notes.json` | Notes d'analyste par ville (à valider) | analyste |
+| `health.json` | Listes de pays par risque sanitaire, textes maladies et vaccins | analyste / développeur |
+
+## 4. Mémoire du robot (`data/`, jamais versionnée)
+
+Conservée entre deux collectes par le cache GitHub Actions. Si elle est perdue, le robot repart de zéro sans
+planter (l'historique se reconstitue en quelques collectes, les référentiels se retéléchargent).
+
+| Élément | Contenu |
+|---|---|
+| `store.json` | `events` (95 jours), `news`, `econ`, `headlines`, `advisories` (dernier état par source), `status`, `state` (curseurs, signatures de configuration, alertes déjà envoyées, historique Pulse…), caches IA |
+| `fcdo/<ISO2>.json` | Texte FCDO découpé (voir `fcdo.py`) |
+| `admin1/<ISO2>.json` | Centres des régions administratives (geoBoundaries) |
+| `ne_places.json`, `airports.json`, `hotlines.json` | Référentiels hebdomadaires (Natural Earth, OurAirports, worldhotlines.org) |
+| `geonames/` | Dictionnaire de villes GeoNames |
+| `early_warning.json` | Cache climat / humanitaire / sécurité de l'alerte précoce |

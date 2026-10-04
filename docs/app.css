@@ -719,3 +719,13 @@ svg.bars { display: block; }
 .tv-head .hint { flex: 1; }
 .traffic-view iframe { width: 100%; height: 100%; border: 0; background: var(--surface-2); }
 @media (max-width: 860px) { .traffic-view { inset: 6px 6px 70px; } .tv-head .hint { display: none; } .tr-list li { grid-template-columns: 1fr; } .tr-act { justify-content: flex-start; } }
+
+/* v0.16 : calques trafic */
+.ac { width: 20px; height: 20px; display: grid; place-items: center; filter: drop-shadow(0 0 1.5px rgba(0,0,0,.7)); transition: transform .3s; }
+.ac.em { animation: acpulse 1.2s ease-in-out infinite; }
+@keyframes acpulse { 50% { filter: drop-shadow(0 0 6px #FF3355); } }
+.tr-toggles { display: grid; gap: 6px; margin-bottom: 6px; }
+.zc { font: 600 10.5px var(--mono); color: var(--accent); margin-left: 4px; }
+.tr-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; font-size: 11px; color: var(--muted); }
+.tr-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.tr-legend i { width: 8px; height: 8px; border-radius: 50%; }

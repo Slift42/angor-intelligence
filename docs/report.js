@@ -710,8 +710,11 @@
     cmap = window.L.map(el, { zoomControl: false, attributionControl: true, scrollWheelZoom: false, dragging: !('ontouchstart' in window) });
     window.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', { maxZoom: 16, attribution: 'Esri, HERE, Garmin, OpenStreetMap' }).addTo(cmap);
     const f = FEATURES.find(x => x.properties.iso2 === ISO);
-    let bounds = null;
-    if (f) { const g = window.L.geoJSON(f, { style: { color: '#0E1B2C', weight: 1.4, fillColor: RC[(RISK[ISO] || {}).level || 0], fillOpacity: 0.12 } }).addTo(cmap); bounds = g.getBounds(); }
+    // la vue doit être fixée AVANT d'ajouter des formes vectorielles (sinon Leaflet plante : bug trouvé par le test e2e)
+    const outline = f ? window.L.geoJSON(f, { style: { color: '#0E1B2C', weight: 1.4, fillColor: RC[(RISK[ISO] || {}).level || 0], fillOpacity: 0.12 } }) : null;
+    const bounds = outline ? outline.getBounds() : null;
+    if (bounds && bounds.isValid()) cmap.fitBounds(bounds, { padding: [16, 16], maxZoom: 7 }); else if ((dt.cities || [])[0]) cmap.setView([dt.cities[0].lat, dt.cities[0].lon], 6); else cmap.setView([20, 0], 2);
+    if (outline) outline.addTo(cmap);
     const seen = new Set();
     const addEv = (lat, lon, s, title) => {
       if (lat == null) return;
@@ -719,7 +722,6 @@
       window.L.circleMarker([lat, lon], { radius: 3 + s, color: '#fff', weight: 1, fillColor: SEV[s] || SEV[1], fillOpacity: 0.9 }).bindTooltip(esc(title)).addTo(cmap);
     };
     EVENTS.filter(e => e.country === ISO).forEach(e => addEv(e.lat, e.lon, e.severity, e.title));
-    if (bounds && bounds.isValid()) cmap.fitBounds(bounds, { padding: [16, 16], maxZoom: 7 }); else if ((dt.cities || [])[0]) cmap.setView([dt.cities[0].lat, dt.cities[0].lon], 6);
     const placed = [];
     (dt.cities || []).slice().sort((a, b) => b.pop - a.pop).forEach(c => {
       const lvl = c.note ? c.note.level : 0;
