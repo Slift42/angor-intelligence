@@ -81,3 +81,10 @@ listée la réduit si possible.
 - Interface de connecteur uniforme ; une source en panne ne bloque jamais la collecte.
 - Aucun secret dans le dépôt ni dans le site ; sites clients jamais publiés.
 - En-têtes de module explicatifs (sources, licences, choix), commentaires qui expliquent le « pourquoi ».
+
+### Annuaire des prestataires (v0.20) – limites connues
+- Pas d'e-mail automatique au prestataire à la réception d'une demande de devis ni au client à la réponse (il faut une
+  fonction d'envoi via Brevo) : le prestataire consulte son espace.
+- Les prestataires repérés par Angor (niveau E) ne peuvent pas recevoir d'avis ni de demandes (pas de fiche en base).
+- Pas de contrat ni de paiement en ligne entre client et prestataire (mise en relation uniquement).
+- Vidéos par lien seulement (espace de stockage de l'offre gratuite).

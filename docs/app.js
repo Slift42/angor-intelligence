@@ -86,6 +86,9 @@
       ag_world: 'Monde', ag_muslim: 'Pays à majorité musulmane', ag_month: 'date à préciser dans le mois', ag_year: 'Échéances sans date précise',
       ag_type: { holiday: 'Jour férié', election: 'Élection', religious: 'Fête religieuse', strike: 'Grève', summit: 'Sommet', anniversary: 'Anniversaire sensible', sport: 'Sport', other: 'Échéance' },
       upcoming: 'À venir (90 j)', no_upcoming: 'Rien de prévu dans nos sources.',
+      pv_title: n => `${n} prestataire${n > 1 ? 's' : ''} de services disponible${n > 1 ? 's' : ''}`, pv_none: 'Aucun prestataire référencé pour ce pays.',
+      pv_legend: 'Couleur : fiabilité du meilleur prestataire de la catégorie (vert = vérifié par Angor, rouge = non vérifié).',
+      pv_join: 'Vous êtes prestataire ? Référencez-vous gratuitement', pv_unverified: 'non vérifié – à contacter séparément', pv_profile: 'Fiche',
       corridors: 'Trajets surveillés', add_corridor: 'Ajouter un trajet', cor_from: 'Départ (ville)', cor_to: 'Arrivée (ville)', cor_via: 'Étapes (facultatif, séparées par des virgules)',
       cor_buffer: 'Largeur de vigilance de part et d’autre (km)', cor_name: 'Nom du trajet', cor_draw: 'Tracer sur la carte', cor_draw_hint: 'Cliquez les étapes du trajet sur la carte, puis « Terminer ».',
       cor_finish: 'Terminer', cor_points: n => `${n} point${n > 1 ? 's' : ''}`, cor_saved: 'Trajet enregistré dans ce navigateur', cor_city_err: c => `Ville non reconnue : ${c}. Essayez une grande ville proche, ou tracez le trajet sur la carte.`,
@@ -146,8 +149,10 @@
       loading_hist: 'Chargement de la base historique…', hist_note: (a, b) => `base historique ${a} → ${b} (UCDP, GDELT, USGS, GDACS, NASA, OMS) puis veille en direct`,
       cov_low: 'couverture faible', cov_low_tip: 'Nos sources remontent beaucoup moins d\'incidents que la moyenne historique : la situation est probablement sous-estimée.', cov_notice: (a, b) => `Couverture des sources faible : ${a} incident(s) sûreté sur 30 jours contre ${Math.round(b)} par mois en moyenne historique. Les incidents affichés sont probablement sous-estimés.`, cov_title: 'Zones sous-couvertes', cov_hint: 'Incidents sûreté sur 30 jours / moyenne mensuelle historique (UCDP, GDELT). Indicatif.', per_month: '/ mois',
       bm_fallback: 'Fond de carte indisponible : repli sur un fond plus simple.', sum_ai: 'Résumé IA – à vérifier', sum_source: 'Extrait de la source', sum_auto: 'Résumé automatique',
-      basemap: 'Fond', bm_detail: 'Détaillé (routes, villes)', bm_bright: 'Contrasté', bm_clean: 'Épuré', bm_sat: 'Satellite', bm_topo: 'Topographique', bm_esri: 'Gris (Esri)', bm_plain: 'Neutre (hors ligne)',
-      legend_sev: 'Gravité', legend_risk: 'Risque pays', legend_auto: 'Contour pointillé : détection automatique',
+      basemap: 'Fond', bm_detail: 'Détaillé (routes, villes)', bm_bright: 'Contrasté', bm_clean: 'Épuré', bm_sat: 'Satellite', bm_topo: 'Topographique', bm_esri: 'Gris (Esri)', bm_plain: 'Neutre (hors ligne)', bm_real: 'Réaliste (relief)',
+      g_login: 'Se connecter', g_signup: 'Créer un compte', g_pending: 'Compte en attente de validation', g_tag: 'Veille sûreté mondiale, actualisée en continu',
+      g_more: 'Détail, sources, fiches pays, filtres et alertes : réservés aux comptes validés.', g_cats: 'Catégories', g_zoom: 'Zoomer sur ces évènements',
+      legend_sev: 'Gravité', legend_risk: 'Risque pays', legend_auto: 'Contour pointillé : détection automatique · point blanc : moins de 6 h · ondes : gravité élevée ou critique · survol d\'un groupe : ses catégories',
       sources_ok: (a, b) => `${a}/${b} <span class="src-word">sources</span>`, updated: 'Mise à jour', stale: 'Données anciennes',
       sources_total: n => `${n.toLocaleString('fr-FR')} <span class="src-word">sources</span>`,
       cov_breakdown: c => `<strong>${c.total.toLocaleString('fr-FR')} sources surveillées</strong> : ${c.feeds} flux officiels, de presse et API · ${c.outlets.toLocaleString('fr-FR')} médias de référence dans ${c.countries} pays · ${c.telegram} canaux Telegram · ${c.report_feeds} producteurs de rapports. Flux en service : ${c.ok}/${c.checked}.`,
@@ -248,6 +253,9 @@
       ag_world: 'World', ag_muslim: 'Muslim-majority countries', ag_month: 'date to be confirmed within the month', ag_year: 'Dates not yet set',
       ag_type: { holiday: 'Public holiday', election: 'Election', religious: 'Religious festival', strike: 'Strike', summit: 'Summit', anniversary: 'Sensitive anniversary', sport: 'Sport', other: 'Event' },
       upcoming: 'Upcoming (90 d)', no_upcoming: 'Nothing scheduled in our sources.',
+      pv_title: n => `${n} service provider${n > 1 ? 's' : ''} available`, pv_none: 'No provider listed for this country.',
+      pv_legend: 'Colour: reliability of the best provider in the category (green = verified by Angor, red = unverified).',
+      pv_join: 'Are you a service provider? Get listed for free', pv_unverified: 'unverified – to be contacted separately', pv_profile: 'Profile',
       corridors: 'Watched routes', add_corridor: 'Add a route', cor_from: 'From (city)', cor_to: 'To (city)', cor_via: 'Waypoints (optional, comma-separated)',
       cor_buffer: 'Watch width on each side (km)', cor_name: 'Route name', cor_draw: 'Draw on map', cor_draw_hint: 'Click the route waypoints on the map, then “Finish”.',
       cor_finish: 'Finish', cor_points: n => `${n} point${n > 1 ? 's' : ''}`, cor_saved: 'Route saved in this browser', cor_city_err: c => `City not recognised: ${c}. Try a nearby large city, or draw the route on the map.`,
@@ -308,8 +316,10 @@
       loading_hist: 'Loading historical database…', hist_note: (a, b) => `historical database ${a} → ${b} (UCDP, GDELT, USGS, GDACS, NASA, WHO) then live monitoring`,
       cov_low: 'low coverage', cov_low_tip: 'Our sources report far fewer incidents than the historical average: the situation is probably under-reported.', cov_notice: (a, b) => `Low source coverage: ${a} security incident(s) in 30 days vs ${Math.round(b)} per month historically. Displayed incidents are probably under-reported.`, cov_title: 'Under-covered areas', cov_hint: 'Security incidents in 30 days / historical monthly average (UCDP, GDELT). Indicative.', per_month: '/ month',
       bm_fallback: 'Basemap unavailable: switched to a simpler one.', sum_ai: 'AI summary – to be verified', sum_source: 'From the source', sum_auto: 'Automatic summary',
-      basemap: 'Basemap', bm_detail: 'Detailed (roads, towns)', bm_bright: 'High contrast', bm_clean: 'Clean', bm_sat: 'Satellite', bm_topo: 'Topographic', bm_esri: 'Grey (Esri)', bm_plain: 'Neutral (offline)',
-      legend_sev: 'Severity', legend_risk: 'Country risk', legend_auto: 'Dashed outline: auto-detection',
+      basemap: 'Basemap', bm_detail: 'Detailed (roads, towns)', bm_bright: 'High contrast', bm_clean: 'Clean', bm_sat: 'Satellite', bm_topo: 'Topographic', bm_esri: 'Grey (Esri)', bm_plain: 'Neutral (offline)', bm_real: 'Realistic (relief)',
+      g_login: 'Sign in', g_signup: 'Create an account', g_pending: 'Account awaiting approval', g_tag: 'Worldwide security monitoring, continuously updated',
+      g_more: 'Details, sources, country sheets, filters and alerts are reserved for approved accounts.', g_cats: 'Categories', g_zoom: 'Zoom to these events',
+      legend_sev: 'Severity', legend_risk: 'Country risk', legend_auto: 'Dashed outline: auto-detection · white dot: less than 6 h old · ripples: high or critical severity · hover a group: its categories',
       sources_ok: (a, b) => `${a}/${b} <span class="src-word">sources</span>`, updated: 'Updated', stale: 'Stale data',
       sources_total: n => `${n.toLocaleString('en-GB')} <span class="src-word">sources</span>`,
       cov_breakdown: c => `<strong>${c.total.toLocaleString('en-GB')} monitored sources</strong>: ${c.feeds} official, press and API feeds · ${c.outlets.toLocaleString('en-GB')} reference outlets in ${c.countries} countries · ${c.telegram} Telegram channels · ${c.report_feeds} report publishers. Feeds working: ${c.ok}/${c.checked}.`,
@@ -356,7 +366,7 @@
   const HTAGS = [[], ['auto-detected'], ['multi-source'], ['auto-detected', 'multi-source']];
   const GROUP_COLORS = { security: '#B0182E', political: '#E0A21B', natural: '#3F86C6', health: '#7D5BA6', infrastructure: '#5E6B78', diplomatic: '#4B6BAF' };
 
-  const BASEMAPS = ['detail', 'bright', 'clean', 'satellite', 'topo', 'esri', 'plain'];
+  const BASEMAPS = ['detail', 'bright', 'clean', 'realistic', 'satellite', 'topo', 'esri', 'plain'];
   /* ------------------------------------------------------------------ état */
   const state = {
     lang: store.get('vs-lang', (D && D.settings && D.settings.default_lang) || 'fr'),
@@ -577,7 +587,7 @@
   const ESRI_SVC = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
   // Fonds vectoriels OpenFreeMap : nets à tous les zooms et sur écrans haute définition (routes, villes, relief)
   const OFM_STYLES = { detail: ['liberty', 'dark'], bright: ['bright', 'fiord'], clean: ['positron', 'dark'] };
-  const DETAILED = new Set(['detail', 'bright', 'satellite', 'topo']);
+  const DETAILED = new Set(['detail', 'bright', 'satellite', 'topo', 'realistic']);
   function setBasemap() {
     [baseLayer, labelLayer].forEach(l => { if (l) map.removeLayer(l); });
     baseLayer = labelLayer = null;
@@ -600,7 +610,18 @@
     }
     let ok = 0, ko = 0;
     const watch = l => { l.on('tileload', () => { ok++; }); l.on('tileerror', () => { ko++; if (ko >= 6 && ok === 0) fallbackBasemap(true); }); return l; };
-    if (mode === 'satellite') {
+    $('#map').classList.toggle('bm-realistic', mode === 'realistic');
+    if (mode === 'realistic') {
+      /* « Réaliste » : carte physique (relief ombré, teintes d'altitude, fonds marins – Esri / US National Park Service)
+         jusqu'au zoom 8, puis imagerie satellite ; frontières et lieux par-dessus à tous les zooms. */
+      const phys = watch(L.tileLayer(`${ESRI_SVC}World_Physical_Map/MapServer/tile/{z}/{y}/{x}`, { attribution: 'Tiles &copy; Esri — Source: US National Park Service', maxNativeZoom: 8, maxZoom: 8, className: 'bm-phys' }));
+      const sat = L.tileLayer(`${ESRI_SVC}World_Imagery/MapServer/tile/{z}/{y}/{x}`, { attribution: 'Imagery &copy; Esri, Vantor, Earthstar Geographics', minZoom: 9, maxNativeZoom: 18, maxZoom: 18 });
+      baseLayer = L.layerGroup([phys, sat]);
+      // étiquettes « atlas » (grises, à empattements) sur la carte physique, étiquettes claires sur l'imagerie
+      labelLayer = L.layerGroup([
+        L.tileLayer(`${ESRI_SVC}Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}`, { pane: 'labels', maxNativeZoom: 8, maxZoom: 8, className: 'bm-atlas', attribution: 'Esri, Garmin, USGS, NPS' }),
+        L.tileLayer(`${ESRI_SVC}Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}`, { pane: 'labels', minZoom: 9, maxNativeZoom: 18, maxZoom: 18 })]);
+    } else if (mode === 'satellite') {
       baseLayer = watch(L.tileLayer(`${ESRI_SVC}World_Imagery/MapServer/tile/{z}/{y}/{x}`, { attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics', maxNativeZoom: 18, maxZoom: 18 }));
       labelLayer = L.tileLayer(`${ESRI_SVC}Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}`, { pane: 'labels', maxNativeZoom: 18, maxZoom: 18 });
     } else if (mode === 'topo') {
@@ -704,7 +725,7 @@
   function countryStyle(iso) {
     const mode = state.countryLayer, dark = state.theme === 'dark';
     const line = dark ? '#3A4A5B' : '#FFFFFF';
-    const k = DETAILED.has(state.basemap) ? 0.6 : 1;
+    const k = state.basemap === 'realistic' ? 0.4 : DETAILED.has(state.basemap) ? 0.6 : 1;
     // thème sombre : couleurs lumineuses, voile plus dense et contour teinté (effet « néon » discret)
     const fill = (color, lightOp, darkOp) => dark
       ? { fillColor: color, fillOpacity: darkOp, color, opacity: 0.8, weight: 0.9, dashArray: null }
@@ -726,20 +747,100 @@
   }
   function refreshRiskStyle() { try { riskLayer.setStyle(f => countryStyle(f.properties.iso2)); } catch (e) { /* couche pas encore créée */ } }
 
+  /* ------------------------------------------------------------------ marqueurs (v0.21)
+     Évènement : pastille en relief (dégradé), anneau translucide, icône de catégorie ; ondes concentriques pour les
+     gravités 3 et 4, point « nouveau » pour moins de 6 h, contour pointillé pour la détection automatique, apparition
+     animée. Groupe : anneau découpé par gravité autour du nombre ; au survol (souris), les catégories du groupe se
+     déploient en étoile autour du nombre, reliées par des traits discrets (clic = zoom sur ces évènements). */
+  const SEVC = {};
+  const sevC = s => SEVC[state.theme + s] || (SEVC[state.theme + s] = sevColor(s));
+  const HOVER = !!(window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches);
   const cluster = L.markerClusterGroup({
-    showCoverageOnHover: false, maxClusterRadius: 42, disableClusteringAtZoom: 9, spiderfyOnMaxZoom: true,
-    iconCreateFunction: c => {
-      const max = Math.max(...c.getAllChildMarkers().map(m => m.options.sev || 1));
-      return L.divIcon({ className: '', html: `<div class="cl" style="background:${sevColor(max)}">${c.getChildCount()}</div>`, iconSize: [36, 36] });
-    }
+    showCoverageOnHover: false, maxClusterRadius: 46, disableClusteringAtZoom: 9, spiderfyOnMaxZoom: true, zoomToBoundsOnClick: true,
+    spiderLegPolylineOptions: { weight: 1.2, color: '#8796A8', opacity: 0.7 },
+    iconCreateFunction: clusterIcon
   });
+  function clusterIcon(c) {
+    const ms = c.getAllChildMarkers(), n = ms.length, by = [0, 0, 0, 0, 0];
+    ms.forEach(m => { by[m.options.sev || 1] += 1; });
+    const max = [4, 3, 2, 1].find(k => by[k]) || 1;
+    const S = n < 10 ? 40 : n < 50 ? 46 : n < 200 ? 54 : 62, r = S / 2 - 3.5, C = 2 * Math.PI * r, gap = [1, 2, 3, 4].filter(k => by[k]).length > 1 ? 2.2 : 0;
+    let off = 0;
+    const segs = [4, 3, 2, 1].filter(k => by[k]).map(k => {
+      const len = C * by[k] / n, d = `${Math.max(len - gap, 0.8).toFixed(2)} ${(C - Math.max(len - gap, 0.8)).toFixed(2)}`;
+      const el = `<circle cx="${S / 2}" cy="${S / 2}" r="${r}" stroke="${sevC(k)}" stroke-dasharray="${d}" stroke-dashoffset="${(-off).toFixed(2)}"/>`;
+      off += len; return el;
+    }).join('');
+    return L.divIcon({ className: 'clx-wrap', iconSize: [S, S],
+      html: `<div class="clx m${max}" style="--c:${sevC(max)};--s:${S}px">${max === 4 ? '<span class="clx-halo"></span>' : ''}
+        <svg class="clx-ring" viewBox="0 0 ${S} ${S}" width="${S}" height="${S}" aria-hidden="true"><g transform="rotate(-90 ${S / 2} ${S / 2})">${segs}</g></svg>
+        <span class="clx-core"><b>${n}</b></span></div>` });
+  }
   const markers = {};
   const sitesLayer = L.layerGroup();
 
   function markerIcon(e, selected) {
-    const s = e.severity, size = s === 4 ? 32 : 26;
-    return L.divIcon({ className: '', iconSize: [size, size],
-      html: `<div class="mk s${s}${isAuto(e) ? ' auto' : ''}${selected ? ' sel' : ''}" style="background:${sevColor(s)}">${icon(cat(e.category).icon)}</div>` });
+    const s = e.severity, size = s === 4 ? 34 : s === 3 ? 30 : 26;
+    const fresh = Date.now() - (e._t || 0) < 6 * 3600e3;
+    return L.divIcon({ className: 'mk2-wrap', iconSize: [size, size],
+      html: `<div class="mk2 s${s}${isAuto(e) ? ' auto' : ''}${selected ? ' sel' : ''}${fresh ? ' new' : ''}" style="--c:${sevC(s)};--d:${Math.round(Math.random() * 220)}ms">${s >= 3 ? '<span class="mk2-halo"></span>' : ''}<span class="mk2-core">${icon(cat(e.category).icon)}</span></div>` });
+  }
+
+  /* Étoile des catégories au survol d'un groupe */
+  let burst = null;
+  function hideBurst() {
+    if (!burst) return;
+    const { el, icon: ic, z } = burst; burst = null;
+    el.classList.add('out'); setTimeout(() => el.remove(), 160);
+    if (ic) { ic.style.zIndex = z; ic.classList.remove('clx-open'); }
+  }
+  function showBurst(c) {
+    const ic = c._icon; if (!ic || (burst && burst.c === c)) return;
+    hideBurst();
+    const ms = c.getAllChildMarkers(), by = {};
+    ms.forEach(m => { const k = m.options.cat; const o = by[k] || (by[k] = { k, n: 0, sev: 1 }); o.n += 1; o.sev = Math.max(o.sev, m.options.sev || 1); });
+    let cats = Object.values(by).sort((a, b) => b.n - a.n || b.sev - a.sev);
+    if (cats.length < 2) return;                                      // une seule catégorie : rien à déplier
+    const MAXB = 7;
+    if (cats.length > MAXB) { const rest = cats.slice(MAXB - 1); cats = cats.slice(0, MAXB - 1).concat([{ k: '_more', n: rest.reduce((a, x) => a + x.n, 0), sev: Math.max(...rest.map(x => x.sev)), more: rest.length }]); }
+    const S = ic.offsetWidth || 40, R = S / 2 + 40, B = 32, K = cats.length;
+    const pts = cats.map((x, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / K; return { ...x, x: Math.cos(a) * R, y: Math.sin(a) * R, a }; });
+    const W = 2 * (R + B);
+    const el = document.createElement('div');
+    el.className = 'burst'; el.style.setProperty('--w', W + 'px');
+    el.innerHTML = `<span class="burst-disk"></span>
+      <svg class="burst-links" width="${W}" height="${W}" viewBox="${-W / 2} ${-W / 2} ${W} ${W}" aria-hidden="true">${pts.map((p, i) =>
+        `<line x1="${(Math.cos(p.a) * (S / 2 + 3)).toFixed(1)}" y1="${(Math.sin(p.a) * (S / 2 + 3)).toFixed(1)}" x2="${(p.x - Math.cos(p.a) * (B / 2 + 2)).toFixed(1)}" y2="${(p.y - Math.sin(p.a) * (B / 2 + 2)).toFixed(1)}" pathLength="1" style="--i:${i};stroke:${sevC(p.sev)}"/>`).join('')}</svg>
+      ${pts.map((p, i) => `<button type="button" class="bb" data-bcat="${esc(p.k)}" style="--x:${p.x.toFixed(1)}px;--y:${p.y.toFixed(1)}px;--c:${sevC(p.sev)};--i:${i}"
+        aria-label="${esc(p.k === '_more' ? t('g_cats') : catLabel(p.k))} (${p.n})">
+        <span class="bb-ico">${p.k === '_more' ? `<small>+${p.more}</small>` : icon(cat(p.k).icon)}</span><b>${p.n}</b>
+        <span class="bb-l ${p.y > 4 ? 'dn' : p.y < -4 ? 'up' : p.x > 0 ? 'rt' : 'lt'}">${esc(p.k === '_more' ? t('g_cats') : catLabel(p.k))}</span></button>`).join('')}`;
+    el.querySelectorAll('.bb').forEach(btn => {
+      L.DomEvent.disableClickPropagation(btn);
+      L.DomEvent.on(btn, 'click', ev => { L.DomEvent.stop(ev); const k = btn.dataset.bcat; hideBurst(); zoomToCat(c, k === '_more' ? null : k); });
+    });
+    L.DomEvent.on(el.querySelector('.burst-disk'), 'click', ev => { L.DomEvent.stop(ev); hideBurst(); zoomToCat(c, null); });
+    ic.appendChild(el);
+    burst = { c, el, icon: ic, z: ic.style.zIndex };
+    ic.style.zIndex = 100000; ic.classList.add('clx-open');
+  }
+  /** Zoom sur les évènements d'une catégorie du groupe (ou tout le groupe) ; un seul évènement : on l'ouvre. */
+  function zoomToCat(c, k) {
+    const ms = k ? c.getAllChildMarkers().filter(m => m.options.cat === k) : c.getAllChildMarkers();
+    if (ms.length === 1 && ms[0].options.eid) {
+      const e = EVENTS.find(x => x.id === ms[0].options.eid);
+      if (e && GUEST.on) { cluster.zoomToShowLayer(ms[0], () => guestPopup(e)); return; }
+      if (e) { openEvent(e.id, true); return; }
+    }
+    const b = L.latLngBounds(ms.map(m => m.getLatLng()));
+    if (map.getBoundsZoom(b, false, L.point(80, 80)) <= map.getZoom()) { c.spiderfy(); return; }
+    map.flyToBounds(b, { padding: [80, 80], maxZoom: 12, duration: 0.75 });
+  }
+  if (HOVER) {
+    cluster.on('clustermouseover', ev => showBurst(ev.layer));
+    cluster.on('clustermouseout', ev => { if (burst && burst.c === ev.layer) hideBurst(); });
+    map.on('zoomstart movestart', hideBurst);
+    cluster.on('animationend spiderfied', hideBurst);
   }
 
   /* ------------------------------------------------------------------ filtrage */
@@ -888,6 +989,39 @@
       ${e.note_fr ? `<div class="muted small">${esc(state.lang === 'fr' ? e.note_fr : e.note_en || e.note_fr)}</div>` : ''}</div></li>`;
     el.innerHTML = (Object.keys(byDay).length ? Object.entries(byDay).sort().map(([d, list]) => `<li class="ag-day">${esc(new Date(d + 'T12:00:00').toLocaleDateString(state.lang === 'fr' ? 'fr-FR' : 'en-GB', { weekday: 'short', day: 'numeric', month: 'short' }))}</li>${list.map(row).join('')}`).join('')
       : `<li class="empty">${t('ag_empty')}</li>`) + (undated.length ? `<li class="ag-day">${esc(t('ag_year'))}</li>` + undated.map(e => row({ ...e, t_fr: e.t_fr, prec: 'year' })).join('') : '');
+  }
+  /* Prestataires de services aux voyageurs (annuaire : docs/providers-lib.js, docs/data/providers.js) */
+  function ensureProviders(done) {
+    if (window.VS_PROVIDERS || ensureProviders.failed) return done();
+    loadScript('data/providers.js').then(() => { if (!window.VS_PROVIDERS) ensureProviders.failed = true; done(); });
+  }
+  function providersSection(iso) {
+    const AP = window.AngorProviders;
+    if (!AP || !window.VS_PROVIDERS) return '';
+    const list = AP.forCountry(iso, countryProps[iso]), counts = AP.byCategory(list), lang = state.lang;
+    const groups = Object.keys((AP.data().groups) || {}), cats = AP.data().categories || {};
+    const order = Object.keys(counts).sort((a, b) => groups.indexOf((cats[a] || {}).group) - groups.indexOf((cats[b] || {}).group) || counts[b].n - counts[a].n);
+    const chip = c => `<button class="pv-chip" type="button" data-pvcat="${esc(c)}" data-iso="${esc(iso)}" style="--pv:${AP.tierColor(counts[c].best)}"
+      title="${esc(AP.tierLabel(counts[c].best, lang))}"><span class="pv-dot"></span>${esc(AP.catLabel(c, lang))}<b>${counts[c].n}</b></button>`;
+    return `<div class="d-sec pv-sec"><h3>${icon('shield-check', 14)} ${esc(t('pv_title', list.length))}</h3>
+      ${order.length ? `<div class="pv-chips">${order.map(chip).join('')}</div><div class="pv-list" id="pv-list" hidden></div>
+      <div class="hint pv-legend">${['A', 'B', 'C', 'D', 'E'].map(x => `<span class="pv-dot" style="--pv:${AP.tierColor(x)}" title="${esc(AP.tierLabel(x, lang))}"></span>`).join('')} ${esc(t('pv_legend'))}</div>`
+        : `<div class="hint">${esc(t('pv_none'))}</div>`}
+      <a class="pv-join" href="compte.html?type=provider">${esc(t('pv_join'))} →</a></div>`;
+  }
+  function showProviderList(iso, cat) {
+    const box = $('#pv-list'); if (!box) return;
+    if (box.dataset.cat === cat && !box.hidden) { box.hidden = true; return; }
+    const AP = window.AngorProviders, lang = state.lang;
+    const list = AP.forCountry(iso, countryProps[iso]).filter(p => p.categories.includes(cat));
+    box.dataset.cat = cat; box.hidden = false;
+    box.innerHTML = `<div class="pv-list-h">${esc(AP.catLabel(cat, lang))}</div><ul class="mini-list">${list.map(p => {
+      const href = AP.link(p);
+      return `<li><span class="dot" style="background:${AP.tierColor(p.tier)}" title="${esc(AP.tierLabel(p.tier, lang))}"></span>
+        <span class="t">${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(p.name)}</a>` : esc(p.name)}
+        <br><span class="pv-sub">${esc(p.tier === 'E' ? t('pv_unverified') : AP.tierLabel(p.tier, lang))}${p.hq ? '&nbsp;· ' + esc(p.hq) : ''}</span></span>
+        <span class="w">${p.source === 'self' ? `${p.score}/100` : ''}</span></li>`;
+    }).join('')}</ul>`;
   }
   function upcomingSection(iso) {
     if (!window.VS_CALENDAR) return '';
@@ -1396,9 +1530,9 @@
     cluster.clearLayers();
     Object.keys(markers).forEach(k => delete markers[k]);
     const ms = list.map(e => {
-      const m = L.marker([e.lat, e.lon], { icon: markerIcon(e, e.id === state.selected), sev: e.severity, riseOnHover: true, zIndexOffset: e.severity * 100 });
+      const m = L.marker([e.lat, e.lon], { icon: markerIcon(e, e.id === state.selected), sev: e.severity, cat: e.category, eid: e.id, riseOnHover: true, zIndexOffset: e.severity * 100 });
       m.bindTooltip(`<strong>${esc(e.title)}</strong><br>${esc(sevLabel(e.severity))} · ${esc(ago(e.date))} · ${esc(sourceLabel(e))}`, { className: 'vs-tip', direction: 'top', offset: [0, -14] });
-      m.on('click', () => openEvent(e.id, false));
+      m.on('click', () => { if (GUEST.on) { m.closeTooltip(); guestPopup(e); } else openEvent(e.id, false); });
       markers[e.id] = m;
       return m;
     });
@@ -1631,6 +1765,7 @@
       </div>
       ${pulseSection(iso)}
       ${(cs => cs.length ? `<div class="d-sec"><h3>${icon('activity', 14)} ${t('chrono_title')}</h3><ul class="mini-list">${cs.map(c => `<li data-crisis="${c.id}"><span class="dot" style="background:${sevColor(c.max_severity)}"></span><span class="t">${esc(crisisTitle(c))}</span><span class="w">${trendChip(c)}</span></li>`).join('')}</ul></div>` : '')(CRISES.filter(c => c.country === iso).slice(0, 5))}
+      ${providersSection(iso)}
       ${upcomingSection(iso)}
       ${citiesSection(iso)}
       ${reportsSection(iso)}
@@ -1640,6 +1775,7 @@
       <div class="d-sec"><h3>${t('recent')}</h3>${recent.length ? `<ul class="mini-list">${recent.map(e => `<li data-event="${esc(e.id)}"><span class="dot" style="background:${sevColor(e.severity)}"></span><span class="t">${ttl(e)}</span><span class="w">${esc(ago(e.date))}</span></li>`).join('')}</ul>` : `<div class="hint">${t('no_recent')}</div>`}</div>
       <div class="d-sec"><div class="hint">${t('risk_notice')}</div></div>`, 'country', iso);
     if (!window.VS_CALENDAR && !ensureCalendar.failed) ensureCalendar(() => { if (state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
+    if (!window.VS_PROVIDERS && !ensureProviders.failed) ensureProviders(() => { if (window.VS_PROVIDERS && state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
     if (!window.VS_REPORTS && !ensureReports.failed) ensureReports(() => { if (window.VS_REPORTS && state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
     if (!(window.VS_CDETAIL || {})[iso]) ensureDetail(iso, () => { if ((window.VS_CDETAIL || {})[iso] && state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
   }
@@ -1835,11 +1971,13 @@
   }
   function applyTheme() {
     document.documentElement.dataset.theme = state.theme;
+    Object.keys(SEVC).forEach(k => delete SEVC[k]);
     $('#btn-theme').innerHTML = icon(state.theme === 'dark' ? 'sun-medium' : 'moon');
     setBasemap();
     riskLayer.setStyle(f => countryStyle(f.properties.iso2));
   }
   function persist() {
+    if (GUEST.on) { store.set('vs-lang', state.lang); store.set('vs-theme', state.theme); return; }
     store.set('vs-hours', state.hours); store.set('vs-sev', state.sev); store.set('vs-cats', [...state.cats]);
     store.set('vs-hideauto', state.hideAuto); store.set('vs-reliable', state.reliable); store.set('vs-lang', state.lang); store.set('vs-theme', state.theme); store.set('vs-basemap', state.basemap); store.set('vs-clayer', state.countryLayer);
     store.set('vs-watch', [...state.watch]);
@@ -2006,6 +2144,7 @@
       const w = ev.target.closest('[data-watch]'); const an = ev.target.closest('[data-an]');
       const cr = ev.target.closest('[data-crisis]'); const fo = ev.target.closest('[data-focus]');
       if (fo) { focusCrisis(fo.dataset.focus); return; }
+      const pv = ev.target.closest('[data-pvcat]'); if (pv) { showProviderList(pv.dataset.iso, pv.dataset.pvcat); return; }
       if (cr) { ev.preventDefault(); openCrisis(cr.dataset.crisis); return; }
       const rg = ev.target.closest('[data-rep-country],[data-rep-geo]');
       if (rg) { ev.preventDefault(); Object.assign(state.rep, { geo: rg.dataset.repCountry || rg.dataset.repGeo, q: '', shown: 60, period: '365' });
@@ -2189,10 +2328,12 @@
       btn.title = p ? (p.status === 'approved' ? (p.full_name || p.email) : t('acc_pending')) : t('acc_login');
     };
     paint();
-    if (!A.session) return;
+    if (!A.session) { setMember(false); return; }
     try { ACC.profile = await A.profile(); } catch (e) { ACC.profile = null; }
     paint(); renderMobileNav();
     const p = ACC.profile;
+    if (p && p.status === 'approved') { if (setMember(true)) return; }
+    else if (p || !A.session) { if (setMember(false)) return; GUEST.pending = !!p; applyGuest(); }   // hors ligne : on garde l'affichage
     if (!p || p.status !== 'approved') return;
     // préférences du compte → cette session (pays suivis fusionnés, sites et trajets complétés)
     const pr = p.prefs || {};
@@ -2738,6 +2879,50 @@
     $('#buddy-clear').addEventListener('click', () => { buddy.log = []; renderBuddy(); });
   }
 
+  /* ------------------------------------------------------------------ mode visiteur (v0.21)
+     Sans compte validé, seule la carte des évènements s'affiche : pas de panneau, de filtres, de couches, de fiches pays ni
+     de détail (une bulle résume l'évènement et invite à se connecter). Les comptes ne sont actifs que si Supabase est
+     configuré (sinon, usage local : outil complet). « vs-member » mémorise sur l'appareil qu'un compte validé s'y est
+     connecté, pour éviter un affichage visiteur à chaque ouverture ; il est effacé à la déconnexion (account.js). */
+  const GUEST = { on: false, pending: false };
+  (function guestInitial() {
+    const A = window.AngorAccount;
+    if (!A || !A.enabled) return;
+    GUEST.on = !A.session || !store.get('vs-member', false);
+    if (!GUEST.on) return;
+    Object.assign(state, { hours: 168, range: null, sev: { 1: true, 2: true, 3: true, 4: true }, cats: new Set(Object.keys(TAX.categories)),
+      onlySites: false, onlyOngoing: false, onlyVerified: false, onlyWatch: false, hideAuto: false, reliable: true, crisisFocus: null,
+      analyst: false, tab: 'alerts', localSites: [], localCorridors: [] });
+  })();
+  function applyGuest() {
+    document.body.classList.toggle('guest', GUEST.on);
+    let cta = $('#guest-cta');
+    if (!GUEST.on) { if (cta) cta.remove(); return; }
+    map.removeLayer(riskLayer); map.removeLayer(sitesLayer);
+    if (!cta) { cta = document.createElement('div'); cta.id = 'guest-cta'; cta.className = 'guest-cta'; $('.top-right').prepend(cta); }
+    cta.innerHTML = GUEST.pending
+      ? `<a class="btn ghost" href="compte.html">${icon('clock', 15)}<span>${esc(t('g_pending'))}</span></a>`
+      : `<a class="btn ghost g-signup" href="compte.html?mode=signup">${esc(t('g_signup'))}</a><a class="btn primary" href="compte.html">${icon('log-in', 15)}<span>${esc(t('g_login'))}</span></a>`;
+    let tag = $('#guest-tag');
+    if (!tag) { tag = document.createElement('span'); tag.id = 'guest-tag'; tag.className = 'guest-tag'; $('.brand').appendChild(tag); }
+    tag.textContent = t('g_tag');
+  }
+  /** Changement de statut (connexion validée, déconnexion, compte non validé) : on recharge la carte dans le bon mode. */
+  function setMember(ok) {
+    store.set('vs-member', ok);
+    if (ok === GUEST.on) { location.reload(); return true; }   // membre affiché en visiteur, ou l'inverse
+    return false;
+  }
+  function guestPopup(e) {
+    const place = e.place || countryName(e.country) || t('at_sea');
+    L.popup({ className: 'vs-gpop', maxWidth: 300, minWidth: 240, offset: [0, -10], autoPanPadding: [20, 70] }).setLatLng([e.lat, e.lon]).setContent(`
+      <div class="gp"><div class="gp-k"><span class="gp-ico" style="--c:${sevColor(e.severity)}">${icon(cat(e.category).icon, 14)}</span><span>${esc(catLabel(e.category))}</span>
+        <span class="gp-sev" style="--c:${sevColor(e.severity)}">${esc(sevLabel(e.severity))}</span></div>
+        <div class="gp-t">${ttl(e)}</div><div class="gp-m">${icon('map-pin', 12)} ${esc(place)} · ${esc(ago(e.date))}</div>
+        <div class="gp-lock">${icon('lock', 13)}<span>${esc(t('g_more'))}</span></div>
+        <div class="gp-b"><a class="btn small ghost" href="compte.html?mode=signup">${esc(t('g_signup'))}</a><a class="btn small primary" href="compte.html">${esc(t('g_login'))}</a></div></div>`).openOn(map);
+  }
+
   /* ------------------------------------------------------------------ démarrage */
   if (D && D.settings && D.settings.product_name) { $('#brand-name').textContent = D.settings.product_name; document.title = D.settings.product_name; }
   applyLocalDecisions();
@@ -2745,6 +2930,7 @@
   applyI18n();
   applyTheme();
   riskLayer.addTo(map); cluster.addTo(map); sitesLayer.addTo(map);
+  applyGuest();
   bind();
   bindBuddy();
   buildMobileNav();
@@ -2766,12 +2952,13 @@
   ensureArchives(() => {
     renderAll();
     const ce = PARAMS.get('e'), cc = (PARAMS.get('c') || PARAMS.get('country') || '').toUpperCase(), ck = PARAMS.get('k');
+    if (GUEST.on) { const ge = ce && EVENTS.find(x => x.id === ce); if (ge) { map.setView([ge.lat, ge.lon], Math.max(map.getZoom(), 6)); setTimeout(() => guestPopup(ge), 400); } return; }
     if (ck && CRISES.some(x => x.id === ck)) openCrisis(ck, mv.length !== 3);
     else if (ce && EVENTS.some(x => x.id === ce)) openEvent(ce, !mv.length || mv.length !== 3);
     else if (cc && countryProps[cc]) openCountry(cc, mv.length !== 3);
   });
   const hash = decodeURIComponent(location.hash.slice(1));
-  if (hash && countryProps[hash]) openCountry(hash);
+  if (hash && countryProps[hash] && !GUEST.on) openCountry(hash);
   if (!D) {
     const el = $('#empty');
     el.innerHTML = `<div class="box"><h2>${t('empty_title')}</h2><p>${t('empty_body')}</p><p><code>python collecte.py</code></p><p>${t('empty_after')}</p></div>`;

@@ -23,7 +23,7 @@ Le fichier est découpé en sections repérées par `/* ---- nom */` (rechercher
 | textes | Dictionnaire `I18N.fr` / `I18N.en` ; fonction `t(clé, ...args)` (une valeur peut être une fonction) |
 | état | Objet `state` (langue, thème, période, filtres, onglet, sélection…) ; `store` = `localStorage` protégé (clés `vs-…`) |
 | liens partageables | Lecture des paramètres d'URL (`?h=`, `layer=`, `tab=`, `c=`…) et `bindShare()` (bouton Partager) |
-| sites, carte | Carte Leaflet, fonds (MapLibre / Esri / neutre), thème sombre « Angor Night », calques pays, marqueurs |
+| sites, carte | Carte Leaflet, fonds (MapLibre / Esri / neutre ; « réaliste » = Esri World Physical Map + World Reference Overlay jusqu'au zoom 8, puis World Imagery + Boundaries and Places), thème sombre « Angor Night », calques pays, marqueurs (`markerIcon`), groupes (`clusterIcon`, anneau par gravité) et étoile des catégories au survol (`showBurst` / `zoomToCat`, souris seulement) |
 | filtrage | `inWindow`, `hiddenByReliable`, `isOngoing`, `crisisLevel` |
 | rendu | `renderAll()` : liste d'alertes, compteurs, légende, marqueurs |
 | agenda, traduction automatique, actualiser, rapports, trajets surveillés | Un onglet ou une fonction par section |
@@ -73,9 +73,29 @@ Créer un `L.layerGroup()`, l'ajouter / le retirer selon l'onglet ou une case à
 - `gonogo.js` : moteur de décision partagé par la carte et le brief (`window.AngorGNG`).
 - `account.js` : client Supabase minimal (Auth + REST), désactivé si `VS_CONFIG.accounts` est vide. Conditions : `legalRequired()`,
   `legalMissing()`, `acceptLegal()` ; l'inscription envoie les versions acceptées (`data.accepted`).
+- `providers-lib.js` (`window.AngorProviders`) : annuaire commun à la carte, au rapport pays, à l'espace prestataire et à
+  l'administration : `forCountry(iso)`, `byCategory`, libellés et couleurs des niveaux, `score()` (même grille que la base,
+  POIDS vérifiés par test) et `tierOf()`. Fiche pays : `providersSection()` dans `app.js`, chargée à la demande (`ensureProviders`).
+- `prestataire.js` : éditeur de la fiche (sans paramètre) et fiche publique (`?id=`) ; fichiers via `AngorAccount.upload`,
+  `signedUrl`, `publicUrl`, `removeFile` (Supabase Storage).
 - `legal.js` (pages légales) : remplit `data-v` (champ de `VS_LEGAL`, ou « [à compléter] »), `data-list` (tableaux),
   `data-if` / `data-ifnot`, ajoute version, bandeau « Projet », sommaire et navigation. Le texte est dans chaque page ;
   l'identité de l'éditeur et les listes sont dans `config/legal.json`.
 - Ressources tierces : aucune police ni image chargée depuis un autre domaine (`docs/vendor/fonts`, `docs/vendor/flags`) ;
   seuls les fonds de carte (OpenFreeMap, Esri), Digitraffic et Supabase sont appelés, et ils sont listés dans la politique
   de confidentialité (`tiers_techniques`). Tout nouveau service tiers doit y être ajouté.
+
+## Mode visiteur (v0.21)
+
+Quand les comptes sont configurés (`VS_CONFIG.accounts`) et qu'aucun compte **validé** n'est connecté, `app.js` passe en mode
+visiteur (`GUEST.on`, classe `body.guest`) : la carte et les marqueurs seulement. Le CSS masque panneau, recherche, période,
+couches, légende, barre mobile et volet ; `applyGuest()` retire le calque pays et les sites, ajoute « Créer un compte / Se connecter »
+(ou « Compte en attente de validation ») ; un clic sur un marqueur ouvre une bulle résumée (`guestPopup`) au lieu de la fiche.
+La période est fixée à 7 jours, tous filtres levés, et `persist()` ne mémorise que la langue et le thème.
+
+`localStorage['vs-member']` mémorise qu'un compte validé s'est connecté sur l'appareil (pas de passage par l'affichage visiteur à
+chaque ouverture) ; `initAccount()` le corrige et recharge la page si le statut a changé ; `account.js` l'efface à la déconnexion.
+
+**Limite** : c'est un masquage d'interface. Les fichiers de données (`docs/data/*.js`) restent publics sur GitHub Pages ; pour
+réellement réserver les données aux abonnés, il faudra les servir depuis Supabase (lecture protégée par RLS) ou un dépôt privé.
+Sans configuration Supabase (usage local), l'outil reste complet.

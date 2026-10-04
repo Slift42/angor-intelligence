@@ -665,9 +665,10 @@
     const region = REGION_OF(cp);
     const lvl = (RISK[iso] || {}).level || 0;
     const svc = k => ((PROV.services || {})[k] || {})[lang] || k;
-    const local = (PROV.local || {})[iso] || [];
-    const provs = local.map(p => ({ ...p, local: true })).concat((PROV.providers || []).filter(p => !region || p.regions.includes(region)))
-      .sort((a, b) => (b.local ? 1 : 0) - (a.local ? 1 : 0) || ['cp', 'ts', 'ev'].filter(k => b.services.includes(k)).length - ['cp', 'ts', 'ev'].filter(k => a.services.includes(k)).length).slice(0, 10);
+    const AP = window.AngorProviders;   // annuaire commun (docs/providers-lib.js) : inscrits vérifiés d'abord, puis repérés
+    const provs = AP ? AP.forCountry(iso, cp).slice(0, 12)
+      : ((PROV.local || {})[iso] || []).concat((PROV.providers || []).filter(p => !region || (p.regions || []).includes(region))).slice(0, 10);
+    const tierTag = p => AP && p.tier ? ` <span class="tag" style="border-color:${AP.tierColor(p.tier)};color:${AP.tierColor(p.tier)}">${esc(AP.tierLabel(p.tier, lang))}</span>` : '';
     const pct = (k, u) => val(pr, k) != null ? `${num(val(pr, k), 0)}${u} (${yr(pr, k)})` : '';
     const sat = SATPHONE[iso];
     return sec('prestataires', `
@@ -679,10 +680,10 @@
               [L('Abonnements mobiles', 'Mobile subscriptions'), val(pr, 'mobile_subs') != null ? `${num(val(pr, 'mobile_subs'), 0)} ${L('pour 100 hab.', 'per 100 people')}` : ''],
               [L('Téléphone satellite', 'Satellite phone'), esc(sat ? L('⚠ Restrictions : ', '⚠ Restrictions: ') + L(sat[0], sat[1]) : (lvl >= 4 ? L('Recommandé (Iridium, Thuraya, Inmarsat) : coupures d\'Internet possibles. Vérifier la réglementation.', 'Recommended (Iridium, Thuraya, Inmarsat): internet shutdowns possible. Check regulations.') : L('Non indispensable hors zones isolées ; vérifier la réglementation.', 'Not essential outside remote areas; check regulations.')))]])}
       </div>
-      <h3>${icon('shield-check', 13)} ${esc(L('Prestataires de sécurité et d\'assistance', 'Security and assistance providers'))}${region ? ` — ${esc(region)}` : ''}</h3>
+      <h3>${icon('shield-check', 13)} ${esc(L('Prestataires de services aux voyageurs', 'Travel service providers'))}${region ? ` — ${esc(region)}` : ''}</h3>
       <table><thead><tr><th>${esc(L('Prestataire', 'Provider'))}</th><th>${esc(L('Services', 'Services'))}</th><th>${esc(L('Liens', 'Links'))}</th></tr></thead><tbody>
-        ${provs.map(p => `<tr><td><b>${esc(p.name)}</b>${p.local ? ` <span class="tag">${esc(L('local vérifié', 'verified local'))}</span>` : ''}<br><span class="small">${esc(p.hq || '')}${p.note ? ' · ' + esc(p.note) : ''}</span></td>
-          <td class="small">${(p.services || []).map(svc).map(esc).join(' · ')}</td><td class="small nowrap">${p.web ? `<a href="${esc(p.web)}">${esc(L('Site web', 'Website'))}</a>` : ''}${p.linkedin ? `<br><a href="${esc(p.linkedin)}">LinkedIn</a>` : ''}</td></tr>`).join('')}</tbody></table>
+        ${provs.map(p => `<tr><td><b>${esc(p.name)}</b>${tierTag(p)}<br><span class="small">${esc(p.hq || '')}${p.note ? ' · ' + esc(p.note) : ''}</span></td>
+          <td class="small">${(p.categories || p.services || []).map(svc).map(esc).join(' · ')}</td><td class="small nowrap">${p.source === 'self' && p.id ? `<a href="prestataire.html?id=${esc(p.id)}">${esc(L('Fiche Angor', 'Angor profile'))}</a><br>` : ''}${p.web ? `<a href="${esc(p.web)}">${esc(L('Site web', 'Website'))}</a>` : ''}${p.linkedin ? `<br><a href="${esc(p.linkedin)}">LinkedIn</a>` : ''}</td></tr>`).join('')}</tbody></table>
       <p class="hint">${esc(PROV.note || '')}</p>`);
   }
 

@@ -15,9 +15,10 @@
 
   function save(s) {
     session = s;
-    try { s ? localStorage.setItem(SKEY, JSON.stringify(s)) : localStorage.removeItem(SKEY); } catch (e) { /* stockage indisponible */ }
+    try { s ? localStorage.setItem(SKEY, JSON.stringify(s)) : (localStorage.removeItem(SKEY), localStorage.removeItem('vs-member')); } catch (e) { /* stockage indisponible */ }
     listeners.forEach(f => { try { f(s); } catch (e) { /* écouteur en erreur */ } });
   }
+  const encPath = p => String(p).split('/').map(encodeURIComponent).join('/');
   const pageUrl = name => location.origin + location.pathname.replace(/[^/]*$/, '') + name;
   function fromToken(j) {
     return { access_token: j.access_token, refresh_token: j.refresh_token, expires_at: Date.now() + (j.expires_in || 3600) * 1000, user: j.user };
@@ -42,6 +43,8 @@
     if (/already registered|already exists/i.test(s)) return 'Un compte existe déjà avec cette adresse.';
     if (/password should be at least|weak password/i.test(s)) return 'Mot de passe trop faible (10 caractères minimum, lettres et chiffres).';
     if (/rate limit/i.test(s)) return 'Trop de tentatives : réessayez dans quelques minutes.';
+    if (/error sending (confirmation|recovery|magic link|invite)/i.test(s))
+      return 'L\'e-mail de confirmation n\'a pas pu être envoyé (service d\'envoi d\'e-mails pas encore opérationnel). Réessayez plus tard ou contactez l\'administrateur.';
     return s;
   }
   async function fresh() {
@@ -65,7 +68,8 @@
     onChange(f) { listeners.push(f); },
     async signUp(email, password, meta) {
       // versions des conditions acceptées dans le formulaire : enregistrées à la création du compte (preuve horodatée)
-      const data = Object.assign({ accepted: Object.fromEntries(api.legalRequired().map(r => [r.doc, r.version])) }, meta || {});
+      const type = (meta && meta.account_type) || 'client';
+      const data = Object.assign({ accepted: Object.fromEntries(api.legalRequired(type).map(r => [r.doc, r.version])) }, meta || {});
       const j = await http('/auth/v1/signup?redirect_to=' + encodeURIComponent(pageUrl('compte.html')), { method: 'POST', auth: false, body: { email, password, data } });
       if (j && j.access_token) save(fromToken(j));
       return j;
@@ -100,20 +104,39 @@
     rest,
     rpc(fn, args) { return rest('rpc/' + fn, { method: 'POST', body: args || {}, headers: { Prefer: 'return=representation' } }); },
     async fn(name, body) { await fresh(); return http('/functions/v1/' + name, { method: 'POST', body }); },
+    /* ---- fichiers (Supabase Storage) : photos publiques « provider-media », justificatifs privés « provider-docs » ---- */
+    async upload(bucket, path, file) {
+      await fresh();
+      const r = await fetch(`${URL0}/storage/v1/object/${bucket}/${encPath(path)}`, { method: 'POST', body: file,
+        headers: { apikey: KEY, Authorization: 'Bearer ' + session.access_token, 'x-upsert': 'true', 'Content-Type': file.type || 'application/octet-stream' } });
+      if (!r.ok) {
+        let m = 'HTTP ' + r.status; try { const j = await r.json(); m = j.message || j.error || m; } catch (e) { /* */ }
+        throw new Error(/size|large/i.test(m) ? 'Fichier trop volumineux.' : /mime|type/i.test(m) ? 'Format de fichier non accepté.' : translate(m));
+      }
+      return path;
+    },
+    publicUrl(bucket, path) { return `${URL0}/storage/v1/object/public/${bucket}/${encPath(path)}`; },
+    async signedUrl(bucket, path, expiresIn) {
+      await fresh();
+      const j = await http(`/storage/v1/object/sign/${bucket}/${encPath(path)}`, { method: 'POST', body: { expiresIn: expiresIn || 300 } });
+      return URL0 + '/storage/v1' + (j.signedURL || j.signedUrl);
+    },
+    async removeFile(bucket, path) { await fresh(); return http(`/storage/v1/object/${bucket}`, { method: 'DELETE', body: { prefixes: [path] } }); },
     async deleteAccount() { await api.rpc('delete_my_account'); save(null); },
     /* ---- conditions (CGU, confidentialité) : versions publiées dans docs/data/legal.js (config/legal.json) ----
        Tant que les textes sont au statut « projet », la version enregistrée porte le suffixe « -projet » : l'acceptation
        de la version définitive sera donc redemandée lors du passage « en vigueur ». */
     legalInForce() { return !!(window.VS_LEGAL && window.VS_LEGAL.status === 'en vigueur'); },
-    legalRequired() {
+    /** Documents à accepter pour un type de compte (« pour » dans config/legal.json : réservé à ce type). */
+    legalRequired(type) {
       const LG = window.VS_LEGAL;
       if (!LG || !LG.documents) return [];
-      return Object.entries(LG.documents).filter(([, d]) => d.acceptation)
+      return Object.entries(LG.documents).filter(([, d]) => d.acceptation && (!d.pour || d.pour === (type || 'client')))
         .map(([doc, d]) => ({ doc, titre: d.titre, page: d.page, version: LG.status === 'en vigueur' ? d.version : d.version + '-projet' }));
     },
     async legalAccepted() { const p = await api.profile(); return (await rest(`legal_acceptances?user_id=eq.${p.id}&select=doc,version,accepted_at&order=accepted_at.desc`)) || []; },
-    async legalMissing() {
-      const req = api.legalRequired();
+    async legalMissing(type) {
+      const req = api.legalRequired(type);
       if (!req.length) return [];
       const rows = await api.legalAccepted();
       return req.filter(r => !rows.some(x => x.doc === r.doc && x.version === r.version));

@@ -56,6 +56,7 @@ Produit par `veille/model.py → make_event`, complété au fil de la chaîne. C
 | `econ.js` | `VS_ECON` | `collecte.py` | 30 min | rapport pays |
 | `cities.js` | `VS_CITIES` | `publish.write_cities` (GeoNames) | 30 min | recherche, Travel buddy |
 | `config.js` | `VS_CONFIG` | `collecte.py` | 30 min | comptes, trafic (aucun secret : URL et clé **publique** Supabase seulement) |
+| `providers.js` | `VS_PROVIDERS` | `veille/providers.py` | 30 min | `categories`, `groups`, `tiers` (config/providers.json), `registered` (fiches inscrites : id, name, web, hq, countries, categories, tier, score), `providers` (repérés par Angor, niveau E : name, web, hq, regions, categories, note) et `local` (par pays) ; `services` = ancien nom des catégories |
 | `legal.js` | `VS_LEGAL` | `veille/legal.py` | 30 min | informations légales de `config/legal.json` (sans les clés `_…`), `sources` (nom, licence des sources actives), `missing` (champs obligatoires vides) ; lu par les pages légales et `account.js` (versions à accepter) |
 | `countries.js` | `VS_COUNTRIES` | `tools/build_countries.py` | figé (versionné) | toutes les pages |
 | `factbook.js`, `guides.js`, `providers.js` | `VS_FACTBOOK`, `VS_GUIDES`, `VS_PROVIDERS` | outils ponctuels | figés (versionnés) | rapport, Travel buddy |
@@ -117,6 +118,8 @@ plus pour `emergency` un 12e élément : `hijack` | `radio` | `emergency`.
 | `press_outlets.json` | Médias de référence par pays et cotation | développeur |
 | `city_notes.json` | Notes d'analyste par ville (à valider) | analyste |
 | `health.json` | Listes de pays par risque sanitaire, textes maladies et vaccins | analyste / développeur |
+| `providers.json` | Catégories de services des prestataires (code, groupe, libellés), niveaux de fiabilité A–E et couleurs | développeur |
+| `providers_directory.json` | Prestataires repérés par Angor dans des sources publiques (non vérifiés), par grande région ou par pays (`local`) | analyste |
 | `legal.json` | Identité de l'éditeur, médiateur, hébergeurs, sous-traitants, services tiers, offres, crédits, statut et versions des documents légaux (voir [RGPD.md](RGPD.md)) | éditeur |
 
 ## 4. Mémoire du robot (`data/`, jamais versionnée)
@@ -144,3 +147,9 @@ planter (l'historique se reconstitue en quelques collectes, les référentiels s
 | `private.housekeeping()` | Effacement selon les durées de conservation ; renvoie le nombre de lignes traitées | hors API ; planifiée chaque nuit par pg_cron (`angor-housekeeping`) |
 | `private.is_admin()`, `private.is_approved()` | Fonctions des règles d'accès (security definer, hors API) ; `public.is_admin()` / `is_approved()` en sont des copies sans privilège pour les fonctions Edge | utilisateurs connectés |
 | `ping()` | Signe de vie (renvoie l'heure), sans privilège | clé publique (robot, toutes les 30 min) |
+| `profiles.account_type` | `client` ou `provider`, fixé à l'inscription (non modifiable par l'utilisateur) | – |
+| `providers` | Fiche prestataire (identité, catégories, pays, contacts, tarifs, garanties, médias, `status` draft/submitted/verified/suspended, `score`, `tier` calculés par la base) | public : nom, catégories, pays, site, niveau ; comptes validés : tout ; propriétaire et admin : écriture |
+| `provider_documents` | Justificatifs (fichier privé `provider-docs/<id>/docs/…`, statut pending/validated/rejected) | propriétaire et admin ; validation : admin |
+| `provider_reviews` | Avis (note 1-5, commentaire, réponse du prestataire, statut published/hidden) ; un par client et par prestataire | comptes validés ; écriture : clients validés, réponse : prestataire, masquage : admin |
+| `provider_requests` | Demandes de devis (message, catégorie, pays, période, statut) | demandeur, prestataire concerné, admin |
+| Stockage | `provider-media` (public, photos 5 Mo), `provider-docs` (privé, 10 Mo) ; dossier = identifiant de la fiche | règles sur `storage.objects` |

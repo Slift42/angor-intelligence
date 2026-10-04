@@ -8,7 +8,7 @@ from veille import accounts, http, legal
 LEGAL = json.loads((ROOT / "config" / "legal.json").read_text(encoding="utf-8"))
 PAGES = sorted((ROOT / "docs").glob("*.html"))
 LEGAL_PAGES = [ROOT / "docs" / f"{n}.html" for n in
-               ("legal", "mentions-legales", "cgu", "cgv", "confidentialite", "sous-traitance", "licences")]
+               ("legal", "mentions-legales", "cgu", "cgv", "confidentialite", "sous-traitance", "licences", "annuaire")]
 
 
 def test_build_signale_les_champs_vides_et_nettoie():
@@ -33,7 +33,7 @@ def test_configuration_coherente():
     for key, doc in LEGAL["documents"].items():
         assert (ROOT / "docs" / doc["page"]).exists(), doc["page"]
         assert re.fullmatch(r"\d+\.\d+", doc["version"]) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", doc["date"])
-    assert {k for k, d in LEGAL["documents"].items() if d.get("acceptation")} <= {"cgu", "confidentialite", "cgv", "dpa"}
+    assert {k for k, d in LEGAL["documents"].items() if d.get("acceptation")} <= {"cgu", "confidentialite", "cgv", "dpa", "annuaire"}
 
 
 def test_pages_legales_references_valides():

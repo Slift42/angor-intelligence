@@ -64,3 +64,36 @@ table.t td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align:
 /* liens légaux en bas des pages Compte et Administration */
 footer.foot-legal { text-align: center; color: var(--muted); font-size: 13px; padding: 0 16px 90px; margin-top: -70px; }
 footer.foot-legal a { color: var(--muted); }
+
+/* Espace prestataire (prestataire.html) */
+.pv-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+.pv-main { display: grid; gap: 14px; min-width: 0; }
+.pv-sticky { position: sticky; top: 70px; }
+.pv-score { font-size: 40px; font-weight: 700; line-height: 1; } .pv-score small { font-size: 16px; color: var(--muted); font-weight: 600; }
+.pv-check { list-style: none; padding: 0; margin: 12px 0; font-size: 13.5px; }
+.pv-check li { display: grid; grid-template-columns: 18px 1fr auto; gap: 6px; padding: 4px 0; color: var(--muted); border-bottom: 1px dashed var(--line); }
+.pv-check li.ok { color: var(--ink); } .pv-check li.ok span { color: var(--ok); } .pv-check b { font-weight: 600; }
+.pv-badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+  background: color-mix(in srgb, var(--pv) 16%, var(--surface)); border: 1px solid color-mix(in srgb, var(--pv) 60%, transparent); }
+.pv-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--pv); }
+.pv-avg { text-align: center; font-size: 14px; } .pv-avg b { font-size: 28px; }
+.pv-group { border: 1px solid var(--line); border-radius: 12px; padding: 6px 12px; margin: 8px 0; }
+.pv-group legend { font-weight: 700; font-size: 13px; padding: 0 6px; }
+.pv-group .switch { min-height: 32px; display: inline-flex; width: 49%; font-size: 13.5px; }
+.pv-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 8px 0; }
+.pv-gallery figure { margin: 0; display: grid; gap: 6px; } .pv-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); }
+.rows-t input.i, .rows-t select.i { min-height: 38px; padding: 6px 8px; } .rows-t td { padding: 4px; } .rows { overflow-x: auto; }
+@media (max-width: 900px) { .pv-layout { grid-template-columns: 1fr; } .pv-sticky { position: static; } .pv-side { order: -1; } .pv-group .switch { width: 100%; } }
+.pv-layout > * { min-width: 0; } .wrap > .card, .pv-main > .card { min-width: 0; overflow-wrap: anywhere; }
+.rows { max-width: 100%; } .rows-t { min-width: 560px; }
+.pv-group { min-width: 0; } .pv-sticky .row .btn { flex: 1 1 auto; }
+.pv-main { grid-template-columns: minmax(0, 1fr); }
+/* v0.21 – justificatifs prestataires */
+.msg.warn { background: color-mix(in srgb, var(--warn) 14%, var(--surface)); color: var(--ink); }
+.pill.missing { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
+.pv-ck-h { display: flex; justify-content: space-between; font-size: 13px; margin: 12px 0 4px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .04em; }
+.pv-ck-h span { font-variant-numeric: tabular-nums; }
+.pv-doclist tr.missing td:first-child strong { color: var(--ink-2); }
+.pv-doclist td:nth-child(2) { font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.grid2 .full { grid-column: 1 / -1; margin: 0; }
+.pv-doclist .pill, .pv-doclist th, .pv-doclist td .btn { white-space: nowrap; }

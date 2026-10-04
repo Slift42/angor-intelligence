@@ -11,7 +11,7 @@
   const fmt = d => d ? new Date(d).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
   const main = $('#main');
   const Q = new URLSearchParams(location.search);
-  let me = null, users = [], checks = [], responses = [], accepted = [], tab = Q.get('tab') || (Q.get('check_title') ? 'checks' : 'users'), filter = 'pending', timer = null;
+  let me = null, users = [], checks = [], responses = [], accepted = [], provs = [], pdocs = [], previews = [], tab = Q.get('tab') || (Q.get('check_title') ? 'checks' : 'users'), filter = 'pending', timer = null;
 
   function msg(el, text, kind) { if (el) el.innerHTML = text ? `<div class="msg ${kind || 'err'}">${esc(text)}</div>` : ''; }
   const STATUS = { pending: 'en attente', approved: 'validé', rejected: 'refusé', suspended: 'suspendu' };
@@ -23,6 +23,11 @@
       A.rest('safety_responses?select=*')]);
     // preuves d'acceptation des conditions (table créée par la version v0.19 de supabase/schema.sql)
     accepted = await A.rest('legal_acceptances?select=user_id,doc,version,accepted_at&order=accepted_at.desc').catch(() => []);
+    // annuaire des prestataires (tables créées par la version v0.20 de supabase/schema.sql)
+    [provs, pdocs, previews] = await Promise.all([
+      A.rest('providers?select=*&order=updated_at.desc').catch(() => []),
+      A.rest('provider_documents?select=*&order=uploaded_at.desc').catch(() => []),
+      A.rest('provider_reviews?select=*&order=created_at.desc&limit=100').catch(() => [])]);
   }
   function conditions(u) {
     const mine = accepted.filter(a => a.user_id === u.id), cgu = mine.find(a => a.doc === 'cgu');
@@ -33,10 +38,11 @@
   function render() {
     const pending = users.filter(u => u.status === 'pending').length;
     main.innerHTML = `<div class="tabs" role="tablist"><button data-tab="users" aria-selected="${tab === 'users'}">Utilisateurs${pending ? `<span class="badge">${pending}</span>` : ''}</button>
+      <button data-tab="providers" aria-selected="${tab === 'providers'}">Prestataires${pdocs.filter(d => d.status === 'pending').length + provs.filter(x => x.status === 'submitted').length ? `<span class="badge">${pdocs.filter(d => d.status === 'pending').length + provs.filter(x => x.status === 'submitted').length}</span>` : ''}</button>
       <button data-tab="checks" aria-selected="${tab === 'checks'}">Safety checks${checks.some(c => c.status === 'open') ? `<span class="badge">${checks.filter(c => c.status === 'open').length}</span>` : ''}</button></div>
       <div id="body"></div>`;
     main.querySelector('.tabs').addEventListener('click', ev => { const b = ev.target.closest('[data-tab]'); if (b) { tab = b.dataset.tab; render(); } });
-    tab === 'users' ? renderUsers() : renderChecks();
+    tab === 'users' ? renderUsers() : tab === 'providers' ? renderProviders() : renderChecks();
   }
 
   /* ------------------------------------------------ utilisateurs */
@@ -51,7 +57,7 @@
       ${list.length ? `<table class="t resp"><thead><tr><th>Utilisateur</th><th>Organisation</th><th>Inscription</th><th>Conditions</th><th>Statut</th><th>Actions</th></tr></thead><tbody>
       ${list.map(u => `<tr><td><strong>${esc(u.full_name || '—')}</strong><br><span class="hint">${esc(u.email)}${u.job_title ? ' · ' + esc(u.job_title) : ''}${u.phone ? ' · ' + esc(u.phone) : ''}</span></td>
         <td>${esc(u.organization || '—')}</td><td class="hint">${fmt(u.created_at)}</td><td>${conditions(u)}</td>
-        <td><span class="pill ${u.status}">${STATUS[u.status]}</span> ${u.role === 'admin' ? '<span class="pill admin">admin</span>' : ''}</td>
+        <td><span class="pill ${u.status}">${STATUS[u.status]}</span> ${u.role === 'admin' ? '<span class="pill admin">admin</span>' : ''}${u.account_type === 'provider' ? ' <span class="pill" style="background:#6B4FB3">prestataire</span>' : ''}</td>
         <td><div class="row">${actions(u)}</div></td></tr>`).join('')}</tbody></table>` : '<p class="hint">Aucun utilisateur dans cette liste.</p>'}</div>`;
     $('#flt').addEventListener('click', ev => { const b = ev.target.closest('[data-f]'); if (b) { filter = b.dataset.f; renderUsers(); } });
     $('#q').addEventListener('input', () => { const pos = $('#q').selectionStart; renderUsers(); $('#q').focus(); $('#q').setSelectionRange(pos, pos); });
@@ -71,6 +77,44 @@
     if (u.status === 'pending') return b('approved', 'Valider', 'ok') + b('rejected', 'Refuser', 'bad');
     if (u.status === 'approved') return (u.role === 'admin' ? b('approved:user', 'Retirer admin') : b('approved:admin', 'Nommer admin')) + b('suspended', 'Suspendre', 'bad');
     return b('approved', 'Réactiver', 'ok');
+  }
+
+  /* ------------------------------------------------ prestataires : vérification des fiches et justificatifs, avis */
+  const PSTATUS = { draft: 'brouillon', submitted: 'soumise', verified: 'vérifiée', suspended: 'suspendue' };
+  const DKIND = { registration: 'Immatriculation', licence: 'Licence / agrément', insurance: 'Assurance RC pro', certification: 'Certification', cv: 'CV équipes', tax: 'Régularité fiscale / sociale', other: 'Autre' };
+  function renderProviders() {
+    const AP = window.AngorProviders, emailOf = id => (users.find(u => u.id === id) || {}).email || '';
+    const order = { submitted: 0, verified: 1, draft: 2, suspended: 3 };
+    const list = provs.slice().sort((a, b) => order[a.status] - order[b.status] || b.score - a.score);
+    $('#body').innerHTML = `<div class="card"><h2>Fiches prestataires</h2><div id="m-prov"></div>
+      <p class="hint">À traiter en priorité : fiches « soumises » et justificatifs « en attente ». Vérifier = contrôler l'immatriculation (obligatoire), les licences, l'assurance, les certifications et les CV à partir des justificatifs (et, si besoin, d'un échange avec le prestataire).</p>
+      ${list.length ? `<table class="t resp"><thead><tr><th>Prestataire</th><th>Niveau</th><th>Justificatifs</th><th>Actions</th></tr></thead><tbody>
+      ${list.map(p => { const docs = pdocs.filter(d => d.provider_id === p.id);
+        return `<tr><td><strong><a href="prestataire.html?id=${esc(p.id)}" target="_blank">${esc(p.name)}</a></strong><br><span class="hint">${esc(emailOf(p.owner_id))} · ${esc(PSTATUS[p.status])} · mise à jour ${fmt(p.updated_at)}</span>
+          <br><span class="hint">${(p.categories || []).map(c => esc(AP ? AP.catLabel(c) : c)).join(', ')}</span></td>
+        <td><span style="color:${AP ? AP.tierColor(p.tier) : 'inherit'};font-weight:700">${esc(p.tier)}</span> · ${p.score}/100</td>
+        <td>${docs.map(d => `<div class="row" style="gap:4px;margin-bottom:4px"><button class="btn small" data-pdoc-open="${esc(d.path)}">${esc(DKIND[d.kind] || d.kind)}${d.expires_on ? ' (exp. ' + esc(d.expires_on) + ')' : ''}</button>
+            <span class="pill ${d.status === 'validated' ? 'approved' : d.status === 'rejected' ? 'rejected' : 'pending'}">${{ pending: 'en attente', validated: 'validé', rejected: 'refusé' }[d.status]}</span>
+            ${d.status !== 'validated' ? `<button class="btn small ok" data-pdoc="${esc(d.id)}" data-st="validated">Valider</button>` : ''}${d.status !== 'rejected' ? `<button class="btn small bad" data-pdoc="${esc(d.id)}" data-st="rejected">Refuser</button>` : ''}</div>`).join('') || '<span class="hint">aucun</span>'}</td>
+        <td><div class="row">${['verified', 'submitted', 'suspended'].filter(s => s !== p.status && !(s === 'submitted' && p.status === 'draft')).map(s => { const lock = s === 'verified' && AP && !AP.canVerify(docs);
+          return `<button class="btn small ${s === 'verified' ? 'ok' : s === 'suspended' ? 'bad' : ''}" data-pst="${s}" data-pid="${esc(p.id)}"${lock ? ' disabled title="Validez d\'abord l\'extrait d\'immatriculation"' : ''}>${{ verified: 'Vérifier', submitted: 'Remettre « soumise »', suspended: 'Suspendre' }[s]}</button>`; }).join('')}</div>
+          ${AP && !AP.canVerify(docs) && p.status !== 'verified' ? '<span class="hint">Vérification possible après validation de l\'immatriculation.</span>' : ''}</td></tr>`; }).join('')}</tbody></table>`
+        : '<p class="hint">Aucune fiche prestataire pour l\'instant. Les prestataires s\'inscrivent depuis compte.html (« Prestataire de services »).</p>'}</div>
+      <div class="card"><h2>Avis récents</h2>${previews.length ? `<table class="t resp"><thead><tr><th>Avis</th><th>Prestataire</th><th>Statut</th></tr></thead><tbody>${previews.map(r => `<tr>
+        <td>${'★'.repeat(r.rating)} ${esc(r.title || '')}<br><span class="hint">${esc(r.author_label || '')} · ${fmt(r.created_at)}</span><br>${esc(r.comment)}</td>
+        <td>${esc((provs.find(p => p.id === r.provider_id) || {}).name || '')}</td>
+        <td>${r.status === 'published' ? `<button class="btn small bad" data-rev="${esc(r.id)}" data-st="hidden">Masquer</button>` : `<button class="btn small" data-rev="${esc(r.id)}" data-st="published">Republier</button>`}</td></tr>`).join('')}</tbody></table>` : '<p class="hint">Aucun avis.</p>'}</div>`;
+    $('#body').onclick = async ev => {
+      const o = ev.target.closest('[data-pdoc-open]'), d = ev.target.closest('[data-pdoc]'), s = ev.target.closest('[data-pst]'), r = ev.target.closest('[data-rev]');
+      try {
+        if (o) { window.open(await A.signedUrl('provider-docs', o.dataset.pdocOpen, 120), '_blank', 'noopener'); return; }
+        if (d) await A.rest(`provider_documents?id=eq.${d.dataset.pdoc}`, { method: 'PATCH', body: { status: d.dataset.st, reviewed_at: new Date().toISOString() } });
+        else if (s) await A.rest(`providers?id=eq.${s.dataset.pid}`, { method: 'PATCH', body: { status: s.dataset.pst } });
+        else if (r) await A.rest(`provider_reviews?id=eq.${r.dataset.rev}`, { method: 'PATCH', body: { status: r.dataset.st } });
+        else return;
+        await load(); render();
+      } catch (e) { msg($('#m-prov'), e.message); }
+    };
   }
 
   /* ------------------------------------------------ safety checks */

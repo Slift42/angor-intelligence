@@ -1,0 +1,176 @@
+{
+ "_comment": "Annuaire des prestataires : catégories de services et niveaux de fiabilité. Source unique pour le robot (veille/providers.py), la carte, le rapport pays et l'espace prestataire. Ajouter une catégorie = une ligne ici (code court, groupe, libellés FR/EN) ; ne jamais renommer un code existant (il est stocké dans les fiches).",
+ "groups": {
+  "securite": {
+   "fr": "Sécurité et sûreté",
+   "en": "Security"
+  },
+  "sante": {
+   "fr": "Santé et assistance",
+   "en": "Health and assistance"
+  },
+  "transport": {
+   "fr": "Transport",
+   "en": "Transport"
+  },
+  "sejour": {
+   "fr": "Séjour et logistique",
+   "en": "Stay and logistics"
+  }
+ },
+ "categories": {
+  "cp": {
+   "group": "securite",
+   "fr": "Protection rapprochée",
+   "en": "Close protection"
+  },
+  "ts": {
+   "group": "securite",
+   "fr": "Transport sécurisé, véhicules blindés",
+   "en": "Secure transport, armoured vehicles"
+  },
+  "gs": {
+   "group": "securite",
+   "fr": "Gardiennage, sûreté de sites",
+   "en": "Guarding, site security"
+  },
+  "ev": {
+   "group": "securite",
+   "fr": "Évacuation, extraction",
+   "en": "Evacuation, extraction"
+  },
+  "cm": {
+   "group": "securite",
+   "fr": "Gestion de crise, kidnapping et rançon (K&R)",
+   "en": "Crisis management, kidnap & ransom (K&R)"
+  },
+  "int": {
+   "group": "securite",
+   "fr": "Renseignement, analyse de risques, alertes",
+   "en": "Intelligence, risk analysis, alerts"
+  },
+  "tr": {
+   "group": "securite",
+   "fr": "Suivi des voyageurs, formation HEAT",
+   "en": "Traveller tracking, HEAT training"
+  },
+  "fix": {
+   "group": "securite",
+   "fr": "Fixeur, facilitation locale",
+   "en": "Fixer, local facilitation"
+  },
+  "cyb": {
+   "group": "securite",
+   "fr": "Sécurité numérique en déplacement",
+   "en": "Travel cyber security"
+  },
+  "cit": {
+   "group": "securite",
+   "fr": "Transport de fonds et valeurs",
+   "en": "Cash and valuables in transit"
+  },
+  "med": {
+   "group": "sante",
+   "fr": "Assistance et évacuation médicales",
+   "en": "Medical assistance and evacuation"
+  },
+  "amb": {
+   "group": "sante",
+   "fr": "Ambulance aérienne, rapatriement sanitaire",
+   "en": "Air ambulance, medical repatriation"
+  },
+  "clin": {
+   "group": "sante",
+   "fr": "Cliniques et médecins référents",
+   "en": "Clinics and referral doctors"
+  },
+  "ins": {
+   "group": "sante",
+   "fr": "Assurance voyage et assistance",
+   "en": "Travel insurance and assistance"
+  },
+  "jet": {
+   "group": "transport",
+   "fr": "Jets privés, affrètement aérien",
+   "en": "Private jets, air charter"
+  },
+  "heli": {
+   "group": "transport",
+   "fr": "Hélicoptères",
+   "en": "Helicopters"
+  },
+  "chf": {
+   "group": "transport",
+   "fr": "Chauffeurs, VTC",
+   "en": "Chauffeur services"
+  },
+  "taxi": {
+   "group": "transport",
+   "fr": "Sociétés de taxis",
+   "en": "Taxi companies"
+  },
+  "car": {
+   "group": "transport",
+   "fr": "Location de véhicules",
+   "en": "Car rental"
+  },
+  "mg": {
+   "group": "transport",
+   "fr": "Meet & greet, accueil aéroport, fast track",
+   "en": "Meet & greet, airport assistance, fast track"
+  },
+  "hot": {
+   "group": "sejour",
+   "fr": "Hébergement sécurisé, hôtels",
+   "en": "Secure accommodation, hotels"
+  },
+  "tel": {
+   "group": "sejour",
+   "fr": "Téléphones satellite, communications",
+   "en": "Satellite phones, communications"
+  },
+  "lang": {
+   "group": "sejour",
+   "fr": "Interprètes, traducteurs",
+   "en": "Interpreters, translators"
+  },
+  "visa": {
+   "group": "sejour",
+   "fr": "Visas et formalités",
+   "en": "Visas and formalities"
+  },
+  "con": {
+   "group": "sejour",
+   "fr": "Conciergerie, logistique d'événements",
+   "en": "Concierge, event logistics"
+  }
+ },
+ "tiers": {
+  "A": {
+   "fr": "Vérifié par Angor – dossier complet",
+   "en": "Verified by Angor – complete file",
+   "color": "#1a9850"
+  },
+  "B": {
+   "fr": "Vérifié par Angor",
+   "en": "Verified by Angor",
+   "color": "#91cf60"
+  },
+  "C": {
+   "fr": "Inscrit – dossier complet, non vérifié",
+   "en": "Registered – complete file, not verified",
+   "color": "#d9c84a"
+  },
+  "D": {
+   "fr": "Inscrit – dossier incomplet",
+   "en": "Registered – incomplete file",
+   "color": "#fc8d59"
+  },
+  "E": {
+   "fr": "Non vérifié – à contacter séparément",
+   "en": "Unverified – to be contacted separately",
+   "color": "#d73027"
+  }
+ },
+ "_tiers": "A et B : fiche vérifiée par Angor (score ≥ 80 pour A). C : fiche soumise, score ≥ 60. D : fiche soumise incomplète. E : prestataire trouvé par Angor dans des sources publiques, jamais contacté. Le score (0-100) ne mesure que la qualité des informations fournies ; aucun classement n'est payant."
+}

@@ -25,11 +25,12 @@ const failures = [];
 const check = (ok, msg) => { if (!ok) failures.push(msg); console.log(`${ok ? '✓' : '✗'} ${msg}`); };
 const browser = await chromium.launch();
 
-async function page(url, viewport, steps = async () => {}) {
+async function page(url, viewport, steps = async () => {}, setup = async () => {}) {
   const p = await browser.newPage({ viewport });
   const errors = [];
   p.on('pageerror', e => errors.push(e.message));
   await p.route(/^https?:\/\/(?!localhost)/, r => r.abort());   // pas d'Internet : tuiles, polices, API
+  await setup(p);
   await p.goto(BASE + url, { waitUntil: 'load' });
   await p.waitForTimeout(800);
   try { await steps(p); } catch (e) { errors.push('parcours : ' + e.message); }
@@ -50,12 +51,20 @@ for (const [name, viewport] of [['ordinateur', { width: 1400, height: 900 }], ['
   });
   check(!r.errors.length, `carte (${name}) sans erreur ${r.errors.join(' | ')}`);
   check(r.width <= viewport.width, `carte (${name}) sans défilement horizontal (${r.width}px)`);
-  for (const url of ['/report.html#FR', '/report.html#ML/villes', '/brief.html#FR', '/aide.html', '/compte.html']) {
+  // mode visiteur (v0.21) : comptes configurés, personne de connecté → carte seule, sans panneau ni couches
+  let guest = false;
+  r = await page('/index.html', viewport, async p => {
+    guest = await p.evaluate(() => document.body.classList.contains('guest') && getComputedStyle(document.querySelector('#panel')).display === 'none'
+      && getComputedStyle(document.querySelector('#layers')).display === 'none' && !!document.querySelector('#guest-cta a[href^="compte.html"]'));
+  }, p => p.route(/\/data\/config\.js/, rt => rt.fulfill({ contentType: 'text/javascript',
+    body: 'window.VS_CONFIG={"accounts":{"supabase_url":"https://mock.supabase.co","supabase_anon_key":"sb_publishable_x"}};' })));
+  check(!r.errors.length && guest && r.width <= viewport.width, `carte en mode visiteur (${name}) : carte seule ${r.errors.join(' | ')}`);
+  for (const url of ['/report.html#FR', '/report.html#ML/villes', '/brief.html#FR', '/aide.html', '/compte.html', '/compte.html?type=provider', '/prestataire.html', '/prestataire.html?id=x', '/admin.html']) {
     r = await page(url, viewport);
     check(!r.errors.length, `${url} (${name}) sans erreur ${r.errors.join(' | ')}`);
   }
   // pages légales : sans erreur, sans défilement horizontal, champs à compléter signalés plutôt que vides
-  for (const url of ['/legal.html', '/mentions-legales.html', '/cgu.html', '/cgv.html', '/confidentialite.html', '/sous-traitance.html', '/licences.html']) {
+  for (const url of ['/legal.html', '/mentions-legales.html', '/cgu.html', '/cgv.html', '/confidentialite.html', '/sous-traitance.html', '/licences.html', '/annuaire.html']) {
     let empty = 0;
     r = await page(url, viewport, async p => { empty = await p.evaluate(() => [...document.querySelectorAll('[data-v]')].filter(e => !e.textContent.trim()).length); });
     check(!r.errors.length && !empty && r.width <= viewport.width, `${url} (${name}) ${r.errors.join(' | ')}${empty ? ` ${empty} champ(s) vide(s)` : ''}${r.width > viewport.width ? ` largeur ${r.width}px` : ''}`);

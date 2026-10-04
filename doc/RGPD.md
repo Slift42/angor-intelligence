@@ -94,3 +94,20 @@ Responsable : l'éditeur (voir `config/legal.json`). Mettre à jour à chaque no
 - Aucun traceur : pas de cookie publicitaire ni de mesure d'audience ; polices et drapeaux auto-hébergés (`docs/vendor/`).
 - Lien « Informations légales » sur la carte (attribution), dans le menu Plus, l'aide, Mon compte et Administration.
 - Test automatique : `tests/test_legal.py` (références des pages, absence d'appel à Google Fonts / flagcdn, entretien des comptes).
+
+## Annuaire des prestataires (v0.20)
+
+Registre, lignes à ajouter : fiches prestataires (contrat ; durée du compte), avis (intérêt légitime ; 3 ans), demandes de devis
+(mesures précontractuelles ; 3 ans) – effacements automatiques par `private.housekeeping()`. Points de vigilance :
+- **Transparence du classement** (art. L111-7 du Code de la consommation, règlement P2B 2019/1150) : les critères publiés dans
+  `annuaire.html` doivent rester identiques à la grille codée (test automatique) ; toute rémunération future d'un prestataire
+  (mise en avant, commission) devrait y être signalée.
+- **Avis** (art. L111-7-2 et D111-17) : procédure de contrôle, date, absence de contrepartie et durée de publication affichées.
+- **Mise en relation** : Angor n'est pas partie aux contrats ; si un paiement passe un jour par la plateforme, revoir le statut
+  (intermédiaire de paiement, commission, obligations d'opérateur de plateforme renforcées).
+- **Prestataires repérés** : informations professionnelles publiques uniquement, retrait sur simple demande.
+- **Justificatifs (v0.21)** : extrait d'immatriculation obligatoire (soumission), validé pour la vérification ; CV des équipes
+  clés acceptés pour le score – données de salariés des prestataires, transmises par eux (ils informent les personnes, art. 14) :
+  informations professionnelles seulement, compartiment privé, visibles d'Angor uniquement, supprimées avec le document ou la fiche.
+  Ligne ajoutée à la politique de confidentialité (version 1.2) ; conditions de l'annuaire en version 1.1 (nouveaux critères :
+  à notifier aux prestataires 15 jours avant l'entrée en vigueur une fois le statut « en vigueur », article 3 du règlement P2B).

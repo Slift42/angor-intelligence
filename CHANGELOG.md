@@ -4,6 +4,56 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.21 – Carte réservée aux comptes, nouveaux marqueurs, fond réaliste, justificatifs prestataires (octobre 2026)
+
+- **Mode visiteur** : sans compte validé, seule la carte des évènements s'affiche (ni panneau, ni filtres, ni couches, ni fiches
+  pays, ni détail). Un clic sur un marqueur ouvre une bulle résumée (catégorie, gravité, lieu, date) avec « Créer un compte » et
+  « Se connecter » ; un compte en attente voit « Compte en attente de validation ». Les comptes validés retrouvent l'outil complet.
+  Limite : masquage d'interface – les fichiers de données restent publics tant qu'ils ne sont pas servis depuis Supabase.
+- **Marqueurs redessinés** : pastilles en relief (dégradé, anneau translucide, ombre), apparition animée, ondes concentriques pour
+  les gravités élevées et critiques, point blanc pour les incidents de moins de 6 h, contour pointillé pour la détection automatique,
+  effet au survol ; animations coupées si le système demande moins de mouvement.
+- **Groupes** : nombre sur disque sombre et anneau découpé par gravité ; **au survol**, les catégories du groupe se déploient en
+  étoile autour du nombre (icône, nombre, nom au survol), reliées par des traits ; clic = zoom sur ces seuls incidents (ou ouverture
+  s'il n'y en a qu'un).
+- **Fond « Réaliste (relief) »** : carte physique (relief ombré, teintes d'altitude, fonds marins) avec étiquettes d'atlas jusqu'au
+  zoom 8, puis imagerie satellite ; calque pays plus transparent sur ce fond.
+- **Justificatifs des prestataires** : nouveaux types (registre du commerce, licence ou autorisation professionnelle, assurance RC
+  pro avec date de fin obligatoire, certification ISO…, CV des équipes clés, attestation fiscale ou sociale) et liste de contrôle
+  avec points et état de chaque pièce. **Nouvelle grille** : les justificatifs pèsent 55 points sur 100 (sans eux, plafond à 45 et
+  niveau D) ; l'extrait d'immatriculation est **obligatoire pour soumettre** la fiche, et sa validation pour la vérifier (règles
+  appliquées par la base). Administration : bouton « Vérifier » bloqué tant que l'immatriculation n'est pas validée.
+- Conditions de l'annuaire 1.1 (critères publiés) et politique de confidentialité 1.2 (CV des équipes des prestataires) : à accepter
+  de nouveau à la connexion suivante.
+- Développeur : **relancer `supabase/schema.sql`** (contrainte `provider_documents_kind_check`, `private.doc_active`, nouvelle
+  `private.provider_score`, garde de soumission / vérification, recalcul des scores) ; `docs/providers-lib.js` (`DOC_KINDS`,
+  `docActive`, `canSubmit`, `canVerify`) ; `app.js` (`GUEST`, `applyGuest`, `guestPopup`, `clusterIcon`, `showBurst`, `zoomToCat`) ;
+  `compte.html?mode=signup` ; tests `test_providers.py` (types et obligations) et e2e (mode visiteur).
+
+## v0.20 – Annuaire des prestataires de services aux voyageurs (octobre 2026)
+
+- **Comptes « prestataire »** : à l'inscription, choix Client / Prestataire de services (jets privés, sécurité, sûreté,
+  assistance médicale, chauffeurs, taxis, meet & greet… 25 catégories en 4 groupes, cumulables). Inscription et référencement
+  gratuits, sans option payante.
+- **Espace prestataire** (`prestataire.html`) : fiche d'identification et de services (identité légale, catégories, pays et villes,
+  présentation FR/EN, contacts 24/7, tarifs fixes, assurance, agréments et certifications, justificatifs privés, photos, liens vidéo,
+  site web, LinkedIn et autres liens), **score de qualité en direct** (0 à 100) avec la liste de ce qui manque, soumission à
+  l'annuaire, demandes de devis et avis reçus avec droit de réponse.
+- **Fiche publique** pour les clients validés : contacts, tarifs, garanties, photos, avis (un par client, sans contrepartie,
+  contrôlés a posteriori) et formulaire de demande de devis.
+- **Niveaux de fiabilité** A à E (vert → rouge) : A/B vérifié par Angor, C/D inscrit (selon la complétude), E repéré par Angor
+  « non vérifié – à contacter séparément ». Classement = niveau puis score ; les avis n'y entrent pas.
+- **Fiche pays (carte)** : « N prestataires de services disponibles » avant « À venir », catégories avec leur nombre, couleur du
+  meilleur niveau disponible, liste au clic ; lien « Référencez-vous gratuitement ». Rapport pays : même annuaire, avec niveaux.
+- **Administration → Prestataires** : vérification des fiches et des justificatifs (ouverture par lien temporaire), suspension,
+  modération des avis ; badge « prestataire » dans la liste des utilisateurs.
+- **Conditions de l'annuaire** (`annuaire.html`, acceptées par les prestataires) : critères de classement publiés (L111-7 Code de la
+  consommation, règlement P2B), règles des avis, visibilité des informations ; CGU et politique de confidentialité en version 1.1.
+- Développeur : **relancer `supabase/schema.sql`** (tables providers, provider_documents, provider_reviews, provider_requests,
+  compartiments de fichiers, colonne profiles.account_type) ; `config/providers.json` (catégories, niveaux),
+  `config/providers_directory.json` (prestataires repérés, remplace `tools/providers_src.py`), `veille/providers.py`,
+  `docs/providers-lib.js` (grille de qualité identique à la base, vérifiée par `tests/test_providers.py`).
+
 ## v0.19.1 – Base des comptes durcie (conseiller de sécurité Supabase)
 
 - Plus aucune fonction à privilèges exécutable sans connexion ; toutes fixent leur `search_path`.

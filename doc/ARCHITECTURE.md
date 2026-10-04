@@ -73,6 +73,7 @@ Chaque étape « annexe » (7) est encadrée par un `try/except` qui journalise 
 | `enrich.py` | Titres d'articles pour les événements GDELT |
 | `analytics.py` | Statistiques par pays et séries temporelles pour l'onglet Analyses |
 | `notify.py` | Alertes Telegram / e-mail, point quotidien |
+| `providers.py` | Annuaire des prestataires : fiches inscrites (Supabase, clé publique) + repérés par Angor → `docs/data/providers.js` |
 | `legal.py` | Informations légales : `config/legal.json` → `docs/data/legal.js` (+ licences des sources, champs manquants) |
 | `accounts.py` | Signe de vie à la base Supabase à chaque collecte (projet gratuit maintenu actif) |
 | `publish.py` | Mémoire du robot, fusion, écriture des fichiers publiés, archives, empreintes de cache |
@@ -93,6 +94,7 @@ Détails : [FRONTEND.md](FRONTEND.md).
 | `brief.html` | `brief.js`, `report.css` | Brief de mission |
 | `aide.html` | — | Aide utilisateur |
 | `compte.html`, `admin.html` | `compte.js`, `admin.js`, `account.js` | Comptes, administration (Supabase) |
+| `prestataire.html` | `prestataire.js`, `providers-lib.js`, `account.js` | Espace prestataire (fiche, justificatifs, photos, demandes, avis) et fiche publique |
 | `legal.html`, `mentions-legales.html`, `cgu.html`, `cgv.html`, `confidentialite.html`, `sous-traitance.html`, `licences.html` | `legal.js`, `legal.css` | Informations légales (contenu variable : `config/legal.json`) |
 | `sw.js`, `manifest.webmanifest` | — | Application installable, cache hors ligne |
 

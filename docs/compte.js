@@ -12,7 +12,9 @@
   const countryOpts = (sel, empty) => (empty ? `<option value="">${esc(empty)}</option>` : '') + COUNTRIES.map(c => `<option value="${c.iso2}"${c.iso2 === sel ? ' selected' : ''}>${esc(c.name_fr)}</option>`).join('');
   const main = $('#main');
   let P = null;          // profil
-  let mode = 'login';
+  const QS = new URLSearchParams(location.search);
+  let mode = QS.get('type') === 'provider' || QS.get('mode') === 'signup' ? 'signup' : 'login';
+  let accType = QS.get('type') === 'provider' ? 'provider' : 'client';   // type de compte choisi à l'inscription
 
   function msg(el, text, kind) { el.innerHTML = text ? `<div class="msg ${kind || 'err'}">${esc(text)}</div>` : ''; }
 
@@ -27,17 +29,23 @@
         <button data-mode="recover" aria-pressed="${mode === 'recover'}">Mot de passe oublié</button></div>
       <div id="m">${info ? `<div class="msg ok">${esc(info)}</div>` : ''}</div>
       <form id="f" autocomplete="on">${mode === 'signup' ? `
+        <div class="f">Je crée un compte en tant que
+          <div class="seg" role="group" id="acc-type"><button type="button" data-t="client" aria-pressed="${accType === 'client'}">Client (entreprise ou particulier)</button>
+          <button type="button" data-t="provider" aria-pressed="${accType === 'provider'}">Prestataire de services</button></div></div>
+        ${accType === 'provider' ? '<p class="hint">Jets privés, sécurité, assistance médicale, chauffeurs, taxis, meet &amp; greet… Inscription et référencement <strong>gratuits</strong> : vous remplirez ensuite votre fiche d\'identification et de services.</p>' : ''}
         <div class="grid2"><label class="f">Nom et prénom<input class="i" name="full_name" required autocomplete="name"></label>
-        <label class="f">Organisation<input class="i" name="organization" required autocomplete="organization"></label></div>` : ''}
+        <label class="f">${accType === 'provider' ? 'Société' : 'Organisation (ou « Particulier »)'}<input class="i" name="organization" required autocomplete="organization"></label></div>` : ''}
         <label class="f">Adresse e-mail<input class="i" name="email" type="email" required autocomplete="email"></label>
         ${mode !== 'recover' ? `<label class="f">Mot de passe<input class="i" name="password" type="password" required minlength="${mode === 'signup' ? 10 : 1}" autocomplete="${mode === 'signup' ? 'new-password' : 'current-password'}"></label>` : ''}
         ${mode === 'signup' ? `<label class="f">Confirmer le mot de passe<input class="i" name="password2" type="password" required minlength="10" autocomplete="new-password"></label>
-          <label class="switch"><input type="checkbox" name="consent" required><span>J'accepte les <a href="cgu.html" target="_blank">conditions générales d'utilisation</a> et j'ai pris connaissance de la <a href="confidentialite.html" target="_blank">politique de confidentialité</a>.</span></label>
+          <label class="switch"><input type="checkbox" name="consent" required><span>J'accepte les <a href="cgu.html" target="_blank">conditions générales d'utilisation</a>${accType === 'provider' ? ' et les <a href="annuaire.html" target="_blank">conditions de l\'annuaire des prestataires</a>' : ''} et j'ai pris connaissance de la <a href="confidentialite.html" target="_blank">politique de confidentialité</a>.</span></label>
           <p class="hint">Données conservées : nom, organisation, e-mail, pour gérer votre accès. Votre position n'est partagée que si vous l'activez.</p>` : ''}
         <div class="row"><button class="btn primary" type="submit">${{ login: 'Se connecter', signup: 'Créer mon compte', recover: 'Recevoir un lien' }[mode]}</button></div>
         ${mode === 'signup' ? '<p class="hint">Chaque compte est validé par un administrateur avant d\'accéder aux fonctions réservées (sites, safety checks, préférences synchronisées).</p>' : ''}
       </form></div>`;
     main.querySelector('.seg').addEventListener('click', ev => { const b = ev.target.closest('[data-mode]'); if (b) { mode = b.dataset.mode; renderAuth(); } });
+    const at = $('#acc-type');
+    if (at) at.addEventListener('click', ev => { const b = ev.target.closest('[data-t]'); if (b) { accType = b.dataset.t; renderAuth(); } });
     $('#f').addEventListener('submit', async ev => {
       ev.preventDefault();
       const d = Object.fromEntries(new FormData(ev.target).entries()), m = $('#m'), btn = ev.target.querySelector('button[type=submit]');
@@ -47,7 +55,7 @@
         if (mode === 'recover') { await A.recover(d.email.trim()); msg(m, 'Si un compte existe, un lien de réinitialisation vient de vous être envoyé.', 'ok'); return; }
         if (d.password !== d.password2) throw new Error('Les deux mots de passe ne correspondent pas.');
         if (!/[a-z]/i.test(d.password) || !/\d/.test(d.password)) throw new Error('Le mot de passe doit contenir des lettres et des chiffres (10 caractères minimum).');
-        const r = await A.signUp(d.email.trim(), d.password, { full_name: d.full_name.trim(), organization: d.organization.trim() });
+        const r = await A.signUp(d.email.trim(), d.password, { full_name: d.full_name.trim(), organization: d.organization.trim(), account_type: accType });
         if (A.session) return start();
         mode = 'login';
         renderAuth(r && r.id || (r && r.user) ? 'Compte créé. Confirmez votre adresse avec le lien reçu par e-mail, puis connectez-vous : un administrateur validera ensuite votre accès.' : 'Compte créé.');
@@ -69,6 +77,8 @@
       suspended: ['Compte suspendu', 'Votre accès est suspendu. Contactez l\'administrateur de la plateforme.'] }[P.status];
     main.innerHTML = `<div class="card"><h2>${esc(t[0])} <span class="pill ${P.status}">${esc(P.status)}</span></h2><p>${esc(t[1])}</p>
       <p class="hint">${esc(P.full_name || '')} · ${esc(P.organization || '')} · ${esc(P.email)}</p>
+      ${P.account_type === 'provider' && P.status === 'pending' ? `<div class="msg info">En attendant, vous pouvez déjà remplir votre <strong>fiche d'identification et de services</strong> : plus elle est complète, mieux vous êtes référencé.</div>
+        <a class="btn primary" href="prestataire.html">Remplir ma fiche prestataire</a>` : ''}
       <div class="row"><button class="btn" id="reload">Vérifier à nouveau</button><button class="btn" id="out">Se déconnecter</button><a class="btn" href="index.html">Carte</a></div></div>`;
     $('#reload').addEventListener('click', start);
     $('#out').addEventListener('click', async () => { await A.signOut(); start(); });
@@ -85,6 +95,8 @@
     main.innerHTML = `
     <div class="card"><div class="row" style="justify-content:space-between"><div><h2 style="margin:0">${esc(P.full_name || P.email)}</h2>
       <div class="hint">${esc(P.email)} · ${esc(P.organization || '')}</div></div><div><span class="pill approved">compte validé</span> ${P.role === 'admin' ? '<span class="pill admin">administrateur</span>' : ''}</div></div></div>
+    ${P.account_type === 'provider' ? `<div class="card"><h2>Mon espace prestataire</h2><p>Votre fiche d'identification et de services, vos justificatifs, photos, tarifs, ainsi que les demandes et avis reçus.</p>
+      <div class="row"><a class="btn primary" href="prestataire.html">Ouvrir mon espace prestataire</a><a class="btn" href="annuaire.html">Conditions de l'annuaire</a></div></div>` : ''}
     <div class="card" id="checks"><h2>Safety checks</h2><div id="checks-body" class="hint">Chargement…</div></div>
     <form class="card" id="f-profile"><h2>Profil</h2><div id="m-profile"></div><div class="grid2">
       <label class="f">Nom et prénom<input class="i" name="full_name" value="${esc(P.full_name || '')}"></label>
@@ -243,7 +255,7 @@
     if (!P) { await A.signOut(); return renderAuth(); }
     if (A.legalInForce()) {
       let missing = [];
-      try { missing = await A.legalMissing(); } catch (e) { missing = []; }   // table absente : schéma pas encore mis à jour
+      try { missing = await A.legalMissing(P.account_type); } catch (e) { missing = []; }   // table absente : schéma pas encore mis à jour
       if (missing.length) return renderAccept(missing);
     }
     if (P.status !== 'approved') return renderStatus();

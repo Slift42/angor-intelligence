@@ -17,7 +17,8 @@
     'mediateur.adresse': 'adresse du médiateur', tribunal: 'tribunal compétent' };
   const DEFAULT_DOCS = { mentions: ['Mentions légales', 'mentions-legales.html'], cgu: ["Conditions générales d'utilisation", 'cgu.html'],
     cgv: ['Conditions générales de vente', 'cgv.html'], confidentialite: ['Politique de confidentialité et cookies', 'confidentialite.html'],
-    dpa: ['Accord de sous-traitance des données', 'sous-traitance.html'], licences: ['Sources, crédits et licences', 'licences.html'] };
+    dpa: ['Accord de sous-traitance des données', 'sous-traitance.html'], annuaire: ["Conditions de l'annuaire des prestataires", 'annuaire.html'],
+    licences: ['Sources, crédits et licences', 'licences.html'] };
   const docs = Object.keys(DEFAULT_DOCS).map(k => Object.assign({ key: k, titre: DEFAULT_DOCS[k][0], page: DEFAULT_DOCS[k][1] }, (L.documents || {})[k] || {}));
   const get = path => path.split('.').reduce((o, k) => (o && typeof o === 'object' ? o[k] : undefined), L);
   const todo = label => `<mark class="todo">[à compléter : ${esc(label)}]</mark>`;

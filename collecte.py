@@ -17,7 +17,7 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import (__version__, accounts, agenda, ai, analytics, config, country_detail, crises, early_warning, enrich, legal, notify,
+from veille import (__version__, accounts, agenda, ai, analytics, config, country_detail, crises, early_warning, enrich, legal, notify, providers,
                     practical, press, profiles, reports, traffic,
                     publish, pulse, quality, risk)
 from veille.connectors import REGISTRY, Context
@@ -327,6 +327,7 @@ def main():
         "traffic": {k: {"provider": ((settings.get("traffic") or {}).get(k) or {}).get("provider", "")} for k in ("air", "sea")}})
     legal.write(log)  # mentions légales, CGU, CGV… : config/legal.json → docs/data/legal.js
     accounts.ping(settings, log)  # signe de vie : le projet Supabase gratuit ne se met pas en pause
+    providers.update(settings, log)  # annuaire : inscrits (Supabase) + repérés par Angor → docs/data/providers.js
     publish.bust_cache()
     publish.save_store(store)
 

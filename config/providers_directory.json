@@ -1,0 +1,448 @@
+{
+ "_comment": "Prestataires trouvés par Angor dans des sources publiques (sites officiels), JAMAIS contactés : affichés « Non vérifié – à contacter séparément » (niveau E). Couverture indicative par grande région. Aucun contact nominatif. Quand un prestataire s'inscrit lui-même sur la plateforme avec le même site web, sa fiche remplace cette ligne automatiquement. « local » : prestataires locaux par pays (ISO2) repérés par l'analyste, même format avec \"countries\" au lieu de \"regions\".",
+ "regions": [
+  "Afrique",
+  "Moyen-Orient",
+  "Europe",
+  "Asie",
+  "Amériques",
+  "Océanie"
+ ],
+ "providers": [
+  {
+   "name": "GardaWorld / Crisis24",
+   "hq": "Canada",
+   "web": "https://www.garda.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "cp",
+    "ts",
+    "ev",
+    "int",
+    "gs",
+    "cm",
+    "tr"
+   ],
+   "note": "Très présent en zones de conflit (Afrique, Moyen-Orient) ; Crisis24 = renseignement et alertes."
+  },
+  {
+   "name": "Control Risks",
+   "hq": "Royaume-Uni",
+   "web": "https://www.controlrisks.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "int",
+    "cm",
+    "cp",
+    "ev",
+    "tr"
+   ],
+   "note": "Référence du conseil en risques, réponse aux crises et K&R."
+  },
+  {
+   "name": "International SOS",
+   "hq": "Royaume-Uni / Singapour",
+   "web": "https://www.internationalsos.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "med",
+    "ev",
+    "int",
+    "tr"
+   ],
+   "note": "Assistance médicale et sécuritaire 24/7, évacuations sanitaires et sécuritaires."
+  },
+  {
+   "name": "Amarante International",
+   "hq": "France",
+   "web": "https://www.amarante.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie"
+   ],
+   "categories": [
+    "cp",
+    "ts",
+    "ev",
+    "int",
+    "gs",
+    "cm",
+    "tr"
+   ],
+   "note": "Groupe français, forte implantation en Afrique et au Moyen-Orient."
+  },
+  {
+   "name": "Allied Universal / G4S",
+   "hq": "États-Unis / Royaume-Uni",
+   "web": "https://www.g4s.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "gs",
+    "ts",
+    "cit",
+    "cp"
+   ],
+   "note": "Gardiennage et transport de valeurs dans de nombreux pays d'Afrique et d'Asie."
+  },
+  {
+   "name": "Securitas",
+   "hq": "Suède",
+   "web": "https://www.securitas.com",
+   "regions": [
+    "Europe",
+    "Amériques",
+    "Afrique",
+    "Asie"
+   ],
+   "categories": [
+    "gs",
+    "int",
+    "cp"
+   ],
+   "note": "Sûreté de sites, sécurité électronique, services de risque."
+  },
+  {
+   "name": "Prosegur",
+   "hq": "Espagne",
+   "web": "https://www.prosegur.com",
+   "regions": [
+    "Amériques",
+    "Europe",
+    "Asie",
+    "Afrique"
+   ],
+   "categories": [
+    "cit",
+    "gs",
+    "ts"
+   ],
+   "note": "Transport de fonds, gardiennage ; très présent en Amérique latine."
+  },
+  {
+   "name": "Brink's",
+   "hq": "États-Unis",
+   "web": "https://www.brinks.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "cit",
+    "ts"
+   ],
+   "note": "Transport sécurisé de valeurs."
+  },
+  {
+   "name": "Constellis",
+   "hq": "États-Unis",
+   "web": "https://www.constellis.com",
+   "regions": [
+    "Moyen-Orient",
+    "Afrique",
+    "Asie",
+    "Amériques"
+   ],
+   "categories": [
+    "cp",
+    "ts",
+    "gs",
+    "tr"
+   ],
+   "note": "Protection en environnement hostile, formation."
+  },
+  {
+   "name": "Unity Resources Group",
+   "hq": "Australie / Émirats",
+   "web": "https://www.unityresourcesgroup.com",
+   "regions": [
+    "Moyen-Orient",
+    "Afrique",
+    "Asie",
+    "Océanie"
+   ],
+   "categories": [
+    "cp",
+    "ts",
+    "gs",
+    "int"
+   ],
+   "note": "Sécurité en environnements complexes."
+  },
+  {
+   "name": "Pilgrims Group",
+   "hq": "Royaume-Uni",
+   "web": "https://www.pilgrimsgroup.com",
+   "regions": [
+    "Europe",
+    "Moyen-Orient",
+    "Afrique"
+   ],
+   "categories": [
+    "cp",
+    "ts",
+    "ev",
+    "tr",
+    "int"
+   ],
+   "note": "Protection rapprochée, formation HEAT, évacuations."
+  },
+  {
+   "name": "Global Guardian",
+   "hq": "États-Unis",
+   "web": "https://www.globalguardian.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "cp",
+    "ev",
+    "med",
+    "int",
+    "tr"
+   ],
+   "note": "Réponse d'urgence 24/7, évacuations, protection de dirigeants."
+  },
+  {
+   "name": "Pinkerton",
+   "hq": "États-Unis",
+   "web": "https://pinkerton.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "cp",
+    "int",
+    "cm"
+   ],
+   "note": "Protection de dirigeants, enquêtes, risques."
+  },
+  {
+   "name": "Solace Global",
+   "hq": "Royaume-Uni",
+   "web": "https://www.solaceglobal.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "ev",
+    "ts",
+    "cp",
+    "int",
+    "tr"
+   ],
+   "note": "Évacuations, transport sécurisé, suivi de voyageurs."
+  },
+  {
+   "name": "Northcott Global Solutions",
+   "hq": "Royaume-Uni",
+   "web": "https://www.northcottglobalsolutions.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "ev",
+    "med",
+    "cp"
+   ],
+   "note": "Réponse d'urgence et évacuation terrestre/aérienne."
+  },
+  {
+   "name": "Drum Cussac",
+   "hq": "Royaume-Uni",
+   "web": "https://www.drum-cussac.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "int",
+    "tr",
+    "cm",
+    "ev"
+   ],
+   "note": "Gestion des risques voyageurs, alertes, assistance."
+  },
+  {
+   "name": "Healix International",
+   "hq": "Royaume-Uni",
+   "web": "https://www.healix.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "med",
+    "ev",
+    "int",
+    "tr"
+   ],
+   "note": "Assistance médicale et sécuritaire (a intégré AKE)."
+  },
+  {
+   "name": "Europ Assistance",
+   "hq": "France",
+   "web": "https://www.europ-assistance.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "med",
+    "ev",
+    "tr"
+   ],
+   "note": "Assistance médicale et rapatriement, offres sûreté voyageurs."
+  },
+  {
+   "name": "Air Charter Service",
+   "hq": "Royaume-Uni",
+   "web": "https://www.aircharterservice.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "jet",
+    "heli"
+   ],
+   "note": "Courtier en affrètement aérien (jets privés, avions de ligne, cargo)."
+  },
+  {
+   "name": "VistaJet",
+   "hq": "Malte / Émirats",
+   "web": "https://www.vistajet.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "jet"
+   ],
+   "note": "Compagnie d'aviation d'affaires, vols à la demande."
+  },
+  {
+   "name": "NetJets",
+   "hq": "États-Unis",
+   "web": "https://www.netjets.com",
+   "regions": [
+    "Europe",
+    "Amériques"
+   ],
+   "categories": [
+    "jet"
+   ],
+   "note": "Propriété partagée et location de jets privés."
+  },
+  {
+   "name": "Luxaviation",
+   "hq": "Luxembourg",
+   "web": "https://www.luxaviation.com",
+   "regions": [
+    "Afrique",
+    "Moyen-Orient",
+    "Europe",
+    "Asie",
+    "Amériques",
+    "Océanie"
+   ],
+   "categories": [
+    "jet",
+    "heli"
+   ],
+   "note": "Exploitation et affrètement d'avions d'affaires."
+  },
+  {
+   "name": "Blacklane",
+   "hq": "Allemagne",
+   "web": "https://www.blacklane.com",
+   "regions": [
+    "Europe",
+    "Moyen-Orient",
+    "Asie",
+    "Amériques",
+    "Afrique",
+    "Océanie"
+   ],
+   "categories": [
+    "chf",
+    "mg"
+   ],
+   "note": "Chauffeurs professionnels et transferts aéroport."
+  }
+ ],
+ "local": {}
+}

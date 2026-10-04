@@ -156,7 +156,8 @@ copy tools\github-actions-historique.yml .github\workflows\historique.yml
 - **ReliefWeb (ONU OCHA)** : demander un nom d'application gratuit sur https://apidoc.reliefweb.int, puis
   `gh secret set RELIEFWEB_APPNAME` et passer la source `reliefweb` à `"enabled": true` dans `config/sources.json`.
 - **Telegram** : ajouter des canaux publics dans la source `telegram` de `config/sources.json`.
-- **Prestataires locaux vérifiés** : `config/providers_local.json` puis `python tools/providers_src.py`.
+- **Prestataires** : ils s'inscrivent eux-mêmes, gratuitement (compte « Prestataire de services » sur angor.fr/compte.html), et vous
+  vérifiez leurs fiches dans Administration → Prestataires. Ceux que vous repérez vous-même (non vérifiés) : `config/providers_directory.json`.
 
 ---
 

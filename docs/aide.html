@@ -64,7 +64,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
   <div class="grp">Pour l'analyste</div>
   <a href="#analyste">Mode analyste</a><a href="#ia">Intelligence artificielle</a>
   <div class="grp">Référence</div>
-  <a href="#sources">Sources et mises à jour</a><a href="#confidentialite">Confidentialité</a><a href="#limites">Limites</a><a href="#glossaire">Glossaire</a><a href="#faq">Questions fréquentes</a>
+  <a href="#sources">Sources et mises à jour</a><a href="#prestataires">Prestataires</a><a href="#confidentialite">Confidentialité</a><a href="#limites">Limites</a><a href="#glossaire">Glossaire</a><a href="#faq">Questions fréquentes</a>
 </nav>
 <main>
   <h1>Guide d'utilisation</h1>
@@ -106,7 +106,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <h3>Les fiches d'alerte</h3>
     <p>Chaque alerte donne en une ligne <strong>pourquoi elle compte</strong> : distance à votre site ou à votre trajet le plus proche, crise en cours, pays suivi, recoupement par plusieurs sources, alerte officielle… puis la catégorie, le lieu, l'heure et la cotation de fiabilité.</p>
     <h3>La carte</h3>
-    <p>Cliquez sur un marqueur pour ouvrir la fiche de l'incident, sur un pays pour sa fiche pays. Les marqueurs proches se regroupent ; zoomez pour les séparer. Le cadre <strong>Couches</strong> (en haut à droite) règle ce qui s'affiche ; la <strong>Légende</strong> (en bas à gauche) se replie d'un clic.</p>
+    <p>Cliquez sur un marqueur pour ouvrir la fiche de l'incident, sur un pays pour sa fiche pays. Les marqueurs proches se regroupent dans un cercle numéroté dont l'anneau montre la part de chaque gravité ; <strong>survolez-le</strong> pour déplier ses catégories en étoile (cliquez sur l'une d'elles pour zoomer sur ces seuls incidents), ou cliquez dessus pour zoomer. Sur un marqueur, les <strong>ondes</strong> signalent une gravité élevée ou critique, le <strong>point blanc</strong> un incident de moins de 6 heures, le contour pointillé une détection automatique. Le cadre <strong>Couches</strong> (en haut à droite) règle ce qui s'affiche ; la <strong>Légende</strong> (en bas à gauche) se replie d'un clic.</p>
     <p class="muted">Sur téléphone, la navigation passe par la barre du bas : voir <a href="#mobile">Application mobile</a>.</p>
   </section>
 
@@ -186,7 +186,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <ul>
       <li><strong>Calque pays</strong> : Risque pays (Angor), Pulse, Heatmap MEAE (France), FCDO (Royaume-Uni), State Dept (États-Unis), Auswärtiges Amt (Allemagne), ou aucun. Pour les ministères, un contour pointillé signifie que seules certaines zones sont concernées : la carte officielle fait foi.</li>
       <li><strong>Mes sites</strong> : rayons de vigilance et trajets surveillés.</li>
-      <li><strong>Fond</strong> : détaillé (routes, villes), contrasté, épuré, satellite, topographique, gris, neutre (hors ligne). Les noms s'affichent en alphabet latin et apparaissent progressivement (pays, régions, villes). En thème sombre, le fond « Angor Night » (mers bleu nuit, relief discret) et des couleurs de risque plus lumineuses.</li>
+      <li><strong>Fond</strong> : détaillé (routes, villes), contrasté, épuré, <strong>réaliste</strong> (relief, teintes d'altitude et fonds marins, puis imagerie satellite en zoomant), satellite, topographique, gris, neutre (hors ligne). Les noms s'affichent en alphabet latin et apparaissent progressivement (pays, régions, villes). En thème sombre, le fond « Angor Night » (mers bleu nuit, relief discret) et des couleurs de risque plus lumineuses.</li>
       <li><strong>Période</strong> : menu déroulant en haut (24 h à tout l'historique, ou période personnalisée).</li>
     </ul>
   </section>
@@ -435,10 +435,28 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <p>Mise à jour automatique toutes les 30 minutes ; avis MEAE relus tous les 3 jours ; informations pratiques tous les 30 jours ; base historique une fois par mois.</p>
   </section>
 
+  <section id="prestataires">
+    <h2>Prestataires de services</h2>
+    <p>La fiche de chaque pays indique le nombre de <strong>prestataires de services disponibles</strong> (sécurité, assistance médicale,
+    jets privés, chauffeurs, taxis, meet &amp; greet…) par catégorie. La couleur va du <strong>vert</strong> (prestataire vérifié par Angor)
+    au <strong>rouge</strong> (repéré dans des sources publiques, non vérifié, à contacter séparément). Cliquez sur une catégorie pour voir la liste.</p>
+    <ul>
+      <li>Connecté avec un compte validé, vous accédez à la fiche complète d'un prestataire inscrit : contacts, tarifs, garanties, avis, et
+      vous pouvez lui envoyer une demande de devis. Angor met en relation mais n'est pas partie au contrat.</li>
+      <li>Aucun prestataire ne paie pour être mieux classé : l'ordre dépend seulement de la vérification et de la qualité de sa fiche
+      (<a href="annuaire.html">conditions de l'annuaire</a>).</li>
+      <li>Vous êtes prestataire ? Créez gratuitement un compte « Prestataire de services » depuis <a href="compte.html?type=provider">Mon compte</a>.</li>
+      <li>Prestataires : l'<strong>extrait d'immatriculation</strong> est obligatoire pour publier la fiche ; licences, attestation d'assurance,
+      certifications (ISO…) et CV des équipes clés comptent pour plus de la moitié du score de qualité (voir les critères dans les
+      <a href="annuaire.html">conditions de l'annuaire</a>).</li>
+    </ul>
+  </section>
+
   <section id="confidentialite">
     <h2>Confidentialité</h2>
     <ul>
       <li>L'outil suit des <strong>événements</strong>, jamais des personnes.</li>
+      <li>Sans compte validé, seule la carte des événements est visible ; le détail, les sources, les fiches pays, les filtres et les alertes sont réservés aux comptes validés.</li>
       <li>Sans compte, vos sites, trajets, vues, pays suivis, décisions d'analyste et saisies du brief restent <strong>dans votre navigateur</strong>.</li>
       <li>Avec un compte, seuls sont conservés votre profil, vos préférences, les sites et trajets que vous choisissez d'y enregistrer et vos réponses aux safety checks. La position n'est enregistrée que si vous l'acceptez, et vous pouvez supprimer votre compte à tout moment.</li>
       <li>Les sites réels utilisés pour les alertes sont conservés dans un coffre sécurisé et ne sont jamais publiés sur la carte.</li>
