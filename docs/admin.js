@@ -11,7 +11,7 @@
   const fmt = d => d ? new Date(d).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
   const main = $('#main');
   const Q = new URLSearchParams(location.search);
-  let me = null, users = [], checks = [], responses = [], tab = Q.get('tab') || (Q.get('check_title') ? 'checks' : 'users'), filter = 'pending', timer = null;
+  let me = null, users = [], checks = [], responses = [], accepted = [], tab = Q.get('tab') || (Q.get('check_title') ? 'checks' : 'users'), filter = 'pending', timer = null;
 
   function msg(el, text, kind) { if (el) el.innerHTML = text ? `<div class="msg ${kind || 'err'}">${esc(text)}</div>` : ''; }
   const STATUS = { pending: 'en attente', approved: 'validé', rejected: 'refusé', suspended: 'suspendu' };
@@ -21,6 +21,14 @@
       A.rest('profiles?select=*&order=created_at.desc'),
       A.rest('safety_checks?select=*&order=created_at.desc&limit=50'),
       A.rest('safety_responses?select=*')]);
+    // preuves d'acceptation des conditions (table créée par la version v0.19 de supabase/schema.sql)
+    accepted = await A.rest('legal_acceptances?select=user_id,doc,version,accepted_at&order=accepted_at.desc').catch(() => []);
+  }
+  function conditions(u) {
+    const mine = accepted.filter(a => a.user_id === u.id), cgu = mine.find(a => a.doc === 'cgu');
+    const req = A.legalRequired(), ok = req.length && req.every(r => mine.some(a => a.doc === r.doc && a.version === r.version));
+    return cgu ? `<span class="hint" title="${esc(mine.map(a => a.doc + ' ' + a.version + ' : ' + fmt(a.accepted_at)).join('\n'))}">CGU ${esc(cgu.version)}<br>${fmt(cgu.accepted_at)}${ok ? '' : '<br>⚠ version à jour non acceptée'}</span>`
+      : '<span class="hint">—</span>';
   }
   function render() {
     const pending = users.filter(u => u.status === 'pending').length;
@@ -40,9 +48,9 @@
         <div class="seg" id="flt">${[['pending', 'En attente'], ['approved', 'Validés'], ['closed', 'Refusés / suspendus'], ['all', 'Tous']].map(([k, l]) => `<button data-f="${k}" aria-pressed="${filter === k}">${l} (${k === 'all' ? users.length : users.filter(u => k === 'closed' ? ['rejected', 'suspended'].includes(u.status) : u.status === k).length})</button>`).join('')}</div>
         <input class="i" id="q" placeholder="Rechercher (nom, e-mail, organisation)" value="${esc(q)}" style="max-width:300px"></div>
       <div id="m-users"></div>
-      ${list.length ? `<table class="t resp"><thead><tr><th>Utilisateur</th><th>Organisation</th><th>Inscription</th><th>Statut</th><th>Actions</th></tr></thead><tbody>
+      ${list.length ? `<table class="t resp"><thead><tr><th>Utilisateur</th><th>Organisation</th><th>Inscription</th><th>Conditions</th><th>Statut</th><th>Actions</th></tr></thead><tbody>
       ${list.map(u => `<tr><td><strong>${esc(u.full_name || '—')}</strong><br><span class="hint">${esc(u.email)}${u.job_title ? ' · ' + esc(u.job_title) : ''}${u.phone ? ' · ' + esc(u.phone) : ''}</span></td>
-        <td>${esc(u.organization || '—')}</td><td class="hint">${fmt(u.created_at)}</td>
+        <td>${esc(u.organization || '—')}</td><td class="hint">${fmt(u.created_at)}</td><td>${conditions(u)}</td>
         <td><span class="pill ${u.status}">${STATUS[u.status]}</span> ${u.role === 'admin' ? '<span class="pill admin">admin</span>' : ''}</td>
         <td><div class="row">${actions(u)}</div></td></tr>`).join('')}</tbody></table>` : '<p class="hint">Aucun utilisateur dans cette liste.</p>'}</div>`;
     $('#flt').addEventListener('click', ev => { const b = ev.target.closest('[data-f]'); if (b) { filter = b.dataset.f; renderUsers(); } });

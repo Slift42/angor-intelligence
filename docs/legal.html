@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#13263D">
+<title>Informations légales – Angor Intelligence</title>
+<link rel="icon" href="icons/favicon-32.png">
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="legal.css?v=7c519619">
+</head>
+<!-- Page légale. Les informations entre balises data-v / data-list viennent de config/legal.json (via docs/data/legal.js).
+     Pour modifier le texte : éditez cette page ; pour modifier l'identité de l'éditeur, les prestataires ou les versions :
+     éditez config/legal.json. Changer le fond d'un texte = changer sa version dans config/legal.json. -->
+<body data-doc="index">
+<header class="top"><a class="btn" href="index.html">← Carte</a><span class="brand">Angor Intelligence</span><span class="sp"></span><button class="btn" id="print" type="button">Imprimer / PDF</button></header>
+<div class="layout"><nav class="side" id="side" aria-label="Documents légaux"></nav>
+<article>
+<h1>Informations légales</h1>
+<p class="lead">Tous les documents qui encadrent l'utilisation d'Angor Intelligence, au même endroit.</p>
+<div data-list="documents"></div>
+
+<h2>L'essentiel</h2>
+<ul>
+  <li><strong>Un outil d'aide à la décision</strong> : les informations proviennent de sources publiques et d'un traitement en partie automatisé ;
+      elles ne sont ni exhaustives ni en temps réel et ne remplacent ni les consignes des autorités ni les services d'urgence (112).</li>
+  <li><strong>Des événements, pas des personnes</strong> : la plateforme ne sert pas à surveiller ou rechercher des individus.</li>
+  <li><strong>Vos données</strong> : minimales, hébergées dans l'Union européenne pour les comptes, jamais vendues ; position et notifications
+      facultatives ; aucun cookie publicitaire ni mesure d'audience.</li>
+  <li><strong>Contact</strong> : <span data-v="editeur.email" data-link="mail"></span>.</li>
+</ul>
+</article></div>
+<footer class="legal" id="foot"></footer>
+<script src="data/legal.js" onerror="window.VS_LEGAL=null"></script>
+<script src="legal.js?v=ff51f70a"></script>
+</body>
+</html>

@@ -30,7 +30,7 @@
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const icon = (n, s = 16) => `<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n] || ICONS['circle-alert'] || ''}</svg>`;
   const L = (fr, en) => lang === 'fr' ? fr : en;
-  const flag = (iso, w = 40) => iso && iso.length === 2 ? `<img class="flag" src="https://flagcdn.com/w${w}/${iso.toLowerCase()}.png" alt="" loading="lazy" onerror="this.remove()">` : '';
+  const flag = (iso, w = 40) => iso && iso.length === 2 ? `<img class="flag" src="vendor/flags/${iso.toLowerCase()}.svg" alt="" loading="lazy" onerror="this.remove()">` : '';
   const RC = { 0: '#AEB8C2', 1: '#3E9B6B', 2: '#95B443', 3: '#E3A92B', 4: '#E0722C', 5: '#C23347' };
   const SEV = { 1: '#3F86C6', 2: '#E0A21B', 3: '#E0622B', 4: '#B0182E' };
   const MIN_COLORS = { 1: '#2E9E5B', 2: '#E3B505', 3: '#EE7D22', 4: '#D7263D' };

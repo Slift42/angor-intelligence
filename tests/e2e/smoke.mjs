@@ -11,7 +11,7 @@ import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const DOCS = normalize(process.env.DOCS_DIR || join(fileURLToPath(import.meta.url), '../../../docs'));
-const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.webmanifest': 'application/manifest+json', '.geojson': 'application/json' };
+const TYPES = { '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.webmanifest': 'application/manifest+json', '.geojson': 'application/json' };
 const server = createServer(async (req, res) => {
   const path = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   const file = normalize(join(DOCS, path === '/' ? 'index.html' : path));
@@ -53,6 +53,12 @@ for (const [name, viewport] of [['ordinateur', { width: 1400, height: 900 }], ['
   for (const url of ['/report.html#FR', '/report.html#ML/villes', '/brief.html#FR', '/aide.html', '/compte.html']) {
     r = await page(url, viewport);
     check(!r.errors.length, `${url} (${name}) sans erreur ${r.errors.join(' | ')}`);
+  }
+  // pages légales : sans erreur, sans défilement horizontal, champs à compléter signalés plutôt que vides
+  for (const url of ['/legal.html', '/mentions-legales.html', '/cgu.html', '/cgv.html', '/confidentialite.html', '/sous-traitance.html', '/licences.html']) {
+    let empty = 0;
+    r = await page(url, viewport, async p => { empty = await p.evaluate(() => [...document.querySelectorAll('[data-v]')].filter(e => !e.textContent.trim()).length); });
+    check(!r.errors.length && !empty && r.width <= viewport.width, `${url} (${name}) ${r.errors.join(' | ')}${empty ? ` ${empty} champ(s) vide(s)` : ''}${r.width > viewport.width ? ` largeur ${r.width}px` : ''}`);
   }
 }
 await browser.close();

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#13263D">
+<title>Sources, crédits et licences – Angor Intelligence</title>
+<link rel="icon" href="icons/favicon-32.png">
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="legal.css?v=7c519619">
+</head>
+<!-- Page légale. Les informations entre balises data-v / data-list viennent de config/legal.json (via docs/data/legal.js).
+     Pour modifier le texte : éditez cette page ; pour modifier l'identité de l'éditeur, les prestataires ou les versions :
+     éditez config/legal.json. Changer le fond d'un texte = changer sa version dans config/legal.json. -->
+<body data-doc="licences">
+<header class="top"><a class="btn" href="index.html">← Carte</a><span class="brand">Angor Intelligence</span><span class="sp"></span><button class="btn" id="print" type="button">Imprimer / PDF</button></header>
+<div class="layout"><nav class="side" id="side" aria-label="Documents légaux"></nav>
+<article>
+<h1>Sources, crédits et licences</h1>
+<p class="lead">Angor Intelligence s'appuie sur des données publiques et des logiciels libres. Cette page rend à chacun ce qui lui revient et
+respecte les conditions de réutilisation de ces sources.</p>
+
+<h2>Presse et droit d'auteur</h2>
+<p>Pour les articles de presse, seuls le titre, un court résumé et un lien vers l'article d'origine sont affichés ; le texte des articles n'est
+jamais reproduit. Les droits appartiennent à leurs éditeurs. Un éditeur qui ne souhaite pas être cité peut le demander à
+<span data-v="editeur.email" data-link="mail"></span>.</p>
+
+<h2>Cartographie, données et logiciels</h2>
+<div data-list="credits"></div>
+<p>Les données soumises à la licence ODbL (OpenStreetMap, adsb.lol) restent soumises à cette licence : toute base de données dérivée qui en serait
+extraite doit être partagée sous la même licence.</p>
+
+<h2>Sources de veille</h2>
+<p>Sources officielles, scientifiques et médiatiques consultées par le robot de collecte, avec leurs conditions de réutilisation :</p>
+<div data-list="sources"></div>
+</article></div>
+<footer class="legal" id="foot"></footer>
+<script src="data/legal.js" onerror="window.VS_LEGAL=null"></script>
+<script src="legal.js?v=ff51f70a"></script>
+</body>
+</html>

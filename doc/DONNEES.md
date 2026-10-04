@@ -56,6 +56,7 @@ Produit par `veille/model.py → make_event`, complété au fil de la chaîne. C
 | `econ.js` | `VS_ECON` | `collecte.py` | 30 min | rapport pays |
 | `cities.js` | `VS_CITIES` | `publish.write_cities` (GeoNames) | 30 min | recherche, Travel buddy |
 | `config.js` | `VS_CONFIG` | `collecte.py` | 30 min | comptes, trafic (aucun secret : URL et clé **publique** Supabase seulement) |
+| `legal.js` | `VS_LEGAL` | `veille/legal.py` | 30 min | informations légales de `config/legal.json` (sans les clés `_…`), `sources` (nom, licence des sources actives), `missing` (champs obligatoires vides) ; lu par les pages légales et `account.js` (versions à accepter) |
 | `countries.js` | `VS_COUNTRIES` | `tools/build_countries.py` | figé (versionné) | toutes les pages |
 | `factbook.js`, `guides.js`, `providers.js` | `VS_FACTBOOK`, `VS_GUIDES`, `VS_PROVIDERS` | outils ponctuels | figés (versionnés) | rapport, Travel buddy |
 
@@ -116,6 +117,7 @@ plus pour `emergency` un 12e élément : `hijack` | `radio` | `emergency`.
 | `press_outlets.json` | Médias de référence par pays et cotation | développeur |
 | `city_notes.json` | Notes d'analyste par ville (à valider) | analyste |
 | `health.json` | Listes de pays par risque sanitaire, textes maladies et vaccins | analyste / développeur |
+| `legal.json` | Identité de l'éditeur, médiateur, hébergeurs, sous-traitants, services tiers, offres, crédits, statut et versions des documents légaux (voir [RGPD.md](RGPD.md)) | éditeur |
 
 ## 4. Mémoire du robot (`data/`, jamais versionnée)
 
@@ -130,3 +132,15 @@ planter (l'historique se reconstitue en quelques collectes, les référentiels s
 | `ne_places.json`, `airports.json`, `hotlines.json` | Référentiels hebdomadaires (Natural Earth, OurAirports, worldhotlines.org) |
 | `geonames/` | Dictionnaire de villes GeoNames |
 | `early_warning.json` | Cache climat / humanitaire / sécurité de l'alerte précoce |
+
+## 5. Base des comptes (Supabase, `supabase/schema.sql`)
+
+| Table / fonction | Contenu | Accès |
+|---|---|---|
+| `profiles` | Profil, rôle (`user`/`admin`), statut (`pending`/`approved`/`rejected`/`suspended`), préférences, sites, trajets, position facultative | soi-même ; administrateurs |
+| `safety_checks`, `safety_responses` | Safety checks et réponses | comptes validés ; administrateurs |
+| `push_subscriptions` | Abonnements Web Push par appareil | soi-même |
+| `legal_acceptances` | `(user_id, doc, version, accepted_at)` – `doc` ∈ `cgu`, `confidentialite`, `cgv`, `dpa` ; version suffixée `-projet` tant que les textes sont au statut « projet » | lecture : soi-même, administrateurs ; écriture : `accept_legal()` et le déclencheur d'inscription (`raw_user_meta_data.accepted`) |
+| `private.housekeeping()` | Effacement selon les durées de conservation ; renvoie le nombre de lignes traitées | hors API ; planifiée chaque nuit par pg_cron (`angor-housekeeping`) |
+| `private.is_admin()`, `private.is_approved()` | Fonctions des règles d'accès (security definer, hors API) ; `public.is_admin()` / `is_approved()` en sont des copies sans privilège pour les fonctions Edge | utilisateurs connectés |
+| `ping()` | Signe de vie (renvoie l'heure), sans privilège | clé publique (robot, toutes les 30 min) |

@@ -24,7 +24,7 @@
   const icon = (n, s = 16) => `<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[n] || ''}</svg>`;
   const L = (fr, en) => lang === 'fr' ? fr : en;
   const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ' ').trim();
-  const flag = (iso, w = 40) => iso && iso.length === 2 ? `<img class="flag" src="https://flagcdn.com/w${w}/${iso.toLowerCase()}.png" alt="" onerror="this.remove()">` : '';
+  const flag = (iso, w = 40) => iso && iso.length === 2 ? `<img class="flag" src="vendor/flags/${iso.toLowerCase()}.svg" alt="" onerror="this.remove()">` : '';
   const RISK_COLORS = { 0: '#C9D1D9', 1: '#5FA37C', 2: '#B3C75A', 3: '#F0BE4A', 4: '#EA8639', 5: '#C73E4D' };
   const SEV_COLORS = { 1: '#3F86C6', 2: '#E0A21B', 3: '#E0622B', 4: '#B0182E' };
   const MIN_COLORS = { 1: '#2E9E5B', 2: '#E3B505', 3: '#EE7D22', 4: '#D7263D' };

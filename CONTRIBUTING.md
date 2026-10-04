@@ -25,6 +25,9 @@ Une évolution n'est terminée que si **toutes** les cases sont cochées :
 - [ ] **Version** : `__version__` dans `veille/__init__.py` et une entrée dans [`CHANGELOG.md`](CHANGELOG.md).
 - [ ] **Sécurité et conformité** : aucun secret dans le code, la configuration ou le site ; aucune donnée
       personnelle (on suit des événements, pas des personnes) ; titre + résumé + lien seulement pour la presse.
+- [ ] **RGPD et textes légaux** : nouvelle donnée personnelle, nouveau prestataire ou nouveau service tiers appelé par le
+      navigateur → `config/legal.json` (sous-traitants, services tiers), politique de confidentialité et registre de
+      [`doc/RGPD.md`](doc/RGPD.md) ; texte légal modifié → nouvelle version dans `config/legal.json`.
 
 ## Conventions de code
 

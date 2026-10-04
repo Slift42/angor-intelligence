@@ -62,8 +62,8 @@
   },
   "accounts": {
     "_comment": "Comptes utilisateurs et safety checks (Supabase, gratuit). Vide = pas de compte : la carte reste publique et fonctionne comme avant. supabase_anon_key est une clé PUBLIQUE (protégée par les règles RLS) ; ne jamais mettre ici la clé « service_role ». Voir GUIDE_MISE_EN_LIGNE.md, partie H.",
-    "supabase_url": "",
-    "supabase_anon_key": "",
+    "supabase_url": "https://xnocukjqgckncvethrcb.supabase.co",
+    "supabase_anon_key": "sb_publishable_3EnQnD-MyoW05qfWEav8TQ_fMqa12Tz",
     "vapid_public_key": ""
   }
 }

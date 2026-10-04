@@ -11,6 +11,7 @@ La documentation utilisateur est ailleurs : `docs/aide.html` (aide en ligne), `G
 | [CONNECTEURS.md](CONNECTEURS.md) | Ajouter ou modifier une source (interface d'un connecteur, déclaration, licences) |
 | [FRONTEND.md](FRONTEND.md) | Le site : pages, organisation de `app.js`, état, traductions, ajout d'un onglet ou d'un calque |
 | [EXPLOITATION.md](EXPLOITATION.md) | Faire tourner en local, déployer, secrets, robots GitHub Actions, pannes connues, classeur de revue des risques |
+| [RGPD.md](RGPD.md) | Textes légaux (où ils sont, comment les modifier), check-list avant commercialisation, registre des traitements, procédures RGPD |
 | [TESTS.md](TESTS.md) | Tests unitaires, test de fumée du site, jeu étiqueté du tri, analyse statique |
 | [DETTE_TECHNIQUE.md](DETTE_TECHNIQUE.md) | Audit du code (octobre 2026), limites connues et plan de remise à niveau |
 

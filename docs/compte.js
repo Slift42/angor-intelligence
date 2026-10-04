@@ -32,7 +32,8 @@
         <label class="f">Adresse e-mail<input class="i" name="email" type="email" required autocomplete="email"></label>
         ${mode !== 'recover' ? `<label class="f">Mot de passe<input class="i" name="password" type="password" required minlength="${mode === 'signup' ? 10 : 1}" autocomplete="${mode === 'signup' ? 'new-password' : 'current-password'}"></label>` : ''}
         ${mode === 'signup' ? `<label class="f">Confirmer le mot de passe<input class="i" name="password2" type="password" required minlength="10" autocomplete="new-password"></label>
-          <label class="switch"><input type="checkbox" name="consent" required><span>J'accepte que mes nom, organisation et e-mail soient conservés pour gérer mon accès. Ma position n'est partagée que si je l'active.</span></label>` : ''}
+          <label class="switch"><input type="checkbox" name="consent" required><span>J'accepte les <a href="cgu.html" target="_blank">conditions générales d'utilisation</a> et j'ai pris connaissance de la <a href="confidentialite.html" target="_blank">politique de confidentialité</a>.</span></label>
+          <p class="hint">Données conservées : nom, organisation, e-mail, pour gérer votre accès. Votre position n'est partagée que si vous l'activez.</p>` : ''}
         <div class="row"><button class="btn primary" type="submit">${{ login: 'Se connecter', signup: 'Créer mon compte', recover: 'Recevoir un lien' }[mode]}</button></div>
         ${mode === 'signup' ? '<p class="hint">Chaque compte est validé par un administrateur avant d\'accéder aux fonctions réservées (sites, safety checks, préférences synchronisées).</p>' : ''}
       </form></div>`;
@@ -116,6 +117,7 @@
     <div class="card"><h2>Sécurité</h2><div id="m-sec"></div>
       <form id="f-pwd" class="row"><input class="i" name="p" type="password" minlength="10" placeholder="Nouveau mot de passe (10 caractères min.)" style="max-width:320px" autocomplete="new-password"><button class="btn" type="submit">Changer le mot de passe</button></form>
       <div class="row" style="margin-top:12px"><button class="btn" id="out">Se déconnecter</button></div>
+      <h3>Conditions acceptées</h3><p class="hint" id="legal-acc">…</p>
       <h3>Supprimer mon compte</h3><p class="hint">Suppression définitive de votre compte, de vos préférences, sites et réponses aux safety checks.</p>
       <div class="row"><input class="i" id="del-confirm" placeholder="Tapez SUPPRIMER" style="max-width:220px"><button class="btn bad" id="del">Supprimer définitivement</button></div></div>`;
     const fp = $('#f-prefs');
@@ -178,6 +180,11 @@
       try { await A.deleteAccount(); mode = 'login'; renderAuth('Votre compte et vos données ont été supprimés.'); } catch (e) { msg($('#m-sec'), e.message); }
     });
     renderChecks();
+    A.legalAccepted().then(rows => {
+      const names = { cgu: 'CGU', confidentialite: 'Politique de confidentialité', cgv: 'CGV', dpa: 'Accord de sous-traitance' };
+      $('#legal-acc').innerHTML = rows.length ? rows.map(r => `${esc(names[r.doc] || r.doc)} ${esc(r.version)} – ${esc(new Date(r.accepted_at).toLocaleString('fr-FR'))}`).join('<br>')
+        + ' · <a href="legal.html">Informations légales</a>' : 'Aucune acceptation enregistrée. <a href="legal.html">Informations légales</a>';
+    }).catch(() => { $('#legal-acc').innerHTML = '<a href="legal.html">Informations légales</a>'; });
   }
 
   /* ------------------------------------------------ position (volontaire) */
@@ -234,8 +241,29 @@
     if (!A.session) return renderAuth(type === 'signup' ? 'Adresse confirmée : connectez-vous.' : '');
     try { P = await A.profile(); } catch (e) { P = null; }
     if (!P) { await A.signOut(); return renderAuth(); }
+    if (A.legalInForce()) {
+      let missing = [];
+      try { missing = await A.legalMissing(); } catch (e) { missing = []; }   // table absente : schéma pas encore mis à jour
+      if (missing.length) return renderAccept(missing);
+    }
     if (P.status !== 'approved') return renderStatus();
     renderApproved();
+  }
+
+  /* ------------------------------------------------ nouvelle version des conditions */
+  function renderAccept(missing) {
+    main.innerHTML = `<div class="card"><h2>Nos conditions évoluent</h2>
+      <p>Pour continuer à utiliser votre compte, merci de prendre connaissance des documents suivants :</p>
+      <ul>${missing.map(r => `<li><a href="${esc(r.page)}" target="_blank">${esc(r.titre)}</a> (version ${esc(r.version)})</li>`).join('')}</ul>
+      <div id="m"></div>
+      <label class="switch"><input type="checkbox" id="ok-legal"><span>J'ai lu et j'accepte ces documents.</span></label>
+      <div class="row"><button class="btn primary" id="accept" disabled>Accepter et continuer</button><button class="btn" id="out">Se déconnecter</button></div>
+      <p class="hint">Si vous ne les acceptez pas, vous pouvez demander la suppression de votre compte à l'adresse indiquée dans les mentions légales.</p></div>`;
+    $('#ok-legal').addEventListener('change', ev => { $('#accept').disabled = !ev.target.checked; });
+    $('#accept').addEventListener('click', async () => {
+      try { await A.acceptLegal(missing); start(); } catch (e) { msg($('#m'), e.message); }
+    });
+    $('#out').addEventListener('click', async () => { await A.signOut(); start(); });
   }
   start();
 })();

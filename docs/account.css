@@ -60,3 +60,7 @@ table.t td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align:
   table.t.resp thead { display: none; } table.t.resp tr { display: grid; grid-template-columns: 1fr auto; padding: 8px 0; border-bottom: 1px solid var(--line); }
   table.t.resp td { border: 0; padding: 2px 4px; }
 }
+
+/* liens légaux en bas des pages Compte et Administration */
+footer.foot-legal { text-align: center; color: var(--muted); font-size: 13px; padding: 0 16px 90px; margin-top: -70px; }
+footer.foot-legal a { color: var(--muted); }

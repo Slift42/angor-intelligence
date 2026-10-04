@@ -18,6 +18,7 @@
     try { s ? localStorage.setItem(SKEY, JSON.stringify(s)) : localStorage.removeItem(SKEY); } catch (e) { /* stockage indisponible */ }
     listeners.forEach(f => { try { f(s); } catch (e) { /* écouteur en erreur */ } });
   }
+  const pageUrl = name => location.origin + location.pathname.replace(/[^/]*$/, '') + name;
   function fromToken(j) {
     return { access_token: j.access_token, refresh_token: j.refresh_token, expires_at: Date.now() + (j.expires_in || 3600) * 1000, user: j.user };
   }
@@ -63,7 +64,9 @@
     get user() { return session && session.user; },
     onChange(f) { listeners.push(f); },
     async signUp(email, password, meta) {
-      const j = await http('/auth/v1/signup', { method: 'POST', auth: false, body: { email, password, data: meta || {} } });
+      // versions des conditions acceptées dans le formulaire : enregistrées à la création du compte (preuve horodatée)
+      const data = Object.assign({ accepted: Object.fromEntries(api.legalRequired().map(r => [r.doc, r.version])) }, meta || {});
+      const j = await http('/auth/v1/signup?redirect_to=' + encodeURIComponent(pageUrl('compte.html')), { method: 'POST', auth: false, body: { email, password, data } });
       if (j && j.access_token) save(fromToken(j));
       return j;
     },
@@ -72,7 +75,8 @@
       return session;
     },
     async signOut() { try { await http('/auth/v1/logout', { method: 'POST' }); } catch (e) { /* déjà expirée */ } save(null); },
-    recover(email) { return http('/auth/v1/recover', { method: 'POST', auth: false, body: { email, redirect_to: location.origin + location.pathname.replace(/[^/]*$/, '') + 'compte.html' } }); },
+    // lien de l'e-mail → compte.html (l'adresse doit figurer dans Supabase → Authentication → URL Configuration → Redirect URLs)
+    recover(email) { return http('/auth/v1/recover?redirect_to=' + encodeURIComponent(pageUrl('compte.html')), { method: 'POST', auth: false, body: { email } }); },
     async setPassword(password) { await fresh(); return http('/auth/v1/user', { method: 'PUT', body: { password } }); },
     /** Lien de récupération (#access_token=…&type=recovery) : ouvre une session temporaire. */
     consumeHash() {
@@ -97,6 +101,24 @@
     rpc(fn, args) { return rest('rpc/' + fn, { method: 'POST', body: args || {}, headers: { Prefer: 'return=representation' } }); },
     async fn(name, body) { await fresh(); return http('/functions/v1/' + name, { method: 'POST', body }); },
     async deleteAccount() { await api.rpc('delete_my_account'); save(null); },
+    /* ---- conditions (CGU, confidentialité) : versions publiées dans docs/data/legal.js (config/legal.json) ----
+       Tant que les textes sont au statut « projet », la version enregistrée porte le suffixe « -projet » : l'acceptation
+       de la version définitive sera donc redemandée lors du passage « en vigueur ». */
+    legalInForce() { return !!(window.VS_LEGAL && window.VS_LEGAL.status === 'en vigueur'); },
+    legalRequired() {
+      const LG = window.VS_LEGAL;
+      if (!LG || !LG.documents) return [];
+      return Object.entries(LG.documents).filter(([, d]) => d.acceptation)
+        .map(([doc, d]) => ({ doc, titre: d.titre, page: d.page, version: LG.status === 'en vigueur' ? d.version : d.version + '-projet' }));
+    },
+    async legalAccepted() { const p = await api.profile(); return (await rest(`legal_acceptances?user_id=eq.${p.id}&select=doc,version,accepted_at&order=accepted_at.desc`)) || []; },
+    async legalMissing() {
+      const req = api.legalRequired();
+      if (!req.length) return [];
+      const rows = await api.legalAccepted();
+      return req.filter(r => !rows.some(x => x.doc === r.doc && x.version === r.version));
+    },
+    async acceptLegal(list) { for (const r of list) await api.rpc('accept_legal', { p_doc: r.doc, p_version: r.version }); },
     /** Un safety check concerne-t-il ce profil ? (même règle que la fonction d'envoi) */
     concerned(check, p) {
       const a = check.area || { type: 'all' }, loc = p.location || {}, prefs = p.prefs || {};

@@ -58,7 +58,16 @@ listée la réduit si possible.
 - **Annotations de types** sur les modules centraux (`model`, `dedupe`, `quality`, `risk`), vérifiées par `mypy`.
 - **Journalisation** : chaque `except Exception` écrit au moins le type d'erreur dans le journal.
 
-### Priorité 4 – exploitation
+### Priorité 4 – conformité (v0.19)
+- **Espaces clients** : organisations, référents, invitations, offres et périodes d'abonnement ; puis fonctions « Renoncer au
+  contrat ici », « Résilier mon abonnement », e-mails de confirmation et de reconduction exigés par les CGV avant toute vente en
+  ligne à des consommateurs (voir [RGPD.md](RGPD.md)). Le référent ne voit aujourd'hui rien de plus qu'un utilisateur : seul
+  l'administrateur de la plateforme gère les comptes.
+- **Fonds de carte Esri** : conditions d'usage commercial d'ArcGIS Online à vérifier (ou fonds OpenFreeMap seul).
+- **Pages légales en anglais** : non traduites (la version française fait foi) ; à prévoir pour des clients étrangers.
+- **Rapport et brief** (`report.html`, `brief.html`) : pas encore de lien vers les informations légales dans la barre d'outils.
+
+### Priorité 5 – exploitation
 - `publier.bat` produit des messages de commit génériques : encourager des messages explicites (voir `CONTRIBUTING.md`).
 - Versions des bibliothèques recopiées : consignées dans `docs/vendor/VERSIONS.md` (v0.17) ; deux versions restent à confirmer.
 - Mémoire du robot dans le cache GitHub (expire après 7 jours d'inactivité) : acceptable aujourd'hui ; à migrer vers

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#13263D">
+<title>Mentions légales – Angor Intelligence</title>
+<link rel="icon" href="icons/favicon-32.png">
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="legal.css?v=7c519619">
+</head>
+<!-- Page légale. Les informations entre balises data-v / data-list viennent de config/legal.json (via docs/data/legal.js).
+     Pour modifier le texte : éditez cette page ; pour modifier l'identité de l'éditeur, les prestataires ou les versions :
+     éditez config/legal.json. Changer le fond d'un texte = changer sa version dans config/legal.json. -->
+<body data-doc="mentions">
+<header class="top"><a class="btn" href="index.html">← Carte</a><span class="brand">Angor Intelligence</span><span class="sp"></span><button class="btn" id="print" type="button">Imprimer / PDF</button></header>
+<div class="layout"><nav class="side" id="side" aria-label="Documents légaux"></nav>
+<article>
+<h1>Mentions légales</h1>
+<p class="lead">Informations prévues par l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN).</p>
+
+<h2>Éditeur du site</h2>
+<p>Le site <strong>angor.fr</strong> et l'application <strong><span data-v="editeur.nom_commercial"></span></strong> sont édités par :</p>
+<ul>
+  <li><strong><span data-v="editeur.nom"></span></strong> – <span data-v="editeur.forme"></span></li>
+  <li>Adresse : <span data-v="editeur.adresse"></span></li>
+  <li>SIREN : <span data-v="editeur.siren"></span> – <span data-v="editeur.immatriculation"></span></li>
+  <li><span data-v="editeur.tva"></span></li>
+  <li>E-mail : <span data-v="editeur.email" data-link="mail"></span> – Téléphone : <span data-v="editeur.telephone"></span></li>
+</ul>
+
+<h2>Directeur de la publication</h2>
+<p><span data-v="editeur.directeur_publication"></span>.</p>
+
+<h2>Hébergement</h2>
+<p>Le site et les données des comptes sont hébergés par :</p>
+<div data-list="hebergeurs"></div>
+
+<h2>Objet du site</h2>
+<p>Angor Intelligence est un outil de veille sûreté : il rassemble automatiquement des informations publiques (avis aux voyageurs
+des ministères, alertes officielles, organismes scientifiques, presse), les classe et les cartographie, et propose des indicateurs
+d'aide à la décision. <strong>Ces informations ne sont ni exhaustives ni garanties en temps réel</strong> ; elles ne remplacent ni
+les consignes des autorités ni les services d'urgence (112 en Europe). Voir les <a href="cgu.html">conditions générales d'utilisation</a>.</p>
+
+<h2>Propriété intellectuelle</h2>
+<p>La structure du site, son logiciel, ses textes, ses analyses, ses indicateurs (note de risque pays, indice Pulse, alerte précoce),
+ses rapports et sa présentation sont la propriété de l'éditeur, sauf mention contraire. Toute reproduction ou extraction substantielle,
+par quelque moyen que ce soit, sans autorisation écrite, est interdite.</p>
+<p>Les titres d'articles de presse cités restent la propriété de leurs éditeurs : seuls le titre, un court résumé et un lien vers
+l'article d'origine sont affichés. Les données publiques et cartographiques sont utilisées conformément à leurs licences, détaillées
+sur la page <a href="licences.html">Sources, crédits et licences</a>.</p>
+
+<h2>Liens vers d'autres sites</h2>
+<p>Le site renvoie vers des sites tiers (sources officielles, médias, services de suivi du trafic). L'éditeur n'exerce aucun contrôle
+sur ces sites et n'est pas responsable de leur contenu ni de leur disponibilité.</p>
+
+<h2>Signaler un contenu</h2>
+<p>Pour signaler un contenu que vous estimez illicite ou inexact, ou demander le retrait d'une information vous concernant (par exemple
+un titre de presse citant votre nom), écrivez à <span data-v="editeur.email" data-link="mail"></span> en précisant l'adresse de la page,
+le contenu concerné et le motif de votre demande. Les demandes sont traitées dans les meilleurs délais.</p>
+
+<h2>Données personnelles et cookies</h2>
+<p>Voir la <a href="confidentialite.html">politique de confidentialité et cookies</a>. Le site n'utilise ni cookie publicitaire ni outil
+de mesure d'audience.</p>
+
+<h2>Médiation de la consommation</h2>
+<p>Pour les clients consommateurs : <span data-v="mediateur.nom"></span> – <span data-v="mediateur.site" data-link="url"></span>.
+Les conditions de recours sont décrites dans les <a href="cgv.html">conditions générales de vente</a>.</p>
+</article></div>
+<footer class="legal" id="foot"></footer>
+<script src="data/legal.js" onerror="window.VS_LEGAL=null"></script>
+<script src="legal.js?v=ff51f70a"></script>
+</body>
+</html>

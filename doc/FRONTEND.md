@@ -71,4 +71,11 @@ Créer un `L.layerGroup()`, l'ajouter / le retirer selon l'onglet ou une case à
   Impression : `dossier.css` (`@page`, couverture pleine page, pied de page numéroté via les boîtes de marge `@page`).
 - `ew.js` (alerte précoce) : branché par `window.AngorEW.init(pont)`, ouvert / fermé par `app.js`.
 - `gonogo.js` : moteur de décision partagé par la carte et le brief (`window.AngorGNG`).
-- `account.js` : client Supabase minimal (Auth + REST), désactivé si `VS_CONFIG.accounts` est vide.
+- `account.js` : client Supabase minimal (Auth + REST), désactivé si `VS_CONFIG.accounts` est vide. Conditions : `legalRequired()`,
+  `legalMissing()`, `acceptLegal()` ; l'inscription envoie les versions acceptées (`data.accepted`).
+- `legal.js` (pages légales) : remplit `data-v` (champ de `VS_LEGAL`, ou « [à compléter] »), `data-list` (tableaux),
+  `data-if` / `data-ifnot`, ajoute version, bandeau « Projet », sommaire et navigation. Le texte est dans chaque page ;
+  l'identité de l'éditeur et les listes sont dans `config/legal.json`.
+- Ressources tierces : aucune police ni image chargée depuis un autre domaine (`docs/vendor/fonts`, `docs/vendor/flags`) ;
+  seuls les fonds de carte (OpenFreeMap, Esri), Digitraffic et Supabase sont appelés, et ils sont listés dans la politique
+  de confidentialité (`tiers_techniques`). Tout nouveau service tiers doit y être ajouté.

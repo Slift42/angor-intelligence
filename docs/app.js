@@ -22,7 +22,7 @@
       buddy_thinking: 'Je rassemble les informations…', buddy_mode_ai: 'Réponse rédigée par IA à partir des données Angor – à vérifier', buddy_mode_local: 'Données Angor (sans IA)',
       buddy_ai_on: 'Assistant IA actif. Ne saisissez pas de données personnelles.', buddy_ai_off: 'Mode sans IA : réponses construites à partir des données Angor.', buddy_ai_down: 'Assistant IA indisponible : réponse construite à partir des données Angor.',
       legend: 'Légende',
-      m_map: 'Carte', m_alerts: 'Alertes', m_ongoing: 'En cours', m_travel: 'Voyage', m_more: 'Plus', m_account: 'Mon compte', m_admin: 'Administration',
+      m_map: 'Carte', m_alerts: 'Alertes', m_ongoing: 'En cours', m_travel: 'Voyage', m_more: 'Plus', m_account: 'Mon compte', m_admin: 'Administration', m_legal: 'Informations légales',
       m_install: 'Installer l’application', layers_btn: 'Couches', offline: d => `Hors ligne : dernière situation enregistrée (${d}).`,
       sc_title: 'Safety check', sc_safe: 'Je suis en sécurité', sc_help: 'J’ai besoin d’aide', sc_nc: 'Pas concerné', sc_later: 'Plus tard',
       sc_done: 'Réponse envoyée. Merci.', sc_err: 'Réponse non envoyée : vérifiez votre connexion.', sc_launch: 'Lancer un safety check',
@@ -184,7 +184,7 @@
       buddy_thinking: 'Gathering information…', buddy_mode_ai: 'AI-written answer based on Angor data – to be verified', buddy_mode_local: 'Angor data (no AI)',
       buddy_ai_on: 'AI assistant on. Do not enter personal data.', buddy_ai_off: 'No-AI mode: answers built from Angor data.', buddy_ai_down: 'AI assistant unavailable: answer built from Angor data.',
       legend: 'Legend',
-      m_map: 'Map', m_alerts: 'Alerts', m_ongoing: 'Ongoing', m_travel: 'Travel', m_more: 'More', m_account: 'My account', m_admin: 'Administration',
+      m_map: 'Map', m_alerts: 'Alerts', m_ongoing: 'Ongoing', m_travel: 'Travel', m_more: 'More', m_account: 'My account', m_admin: 'Administration', m_legal: 'Legal information',
       m_install: 'Install the app', layers_btn: 'Layers', offline: d => `Offline: last saved situation (${d}).`,
       sc_title: 'Safety check', sc_safe: 'I am safe', sc_help: 'I need help', sc_nc: 'Not concerned', sc_later: 'Later',
       sc_done: 'Answer sent. Thank you.', sc_err: 'Answer not sent: check your connection.', sc_launch: 'Launch a safety check',
@@ -433,7 +433,7 @@
   const pulseColor = v => state.theme === 'dark' ? (v < 25 ? '#FF4D6A' : v < 45 ? '#FF8C42' : v < 65 ? '#FFC93C' : v < 80 ? '#B8E04A' : '#2FD08F')
     : (v < 25 ? '#9E1B32' : v < 45 ? '#E0592A' : v < 65 ? '#E3B505' : v < 80 ? '#8DBF4E' : '#2E9E5B');
   const pulseLabel = v => t('pulse_scale')[v < 25 ? 0 : v < 45 ? 1 : v < 65 ? 2 : v < 80 ? 3 : 4];
-  const flagImg = (iso, w = 20) => iso && iso.length === 2 ? `<img class="flag" src="https://flagcdn.com/w${w * 2}/${iso.toLowerCase()}.png" width="${w}" alt="" loading="lazy" onerror="this.remove()">` : '';
+  const flagImg = (iso, w = 20) => iso && iso.length === 2 ? `<img class="flag" src="vendor/flags/${iso.toLowerCase()}.svg" width="${w}" alt="" loading="lazy" onerror="this.remove()">` : '';
   /* Couverture des sources : incidents sûreté des 30 derniers jours comparés à la moyenne mensuelle
      de la base historique (12 derniers mois). Indicatif : signale les zones probablement sous-couvertes. */
   const SEC_CATS = new Set(['armed_conflict', 'attack', 'terrorism', 'crime', 'unrest', 'political']);
@@ -558,6 +558,8 @@
   /* ------------------------------------------------------------------ carte */
   // Rendu vectoriel étendu bien au-delà de l'écran : plus de zones vides (noires) pendant un déplacement de la carte
   const map = L.map('map', { zoomControl: false, worldCopyJump: true, minZoom: 2, maxZoom: 18, renderer: L.svg({ padding: 0.9 }) }).setView([28, 12], 3);
+  // lien permanent vers les informations légales (obligation LCEN : accessibles depuis toutes les pages)
+  map.attributionControl.setPrefix(`<a href="legal.html">${esc(t('m_legal'))}</a> | <a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>`);
   L.control.zoom({ position: 'bottomright' }).addTo(map);
   const OSM_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
   const OFM_ATTR = '<a href="https://openfreemap.org">OpenFreeMap</a> ' + OSM_ATTR;
@@ -2151,11 +2153,12 @@
     const acc = window.AngorAccount && window.AngorAccount.enabled;
     menu.innerHTML = [['air', 'plane', t('sp_trafic')], ['refresh', 'refresh-cw', t('rf_title').split(' :')[0].split(':')[0]], ['reliable', state.reliable ? 'shield-check' : 'shield', state.reliable ? t('rel_off').split(' (')[0] : t('rel_on', 0)],
       ['analyst', 'clipboard-check', t('an_menu')], ['share', 'share-2', t('share')], ...(acc ? [['account', 'users', t('m_account')]] : []),
-      ...(ACC.profile && ACC.profile.role === 'admin' ? [['admin', 'shield', t('m_admin')]] : []), ['help', 'circle-help', t('help')],
+      ...(ACC.profile && ACC.profile.role === 'admin' ? [['admin', 'shield', t('m_admin')]] : []), ['help', 'circle-help', t('help')], ['legal', 'scale', t('m_legal')],
       ['lang', 'globe', state.lang === 'fr' ? 'English' : 'Français'], ['theme', state.theme === 'dark' ? 'sun-medium' : 'moon', state.theme === 'dark' ? 'Clair' : 'Sombre'],
       ...(installEvt ? [['install', 'download', t('m_install')]] : [])]
       .map(([k, ic, lb]) => k === 'account' ? `<a class="mm" href="compte.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>` : k === 'admin' ? `<a class="mm" href="admin.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>`
-        : k === 'help' ? `<a class="mm" href="aide.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>` : `<button class="mm" data-mm="${k}">${icon(ic, 20)}<span>${esc(lb)}</span></button>`).join('');
+        : k === 'help' ? `<a class="mm" href="aide.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>`
+        : k === 'legal' ? `<a class="mm" href="legal.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>` : `<button class="mm" data-mm="${k}">${icon(ic, 20)}<span>${esc(lb)}</span></button>`).join('');
   }
   /* Couches repliables sur mobile */
   function bindLayersToggle() {

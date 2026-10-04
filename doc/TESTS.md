@@ -20,6 +20,7 @@ Les trois premiers et le test de fumée tournent automatiquement à chaque `push
 | `test_pipeline.py` | Dédoublonnage, cotation de l'Amirauté, note de risque |
 | `test_sources.py` | XML abîmé, découpage FCDO, numéros d'urgence, motifs des avis américains (réponse simulée), trafic |
 | `test_country_detail.py` | Choix des villes, santé, activité, validité de `config/city_notes.json` |
+| `test_legal.py` | Pages légales (références valides vers `config/legal.json`), champs manquants, absence d'appel à Google Fonts / flagcdn, liens légaux, entretien Supabase |
 | `test_risk_workbook.py` | Classeur de revue des risques : onglets, réglages identiques au code, simulateurs en formules, pas d'écrasement, version anglaise complète |
 
 Règles :
@@ -35,7 +36,21 @@ Les règles ayant été réglées sur ce jeu, constituer un **jeu de contrôle**
 
 ## Test de fumée du site (`tests/e2e/smoke.mjs`)
 
-Ouvre chaque page (carte, rapport pays, brief, aide, compte) sur ordinateur et sur mobile, parcourt les
+Ouvre chaque page (carte, rapport pays, brief, aide, compte, pages légales) sur ordinateur et sur mobile, parcourt les
 espaces, la période, les analyses et le trafic, et échoue à la moindre erreur JavaScript ou si une page déborde
 horizontalement. Il fonctionne sans données (`docs/data/` vide) comme avec une collecte locale.
 Il a révélé à sa création une erreur réelle (carte du rapport pays initialisée dans le mauvais ordre).
+
+## Schéma Supabase sur un PostgreSQL local
+
+Pour vérifier `supabase/schema.sql` sans compte Supabase (PostgreSQL 15 ou plus) :
+
+```bash
+createdb angor_test
+psql -d angor_test -v ON_ERROR_STOP=1 -f tools/supabase_stub.sql -f supabase/schema.sql   # deux fois : le script doit être relançable
+```
+
+`tools/supabase_stub.sql` imite le schéma `auth`, les rôles `anon` / `authenticated` et `auth.uid()` (utilisateur simulé par
+`select set_config('request.jwt.claim.sub', '<uuid>', false); set role authenticated;`). Vérifier au minimum : un utilisateur ne
+lit que ses lignes, une acceptation pour autrui ou antidatée est refusée, `anon` ne peut exécuter que `ping()`,
+`private.housekeeping()` efface les données expirées (pg_cron n'existe pas en local : le lancer à la main).

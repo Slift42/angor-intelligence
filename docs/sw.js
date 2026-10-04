@@ -3,8 +3,8 @@
    - pages, code et données : réseau d'abord, copie locale si pas de réseau ;
    - bibliothèques et icônes : copie locale d'abord ;
    - fonds de carte et API externes : jamais mis en cache ici. */
-const CACHE = 'angor-v2';  // v2 : les bibliothèques sont versionnées (?v=…), une nouvelle version n'est plus masquée
-const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'gonogo.js', 'account.js', 'compte.html', 'aide.html',
+const CACHE = 'angor-v3';  // v3 : polices et drapeaux auto-hébergés, pages légales (v0.19)
+const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'gonogo.js', 'account.js', 'compte.html', 'aide.html', 'legal.html', 'vendor/fonts/fonts.css',
   'vendor/icons.js', 'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css', 'vendor/markercluster/leaflet.markercluster.js',
   'vendor/markercluster/MarkerCluster.css', 'data/countries.js', 'data/data.js', 'manifest.webmanifest', 'icons/icon-192.png'];
 

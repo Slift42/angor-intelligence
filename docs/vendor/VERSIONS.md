@@ -11,3 +11,5 @@ Mettre à jour ce tableau à chaque remplacement d'un fichier, puis lancer le te
 | `maplibre/leaflet-maplibre-gl.js` | Pont Leaflet ↔ MapLibre (options `padding` et `updateInterval` réglées par `app.js`) | à vérifier | ISC | https://github.com/maplibre/maplibre-gl-leaflet |
 | `chartjs/` | Chart.js | 4.5.1 | MIT | https://www.chartjs.org |
 | `icons.js` | Icônes Lucide (sélection, tracés SVG) | — | ISC | https://lucide.dev |
+| `fonts/` | Polices Instrument Sans, Instrument Serif, IBM Plex Mono (paquets `@fontsource/*`, sous-ensembles latin et latin-ext, woff2) – remplacent Google Fonts (v0.19) | 5.3.0 | SIL OFL 1.1 | https://fontsource.org |
+| `flags/` | Drapeaux `flag-icons` (SVG 4:3) – remplacent flagcdn.com (v0.19) | 7.5.0 | MIT | https://github.com/lipis/flag-icons |

@@ -105,7 +105,7 @@ La carte est alors sur `https://carte.mondomaine.fr`.
 
 - **Cloudflare Access** (gratuit jusqu'à 50 utilisateurs, code par e-mail) devant le domaine. Limite : l'adresse `github.io` reste publique → pour une vraie confidentialité, héberger la carte sur **Cloudflare Pages** (Claude adaptera le robot).
 - **Obligatoire dès qu'une source payante est branchée** : ses données ne doivent pas être publiques (licences).
-- Avant toute ouverture publique : CGU « outil d'aide à la décision, sans garantie d'exhaustivité » et vérification de votre contrat de travail.
+- Avant toute ouverture publique : compléter et relire les textes légaux (`config/legal.json`, pages CGU, CGV, confidentialité – voir `doc/RGPD.md`) et vérifier votre contrat de travail.
 
 ---
 
@@ -234,35 +234,143 @@ Tout est déjà câblé : sans clé, l'outil utilise ses textes automatiques ; a
 Ordre de grandeur avec Claude Haiku : 10 à 20 $ par mois pour le robot, moins de 1 $ par jour pour la carte
 (quota de 150 questions par jour dans le Worker).
 
-## Partie H – Comptes, administration, safety check et application Android
+## Partie H – Comptes clients, administration, safety check et application Android
 
-Sans cette partie, la carte fonctionne comme avant (sans compte). Comptez ≈ 45 min la première fois.
+Sans cette partie, la carte fonctionne comme avant (sans compte). Comptez **≈ 1 h 15** la première fois, dont 30 min pour les e-mails.
+Résultat : vos clients créent un compte sur angor.fr/compte.html, acceptent les CGU (preuve horodatée), confirment leur adresse ;
+vous validez chaque compte depuis angor.fr/admin.html.
 
-### H1. Créer la base des comptes (Supabase, offre gratuite)
+> Règle d'or : **seules** l'adresse du projet et la clé **publique** (« anon » ou « publishable ») vont dans `config/settings.json`.
+> La clé `service_role` / « secret », le mot de passe de la base et la clé SMTP ne sont **jamais** copiés dans un fichier du projet,
+> dans le site ou dans un message (pas même à Claude).
 
-1. https://supabase.com → **Start your project** → connectez-vous avec GitHub → **New project**
-   (nom : `angor`, région : **Paris (eu-west-3)**, mot de passe de base : générez-le et gardez-le dans votre gestionnaire de mots de passe).
-2. **SQL Editor** → **New query** → collez tout le fichier `supabase/schema.sql` → **Run**. Le script peut être relancé sans risque.
-3. **Authentication → Sign In / Providers → Email** : laissez **Confirm email** activé.
-4. **Authentication → URL Configuration** :
-   - Site URL : `https://angor.fr`
-   - Redirect URLs : ajoutez `https://angor.fr/compte.html`
-5. **Project Settings → API** : copiez **Project URL** et la clé **anon public**, puis dans `config/settings.json` :
+### H1. Créer le projet Supabase (10 min)
+
+1. https://supabase.com → **Start your project** → connectez-vous avec votre compte GitHub.
+2. Activez tout de suite la **double authentification** de votre compte Supabase (photo de profil → **Account preferences → Security**).
+   Faites de même sur GitHub si ce n'est pas déjà le cas : ces deux comptes donnent accès aux données de vos clients.
+3. **New project** :
+   - Organisation : `Angor` (offre **Free** pour la bêta) ;
+   - Nom : `angor` ;
+   - Mot de passe de la base : **Generate a password**, puis rangez-le dans votre gestionnaire de mots de passe ;
+   - Région : **Europe – Paris (eu-west-3)** (données hébergées en France, comme l'annonce la politique de confidentialité).
+4. Attendez 2 minutes que le projet soit prêt.
+
+### H2. Installer (ou mettre à jour) la base (5 min)
+
+1. **SQL Editor** → **New query** → collez tout le fichier `supabase/schema.sql` → **Run**. Message attendu : *Success. No rows returned*.
+2. **Advisors → Security Advisor** : aucune erreur rouge. Il reste **deux avertissements attendus** (« Signed-In Users Can Execute
+   SECURITY DEFINER Function ») pour `admin_set_status` et `delete_my_account` : ces deux fonctions doivent pouvoir être appelées
+   par un utilisateur connecté et vérifient elles-mêmes qui les appelle. Tout autre avertissement : prévenir Claude.
+   Le message *pg_cron* éventuel signifie que l'entretien nocturne n'a pas pu être planifié : **Database → Extensions** →
+   activez **pg_cron**, puis relancez le script.
+3. **À chaque nouvelle version** de `schema.sql` (indiquée dans le CHANGELOG), recommencez l'étape 1 : le script se relance sans
+   rien effacer.
+
+### H3. Réglages de connexion (10 min)
+
+1. **Authentication → Sign In / Providers** :
+   - **Email** : activé ; **Confirm email** : activé ; **Secure email change** : activé ;
+   - **Minimum password length** : `10` ; **Password requirements** : lettres et chiffres ;
+   - désactivez **Allow anonymous sign-ins** et les autres fournisseurs (Google, etc.) que vous n'utilisez pas.
+2. **Authentication → URL Configuration** :
+   - **Site URL** : `https://angor.fr`
+   - **Redirect URLs** : ajoutez `https://angor.fr/compte.html` (et `http://localhost:8000/compte.html` pour vos essais sur le PC).
+3. **Authentication → Rate Limits** : laissez les valeurs par défaut ; après l'étape H4, réglez *emails sent* sur `30` par heure.
+
+### H4. Serveur d'envoi (SMTP) puis e-mails en français (30 min)
+
+Supabase n'autorise la modification des modèles d'e-mails (objet et texte) **qu'après** le branchement d'un serveur d'envoi
+(« custom SMTP ») : sans lui, la page des modèles affiche *Set up custom SMTP to edit templates* et les textes restent en anglais.
+Son serveur intégré n'envoie de toute façon que **quelques e-mails par heure** et sert seulement aux essais.
+
+> **Pas pressé ?** Vous pouvez sauter H4 pour l'instant, faire H5 et H6 avec les e-mails anglais par défaut (quelques
+> inscriptions de test par heure), et revenir ici avant d'ouvrir l'inscription à vos clients.
+
+**H4.1 – Compte Brevo** (société française, offre gratuite suffisante pour les e-mails de connexion)
+1. https://www.brevo.com → **S'inscrire gratuitement** (votre adresse habituelle convient) ; renseignez le profil demandé.
+   Brevo peut demander quelques informations sur votre activité avant d'autoriser l'envoi : répondez « e-mails
+   transactionnels (confirmation d'inscription, mot de passe) pour une application ».
+
+**H4.2 – Authentifier le domaine angor.fr** (indispensable pour envoyer depuis `no-reply@angor.fr` sans finir en indésirables)
+1. Brevo → **Paramètres → Expéditeurs, domaines et IP → Domaines → Ajouter un domaine** → `angor.fr`.
+2. Si votre domaine est chez **Cloudflare** ou **OVH**, choisissez la **configuration automatique** : Brevo se connecte à
+   votre compte et crée lui-même les enregistrements (chez Cloudflare, désactivez le *CNAME flattening* si Brevo le signale).
+   Sinon, recopiez dans la zone DNS de votre registraire les 3 enregistrements affichés : **code Brevo** (TXT), **DKIM**
+   (CNAME ou TXT), **DMARC** (TXT).
+3. **Authentifier** : de quelques minutes à quelques heures. Le domaine doit apparaître comme authentifié.
+
+**H4.3 – Identifiants SMTP**
+1. Brevo → https://app.brevo.com/settings/keys/smtp (**Paramètres → SMTP et API → SMTP**).
+2. Notez le **serveur** (`smtp-relay.brevo.com`), le **port** (`587`) et l'**identifiant** (de la forme `xxxxxx@smtp-brevo.com`).
+3. **Générer une nouvelle clé SMTP** (nom : `supabase`) et copiez-la : elle ne sera plus affichée. Attention : c'est une clé
+   **SMTP**, pas une clé API. Elle ne va **que** dans Supabase (étape suivante), jamais dans un fichier ni un message.
+
+**H4.4 – Brancher Supabase**
+1. Supabase → **Authentication → Emails** → bouton **Set up SMTP** (ou onglet **SMTP Settings**) → **Enable custom SMTP** :
+   - Sender email : `no-reply@angor.fr` ; Sender name : `Angor Intelligence` ;
+   - Host : `smtp-relay.brevo.com` ; Port : `587` ;
+   - Username : l'identifiant `xxxxxx@smtp-brevo.com` ; Password : la clé SMTP ;
+   - **Save**.
+2. **Authentication → Rate Limits** : *Rate limit for sending emails* : `30` par heure.
+
+**H4.5 – Modèles en français** (la page des modèles est maintenant modifiable)
+**Authentication → Emails → Templates**. Pour chaque modèle : ouvrez le fichier correspondant de `supabase/templates/`
+dans VS Code, copiez **tout** son contenu, collez-le dans **Body** (onglet **Source**), recopiez l'objet indiqué en tête du
+fichier dans **Subject**, puis **Save**.
+
+| Modèle Supabase | Fichier | Objet |
+|---|---|---|
+| Confirm signup | `confirmation.html` | Confirmez votre adresse – Angor Intelligence |
+| Reset password | `recovery.html` | Réinitialisation de votre mot de passe – Angor Intelligence |
+| Change email address | `email_change.html` | Confirmez votre nouvelle adresse – Angor Intelligence |
+| Invite user | `invite.html` | Invitation à rejoindre Angor Intelligence |
+| Magic Link | `magic_link.html` | Votre lien de connexion – Angor Intelligence |
+
+**H4.6 – Déclarer le prestataire** : dites à Claude « Brevo est branché » : il complète la ligne « Envoi des e-mails » des
+sous-traitants dans `config/legal.json` (la politique de confidentialité se met à jour toute seule).
+
+### H5. Brancher le site (5 min)
+
+1. Supabase → **Project Settings → API Keys** : copiez l'adresse du projet (**Project URL**, `https://xxxx.supabase.co`) et la clé
+   **publique** (onglet *Legacy* : `anon public`, ou nouvelle clé `sb_publishable_…` : les deux fonctionnent).
+2. Dans `config/settings.json`, section `accounts` (ne touchez pas au reste du fichier) :
    ```json
-   "accounts": { "supabase_url": "https://xxxx.supabase.co", "supabase_anon_key": "eyJ…", "vapid_public_key": "" }
+   "accounts": { "supabase_url": "https://xxxx.supabase.co", "supabase_anon_key": "eyJ… ou sb_publishable_…", "vapid_public_key": "" }
    ```
-   La clé *anon* est publique par nature : la sécurité repose sur les règles d'accès (RLS) du fichier SQL.
-   **Ne mettez jamais la clé `service_role`** dans ce fichier, dans le site ou dans un message.
-6. **publier.bat**, puis ouvrez https://angor.fr/compte.html → **Créer un compte** avec votre adresse, confirmez l'e-mail.
-7. Devenez administrateur : **SQL Editor** →
+   Cette clé est publique par nature : la sécurité repose sur les règles d'accès installées à l'étape H2.
+3. **publier.bat**. Cinq minutes plus tard, https://angor.fr/compte.html affiche **Connexion / Créer un compte**.
+
+### H6. Devenir administrateur et tester le parcours complet (10 min)
+
+1. https://angor.fr/compte.html → **Créer un compte** avec votre adresse → cochez l'acceptation des CGU → confirmez l'e-mail reçu.
+2. **SQL Editor** (une seule fois, avec votre adresse) :
    ```sql
    update public.profiles set role = 'admin', status = 'approved', approved_at = now()
     where email = 'votre-adresse@exemple.fr';
    ```
-   L'entrée **Administration** apparaît alors dans Mon compte et dans le menu Plus. Les comptes suivants se valident depuis
-   https://angor.fr/admin.html (onglet Utilisateurs).
+   **Administration** apparaît alors dans Mon compte et dans le menu Plus de la carte.
+3. **Testez le parcours d'un client** avec une seconde adresse (personnelle) : inscription → e-mail de confirmation en français →
+   compte « en attente » → validation dans https://angor.fr/admin.html (colonne **Conditions** : version des CGU acceptée et date)
+   → connexion → **Mot de passe oublié** → e-mail de réinitialisation.
 
-### H2. Notifications des safety checks (Web Push)
+### H7. Sécurité et exploitation (à lire une fois)
+
+- **Mise en pause de l'offre gratuite** : un projet sans activité pendant 7 jours est mis en pause. Le robot de collecte envoie un
+  signe de vie toutes les 30 minutes, ce qui l'en empêche. Si le projet est malgré tout en pause : tableau de bord Supabase →
+  **Restore project**.
+- **Entretien automatique** : chaque nuit (3 h 17 UTC), la base efface elle-même les données arrivées à expiration (réponses aux
+  safety checks après 12 mois, position après 30 jours, demandes jamais validées après 6 mois), comme l'annonce la politique de
+  confidentialité. Contrôle : **Integrations → Cron** (tâche `angor-housekeeping`).
+- **Sauvegardes** : l'offre gratuite n'inclut pas de sauvegarde restaurable (vérifiez la page *Pricing*). **Avant le premier client
+  payant**, passez en offre **Pro** (≈ 25 $ par mois, sauvegardes quotidiennes, pas de mise en pause) – c'est le premier poste du
+  plan « Réinvestir ».
+- **Accord de traitement (DPA)** : il est accepté automatiquement avec les conditions de Supabase. Téléchargez-en une copie
+  (supabase.com → Legal → DPA) et gardez-la avec votre registre des traitements (`doc/RGPD.md`).
+- **Comptes inactifs** : une fois par an, dans Supabase → **Authentication → Users** (colonne *Last sign in*), repérez les comptes
+  inutilisés depuis 3 ans, prévenez-les par e-mail puis supprimez-les (engagement de la politique de confidentialité).
+
+### H8. Notifications des safety checks (Web Push)
 
 1. Générez une paire de clés VAPID (une seule fois, sur votre PC avec Node.js) :
    ```
@@ -281,9 +389,9 @@ Sans cette partie, la carte fonctionne comme avant (sans compte). Comptez ≈ 45
 3. **publier.bat**. Sur votre téléphone : Mon compte → **Notifications sur cet appareil**.
    Test : admin.html → Safety checks → titre « Test », zone « Tous », durée 1 h → Envoyer.
 
-Sans l'étape H2, les safety checks fonctionnent quand même : bandeau à l'ouverture de l'application, sans notification.
+Sans l'étape H8, les safety checks fonctionnent quand même : bandeau à l'ouverture de l'application, sans notification.
 
-### H3. Application Android (Google Play)
+### H9. Application Android (Google Play)
 
 L'application Android est la carte elle-même, emballée (« Trusted Web Activity ») : chaque publication met l'application à jour,
 sans nouvelle version à soumettre.
@@ -297,17 +405,17 @@ sans nouvelle version à soumettre.
    Sans ce fichier, l'application affiche une barre d'adresse.
 4. Compte développeur Google Play (frais uniques ≈ 25 $) → **Créer une application** → envoyez le `.aab`.
    Commencez en **test interne** (jusqu'à 100 testeurs par e-mail) : c'est le bon format pour la bêta.
-   Fiche Play : politique de confidentialité obligatoire (reprenez la section Confidentialité de l'aide).
+   Fiche Play : politique de confidentialité obligatoire : https://angor.fr/confidentialite.html.
 
 iOS : même principe plus tard (PWABuilder → iOS, compte Apple Developer ≈ 99 $/an). En attendant, sur iPhone, Safari →
 Partager → **Sur l'écran d'accueil** donne déjà l'application et, depuis iOS 16.4, les notifications.
 
-### Limite actuelle à connaître
+### Limite actuelle et prochaine étape
 
 Les comptes protègent les **données personnelles** (profil, préférences, réponses aux safety checks), pas la carte :
-les données d'incidents restent publiques sur angor.fr. Réserver la carte aux comptes validés est l'étape suivante
-(données servies par Supabase au lieu de fichiers publics), à prévoir avant la commercialisation.
-
+les données d'incidents restent publiques sur angor.fr. Prochaines évolutions, avant la commercialisation :
+**espaces clients** (une organisation, son référent, ses utilisateurs, son offre et sa période d'abonnement, invitations),
+fonctions « Résilier mon abonnement » et « Renoncer au contrat ici » prévues par les CGV, puis carte réservée aux comptes validés.
 
 ## Partie I – Rapports et alerte précoce (rien à installer)
 

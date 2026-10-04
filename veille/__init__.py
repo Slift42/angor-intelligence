@@ -18,7 +18,9 @@ Organisation :
 - early_warning.py : alerte précoce climat-conflit par unité administrative → onglet Alerte précoce
 - fcdo.py        : texte détaillé des conseils FCDO par rubrique (rapport pays)
 - country_detail.py : villes, aéroports, secours, santé par pays → docs/data/country/<ISO>.js
+- legal.py       : informations légales (config/legal.json → docs/data/legal.js)
+- accounts.py    : signe de vie envoyé à la base des comptes Supabase (évite sa mise en pause)
 - publish.py     : historique local et fichiers lus par la carte
 """
 
-__version__ = "0.18.1"
+__version__ = "0.19.1"

@@ -44,7 +44,7 @@ flowchart LR
 | 6. Qualité | `dedupe.dedupe`, `quality.learn`, `quality.filter_and_rate` | Fusion des doublons, validations de l'analyste (`config/verified.json`), cotation de l'Amirauté A1–F6, apprentissage de la fiabilité par source |
 | 7. Indices | `risk.compute`, `pulse.compute`, `crises.build`, `agenda.update`, `reports.update`, `early_warning.update`, `traffic.update`, `country_detail.build`, `profiles.build`, `practical.update` | Note de risque pays, indice Pulse, chronologies de crise, agenda, rapports, alerte précoce, trafic, fiches pays |
 | 8. Alertes | `notify.send`, `notify.send_digest` | Telegram et e-mail (incidents graves, point quotidien) |
-| 9. Publication | `publish.write_outputs`, `write_js`, `bust_cache`, `save_store` | Fichiers `docs/data/*.js`, empreinte de version dans les pages HTML, sauvegarde de la mémoire |
+| 9. Publication | `publish.write_outputs`, `write_js`, `legal.write`, `accounts.ping`, `bust_cache`, `save_store` | Fichiers `docs/data/*.js`, empreinte de version dans les pages HTML, sauvegarde de la mémoire |
 
 Chaque étape « annexe » (7) est encadrée par un `try/except` qui journalise l'erreur sans arrêter la collecte.
 
@@ -73,6 +73,8 @@ Chaque étape « annexe » (7) est encadrée par un `try/except` qui journalise 
 | `enrich.py` | Titres d'articles pour les événements GDELT |
 | `analytics.py` | Statistiques par pays et séries temporelles pour l'onglet Analyses |
 | `notify.py` | Alertes Telegram / e-mail, point quotidien |
+| `legal.py` | Informations légales : `config/legal.json` → `docs/data/legal.js` (+ licences des sources, champs manquants) |
+| `accounts.py` | Signe de vie à la base Supabase à chaque collecte (projet gratuit maintenu actif) |
 | `publish.py` | Mémoire du robot, fusion, écriture des fichiers publiés, archives, empreintes de cache |
 
 Scripts hors robot : `historique.py` (base historique sur 5 ans, lancé à la main), `tools/` (outils ponctuels :
@@ -91,6 +93,7 @@ Détails : [FRONTEND.md](FRONTEND.md).
 | `brief.html` | `brief.js`, `report.css` | Brief de mission |
 | `aide.html` | — | Aide utilisateur |
 | `compte.html`, `admin.html` | `compte.js`, `admin.js`, `account.js` | Comptes, administration (Supabase) |
+| `legal.html`, `mentions-legales.html`, `cgu.html`, `cgv.html`, `confidentialite.html`, `sous-traitance.html`, `licences.html` | `legal.js`, `legal.css` | Informations légales (contenu variable : `config/legal.json`) |
 | `sw.js`, `manifest.webmanifest` | — | Application installable, cache hors ligne |
 
 ## Services externes

@@ -1,0 +1,14 @@
+<!-- Modèle d'e-mail Supabase en français – à coller dans Authentication → Emails → Magic Link.
+     Objet conseillé : « Votre lien de connexion – Angor Intelligence ». Variables Supabase : {{ .ConfirmationURL }}, {{ .Email }}, {{ .SiteURL }}. -->
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#111B27;line-height:1.5">
+  <p style="font-size:18px;font-weight:bold;color:#13263D;margin:0 0 16px">Angor Intelligence</p>
+  <p>Bonjour,</p>
+  <p>Voici votre lien de connexion à Angor Intelligence :</p>
+  <p style="margin:24px 0"><a href="{{ .ConfirmationURL }}" style="background:#13263D;color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:bold;display:inline-block">Me connecter</a></p>
+  <p style="font-size:13px;color:#6B7886">Le lien est valable pendant une durée limitée. S'il ne fonctionne pas, copiez cette adresse dans votre navigateur :<br>{{ .ConfirmationURL }}</p>
+  <p style="color:#6B7886;font-size:12px;margin-top:28px;border-top:1px solid #DDE3E8;padding-top:12px">
+    Vous recevez ce message parce que votre adresse a été utilisée sur angor.fr. Si vous n'êtes pas à l'origine de cette demande,
+    ignorez-le : rien ne sera modifié. Angor Intelligence – <a href="{{ .SiteURL }}/confidentialite.html" style="color:#6B7886">confidentialité</a>
+    · <a href="{{ .SiteURL }}/mentions-legales.html" style="color:#6B7886">mentions légales</a>
+  </p>
+</div>

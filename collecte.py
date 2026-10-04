@@ -17,7 +17,7 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import (__version__, agenda, ai, analytics, config, country_detail, crises, early_warning, enrich, notify,
+from veille import (__version__, accounts, agenda, ai, analytics, config, country_detail, crises, early_warning, enrich, legal, notify,
                     practical, press, profiles, reports, traffic,
                     publish, pulse, quality, risk)
 from veille.connectors import REGISTRY, Context
@@ -325,6 +325,8 @@ def main():
         "accounts": {k: acc.get(k, "") for k in ("supabase_url", "supabase_anon_key", "vapid_public_key")},
         # flux de trafic : seul le nom du fournisseur est publié, jamais une clé
         "traffic": {k: {"provider": ((settings.get("traffic") or {}).get(k) or {}).get("provider", "")} for k in ("air", "sea")}})
+    legal.write(log)  # mentions légales, CGU, CGV… : config/legal.json → docs/data/legal.js
+    accounts.ping(settings, log)  # signe de vie : le projet Supabase gratuit ne se met pas en pause
     publish.bust_cache()
     publish.save_store(store)
 

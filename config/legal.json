@@ -1,0 +1,88 @@
+{
+  "_comment": "Informations légales d'Angor Intelligence : UNE SEULE source pour toutes les pages légales du site (mentions légales, CGU, CGV, confidentialité, sous-traitance, licences). Le robot publie ce fichier dans docs/data/legal.js (python -m veille.legal pour le faire tout de suite). Tout champ laissé vide s'affiche « [à compléter : …] » en orange sur le site. Ne mettez ici aucun secret.",
+  "status": "projet",
+  "_status": "« projet » : bandeau « Projet – non contractuel » sur toutes les pages légales. Passez à « en vigueur » seulement quand tous les champs sont remplis ET que les textes ont été relus (idéalement par un avocat).",
+
+  "editeur": {
+    "nom": "",
+    "_nom": "Nom et prénom de l'entrepreneur (EI) ou dénomination de la société.",
+    "forme": "Entrepreneur individuel (EI) – micro-entrepreneur",
+    "_forme": "Pour une société : « SASU au capital de 1 000 € » par exemple.",
+    "nom_commercial": "Angor Intelligence",
+    "adresse": "",
+    "siren": "",
+    "immatriculation": "",
+    "_immatriculation": "Ex. « Inscrit au Registre national des entreprises (RNE) » ou « RCS Paris 123 456 789 » pour une société.",
+    "tva": "TVA non applicable, art. 293 B du CGI",
+    "_tva": "Mention de franchise en base. Si vous facturez la TVA : « TVA intracommunautaire FR.. ... ».",
+    "email": "",
+    "telephone": "",
+    "directeur_publication": "",
+    "contact_donnees": "",
+    "_contact_donnees": "Adresse pour exercer les droits RGPD (peut être la même que l'e-mail de contact)."
+  },
+
+  "mediateur": {
+    "nom": "",
+    "site": "",
+    "adresse": "",
+    "_note": "Obligatoire dès qu'un particulier peut s'abonner (art. L612-1 du Code de la consommation). Adhérez à un médiateur référencé par la CMAP (liste sur economie.gouv.fr/mediation-conso)."
+  },
+  "tribunal": "",
+  "_tribunal": "Ville du tribunal compétent pour les litiges entre professionnels (ex. « Paris »).",
+
+  "hebergeurs": [
+    {"role": "Hébergement du site", "nom": "GitHub, Inc. (service GitHub Pages)", "adresse": "88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis", "contact": "https://support.github.com", "localisation": "États-Unis et réseau mondial de diffusion"},
+    {"role": "Hébergement des comptes utilisateurs", "nom": "Supabase Pte. Ltd. (infrastructure Amazon Web Services, région Paris)", "adresse": "65 Chulia Street #38-02/03, OCBC Centre, Singapour 049513", "contact": "privacy@supabase.io", "localisation": "Union européenne (Paris, eu-west-3)"}
+  ],
+
+  "sous_traitants": [
+    {"nom": "Supabase Pte. Ltd.", "service": "Base de données et authentification des comptes", "donnees": "Comptes, profils, préférences, sites et trajets, réponses aux safety checks, preuves d'acceptation des conditions", "localisation": "UE (Paris) ; accès de support possibles hors UE", "garanties": "Accord de traitement (DPA) et clauses contractuelles types de la Commission européenne", "actif": true},
+    {"nom": "Amazon Web Services EMEA SARL", "service": "Infrastructure de Supabase (sous-traitant ultérieur)", "donnees": "Idem Supabase", "localisation": "UE (Paris)", "garanties": "Sous-traitance encadrée par l'accord Supabase", "actif": true},
+    {"nom": "GitHub, Inc. (Microsoft)", "service": "Hébergement du site et exécution du robot de collecte", "donnees": "Adresse IP et données techniques de connexion des visiteurs (journaux du serveur)", "localisation": "États-Unis", "garanties": "Cadre de protection des données UE–États-Unis (Data Privacy Framework) et clauses contractuelles types", "actif": true},
+    {"nom": "Brevo SAS (106 boulevard Haussmann, 75008 Paris, RCS Paris 498 019 298)", "service": "Envoi des e-mails du service (confirmation d'inscription, mot de passe, notifications)", "donnees": "Adresse e-mail, contenu des messages, journaux d'envoi", "localisation": "Société française ; hébergement dans l'Union européenne, transferts éventuels hors UE encadrés", "garanties": "Accord de traitement des données (DPA) de Brevo et clauses contractuelles types de la Commission européenne pour tout transfert hors UE", "actif": true, "_note": "Serveur d'envoi branché dans Supabase (guide, partie H4). Contact DPO : dpo@brevo.com."},
+    {"nom": "Cloudflare, Inc.", "service": "Relais vers l'assistant IA (Travel buddy), si activé", "donnees": "Questions posées à l'assistant et adresse IP", "localisation": "États-Unis et réseau mondial", "garanties": "Data Privacy Framework et clauses contractuelles types", "actif": false},
+    {"nom": "Anthropic, PBC", "service": "Modèle d'IA (tri et résumés des incidents, Travel buddy), si activé", "donnees": "Titres d'articles publics ; questions posées à l'assistant", "localisation": "États-Unis", "garanties": "Clauses contractuelles types ; données d'API non utilisées pour l'entraînement selon les conditions commerciales du fournisseur", "actif": false}
+  ],
+
+  "tiers_techniques": [
+    {"nom": "OpenFreeMap", "usage": "Fonds de carte vectoriels", "donnees": "Adresse IP et zone de carte affichée (requêtes de tuiles)"},
+    {"nom": "Esri (ArcGIS Online)", "usage": "Fonds de carte satellite, relief et gris", "donnees": "Adresse IP et zone de carte affichée (requêtes de tuiles)"},
+    {"nom": "Digitraffic (Agence finlandaise des transports)", "usage": "Positions des navires, espace Trafic uniquement", "donnees": "Adresse IP"}
+  ],
+
+  "offres": [
+    {"nom": "Essentiel", "contenu": "Accès à la carte, aux alertes et aux rapports pays ; sites et trajets surveillés ; safety checks pour les utilisateurs du client", "prix": "Selon la grille tarifaire ou le devis en vigueur"},
+    {"nom": "Premium", "contenu": "Offre Essentiel + note d'analyse hebdomadaire rédigée par un analyste", "prix": "Selon la grille tarifaire ou le devis en vigueur"}
+  ],
+  "beta_gratuite": true,
+  "_beta_gratuite": "true tant que l'accès est gratuit (bêta) : les CGV l'indiquent en tête de page.",
+
+  "documents": {
+    "mentions": {"titre": "Mentions légales", "version": "1.0", "date": "2026-10-04", "page": "mentions-legales.html"},
+    "cgu": {"titre": "Conditions générales d'utilisation", "version": "1.0", "date": "2026-10-04", "page": "cgu.html", "acceptation": true},
+    "cgv": {"titre": "Conditions générales de vente", "version": "1.0", "date": "2026-10-04", "page": "cgv.html"},
+    "confidentialite": {"titre": "Politique de confidentialité et cookies", "version": "1.0", "date": "2026-10-04", "page": "confidentialite.html", "acceptation": true},
+    "dpa": {"titre": "Accord de sous-traitance des données (clients professionnels)", "version": "1.0", "date": "2026-10-04", "page": "sous-traitance.html"},
+    "licences": {"titre": "Sources, crédits et licences", "version": "1.0", "date": "2026-10-04", "page": "licences.html"}
+  },
+  "_documents": "Changez « version » et « date » à chaque modification de fond. Pour les documents marqués « acceptation », les utilisateurs devront accepter la nouvelle version à leur prochaine connexion (preuve horodatée dans Supabase).",
+
+  "credits": [
+    {"nom": "OpenStreetMap", "licence": "ODbL 1.0", "mention": "© les contributeurs d'OpenStreetMap", "url": "https://www.openstreetmap.org/copyright"},
+    {"nom": "OpenFreeMap / OpenMapTiles", "licence": "BSD-3 / CC BY 4.0", "mention": "OpenFreeMap © OpenMapTiles", "url": "https://openfreemap.org"},
+    {"nom": "Esri", "licence": "Conditions ArcGIS Online", "mention": "Esri, Maxar, Earthstar Geographics, HERE, Garmin", "url": "https://www.esri.com/en-us/legal/terms/full-master-agreement"},
+    {"nom": "Natural Earth", "licence": "Domaine public", "mention": "Made with Natural Earth", "url": "https://www.naturalearthdata.com"},
+    {"nom": "geoBoundaries", "licence": "CC BY 4.0", "mention": "geoBoundaries (William & Mary geoLab)", "url": "https://www.geoboundaries.org"},
+    {"nom": "OurAirports", "licence": "Domaine public", "mention": "OurAirports", "url": "https://ourairports.com"},
+    {"nom": "adsb.lol", "licence": "ODbL 1.0", "mention": "Données de vol © adsb.lol", "url": "https://adsb.lol"},
+    {"nom": "Digitraffic", "licence": "CC BY 4.0", "mention": "Source : Fintraffic / digitraffic.fi", "url": "https://www.digitraffic.fi/en/terms-of-service/"},
+    {"nom": "NASA POWER", "licence": "Domaine public", "mention": "NASA Langley Research Center POWER Project", "url": "https://power.larc.nasa.gov"},
+    {"nom": "UK FCDO", "licence": "Open Government Licence v3.0", "mention": "Contains public sector information licensed under the Open Government Licence v3.0", "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"},
+    {"nom": "Leaflet", "licence": "BSD-2", "mention": "Leaflet", "url": "https://leafletjs.com"},
+    {"nom": "MapLibre GL JS", "licence": "BSD-3", "mention": "MapLibre", "url": "https://maplibre.org"},
+    {"nom": "Lucide (icônes)", "licence": "ISC", "mention": "Lucide", "url": "https://lucide.dev"},
+    {"nom": "flag-icons (drapeaux)", "licence": "MIT", "mention": "flag-icons", "url": "https://github.com/lipis/flag-icons"},
+    {"nom": "Instrument Sans, Instrument Serif, IBM Plex Mono", "licence": "SIL Open Font License 1.1", "mention": "Polices auto-hébergées", "url": "https://openfontlicense.org"}
+  ]
+}

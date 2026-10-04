@@ -4,6 +4,38 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.19.1 – Base des comptes durcie (conseiller de sécurité Supabase)
+
+- Plus aucune fonction à privilèges exécutable sans connexion ; toutes fixent leur `search_path`.
+- Fonctions des règles d'accès déplacées dans un schéma `private` non exposé par l'API (`public.is_admin()` /
+  `is_approved()` restent, sans privilège, pour les fonctions Edge).
+- `accept_legal` sans privilège : insertion autorisée par une règle d'accès, uniquement pour soi, sans pouvoir fixer la date.
+- Effacement des données expirées planifié **dans la base** chaque nuit (pg_cron) au lieu d'être déclenché par le robot ;
+  le robot n'envoie plus qu'un signe de vie (`ping()`) pour éviter la mise en pause du projet gratuit.
+- Deux avertissements restent attendus (`admin_set_status`, `delete_my_account`), documentés dans le guide (H2).
+- Développeur : **relancer `supabase/schema.sql`** ; test `test_schema_supabase_durci` ; `tools/supabase_stub.sql` imite les
+  droits par défaut de Supabase.
+
+## v0.19 – Informations légales, RGPD et préparation des comptes clients (octobre 2026)
+
+- **Pages légales** (projet à compléter et relire) : mentions légales, CGU, CGV (professionnels et consommateurs : rétractation
+  avec « Renoncer au contrat ici », résiliation en ligne, médiation, garantie légale), politique de confidentialité et cookies,
+  accord de sous-traitance (art. 28 RGPD) pour les clients professionnels, sources et licences ; page d'accueil
+  « Informations légales ». Identité de l'éditeur, prestataires, offres et versions dans **un seul fichier** :
+  `config/legal.json` (champs vides signalés « [à compléter] », bandeau « Projet » tant que le statut n'est pas « en vigueur »).
+- **Comptes** : case « J'accepte les CGU et j'ai pris connaissance de la politique de confidentialité » à l'inscription,
+  preuve horodatée et versionnée (table `legal_acceptances`), nouvelle acceptation demandée quand une version change,
+  colonne « Conditions » dans Administration, liens légaux sur toutes les pages.
+- **Durées de conservation appliquées automatiquement** (`housekeeping()` appelée par le robot) : réponses aux safety checks
+  12 mois, position 30 jours, demandes jamais validées 6 mois. Le même appel évite la mise en pause du projet Supabase gratuit.
+- **Plus aucun appel à Google** : polices et drapeaux hébergés sur le site (`docs/vendor/fonts`, `docs/vendor/flags`).
+- **Guide de mise en ligne, partie H** réécrite : projet Supabase pas à pas, réglages de connexion, e-mails en français
+  (`supabase/templates/`) et serveur d'envoi européen, test du parcours client, sécurité et exploitation.
+- Développeur : `veille/legal.py`, `veille/accounts.py`, `docs/legal.js`, `docs/legal.css`, `doc/RGPD.md` (registre des
+  traitements, check-list avant commercialisation) ; **relancer `supabase/schema.sql`** ; `tools/supabase_stub.sql` pour tester
+  le schéma sur un PostgreSQL local ; liens d'e-mail redirigés vers `compte.html` ; cache du service worker v3 ; tests
+  `tests/test_legal.py` et pages légales dans le test de fumée.
+
 ## v0.18.1 – Classeur de revue en anglais (octobre 2026)
 
 - **Version anglaise** du classeur : `python tools/build_risk_workbook.py --lang en` →
