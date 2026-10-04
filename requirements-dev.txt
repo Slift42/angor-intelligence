@@ -1,3 +1,4 @@
 # Outils de développement (pas nécessaires au robot de collecte)
 pytest>=8
 ruff>=0.6
+openpyxl>=3.1   # tools/build_risk_workbook.py (classeur de revue des risques)

@@ -4,6 +4,29 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.18.1 – Classeur de revue en anglais (octobre 2026)
+
+- **Version anglaise** du classeur : `python tools/build_risk_workbook.py --lang en` →
+  `revue/Angor_risk_analysis_review.xlsx`. Mêmes onglets, réglages, simulateurs et résultats ; onglets, en-têtes,
+  explications, listes déroulantes, textes des formules, notes de villes et noms de pays traduits. Les noms de médias,
+  mots-clés, titres du jeu de test et identifiants restent dans leur langue d'origine.
+- Développeur : traduction après construction (`tools/workbook_i18n.py`) à partir de la table
+  `tools/risk_workbook_en.json` (≈ 1 000 textes ; nombres variables en `{0}`) ; `--missing` liste les textes à ajouter.
+  Liens du sommaire désormais internes (ils pointaient vers le nom du fichier, cassés si on le renommait).
+  Test : la version anglaise ne laisse aucun texte non traduit hors notes de villes.
+
+## v0.18 – Classeur de revue de l'analyse des risques (octobre 2026)
+
+- **Classeur Excel** `revue/Analyse_des_risques_Angor.xlsx`, produit par `python tools/build_risk_workbook.py` :
+  19 onglets (échelles, catégories, règles de gravité, note pays, matrice des menaces, Pulse, cotation, médias,
+  sources, mots-clés, jeu de test, fiabilité et alertes, alerte précoce, go / no-go, recommandations, villes,
+  santé, journal des décisions). Chaque onglet montre la **valeur actuelle** lue dans le code et une colonne
+  jaune pour la proposition de l'analyste ; cinq **simulateurs** en formules Excel reproduisent les calculs
+  (note pays, matrice des menaces, Pulse, alerte précoce, go / no-go) pour tester un réglage avant de le retenir.
+- Développeur : `revue/` est ignoré par Git (choix de méthode non publiés) ; un classeur existant n'est jamais
+  écrasé (le nouveau prend la date, sauf `--force`) ; `openpyxl` ajouté à `requirements-dev.txt` ;
+  test `tests/test_risk_workbook.py` (les réglages affichés sont bien ceux du code).
+
 ## v0.17 – Audit du code et documentation technique (octobre 2026)
 
 - **Documentation technique** complète dans `doc/` : architecture, contrats de données, connecteurs, site,

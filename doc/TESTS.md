@@ -20,6 +20,7 @@ Les trois premiers et le test de fumée tournent automatiquement à chaque `push
 | `test_pipeline.py` | Dédoublonnage, cotation de l'Amirauté, note de risque |
 | `test_sources.py` | XML abîmé, découpage FCDO, numéros d'urgence, motifs des avis américains (réponse simulée), trafic |
 | `test_country_detail.py` | Choix des villes, santé, activité, validité de `config/city_notes.json` |
+| `test_risk_workbook.py` | Classeur de revue des risques : onglets, réglages identiques au code, simulateurs en formules, pas d'écrasement, version anglaise complète |
 
 Règles :
 - Un bug corrigé = un test qui l'aurait détecté (voir les cas commentés dans `test_press.py`).
