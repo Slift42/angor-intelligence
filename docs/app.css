@@ -861,3 +861,51 @@ body.guest .top-right { margin-left: auto; }
   .mk2, .clx, .bb, .burst-disk, .burst-links line, .mk2-halo, .mk2-halo::before, .mk2-halo::after, .clx-halo::before, .mk2.new::before { animation: none !important; }
   .burst-links line { stroke-dashoffset: 0; }
 }
+
+/* ================================================================== v0.22 – onglet Prestataires */
+#pb { display: grid; gap: 10px; }
+.pb-ctrl { display: grid; gap: 8px; }
+.pb-search { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-2); color: var(--muted); }
+.pb-search svg { width: 15px; height: 15px; flex: none; }
+.pb-search input { flex: 1; min-width: 0; border: 0; background: none; outline: none; font: inherit; font-size: 13.5px; color: var(--ink); }
+.pb-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px; }
+.pb-sel { width: 100%; min-width: 0; height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; font-size: 13px; padding: 0 6px; }
+.pb-scope { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; }
+.pb-scope button { padding: 5px 2px; font-size: 12px; display: grid; justify-items: center; gap: 1px; line-height: 1.15; min-width: 0; }
+.pb-scope b { font-weight: 800; font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pb-scope button[aria-pressed="true"] b { color: var(--accent); }
+.pb-sum { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-2); font-weight: 600; }
+.pb-sum .btn { margin-left: auto; }
+.pb-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.pb-list .empty { color: var(--muted); font-size: 13px; padding: 16px 4px; text-align: center; }
+.pb-card { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: var(--surface); display: grid; gap: 7px;
+  transition: border-color .15s, box-shadow .15s; }
+.pb-card:hover { border-color: var(--line-2); box-shadow: 0 4px 14px rgba(8,20,36,.08); }
+.pb-h { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; align-items: center; }
+.pb-tier { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; font-weight: 800; font-size: 13px; color: #fff;
+  background: var(--pv); box-shadow: inset 0 -2px 0 rgba(0,0,0,.15); }
+.pb-name { font-weight: 700; font-size: 14px; line-height: 1.25; }
+.pb-name a { color: var(--ink); text-decoration: none; } .pb-name a:hover { text-decoration: underline; }
+.pb-m { display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.pb-scope-b { font-weight: 700; text-transform: uppercase; letter-spacing: .04em; font-size: 10.5px; padding: 1px 7px; border-radius: 999px; }
+.pb-scope-b.s-local { background: color-mix(in srgb, #2E9E5B 16%, transparent); color: #2E9E5B; }
+.pb-scope-b.s-regional { background: color-mix(in srgb, #2F6FB3 16%, transparent); color: #3F86C6; }
+.pb-scope-b.s-global { background: color-mix(in srgb, #7D5BA6 16%, transparent); color: #8E6CB8; }
+.pb-unv { color: #d73027; }
+.pb-cats { display: flex; flex-wrap: wrap; gap: 4px; }
+.pb-cat { font-size: 11.5px; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+.pb-cat.on { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.pb-cat.more { color: var(--muted); }
+.pb-cov { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-2); }
+.pb-cov > svg { width: 13px; height: 13px; color: var(--muted); flex: none; }
+.pb-cov > span { display: flex; flex-wrap: wrap; align-items: center; gap: 3px; }
+.pb-flag { border: 0; padding: 0; background: none; cursor: pointer; line-height: 0; border-radius: 3px; }
+.pb-flag img { border-radius: 2px; box-shadow: 0 0 0 1px var(--line); }
+.pb-more { font-size: 11px; color: var(--muted); }
+.pb-note { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.pb-a { display: flex; gap: 6px; flex-wrap: wrap; }
+.pb-a .btn { text-decoration: none; } .pb-a .btn svg { width: 12px; height: 12px; }
+.pb-foot { border-top: 1px dashed var(--line); padding-top: 8px; }
+.pb-foot .pv-legend { gap: 6px; font-size: 12px; }
+.pv-all { margin-top: 8px; }
+.pb-m svg { width: 11px; height: 11px; vertical-align: -1px; }

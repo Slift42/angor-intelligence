@@ -13,10 +13,20 @@ def test_configuration():
     cats = CFG["categories"]
     assert set(CFG["tiers"]) == {"A", "B", "C", "D", "E"}
     assert all(c["group"] in CFG["groups"] and c["fr"] and c["en"] for c in cats.values())
+    isos = set(re.findall(r'"iso2":"([A-Z]{2})"', (ROOT / "docs" / "data" / "countries.js").read_text(encoding="utf-8")))
+    entries = DIR["providers"] + [dict(p, countries=[iso]) for iso, lst in DIR["local"].items() for p in lst]
+    webs = [p["web"].rstrip("/").lower() for p in entries]
+    assert len(webs) == len(set(webs)), "doublon dans l'annuaire"
     for p in DIR["providers"]:
-        assert p["web"].startswith("https://") and p["categories"], p["name"]
-        assert set(p["categories"]) <= set(cats), (p["name"], set(p["categories"]) - set(cats))
         assert set(p["regions"]) <= set(DIR["regions"]), p["name"]
+    for p in entries:
+        assert p["web"].startswith("https://") and p["categories"] and p["name"].strip(), p["name"]
+        assert set(p["categories"]) <= set(cats), (p["name"], set(p["categories"]) - set(cats))
+        assert set(p.get("countries") or []) <= isos, (p["name"], p.get("countries"))
+        assert len(p.get("note", "")) <= 160, p["name"]
+        assert not re.search(r"\+?\d[\d .-]{7,}\d|@", p.get("note", "")), p["name"]          # aucun numéro ni e-mail
+    assert {"care", "pclin"} <= set(cats) and cats["pclin"]["group"] == "sante"
+    assert sum(len(v) for v in DIR["local"].values()) >= 100                       # registres locaux remplis
 
 
 def test_fusion_et_doublons():

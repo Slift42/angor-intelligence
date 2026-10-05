@@ -1,7 +1,7 @@
 /* Angor Intelligence – dossier pays : écran + PDF A4 (impression du navigateur)
    Sections : couverture, synthèse, risques, sûreté détaillée, recommandations, incidents, villes, avis officiels,
    voyage, santé et secours, culture, calendrier, économie, contexte, prestataires, sources. */
-(function () {
+(window.AngorVault ? window.AngorVault.ready : f => f())(function () {
   'use strict';
   const D = window.VS_DATA || {};
   const P = (window.VS_PROFILES || {}).countries || {};
@@ -63,7 +63,8 @@
   const fmtLong = d => new Date(d).toLocaleDateString(locale(), { day: 'numeric', month: 'long', year: 'numeric' });
   const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
   const lvlBadge = (l, cls = '') => `<span class="lvl ${cls}" style="background:${RC[l || 0]}">${l || '–'}</span>`;
-  const loadScript = src => new Promise((ok, ko) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); });
+  const loadScript = src => window.AngorVault ? window.AngorVault.script(src)
+    : new Promise((ok, ko) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); });
   const detail = () => (window.VS_CDETAIL || {})[ISO] || null;
 
   /* ------------------------------------------------ traduction des extraits (API Translator de Chrome / Edge, sur l'appareil) */
@@ -826,4 +827,4 @@
   });
   window.addEventListener('beforeprint', () => { if (cmap) cmap.invalidateSize(); });
   init();
-})();
+});

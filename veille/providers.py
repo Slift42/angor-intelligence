@@ -87,6 +87,8 @@ def update(settings, log=print):
         reg = fetch_registered(settings, log)
         data = build(reg)
         publish.write_js("providers.js", "VS_PROVIDERS", data)
-        log(f"  ✔ Annuaire des prestataires : {len(reg)} inscrit(s), {len(data['providers'])} repéré(s) par Angor")
+        n_loc = sum(len(v) for v in data['local'].values())
+        log(f"  ✔ Annuaire des prestataires : {len(reg)} inscrit(s), {len(data['providers'])} international(aux) ou régionaux et "
+            f"{n_loc} locaux ({len(data['local'])} pays) repérés par Angor")
     except Exception as exc:
         log(f"  ✘ Annuaire des prestataires non publié ({type(exc).__name__} : {exc})")

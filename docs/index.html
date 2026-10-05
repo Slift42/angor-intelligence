@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="vendor/markercluster/MarkerCluster.css">
 <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
-<link rel="stylesheet" href="app.css?v=bdf8c477">
+<link rel="stylesheet" href="app.css?v=bc4c89ff">
 </head>
 <body>
 <div class="app" id="app">
@@ -66,6 +66,7 @@
       <button role="tab" data-space="sites"></button>
       <button role="tab" data-space="anticipation"></button>
       <button role="tab" data-space="trafic"></button>
+      <button role="tab" data-space="prestataires"></button>
     </nav>
     <div class="subtabs" id="subtabs" role="tablist"></div>
 
@@ -165,6 +166,7 @@
       <ol class="rep-list" id="rep-list"></ol>
     </section>
 
+    <section class="tab-body" data-body="providers" hidden><div id="pb"></div></section>
     <section class="tab-body traffic" data-body="air" hidden></section>
     <section class="tab-body traffic" data-body="sea" hidden></section>
     <section class="tab-body" data-body="analytics" hidden>
@@ -239,13 +241,13 @@
 <script src="vendor/chartjs/chart.umd.min.js"></script>
 <script src="vendor/icons.js?v=4a09d4ea"></script>
 <script src="data/countries.js"></script>
-<script src="data/data.js" onerror="window.VS_DATA_MISSING=true"></script>
 <script src="data/history/index.js" onerror="window.VS_HIST_INDEX=null"></script>
 <script src="data/config.js" onerror="window.VS_CONFIG=null"></script>
-<script src="account.js?v=004fa97f"></script>
-<script src="providers-lib.js?v=690a1515"></script>
+<script src="account.js?v=259ac4f4"></script>
+<script src="vault.js?v=ceced48a" data-need="data.js" data-guest="guest.js"></script>
+<script src="providers-lib.js?v=78206833"></script>
 <script src="gonogo.js?v=ae66a6e1"></script>
 <script src="ew.js?v=aad4d360"></script>
-  <script src="app.js?v=ee9ee1a6"></script>
+  <script src="app.js?v=2bee1081"></script>
 </body>
 </html>

@@ -59,6 +59,23 @@ for (const [name, viewport] of [['ordinateur', { width: 1400, height: 900 }], ['
   }, p => p.route(/\/data\/config\.js/, rt => rt.fulfill({ contentType: 'text/javascript',
     body: 'window.VS_CONFIG={"accounts":{"supabase_url":"https://mock.supabase.co","supabase_anon_key":"sb_publishable_x"}};' })));
   check(!r.errors.length && guest && r.width <= viewport.width, `carte en mode visiteur (${name}) : carte seule ${r.errors.join(' | ')}`);
+  // onglet Prestataires (v0.22) : annuaire, filtres pays / portée, sans erreur
+  let pb = null;
+  r = await page('/index.html?tab=providers', viewport, async p => {
+    await p.waitForSelector('#pb-list', { timeout: 4000 });
+    pb = await p.evaluate(() => { const n = [...document.querySelectorAll('#pb-scope b')].map(b => +b.textContent);
+      return { cards: document.querySelectorAll('.pb-card').length, sum: n[1] + n[2] + n[3] === n[0] }; });
+  });
+  check(!r.errors.length && pb && pb.cards > 0 && pb.sum && r.width <= viewport.width, `onglet Prestataires (${name}) ${JSON.stringify(pb)} ${r.errors.join(' | ')}`);
+  // coffre (v0.22) : avec données réservées, un visiteur ne télécharge jamais data/data.js et le rapport pays est verrouillé
+  const VCFG = 'window.VS_CONFIG={"accounts":{"supabase_url":"https://mock.supabase.co","supabase_anon_key":"sb_publishable_x"},"vault":{"bucket":"angor-data"}};';
+  for (const url of ['/index.html', '/report.html#FR']) {
+    let asked = false, locked = false;
+    r = await page(url, viewport, async p => { locked = await p.evaluate(() => !!document.querySelector('.vault-lock')); },
+      p => Promise.all([p.route(/\/data\/config\.js/, rt => rt.fulfill({ contentType: 'text/javascript', body: VCFG })),
+        p.on('request', q => { if (/\/data\/(data|profiles|econ)\.js/.test(q.url())) asked = true; })]));
+    check(!r.errors.length && !asked && (url === '/index.html' || locked), `coffre ${url} (${name}) : aucune donnée réservée téléchargée${url === '/index.html' ? '' : ', page verrouillée'} ${r.errors.join(' | ')}`);
+  }
   for (const url of ['/report.html#FR', '/report.html#ML/villes', '/brief.html#FR', '/aide.html', '/compte.html', '/compte.html?type=provider', '/prestataire.html', '/prestataire.html?id=x', '/admin.html']) {
     r = await page(url, viewport);
     check(!r.errors.length, `${url} (${name}) sans erreur ${r.errors.join(' | ')}`);

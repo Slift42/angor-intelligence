@@ -6,8 +6,8 @@
    "en": "Security"
   },
   "sante": {
-   "fr": "Santé et assistance",
-   "en": "Health and assistance"
+   "fr": "Soins médicaux et assistance",
+   "en": "Medical care & assistance"
   },
   "transport": {
    "fr": "Transport",
@@ -69,6 +69,16 @@
    "fr": "Transport de fonds et valeurs",
    "en": "Cash and valuables in transit"
   },
+  "care": {
+   "group": "sante",
+   "fr": "Medical Care & Assistance (médecin 24/7, visites, téléconsultation)",
+   "en": "Medical Care & Assistance (24/7 doctor, visits, telemedicine)"
+  },
+  "pclin": {
+   "group": "sante",
+   "fr": "Cliniques et hôpitaux privés",
+   "en": "Private clinics and hospitals"
+  },
   "med": {
    "group": "sante",
    "fr": "Assistance et évacuation médicales",
@@ -81,8 +91,8 @@
   },
   "clin": {
    "group": "sante",
-   "fr": "Cliniques et médecins référents",
-   "en": "Clinics and referral doctors"
+   "fr": "Médecins référents, centres médicaux",
+   "en": "Referral doctors, medical centres"
   },
   "ins": {
    "group": "sante",

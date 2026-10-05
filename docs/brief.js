@@ -1,7 +1,7 @@
 /* Angor Intelligence – brief de mission (voyage d'affaires), imprimable en PDF.
    Tout est calculé dans le navigateur à partir des données publiées : rien n'est envoyé, rien n'est stocké en ligne.
    Sert de trace « duty of care » : date d'édition, sources consultées, recommandation et visas de validation. */
-(function () {
+(window.AngorVault ? window.AngorVault.ready : f => f())(function () {
   'use strict';
   const D = window.VS_DATA || {};
   const P = (window.VS_PROFILES || {}).countries || {};
@@ -367,4 +367,4 @@
   $('#tb-print').addEventListener('click', () => window.print());
   $('#tb-lang').addEventListener('click', () => { lang = lang === 'fr' ? 'en' : 'fr'; try { localStorage.setItem('vs-lang', JSON.stringify(lang)); } catch (e) { /* */ } fillForm(); render(); });
   init();
-})();
+});

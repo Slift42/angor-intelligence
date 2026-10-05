@@ -21,16 +21,40 @@
     return { Africa: 'Afrique', Europe: 'Europe', Asia: 'Asie', 'North America': 'Amériques', 'South America': 'Amériques', Oceania: 'Océanie' }[p.continent] || '';
   };
   const norm = (p, extra) => Object.assign({ name: p.name, web: p.web || '', hq: p.hq || '', note: p.note || '', id: p.id || null,
-    categories: p.categories || p.services || [], tier: p.tier || 'E', score: p.score || 0, source: p.source || 'angor', linkedin: p.linkedin || '' }, extra || {});
+    categories: p.categories || p.services || [], tier: p.tier || 'E', score: p.score || 0, source: p.source || 'angor', linkedin: p.linkedin || '',
+    countries: p.countries || null, regions: p.regions || null, city: p.city || '' }, extra || {});
   const sort = list => list.sort((a, b) => (TIER_ORDER[a.tier] ?? 9) - (TIER_ORDER[b.tier] ?? 9) || b.score - a.score || a.name.localeCompare(b.name));
 
   /** Prestataires couvrant un pays : inscrits (pays déclarés), locaux repérés, internationaux de la région. */
   function forCountry(iso, countryProps) {
     const D = data(), region = regionOf(countryProps);
     const reg = (D.registered || []).filter(p => (p.countries || []).includes(iso)).map(p => norm(p, { source: 'self' }));
-    const loc = ((D.local || {})[iso] || []).map(p => norm(p, { local: true }));
-    const intl = (D.providers || []).filter(p => !region || (p.regions || []).includes(region)).map(p => norm(p));
+    const loc = ((D.local || {})[iso] || []).map(p => norm(p, { local: true, countries: [iso] }));
+    // régionaux : pays couverts déclarés ; internationaux : grandes régions
+    const intl = (D.providers || []).filter(p => (p.countries && p.countries.length ? p.countries.includes(iso) : !region || (p.regions || []).includes(region))).map(p => norm(p));
     return sort(reg.concat(loc, intl));
+  }
+  /** Portée d'un prestataire : « local » (un seul pays), « regional » (une ou deux régions du monde), « global » (au moins
+      trois régions, ou 15 pays et plus). propsOf(iso) → propriétés du pays (continent, région) pour situer les pays déclarés. */
+  function scopeOf(p, propsOf) {
+    if (p.local || (p.countries && p.countries.length === 1)) return 'local';
+    if (p.countries && p.countries.length) {
+      const regs = new Set(p.countries.map(iso => regionOf(propsOf ? propsOf(iso) : null) || iso));
+      return p.countries.length >= 15 || regs.size >= 3 ? 'global' : 'regional';
+    }
+    if (p.regions && p.regions.length) return p.regions.length >= 3 ? 'global' : 'regional';
+    return 'global';
+  }
+  /** Tout l'annuaire (onglet Prestataires) : inscrits, locaux repérés (avec leur pays), internationaux ; avec leur portée. */
+  function catalogue(propsOf) {
+    const D = data();
+    const reg = (D.registered || []).map(p => norm(p, { source: 'self' }));
+    const loc = [];
+    Object.entries(D.local || {}).forEach(([iso, l]) => (l || []).forEach(p => loc.push(norm(p, { local: true, countries: [iso] }))));
+    const intl = (D.providers || []).map(p => norm(p));
+    const all = sort(reg.concat(loc, intl));
+    all.forEach(p => { p.scope = scopeOf(p, propsOf); });
+    return all;
   }
   /** {catégorie: {n, best}} – best = niveau le plus fiable disponible dans la catégorie. */
   function byCategory(list) {
@@ -98,5 +122,5 @@
   /** Même règle que la base : A/B vérifié (A si score ≥ 80), C soumis ≥ 60, D sinon. */
   const tierOf = (status, s) => (status === 'verified' ? (s >= 80 ? 'A' : 'B') : status === 'submitted' && s >= 60 ? 'C' : 'D');
 
-  window.AngorProviders = { data, forCountry, byCategory, catLabel, tierLabel, tierColor, tiers, link, score, tierOf, regionOf, TIER_ORDER, DOC_KINDS, docActive, canSubmit, canVerify };
+  window.AngorProviders = { data, forCountry, byCategory, catLabel, tierLabel, tierColor, tiers, link, score, tierOf, regionOf, TIER_ORDER, DOC_KINDS, docActive, canSubmit, canVerify, scopeOf, catalogue };
 })();

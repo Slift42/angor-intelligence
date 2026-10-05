@@ -61,6 +61,9 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
           SITES_JSON: ${{ secrets.SITES_JSON }}   # vos vrais sites (contenu de sites.local.json), jamais publiés
+          # coffre des données réservées (v0.22) : clé secrète Supabase, sert uniquement à déposer les fichiers dans le
+          # compartiment privé « angor-data » (veille/vault.py) ; sans elle, ces fichiers ne sont pas publiés du tout
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
       - name: Sauvegarder la mémoire du robot
         if: always()
         uses: actions/cache/save@v5

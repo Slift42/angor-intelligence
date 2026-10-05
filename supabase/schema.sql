@@ -617,6 +617,25 @@ begin
       select 1 from public.providers p where p.id::text = (storage.foldername(name))[1] and p.owner_id = auth.uid())))$p$;
 end $do$;
 
+-- ------------------------------------------------------------------ coffre des données réservées (v0.22)
+-- Le robot de collecte (GitHub Actions, clé secrète SUPABASE_SERVICE_KEY, qui contourne les règles d'accès) dépose ici
+-- les fichiers de la carte réservés aux comptes validés : incidents complets, fil, chronologies, notes de risque, alerte
+-- précoce, rapports, fiches pays… (veille/vault.py). Ils ne sont plus publiés sur GitHub Pages. Les pages les lisent avec
+-- le jeton de session de l'utilisateur (docs/vault.js) : lecture réservée aux comptes validés et aux administrateurs.
+do $do$
+begin
+  if to_regclass('storage.objects') is null then
+    raise notice 'Stockage Supabase absent (base de test) : coffre non créé';
+    return;
+  end if;
+  insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types) values
+    ('angor-data', 'angor-data', false, 52428800, null)
+  on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = null;
+  execute 'drop policy if exists angor_data_read on storage.objects';
+  execute $p$create policy angor_data_read on storage.objects for select to authenticated
+    using (bucket_id = 'angor-data' and (private.is_approved() or private.is_admin()))$p$;
+end $do$;
+
 -- ------------------------------------------------------------------ premier administrateur
 -- Après avoir créé votre compte depuis angor.fr/compte.html, exécutez UNE fois (avec votre e-mail) :
 --   update public.profiles set role = 'admin', status = 'approved', approved_at = now()

@@ -31,3 +31,4 @@ tests/e2e/node_modules/
 # Classeurs de revue de l'analyse des risques (choix de méthode de l'analyste, non publiés)
 revue/
 docs/data/legal.js
+docs/data/guest.js

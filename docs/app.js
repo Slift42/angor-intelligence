@@ -1,5 +1,6 @@
-/* Angor Intelligence – application cartographique (Leaflet, sans framework) */
-(function () {
+/* Angor Intelligence – application cartographique (Leaflet, sans framework)
+   Démarre quand les données sont chargées (docs/vault.js : fichiers publics, ou coffre Supabase pour les comptes validés). */
+(window.AngorVault ? window.AngorVault.ready : f => f())(function () {
   'use strict';
 
   const D = window.VS_DATA || null;
@@ -28,7 +29,13 @@
       sc_done: 'Réponse envoyée. Merci.', sc_err: 'Réponse non envoyée : vérifiez votre connexion.', sc_launch: 'Lancer un safety check',
       acc_login: 'Se connecter', acc_pending: 'Compte en attente de validation',
       tab_agenda: 'Agenda', help: 'Aide', tab_reports: 'Rapports', tab_ew: 'Alerte précoce',
-      sp_veille: 'Veille', sp_pays: 'Pays', sp_sites: 'Mes sites', sp_anticipation: 'Anticipation',
+      sp_veille: 'Veille', sp_pays: 'Pays', sp_sites: 'Mes sites', sp_anticipation: 'Anticipation', sp_prestataires: 'Prestataires', tab_providers: 'Annuaire des prestataires',
+      pb_q: 'Nom, service, ville, note…', pb_country: 'Tous les pays', pb_cat: 'Toutes les catégories', pb_scope: { all: 'Tous', local: 'Locaux', regional: 'Régionaux', global: 'Mondiaux' },
+      pb_scope1: { local: 'Local', regional: 'Régional', global: 'Mondial' }, pb_verified: 'Vérifiés par Angor seulement (niveaux A et B)',
+      pb_n: n => `${n} prestataire${n > 1 ? 's' : ''}`, pb_empty: 'Aucun prestataire ne correspond à ces critères.', pb_world: 'Monde entier',
+      pb_scope_hint: 'Local : un seul pays · Régional : une ou deux régions du monde · Mondial : trois régions ou plus.',
+      pb_rank: 'Classement : niveau de fiabilité, puis qualité de la fiche. Aucune option payante.', pb_site: 'Site web', pb_sheet: 'Fiche',
+      pb_open_country: 'Fiche pays', pb_all_country: 'Voir tous les prestataires du pays', pb_hq: 'siège',
       an_intro: 'Tableaux de bord : évolution des incidents par famille et par gravité, pays les plus touchés, contribution des sources, sur la période choisie.', an_open: 'Ouvrir les analyses',
       rel_on: n => `Mode fiable${n ? ` · ${n} détection(s) non recoupée(s) masquée(s)` : ''}`, rel_off: 'Toutes les détections (y compris non recoupées)',
       rel_title: 'Mode fiable : les détections automatiques de sources peu fiables (cotées D, E ou F) restent masquées tant qu’aucune autre source ne les confirme.',
@@ -195,7 +202,13 @@
       sc_done: 'Answer sent. Thank you.', sc_err: 'Answer not sent: check your connection.', sc_launch: 'Launch a safety check',
       acc_login: 'Sign in', acc_pending: 'Account awaiting approval',
       tab_agenda: 'Agenda', help: 'Help', tab_reports: 'Reports', tab_ew: 'Early warning',
-      sp_veille: 'Monitoring', sp_pays: 'Countries', sp_sites: 'My sites', sp_anticipation: 'Foresight',
+      sp_veille: 'Monitoring', sp_pays: 'Countries', sp_sites: 'My sites', sp_anticipation: 'Foresight', sp_prestataires: 'Providers', tab_providers: 'Provider directory',
+      pb_q: 'Name, service, city, note…', pb_country: 'All countries', pb_cat: 'All categories', pb_scope: { all: 'All', local: 'Local', regional: 'Regional', global: 'Global' },
+      pb_scope1: { local: 'Local', regional: 'Regional', global: 'Global' }, pb_verified: 'Verified by Angor only (tiers A and B)',
+      pb_n: n => `${n} provider${n > 1 ? 's' : ''}`, pb_empty: 'No provider matches these criteria.', pb_world: 'Worldwide',
+      pb_scope_hint: 'Local: one country · Regional: one or two world regions · Global: three regions or more.',
+      pb_rank: 'Ranking: reliability tier, then quality of the profile. No paid placement.', pb_site: 'Website', pb_sheet: 'Profile',
+      pb_open_country: 'Country sheet', pb_all_country: 'See all providers in this country', pb_hq: 'HQ',
       an_intro: 'Dashboards: incidents by family and severity over time, most affected countries, source contribution, for the selected period.', an_open: 'Open analytics',
       rel_on: n => `Reliable mode${n ? ` · ${n} uncorroborated detection(s) hidden` : ''}`, rel_off: 'All detections (including uncorroborated)',
       rel_title: 'Reliable mode: automatic detections from low-reliability sources (graded D, E or F) stay hidden until another source confirms them.',
@@ -383,6 +396,7 @@
     onlyVerified: false, onlyWatch: false, countrySort: 'risk', watch: new Set(store.get('vs-watch', [])),
     localCorridors: store.get('vs-corridors', []), drawing: null, crisisFocus: null, chronoAll: false,
     rep: { q: '', geo: '', type: '', theme: '', period: '90', shown: 60 },
+    pb: { q: '', iso: '', cat: '', scope: 'all', verified: false, shown: 60 },
     agRange: 30, agScope: 'all', agTypes: new Set(['holiday', 'election', 'religious', 'other']),
     analyst: /[?&]analyste?=1/.test(location.search) || store.get('vs-analyst', false)
   };
@@ -416,7 +430,7 @@
     if (['risk', 'pulse', 'meae', 'fcdo', 'us', 'de', 'none'].includes(P.get('layer'))) state.countryLayer = P.get('layer');
     if (BASEMAPS.includes(P.get('base'))) state.basemap = P.get('base');
     if (['fr', 'en'].includes(P.get('lang'))) state.lang = P.get('lang');
-    if (['alerts', 'ongoing', 'countries', 'news', 'sites', 'buddy', 'agenda', 'reports', 'ew', 'air', 'sea'].includes(P.get('tab'))) state.tab = P.get('tab');
+    if (['alerts', 'ongoing', 'countries', 'news', 'sites', 'buddy', 'agenda', 'reports', 'ew', 'air', 'sea', 'providers'].includes(P.get('tab'))) state.tab = P.get('tab');
     if (P.get('focus')) state.crisisFocus = P.get('focus');
     if (P.get('analyste') === '0') state.analyst = false;
     try { localStorage.setItem('vs-analyst', JSON.stringify(state.analyst)); } catch (e) { /* stockage indisponible */ }
@@ -1007,7 +1021,70 @@
       ${order.length ? `<div class="pv-chips">${order.map(chip).join('')}</div><div class="pv-list" id="pv-list" hidden></div>
       <div class="hint pv-legend">${['A', 'B', 'C', 'D', 'E'].map(x => `<span class="pv-dot" style="--pv:${AP.tierColor(x)}" title="${esc(AP.tierLabel(x, lang))}"></span>`).join('')} ${esc(t('pv_legend'))}</div>`
         : `<div class="hint">${esc(t('pv_none'))}</div>`}
+      ${order.length ? `<button class="btn small pv-all" type="button" data-pb-iso="${esc(iso)}">${icon('handshake', 14)} ${esc(t('pb_all_country'))}</button>` : ''}
       <a class="pv-join" href="compte.html?type=provider">${esc(t('pv_join'))} →</a></div>`;
+  }
+  /* ------------------------------------------------------------------ onglet Prestataires (v0.22) : annuaire complet,
+     recherche, pays, catégorie, portée (locaux / régionaux / mondiaux), vérifiés seulement */
+  const normTxt = x => String(x || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  function renderProvidersTab() {
+    const el = $('#pb'); if (!el) return;
+    const AP = window.AngorProviders;
+    if (!AP) return;
+    if (!window.VS_PROVIDERS && !ensureProviders.failed) { el.innerHTML = `<p class="hint">…</p>`; ensureProviders(renderProvidersTab); return; }
+    const st = state.pb, lang = state.lang, D0 = AP.data(), cats = D0.categories || {}, groups = D0.groups || {};
+    if (el.dataset.lang !== lang) {   // commandes construites une fois (le champ de recherche garde le focus)
+      el.dataset.lang = lang;
+      const isos = Object.keys(countryProps).filter(iso => /^[A-Z]{2}$/.test(iso)).sort((a, b) => countryName(a).localeCompare(countryName(b), lang));
+      el.innerHTML = `<div class="pb-ctrl">
+        <label class="pb-search">${icon('search', 15)}<input type="search" id="pb-q" autocomplete="off" placeholder="${esc(t('pb_q'))}"></label>
+        <div class="pb-row"><select id="pb-iso" class="pb-sel"><option value="">${esc(t('pb_country'))}</option>${isos.map(iso => `<option value="${iso}">${esc(countryName(iso))}</option>`).join('')}</select>
+          <select id="pb-cat" class="pb-sel"><option value="">${esc(t('pb_cat'))}</option>${Object.keys(groups).map(g => `<optgroup label="${esc(groups[g][lang] || groups[g].fr)}">${Object.keys(cats).filter(c => cats[c].group === g)
+            .map(c => `<option value="${c}">${esc(cats[c][lang] || cats[c].fr)}</option>`).join('')}</optgroup>`).join('')}</select></div>
+        <div class="seg pb-scope" id="pb-scope" role="group"></div>
+        <label class="switch"><input type="checkbox" id="pb-ver"><span>${esc(t('pb_verified'))}</span></label></div>
+        <div class="pb-sum" id="pb-sum"></div><ul class="pb-list" id="pb-list"></ul>
+        <div class="pb-foot"><p class="hint">${esc(t('pb_scope_hint'))} ${esc(t('pb_rank'))}</p>
+          <div class="hint pv-legend">${['A', 'B', 'C', 'D', 'E'].map(x => `<span class="pv-dot" style="--pv:${AP.tierColor(x)}"></span>${x}`).join(' ')} · <a href="annuaire.html">${esc(t('m_legal'))}</a></div>
+          <a class="pv-join" href="compte.html?type=provider">${esc(t('pv_join'))} →</a></div>`;
+      $('#pb-q').addEventListener('input', ev => { st.q = ev.target.value; renderProvidersTab(); });
+      $('#pb-iso').addEventListener('change', ev => { st.iso = ev.target.value; renderProvidersTab(); });
+      $('#pb-cat').addEventListener('change', ev => { st.cat = ev.target.value; renderProvidersTab(); });
+      $('#pb-ver').addEventListener('change', ev => { st.verified = ev.target.checked; renderProvidersTab(); });
+      $('#pb-scope').addEventListener('click', ev => { const b = ev.target.closest('[data-scope]'); if (b) { st.scope = b.dataset.scope; renderProvidersTab(); } });
+      $('#pb-sum').addEventListener('click', ev => { const o = ev.target.closest('[data-pb-open]'); if (o) { openCountry(o.dataset.pbOpen); closePanelMobile(); } });
+      $('#pb-list').addEventListener('click', ev => { if (ev.target.closest('[data-pb-more]')) { st.shown += 60; renderProvidersTab(); return; } const c = ev.target.closest('[data-pb-country]'); if (c) { openCountry(c.dataset.pbCountry); closePanelMobile(); } });
+    }
+    $('#pb-q').value === st.q || ($('#pb-q').value = st.q);
+    $('#pb-iso').value = st.iso; $('#pb-cat').value = st.cat; $('#pb-ver').checked = st.verified;
+    const propsOf = iso => countryProps[iso];
+    const base = st.iso ? AP.forCountry(st.iso, countryProps[st.iso]).map(p => Object.assign(p, { scope: AP.scopeOf(p, propsOf) })) : AP.catalogue(propsOf);
+    const q = normTxt(st.q.trim());
+    const hit = p => !q || normTxt([p.name, p.note, p.hq, ...p.categories.map(c => AP.catLabel(c, lang)), ...(p.countries || []).map(countryName), ...(p.regions || [])].join(' ')).includes(q);
+    const filt = base.filter(p => (!st.cat || p.categories.includes(st.cat)) && (!st.verified || p.tier === 'A' || p.tier === 'B') && hit(p));
+    const n = { all: filt.length, local: 0, regional: 0, global: 0 };
+    filt.forEach(p => { n[p.scope] += 1; });
+    $('#pb-scope').innerHTML = ['all', 'local', 'regional', 'global'].map(k => `<button type="button" data-scope="${k}" aria-pressed="${st.scope === k}"><span>${esc(t('pb_scope')[k])}</span><b>${n[k]}</b></button>`).join('');
+    const list = st.scope === 'all' ? filt : filt.filter(p => p.scope === st.scope);
+    $('#pb-sum').innerHTML = `${esc(t('pb_n', list.length))}${st.iso ? ` · ${flagImg(st.iso, 16)} ${esc(countryName(st.iso))} <button class="btn small" type="button" data-pb-open="${st.iso}">${esc(t('pb_open_country'))}</button>` : ''}`;
+    const regions6 = 6;
+    const cover = p => p.countries && p.countries.length
+      ? `${p.countries.slice(0, 8).map(iso => `<button type="button" class="pb-flag" data-pb-country="${iso}" title="${esc(countryName(iso))}">${flagImg(iso, 18) || iso}</button>`).join('')}${p.countries.length > 8 ? `<span class="pb-more">+${p.countries.length - 8}</span>` : ''}`
+      : p.regions && p.regions.length ? esc(p.regions.length >= regions6 ? t('pb_world') : p.regions.join(' · ')) : '';
+    const key = [st.q, st.iso, st.cat, st.scope, st.verified].join('|');
+    if (st.key !== key) { st.key = key; st.shown = 60; }
+    $('#pb-list').innerHTML = list.length ? list.slice(0, st.shown).map(p => {
+      const href = AP.link(p), self = p.source === 'self';
+      return `<li class="pb-card">
+        <div class="pb-h"><span class="pb-tier" style="--pv:${AP.tierColor(p.tier)}" title="${esc(AP.tierLabel(p.tier, lang))}">${esc(p.tier)}</span>
+          <div class="pb-n"><div class="pb-name">${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(p.name)}</a>` : esc(p.name)}</div>
+            <div class="pb-m"><span class="pb-scope-b s-${p.scope}">${esc(t('pb_scope1')[p.scope])}</span>${p.city ? `<span>${icon('map-pin', 11)} ${esc(p.city)}</span>` : ''}${p.hq ? `<span>${esc(t('pb_hq'))} : ${esc(p.hq.length === 2 ? countryName(p.hq) || p.hq : p.hq)}</span>` : ''}${self ? `<span>${p.score}/100</span>` : `<span class="pb-unv">${esc(t('pv_unverified'))}</span>`}</div></div></div>
+        <div class="pb-cats">${p.categories.slice(0, 5).map(c => `<span class="pb-cat${c === st.cat ? ' on' : ''}">${esc(AP.catLabel(c, lang))}</span>`).join('')}${p.categories.length > 5 ? `<span class="pb-cat more">+${p.categories.length - 5}</span>` : ''}</div>
+        ${cover(p) ? `<div class="pb-cov">${icon('globe', 13)}<span>${cover(p)}</span></div>` : ''}
+        ${p.note ? `<div class="pb-note">${esc(p.note)}</div>` : ''}
+        <div class="pb-a">${href ? `<a class="btn small" href="${esc(href)}" target="_blank" rel="noopener">${esc(self ? t('pb_sheet') : t('pb_site'))} ${icon('external-link', 12)}</a>` : ''}${p.linkedin ? `<a class="btn small ghost" href="${esc(p.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>` : ''}</div></li>`;
+    }).join('') + (list.length > st.shown ? `<li><button class="more" type="button" data-pb-more>${t('show_more', Math.min(60, list.length - st.shown))}</button></li>` : '')
+      : `<li class="empty">${esc(t('pb_empty'))}</li>`;
   }
   function showProviderList(iso, cat) {
     const box = $('#pv-list'); if (!box) return;
@@ -1019,7 +1096,7 @@
       const href = AP.link(p);
       return `<li><span class="dot" style="background:${AP.tierColor(p.tier)}" title="${esc(AP.tierLabel(p.tier, lang))}"></span>
         <span class="t">${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(p.name)}</a>` : esc(p.name)}
-        <br><span class="pv-sub">${esc(p.tier === 'E' ? t('pv_unverified') : AP.tierLabel(p.tier, lang))}${p.hq ? '&nbsp;· ' + esc(p.hq) : ''}</span></span>
+        <br><span class="pv-sub">${esc(p.tier === 'E' ? t('pv_unverified') : AP.tierLabel(p.tier, lang))}${p.city ? '&nbsp;· ' + esc(p.city) : p.hq ? '&nbsp;· ' + esc(p.hq) : ''}</span></span>
         <span class="w">${p.source === 'self' ? `${p.score}/100` : ''}</span></li>`;
     }).join('')}</ul>`;
   }
@@ -1113,6 +1190,7 @@
   /* ------------------------------------------------------------------ actualiser */
   const readGenerated = txt => ((txt || '').slice(0, 400).match(/"generated"\s*:\s*"([^"]+)"/) || [])[1] || '';
   async function latestGenerated() {
+    if (window.AngorVault && window.AngorVault.active) return window.AngorVault.text('data/data.js').then(readGenerated, () => '');
     try { const r = await fetch('data/data.js?t=' + Date.now(), { cache: 'no-store' }); return r.ok ? readGenerated(await r.text()) : ''; } catch (e) { return ''; }
   }
   function nextAutoRun() {
@@ -1121,7 +1199,7 @@
     return d.toLocaleTimeString(state.lang === 'fr' ? 'fr-FR' : 'en-GB', { hour: '2-digit', minute: '2-digit' });
   }
   function reloadView() {
-    ['data/data.js', 'data/calendar.js', 'data/reports.js', 'data/early_warning.js'].forEach(u => fetch(u, { cache: 'reload' }).catch(() => {}));
+    if (!(window.AngorVault && window.AngorVault.active)) ['data/data.js', 'data/calendar.js', 'data/reports.js', 'data/early_warning.js'].forEach(u => fetch(u, { cache: 'reload' }).catch(() => {}));
     setTimeout(() => location.replace(viewUrl()), 500);
   }
   function pollNewData(since) {
@@ -1263,9 +1341,9 @@
   }
 
   /* Quatre espaces (barre de gauche), chacun avec ses sous-onglets */
-  const SPACES = { veille: ['alerts', 'ongoing', 'news'], pays: ['countries', 'agenda', 'reports'], sites: ['sites', 'buddy'], anticipation: ['ew', 'analytics'], trafic: ['air', 'sea'] };
-  const SPACE_ICON = { veille: 'siren', pays: 'globe', sites: 'building-2', anticipation: 'radar', trafic: 'plane' };
-  const TAB_ICON = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle', agenda: 'calendar', reports: 'book-open-text', ew: 'radar', analytics: 'chart-column', air: 'plane', sea: 'ship' };
+  const SPACES = { veille: ['alerts', 'ongoing', 'news'], pays: ['countries', 'agenda', 'reports'], sites: ['sites', 'buddy'], anticipation: ['ew', 'analytics'], trafic: ['air', 'sea'], prestataires: ['providers'] };
+  const SPACE_ICON = { veille: 'siren', pays: 'globe', sites: 'building-2', anticipation: 'radar', trafic: 'plane', prestataires: 'handshake' };
+  const TAB_ICON = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle', agenda: 'calendar', reports: 'book-open-text', ew: 'radar', analytics: 'chart-column', air: 'plane', sea: 'ship', providers: 'handshake' };
   const spaceOf = tab => Object.keys(SPACES).find(k => SPACES[k].includes(tab)) || 'veille';
   const lastTab = store.get('vs-lasttab', {});
   function tabBadge(tab) {
@@ -1288,6 +1366,7 @@
     if (state.tab === 'buddy') { renderBuddy(); ensureBuddyData(); }
     if (state.tab === 'agenda') renderAgenda();
     if (state.tab === 'reports') renderReports();
+    if (state.tab === 'providers') renderProvidersTab();
     if (state.tab === 'analytics') renderAnalyticsIntro();
     if (state.tab === 'air' || state.tab === 'sea') { renderTraffic(); trafficLayers(true); } else { closeTrafficView(); trafficLayers(false); }
     if (window.AngorEW) { if (state.tab === 'ew' && !window.AngorEW.active) window.AngorEW.open(); else if (state.tab !== 'ew' && window.AngorEW.active) window.AngorEW.close(); }
@@ -2023,17 +2102,14 @@
     toast(t('loading_archive'), 0);
     let left = need.length;
     need.forEach(([kind, m]) => {
-      const sc = document.createElement('script');
-      sc.src = kind === 'a' ? `data/archive/${m}.js` : `data/history/map/${m}.js`;
-      sc.onload = sc.onerror = () => {
+      loadScript(kind === 'a' ? `data/archive/${m}.js` : `data/history/map/${m}.js`).then(() => {
         loadedMonths.add(kind === 'a' ? m : 'h' + m);
         const known = new Set(EVENTS.map(e => e.id));
         const list = kind === 'a' ? (window.VS_ARCHIVE || {})[m] : (window.VS_HMAP || {})[m];
         (list || []).forEach(e => { if (!known.has(e.id)) { if (kind === 'h') e.hist = true; EVENTS.push(e); } });
         if (kind === 'h' && window.VS_HMAP) delete window.VS_HMAP[m];
         if (--left === 0) { computeProximity(); $('#toast').hidden = true; done(); }
-      };
-      document.head.appendChild(sc);
+      });
     });
   }
   function refresh() { persist(); state.limit = 60; ensureArchives(renderAll); }
@@ -2145,6 +2221,7 @@
       const cr = ev.target.closest('[data-crisis]'); const fo = ev.target.closest('[data-focus]');
       if (fo) { focusCrisis(fo.dataset.focus); return; }
       const pv = ev.target.closest('[data-pvcat]'); if (pv) { showProviderList(pv.dataset.iso, pv.dataset.pvcat); return; }
+      const pa = ev.target.closest('[data-pb-iso]'); if (pa) { Object.assign(state.pb, { iso: pa.dataset.pbIso, cat: '', q: '', scope: 'all' }); state.tab = 'providers'; renderTabs(); $('#app').classList.add('panel-open'); if (window.innerWidth <= 860) closeDrawer(); return; }
       if (cr) { ev.preventDefault(); openCrisis(cr.dataset.crisis); return; }
       const rg = ev.target.closest('[data-rep-country],[data-rep-geo]');
       if (rg) { ev.preventDefault(); Object.assign(state.rep, { geo: rg.dataset.repCountry || rg.dataset.repGeo, q: '', shown: 60, period: '365' });
@@ -2267,7 +2344,7 @@
       ev.stopPropagation();
       const b = ev.target.closest('[data-mm]'); if (!b) return;
       const k = b.dataset.mm; menu.hidden = true;
-      if (['countries', 'news', 'agenda', 'sites', 'reports', 'ew', 'air'].includes(k)) { state.tab = k; renderTabs(); $('#app').classList.add('panel-open'); closeDrawer(); }
+      if (['countries', 'news', 'agenda', 'sites', 'reports', 'ew', 'air', 'providers'].includes(k)) { state.tab = k; renderTabs(); $('#app').classList.add('panel-open'); closeDrawer(); }
       else if (k === 'analytics') { $('#app').classList.remove('panel-open'); $('#btn-analytics').click(); }
       else if (k === 'refresh') forceRefresh();
       else if (k === 'reliable') { state.reliable = !state.reliable; refresh(); toast(state.reliable ? t('rel_on', 0) : t('rel_off')); }
@@ -2290,7 +2367,7 @@
         return `<button data-m="${k}" class="${cur === k ? 'on' : ''}" aria-label="${esc(t(lb))}">${icon(ic, 22)}<span>${esc(t(lb))}</span>${n ? `<b class="nb">${n}</b>` : ''}</button>`; }).join('')
       + `<button data-m="more" class="${cur === 'more' ? 'on' : ''}" aria-label="${esc(t('m_more'))}">${icon('list', 22)}<span>${esc(t('m_more'))}</span></button>`;
     const acc = window.AngorAccount && window.AngorAccount.enabled;
-    menu.innerHTML = [['air', 'plane', t('sp_trafic')], ['refresh', 'refresh-cw', t('rf_title').split(' :')[0].split(':')[0]], ['reliable', state.reliable ? 'shield-check' : 'shield', state.reliable ? t('rel_off').split(' (')[0] : t('rel_on', 0)],
+    menu.innerHTML = [['providers', 'handshake', t('sp_prestataires')], ['air', 'plane', t('sp_trafic')], ['refresh', 'refresh-cw', t('rf_title').split(' :')[0].split(':')[0]], ['reliable', state.reliable ? 'shield-check' : 'shield', state.reliable ? t('rel_off').split(' (')[0] : t('rel_on', 0)],
       ['analyst', 'clipboard-check', t('an_menu')], ['share', 'share-2', t('share')], ...(acc ? [['account', 'users', t('m_account')]] : []),
       ...(ACC.profile && ACC.profile.role === 'admin' ? [['admin', 'shield', t('m_admin')]] : []), ['help', 'circle-help', t('help')], ['legal', 'scale', t('m_legal')],
       ['lang', 'globe', state.lang === 'fr' ? 'English' : 'Français'], ['theme', state.theme === 'dark' ? 'sun-medium' : 'moon', state.theme === 'dark' ? 'Clair' : 'Sombre'],
@@ -2667,11 +2744,12 @@
   const buddy = { log: [], busy: false, loaded: null };
   const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ' ');
   function loadScript(src) {
+    if (window.AngorVault) return window.AngorVault.script(src).catch(() => {});   // données réservées : coffre Supabase
     return new Promise(res => { const s = document.createElement('script'); s.src = src; s.onload = s.onerror = () => res(); document.head.appendChild(s); });
   }
   function ensureBuddyData() {
     if (!buddy.loaded) buddy.loaded = Promise.all(['data/guides.js', 'data/practical.js', 'data/providers.js', 'data/cities.js']
-      .filter(src => !document.querySelector(`script[src="${src}"]`)).map(loadScript)).then(buildIndex);
+      .filter(src => !document.querySelector(`script[src="${src}"]`) && !(window.AngorVault && window.AngorVault.loaded(src))).map(loadScript)).then(buildIndex);
     return buddy.loaded;
   }
   const ALIASES = { usa: 'US', 'etats unis': 'US', amerique: 'US', uk: 'GB', angleterre: 'GB', 'grande bretagne': 'GB', rdc: 'CD', 'congo kinshasa': 'CD',
@@ -2886,9 +2964,10 @@
      connecté, pour éviter un affichage visiteur à chaque ouverture ; il est effacé à la déconnexion (account.js). */
   const GUEST = { on: false, pending: false };
   (function guestInitial() {
-    const A = window.AngorAccount;
+    const A = window.AngorAccount, V = window.AngorVault;
     if (!A || !A.enabled) return;
-    GUEST.on = !A.session || !store.get('vs-member', false);
+    if (V && V.active) { GUEST.on = V.mode !== 'member'; GUEST.pending = V.mode === 'pending'; }   // décision du coffre (accès réel aux données)
+    else GUEST.on = !A.session || !store.get('vs-member', false);
     if (!GUEST.on) return;
     Object.assign(state, { hours: 168, range: null, sev: { 1: true, 2: true, 3: true, 4: true }, cats: new Set(Object.keys(TAX.categories)),
       onlySites: false, onlyOngoing: false, onlyVerified: false, onlyWatch: false, hideAuto: false, reliable: true, crisisFocus: null,
@@ -2965,4 +3044,4 @@
     el.hidden = false;
   }
   window.addEventListener('resize', () => map.invalidateSize());
-})();
+});

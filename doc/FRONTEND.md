@@ -96,6 +96,27 @@ La période est fixée à 7 jours, tous filtres levés, et `persist()` ne mémor
 `localStorage['vs-member']` mémorise qu'un compte validé s'est connecté sur l'appareil (pas de passage par l'affichage visiteur à
 chaque ouverture) ; `initAccount()` le corrige et recharge la page si le statut a changé ; `account.js` l'efface à la déconnexion.
 
-**Limite** : c'est un masquage d'interface. Les fichiers de données (`docs/data/*.js`) restent publics sur GitHub Pages ; pour
-réellement réserver les données aux abonnés, il faudra les servir depuis Supabase (lecture protégée par RLS) ou un dépôt privé.
-Sans configuration Supabase (usage local), l'outil reste complet.
+Depuis la v0.22, le mode est décidé par `docs/vault.js` (accès réel aux données du coffre, voir ci-dessous) ; le masquage
+d'interface n'est plus la seule barrière. Sans configuration Supabase (usage local), l'outil reste complet.
+
+## Chargement des données et coffre (v0.22)
+
+`docs/vault.js` (`window.AngorVault`) est chargé après `config.js` et `account.js`. La balise indique les fichiers dont la
+page a besoin au démarrage (`data-need="data.js profiles.js …"`) et, pour la carte, la version visiteur (`data-guest="guest.js"`).
+
+- **local** (pas de `VS_CONFIG.vault`) : fichiers de `docs/data` chargés par balise `<script>`, comme avant ;
+- **member** : fichiers réservés lus dans le compartiment Supabase `angor-data` avec le jeton de session
+  (`AngorAccount.storageText`), exécutés dans la portée globale ; copie hors ligne dans le cache `angor-vault` (effacé à la
+  déconnexion) ;
+- **pending** / **guest** : carte → `data/guest.js` ; rapport, brief → page verrouillée (`AngorVault.lock`).
+
+Le code des pages démarre par `AngorVault.ready(fn)` (app.js, report.js, brief.js). Les chargements différés passent par
+`AngorVault.script(src)` (rapports, fiches pays, archives, alerte précoce, Travel buddy) ; la liste des fichiers publics
+est la même que `veille/vault.py` (`PUBLIC`, `PUBLIC_DIRS`).
+
+## Onglet Prestataires (v0.22)
+
+Espace `prestataires` (onglet `providers`, `renderProvidersTab`) : recherche plein texte, pays (via `AngorProviders.forCountry`),
+catégorie, portée (`AngorProviders.scopeOf` : local = un pays ; régional = une ou deux régions du monde ; mondial = trois
+régions ou plus, ou 15 pays et plus) et « vérifiés seulement ». Depuis une fiche pays, « Voir tous les prestataires du pays »
+ouvre l'onglet filtré.

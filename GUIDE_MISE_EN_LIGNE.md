@@ -418,6 +418,38 @@ les données d'incidents restent publiques sur angor.fr. Prochaines évolutions,
 **espaces clients** (une organisation, son référent, ses utilisateurs, son offre et sa période d'abonnement, invitations),
 fonctions « Résilier mon abonnement » et « Renoncer au contrat ici » prévues par les CGV, puis carte réservée aux comptes validés.
 
+### H10. Réserver les données aux comptes validés (coffre) (15 min)
+
+Depuis la v0.22, en ligne, la carte complète (incidents détaillés, sources, fil, chronologies, notes de risque, alerte
+précoce, rapports, fiches pays) n'est plus publiée sur le site : le robot la dépose dans un compartiment **privé** de
+Supabase, que seuls les comptes validés peuvent lire. Les visiteurs ne reçoivent qu'une carte allégée (7 jours ; titre,
+catégorie, gravité, lieu). Tant que ces étapes ne sont pas faites, les comptes validés voient une carte vide : faites-les
+dans l'ordre, puis lancez `publier.bat`.
+
+1. **Base** : relancez `supabase/schema.sql` (SQL Editor → Run ; l'avertissement « destructive operations » est normal).
+   Vérifiez dans **Storage** qu'un compartiment `angor-data` existe, marqué *Private*.
+2. **Clé secrète du robot** : Supabase → **Project Settings → API Keys → Secret keys** → copiez la clé qui commence par
+   `sb_secret_…` (ou créez-en une, nommée « robot »). À défaut, onglet *Legacy API keys* → `service_role`.
+   Cette clé donne tous les droits : ne la collez **jamais** dans un fichier, sur le site ou dans une conversation.
+3. **GitHub** : dépôt → **Settings → Secrets and variables → Actions → New repository secret** :
+   *Name* `SUPABASE_SERVICE_KEY`, *Secret* = la clé copiée → **Add secret**.
+4. **Robot** : copiez le nouveau fichier du robot à sa place (terminal ouvert dans le dossier `veille-surete`) :
+   `copy /Y tools\github-actions-collecte.yml .github\workflows\collecte.yml`
+5. Lancez `publier.bat`, puis GitHub → **Actions** → dernière exécution « Collecte » → étape *Collecte* : la ligne
+   `Coffre : N fichier(s) réservé(s) envoyé(s)` doit apparaître (sinon, le message en ✘ dit ce qui manque). Dans Supabase →
+   Storage → `angor-data`, vous voyez `data.js`, `reports.js`, `country/…`.
+6. **Contrôle** (fenêtre de navigation privée) : `angor.fr` affiche la carte visiteur ; `angor.fr/data/data.js` répond
+   « 404 » ; un rapport pays demande de se connecter. Connecté avec un compte validé : tout est là.
+
+À savoir :
+- Restent publics : le code et la configuration (dépôt GitHub public), la base historique (`docs/data/history`), les
+  guides pays et le Factbook (déjà dans le dépôt), la carte des pays et l'annuaire public des prestataires.
+- Sur votre PC, rien ne change : `python collecte.py` écrit toujours tout dans `docs/data` (usage local).
+- Offre gratuite Supabase : 5 Go de trafic sortant par mois. Chaque ouverture de la carte par un compte validé télécharge
+  les données (quelques Mo) ; à surveiller dans *Usage* quand le nombre d'utilisateurs augmente (offre Pro au-delà).
+- Comptes « prestataire » validés : ils ont aussi accès aux données (même règle que les clients) ; à revoir si vous
+  souhaitez réserver la veille aux clients.
+
 ## Partie I – Rapports et alerte précoce (rien à installer)
 
 Les deux onglets se remplissent seuls après **publier.bat** :

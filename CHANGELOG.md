@@ -4,6 +4,34 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.22 – Données réservées aux comptes validés, onglet Prestataires (octobre 2026)
+
+- **Vraie protection des données** : en ligne, la carte complète (incidents détaillés, sources, fil, chronologies, notes de
+  risque, Pulse, alerte précoce, rapports, fiches pays, calendrier…) n'est plus publiée sur le site. Le robot la dépose dans
+  un compartiment **privé** de Supabase ; la base ne la donne qu'aux comptes validés (contrôle côté serveur, pas seulement
+  à l'écran). `angor.fr/data/data.js` n'existe plus en ligne.
+- **Visiteurs** : carte allégée (7 jours ; titre, catégorie, gravité, lieu, date). **Rapport pays et brief** : verrouillés
+  sans compte validé (invitation à se connecter ou à créer un compte).
+- **Hors ligne** : la dernière situation consultée par un compte validé reste disponible sur l'appareil, effacée à la
+  déconnexion.
+- **Onglet Prestataires** (barre de gauche ; menu « Plus » sur mobile) : tout l'annuaire avec recherche, pays, catégorie,
+  portée **locaux / régionaux / mondiaux** (avec le nombre de chaque) et « vérifiés seulement » ; drapeaux cliquables (fiche
+  pays) ; lien « Voir tous les prestataires du pays » depuis chaque fiche pays.
+- Développeur : `veille/vault.py` (coffre, `guest.js`), `docs/vault.js` (chargeur, `AngorVault.ready / script / text`),
+  `AngorAccount.storageText`, `AngorProviders.scopeOf / catalogue` ; compartiment `angor-data` et politique `angor_data_read`
+  dans `supabase/schema.sql` ; Secret GitHub `SUPABASE_SERVICE_KEY` et ligne correspondante dans
+  `tools/github-actions-collecte.yml` (à recopier dans `.github/workflows/collecte.yml`) – guide H10 ; tests
+  `tests/test_vault.py` et e2e (coffre, onglet Prestataires).
+- Restent publics : code et configuration (dépôt public), base historique, guides pays, Factbook, annuaire public.
+- **Annuaire étoffé** : 316 prestataires locaux dans 107 pays et 47 régionaux (en plus des 23 internationaux), repérés et
+  vérifiés sur leur site officiel (lien de vérification et date conservés dans `config/providers_directory.json`) :
+  cliniques et hôpitaux privés, médecins et assistance sur place, ambulances aériennes, sécurité privée, chauffeurs,
+  véhicules blindés, hélicoptères. Toujours « non vérifié – à contacter séparément » (niveau E) tant que le prestataire ne
+  s'inscrit pas.
+- **Nouvelles catégories** : « Cliniques et hôpitaux privés » et « Medical Care & Assistance » (médecin 24/7, visites,
+  téléconsultation) ; le groupe santé devient « Soins médicaux et assistance ». Les régionaux déclarent leurs pays couverts
+  (`countries`) : ils n'apparaissent plus que sur les fiches de ces pays. Onglet Prestataires : liste par pages de 60.
+
 ## v0.21 – Carte réservée aux comptes, nouveaux marqueurs, fond réaliste, justificatifs prestataires (octobre 2026)
 
 - **Mode visiteur** : sans compte validé, seule la carte des évènements s'affiche (ni panneau, ni filtres, ni couches, ni fiches

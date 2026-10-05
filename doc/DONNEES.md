@@ -153,3 +153,15 @@ planter (l'historique se reconstitue en quelques collectes, les référentiels s
 | `provider_reviews` | Avis (note 1-5, commentaire, réponse du prestataire, statut published/hidden) ; un par client et par prestataire | comptes validés ; écriture : clients validés, réponse : prestataire, masquage : admin |
 | `provider_requests` | Demandes de devis (message, catégorie, pays, période, statut) | demandeur, prestataire concerné, admin |
 | Stockage | `provider-media` (public, photos 5 Mo), `provider-docs` (privé, 10 Mo) ; dossier = identifiant de la fiche | règles sur `storage.objects` |
+
+## Données publiques et données réservées (v0.22)
+
+En ligne (robot GitHub Actions, `VS_PUBLIC=1`) et comptes configurés, `veille/vault.py` sépare les sorties de `docs/data` :
+
+| Publics (GitHub Pages) | Réservés (Supabase Storage, compartiment privé `angor-data`) |
+|---|---|
+| `config.js`, `countries.js`, `legal.js`, `providers.js`, `cities.js`, `factbook.js`, `guides.js`, `history/`, `guest.js` | tout le reste : `data.js`, `events.geojson`, `reports.js`, `early_warning.js`, `calendar.js`, `econ.js`, `profiles.js`, `practical.js`, `health.js`, `traffic.js`, `country/`, `archive/` |
+
+`guest.js` = carte des visiteurs (7 jours, champs : id, catégorie, gravité, titre, date, position, lieu, pays, précision,
+fiabilité). Les fichiers réservés sont envoyés s'ils ont changé (`data/vault_manifest.json`), puis retirés de `docs/data`
+(copie dans `data/private/`) avant la publication, même si l'envoi échoue. Clé : Secret GitHub `SUPABASE_SERVICE_KEY`.

@@ -19,7 +19,7 @@ from datetime import datetime, timedelta, timezone
 
 from veille import (__version__, accounts, agenda, ai, analytics, config, country_detail, crises, early_warning, enrich, legal, notify, providers,
                     practical, press, profiles, reports, traffic,
-                    publish, pulse, quality, risk)
+                    publish, pulse, quality, risk, vault)
 from veille.connectors import REGISTRY, Context
 from veille.dedupe import dedupe
 from veille.geo import Countries, distance_to
@@ -129,6 +129,7 @@ def main():
             log(f"[{flag}] {s['id']:<22} {s['type']:<15} {s.get('name', '')}")
         return 0
 
+    vault.restore()  # en ligne : profils pays conservés d'une collecte à l'autre (coffre des données réservées)
     now = datetime.now(timezone.utc)
     countries = Countries()
     store = publish.load_store()
@@ -314,6 +315,7 @@ def main():
     notify.send_digest(events, country_risk, pulse_idx, store, settings, log, now, countries, payload["news"],
                        crisis_list, agenda_events)
     publish.write_outputs(payload)
+    vault.write_guest(payload)  # carte des visiteurs (sans compte validé) : version allégée, publique
     econ_by_country = {}
     for e in sorted(store["econ"].values(), key=lambda x: x["date"], reverse=True):
         econ_by_country.setdefault(e["country"], []).append(e)
@@ -324,11 +326,14 @@ def main():
         "product_name": product, "ai_url": settings.get("ai_url") or settings.get("buddy_url", ""),
         "accounts": {k: acc.get(k, "") for k in ("supabase_url", "supabase_anon_key", "vapid_public_key")},
         # flux de trafic : seul le nom du fournisseur est publié, jamais une clé
-        "traffic": {k: {"provider": ((settings.get("traffic") or {}).get(k) or {}).get("provider", "")} for k in ("air", "sea")}})
+        "traffic": {k: {"provider": ((settings.get("traffic") or {}).get(k) or {}).get("provider", "")} for k in ("air", "sea")},
+        # coffre : les pages lisent les données réservées dans Supabase Storage (comptes validés uniquement)
+        **({"vault": {"bucket": vault.BUCKET}} if vault.enabled(settings) else {})})
     legal.write(log)  # mentions légales, CGU, CGV… : config/legal.json → docs/data/legal.js
     accounts.ping(settings, log)  # signe de vie : le projet Supabase gratuit ne se met pas en pause
     providers.update(settings, log)  # annuaire : inscrits (Supabase) + repérés par Angor → docs/data/providers.js
     publish.bust_cache()
+    vault.publish_private(settings, log)  # en ligne : données réservées → Supabase, retirées du site public
     publish.save_store(store)
 
     log(f"→ {len(events)} événements publiés, {len(country_risk)} pays notés, "

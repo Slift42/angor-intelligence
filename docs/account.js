@@ -16,6 +16,7 @@
   function save(s) {
     session = s;
     try { s ? localStorage.setItem(SKEY, JSON.stringify(s)) : (localStorage.removeItem(SKEY), localStorage.removeItem('vs-member')); } catch (e) { /* stockage indisponible */ }
+    if (!s && window.caches) caches.delete('angor-vault').catch(() => {});   // copie hors ligne des données réservées
     listeners.forEach(f => { try { f(s); } catch (e) { /* écouteur en erreur */ } });
   }
   const encPath = p => String(p).split('/').map(encodeURIComponent).join('/');
@@ -120,6 +121,14 @@
       await fresh();
       const j = await http(`/storage/v1/object/sign/${bucket}/${encPath(path)}`, { method: 'POST', body: { expiresIn: expiresIn || 300 } });
       return URL0 + '/storage/v1' + (j.signedURL || j.signedUrl);
+    },
+    /** Fichier privé (coffre des données réservées) lu avec le jeton de session : texte, ou erreur avec .status. */
+    async storageText(bucket, path) {
+      if (!(await fresh())) { const e = new Error('session'); e.status = 401; throw e; }
+      const r = await fetch(`${URL0}/storage/v1/object/authenticated/${bucket}/${encPath(path)}`,
+        { headers: { apikey: KEY, Authorization: 'Bearer ' + session.access_token }, cache: 'no-store' });
+      if (!r.ok) { const e = new Error('HTTP ' + r.status); e.status = r.status; throw e; }
+      return r.text();
     },
     async removeFile(bucket, path) { await fresh(); return http(`/storage/v1/object/${bucket}`, { method: 'DELETE', body: { prefixes: [path] } }); },
     async deleteAccount() { await api.rpc('delete_my_account'); save(null); },
