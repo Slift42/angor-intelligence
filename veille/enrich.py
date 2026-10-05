@@ -30,20 +30,30 @@ def _fetch_title(url):
     return title if 15 <= len(title) <= 300 else ""
 
 
+def ev_urls(ev):
+    return [s["url"] for s in ev.get("sources", [])[:2] if s.get("url")]
+
+
 def add_headlines(events, cache, log, max_fetch=150, workers=8):
+    """Titre réel de l'article de chaque détection GDELT. Sans lui, le contrôle d'entrée (veille/triage.py) laisse
+    l'événement en attente ; article illisible (page bloquée, sans titre) : « headline_failed », hors carte.
+    Les détections les plus récentes passent en premier."""
     todo = []
-    for ev in events:
+    for ev in sorted(events, key=lambda e: e.get("date") or "", reverse=True):
         if ev.get("headline") or ev["source"] != "GDELT":
             continue
-        urls = [s["url"] for s in ev.get("sources", [])[:2] if s.get("url")]
+        urls = ev_urls(ev)
         cached = [cache[u] for u in urls if cache.get(u)]
         if cached:
             ev["headline"] = cached[0]
+            ev.pop("headline_failed", None)
         elif any(u not in cache for u in urls):
             todo.append((ev, [u for u in urls if u not in cache]))
-    todo = todo[:max_fetch]
+        else:
+            ev["headline_failed"] = True   # tous les articles déjà essayés, aucun titre lisible
+    todo = todo[:max(0, max_fetch)]
     if not todo:
-        return
+        return 0
     urls = sorted({u for _, us in todo for u in us})
     with ThreadPoolExecutor(max_workers=workers) as pool:
         for url, title in zip(urls, pool.map(_fetch_title, urls)):
@@ -53,9 +63,14 @@ def add_headlines(events, cache, log, max_fetch=150, workers=8):
         for u in us:
             if cache.get(u):
                 ev["headline"] = cache[u]
+                ev.pop("headline_failed", None)
                 n += 1
                 break
+        else:
+            if all(u in cache for u in us) and not any(cache.get(u) for u in ev_urls(ev)):
+                ev["headline_failed"] = True
     log(f"  Titres d'articles : {n}/{len(todo)} incidents GDELT décrits")
     if len(cache) > 8000:  # le cache ne grossit pas indéfiniment
         for k in list(cache)[: len(cache) - 6000]:
             del cache[k]
+    return len(todo)

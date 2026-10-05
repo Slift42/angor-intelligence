@@ -406,6 +406,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
       <h3>Valider en un clic et mesurer la qualité des sources</h3>
     <p>En mode analyste (lien <code>?analyste=1</code>, ou « Mode analyste » dans État des sources et dans le menu Plus), chaque fiche d'incident affiche en haut <strong>Valider</strong> et <strong>Fausse alerte</strong>. Le bouton <strong>Enregistrer</strong> écrit directement dans <code>config/verified.json</code> (Chrome et Edge : choisissez le fichier la première fois), puis double-cliquez sur publier.bat.</p>
     <p>Chaque décision alimente la <strong>qualité mesurée des sources</strong> (État des sources) : à partir de 5 décisions, une source souvent infirmée perd automatiquement une lettre de fiabilité (deux au-delà de 80 % de fausses alertes) ; une source confirmée à 90 % en gagne une.</p>
+    <p><strong>Contrôle des événements</strong> (État des sources) : chaque nouveauté est vérifiée avant d'entrer sur la carte (fait physique, lieu et date plausibles, article lu pour GDELT), puis revérifiée à chaque collecte. La section montre les chiffres de la dernière collecte, les alarmes (source presque entièrement refusée) et les derniers titres refusés avec leur motif. En mode analyste, <strong>Rétablir</strong> corrige un faux refus : la décision part avec <code>verified.json</code> et s'applique à la collecte suivante.</p>
 </section>
 
   <section id="ia">

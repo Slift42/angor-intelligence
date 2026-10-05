@@ -34,6 +34,9 @@ Produit par `veille/model.py → make_event`, complété au fil de la chaîne. C
 | `confidence` | `high` \| `medium` \| `low` | oui | Confiance (multi-source = `high`) |
 | `tags` | list[str] | oui | `press`, `auto-detected`, `ai`, `multi-source`, `verified`… |
 | `merged` | list[str] | — | Identifiants absorbés par le dédoublonnage |
+| `triage` | dict | — | Verdict du contrôle d'entrée (mémoire du robot, v0.24) : `status` (ok, context, noise, invalid, pending, unverifiable), `reason`, `since` (date du verdict), `sig` (empreinte règles + contenu) |
+| `physical` | bool | — | Avis de l'IA : fait physique confirmé (titres analysés par l'IA) |
+| `headline_failed` | bool | — | GDELT : aucun article lisible (page bloquée, sans titre) |
 | `admiralty` | str `A1`–`F6` | — | Cotation de l'Amirauté (`quality.py`) |
 | `verified` | dict | — | Validation de l'analyste (`config/verified.json`) |
 
@@ -199,4 +202,31 @@ La fiche de base est celle dont le lieu est le plus précis (puis la presse, pui
 gravité maximale, la dernière date, la première date (`start`), toutes les sources (25 au plus) et la liste `merged`.
 Deux bilans quotidiens semblables à plus de 48 h d'écart restent deux événements. Sur les données en ligne du 5 octobre
 2026 (1 500 événements), le regroupement par histoire en rattache 31, la fusion complète 79 (50 avec la seule fusion par lieu).
+
+## Contrôle d'entrée : vérification a priori et permanente (v0.24)
+
+`veille/triage.py` est la porte unique entre les sources et la carte. Rien n'atteint la carte, les alertes e-mail et
+Telegram, les notes de risque, Pulse ni les chronologies sans un verdict `ok`.
+
+1. **A priori** (à l'arrivée, avant la mémoire) : `collecte.py` lit d'abord le titre réel des nouvelles détections GDELT
+   (`enrich.add_headlines`, les plus récentes en premier), puis `triage.check` pose un verdict sur chaque nouveauté.
+   Les fiches `invalid` (position absente, impossible ou (0, 0) ; titre vide ; date illisible ; date à venir pour un
+   fait de violence – une alerte météo ou une crue peut, elle, commencer dans les 10 jours) ne sont jamais stockées.
+2. **Permanent** (à chaque collecte) : toute la mémoire repasse le contrôle. Une règle améliorée s'applique aussitôt
+   aux fiches déjà connues ; une détection GDELT `pending` devient `ok`, `context` ou `noise` dès que son article est
+   lu, `unverifiable` s'il est illisible. Pour rester rapide, une fiche dont le contenu et les règles n'ont pas changé
+   garde son verdict (`sig` = empreinte de `press.py` et `triage.py` + du contenu) : le premier passage après une
+   modification des règles relit tout (≈ 2 ms par fiche), les suivants prennent moins d'une seconde.
+3. **Décision de l'analyste** : `config/verified.json` passe avant les règles (`verified`/`corrected` : retenu ;
+   `false` : écarté). Dans « État des sources », en mode analyste, « Rétablir » sur un titre refusé crée cette
+   décision (exportée avec `verified.json`, appliquée à la collecte suivante).
+4. **Journal et alarme** : `store["state"]["triage"]` garde les chiffres des 48 dernières collectes et les 150 derniers
+   refus (publiés dans `data.js` → `triage`, section « Contrôle des événements » d'« État des sources »). Une source dont
+   plus de 85 % d'au moins 20 nouveautés sont refusées déclenche une ligne `✘ Contrôle d'entrée` dans le journal du
+   robot : flux devenu hors sujet, ou règle trop stricte.
+5. **IA** (si clé) : en plus de la pertinence, l'IA dit si le titre décrit un fait physique (`physical`) ; sinon le
+   titre va au Fil (« contexte (IA) »). Ancienne fiche IA sans cet avis : règles par mots-clés.
+
+Le verdict des sources officielles (USGS, GDACS, NWS, Météo-France, OMS…) est `ok` dès que la fiche est plausible :
+ce sont des événements déjà vérifiés par leur producteur.
 

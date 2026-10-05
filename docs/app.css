@@ -910,3 +910,13 @@ body.guest .top-right { margin-left: auto; }
 .pb-foot .pv-legend { gap: 6px; font-size: 12px; }
 .pv-all { margin-top: 8px; }
 .pb-m svg { width: 11px; height: 11px; vertical-align: -1px; }
+
+/* contrôle des événements (État des sources, v0.24) */
+.triage .tg-counts .w { white-space: normal; text-align: right; }
+.triage .tg-alarms li { color: var(--sev4); font-size: 12px; display: flex; gap: 6px; align-items: center; }
+.triage .tg-recent summary { cursor: pointer; font-size: 13px; font-weight: 600; margin: 6px 0; }
+.triage .tg-recent .t a { color: inherit; text-decoration: none; }
+.triage .tg-recent .t a:hover { text-decoration: underline; }
+.triage .tg-why { color: var(--muted); font-size: 12px; }
+.triage .tg-ok { color: var(--risk1); font-size: 12px; white-space: nowrap; }
+

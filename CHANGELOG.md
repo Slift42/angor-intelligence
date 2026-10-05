@@ -4,6 +4,32 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.24 – Contrôle d'entrée des événements : vérification a priori et permanente (octobre 2026)
+
+- **Chaque nouveauté est vérifiée avant d'entrer sur la carte**, plus seulement au moment de l'affichage : fait
+  physique (presse, GDELT), fiche plausible (position, date, titre), article réellement lu pour GDELT. Rien n'atteint
+  la carte, les alertes e-mail et Telegram, les notes de risque ni Pulse sans ce feu vert.
+- **GDELT** : une détection reste **en attente, hors carte**, tant que le titre de son article n'a pas été lu ; si
+  l'article est illisible, elle n'apparaît pas (« invérifiable »). Les détections les plus récentes sont lues en
+  premier.
+- **Fiches invalides** (position impossible ou (0, 0), titre vide, date illisible, attentat daté dans le futur) :
+  refusées à l'entrée, jamais gardées en mémoire. Une alerte météo ou une crue peut, elle, commencer dans les 10 jours.
+- **Contrôle permanent** : toute la mémoire (95 jours) repasse le contrôle à chaque collecte. Une règle améliorée
+  s'applique aussitôt aux fiches déjà connues. Seules les fiches modifiées sont relues (moins d'une seconde par
+  collecte ; la première collecte après une modification des règles relit tout, environ 2 ms par fiche).
+- **Avec l'IA** (si une clé est configurée) : l'IA dit aussi si le titre décrit un fait physique ; sinon il va au Fil.
+- **« État des sources » → « Contrôle des événements »** : nouveautés de la dernière collecte et de la journée, état
+  de la mémoire (retenus, contexte, écartés, en attente), alarmes, et les 40 derniers titres refusés avec leur motif.
+  En mode analyste, **« Rétablir »** corrige un faux refus (décision exportée dans `verified.json`, appliquée à la
+  collecte suivante). La décision de l'analyste passe toujours avant les règles.
+- **Alarme** dans le journal du robot (`✘ Contrôle d'entrée`) quand une source voit plus de 85 % de ses nouveautés
+  refusées (au moins 20) : flux devenu hors sujet, ou règle trop stricte.
+- Développeur : `veille/triage.py` (`verdict`, `sanity`, `check`, `on_map`, `alarms`, `journal`, `payload`) ; champs
+  `triage`, `physical`, `headline_failed` ; `enrich.add_headlines` renvoie le nombre d'articles lus (budget partagé
+  entre nouveautés et attente) ; prompt IA (`physical`) ; `collecte.triage_reason` remplacé par le contrôle ; tests
+  `tests/test_triage.py` ; doc `doc/DONNEES.md` (contrôle d'entrée), `doc/ARCHITECTURE.md`, `doc/TESTS.md` ; cache
+  hors ligne `angor-v7`.
+
 ## v0.23 – Moins de doublons, seulement de vrais événements sur la carte (octobre 2026)
 
 - **Un événement = un fait physique** qui peut toucher un voyageur ou un site. Les titres de sûreté qui n'en sont pas

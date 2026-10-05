@@ -1129,6 +1129,11 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             if not ai.get("relevant"):
                 continue
             cat, sev = ai.get("category"), int(ai.get("severity") or 1)
+            # fait physique ? avis de l'IA ; à défaut (ancienne fiche en cache), règles par mots-clés
+            if ai.get("physical") is False:
+                ctx = "contexte (IA)"
+            elif ai.get("physical") is None and cat:
+                ctx = context(it["title"], cat)
             iso = ai.get("country") or it.get("country_hint")
             if iso:
                 loc = {"country": iso}
@@ -1172,6 +1177,8 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             if it.get("snippet") and not g.get("snippet"):
                 g["snippet"] = it["snippet"]
             g["ai"] = g.get("ai") or ai is not None
+            if ai and ai.get("physical") is True:
+                g["physical"] = True   # l'IA a confirmé un fait physique (contrôle d'entrée, veille/triage.py)
 
     events = []
     for gkey, g in groups.items():
@@ -1200,6 +1207,8 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             ev["summary_fr"] = g["summary_fr"]
         if g.get("snippet"):
             ev["snippet"] = g["snippet"]
+        if g.get("physical"):
+            ev["physical"] = True
         events.append(ev)
 
     econ, eseen = [], set()

@@ -19,7 +19,7 @@ from datetime import datetime, timedelta, timezone
 
 from veille import (__version__, accounts, agenda, ai, analytics, config, country_detail, crises, early_warning, enrich, legal, notify, providers,
                     practical, press, profiles, reports, traffic,
-                    publish, pulse, quality, risk, vault)
+                    publish, pulse, quality, risk, triage, vault)
 from veille.connectors import REGISTRY, Context
 from veille.dedupe import dedupe
 from veille.geo import Countries, distance_to
@@ -97,23 +97,6 @@ def prefetch_feeds(sources, store, args, now, log, workers=8):
     if urls:
         log(f"  Flux RSS préchargés : {len(out)} en {time.time() - t0:.0f} s")
     return out
-
-
-def triage_reason(e):
-    """Motif d'exclusion de la carte d'un événement en mémoire, ou None (titres de presse et GDELT)."""
-    tags = e.get("tags") or []
-    if "press" in tags:
-        if press.not_incident(e["title"], e["category"]):
-            return "bruit"
-        if "ai" not in tags:
-            if not press.classify(e["title"])[0]:
-                return "hors sujet"
-            if press.context(e["title"], e["category"]):
-                return "contexte"
-        return None
-    if e.get("source") == "GDELT":
-        return press.gdelt_noise(e.get("headline"))
-    return None
 
 
 def with_context(n):
@@ -231,31 +214,43 @@ def main():
     press_events, press_news, econ = press.build(ctx.press, ctx.econ, countries, log, now, ai_results)
     new_events.extend(press_events)
 
+    # Contrôle d'entrée A PRIORI (v0.24) : chaque nouveauté reçoit un verdict avant d'entrer en mémoire et sur la carte.
+    # GDELT : le titre réel de l'article est lu d'abord (sans lui, l'événement reste en attente, hors carte).
+    fetch_budget = settings.get("headline_fetch_per_run", 150)
+    fetch_budget -= enrich.add_headlines(new_events, store["headlines"], log, max_fetch=fetch_budget)
+    verified = quality.load_verified()
+    new_counts = triage.check(new_events, now, verified)
+    if new_events:
+        log(f"  Contrôle d'entrée : {len(new_events)} nouveauté(s) – {triage.summary(new_counts)}")
+    alarm_list = triage.alarms(new_events)
+    for a in alarm_list:
+        log(f"✘ Contrôle d'entrée : {a} – flux devenu hors sujet ou règle trop stricte, à revoir")
+    new_events = [e for e in new_events if e["triage"]["status"] != "invalid"]   # fiche inutilisable : pas en mémoire
+
     for prefix in ctx.purge:
         store["events"] = {k: v for k, v in store["events"].items() if not k.startswith(prefix)}
     publish.merge(store, new_events, ctx.news + press_news, now, settings.get("retention_days", 95),
                   new_econ=econ)
-    enrich.add_headlines(list(store["events"].values()), store["headlines"], log,
-                         max_fetch=settings.get("headline_fetch_per_run", 150))
+    if fetch_budget > 0:   # détections GDELT plus anciennes encore en attente de leur titre d'article
+        enrich.add_headlines(list(store["events"].values()), store["headlines"], log, max_fetch=fetch_budget)
     # langue des titres de presse déjà en mémoire (traduction dans la plateforme) et précision des lieux
     for ev in store["events"].values():
         if not ev.get("lang") and "press" in (ev.get("tags") or []):
             ev["lang"] = press.guess_lang(ev.get("title", ""))
     press.refine_regional(list(store["events"].values()), countries, log)
-    # tri avant regroupement (sinon un titre écarté pourrait servir de base à une fiche fusionnée) :
-    # faits divers, procédures judiciaires, et titres de contexte (arrestation, déclaration, analyse… : Fil seulement),
-    # y compris ceux déjà en mémoire ; GDELT : titre réel de l'article manifestement hors sujet (v0.23)
-    candidates = list(store["events"].values())
-    drop = {e["id"] for e in candidates if not e.get("verified") and triage_reason(e)}
-    if drop:
-        candidates = [e for e in candidates if e["id"] not in drop]
-        log(f"  Tri : {len(drop)} titre(s) écarté(s) de la carte (faits divers, procédures, contexte, hors sujet)")
+    # Contrôle PERMANENT : toute la mémoire repasse le contrôle à chaque collecte (règles améliorées, titre d'article lu
+    # depuis, décision de l'analyste) ; seuls les verdicts « ok » vont plus loin, et ce AVANT le regroupement des
+    # doublons (un titre refusé ne peut pas servir de base à une fiche fusionnée), les alertes et les indices.
+    stored = list(store["events"].values())
+    all_counts = triage.check(stored, now, verified)
+    candidates = triage.on_map(stored)
+    log(f"  Contrôle permanent : {len(stored)} fiche(s) en mémoire – {triage.summary(all_counts)}")
+    triage.journal(store, now, new_counts, all_counts, stored, alarm_list)
     all_events = dedupe(candidates)
     merged = sum(len(e.get("merged") or []) for e in all_events)
     if merged:
         log(f"  Doublons : {merged} fiche(s) rattachée(s) à un même événement (sources, jours ou lieux différents)")
     # validations de l'analyste (config/verified.json) + cotation de l'Amirauté sur chaque incident
-    verified = quality.load_verified()
     source_quality = quality.learn(store, all_events, verified)  # sources souvent infirmées : lettre abaissée
     all_events = quality.filter_and_rate(all_events, verified)
     all_events.sort(key=lambda e: e["date"], reverse=True)
@@ -329,6 +324,7 @@ def main():
         "status": list(store["status"].values()),
         "coverage": coverage(sources, store),
         "source_quality": source_quality,
+        "triage": triage.payload(store),
         "sites": [] if public else sites, "corridors": [] if public else corridors,
         "site_alerts": [] if public else alerts,
         "settings": {"product_name": product, "default_lang": settings.get("default_lang", "fr"),

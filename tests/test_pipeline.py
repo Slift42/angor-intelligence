@@ -77,16 +77,10 @@ def test_histoires_differentes_conservees():
     assert len(dedupe.story_merge([b, g])) == 1
 
 
-def test_tri_avant_regroupement():
+def test_contexte_des_articles_du_fil_recalcule():
     import collecte
-    noise = make("n", title="Detienen en Lerma a dos hombres y una menor por presunto secuestro y extorsión",
-                 tags=["press"], country="MX")
-    real = make("r", title="Ataque armado en Culiacán deja tres muertos", tags=["press"], country="MX")
-    gd = make("g", source="GDELT", title="Military force – Culiacán", tags=["auto-detected"], country="MX")
-    gd["headline"] = "Megyn Kelly Melts Down at 'SVU' Star in Unhinged Rant"
-    assert collecte.triage_reason(noise) == "contexte" and collecte.triage_reason(real) is None
-    assert collecte.triage_reason(gd) == "hors sujet"
-    old = {"id": "press-1", "title": noise["title"], "category": "attack"}   # article du Fil antérieur à la v0.23
+    old = {"id": "press-1", "title": "Detienen en Lerma a dos hombres y una menor por presunto secuestro y extorsión",
+           "category": "attack"}   # article du Fil antérieur à la v0.23
     assert collecte.with_context(old)["context"] == "arrestation ou suites" and "context" not in old
     kev = {"id": "kev-CVE-1", "title": "CVE-1 – Arrested Vendor", "category": "cyber"}
     assert collecte.with_context(kev) is kev

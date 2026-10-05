@@ -37,9 +37,14 @@ relevant only when it concerns public order or organised crime (gang or cartel v
 armed robbery, kidnapping, piracy, extortion, banditry). Diplomatic and political signals (elections held or
 called, resignations of leaders, new sanctions, expulsions of diplomats, recalled ambassadors, severed ties,
 no-confidence votes) are relevant with category "diplomatic" and severity 1 or 2.
+For relevant items, also say whether the headline reports a PHYSICAL event that can directly affect travellers or
+sites (an attack, a strike, a clash, a disaster, a riot, an outbreak, a blockade, an outage happening or just happened):
+physical=false for security news WITHOUT a physical fact: arrests and investigations, foiled plots and false alarms,
+statements, condemnations, visits, talks, resignations, analysis and statistics, retrospectives and denials,
+prevention works, relief and reconstruction, military announcements and procurement, diplomatic signals.
 
 Return ONLY a JSON array, one object per headline, in the same order:
-{{"i": <number>, "relevant": true|false, "category": one of {CATEGORIES} or null,
+{{"i": <number>, "relevant": true|false, "physical": true|false, "category": one of {CATEGORIES} or null,
   "severity": 1-4 (1 low/local nuisance, 2 moderate: injuries or local disruption, 3 high: deaths or major
   disruption, 4 critical: mass casualties, war escalation, national emergency),
   "country": ISO 3166-1 alpha-2 code of where the event happens (not the outlet's country) or null,
@@ -121,7 +126,9 @@ def analyze(items, store, settings, log, now):
             row["severity"] = max(1, min(4, int(row.get("severity") or 1)))
             if row.get("country"):
                 row["country"] = str(row["country"]).upper()[:2]
-            fiche = {k: row.get(k) for k in ("relevant", "category", "severity", "country", "place",
+            if row.get("physical") not in (True, False):
+                row["physical"] = None   # réponse incomplète : le tri par mots-clés tranche
+            fiche = {k: row.get(k) for k in ("relevant", "physical", "category", "severity", "country", "place",
                                              "summary_en", "summary_fr", "title_en", "title_fr")}
             cache[b["title"]] = results[b["title"]] = fiche
             done += 1

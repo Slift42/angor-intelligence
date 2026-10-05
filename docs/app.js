@@ -162,6 +162,11 @@
       legend_sev: 'Gravité', legend_risk: 'Risque pays', legend_auto: 'Contour pointillé : détection automatique · point blanc : moins de 6 h · ondes : gravité élevée ou critique · survol d\'un groupe : ses catégories',
       sources_ok: (a, b) => `${a}/${b} <span class="src-word">sources</span>`, updated: 'Mise à jour', stale: 'Données anciennes',
       sources_total: n => `${n.toLocaleString('fr-FR')} <span class="src-word">sources</span>`,
+      tg_title: 'Contrôle des événements', tg_hint: 'Chaque nouveauté est vérifiée avant d’entrer sur la carte (fait physique, lieu et date plausibles, article lisible pour GDELT), puis revérifiée à chaque collecte. Seuls les événements retenus alimentent la carte, les alertes et les indices.',
+      tg_st: { ok: 'retenus', context: 'contexte (Fil)', noise: 'écartés', invalid: 'invalides', pending: 'en attente', unverifiable: 'invérifiables' },
+      tg_last: 'Dernière collecte', tg_today: 'Aujourd’hui', tg_mem: 'En mémoire', tg_new: n => `${n} nouveauté${n > 1 ? 's' : ''}`,
+      tg_recent: n => `Derniers titres refusés (${n})`, tg_restore: 'Rétablir', tg_restored: 'Rétabli', tg_restore_note: 'Rétabli depuis le contrôle des événements',
+      tg_an_hint: 'Mode analyste : « Rétablir » force l’entrée sur la carte à la prochaine collecte (après export de verified.json).',
       cov_breakdown: c => `<strong>${c.total.toLocaleString('fr-FR')} sources surveillées</strong> : ${c.feeds} flux officiels, de presse et API · ${c.outlets.toLocaleString('fr-FR')} médias de référence dans ${c.countries} pays · ${c.telegram} canaux Telegram · ${c.report_feeds} producteurs de rapports. Flux en service : ${c.ok}/${c.checked}.`,
       source_status: 'État des sources', ok: 'OK', error: 'Erreur', items: 'éléments', last_success: 'Dernier succès', paused: 'En pause (3 échecs)',
       date: 'Date', start: 'Début', place: 'Lieu', country: 'Pays', precision: 'Précision', coords: 'Coordonnées',
@@ -335,6 +340,11 @@
       legend_sev: 'Severity', legend_risk: 'Country risk', legend_auto: 'Dashed outline: auto-detection · white dot: less than 6 h old · ripples: high or critical severity · hover a group: its categories',
       sources_ok: (a, b) => `${a}/${b} <span class="src-word">sources</span>`, updated: 'Updated', stale: 'Stale data',
       sources_total: n => `${n.toLocaleString('en-GB')} <span class="src-word">sources</span>`,
+      tg_title: 'Event control', tg_hint: 'Every new item is checked before it reaches the map (physical fact, plausible place and date, readable article for GDELT), then re-checked at every collection. Only accepted events feed the map, alerts and indices.',
+      tg_st: { ok: 'accepted', context: 'context (feed)', noise: 'rejected', invalid: 'invalid', pending: 'pending', unverifiable: 'unverifiable' },
+      tg_last: 'Last collection', tg_today: 'Today', tg_mem: 'In memory', tg_new: n => `${n} new item${n > 1 ? 's' : ''}`,
+      tg_recent: n => `Latest rejected headlines (${n})`, tg_restore: 'Restore', tg_restored: 'Restored', tg_restore_note: 'Restored from event control',
+      tg_an_hint: 'Analyst mode: “Restore” forces the item onto the map at the next collection (after exporting verified.json).',
       cov_breakdown: c => `<strong>${c.total.toLocaleString('en-GB')} monitored sources</strong>: ${c.feeds} official, press and API feeds · ${c.outlets.toLocaleString('en-GB')} reference outlets in ${c.countries} countries · ${c.telegram} Telegram channels · ${c.report_feeds} report publishers. Feeds working: ${c.ok}/${c.checked}.`,
       source_status: 'Source status', ok: 'OK', error: 'Error', items: 'items', last_success: 'Last success', paused: 'Paused (3 failures)',
       date: 'Date', start: 'Start', place: 'Location', country: 'Country', precision: 'Precision', coords: 'Coordinates',
@@ -1859,6 +1869,23 @@
     if (!(window.VS_CDETAIL || {})[iso]) ensureDetail(iso, () => { if ((window.VS_CDETAIL || {})[iso] && state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
   }
 
+  /** Contrôle d'entrée des événements (v0.24) : chiffres et derniers refus, rétablissement en mode analyste. */
+  function triageSection() {
+    const T = D && D.triage; if (!T || !T.last) return '';
+    const fmt = c => Object.entries(c || {}).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${n.toLocaleString(state.lang)} ${esc((t('tg_st')[k]) || k)}`).join(' · ');
+    const nNew = Object.values(T.last.new || {}).reduce((a, b) => a + b, 0);
+    const rec = (T.recent || []).slice(0, 40);
+    return `<div class="d-sec triage"><h3>${icon('shield-check', 14)} ${esc(t('tg_title'))}</h3><div class="hint">${esc(t('tg_hint'))}</div>
+      <ul class="mini-list tg-counts">
+        <li><span class="t">${esc(t('tg_last'))} · ${esc(t('tg_new', nNew))}</span><span class="w">${fmt(T.last.new) || '—'}</span></li>
+        <li><span class="t">${esc(t('tg_today'))}</span><span class="w">${fmt(T.today) || '—'}</span></li>
+        <li><span class="t">${esc(t('tg_mem'))}</span><span class="w">${fmt(T.last.all) || '—'}</span></li></ul>
+      ${(T.alarms || []).length ? `<ul class="mini-list tg-alarms">${[...new Set(T.alarms)].map(a => `<li>${icon('triangle-alert', 13)} ${esc(a)}</li>`).join('')}</ul>` : ''}
+      ${rec.length ? `<details class="tg-recent"><summary>${esc(t('tg_recent', rec.length))}</summary>${state.analyst ? `<div class="hint">${esc(t('tg_an_hint'))}</div>` : ''}<ul class="mini-list">${rec.map(r =>
+        `<li><span class="t"><a href="${esc(r.url || '#')}" target="_blank" rel="noopener">${esc(r.title || r.id)}</a><br><span class="tg-why">${esc(r.source || '')}${r.country ? ' · ' + esc(countryName(r.country) || r.country) : ''} · ${esc((t('tg_st')[r.status]) || r.status)}${r.reason ? ' : ' + esc(r.reason) : ''} · ${esc(ago(r.date))}</span></span>${state.analyst ? (LOCAL_V[r.id]
+          ? `<span class="w tg-ok">${icon('check', 12)} ${esc(t('tg_restored'))}</span>` : `<button class="btn small" data-tg-restore="${esc(r.id)}">${esc(t('tg_restore'))}</button>`) : ''}</li>`).join('')}</ul></details>` : ''}</div>`;
+  }
+
   function openHealth() {
     const rows = STATUS.map(s => `<li><span class="dot" style="background:${s.paused ? 'var(--muted)' : s.ok ? 'var(--risk1)' : 'var(--sev4)'}"></span>
       <span><strong>${esc(s.name)}</strong> <span style="color:var(--muted)">· ${esc(s.license || '')}</span><br>
@@ -1869,6 +1896,7 @@
       <button class="btn small" id="toggle-analyst">${icon('clipboard-check', 13)}${esc(t('an_menu'))}${state.analyst ? ' ✓' : ''}</button></div>
       ${(D.source_quality || []).length ? `<div class="d-sec"><h3>${esc(t('sq_title'))}</h3><div class="hint">${esc(t('sq_hint'))}</div><ul class="mini-list">${D.source_quality.slice(0, 15).map(r =>
         `<li><span class="t">${esc(r.source)}</span><span class="w">${r.decisions} · ${Math.round(r.false_rate * 100)} %${r.adjust ? (r.adjust > 0 ? ' ↓' : ' ↑') : ''}</span></li>`).join('')}</ul></div>` : ''}
+      ${triageSection()}
       <div class="d-sec"><ul class="mini-list" style="gap:10px">${rows}</ul></div>
       ${(list => list.length ? `<div class="d-sec"><h3>${t('cov_title')}</h3><div class="hint">${t('cov_hint')}</div><ul class="mini-list">${list.map(([iso, c]) => `<li data-country="${iso}"><span class="t">${flagImg(iso)}${esc(countryName(iso) || iso)}</span><span class="w">${c.live} / ${Math.round(c.base)} ${t('per_month')}</span></li>`).join('')}</ul></div>` : '')(
         Object.entries(coverageMap()).filter(([, c]) => c.level !== 'good').sort((a, b) => a[1].ratio - b[1].ratio).slice(0, 25))}`, 'health');
@@ -2216,6 +2244,12 @@
     });
     $('#drawer').addEventListener('click', ev => {
       if (ev.target.closest('#toggle-analyst')) { state.analyst = !state.analyst; store.set('vs-analyst', state.analyst); renderAnalystBar(); renderAll(); openHealth(); return; }
+      const tr = ev.target.closest('[data-tg-restore]');
+      if (tr) {   // faux refus du contrôle d'entrée : décision « validé » exportée dans verified.json, appliquée à la collecte suivante
+        LOCAL_V[tr.dataset.tgRestore] = { status: 'verified', note: t('tg_restore_note'), date: new Date().toISOString().slice(0, 10) };
+        store.set('vs-verified-local', LOCAL_V); renderAnalystBar(); openHealth();
+        const d = $('#drawer .tg-recent'); if (d) d.open = true; return;
+      }
       const c = ev.target.closest('[data-country]'); const e = ev.target.closest('[data-event]'); const z = ev.target.closest('[data-zoom]');
       const w = ev.target.closest('[data-watch]'); const an = ev.target.closest('[data-an]');
       const cr = ev.target.closest('[data-crisis]'); const fo = ev.target.closest('[data-focus]');
