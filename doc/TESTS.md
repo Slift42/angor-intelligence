@@ -17,7 +17,7 @@ Les trois premiers et le test de fumée tournent automatiquement à chaque `push
 | `conftest.py` | Blocage du réseau, fabrique d'événements `make()`, pays (`countries`) |
 | `test_model_geo.py` | Format d'événement, dates, taxonomie, localisation des pays, distances |
 | `test_press.py` | Tri de la presse : titres à garder / à écarter (cas réels), gravité, langue, seuils sur le jeu étiqueté |
-| `test_pipeline.py` | Dédoublonnage, cotation de l'Amirauté, note de risque |
+| `test_pipeline.py` | Dédoublonnage (dont regroupement par histoire), tri avant regroupement, cotation de l'Amirauté, note de risque |
 | `test_sources.py` | XML abîmé, découpage FCDO, numéros d'urgence, motifs des avis américains (réponse simulée), trafic |
 | `test_country_detail.py` | Choix des villes, santé, activité, validité de `config/city_notes.json` |
 | `test_providers.py` | Catégories et annuaire, fusion inscrits / repérés (même site = une seule ligne), lecture Supabase simulée, grille de qualité identique (SQL, JS, page publiée) |
@@ -31,9 +31,13 @@ Règles :
 
 ## Jeu étiqueté du tri (`tests/gold_tri.csv`)
 
-120 titres réels classés à la main (garder 1/0, catégorie attendue). `tools/eval_tri.py` mesure précision,
-rappel et justesse de la catégorie ; `test_press.py` impose des seuils minimaux (précision ≥ 85 %, rappel ≥ 97 %).
-Les règles ayant été réglées sur ce jeu, constituer un **jeu de contrôle** distinct avant de publier des chiffres.
+546 titres réels classés à la main (garder 1/0, catégorie attendue), dont 426 tirés des données en ligne en v0.23.
+« Garder » = un fait physique qui peut toucher un voyageur ou un site ; arrestations, déclarations, analyses,
+rétrospectives et travaux de prévention valent 0 (ils restent dans le Fil). `tools/eval_tri.py` mesure précision,
+rappel et justesse de la catégorie avec `press.is_event` ; `test_press.py` impose des seuils minimaux (précision ≥ 92 %,
+rappel ≥ 98 % ; mesurés en v0.23 : 94 % et 100 %, contre 51 % de précision en v0.22 sur le même jeu).
+Les règles ayant été réglées sur ce jeu, elles ont été contrôlées sur une seconde moitié de titres en ligne non étiquetée
+(relecture des écarts) ; constituer un **jeu de contrôle** étiqueté distinct avant de publier des chiffres.
 
 ## Test de fumée du site (`tests/e2e/smoke.mjs`)
 

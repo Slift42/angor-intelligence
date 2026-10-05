@@ -33,7 +33,7 @@ def evaluate(path=GOLD):
     for r in rows:
         want = r["garder"].strip() == "1"
         cat, _ = press.classify(r["titre"])
-        got = bool(cat) and not press.not_incident(r["titre"], cat)
+        got = press.is_event(r["titre"], cat)
         if want and got:
             tp += 1
             if fam(cat) == fam(r["categorie"]):

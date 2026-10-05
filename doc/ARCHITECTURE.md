@@ -41,7 +41,7 @@ flowchart LR
 | 3. Connecteurs | `REGISTRY[src["type"]].fetch(src, ctx)` | Une source par module. Une panne ne bloque jamais les autres ; 3 échecs de suite = pause de 24 h. État dans `store["status"]` |
 | 4. Presse | `ai.analyze`, `press.build` | Tri des titres par mots-clés (+ IA si clé), géolocalisation, langue |
 | 5. Fusion | `publish.merge` | Ajout à l'historique (rétention 95 jours), fil d'actualité, veille économique |
-| 6. Qualité | `dedupe.dedupe`, `quality.learn`, `quality.filter_and_rate` | Fusion des doublons, validations de l'analyste (`config/verified.json`), cotation de l'Amirauté A1–F6, apprentissage de la fiabilité par source |
+| 6. Qualité | `collecte.triage_reason`, `dedupe.dedupe`, `quality.learn`, `quality.filter_and_rate` | Tri (bruit, contexte, GDELT hors sujet), regroupement par histoire puis fusion des doublons, validations de l'analyste (`config/verified.json`), cotation de l'Amirauté A1–F6, apprentissage de la fiabilité par source |
 | 7. Indices | `risk.compute`, `pulse.compute`, `crises.build`, `agenda.update`, `reports.update`, `early_warning.update`, `traffic.update`, `country_detail.build`, `profiles.build`, `practical.update` | Note de risque pays, indice Pulse, chronologies de crise, agenda, rapports, alerte précoce, trafic, fiches pays |
 | 8. Alertes | `notify.send`, `notify.send_digest` | Telegram et e-mail (incidents graves, point quotidien) |
 | 9. Publication | `publish.write_outputs`, `write_js`, `legal.write`, `accounts.ping`, `bust_cache`, `save_store` | Fichiers `docs/data/*.js`, empreinte de version dans les pages HTML, sauvegarde de la mémoire |
@@ -59,7 +59,7 @@ Chaque étape « annexe » (7) est encadrée par un `try/except` qui journalise 
 | `connectors/` | Un module par source (voir [CONNECTEURS.md](CONNECTEURS.md)) |
 | `press.py` | Tri des titres de presse : catégories par mots-clés multilingues, faux positifs, géolocalisation, langue |
 | `ai.py`, `llm.py` | Socle IA (Anthropic) : budget, cache, tâches activables ; tout est facultatif |
-| `dedupe.py` | Fusion des doublons (même lieu, même famille, mots communs) |
+| `dedupe.py` | Regroupement par histoire (presse, GDELT : mêmes mots, jours, lieux ou catégories différents) puis fusion des doublons (même lieu, même famille, mots communs) |
 | `quality.py` | Cotation de l'Amirauté, validations de l'analyste, qualité mesurée par source |
 | `risk.py` | Note de risque pays 1–5 (avis officiels + activité sécuritaire + catastrophes) |
 | `pulse.py` | Indice de stabilité 0–100 et ses causes |

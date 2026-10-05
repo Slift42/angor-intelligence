@@ -641,7 +641,15 @@ FILTER_ROLE = {
     "PUBLIC_TARGET_WORDS": "Lieu public ou cible visée (garde une attaque)", "SECURITY_TARGET_WORDS": "Cible sécuritaire (police, armée…)",
     "ARMED_GROUP_WORDS": "Groupe armé cité (garde une attaque)", "AFTERMATH_WORDS": "Suites d'un incident (hommage, enquête…) : écarte",
     "THREAT_WORDS": "Simple menace : écarte", "EVACUATION_WORDS": "Évacuation", "PUBLIC_CRIME_WORDS": "Crime touchant l'ordre public (garde)",
-    "EXTRA_WORDS": "Compléments", "_NUM_WORDS": "Nombres écrits en toutes lettres (bilans)"}
+    "EXTRA_WORDS": "Compléments", "_NUM_WORDS": "Nombres écrits en toutes lettres (bilans)",
+    "ARREST_WORDS": "Contexte : arrestations et suites d'enquête (Fil, pas carte)",
+    "FRESH_WORDS": "Fait récent (morts, blessés) : garde l'événement sur la carte",
+    "FOILED_WORDS": "Contexte : projet d'attentat déjoué, fausse alerte",
+    "REACTION_WORDS": "Contexte : déclarations, réactions, visites",
+    "ANALYSIS_WORDS": "Contexte : analyses, décryptages, statistiques",
+    "RETRO2_WORDS": "Contexte : rétrospectives, anniversaires, démentis",
+    "PREVENTION_WORDS": "Contexte : prévention, aides, reconstruction (catastrophes, santé)",
+    "MILITARY_CONTEXT_WORDS": "Contexte : annonces militaires et de sécurité"}
 r = 5
 header(ws, r, ["Liste", "Rôle", "Mot-clé (racine)", "Action", "Nouveau mot / correction", "Commentaire"])
 lists = [(f"Catégorie : {model.CATEGORIES.get(c, {}).get('fr', c)}", f"Entre dans « {model.CATEGORIES.get(c, {}).get('fr', c)} »", ws_)

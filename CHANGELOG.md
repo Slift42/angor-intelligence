@@ -4,6 +4,32 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.23 – Moins de doublons, seulement de vrais événements sur la carte (octobre 2026)
+
+- **Un événement = un fait physique** qui peut toucher un voyageur ou un site. Les titres de sûreté qui n'en sont pas
+  (arrestation et suites d'enquête, attentat déjoué ou fausse alerte, déclaration, condamnation, visite, démission,
+  analyse ou statistique, rétrospective ou démenti, travaux de prévention et aides après une catastrophe, annonce
+  militaire, signal diplomatique) restent dans le **Fil** avec l'étiquette « Contexte », mais **ne sont plus sur la
+  carte**, y compris ceux déjà en mémoire. Sans clé d'IA, par mots-clés dans toutes les langues suivies.
+- **Mesure** sur 546 titres réels classés à la main (dont 426 tirés des données en ligne) : précision du tri **94 %**
+  (51 % en v0.22 sur le même jeu), rappel 100 %. Corrigé au passage : « transporté à l'hôpital » pris pour une
+  arrestation, « Rapid Support Forces » pris pour un « soutien », violence électorale classée en signal diplomatique,
+  bilans « un mort et deux blessés » et « kills 4 » non comptés, séisme « temblor » non reconnu, frappes aériennes
+  écartées faute de mot de violence.
+- **GDELT** : le vrai titre de l'article est relu ; les articles manifestement hors sujet (people, procès, tribunes) ne
+  sont plus placés sur la carte.
+- **Doublons** : regroupement « par histoire » avant la fusion habituelle. Même dépêche reprise plusieurs jours, même
+  article placé dans deux villes, bilan mis à jour, titre Google News suivi d'un texte parasite, même crash classé dans
+  deux catégories : une seule fiche, avec toutes les sources, la gravité la plus haute et le lieu le plus précis
+  (sur les 1 500 événements en ligne du 5 octobre : 79 fiches rattachées, contre 50 avec la seule fusion par lieu).
+- **Robot** : machine figée sur Ubuntu 24.04 (`ubuntu-latest` passe à Ubuntu 26 le 19 octobre 2026) dans les fichiers
+  modèles `tools/github-actions-*.yml` ; recopier `tools/github-actions-collecte.yml` dans `.github/workflows/collecte.yml`.
+- Développeur : `press.context`, `press.is_event`, `press.gdelt_noise` ; `dedupe.story_merge` et `dedupe._combine` ;
+  `collecte.triage_reason` (tri **avant** le regroupement) ; champ `context` des articles du Fil ; `tools/eval_tri.py`
+  mesure `is_event` ; seuils de `tests/test_press.py` relevés (précision ≥ 92 %, rappel ≥ 98 %) ; tests de contexte, de
+  GDELT et de regroupement (`tests/test_press.py`, `tests/test_pipeline.py`) ; doc `doc/DONNEES.md` (tri et
+  regroupement), `doc/TESTS.md`, `doc/ARCHITECTURE.md`, aide (Fil de presse) ; cache hors ligne `angor-v6`.
+
 ## v0.22 – Données réservées aux comptes validés, onglet Prestataires (octobre 2026)
 
 - **Vraie protection des données** : en ligne, la carte complète (incidents détaillés, sources, fil, chronologies, notes de

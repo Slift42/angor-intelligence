@@ -99,6 +99,36 @@ def prefetch_feeds(sources, store, args, now, log, workers=8):
     return out
 
 
+def triage_reason(e):
+    """Motif d'exclusion de la carte d'un événement en mémoire, ou None (titres de presse et GDELT)."""
+    tags = e.get("tags") or []
+    if "press" in tags:
+        if press.not_incident(e["title"], e["category"]):
+            return "bruit"
+        if "ai" not in tags:
+            if not press.classify(e["title"])[0]:
+                return "hors sujet"
+            if press.context(e["title"], e["category"]):
+                return "contexte"
+        return None
+    if e.get("source") == "GDELT":
+        return press.gdelt_noise(e.get("headline"))
+    return None
+
+
+def with_context(n):
+    """Article du Fil : motif « contexte » recalculé (articles déjà en mémoire avant la v0.23, règles mises à jour)."""
+    if n.get("category") and str(n.get("id", "")).startswith("press-"):
+        ctx = press.context(n["title"], n["category"])
+        if ctx != n.get("context"):
+            n = dict(n)
+            if ctx:
+                n["context"] = ctx
+            else:
+                n.pop("context", None)
+    return n
+
+
 def main():
     try:  # console Windows : ne jamais planter sur un caractère spécial
         sys.stdout.reconfigure(errors="replace")
@@ -212,19 +242,22 @@ def main():
         if not ev.get("lang") and "press" in (ev.get("tags") or []):
             ev["lang"] = press.guess_lang(ev.get("title", ""))
     press.refine_regional(list(store["events"].values()), countries, log)
-    all_events = dedupe(list(store["events"].values()))
+    # tri avant regroupement (sinon un titre écarté pourrait servir de base à une fiche fusionnée) :
+    # faits divers, procédures judiciaires, et titres de contexte (arrestation, déclaration, analyse… : Fil seulement),
+    # y compris ceux déjà en mémoire ; GDELT : titre réel de l'article manifestement hors sujet (v0.23)
+    candidates = list(store["events"].values())
+    drop = {e["id"] for e in candidates if not e.get("verified") and triage_reason(e)}
+    if drop:
+        candidates = [e for e in candidates if e["id"] not in drop]
+        log(f"  Tri : {len(drop)} titre(s) écarté(s) de la carte (faits divers, procédures, contexte, hors sujet)")
+    all_events = dedupe(candidates)
+    merged = sum(len(e.get("merged") or []) for e in all_events)
+    if merged:
+        log(f"  Doublons : {merged} fiche(s) rattachée(s) à un même événement (sources, jours ou lieux différents)")
     # validations de l'analyste (config/verified.json) + cotation de l'Amirauté sur chaque incident
     verified = quality.load_verified()
     source_quality = quality.learn(store, all_events, verified)  # sources souvent infirmées : lettre abaissée
     all_events = quality.filter_and_rate(all_events, verified)
-    # faits divers, procédures judiciaires… : écartés de la carte, y compris ceux déjà en mémoire
-    noise = [e for e in all_events if "press" in (e.get("tags") or []) and not e.get("verified")
-             and (press.not_incident(e["title"], e["category"])
-                  or ("ai" not in (e.get("tags") or []) and not press.classify(e["title"])[0]))]
-    if noise:
-        drop = {e["id"] for e in noise}
-        all_events = [e for e in all_events if e["id"] not in drop]
-        log(f"  Tri : {len(noise)} titre(s) écarté(s) (faits divers, procédures judiciaires, hors sujet)")
     all_events.sort(key=lambda e: e["date"], reverse=True)
     # 30 derniers jours dans data.js (chargement rapide) ; au-delà, archives mensuelles chargées à la demande
     map_limit = to_iso(now - timedelta(days=settings.get("map_days", 30)))
@@ -290,7 +323,7 @@ def main():
     payload = {
         "generated": now_iso(), "version": __version__, "taxonomy": taxonomy(),
         "events": events, "countries": country_risk,
-        "news": sorted((n for n in store["news"].values()
+        "news": sorted((with_context(n) for n in store["news"].values()
                         if not (n.get("category") and press.not_incident(n["title"], n["category"]))),
                        key=lambda n: n["date"], reverse=True),
         "status": list(store["status"].values()),

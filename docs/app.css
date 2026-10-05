@@ -281,6 +281,7 @@ a.btn { text-decoration: none; color: var(--ink); }
 .stat { border: 1px solid var(--line); border-radius: 8px; padding: 7px 8px; }
 .stat .n { font: 600 18px/1 var(--font); font-variant-numeric: tabular-nums; }
 .stat .l { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+.news-item .m .ctx { display: inline-block; margin-left: 4px; padding: 0 6px; border: 1px solid var(--line-2); border-radius: 999px; font-size: 11px; line-height: 16px; color: var(--muted); }
 .news-item .m .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
 .basemap-row { display: grid; gap: 4px; font-size: 12px; color: var(--muted); margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--line); }
 .basemap-row select { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 6px; padding: 4px 6px; font: inherit; font-size: 12.5px; }

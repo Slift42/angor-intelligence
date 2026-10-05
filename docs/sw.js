@@ -3,7 +3,7 @@
    - pages, code et données : réseau d'abord, copie locale si pas de réseau ;
    - bibliothèques et icônes : copie locale d'abord ;
    - fonds de carte et API externes : jamais mis en cache ici. */
-const CACHE = 'angor-v5';  // v5 : données réservées lues dans le coffre Supabase (v0.22)
+const CACHE = 'angor-v6';  // v6 : étiquette « Contexte » du Fil (v0.23) ; v5 : coffre Supabase (v0.22)
 const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'gonogo.js', 'account.js', 'compte.html', 'aide.html', 'legal.html', 'vendor/fonts/fonts.css',
   'vendor/icons.js', 'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css', 'vendor/markercluster/leaflet.markercluster.js',
   'vendor/markercluster/MarkerCluster.css', 'data/countries.js', 'vault.js', 'manifest.webmanifest', 'icons/icon-192.png'];

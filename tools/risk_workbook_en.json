@@ -1117,5 +1117,22 @@
  "Gravité minimale, fiable": "Minimum severity, reliable",
  "Pays stable, manifestations (type France)": "Stable country, demonstrations (France-type)",
  "Troubles civils, manifestations, grèves": "Civil unrest, demonstrations, strikes",
- "• Alcool interdit, tenue couvrante": "• Alcohol banned, modest dress"
+ "• Alcool interdit, tenue couvrante": "• Alcohol banned, modest dress",
+ "Contexte : arrestations et suites d'enquête (Fil, pas carte)": "Context: arrests and investigation follow-ups (feed, not map)",
+ "Fait récent (morts, blessés) : garde l'événement sur la carte": "Fresh fact (dead, injured): keeps the event on the map",
+ "Contexte : projet d'attentat déjoué, fausse alerte": "Context: foiled plot, false alarm",
+ "Contexte : déclarations, réactions, visites": "Context: statements, reactions, visits",
+ "Contexte : analyses, décryptages, statistiques": "Context: analysis, explainers, statistics",
+ "Contexte : rétrospectives, anniversaires, démentis": "Context: retrospectives, anniversaries, denials",
+ "Contexte : prévention, aides, reconstruction (catastrophes, santé)": "Context: prevention, relief, reconstruction (disasters, health)",
+ "Contexte : annonces militaires et de sécurité": "Context: military and security announcements",
+ "Filtre : analysis": "Filter: analysis",
+ "Filtre : arrest": "Filter: arrest",
+ "Filtre : foiled": "Filter: foiled",
+ "Filtre : fresh": "Filter: fresh",
+ "Filtre : military_context": "Filter: military_context",
+ "Filtre : prevention": "Filter: prevention",
+ "Filtre : reaction": "Filter: reaction",
+ "Filtre : retro{0}": "Filter: retro{0}",
+ "v{0} (données en ligne, {1} oct. {2})": "v{0} (live data, {1} Oct {2})"
 }

@@ -140,7 +140,7 @@
       no_alerts: 'Aucune alerte ne correspond à ces filtres sur la période.',
       countries_hint: 'Niveau de risque pays de 1 (Minimal) à 5 (Extrême), calculé à partir des avis officiels et de l’activité récente. Cliquez sur un pays pour son rapport.',
       country_ph: 'Filtrer les pays…', news_hint: 'Titres de presse (≈ 110 pays, 12 langues) relevant de la sûreté. Titre et lien uniquement.',
-      news_ph: 'Filtrer le fil (pays, mot-clé)…', no_news: 'Aucun article pour le moment.',
+      news_ph: 'Filtrer le fil (pays, mot-clé)…', no_news: 'Aucun article pour le moment.', news_ctx: 'Contexte', news_ctx_tip: 'Article de contexte (arrestation, déclaration, analyse…) : dans le Fil, pas sur la carte',
       sites_hint: 'Vos sites et leur rayon de vigilance. Les alertes dans ce rayon sont signalées partout dans l’outil.',
       add_site: 'Ajouter un site', export_sites: 'Exporter (sites.json)', site_name: 'Nom du site', site_radius: 'Rayon de vigilance (km)',
       save: 'Enregistrer', cancel: 'Annuler', pick_site: 'Cliquez sur la carte pour placer le site', site_saved: 'Site enregistré dans ce navigateur',
@@ -313,7 +313,7 @@
       no_alerts: 'No alert matches these filters for the period.',
       countries_hint: 'Country risk level from 1 (Minimal) to 5 (Extreme), computed from official advisories and recent activity. Click a country for its report.',
       country_ph: 'Filter countries…', news_hint: 'Security-related headlines (≈ 110 countries, 12 languages). Title and link only.',
-      news_ph: 'Filter the feed (country, keyword)…', no_news: 'No article yet.',
+      news_ph: 'Filter the feed (country, keyword)…', no_news: 'No article yet.', news_ctx: 'Context', news_ctx_tip: 'Context article (arrest, statement, analysis…): in the feed, not on the map',
       sites_hint: 'Your sites and their watch radius. Alerts inside the radius are flagged throughout the tool.',
       add_site: 'Add a site', export_sites: 'Export (sites.json)', site_name: 'Site name', site_radius: 'Watch radius (km)',
       save: 'Save', cancel: 'Cancel', pick_site: 'Click on the map to place the site', site_saved: 'Site saved in this browser',
@@ -1675,7 +1675,7 @@
     const items = NEWS.filter(n => !q || (n.title + ' ' + n.source + ' ' + countryName(n.country)).toLowerCase().includes(q)).slice(0, 200);
     $('#news-list').innerHTML = items.length ? items.map(n =>
       `<li class="news-item"><a href="${esc(n.url)}" target="_blank" rel="noopener"><div class="t">${ttl(n)}</div>
-        <div class="m">${n.severity ? `<i class="dot" style="background:${sevColor(n.severity)}"></i>` : ''}${esc(n.source)} · ${esc(ago(n.date))}${n.country ? ' · ' + esc(countryName(n.country)) : ''}${n.category ? ' · ' + esc(catLabel(n.category)) : ''}${n.lang ? ' · ' + esc(n.lang.toUpperCase()) : ''}</div></a></li>`
+        <div class="m">${n.severity ? `<i class="dot" style="background:${sevColor(n.severity)}"></i>` : ''}${esc(n.source)} · ${esc(ago(n.date))}${n.country ? ' · ' + esc(countryName(n.country)) : ''}${n.category ? ' · ' + esc(catLabel(n.category)) : ''}${n.lang ? ' · ' + esc(n.lang.toUpperCase()) : ''}${n.context ? ` <span class="ctx" title="${esc(t('news_ctx_tip'))}">${esc(t('news_ctx'))}</span>` : ''}</div></a></li>`
     ).join('') : `<li class="empty">${t('no_news')}</li>`;
   }
 

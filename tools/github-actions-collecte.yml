@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   collecte:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04   # version figée : « ubuntu-latest » passe à Ubuntu 26 le 19 oct. 2026 (v0.23)
     timeout-minutes: 20
     environment:
       name: github-pages

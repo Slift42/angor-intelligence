@@ -73,7 +73,7 @@ le site, jamais versionnés (sauf les fichiers « figés »).
 | `events` | Événements des 30 derniers jours (`settings.map_days`) |
 | `countries` | `{ISO2: {level 1–5, score, basis "computed"/"analyst", components{advisories, security, hazards}, counts, advisories{nom: avis}, data_quality}}` |
 | `countries[iso].advisories[nom]` | `{level, scale, label, url, updated}` + selon la source : `max`, `parts` (zones), `map` (carte officielle), `excerpt` (MEAE), `reasons` (motifs US : `terrorism`, `crime`, `unrest`, `kidnapping`, `detention`, `conflict`, `health`, `natural`, `landmines`) |
-| `news` | Fil d'actualité (titres sans position) |
+| `news` | Fil d'actualité (titres sans position, et titres de contexte : champ `context` = motif, v0.23) |
 | `status` | État de chaque source : `ok`, `count`, `error`, `last_success`, `fail_streak`, `paused`, `duration_s`, `license` |
 | `coverage`, `source_quality` | Couverture par pays, qualité mesurée par source |
 | `sites`, `corridors`, `site_alerts` | Vides en ligne (`VS_PUBLIC=1`) |
@@ -165,3 +165,38 @@ En ligne (robot GitHub Actions, `VS_PUBLIC=1`) et comptes configurés, `veille/v
 `guest.js` = carte des visiteurs (7 jours, champs : id, catégorie, gravité, titre, date, position, lieu, pays, précision,
 fiabilité). Les fichiers réservés sont envoyés s'ils ont changé (`data/vault_manifest.json`), puis retirés de `docs/data`
 (copie dans `data/private/`) avant la publication, même si l'envoi échoue. Clé : Secret GitHub `SUPABASE_SERVICE_KEY`.
+
+## Tri des titres et regroupement des doublons (v0.23, sans IA)
+
+**Qu'est-ce qu'un événement ?** Un fait physique qui peut toucher un voyageur ou un site : attaque, combat, manifestation,
+catastrophe, épidémie, panne. Le tri (`veille/press.py`) se fait en trois temps :
+
+1. `classify` : catégorie et gravité par mots-clés (toutes langues) ; `None` = hors sûreté (sport, culture, people…).
+2. `not_incident` : bruit écarté partout (faits divers privés, procès, séisme faible, accident de chantier…).
+3. `context` : titre de sûreté qui n'est pas un fait physique. Motifs : « arrestation ou suites », « projet déjoué »,
+   « déclaration » (condamnation, visite, sommet, démission…), « analyse » (décryptage, statistique, question),
+   « rétrospective ou démenti », « prévention, bilan ou suites » (catastrophes, santé), « annonce militaire »,
+   « annonce de sécurité », « signal politique » (diplomatie). Ces titres restent dans le **Fil** (étiquette « Contexte »,
+   champ `context`) mais ne sont plus placés sur la carte. Exceptions : une déclaration qui décrit une attaque précise
+   (« frappes contre », « repoussé une attaque ») reste un événement, sauf démenti ou condamnation ; un bilan ou un mot de
+   fait récent (tué, blessé) garde l'événement.
+
+`is_event(titre, catégorie)` résume les trois. Pour **GDELT**, dont le titre est un code (« Military force – Kyiv »),
+`gdelt_noise` lit le vrai titre de l'article (`headline`) et n'écarte que ce qui n'a manifestement rien de physique.
+Dans `collecte.py`, `triage_reason` applique ces règles à tous les événements en mémoire **avant** le regroupement (un
+titre écarté ne peut pas servir de base à une fiche fusionnée). Les titres retenus par l'IA (étiquette `ai`) ne sont
+pas re-triés par les mots-clés de contexte.
+
+**Regroupement par histoire** (`dedupe.story_merge`, presse et GDELT) avant la fusion par lieu et famille :
+
+| Règle | Condition | Exemple réel |
+|---|---|---|
+| A | même pays, ≤ 100 km ou même lieu, ≤ 48 h, mots significatifs communs ≥ 50 % | « kill 9 civilians » puis « kill 10 civilians » |
+| B | mots communs ≥ 80 %, ≤ 5 jours, où que ce soit, toutes catégories | même dépêche sur 3 jours ; même article placé à Metz et à Nancy ; crash classé « attaque » et « infrastructure » |
+| C | 8 premiers mots identiques, ≤ 5 jours | titre Google News suivi d'un texte parasite |
+
+La fiche de base est celle dont le lieu est le plus précis (puis la presse, puis la plus ancienne) ; elle prend la
+gravité maximale, la dernière date, la première date (`start`), toutes les sources (25 au plus) et la liste `merged`.
+Deux bilans quotidiens semblables à plus de 48 h d'écart restent deux événements. Sur les données en ligne du 5 octobre
+2026 (1 500 événements), le regroupement par histoire en rattache 31, la fusion complète 79 (50 avec la seule fusion par lieu).
+

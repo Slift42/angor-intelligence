@@ -31,9 +31,12 @@ CATEGORY_WORDS = {
                "tiroteio", "sparatoria", "schießerei", "schiesserei", "strzelanin", "silahlı", "стрельб", "استهداف",
                "stabbing", "poignard", "kidnap", "enlèvement", "enleve", "secuestro", "sequestro", "rapimento",
                "entführ", "porwan", "kaçırıl", "похищ", "اختطاف", "hostage", "otage", "rehén", "refém", "ostaggi", "geisel",
-               "assassin", "ied", "grenade", "arson", "incendie criminel"],
+               "assassin", "ied", "grenade", "arson", "incendie criminel", "pirates", "hijack", "hijacked", "hijacker"],
     "armed_conflict": ["airstrike", "air strike", "frappe", "bombard", "shelling", "artiller", "missile", "drone strike",
-                       "drones", "clashes", "affrontement", "enfrentamiento", "confronto", "combat", "offensive",
+                       "drone strikes", "drone attack", "drone attacks", "attaque de drone", "attaques de drones", "frappe de drone",
+                       "drones explosivos", "drones kamikazes", "drones kamikaze", "drones cargados", "drone-strike", "drones target", "drones hit",
+                       "forces advance", "advance on", "advance in", "retake", "retakes", "recapture", "takes control",
+                       "take control", "prend le controle", "toma el control", "rebels retreat", "clashes", "affrontement", "enfrentamiento", "confronto", "combat", "offensive",
                        "ofensiva", "gefecht", "kämpfe", "walki", "çatışma", "бой", "обстрел", "удар", "اشتباك",
                        "غارة", "قصف", "strikes kill", "strike kills", "strikes hit", "strikes on", "strike on", "strike hits", "strike hit", "deadly strike", "russian strike", "israeli strike", "missile strike", "hit by russian", "hit by israeli", "guided bomb", "frappes", "troops", "militants", "rebels", "rebelles", "rebeldes", "insurg", "ceasefire",
                        "cessez-le-feu", "alto el fuego", "invasion", "incursion", "militia", "milice", "milicia",
@@ -43,7 +46,9 @@ CATEGORY_WORDS = {
                "greve", "huelga", "sciopero", "streik", "staking", "strajk", "grev", "забастов", "إضراب",
                "blockade", "blocage", "bloqueo", "blocus", "heurts", "échauffourée", "echauffouree", "clashes with police", "curfew", "couvre-feu", "toque de queda", "coprifuoco",
                "ausgangssperre", "tear gas", "gaz lacrymogène", "lacrimógeno", "unrest", "troubles", "looting", "pillage", "saqueo"],
-    "political": ["coup", "golpe", "putsch", "darbe", "переворот", "انقلاب", "state of emergency", "état d'urgence",
+    "political": ["coup d'etat", "coup d etat", "coups d'etat", "coup attempt", "attempted coup", "failed coup", "military coup",
+                  "tentative de coup", "coup militaire", "golpe de estado", "golpe militar", "intento de golpe", "golpe de estado",
+                  "golpista", "golpistas", "colpo di stato", "staatsstreich", "militarputsch", "putsch", "darbe", "переворот", "انقلاب", "state of emergency", "état d'urgence",
                   "estado de emergencia", "stato di emergenza", "ausnahmezustand", "stan wyjątkowy", "olağanüstü hal",
                   "чрезвычайн", "حالة الطوارئ", "martial law", "loi martiale", "ley marcial", "impeach", "destitution",
                   ],
@@ -63,7 +68,7 @@ CATEGORY_WORDS = {
                "cólera", "ebola", "marburg", "mpox", "measles", "rougeole", "sarampión", "dengue", "malaria",
                "paludisme", "avian flu", "grippe aviaire", "gripe aviar", "h5n1", "pandemic", "pandémie",
                "anthrax", "plague", "peste", "polio", "meningitis", "méningite", "lassa", "nipah", "yellow fever"],
-    "earthquake": ["earthquake", "séisme", "seisme", "tremblement de terre", "sismo", "terremoto", "erdbeben",
+    "earthquake": ["earthquake", "temblor", "enjambre sismico", "séisme", "seisme", "tremblement de terre", "sismo", "terremoto", "erdbeben",
                    "aardbeving", "trzęsienie", "deprem", "землетрясени", "زلزال", "tsunami", "magnitude"],
     "flood": ["flood", "inondation", "crue", "inundaci", "inundaç", "alluvion", "hochwasser", "überschwemm",
               "overstroming", "powódź", "sel ", "selde", "наводнени", "فيضان", "flash flood", "torrential"],
@@ -253,7 +258,18 @@ NOISE_WORDS = ["drill", "exercise", "exercice", "simulacro", "simulation", "tatb
                "analyst reveals", "opinion", "[opinia]", "editorial", "tribune libre", "interview", "entretien avec",
                "player ratings", "ratings", "debut", "debutto", "derby", "tournoi", "torneo", "tournament", "championship",
                "championnat", "asian games", "olympi", "medal", "medaille d'or", "documentary", "documentaire",
-               "audience award", "explosive ordnance", "munitions cleared", "deminage", "demining"]
+               "audience award", "explosive ordnance", "munitions cleared", "deminage", "demining",
+               # v0.23 : sport, spectacle, faux sens (« enlèvent les vélos », « coup d'envoi »)
+               "rugby", "basket", "nba", "tennis", "cricket", "golf", "handball", "volley", "cyclisme", "boxe", "boxing",
+               "mma", "ufc", "lutte traditionnelle", "wrestling", "gala", "reality", "supervivientes", "festejos",
+               "moros y cristianos", "carnaval", "desfile", "defile de mode", "fashion", "semi-marathon", "marathon",
+               "course a pied", "aventurier", "stock exchange", "bourse", "verpflichtung", "fichaje", "mercato",
+               "enlevent les", "enlever les", "enleve les", "crematorium", "crematorio", "coup d'envoi", "pelea",
+               "rina", "rixe", "bagarre", "brawl", "scuffle", "alumnas", "hostel", "stages own", "own kidnapping",
+               "simular", "left willingly", "playero", "motochorro", "habitante de calle", "centro de estetica",
+               "siniestro", "picadas", "fiestas patronales", "training flight",
+               "vol d'entrainement", "vuelo de entrenamiento", "risco de protesto", "protesto de", "zebrastreifen",
+               "candidates", "candidats", "candidatos", "رزمایش", "مانور"]
 _NOISE_RE = _word_re(NOISE_WORDS)
 
 # Pas un incident pour une organisation ou un voyageur : procédure judiciaire (mise en examen, procès,
@@ -266,9 +282,10 @@ JUDICIAL_WORDS = ["mis en examen", "mise en examen", "mis en cause", "proces$", 
                   "court hears", "in court", "appeal court", "juicio", "condenado", "condena", "sentencia", "imputado",
                   "processo", "condannato", "condenado", "julgamento", "prozess", "verurteilt", "angeklagt", "vonnis",
                   "wyrok", "sad skazal", "mahkum", "hapis cezasi", "приговор", "осужден", "суд ", "حكم", "محاكمة",
-                  "משפט", "נגזר", "vonis", "sidang", "divonis", "判决", "判處", "審判", "دادگاه", "حکم"]
+                  "משפט", "נגזר", "vonis", "sidang", "divonis", "判决", "判處", "審判", "دادگاه", "حکم", "سپریم کورٹ", "سزا یافتہ", "suma otro proceso", "proceso por"]
 _JUDICIAL_RE = _word_re(JUDICIAL_WORDS)
-_MOBILISATION_RE = _word_re(CATEGORY_WORDS["unrest"])
+_MOBILISATION_RE = _word_re(CATEGORY_WORDS["unrest"] + ["marcha", "marchas", "marche blanche", "affrontements avec",
+                                                          "enfrentamientos con", "clashes with"])
 # Fait divers : violence privée ou familiale, drame individuel. Aucun impact pour une organisation.
 PRIVATE_WORDS = ["sa compagne", "son compagnon", "son epouse", "sa femme", "son mari", "son ex", "sa fille", "son fils",
                  "sa mere", "son pere", "ses enfants", "son bebe", "son voisin", "sa voisine", "conjugal", "conjugale",
@@ -335,7 +352,7 @@ MASS_WORDS = ["massacre", "masacre", "tuerie", "mass shooting", "chacina", "carn
               "strage", "blutbad", "katliam", "бойня", "مجزرة"]
 PUBLIC_TARGET_WORDS = [
     # lieux publics et transports
-    "school", "elementary", "ecole", "lycee", "college$", "university", "universite", "universidad", "universidade", "campus",
+    "school", "elementary", "secundaria", "preparatoria", "primaria", "juez", "jueza", "judge", "juge$", "magistrat", "funcionario", "funcionaria", "truck", "trucks", "lorry", "camion", "camiones", "caminhao", "driver", "drivers", "chauffeur", "chofer", "conductor", "transportista", "taxi", "mototaxi", "colectivo", "aid convoy", "aid truck", "aid trucks", "crew", "equipage", "tripulacion", "centro de salud", "health centre", "health center", "centre de sante", "educativa", "students", "estudiantes", "alumnos", "eleves", "etudiants", "estudantes", "ecole", "lycee", "college$", "university", "universite", "universidad", "universidade", "campus",
     "colegio", "escuela", "escola", "schule", "okul", "universitesi", "hospital$", "hospitals$", "hopital$", "hopitaux", "clinic$", "clinique$",
     "market", "marche", "mercado", "markt", "bazaar", "souk", "mall", "centre commercial", "shopping", "supermarket",
     "supermarche", "hotel", "restaurant", "cafe", "kahvehane", "bar", "nightclub", "discotheque", "boite de nuit",
@@ -374,8 +391,8 @@ ARMED_GROUP_WORDS = ["gang", "gangs", "cartel", "narco", "sicario", "sicarios", 
                      "islamic state", "al-shabaab", "shabaab", "boko haram", "iswap", "jnim", "aqmi", "al-qaeda",
                      "al qaida", "hamas", "hezbollah", "houthi", "ttp", "bla ", "farc", "eln ", "clan del golfo",
                      "mara ", "maras", "ms-13", "barrio 18", "crime organise", "organized crime", "crimen organizado",
-                     "ataque armado", "attaque armee", "armed attack", "silahli saldiri", "vooraad", "ajuste de cuentas",
-                     "reglement de comptes", "coupeurs de route", "embuscade", "ambush", "emboscada",
+                     "silahli saldiri", "vooraad", "coupeurs de route", "con drones", "drones explosivos", "drone attack",
+                     "fuerza publica", "fuerzas armadas", "force publique", "embuscade", "ambush", "emboscada",
                      "kidnap", "enlev", "secuestr", "sequestr", "entfuhr", "rapt", "hostage", "otage", "rehen", "ransom",
                      "rancon", "rescate", "piracy", "pirates", "piraterie", "extorsion", "extortion"]
 AFTERMATH_WORDS = [
@@ -431,21 +448,25 @@ _SECURITY_TARGET_RE = _word_re(SECURITY_TARGET_WORDS)
 _SPECIFIC_RE = _word_re(SPECIFIC_ATTACK)
 _NONLATIN = re.compile(r"[\u0590-\u06FF\u0750-\u077F\u0E00-\u0E7F\u0980-\u09FF\u1200-\u139F\u3400-\u9FFF]")
 _TOLL2_RE = re.compile(r"(?:toll|bilan|saldo|balance)\D{0,25}?(\d{1,4})", re.I)
-_NUM_WORDS = {"three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "dozen": 12,
+_NUM_WORDS = {"one": 1, "un": 1, "una": 1, "uno": 1, "une": 1, "um": 1, "uma": 1, "two": 2, "deux": 2, "dos": 2, "duas": 2, "dois": 2, "due": 2, "zwei": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "dozen": 12,
               "dozens": 24, "trois": 3, "quatre": 4, "cinq": 5, "sept": 7, "huit": 8, "neuf": 9, "dix": 10,
               "dizaine": 10, "dizaines": 20, "tres": 3, "cuatro": 4, "cinco": 5, "seis": 6, "siete": 7, "ocho": 8,
               "nueve": 9, "diez": 10, "decena": 10, "decenas": 20, "quatro": 4, "sete": 7, "oito": 8, "dez": 10,
               "tre": 3, "quattro": 4, "cinque": 5, "drei": 3, "vier": 4, "funf": 5, "sechs": 6, "zehn": 10}
 _TOLL_RE = re.compile(r"(?<!\w)(\d{1,4}|" + "|".join(_NUM_WORDS) + r")(?!\w)"
                       r"(?!\s*-?\s*(?:year|yr|ans?\b|anos|ano\b|jahr|yas|month|mois|meses))(?:\W+\w+){0,3}?\W+"
-                      r"(?:dead|killed|die|morts?|tues?|blesses?|muertos?|muertes|heridos?|lesionados?|mortos?|feridos?|"
+                      r"(?:dead|killed|die|morts?|tues?|blesses?|muertos?|muertas?|muertes|fallecid[oa]s?|heridos?|heridas?|lesionad[oa]s?|mortos?|feridos?|"
                       r"morti|feriti|tote|verletzte|olu|yarali|people|personnes|personas|pessoas|persone|menschen|"
                       r"victims?|victimes?|victimas?|injured|wounded|casualties)", re.I)
 
 
 _DEAD_TOLL_RE = re.compile(r"(?<!\w)(\d{1,4}|" + "|".join(_NUM_WORDS) + r")(?!\w)"
                            r"(?!\s*-?\s*(?:year|yr|ans?\b|anos|ano\b|jahr|yas|month|mois|meses))(?:\W+\w+){0,3}?\W+"
-                           r"(?:dead|killed|die[ds]?|morts?|tues?|muertos?|muertes|mortos?|morti|tote|olu|fallecidos)", re.I)
+                           r"(?:dead|killed|die[ds]?|morts?|tues?|muertos?|muertas?|muertes|mueren|murieron|fallecid[oa]s|asesinad[oa]s|mortos?|morrem|"
+                           r"morti|tote|olu|fallecidos)", re.I)
+
+
+_BOTH_RE = re.compile(r"(?:muert[oa]s?|killed|dead|mort|tue)\W+(?:\w+\W+){0,2}?(?:herid[oa]s?|lesionad[oa]s?|injured|wounded|blesse)")
 
 
 def casualty_toll(t, dead_only=False):
@@ -454,18 +475,32 @@ def casualty_toll(t, dead_only=False):
     for m in _TOLL2_RE.finditer(t):
         n = int(m.group(1))
         best = max(best, 0 if 1900 <= n <= 2100 else n)
+    for m in KILLS_RE.finditer(t):   # « kills 4 colleagues », « tue au moins 3 »
+        if m.group(0).split()[0] not in ("fait", "deja", "dejan"):
+            n = int(m.group(1))
+            best = max(best, 0 if 1900 <= n <= 2100 else n)
     for m in (_DEAD_TOLL_RE if dead_only else _TOLL_RE).finditer(t):
         v = m.group(1)
         n = int(v) if v.isdigit() else _NUM_WORDS.get(v, 0)
         if 1900 <= n <= 2100:  # une année, pas un bilan
             continue
         best = max(best, n)
+    if not dead_only:   # « un muerto y dos heridos » : morts et blessés s'additionnent
+        best = max(best, sum(_NUM_WORDS.get(m.group(1), 0) if not m.group(1).isdigit() else
+                             (0 if 1900 <= int(m.group(1)) <= 2100 else int(m.group(1))) for m in _TOLL_RE.finditer(t)))
+        if _BOTH_RE.search(t):   # « deja muerto y mujer herida »
+            best = max(best, 2)
     return best
 
 
 def heavy_toll(t):
     """Bilan lourd : au moins 3 morts ou 5 victimes."""
     return casualty_toll(t, dead_only=True) >= 3 or casualty_toll(t) >= 5
+
+
+def notable_toll(t):
+    """Bilan notable pour une attaque armée de droit commun : au moins 2 morts ou 3 victimes (v0.23)."""
+    return casualty_toll(t, dead_only=True) >= 2 or casualty_toll(t) >= 3
 
 
 def attack_relevance(t):
@@ -486,7 +521,9 @@ def attack_relevance(t):
         return None
     if not _VIOLENCE_RE.search(t) and not _SPECIFIC_RE.search(t):
         return "hors sujet"  # « Google attaque… », « le maire attaque l'opposition », sport
-    if heavy_toll(t) or _PUBLIC_TARGET_RE.search(t):
+    # « transporté à l'hôpital » : la victime, pas une attaque contre un hôpital
+    tt = _HOSPITAL_RE.sub(" ", t)
+    if heavy_toll(t) or notable_toll(t) or _PUBLIC_TARGET_RE.search(tt):
         return None
     return "fait divers"
 
@@ -501,7 +538,7 @@ RETRO_WORDS = ["obras", "project", "projet", "proyecto", "projeto", "delayed", "
                "malgre", "despite", "faits et informations", "facts and", "ce qui va changer", "face aux", "tanggul",
                "perbaikan", "salles rafraichies"]
 _RETRO_RE = _word_re(RETRO_WORDS)
-_MAG_RE = re.compile(r"(?:magnitud[eo]?|mag\.?|m|mw|ml|magnitude|sismo|seisme|earthquake|quake|terremoto|temblor|deprem)\s*(?:de\s*|of\s*|:\s*)?(\d(?:[.,]\d)?)(?!\d)"
+_MAG_RE = re.compile(r"(\d[.,]\d)\s*(?:m|sr)(?!\w)|(?:magnitud[eo]?|magnitudo|mag\.?|m|mw|ml|magnitude|sismo|seisme|earthquake|quake|terremoto|temblor|deprem)\s*(?:de\s*|of\s*|:\s*)?(\d(?:[.,]\d)?)(?!\d)"
                      r"|(\d(?:[.,]\d)?)\s*(?:de\s+|-)?(?:magnitud[eo]?|magnitude|buyuklugunde|درجات|richter|sr\b)", re.I)
 QUAKE_IMPACT = ["dead", "killed", "died", "mort", "morts", "muerto", "muertos", "mortos", "olu", "injur", "blesse",
                 "herido", "ferido", "yarali", "damage", "degats", "danos", "hasar", "collapse", "effondr", "derrumb",
@@ -509,7 +546,9 @@ QUAKE_IMPACT = ["dead", "killed", "died", "mort", "morts", "muerto", "muertos", 
                 "viviendas", "casas", "jolts", "strong", "powerful", "violent", "puissant", "fuerte", "forte", "guclu",
                 "siddetli", "injuries"]
 _QUAKE_IMPACT_RE = _word_re(QUAKE_IMPACT)
-_CONFLICT_EVENT_RE = _word_re(["strike", "strikes", "frappe", "clash", "clashes", "affrontement", "enfrentamiento", "attack",
+_CONFLICT_EVENT_RE = _word_re(["airstrike", "airstrikes", "air strike", "air strikes", "deadly", "retake", "retakes",
+                               "recapture", "takes control", "toma el control", "prend le controle", "shell", "shells",
+                               "strike", "strikes", "frappe", "clash", "clashes", "affrontement", "enfrentamiento", "attack",
                                "attaque", "ataque", "offensive", "ofensiva", "shelling", "bombard", "drone", "missile",
                                "captur", "seize", "seized", "advance", "avance", "fighting", "combats", "battle", "bataille",
                                "ambush", "embuscade", "raid", "incursion", "invasion", "ceasefire", "cessez-le-feu",
@@ -543,14 +582,15 @@ def not_incident(title, cat=None):
     if cat == "infrastructure" and not (heavy_toll(t) or _INFRA_IMPACT_RE.search(t)) and _SMALL_ACCIDENT_RE.search(t):
         return "accident de chantier"
     if cat == "earthquake":
-        mags = [float((m.group(1) or m.group(2)).replace(",", ".")) for m in _MAG_RE.finditer(t)]
+        mags = [float(next(g for g in m.groups() if g).replace(",", ".")) for m in _MAG_RE.finditer(t)]
         if mags and max(mags) < 5:
             return "séisme faible (couvert par l'USGS)"
         if not mags and not _QUAKE_IMPACT_RE.search(t):
             return "séisme sans impact"
     if _JUDICIAL_RE.search(t) and not _MOBILISATION_RE.search(t):
         return "judiciaire"
-    if _PRIVATE_RE.search(_SUICIDE_ATTACK_RE.sub(" ", t)) and not _PUBLIC_CRIME_RE.search(t):
+    if cat not in ("armed_conflict", "terrorism") and _PRIVATE_RE.search(_SUICIDE_ATTACK_RE.sub(" ", t)) \
+            and not _PUBLIC_CRIME_RE.search(t):
         return "fait divers"
     if cat == "crime" and not _PUBLIC_CRIME_RE.search(t):
         return "fait divers"
@@ -562,15 +602,206 @@ def not_incident(title, cat=None):
     return None
 
 
+# ------------------------------------------------------------------ contexte, pas événement (v0.23)
+# Un « événement » de la carte doit pouvoir toucher physiquement un voyageur ou un site. Les titres suivants parlent
+# bien de sûreté, mais d'autre chose qu'un fait physique : arrestations et suites d'enquête, complots déjoués,
+# déclarations et réactions, analyses, rétrospectives et démentis, travaux de prévention, annonces militaires,
+# signaux diplomatiques. Ils restent dans le Fil (contexte) mais ne sont plus placés sur la carte.
+VIOLENT_CATS = {"attack", "terrorism", "armed_conflict", "crime"}
+ARREST_WORDS = ["arrest", "arrested", "arrests", "jailed", "jail", "detenido", "detenidos", "detenida", "detenidas",
+                "detiene", "detienen", "detuvo", "detencion", "aprehend", "captura a", "capturan a", "capturo a",
+                "capturados", "capturado", "cae alias", "cae en", "cayo", "caen alias", "desarticul", "interpelle",
+                "interpelles", "interpellation", "interpellations", "arrete", "arretes", "arretee", "arrestation",
+                "prende", "presos", "preso", "festgenommen", "festnahme", "arrestato", "arrestati", "ditangkap",
+                "held for", "cops charge", "police charge", "charges filed", "localiza", "localizan", "localizada",
+                "identifies", "ids", "identified as", "identifie", "identifica", "fundraiser", "cagnotte", "cleared in",
+                "court told", "acusado", "acusados", "accuses", "relata", "relato", "denuncian falsas", "sigue alojado", "ubicaron",
+                "sospechoso de", "ends in", "ended", "resolved", "liberado", "liberada", "liberee", "libere", "freed",
+                "held in", "nuevo giro", "proceso contra", "in aula", "collectionn", "transported to", "were transported"]
+_ARREST_RE = _word_re(ARREST_WORDS)
+FRESH_WORDS = ["killed", "kills", "kill", "dead", "dies", "died", "wounded", "injured", "injures", "tue", "tues", "tuee",
+               "tuees", "morts", "mort", "blesse", "blesses", "blessee", "muere", "murio", "mueren", "muertos", "muerto",
+               "heridos", "herido", "asesinad", "mortos", "morto", "feridos", "ferito", "feriti", "morti", "tote",
+               "verletzt", "verletzte", "olu", "yarali", "tewas", "luka"]
+_FRESH_RE = _word_re(FRESH_WORDS)
+FOILED_WORDS = ["dejoue", "dejouee", "dejoues", "foil", "foiled", "foils", "thwart", "thwarted", "thwarts", "frustra ",
+                "frustran", "frustro", "frustrado", "frustrada", "neutraliza", "neutralizan", "neutralizo", "vereitelt",
+                "vereiteln", "sventato", "sventata", "plot", "plots", "plotting", "plotted", "complot", "geplant",
+                "planeaban", "planeado", "planned attack", "planning attack", "projetait", "menace d'attentat",
+                "entging", "entgehen", "dismantled", "demantele", "desmantel", "متلاشی", "خنثی", "blague", "canular",
+                "fausse alerte", "false alarm", "falsa alarma"]
+_FOILED_RE = _word_re(FOILED_WORDS)
+REACTION_WORDS = ["condemn", "condemns", "condemned", "condamne", "condena", "condenan", "deplore", "deplores", "deplora",
+                  "denounce", "denounces", "denonce", "denoncent", "calls for", "call for", "appelle a", "pide", "piden",
+                  "pidio", "exige", "exigen", "seeks", "lauds", "salue", "assures", "assure", "promet", "promises", "vows",
+                  "says ready", "clarifies", "denies", "deny", "dement", "dementi", "desmiente", "rejects", "responds",
+                  "reacts", "tribute", "hommage", "homenaje", "funeral", "funerailles", "obseques", "minute de silence",
+                  "visit", "visite", "visita", "se rend", "talks", "summit", "sommet", "cumbre", "convoco", "convoca",
+                  "anuncia medidas", "anuncio medidas", "announces", "annonce", "plans to", "to hold", "proposes",
+                  "agreement", "accord", "acuerdo", "support for", "supports", "soutien", "appui", "appuyer", "respalda",
+                  "blame game", "alleges", "allegue", "accuse", "acusa", "warned israel", "warns that", "official protest",
+                  "publient", "publie une liste", "publishes", "anuncia", "anuncio", "comision para", "esclarecer",
+                  "laws against", "law against", "loi contre", "ley contra", "legislation", "tackle", "approach is needed",
+                  "tells villagers", "resigns", "resign", "demissionne", "dimite", "renuncia", "preoccupe", "preoccupee", "concerned", "preocupa", "preocupado", "ziyaret", "retour au calme", "accalmie", "calm returns", "regresa la calma", "vuelve la calma", "lull"]
+_REACTION_RE = _word_re(REACTION_WORDS)
+ANALYSIS_WORDS = ["revela", "revelan", "reveal", "reveals", "revealed", "ce que l'on sait",
+                  "ce qu'on sait", "lo que se sabe", "explained", "explainer", "takeaways", "analysis", "analyse",
+                  "analisis", "las claves", "les cles", "key points", "disminuyen", "en baisse", "drop in",
+                  "guerra por el control", "volvio a disparar", "nomina esperto", "indikator", "bisa jadi", "מודיעין", "expert says", "experts say", "plongee", "decryptage", "la historia de", "la historia del",
+                  "the story of", "spur fuhrt", "ermittler", "ermittlungen", "report finds", "informe revela",
+                  "security vacuum", "sanctuary", "year high", "year low", "highest level", "plus haut niveau", "nivel mas alto", "cabos sueltos", "censors", "criminalis", "of gdp", "du pib", "own estimate", "distraction", "persistira", "never-ending", "politics of", "vive la"]
+_ANALYSIS_RE = _word_re(ANALYSIS_WORDS)
+_QUESTION_RE = re.compile(r"(?:^|[\s¿:,;—–-])(?:qui|quoi|pourquoi|comment|who|whom|why|how|what|quien|quienes|que hacia|"
+                          r"por que|hasta cuando|cuando|wer|warum|wie|perche|apakah|mengapa|kenapa)\b[^?]*\?")
+RETRO2_WORDS = ["years ago", "anni fa", "anos atras", "ans apres", "years after", "years since", "ans du", "anniversaire",
+                "aniversario", "anniversario", "memorial", "souvenir", "se souvenir", "seconde guerre mondiale",
+                "second world war", "world war", "segunda guerra mundial", "weltkrieg", "remains of", "restes de",
+                "hoax", "hoaks", "fake", "faux", "fausse", "falso", "falsa", "not a houthi", "n'est pas", "no es un",
+                "debunk", "misleading", "no factual basis", "unfounded", "sin fundamento", "infonde", "a year after", "year after the", "siecle", "siglo xx", "century", "il y a un an", "hace un ano", "un an apres",
+                "menolak lupa", "dikorupsi", "korupsi", "corruption", "detournement", "quatre ans du", "four years since",
+                "3 years of", "three years of", "years of war", "relance la", "ravive", "mur des noms", "not a ", "שנים עברו",
+                "الذكرى", "ذكرى"]
+_RETRO2_RE = _word_re(RETRO2_WORDS)
+_YEARS_AGO_RE = re.compile(r"\bhace (?:mas de )?(?:un|\d+) anos?\b|\b(?:il y a|vor)\s+\d+\s+(?:ans|jahren)\b|\b\d+\s+(?:years|anni|ans)\s+(?:ago|fa|apres|after)\b")
+PREVENTION_WORDS = ["prevenir", "prevention", "lutter contre", "protection contre", "proteger", "proteger de", "defensas",
+                    "dragas", "obra reclamada", "sumideros", "sensores", "sensors", "alegaciones", "real decreto",
+                    "plan especifico", "homologado", "tanque de tormentas", "ampliara", "construye", "construira",
+                    "builds", "mitigation", "control works", "inspection", "inspects", "tests flood", "flood response",
+                    "simulasi", "gladi", "edukasi", "bangun", "drainase", "perbaiki", "normalisasi", "relokasi",
+                    "rekomendasikan", "sinkronkan", "penanganan", "upayakan", "cegah", "tinjau", "bersihkan",
+                    "kolam retensi", "gorong", "bantuan", "salurkan", "pasca", "niedrigwasser", "kritisieren",
+                    "hochwasserschutz", "testaufbau", "une solution", "s'engage", "assainir", "millions d'euros",
+                    "milioni di euro", "interventi$", "completato", "farmers facing", "refinanciar", "deudas",
+                    "fotos que muestran", "festival", "cri contre", "vulnerable", "lecons", "expose", "doble castigo",
+                    "aprender a vivir", "el nino", "la nina", "command centre", "relief reaches", "repaired",
+                    "aplican la fibe", "catastrar", "oficina", "desactiva", "desactivan", "respiran aliviados", "alivio",
+                    "descenso de", "llaves", "nuevas casas", "reconstruccion", "reconstruction", "rebuild", "anticipar",
+                    "inteligencia artificial", "ia con", "satelites", "y ninguno", "central team", "assesses",
+                    "visits drought", "pidieron limpieza", "obligan a reorganizar" , "never again", "babi hutan",
+                    "karangan bunga", "solution pour", "visite", "se rend", "en visite", "enquete nationale", "survey", "gueris", "guerie",
+                    "gueries", "recovered", "discharged", "sortent", "quittent", "laboratoires mobiles",
+                    "laboratorios moviles", "plan de preparation", "plan de reponse", "funding", "financement",
+                    "transparency", "transparence", "mobilisent", "entravent", "transfere", "testing stepped up",
+                    "concours", "abo)", "tackle", "approach is needed", "tells villagers", "signs of recovery", "relief appeal", "appeal for", "donates", "relief materials", "rolls out", "allocates", "ziyaret"]
+_PREVENTION_RE = _word_re(PREVENTION_WORDS)
+MILITARY_CONTEXT_WORDS = ["displayed", "acquired", "acquisition", "unveil", "devoile", "live firings", "firings",
+                          "deployment", "deploiement", "despliegue", "redeploy", "withdraw", "retrait des troupes",
+                          "procure", "purchase", "achat", "needs additional", "air defenses", "defense aerienne",
+                          "budget", "drone show", "create giant", "spectacle de drones", "interdiction", "disent adieu",
+                          "spy", "espion", "briefings", "shown to", "missile system", "live:", "sichtungssystem", "new system",
+                          "nouveau systeme", "nuevo sistema", "live updates",
+                          "ligne de front", "trasladan su gobierno", "infiltration", "plan cristo rey", "ofensiva urbana",
+                          "invasiones de tierras", "zozobra", "convoca", "consejo de seguridad", "medidas de seguridad",
+                          "refuerzan seguridad", "seguridad en barrios", "pide intervencion", "laboratorios"]
+_MILITARY_CONTEXT_RE = _word_re(MILITARY_CONTEXT_WORDS)
+_HOSPITAL_RE = re.compile(r"(?:taken|rushed|transported|airlifted|brought) to (?:the )?hospital|hospitali[sz]\w*|"
+                          r"(?:trasladad|llevad)\w* al hospital|transporte\w* a l'hopital|evacue\w* vers l'hopital")
+# réaction ou annonce qui décrit pourtant une attaque précise (« condamne l'attaque de drone contre la centrale de Médine »,
+# « le Yémen affirme avoir mené des centaines de frappes ») : l'événement est là, il reste sur la carte… sauf démenti,
+# condamnation ou sommet (l'attaque elle-même a son propre titre, que le regroupement par histoire rattache).
+_CONCRETE_ATTACK_RE = re.compile(r"\b(?:attacks? (?:on|against|targeting)|strikes? (?:on|against)|frappes? (?:sur|contre)|"
+                                 r"(?:centaines|dizaines) de frappes|attaques? contre|attentats? contre|ataques? (?:contra|a)\b|"
+                                 r"offensive (?:contre|against|on)|ofensiva contra|repel\w*|repouss\w*|repel(?:en|ieron|io)|"
+                                 r"launch\w* (?:an? )?(?:strike|attack|offensive)|terrorist attack targeting|"
+                                 r"hit (?:in|by) (?:an? )?\w+ (?:air ?strike|strike|attack|missile|drone)|"
+                                 r"retakes?|recaptures?|takes control|seizes?|prend le controle|toma el control)")
+_DENIAL_RE = _word_re(["condemn", "condamne", "condena", "deplore", "denounce", "denonce", "denies", "deny", "denied", "rejects", "rejected", "dement", "dementi", "desmiente", "niega",
+                       "clarifies", "assures", "no shooting", "aucune attaque", "talks", "summit", "sommet", "cumbre",
+                       "to hold", "if attacked", "links to", "liens avec"])
+# fait physique constaté (feu, explosion, tirs) : un titre interrogatif qui en parle reste un événement
+_PHYSICAL_RE = _word_re(["fire", "fires", "feuer", "brand", "incendi", "explos", "detona", "blast", "explot", "disparos",
+                         "shots fired", "tiroteo", "fusillade", "shooting", "gunfire", "coups de feu", "schusse"])
+_ELECTION_VIOLENCE_RE = _word_re(["disparos", "shots fired", "gunfire", "coups de feu", "tiroteo", "fusillade", "incendiad",
+                                  "incendie", "torched", "set on fire", "quemaron", "queman", "affrontements", "clashes",
+                                  "enfrentamientos", "violence", "violencia", "violent", "killed", "muertos", "morts"])
+_LIGHTNING_RE = _word_re(["foudre", "foudroye", "lightning", "rayo", "relampago", "fulmine", "blitz", "petir", "sambaran"])
+_SEIZURE_RE = re.compile(r"secuestros? de (?:armas|droga|drogas|elementos|bienes|vehiculos|mercaderia|celulares|cocaina|"
+                         r"marihuana|dinero|municiones|motos)|sequestro de (?:armas|drogas|bens)")
+
+
+def context(title, cat):
+    """Titre de sûreté qui n'est pas un fait physique (motif) : gardé dans le Fil, pas placé sur la carte. Sinon None."""
+    if cat == "diplomatic":
+        return "signal politique"
+    t = norm(title)
+    if _RETRO2_RE.search(t) or _YEARS_AGO_RE.search(t):
+        return "rétrospective ou démenti"
+    if (_QUESTION_RE.search(t) and cat != "unrest") or _ANALYSIS_RE.search(t) \
+            or ("?" in t and cat in VIOLENT_CATS and not _FRESH_RE.search(t) and not _PHYSICAL_RE.search(t)):
+        return "analyse"  # « à quoi s'attendre pour la manifestation ? » reste une information pratique
+    mobil = _MOBILISATION_RE.search(t)
+    if cat in NATURAL or cat == "health":
+        if _PREVENTION_RE.search(t):
+            return "prévention, bilan ou suites"
+        return None
+    if cat in VIOLENT_CATS or cat in ("political", "cyber"):
+        if _FOILED_RE.search(t) and not _FRESH_RE.search(t) and not re.search(r"detona|explosion|explot|blast", t):
+            return "projet déjoué"
+        if _FOILED_RE.search(t) and cat == "terrorism":
+            return "projet déjoué"
+        if not mobil:
+            th = _HOSPITAL_RE.sub(" ", t)   # « transported to hospital » : la victime, pas une arrestation
+            first = " ".join(th.split()[:6])
+            if _ARREST_RE.search(first) or (_ARREST_RE.search(th) and not _FRESH_RE.search(th)):
+                return "arrestation ou suites"
+        tr = t.replace("support forces", " ")   # Rapid Support Forces (Soudan), pas un « soutien »
+        if _REACTION_RE.search(tr) and not casualty_toll(t) and not _FRESH_RE.search(t) \
+                and (_DENIAL_RE.search(t) or not _CONCRETE_ATTACK_RE.search(t)):
+            return "déclaration"
+        if cat in ("armed_conflict", "terrorism") and _MILITARY_CONTEXT_RE.search(t) and not _FRESH_RE.search(t) \
+                and not _CONCRETE_ATTACK_RE.search(t):
+            return "annonce militaire"
+        if cat == "attack" and _MILITARY_CONTEXT_RE.search(t) and not _FRESH_RE.search(t):
+            return "annonce de sécurité"
+    return None
+
+
+def is_event(title, cat):
+    """Titre classé (catégorie connue) qui décrit un fait physique à placer sur la carte."""
+    return bool(cat) and not not_incident(title, cat) and not context(title, cat)
+
+
+_GDELT_PHYSICAL_RE = _word_re(["teargas", "flames", "smoke", "shot at", "shoot down", "shot down", "hits", "hit by", "raid",
+                               "raids", "crash", "crashes", "collapse", "stampede", "looted", "obstruct", "blocked", "fire"])
+_GDELT_SOFT = {"judiciaire", "suites judiciaires ou hommage", "rétrospective ou projet", "analyse (pas d'incident)",
+               "politique locale ou judiciaire", "séisme faible (couvert par l'USGS)"}
+
+
+def gdelt_noise(headline):
+    """GDELT code ses événements à partir d'articles : la catégorie vient de GDELT, mais le titre réel de l'article
+    (headline) dit souvent autre chose (portrait, procès, tribune, people). Motif d'exclusion, ou None (v0.23).
+    Plus indulgent que le tri de la presse : on n'écarte que ce qui n'a manifestement rien de physique."""
+    h = (headline or "").strip()
+    if not h:
+        return None
+    t = _SEIZURE_RE.sub("saisie", norm(h))
+    found = [c for c in PRIORITY if _CAT_RE[c].search(t)]
+    if not found:
+        if _VIOLENCE_RE.search(t) or _CONFLICT_EVENT_RE.search(t) or _PHYSICAL_RE.search(t) or _GDELT_PHYSICAL_RE.search(t):
+            return None
+        return "hors sujet"
+    if _NOISE_RE.search(t):
+        return "hors sujet"
+    cat = found[0]
+    why = not_incident(h, cat)
+    if why in _GDELT_SOFT:
+        return why
+    return context(h, cat)
+
+
 def classify(title):
     """Renvoie (catégorie, gravité) ou (None, None) si le titre ne relève pas de la sûreté."""
-    t = norm(title)
+    t = _SEIZURE_RE.sub("saisie", norm(title))
     if _NOISE_RE.search(t):
         return None, None
     found = [c for c in PRIORITY if _CAT_RE[c].search(t)]
+    if _LIGHTNING_RE.search(t):
+        found = ["storm"] + [c for c in found if c not in ("armed_conflict", "attack", "storm")]
     if not found:
         return None, None
     cat = found[0]
+    if cat == "diplomatic" and _ELECTION_VIOLENCE_RE.search(t):
+        cat = "unrest"   # « élections sous tension : tirs et urnes incendiées » : un fait physique
     if cat == "attack" and _EXPLOSION_RE.search(t) and not _INTENT_RE.search(t) and not _GENERIC_ATTACK_RE.search(t):
         # explosion sans intention affichée : volcan, accident industriel ou domestique, ou attaque contre une cible
         others = [c for c in found[1:] if c not in ("attack", "crime")]
@@ -892,7 +1123,7 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             continue
         seen.add(key)
         ai = (ai_results or {}).get(it["title"])
-        loc = None
+        loc, ctx = None, None
         if ai is not None:
             # l'IA a lu le titre : on suit son avis (pertinence, catégorie, lieu)
             if not ai.get("relevant"):
@@ -909,6 +1140,7 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             cat, sev = classify(it["title"])
             if not cat:
                 continue
+            ctx = context(it["title"], cat)   # arrestation, déclaration, analyse… : dans le Fil, pas sur la carte
             if gaz:
                 loc = gaz.locate(it["title"], it.get("country_hint"), cat, it.get("lang", ""))
             elif it.get("country_hint"):
@@ -922,8 +1154,9 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
                      **({"title_fr": it["_tfr"]} if it.get("_tfr") else {}), **({"title_en": it["_ten"]} if it.get("_ten") else {}),
                      "summary_en": (ai or {}).get("summary_en", ""),
                      "date": to_iso(it["date"]), "lang": it.get("lang", ""), "category": cat, "severity": sev,
-                     "country": (loc or {}).get("country"), "place": (loc or {}).get("place", "")})
-        if loc and "lat" in loc:
+                     "country": (loc or {}).get("country"), "place": (loc or {}).get("place", ""),
+                     **({"context": ctx} if ctx else {})})
+        if loc and "lat" in loc and not ctx:
             family = FAMILY.get(cat, cat)
             gkey = f"{loc['country']}-{norm(loc['place'])}-{family}-{it['date']:%Y%m%d}"
             g = groups.setdefault(gkey, {"loc": loc, "cat": cat, "sev": sev, "items": [], "outlets": set()})
@@ -982,5 +1215,7 @@ def build(press_items, econ_items, countries, log, now, ai_results=None):
             continue
         econ.append({"id": it["id"], "country": iso, "title": it["title"], "url": it["url"],
                      "source": it["outlet"], "date": to_iso(it["date"]), "lang": it.get("lang", "")})
-    log(f"  Presse : {len(news)} titres de sûreté, {len(events)} placés sur la carte, {len(econ)} titres économiques")
+    nctx = sum(1 for n in news if n.get("context"))
+    log(f"  Presse : {len(news)} titres de sûreté ({nctx} de contexte, Fil seulement), {len(events)} placés sur la carte, "
+        f"{len(econ)} titres économiques")
     return events, news, econ
