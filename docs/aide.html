@@ -138,7 +138,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <p>Chaque incident porte une <strong>cote</strong> de type <span class="k">B2</span>, selon la grille de renseignement utilisée par l'OTAN : la lettre juge la <strong>source</strong>, le chiffre juge l'<strong>information</strong>.</p>
     <div class="grid2">
       <table><tr><th>Lettre</th><th>Fiabilité de la source</th></tr>
-        <tr><td>A</td><td>Totalement fiable : organismes officiels et capteurs (USGS, GDACS, NASA, OMS, services météo, CISA…)</td></tr>
+        <tr><td>A</td><td>Totalement fiable : organismes officiels et capteurs (USGS, EMSC, GDACS, NASA, OMS, CDC, services météo, CISA…)</td></tr>
         <tr><td>B</td><td>Habituellement fiable : médias de référence</td></tr>
         <tr><td>C</td><td>Assez fiable : autre presse</td></tr>
         <tr><td>D</td><td>Pas toujours fiable : détection automatique GDELT</td></tr>
@@ -146,13 +146,14 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
         <tr><td>F</td><td>Fiabilité inconnue</td></tr></table>
       <table><tr><th>Chiffre</th><th>Crédibilité de l'information</th></tr>
         <tr><td>1</td><td>Confirmée (vérifiée par l'analyste, ou mesure officielle)</td></tr>
-        <tr><td>2</td><td>Probablement vraie (au moins 3 sources indépendantes)</td></tr>
+        <tr><td>2</td><td>Probablement vraie (au moins 3 sources indépendantes, ou 2 de types différents : officielle et presse)</td></tr>
         <tr><td>3</td><td>Possiblement vraie (2 sources, ou 1 source bien classée)</td></tr>
-        <tr><td>4</td><td>Douteuse (source unique, classement incertain)</td></tr>
+        <tr><td>4</td><td>Douteuse (source unique, classement incertain, démenti signalé, ou séisme sans mesure officielle)</td></tr>
         <tr><td>5</td><td>Improbable (infirmée par l'analyste)</td></tr>
         <tr><td>6</td><td>Invérifiable</td></tr></table>
     </div>
     <p>Le badge vert <strong>✔ Vérifié Angor</strong> signifie qu'un analyste a contrôlé l'incident (avec parfois une correction de la gravité ou de la catégorie). Les incidents infirmés disparaissent de la carte, des alertes et des calculs.</p>
+    <p><strong>Recoupement</strong> (fiche de l'incident) : le nombre de <em>sources indépendantes</em> et leurs types. Dix médias qui reprennent la même dépêche, ou les journaux d'un même groupe de presse, comptent pour une seule source. Un séisme, un cyclone ou une éruption rapportés par la presse sont rattachés à la mesure officielle (USGS, EMSC, GDACS, NOAA…) : une seule fiche, avec les articles en sources. Deux bandeaux orange peuvent apparaître : <strong>Démenti signalé</strong> (un démenti publié raconte la même histoire, avec son lien) et <strong>Non confirmé par les capteurs officiels</strong> (séisme chiffré qu'aucun réseau n'a mesuré : ancien, mal localisé ou faux).</p>
   </section>
 
   <section id="encours">
@@ -193,7 +194,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
 
   <section id="fil">
     <h2>Fil de presse</h2>
-    <p>Titres de presse liés à la sûreté (environ 110 pays et près de 800 médias de référence, dont la presse locale de 25 pays à risque, en 21 langues), les vulnérabilités informatiques activement exploitées (CISA) et les alertes CERT-FR. Titre et lien uniquement : cliquez pour lire l'article chez l'éditeur. Le champ de filtre accepte un pays ou un mot-clé.</p>
+    <p>Titres de presse liés à la sûreté (environ 120 pays et près de 1 500 médias de référence, dont la presse nationale et régionale de 25 pays à risque, en 56 langues), les vulnérabilités informatiques activement exploitées (CISA) et les alertes CERT-FR. Titre et lien uniquement : cliquez pour lire l'article chez l'éditeur. Le champ de filtre accepte un pays ou un mot-clé.</p>
     <p>L'étiquette <strong>Contexte</strong> signale un titre de sûreté qui ne décrit pas un fait physique : arrestation, déclaration, analyse, rétrospective, travaux de prévention. Il reste dans le Fil pour l'information, mais n'est pas placé sur la carte. Sur la carte, les titres qui racontent la même histoire (même dépêche sur plusieurs jours, bilan mis à jour, même article placé dans deux villes) sont regroupés en une seule fiche qui liste toutes leurs sources.</p>
   </section>
 
@@ -428,7 +429,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <ul>
       <li><strong>Officielles et capteurs</strong> : USGS (séismes), GDACS (ONU/UE), NASA EONET, OMS, NWS et NOAA NHC (météo et cyclones, États-Unis), alertes tsunami (PTWC, NTWC), Smithsonian GVP (volcans), Copernicus EMS (cartographie d'urgence), ECDC (santé), Meteoalarm (vigilances orange et rouges de 38 pays européens), CISA et CERT-FR (cyber), UCDP (conflits, historique).</li>
       <li><strong>Avis aux voyageurs</strong> : MEAE (France), FCDO (Royaume-Uni), Département d'État (États-Unis), Auswärtiges Amt (Allemagne), Canada.</li>
-      <li><strong>Presse</strong> : Google News (environ 110 pays, 12 langues), près de 800 médias de référence dans 206 pays (dont la presse locale de 25 pays à risque, en 21 langues), grands flux internationaux et presse régionale française, GDELT.</li>
+      <li><strong>Presse</strong> : Google News (environ 120 pays, éditions locales), près de 1 500 médias de référence dans 206 pays (dont la presse nationale et régionale de 25 pays à risque), mots-clés en 56 langues, grands flux internationaux et presse régionale française, GDELT.</li>
       <li><strong>Rapports</strong> : une trentaine de think tanks, ONG et organisations internationales (onglet Rapports).</li>
       <li><strong>Alerte précoce</strong> : NASA POWER (climat), HDX HAPI (insécurité alimentaire, déplacés), geoBoundaries (limites administratives).</li>
       <li><strong>Telegram</strong> : une cinquantaine de canaux publics (médias, agrégateurs d'urgence, comptes OSINT) en 9 langues. Les canaux officiels de médias sont cotés B ou C ; agrégateurs et comptes OSINT restent cotés E (« réseaux sociaux – non vérifié ») tant qu'une autre source ne confirme pas.</li>

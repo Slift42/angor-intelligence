@@ -1525,6 +1525,87 @@
    "regions": [
     "Europe"
    ]
+  },
+  {
+   "name": "Aleris",
+   "web": "https://www.aleris.se",
+   "hq": "Suède",
+   "categories": [
+    "clin",
+    "pclin"
+   ],
+   "note": "Groupe scandinave de soins spécialisés privés (cliniques en Suède, 7 hôpitaux privés au Danemark, Norvège) ; pas d'urgences.",
+   "ref": "https://www.aleris.dk/",
+   "checked": "2026-10-06",
+   "city": "Stockholm",
+   "countries": [
+    "SE",
+    "NO",
+    "DK"
+   ],
+   "regions": [
+    "Europe"
+   ]
+  },
+  {
+   "name": "Avarn Security",
+   "web": "https://www.avarnsecurity.no",
+   "hq": "Norvège",
+   "categories": [
+    "gs",
+    "cyb"
+   ],
+   "note": "Groupe nordique de sécurité (16 000 salariés) : gardiennage, alarmes, sûreté aéroportuaire (43 aéroports norvégiens), cybersécurité.",
+   "ref": "https://www.avarnsecurity.no/",
+   "checked": "2026-10-06",
+   "city": "Oslo",
+   "countries": [
+    "NO",
+    "SE",
+    "FI"
+   ],
+   "regions": [
+    "Europe"
+   ]
+  },
+  {
+   "name": "American Hospital (Spitali Amerikan)",
+   "web": "https://al.spitaliamerikan.com",
+   "hq": "Albanie",
+   "categories": [
+    "pclin"
+   ],
+   "note": "Réseau hospitalier privé : deux services d'urgences 24h/24 à Tirana et hôpital avec urgences 24h/24 à Pristina (Hajvali).",
+   "ref": "https://al.spitaliamerikan.com/en/?p=1341 ; https://ks.spitaliamerikan.com/english-american-hospital-opens-in-kosovo",
+   "checked": "2026-10-06",
+   "city": "Tirana",
+   "countries": [
+    "AL",
+    "XK"
+   ],
+   "regions": [
+    "Europe"
+   ]
+  },
+  {
+   "name": "Specijalna bolnica Agram",
+   "web": "https://www.agram-bolnica.hr",
+   "hq": "Croatie",
+   "categories": [
+    "pclin",
+    "clin"
+   ],
+   "note": "Plus grand système de santé privé croate (hôpital à Zagreb, 7 polycliniques en Croatie, site à Sarajevo) ; urgences 24h/24 non confirmées.",
+   "ref": "https://www.agram-bolnica.hr/o-nama-2/?lang=en",
+   "checked": "2026-10-06",
+   "city": "Zagreb",
+   "countries": [
+    "HR",
+    "BA"
+   ],
+   "regions": [
+    "Europe"
+   ]
   }
  ],
  "local": {
@@ -1746,6 +1827,70 @@
     "city": "Vienne"
    }
   ],
+  "AU": [
+   {
+    "name": "Mater Private Hospital Brisbane",
+    "web": "https://www.mater.org.au",
+    "hq": "Australie",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé de South Brisbane doté d'un service d'urgences privé ouvert 24h/24 et 7j/7.",
+    "ref": "https://www.mater.org.au/health/services/emergency-care",
+    "checked": "2026-10-06",
+    "city": "Brisbane"
+   },
+   {
+    "name": "Cabrini Health (Cabrini Malvern)",
+    "web": "https://www.cabrini.com.au",
+    "hq": "Australie",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé de Malvern avec service d'urgences ouvert 24h/24 et 7j/7.",
+    "ref": "https://www.cabrini.com.au/",
+    "checked": "2026-10-06",
+    "city": "Melbourne"
+   },
+   {
+    "name": "Wilson Security",
+    "web": "https://www.wilsonsecurity.com.au",
+    "hq": "Australie",
+    "categories": [
+     "gs",
+     "cm"
+    ],
+    "note": "Gardiennage, patrouilles mobiles, télésurveillance, sûreté événementielle et conseil en gestion des risques, licencié dans tous les États.",
+    "ref": "https://www.wilsonsecurity.com.au/",
+    "checked": "2026-10-06",
+    "city": "Melbourne"
+   },
+   {
+    "name": "MSS Security",
+    "web": "https://www.msssecurity.com.au",
+    "hq": "Australie",
+    "categories": [
+     "gs"
+    ],
+    "note": "Agents de sécurité, patrouilles et intervention sur alarme, paramédics, présent dans tous les États et territoires.",
+    "ref": "https://www.msssecurity.com.au/",
+    "checked": "2026-10-06",
+    "city": "(national)"
+   },
+   {
+    "name": "Royal Flying Doctor Service",
+    "web": "https://www.flyingdoctor.org.au",
+    "hq": "Australie",
+    "categories": [
+     "amb",
+     "med"
+    ],
+    "note": "Organisme à but non lucratif d'évacuation sanitaire aérienne 24h/24 et de soins dans l'Australie rurale et isolée.",
+    "ref": "https://www.flyingdoctor.org.au/",
+    "checked": "2026-10-06",
+    "city": "Canberra"
+   }
+  ],
   "AZ": [
    {
     "name": "Liv Bona Dea Hospital Baku",
@@ -1758,6 +1903,20 @@
     "ref": "https://www.livhospital.com/en/md-elsan-veliyev",
     "checked": "2026-10-05",
     "city": "Bakou"
+   }
+  ],
+  "BB": [
+   {
+    "name": "Sandy Crest Medical Centre",
+    "web": "https://www.sandycrest.net",
+    "hq": "Barbade",
+    "categories": [
+     "clin"
+    ],
+    "note": "Centre médical privé ouvert 24h/24 y compris jours fériés (urgences, radiologie, laboratoire).",
+    "ref": "https://www.sandycrest.net/",
+    "checked": "2026-10-06",
+    "city": "Holetown"
    }
   ],
   "BD": [
@@ -1827,6 +1986,34 @@
     "city": "Ouagadougou"
    }
   ],
+  "BG": [
+   {
+    "name": "Acibadem City Clinic Tokuda Hospital",
+    "web": "https://acibademcityclinic.bg",
+    "hq": "Bulgarie",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Plus grand hôpital privé de Bulgarie (550 lits, accrédité JCI), urgences 24h/24.",
+    "ref": "https://acibademinternational.com/hospital/acibadem-city-clinic-tokuda-hospital/",
+    "checked": "2026-10-06",
+    "city": "Sofia"
+   },
+   {
+    "name": "Force Delta",
+    "web": "https://www.forcedelta.com",
+    "hq": "Bulgarie",
+    "categories": [
+     "gs",
+     "cp",
+     "cit"
+    ],
+    "note": "Société de sécurité depuis 1993 : gardiennage armé, protection VIP, transport de valeurs, télésurveillance 24h/24, ISO 18788.",
+    "ref": "https://www.forcedelta.com/",
+    "checked": "2026-10-06",
+    "city": "Sofia"
+   }
+  ],
   "BH": [
    {
     "name": "Royal Bahrain Hospital",
@@ -1878,6 +2065,20 @@
     "checked": "2026-10-05",
     "page_read": false,
     "city": "Cotonou"
+   }
+  ],
+  "BN": [
+   {
+    "name": "Gleneagles JPMC",
+    "web": "https://www.gleneaglesjpmc.com.bn/",
+    "hq": "Brunei",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Centre hospitalier privé spécialisé en cardiologie et chirurgie cardiothoracique, avec ligne d'urgence 24h/24 et 7j/7.",
+    "ref": "https://www.gleneaglesjpmc.com.bn/contact-us/",
+    "checked": "2026-10-06",
+    "city": "Bandar Seri Begawan (Jerudong)"
    }
   ],
   "BO": [
@@ -1972,6 +2173,63 @@
     "ref": "https://gosafebrazil.com/servico-de-guarda-costas/",
     "checked": "2026-10-05",
     "city": "São Paulo"
+   }
+  ],
+  "BS": [
+   {
+    "name": "Doctors Hospital",
+    "web": "https://www.doctorshosp.com",
+    "hq": "Bahamas",
+    "categories": [
+     "pclin",
+     "amb"
+    ],
+    "note": "Seul hôpital privé accrédité JCI des Bahamas : urgences 24h/24, ambulances et ambulance aérienne.",
+    "ref": "https://www.doctorshosp.com/",
+    "checked": "2026-10-06",
+    "city": "Nassau"
+   }
+  ],
+  "BW": [
+   {
+    "name": "Life Gaborone Private Hospital",
+    "web": "https://www.lifehealthcare.co.za/hospitals/botswana/gaborone/life-gaborone-private-hospital/",
+    "hq": "Botswana",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé du groupe Life Healthcare (Segoditshane Road) doté d'un service d'urgences avec médecin urgentiste.",
+    "ref": "https://www.lifehealthcare.co.za/hospitals/botswana/gaborone/life-gaborone-private-hospital/",
+    "checked": "2026-10-06",
+    "city": "Gaborone"
+   }
+  ],
+  "BY": [
+   {
+    "name": "LODE",
+    "web": "https://www.lode.by",
+    "hq": "Biélorussie",
+    "categories": [
+     "clin"
+    ],
+    "note": "Réseau médical privé depuis 1992 (Minsk et 4 villes régionales), ouvert 7h-22h, IRM 24h/24.",
+    "ref": "https://www.lode.by/",
+    "checked": "2026-10-06",
+    "city": "Minsk"
+   }
+  ],
+  "BZ": [
+   {
+    "name": "Belize Medical Associates",
+    "web": "https://www.belizemedical.com",
+    "hq": "Belize",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé de 25 lits avec urgences 24h/24, unité de soins cardiaques et soins intensifs.",
+    "ref": "https://www.belizemedical.com/",
+    "checked": "2026-10-06",
+    "city": "Belize City"
    }
   ],
   "CA": [
@@ -2434,6 +2692,76 @@
     "city": "San José"
    }
   ],
+  "CU": [
+   {
+    "name": "Asistur",
+    "web": "https://www.asistur.cu",
+    "hq": "Cuba",
+    "categories": [
+     "med",
+     "ins"
+    ],
+    "note": "Société publique cubaine d'assistance et d'assurance pour voyageurs étrangers, recommandée par les consulats (soins à la Clínica Central Cira García).",
+    "ref": "https://exteriores.gob.es/Embajadas/lahabana/es/ViajarA/Paginas/Sanidad.aspx",
+    "checked": "2026-10-06",
+    "city": "La Havane"
+   }
+  ],
+  "CV": [
+   {
+    "name": "Clinitur",
+    "web": "https://clinitur.com",
+    "hq": "Cap-Vert",
+    "categories": [
+     "clin"
+    ],
+    "note": "Clinique privée de Sal assurant un service clinique 24h/24 et 7j/7 (chirurgie générale, cardiologie, pédiatrie, orthopédie) avec personnel anglophone.",
+    "ref": "https://www.gov.uk/government/publications/cape-verde-list-of-medical-facilities-and-practitioners/cape-verde-doctors",
+    "checked": "2026-10-06",
+    "city": "Santa Maria (Sal)"
+   }
+  ],
+  "CY": [
+   {
+    "name": "American Medical Center",
+    "web": "https://www.amc.com.cy",
+    "hq": "Chypre",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé (origine cardiologique, 1999), services de santé 24h/24.",
+    "ref": "https://www.amc.com.cy/",
+    "checked": "2026-10-06",
+    "city": "Nicosie"
+   }
+  ],
+  "CZ": [
+   {
+    "name": "Canadian Medical",
+    "web": "https://www.canadian.cz",
+    "hq": "Tchéquie",
+    "categories": [
+     "clin",
+     "care"
+    ],
+    "note": "Centres médicaux privés anglophones à Prague et Brno (40+ spécialités), médecin en ligne 24h/24, facturation directe aux assureurs internationaux.",
+    "ref": "https://www.canadian.cz/en",
+    "checked": "2026-10-06",
+    "city": "Prague"
+   },
+   {
+    "name": "M2C",
+    "web": "https://www.m2c.eu",
+    "hq": "Tchéquie",
+    "categories": [
+     "gs"
+    ],
+    "note": "Groupe de sécurité et facility management (gardiennage, accueil, technologies de sûreté), 8 500 salariés dans 13 pays.",
+    "ref": "https://www.m2c.eu/",
+    "checked": "2026-10-06",
+    "city": "Prague"
+   }
+  ],
   "DE": [
    {
     "name": "FAI Air Ambulance (FAI rent-a-jet)",
@@ -2485,6 +2813,22 @@
     "ref": "https://cliniqueaden.com/",
     "checked": "2026-10-05",
     "city": "Djibouti"
+   }
+  ],
+  "DK": [
+   {
+    "name": "Falck",
+    "web": "https://www.falck.com",
+    "hq": "Danemark",
+    "categories": [
+     "med",
+     "care",
+     "amb"
+    ],
+    "note": "Groupe danois d'intervention d'urgence et de santé (ambulances, transport de patients, assistance voyage), centrale 24h/24.",
+    "ref": "https://www.falck.dk/",
+    "checked": "2026-10-06",
+    "city": "Copenhague"
    }
   ],
   "DO": [
@@ -2611,6 +2955,21 @@
     "city": "Quito"
    }
   ],
+  "EE": [
+   {
+    "name": "Confido",
+    "web": "https://www.confido.ee",
+    "hq": "Estonie",
+    "categories": [
+     "clin",
+     "care"
+    ],
+    "note": "Centre médical privé (plus de 2 500 prestations, cliniques sans rendez-vous, clinique numérique), offres entreprises.",
+    "ref": "https://www.confido.ee/en/",
+    "checked": "2026-10-06",
+    "city": "Tallinn"
+   }
+  ],
   "EG": [
    {
     "name": "As-Salam International Hospital (Alameda Healthcare)",
@@ -2718,6 +3077,35 @@
     "ref": "https://uss.et/vipprotection.html",
     "checked": "2026-10-05",
     "city": "Addis-Abeba"
+   }
+  ],
+  "FI": [
+   {
+    "name": "Mehiläinen",
+    "web": "https://www.mehilainen.fi",
+    "hq": "Finlande",
+    "categories": [
+     "pclin",
+     "clin",
+     "care"
+    ],
+    "note": "Groupe privé finlandais d'hôpitaux et cliniques, médecine du travail, clinique numérique 24h/24.",
+    "ref": "https://www.mehilainen.fi/en",
+    "checked": "2026-10-06",
+    "city": "Helsinki"
+   },
+   {
+    "name": "Terveystalo",
+    "web": "https://www.terveystalo.com",
+    "hq": "Finlande",
+    "categories": [
+     "clin",
+     "care"
+    ],
+    "note": "Plus de 200 centres de santé privés en Finlande, médecine du travail, téléconsultation 24h/24.",
+    "ref": "https://www.terveystalo.com/en",
+    "checked": "2026-10-06",
+    "city": "Helsinki"
    }
   ],
   "FR": [
@@ -3015,6 +3403,20 @@
     "city": "Accra"
    }
   ],
+  "GM": [
+   {
+    "name": "Sharab Hospital (Sharab Medical Centre)",
+    "web": "https://www.sharabclinic.com",
+    "hq": "Gambie",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé ouvert 24h/24 et 7j/7 (chirurgie, imagerie, laboratoire, pharmacie) disposant d'un service d'ambulance et d'une antenne à Barra.",
+    "ref": "https://www.sharabclinic.com",
+    "checked": "2026-10-06",
+    "city": "Serekunda"
+   }
+  ],
   "GN": [
    {
     "name": "Clinique Pasteur Conakry",
@@ -3158,6 +3560,21 @@
     "city": "Guatemala"
    }
   ],
+  "GY": [
+   {
+    "name": "St. Joseph Mercy Hospital",
+    "web": "https://mercyhospital.gy",
+    "hq": "Guyana",
+    "categories": [
+     "pclin",
+     "amb"
+    ],
+    "note": "Hôpital privé avec service Accident & Emergency 24h/24, ambulance et laboratoire 24h/24, scanner et IRM.",
+    "ref": "https://mercyhospital.gy/",
+    "checked": "2026-10-06",
+    "city": "Georgetown"
+   }
+  ],
   "HK": [
    {
     "name": "Matilda International Hospital",
@@ -3265,6 +3682,21 @@
     "city": "Port-au-Prince"
    }
   ],
+  "HU": [
+   {
+    "name": "FirstMed Centers Budapest",
+    "web": "https://firstmedcenters.com",
+    "hq": "Hongrie",
+    "categories": [
+     "clin",
+     "care"
+    ],
+    "note": "Clinique internationale anglophone depuis 1999, ligne 24h/24, facturation directe à plus de 120 assureurs.",
+    "ref": "https://firstmedcenters.com/",
+    "checked": "2026-10-06",
+    "city": "Budapest"
+   }
+  ],
   "ID": [
    {
     "name": "Mayapada Hospital",
@@ -3334,6 +3766,56 @@
     "ref": "https://nawakara.com/en/bujp-dan-jasa-security/",
     "checked": "2026-10-05",
     "city": "Jakarta"
+   }
+  ],
+  "IE": [
+   {
+    "name": "Beacon Hospital",
+    "web": "https://www.beaconhospital.ie",
+    "hq": "Irlande",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé de Sandyford avec service d'urgences consultant ouvert 24h/24 et 7j/7.",
+    "ref": "https://www.beaconhospital.ie/",
+    "checked": "2026-10-06",
+    "city": "Dublin"
+   },
+   {
+    "name": "Mater Private Network",
+    "web": "https://www.materprivate.ie",
+    "hq": "Irlande",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Réseau hospitalier privé (Dublin, Cork, Limerick) avec deux services d'urgences et deux unités de cardiologie d'urgence.",
+    "ref": "https://www.materprivate.ie/",
+    "checked": "2026-10-06",
+    "city": "Dublin"
+   },
+   {
+    "name": "Blackrock Health",
+    "web": "https://www.blackrockhealth.com",
+    "hq": "Irlande",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Trois hôpitaux privés (Blackrock Clinic, Hermitage Clinic, Galway Clinic) avec urgences privées à Dublin et Galway.",
+    "ref": "https://www.blackrockhealth.com/",
+    "checked": "2026-10-06",
+    "city": "Dublin"
+   },
+   {
+    "name": "Manguard Plus",
+    "web": "https://www.manguardplus.ie",
+    "hq": "Irlande",
+    "categories": [
+     "gs"
+    ],
+    "note": "Premier prestataire de sécurité privé à capitaux irlandais : gardiennage, patrouilles, télésurveillance 24h/24, licences PSA.",
+    "ref": "https://www.manguardplus.ie/",
+    "checked": "2026-10-06",
+    "city": "Kildare"
    }
   ],
   "IL": [
@@ -3549,6 +4031,34 @@
     "ref": "https://gemellihospital.com/international-patient-services/",
     "checked": "2026-10-05",
     "city": "Rome"
+   }
+  ],
+  "JM": [
+   {
+    "name": "Andrews Memorial Hospital",
+    "web": "https://www.amhosp.org",
+    "hq": "Jamaïque",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé de Hope Road (depuis 1944), accès 24h/24, maternité, bloc opératoire, imagerie.",
+    "ref": "https://www.amhosp.org/",
+    "checked": "2026-10-06",
+    "city": "Kingston"
+   },
+   {
+    "name": "Guardsman Group",
+    "web": "https://www.guardsmangroup.com",
+    "hq": "Jamaïque",
+    "categories": [
+     "gs",
+     "cp",
+     "cit"
+    ],
+    "note": "Groupe de sécurité caribéen (près de 50 ans) : agents, intervention armée, gestion des fonds, protection rapprochée.",
+    "ref": "https://www.guardsmangroup.com/",
+    "checked": "2026-10-06",
+    "city": "Kingston"
    }
   ],
   "JO": [
@@ -3769,6 +4279,20 @@
     "city": "Nairobi"
    }
   ],
+  "KG": [
+   {
+    "name": "NEOMED",
+    "web": "https://www.neomed.kg",
+    "hq": "Kirghizistan",
+    "categories": [
+     "clin"
+    ],
+    "note": "Centre médical privé (consultations, diagnostic, chirurgie, obstétrique) ouvert du lundi au samedi, sans urgences 24h/24.",
+    "ref": "https://www.neomed.kg",
+    "checked": "2026-10-06",
+    "city": "Bichkek"
+   }
+  ],
   "KH": [
    {
     "name": "Sunrise Japan Hospital Phnom Penh",
@@ -3872,6 +4396,46 @@
     "city": "Salmiya"
    }
   ],
+  "KZ": [
+   {
+    "name": "International Clinic Interteach",
+    "web": "https://almaty.interteach.kz",
+    "hq": "Kazakhstan",
+    "categories": [
+     "clin"
+    ],
+    "note": "Clinique internationale anglophone implantée à Almaty et Astana, référencée par le FCDO britannique.",
+    "ref": "https://www.gov.uk/government/publications/kazakhstan-list-of-medical-facilities/list-of-medical-facilitiespractitioners-in-kazakhstan--2",
+    "checked": "2026-10-06",
+    "city": "Almaty"
+   }
+  ],
+  "LA": [
+   {
+    "name": "Kasemrad International Hospital Vientiane",
+    "web": "https://kasemradvientiane.com/index.php/en/",
+    "hq": "Laos",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé international ouvert 24h/24 (service d'urgences, centre cardiaque, chirurgie, maternité, hémodialyse) avec accueil des patients internationaux.",
+    "ref": "https://www.gov.uk/government/publications/laos-list-of-medical-facilities/list-of-medical-facilities-practitioners-in-laos",
+    "checked": "2026-10-06",
+    "city": "Vientiane"
+   },
+   {
+    "name": "Alliance International Medical Centre (AIMC)",
+    "web": "https://www.aimclao.com",
+    "hq": "Laos",
+    "categories": [
+     "clin"
+    ],
+    "note": "Centre médical international privé anglophone avec urgences 24h/24 (médecine interne, pédiatrie, gynécologie, radiologie).",
+    "ref": "https://www.gov.uk/government/publications/laos-list-of-medical-facilities/list-of-medical-facilities-practitioners-in-laos",
+    "checked": "2026-10-06",
+    "city": "Vientiane"
+   }
+  ],
   "LB": [
    {
     "name": "American University of Beirut Medical Center (AUBMC)",
@@ -3961,6 +4525,50 @@
     "ref": "https://www.medlinkclinicliberia.com/",
     "checked": "2026-10-05",
     "city": "Monrovia"
+   }
+  ],
+  "LT": [
+   {
+    "name": "Kardiolita",
+    "web": "https://www.kardiolita.lt",
+    "hq": "Lituanie",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Principal hôpital général privé de Lituanie (depuis 1998, 45+ spécialités), ligne dédiée aux patients étrangers.",
+    "ref": "https://www.kardiolita.lt/en/",
+    "checked": "2026-10-06",
+    "city": "Vilnius"
+   }
+  ],
+  "LU": [
+   {
+    "name": "Luxembourg Air Rescue (LAR)",
+    "web": "https://www.lar.lu",
+    "hq": "Luxembourg",
+    "categories": [
+     "amb",
+     "heli"
+    ],
+    "note": "Hélicoptères de secours et avions ambulances 24h/24, rapatriement sanitaire mondial pour membres et entreprises.",
+    "ref": "https://www.lar.lu/en/",
+    "checked": "2026-10-06",
+    "city": "Luxembourg"
+   }
+  ],
+  "LV": [
+   {
+    "name": "ARS Medical Centre",
+    "web": "https://arsmed.lv",
+    "hq": "Lettonie",
+    "categories": [
+     "clin",
+     "care"
+    ],
+    "note": "Grand centre médical privé (polyclinique, hôpital), aide médicale d'urgence 8h-22h et visites à domicile.",
+    "ref": "https://arsmed.lv/en/",
+    "checked": "2026-10-06",
+    "city": "Riga"
    }
   ],
   "LY": [
@@ -4056,6 +4664,20 @@
     "city": "Chișinău"
    }
   ],
+  "ME": [
+   {
+    "name": "Codra Hospital",
+    "web": "https://www.codra.me",
+    "hq": "Monténégro",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital général privé (chirurgie, anesthésie, gynécologie, radiologie) listé par le FCDO britannique.",
+    "ref": "https://www.gov.uk/government/publications/list-of-medical-facilities-in-montenegro/list-of-private-medical-facilities-in-montenegro",
+    "checked": "2026-10-06",
+    "city": "Podgorica"
+   }
+  ],
   "MG": [
    {
     "name": "Polyclinique d'Ilafy (Groupe Sodiat)",
@@ -4069,6 +4691,20 @@
     "ref": "https://old.sodiatgroupe.mg/polyclinique-ilafy.php",
     "checked": "2026-10-05",
     "city": "Antananarivo"
+   }
+  ],
+  "MK": [
+   {
+    "name": "Acibadem Sistina",
+    "web": "https://acibademsistina.mk",
+    "hq": "Macédoine du Nord",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital clinique privé (238 lits) avec urgences adultes et pédiatriques 24h/24.",
+    "ref": "https://acibademsistina.mk/en",
+    "checked": "2026-10-06",
+    "city": "Skopje"
    }
   ],
   "ML": [
@@ -4162,6 +4798,48 @@
     "city": "Yangon"
    }
   ],
+  "MN": [
+   {
+    "name": "SOS Medica Mongolia",
+    "web": "https://sosmedica.mn/en/",
+    "hq": "Mongolie",
+    "categories": [
+     "clin",
+     "med",
+     "ev"
+    ],
+    "note": "Clinique internationale : urgences 24h/24, ambulances, réanimation, évacuations sanitaires nationales et internationales (partenaire International SOS).",
+    "ref": "https://sosmedica.mn/en/our-services/emergency-and-medical-evacuation-services/",
+    "checked": "2026-10-06",
+    "city": "Oulan-Bator"
+   },
+   {
+    "name": "Intermed Hospital",
+    "web": "https://intermed.mn",
+    "hq": "Mongolie",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé accrédité JCI avec urgences et imagerie 24h/24 et plusieurs cliniques satellites à Oulan-Bator.",
+    "ref": "https://intermed.mn",
+    "checked": "2026-10-06",
+    "city": "Oulan-Bator"
+   }
+  ],
+  "MO": [
+   {
+    "name": "Kiang Wu Hospital",
+    "web": "https://www.kwh.org.mo",
+    "hq": "Macao",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Principal hôpital privé (associatif) de Macao avec service d'urgences 24h/24 et centre médical à Taipa.",
+    "ref": "https://www.gov.uk/government/publications/macao-list-of-medical-facilities/macao-list-of-medical-facilities",
+    "checked": "2026-10-06",
+    "city": "Macao"
+   }
+  ],
   "MR": [
    {
     "name": "Clinique Ennasr",
@@ -4187,6 +4865,34 @@
     "ref": "https://www.salimavoyages.com/fr/node/1571?language_content_entity=fr",
     "checked": "2026-10-05",
     "city": "Nouakchott"
+   }
+  ],
+  "MT": [
+   {
+    "name": "Saint James Hospital Group",
+    "web": "https://www.stjameshospital.com",
+    "hq": "Malte",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Premier groupe hospitalier privé maltais (4 sites dont Sliema et Żejtun), service d'urgences et hospitalisation.",
+    "ref": "https://www.stjameshospital.com/",
+    "checked": "2026-10-06",
+    "city": "Sliema"
+   }
+  ],
+  "MV": [
+   {
+    "name": "ADK Hospital",
+    "web": "https://adkhospital.mv",
+    "hq": "Maldives",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Plus grand hôpital privé des Maldives : urgences 24h/24 (hotline 1440), plus de 30 spécialités, accueil des patients internationaux.",
+    "ref": "https://adkhospital.mv",
+    "checked": "2026-10-06",
+    "city": "Malé"
    }
   ],
   "MX": [
@@ -4374,6 +5080,20 @@
     "city": "Nacala"
    }
   ],
+  "NA": [
+   {
+    "name": "Lady Pohamba Private Hospital",
+    "web": "https://www.lpph.com.na/",
+    "hq": "Namibie",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé de soins aigus (163 lits, 11 blocs, 2 salles de cathétérisme) avec centre d'urgences et de traumatologie 24h/24.",
+    "ref": "https://www.lpph.com.na/about/",
+    "checked": "2026-10-06",
+    "city": "Windhoek"
+   }
+  ],
   "NE": [
    {
     "name": "Polyclinique Magori",
@@ -4535,6 +5255,21 @@
     "ref": "https://amsterdamtouristdoctors.nl/additional-service/24-7-home-and-hotel-visits/",
     "checked": "2026-10-05",
     "city": "Amsterdam"
+   }
+  ],
+  "NO": [
+   {
+    "name": "Volvat",
+    "web": "https://www.volvat.no",
+    "hq": "Norvège",
+    "categories": [
+     "clin",
+     "care"
+    ],
+    "note": "Premier groupe de santé privé norvégien ; « legevakt » privée sans rendez-vous tous les jours de l'année à Oslo et Bergen.",
+    "ref": "https://www.volvat.no/",
+    "checked": "2026-10-06",
+    "city": "Oslo"
    }
   ],
   "NP": [
@@ -4810,6 +5545,62 @@
     "city": "Rawalpindi"
    }
   ],
+  "PL": [
+   {
+    "name": "LUX MED",
+    "web": "https://www.luxmed.pl",
+    "hq": "Pologne",
+    "categories": [
+     "pclin",
+     "clin",
+     "care"
+    ],
+    "note": "Premier groupe de santé privé polonais : plus de 300 centres et 16 hôpitaux, abonnements santé entreprises.",
+    "ref": "https://www.luxmed.pl/",
+    "checked": "2026-10-06",
+    "city": "Varsovie"
+   },
+   {
+    "name": "Seris Konsalnet",
+    "web": "https://seris.pl",
+    "hq": "Pologne",
+    "categories": [
+     "gs",
+     "cit"
+    ],
+    "note": "Leader polonais du gardiennage et de la télésurveillance, intervention 24h/24 (ex-Konsalnet).",
+    "ref": "https://seris.pl/",
+    "checked": "2026-10-06",
+    "city": "Varsovie"
+   },
+   {
+    "name": "Solid Security",
+    "web": "https://www.solidsecurity.pl",
+    "hq": "Pologne",
+    "categories": [
+     "gs",
+     "cit"
+    ],
+    "note": "Gardiennage, groupes d'intervention et de convoyage, 9 centres de télésurveillance, 64 agences régionales.",
+    "ref": "https://www.solidsecurity.pl/",
+    "checked": "2026-10-06",
+    "city": "Varsovie"
+   }
+  ],
+  "PS": [
+   {
+    "name": "Istishari Arab Hospital",
+    "web": "https://www.iah.ps",
+    "hq": "Palestine",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé de référence de Cisjordanie avec urgences 24h/24, chirurgie avancée, cardiologie et pédiatrie.",
+    "ref": "https://www.iah.ps",
+    "checked": "2026-10-06",
+    "city": "Ramallah"
+   }
+  ],
   "PT": [
    {
     "name": "CUF",
@@ -4863,6 +5654,49 @@
     "ref": "https://thecitizenshipdesk.com/hospitals/regina-maria-bucharest",
     "checked": "2026-10-05",
     "city": "Bucarest"
+   }
+  ],
+  "RS": [
+   {
+    "name": "Bel Medic",
+    "web": "https://www.belmedic.rs",
+    "hq": "Serbie",
+    "categories": [
+     "pclin",
+     "care"
+    ],
+    "note": "Premier hôpital privé de Serbie, service 24h/24 y compris week-ends, visites à domicile et transport de patients.",
+    "ref": "https://serbia.embassy.gov.au/bgde/doctors_list.html",
+    "checked": "2026-10-06",
+    "city": "Belgrade"
+   }
+  ],
+  "RU": [
+   {
+    "name": "EMC – European Medical Center",
+    "web": "https://www.emcmos.ru",
+    "hq": "Russie",
+    "categories": [
+     "pclin",
+     "clin"
+    ],
+    "note": "Grande clinique privée multidisciplinaire (depuis 1989), centres ouverts 24h/24 pour urgences et soins aigus, accueil des patients étrangers.",
+    "ref": "https://www.emcmos.ru/en",
+    "checked": "2026-10-06",
+    "city": "Moscou"
+   },
+   {
+    "name": "MEDSI",
+    "web": "https://medsi.ru",
+    "hq": "Russie",
+    "categories": [
+     "pclin",
+     "care"
+    ],
+    "note": "Réseau fédéral de cliniques et hôpitaux privés (Moscou, Saint-Pétersbourg, régions), hospitalisation d'urgence 24h/24 et médecin à domicile.",
+    "ref": "https://medsi.ru/",
+    "checked": "2026-10-06",
+    "city": "Moscou"
    }
   ],
   "RW": [
@@ -4962,6 +5796,20 @@
     "city": "Khartoum"
    }
   ],
+  "SE": [
+   {
+    "name": "Sophiahemmet Sjukhus",
+    "web": "https://sjukhus.sophiahemmet.se",
+    "hq": "Suède",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé spécialisé (environ 30 prestataires, hospitalisation, accès privé SophiaDirekt) ; pas de service d'urgences.",
+    "ref": "https://sjukhus.sophiahemmet.se/",
+    "checked": "2026-10-06",
+    "city": "Stockholm"
+   }
+  ],
   "SG": [
    {
     "name": "Mount Alvernia Hospital",
@@ -5002,6 +5850,20 @@
     "ref": "https://www.aetos.com.sg/Physical-Security/",
     "checked": "2026-10-05",
     "city": "Singapour"
+   }
+  ],
+  "SK": [
+   {
+    "name": "Penta Hospitals",
+    "web": "https://www.pentahospitals.sk",
+    "hq": "Slovaquie",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Plus grand réseau privé de santé slovaque : 16 hôpitaux et 10 polycliniques ProCare, transport de patients.",
+    "ref": "https://www.pentahospitals.sk/",
+    "checked": "2026-10-06",
+    "city": "Bratislava"
    }
   ],
   "SL": [
@@ -5140,6 +6002,33 @@
     "city": "Mogadiscio"
    }
   ],
+  "SR": [
+   {
+    "name": "Diakonessenhuis",
+    "web": "https://www.diakonessenhuis.org",
+    "hq": "Suriname",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital général privé à but non lucratif, services d'urgence et toutes spécialités (liste FCDO), joignable en permanence.",
+    "ref": "https://www.gov.uk/government/publications/suriname-list-of-list-of-medical-facilities-practioners/list-of-medical-facilities-in-suriname",
+    "checked": "2026-10-06",
+    "city": "Paramaribo"
+   },
+   {
+    "name": "Sint Vincentius Ziekenhuis",
+    "web": "https://www.svzsuriname.org",
+    "hq": "Suriname",
+    "categories": [
+     "pclin",
+     "amb"
+    ],
+    "note": "Hôpital général confessionnel (16+ spécialités), services d'urgence (liste FCDO) et service d'ambulance.",
+    "ref": "https://www.svzsuriname.org/",
+    "checked": "2026-10-06",
+    "city": "Paramaribo"
+   }
+  ],
   "SS": [
    {
     "name": "Juba Medical Complex",
@@ -5179,6 +6068,20 @@
     "ref": "https://www.centromedicoescalon.com/servicios/hospital/emergencia/",
     "checked": "2026-10-05",
     "city": "San Salvador"
+   }
+  ],
+  "SY": [
+   {
+    "name": "Dr. Shami Hospital",
+    "web": "https://shamihospital.com",
+    "hq": "Syrie",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé de Damas (quartier Al-Malki) avec urgences, laboratoire, imagerie/scanner et pharmacie 24h/24, réanimation et cardiologie interventionnelle.",
+    "ref": "https://shamihospital.com",
+    "checked": "2026-10-06",
+    "city": "Damas"
    }
   ],
   "TD": [
@@ -5263,6 +6166,20 @@
     "city": "Bangkok"
    }
   ],
+  "TL": [
+   {
+    "name": "Dili Medical Center (DMC)",
+    "web": "https://dilimedcenter.com",
+    "hq": "Timor oriental",
+    "categories": [
+     "clin"
+    ],
+    "note": "Centre médical privé ouvert 24h/24 avec urgences, diagnostic, chirurgie et visites médicales pour visas australiens et néo-zélandais.",
+    "ref": "https://dilimedcenter.com",
+    "checked": "2026-10-06",
+    "city": "Dili"
+   }
+  ],
   "TN": [
    {
     "name": "Polyclinique Les Berges du Lac",
@@ -5339,6 +6256,21 @@
     "ref": "https://www.istanbulmeetandgreetservice.com/about-us/",
     "checked": "2026-10-05",
     "city": "Istanbul"
+   }
+  ],
+  "TT": [
+   {
+    "name": "Medical Associates Hospital",
+    "web": "https://www.medicalassociatestt.info",
+    "hq": "Trinité-et-Tobago",
+    "categories": [
+     "pclin",
+     "amb"
+    ],
+    "note": "Hôpital privé accrédité (40 lits), ouvert 24h/24 avec service d'ambulance (800-4MED).",
+    "ref": "https://www.medicalassociatestt.info/",
+    "checked": "2026-10-06",
+    "city": "St. Joseph"
    }
   ],
   "TW": [
@@ -5522,6 +6454,86 @@
     "ref": "https://www.flykea.com/helicopter-charter-kampala/",
     "checked": "2026-10-05",
     "city": "Kampala (Kajjansi)"
+   }
+  ],
+  "US": [
+   {
+    "name": "Cedars-Sinai Medical Center",
+    "web": "https://www.cedars-sinai.org",
+    "hq": "États-Unis",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Centre hospitalier privé à but non lucratif ; urgences ouvertes 24h/24 et 7j/7, centre de traumatologie de niveau 1.",
+    "ref": "https://www.cedars-sinai.org/programs/emergency.html",
+    "checked": "2026-10-06",
+    "city": "Los Angeles"
+   },
+   {
+    "name": "NewYork-Presbyterian",
+    "web": "https://www.nyp.org",
+    "hq": "États-Unis",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Grand réseau hospitalier privé à but non lucratif de New York (plus de 450 sites, affilié à Columbia et Weill Cornell), téléconsultation d'urgence.",
+    "ref": "https://www.nyp.org/",
+    "checked": "2026-10-06",
+    "city": "New York"
+   },
+   {
+    "name": "Gavin de Becker & Associates",
+    "web": "https://gavindebecker.com",
+    "hq": "États-Unis",
+    "categories": [
+     "cp",
+     "int"
+    ],
+    "note": "Protection rapprochée de dirigeants et personnalités, sûreté résidentielle, évaluation de la menace (système MOSAIC).",
+    "ref": "https://gavindebecker.com/how-we-protect-our-clients",
+    "checked": "2026-10-06",
+    "city": "Glendale (Californie)"
+   },
+   {
+    "name": "Carey International",
+    "web": "https://www.carey.com",
+    "hq": "États-Unis",
+    "categories": [
+     "chf",
+     "mg",
+     "cp"
+    ],
+    "note": "Transport avec chauffeur haut de gamme (transferts aéroport, mise à disposition, groupes) dans plus de 1 000 villes, option protection rapprochée.",
+    "ref": "https://www.carey.com/",
+    "checked": "2026-10-06",
+    "city": "Washington DC"
+   },
+   {
+    "name": "Phoenix Air",
+    "web": "https://phoenixair.com",
+    "hq": "États-Unis",
+    "categories": [
+     "amb",
+     "jet"
+    ],
+    "note": "Opérateur d'ambulance aérienne et d'évacuation de patients longue distance dans le monde entier (Learjet configurés).",
+    "ref": "https://phoenixair.com/air-ambulance/",
+    "checked": "2026-10-06",
+    "city": "Cartersville (Géorgie)"
+   }
+  ],
+  "UY": [
+   {
+    "name": "Hospital Británico",
+    "web": "https://www.hospitalbritanico.org.uy",
+    "hq": "Uruguay",
+    "categories": [
+     "pclin"
+    ],
+    "note": "Hôpital privé (depuis 1857, 151 lits) avec urgences 24h/24 et régime d'assurance propre.",
+    "ref": "https://en.wikipedia.org/wiki/British_Hospital_(Montevideo)",
+    "checked": "2026-10-06",
+    "city": "Montevideo"
    }
   ],
   "UZ": [

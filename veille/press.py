@@ -14,7 +14,7 @@ import re
 import unicodedata
 import zipfile
 
-from . import http
+from . import http, langs
 from .config import ROOT
 
 GEONAMES_URL = "https://download.geonames.org/export/dump/cities15000.zip"
@@ -31,7 +31,7 @@ CATEGORY_WORDS = {
                "tiroteio", "sparatoria", "schießerei", "schiesserei", "strzelanin", "silahlı", "стрельб", "استهداف",
                "stabbing", "poignard", "kidnap", "enlèvement", "enleve", "secuestro", "sequestro", "rapimento",
                "entführ", "porwan", "kaçırıl", "похищ", "اختطاف", "hostage", "otage", "rehén", "refém", "ostaggi", "geisel",
-               "assassin", "ied", "grenade", "arson", "incendie criminel", "pirates", "hijack", "hijacked", "hijacker"],
+               "assassin", "ied", "grenade", "arson", "incendie criminel", "взрыв", "вибух", "patlama", "pirates", "hijack", "hijacked", "hijacker"],
     "armed_conflict": ["airstrike", "air strike", "frappe", "bombard", "shelling", "artiller", "missile", "drone strike",
                        "drone strikes", "drone attack", "drone attacks", "attaque de drone", "attaques de drones", "frappe de drone",
                        "drones explosivos", "drones kamikazes", "drones kamikaze", "drones cargados", "drone-strike", "drones target", "drones hit",
@@ -133,6 +133,10 @@ EXTRA_WORDS = {
 }
 for _c, _ws in EXTRA_WORDS.items():
     CATEGORY_WORDS[_c] = CATEGORY_WORDS[_c] + _ws
+# 35 langues supplémentaires (v0.25) : japonais, coréen, vietnamien, hindi, langues nordiques, d'Europe centrale,
+# des Balkans, du Caucase, swahili, haoussa… (veille/langs.py)
+for _c, _ws in langs.category_words().items():
+    CATEGORY_WORDS[_c] = CATEGORY_WORDS[_c] + _ws
 # Diplomatie & politique (v0.9.2) : signaux sans menace physique directe, conservés dans une catégorie à part
 # (hors note de risque) – élections, démissions, sanctions, expulsions de diplomates, rupture de relations.
 CATEGORY_WORDS["diplomatic"] = [
@@ -192,15 +196,20 @@ STOP_PLACES = {"nice", "mobile", "split", "bath", "reading", "van", "bar", "mary
                "east", "west", "new", "port", "ville", "gaza city"}
 
 
+_APOS = str.maketrans({"\u2019": "'", "\u2018": "'", "\u02bb": "'", "\u02bc": "'", "`": "'", "\u00b4": "'"})
+
+
 def norm(text):
-    text = unicodedata.normalize("NFKD", text or "")
+    """Minuscules, sans accents ni signes diacritiques, apostrophes typographiques ramenées à « ' » (v0.25 : « coup d’État »
+    comme « coup d'État », ouzbek « o‘g‘irlash »)."""
+    text = unicodedata.normalize("NFKD", (text or "").translate(_APOS))
     text = "".join(c for c in text if not unicodedata.combining(c))
     return re.sub(r"\s+", " ", text.lower()).strip()
 
 
 # Écritures sans espace entre les mots (thaï, chinois, birman) ou à préfixes collés (éthiopien) :
 # recherche en sous-chaîne. Hébreu et écriture arabe : préfixes courants autorisés (ה/ב/ו/ל…, و/ب/ال…).
-_NOSPACE = re.compile(r"[\u0E00-\u0E7F\u3400-\u9FFF\uF900-\uFAFF\u1000-\u109F\u1200-\u139F]")
+_NOSPACE = re.compile(r"[\u0E00-\u0E7F\u3400-\u9FFF\uF900-\uFAFF\u1000-\u109F\u1200-\u139F\u3040-\u30FF\uAC00-\uD7AF\u1780-\u17FF]")
 _HEBREW = re.compile(r"[\u0590-\u05FF]")
 _ARABIC = re.compile(r"[\u0600-\u06FF]")
 
@@ -270,6 +279,7 @@ NOISE_WORDS = ["drill", "exercise", "exercice", "simulacro", "simulation", "tatb
                "siniestro", "picadas", "fiestas patronales", "training flight",
                "vol d'entrainement", "vuelo de entrenamiento", "risco de protesto", "protesto de", "zebrastreifen",
                "candidates", "candidats", "candidatos", "رزمایش", "مانور"]
+NOISE_WORDS += langs.words("noise")
 _NOISE_RE = _word_re(NOISE_WORDS)
 
 # Pas un incident pour une organisation ou un voyageur : procédure judiciaire (mise en examen, procès,
@@ -283,6 +293,7 @@ JUDICIAL_WORDS = ["mis en examen", "mise en examen", "mis en cause", "proces$", 
                   "processo", "condannato", "condenado", "julgamento", "prozess", "verurteilt", "angeklagt", "vonnis",
                   "wyrok", "sad skazal", "mahkum", "hapis cezasi", "приговор", "осужден", "суд ", "حكم", "محاكمة",
                   "משפט", "נגזר", "vonis", "sidang", "divonis", "判决", "判處", "審判", "دادگاه", "حکم", "سپریم کورٹ", "سزا یافتہ", "suma otro proceso", "proceso por"]
+JUDICIAL_WORDS += langs.words("judicial")
 _JUDICIAL_RE = _word_re(JUDICIAL_WORDS)
 _MOBILISATION_RE = _word_re(CATEGORY_WORDS["unrest"] + ["marcha", "marchas", "marche blanche", "affrontements avec",
                                                           "enfrentamientos con", "clashes with"])
@@ -437,33 +448,46 @@ _INTENT_RE = _word_re(INTENT_WORDS)
 _ACCIDENT_RE = _word_re(ACCIDENT_WORDS)
 _FIREWORK_RE = _word_re(FIREWORK_WORDS)
 _ANIMAL_RE = _word_re(ANIMAL_WORDS)
+VIOLENCE_WORDS += langs.words("dead")
 _VIOLENCE_RE = _word_re(VIOLENCE_WORDS)
 _MASS_RE = _word_re(MASS_WORDS)
 _PUBLIC_TARGET_RE = _word_re(PUBLIC_TARGET_WORDS)
+ARMED_GROUP_WORDS += ["gängen", "gängkonflikt", "bandekonflikt", "'yan bindiga", "waasi", "magaidi", "banditi"]
 _ARMED_GROUP_RE = _word_re(ARMED_GROUP_WORDS)
 _AFTERMATH_RE = _word_re(AFTERMATH_WORDS)
 _THREAT_RE = _word_re(THREAT_WORDS)
 _EVAC_RE = _word_re(EVACUATION_WORDS)
 _SECURITY_TARGET_RE = _word_re(SECURITY_TARGET_WORDS)
 _SPECIFIC_RE = _word_re(SPECIFIC_ATTACK)
-_NONLATIN = re.compile(r"[\u0590-\u06FF\u0750-\u077F\u0E00-\u0E7F\u0980-\u09FF\u1200-\u139F\u3400-\u9FFF]")
+_NONLATIN = re.compile(r"[\u0590-\u06FF\u0750-\u077F\u0E00-\u0E7F\u0980-\u09FF\u1200-\u139F\u3400-\u9FFF"
+                       r"\u0370-\u03FF\u0530-\u058F\u0900-\u097F\u0B80-\u0BFF\u10A0-\u10FF\u1000-\u109F\u1780-\u17FF"
+                       r"\u3040-\u30FF\uAC00-\uD7AF]")   # + grec, arménien, dévanagari, tamoul, géorgien, birman, khmer, kana, hangul
 _TOLL2_RE = re.compile(r"(?:toll|bilan|saldo|balance)\D{0,25}?(\d{1,4})", re.I)
-_NUM_WORDS = {"one": 1, "un": 1, "una": 1, "uno": 1, "une": 1, "um": 1, "uma": 1, "two": 2, "deux": 2, "dos": 2, "duas": 2, "dois": 2, "due": 2, "zwei": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "dozen": 12,
+_NUM_WORDS = {"två": 2, "fyra": 4, "fem": 5, "két": 2, "három": 3, "négy": 4, "dva": 2, "dvije": 2,
+              "tri": 3, "doi": 2, "două": 2, "trei": 3, "patru": 4, "cinci": 5, "δύο": 2, "τρεις": 3, "τέσσερις": 4,
+              "два": 2, "двое": 2, "три": 3, "трое": 3, "четыре": 4, "пять": 5, "пятеро": 5, "десять": 10,
+              "one": 1, "un": 1, "una": 1, "uno": 1, "une": 1, "um": 1, "uma": 1, "two": 2, "deux": 2, "dos": 2, "duas": 2, "dois": 2, "due": 2, "zwei": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "dozen": 12,
               "dozens": 24, "trois": 3, "quatre": 4, "cinq": 5, "sept": 7, "huit": 8, "neuf": 9, "dix": 10,
               "dizaine": 10, "dizaines": 20, "tres": 3, "cuatro": 4, "cinco": 5, "seis": 6, "siete": 7, "ocho": 8,
               "nueve": 9, "diez": 10, "decena": 10, "decenas": 20, "quatro": 4, "sete": 7, "oito": 8, "dez": 10,
               "tre": 3, "quattro": 4, "cinque": 5, "drei": 3, "vier": 4, "funf": 5, "sechs": 6, "zehn": 10}
-_TOLL_RE = re.compile(r"(?<!\w)(\d{1,4}|" + "|".join(_NUM_WORDS) + r")(?!\w)"
+_NUM_NORM = {norm(k): v for k, v in _NUM_WORDS.items()}
+# morts et blessés des langues ajoutées en v0.25 (« 5 dræbte », « 3 morți », « 10 halott »…), écritures alphabétiques
+_RU_DEAD = ["погибли", "погибло", "погибших", "погиб", "убиты", "убитых", "ранены", "раненых", "пострадали", "пострадавших",
+            "загинули", "загиблих", "поранені", "поранених", "постраждали"]
+_LANG_DEAD = "|".join(sorted({re.escape(norm(w)) for w in langs.words("dead") + _RU_DEAD if not _NONLATIN.search(w)},
+                             key=len, reverse=True))
+_TOLL_RE = re.compile(r"(?<!\w)(\d{1,4}|" + "|".join(norm(w) for w in _NUM_WORDS) + r")(?!\w)"
                       r"(?!\s*-?\s*(?:year|yr|ans?\b|anos|ano\b|jahr|yas|month|mois|meses))(?:\W+\w+){0,3}?\W+"
                       r"(?:dead|killed|die|morts?|tues?|blesses?|muertos?|muertas?|muertes|fallecid[oa]s?|heridos?|heridas?|lesionad[oa]s?|mortos?|feridos?|"
                       r"morti|feriti|tote|verletzte|olu|yarali|people|personnes|personas|pessoas|persone|menschen|"
-                      r"victims?|victimes?|victimas?|injured|wounded|casualties)", re.I)
+                      r"victims?|victimes?|victimas?|injured|wounded|casualties|" + _LANG_DEAD + ")", re.I)
 
 
-_DEAD_TOLL_RE = re.compile(r"(?<!\w)(\d{1,4}|" + "|".join(_NUM_WORDS) + r")(?!\w)"
+_DEAD_TOLL_RE = re.compile(r"(?<!\w)(\d{1,4}|" + "|".join(norm(w) for w in _NUM_WORDS) + r")(?!\w)"
                            r"(?!\s*-?\s*(?:year|yr|ans?\b|anos|ano\b|jahr|yas|month|mois|meses))(?:\W+\w+){0,3}?\W+"
                            r"(?:dead|killed|die[ds]?|morts?|tues?|muertos?|muertas?|muertes|mueren|murieron|fallecid[oa]s|asesinad[oa]s|mortos?|morrem|"
-                           r"morti|tote|olu|fallecidos)", re.I)
+                           r"morti|tote|olu|fallecidos|" + _LANG_DEAD + ")", re.I)
 
 
 _BOTH_RE = re.compile(r"(?:muert[oa]s?|killed|dead|mort|tue)\W+(?:\w+\W+){0,2}?(?:herid[oa]s?|lesionad[oa]s?|injured|wounded|blesse)")
@@ -481,12 +505,12 @@ def casualty_toll(t, dead_only=False):
             best = max(best, 0 if 1900 <= n <= 2100 else n)
     for m in (_DEAD_TOLL_RE if dead_only else _TOLL_RE).finditer(t):
         v = m.group(1)
-        n = int(v) if v.isdigit() else _NUM_WORDS.get(v, 0)
+        n = int(v) if v.isdigit() else _NUM_NORM.get(v, 0)
         if 1900 <= n <= 2100:  # une année, pas un bilan
             continue
         best = max(best, n)
     if not dead_only:   # « un muerto y dos heridos » : morts et blessés s'additionnent
-        best = max(best, sum(_NUM_WORDS.get(m.group(1), 0) if not m.group(1).isdigit() else
+        best = max(best, sum(_NUM_NORM.get(m.group(1), 0) if not m.group(1).isdigit() else
                              (0 if 1900 <= int(m.group(1)) <= 2100 else int(m.group(1))) for m in _TOLL_RE.finditer(t)))
         if _BOTH_RE.search(t):   # « deja muerto y mujer herida »
             best = max(best, 2)
@@ -538,13 +562,14 @@ RETRO_WORDS = ["obras", "project", "projet", "proyecto", "projeto", "delayed", "
                "malgre", "despite", "faits et informations", "facts and", "ce qui va changer", "face aux", "tanggul",
                "perbaikan", "salles rafraichies"]
 _RETRO_RE = _word_re(RETRO_WORDS)
-_MAG_RE = re.compile(r"(\d[.,]\d)\s*(?:m|sr)(?!\w)|(?:magnitud[eo]?|magnitudo|mag\.?|m|mw|ml|magnitude|sismo|seisme|earthquake|quake|terremoto|temblor|deprem)\s*(?:de\s*|of\s*|:\s*)?(\d(?:[.,]\d)?)(?!\d)"
+_MAG_RE = re.compile(r"(\d[.,]\d)\s*(?:m|sr|richter|ριχτερ|рихтер|balla|балла|баллов|bal)(?!\w)|(?:magnitud[eo]?|magnitudo|mag\.?|m|mw|ml|magnitude|sismo|seisme|earthquake|quake|terremoto|temblor|deprem)\s*(?:de\s*|of\s*|:\s*)?(\d(?:[.,]\d)?)(?!\d)"
                      r"|(\d(?:[.,]\d)?)\s*(?:de\s+|-)?(?:magnitud[eo]?|magnitude|buyuklugunde|درجات|richter|sr\b)", re.I)
 QUAKE_IMPACT = ["dead", "killed", "died", "mort", "morts", "muerto", "muertos", "mortos", "olu", "injur", "blesse",
                 "herido", "ferido", "yarali", "damage", "degats", "danos", "hasar", "collapse", "effondr", "derrumb",
                 "desab", "tsunami", "victim", "victime", "evacu", "destroy", "detruit", "destruy", "houses", "maisons",
                 "viviendas", "casas", "jolts", "strong", "powerful", "violent", "puissant", "fuerte", "forte", "guclu",
                 "siddetli", "injuries"]
+QUAKE_IMPACT += langs.words("dead") + ["震度", "津波", "被害", "cunami", "tsunami"]
 _QUAKE_IMPACT_RE = _word_re(QUAKE_IMPACT)
 _CONFLICT_EVENT_RE = _word_re(["airstrike", "airstrikes", "air strike", "air strikes", "deadly", "retake", "retakes",
                                "recapture", "takes control", "toma el control", "prend le controle", "shell", "shells",
@@ -618,11 +643,13 @@ ARREST_WORDS = ["arrest", "arrested", "arrests", "jailed", "jail", "detenido", "
                 "court told", "acusado", "acusados", "accuses", "relata", "relato", "denuncian falsas", "sigue alojado", "ubicaron",
                 "sospechoso de", "ends in", "ended", "resolved", "liberado", "liberada", "liberee", "libere", "freed",
                 "held in", "nuevo giro", "proceso contra", "in aula", "collectionn", "transported to", "were transported"]
+ARREST_WORDS += langs.words("arrest")
 _ARREST_RE = _word_re(ARREST_WORDS)
 FRESH_WORDS = ["killed", "kills", "kill", "dead", "dies", "died", "wounded", "injured", "injures", "tue", "tues", "tuee",
                "tuees", "morts", "mort", "blesse", "blesses", "blessee", "muere", "murio", "mueren", "muertos", "muerto",
                "heridos", "herido", "asesinad", "mortos", "morto", "feridos", "ferito", "feriti", "morti", "tote",
                "verletzt", "verletzte", "olu", "yarali", "tewas", "luka"]
+FRESH_WORDS += langs.words("dead")
 _FRESH_RE = _word_re(FRESH_WORDS)
 FOILED_WORDS = ["dejoue", "dejouee", "dejoues", "foil", "foiled", "foils", "thwart", "thwarted", "thwarts", "frustra ",
                 "frustran", "frustro", "frustrado", "frustrada", "neutraliza", "neutralizan", "neutralizo", "vereitelt",

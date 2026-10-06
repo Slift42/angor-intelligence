@@ -139,7 +139,7 @@
       n_alerts: n => `${n} alerte${n > 1 ? 's' : ''}`, show_more: n => `Afficher ${n} de plus`,
       no_alerts: 'Aucune alerte ne correspond à ces filtres sur la période.',
       countries_hint: 'Niveau de risque pays de 1 (Minimal) à 5 (Extrême), calculé à partir des avis officiels et de l’activité récente. Cliquez sur un pays pour son rapport.',
-      country_ph: 'Filtrer les pays…', news_hint: 'Titres de presse (≈ 110 pays, 12 langues) relevant de la sûreté. Titre et lien uniquement.',
+      country_ph: 'Filtrer les pays…', news_hint: 'Titres de presse (≈ 120 pays, près de 1 500 médias, 56 langues) relevant de la sûreté. Titre et lien uniquement.',
       news_ph: 'Filtrer le fil (pays, mot-clé)…', no_news: 'Aucun article pour le moment.', news_ctx: 'Contexte', news_ctx_tip: 'Article de contexte (arrestation, déclaration, analyse…) : dans le Fil, pas sur la carte',
       sites_hint: 'Vos sites et leur rayon de vigilance. Les alertes dans ce rayon sont signalées partout dans l’outil.',
       add_site: 'Ajouter un site', export_sites: 'Exporter (sites.json)', site_name: 'Nom du site', site_radius: 'Rayon de vigilance (km)',
@@ -162,6 +162,13 @@
       legend_sev: 'Gravité', legend_risk: 'Risque pays', legend_auto: 'Contour pointillé : détection automatique · point blanc : moins de 6 h · ondes : gravité élevée ou critique · survol d\'un groupe : ses catégories',
       sources_ok: (a, b) => `${a}/${b} <span class="src-word">sources</span>`, updated: 'Mise à jour', stale: 'Données anciennes',
       sources_total: n => `${n.toLocaleString('fr-FR')} <span class="src-word">sources</span>`,
+      cr_title: 'Recoupement', cr_ind: (n, m) => `${n} source${n > 1 ? 's' : ''} indépendante${n > 1 ? 's' : ''}${m > n ? ` (${m} médias, dont ${m - n} reprise${m - n > 1 ? 's' : ''} d’une même dépêche ou d’un même groupe)` : ''}`,
+      cr_kinds: { capteur: 'capteur officiel', officiel: 'organisme officiel', presse: 'presse', 'détection automatique': 'détection automatique', 'réseaux sociaux': 'réseaux sociaux' },
+      cr_press: n => `${n} article${n > 1 ? 's' : ''} de presse rattaché${n > 1 ? 's' : ''} à cette mesure officielle`,
+      cr_unconf: 'Non confirmé par les capteurs officiels (USGS, EMSC, GDACS, NOAA…) : prudence, l’information peut être ancienne ou erronée.',
+      cr_disputed: 'Démenti signalé', cr_magspread: (a, b) => `Magnitude différente selon les réseaux : ${a} à ${b}`,
+      oh_title: 'Médias de référence', oh_line: (n, l) => `${n.toLocaleString('fr-FR')} médias suivis · ${l.toLocaleString('fr-FR')} ont déjà fourni des titres`,
+      oh_muted: n => `Médias muets à vérifier (${n})`, oh_hint: 'Aucun titre après 30 requêtes : domaine erroné, site fermé ou média sans actualité de sûreté.',
       tg_title: 'Contrôle des événements', tg_hint: 'Chaque nouveauté est vérifiée avant d’entrer sur la carte (fait physique, lieu et date plausibles, article lisible pour GDELT), puis revérifiée à chaque collecte. Seuls les événements retenus alimentent la carte, les alertes et les indices.',
       tg_st: { ok: 'retenus', context: 'contexte (Fil)', noise: 'écartés', invalid: 'invalides', pending: 'en attente', unverifiable: 'invérifiables' },
       tg_last: 'Dernière collecte', tg_today: 'Aujourd’hui', tg_mem: 'En mémoire', tg_new: n => `${n} nouveauté${n > 1 ? 's' : ''}`,
@@ -317,7 +324,7 @@
       n_alerts: n => `${n} alert${n > 1 ? 's' : ''}`, show_more: n => `Show ${n} more`,
       no_alerts: 'No alert matches these filters for the period.',
       countries_hint: 'Country risk level from 1 (Minimal) to 5 (Extreme), computed from official advisories and recent activity. Click a country for its report.',
-      country_ph: 'Filter countries…', news_hint: 'Security-related headlines (≈ 110 countries, 12 languages). Title and link only.',
+      country_ph: 'Filter countries…', news_hint: 'Security-related headlines (≈ 120 countries, about 1,500 outlets, 56 languages). Title and link only.',
       news_ph: 'Filter the feed (country, keyword)…', no_news: 'No article yet.', news_ctx: 'Context', news_ctx_tip: 'Context article (arrest, statement, analysis…): in the feed, not on the map',
       sites_hint: 'Your sites and their watch radius. Alerts inside the radius are flagged throughout the tool.',
       add_site: 'Add a site', export_sites: 'Export (sites.json)', site_name: 'Site name', site_radius: 'Watch radius (km)',
@@ -340,6 +347,13 @@
       legend_sev: 'Severity', legend_risk: 'Country risk', legend_auto: 'Dashed outline: auto-detection · white dot: less than 6 h old · ripples: high or critical severity · hover a group: its categories',
       sources_ok: (a, b) => `${a}/${b} <span class="src-word">sources</span>`, updated: 'Updated', stale: 'Stale data',
       sources_total: n => `${n.toLocaleString('en-GB')} <span class="src-word">sources</span>`,
+      cr_title: 'Cross-check', cr_ind: (n, m) => `${n} independent source${n > 1 ? 's' : ''}${m > n ? ` (${m} outlets, incl. ${m - n} copies of the same wire or media group)` : ''}`,
+      cr_kinds: { capteur: 'official sensor', officiel: 'official body', presse: 'press', 'détection automatique': 'automatic detection', 'réseaux sociaux': 'social media' },
+      cr_press: n => `${n} press article${n > 1 ? 's' : ''} attached to this official measurement`,
+      cr_unconf: 'Not confirmed by official sensors (USGS, EMSC, GDACS, NOAA…): caution, the report may be old or wrong.',
+      cr_disputed: 'Denial reported', cr_magspread: (a, b) => `Magnitude differs between networks: ${a} to ${b}`,
+      oh_title: 'Reference outlets', oh_line: (n, l) => `${n.toLocaleString('en-GB')} outlets tracked · ${l.toLocaleString('en-GB')} have already returned headlines`,
+      oh_muted: n => `Silent outlets to check (${n})`, oh_hint: 'No headline after 30 queries: wrong domain, closed site or outlet without security news.',
       tg_title: 'Event control', tg_hint: 'Every new item is checked before it reaches the map (physical fact, plausible place and date, readable article for GDELT), then re-checked at every collection. Only accepted events feed the map, alerts and indices.',
       tg_st: { ok: 'accepted', context: 'context (feed)', noise: 'rejected', invalid: 'invalid', pending: 'pending', unverifiable: 'unverifiable' },
       tg_last: 'Last collection', tg_today: 'Today', tg_mem: 'In memory', tg_new: n => `${n} new item${n > 1 ? 's' : ''}`,
@@ -1785,6 +1799,8 @@
         <div class="d-source">${icon('newspaper', 14)}<span><strong>${t('source_lbl')} :</strong> ${esc(sourceLabel(e))}</span></div>
         ${isAuto(e) ? `<div class="notice">${t('auto_notice')}</div>` : ''}
         ${(e.tags || []).includes('multi-source') ? `<div class="notice" style="border-style:solid">✓ ${t('multi_source')}</div>` : ''}
+        ${e.disputed ? `<div class="notice disputed-notice">${icon('triangle-alert', 14)} <strong>${esc(t('cr_disputed'))}</strong> : <a href="${esc(e.disputed.url || '#')}" target="_blank" rel="noopener">${esc(e.disputed.title || '')}</a>${e.disputed.source ? ` <span class="muted">(${esc(e.disputed.source)})</span>` : ''}</div>` : ''}
+        ${e.unconfirmed ? `<div class="notice disputed-notice">${icon('triangle-alert', 14)} ${esc(t('cr_unconf'))}</div>` : ''}
         ${e.verified && e.verified.status !== 'false' ? `<div class="notice verified-notice">${icon('badge-check', 15)} ${esc(t('verified_notice', e.verified.date ? fmtDay(e.verified.date) : ''))}${e.verified.status === 'corrected' ? ' ' + esc(t('corrected_notice')) : ''}${e.verified.note ? `<br><span class="muted">${esc(e.verified.note)}</span>` : ''}</div>` : ''}
       </div>
       ${CRISIS_OF[e.id] ? `<div class="d-sec"><a href="#" class="crisis-link" data-crisis="${CRISIS_OF[e.id].id}">${icon('activity', 14)} ${esc(t('chrono_part'))} : <strong>${esc(crisisTitle(CRISIS_OF[e.id]))}</strong> (${esc(t('chrono_inc', CRISIS_OF[e.id].n))}) →</a></div>` : ''}
@@ -1799,6 +1815,7 @@
         <dt>${t('coords')}</dt><dd class="mono">${e.lat.toFixed(3)}, ${e.lon.toFixed(3)}</dd>
         <dt>${t('confidence')}</dt><dd>${esc(t('conf')[e.confidence] || e.confidence)}</dd>
         ${e.admiralty ? `<dt>${t('adm')}</dt><dd>${admBadge(e, true)} ${esc(admText(e.admiralty))}<br><span class="muted small">${esc(t('adm_note'))}</span></dd>` : ''}
+        ${corroLine(e)}
       </dl></div>
       ${near}
       <div class="d-sec"><h3>${t('sources')} (${(e.sources || []).length})</h3><ul class="src-list">${srcs}</ul>
@@ -1869,6 +1886,21 @@
     if (!(window.VS_CDETAIL || {})[iso]) ensureDetail(iso, () => { if ((window.VS_CDETAIL || {})[iso] && state.drawer && state.drawer.kind === 'country' && state.drawer.id === iso) openCountry(iso, false); });
   }
 
+  /** Recoupement d'un événement (v0.25) : sources indépendantes, types de sources, articles rattachés, écarts. */
+  function corroLine(e) {
+    const c = e.corroboration; if (!c) return '';
+    const kinds = (c.kinds || []).map(k => (t('cr_kinds')[k]) || k).join(' + ');
+    return `<dt>${t('cr_title')}</dt><dd>${esc(t('cr_ind', c.independent, c.outlets))}${kinds ? `<br><span class="muted small">${esc(kinds)}</span>` : ''}${e.press_reports ? `<br><span class="muted small">${esc(t('cr_press', e.press_reports))}</span>` : ''}${e.mag_spread ? `<br><span class="muted small">${esc(t('cr_magspread', e.mag_spread[0], e.mag_spread[1]))}</span>` : ''}</dd>`;
+  }
+  /** Santé du catalogue des médias de référence (v0.25) : médias suivis, médias muets. */
+  function outletsSection() {
+    const H = D && D.outlets_health; if (!H) return '';
+    const m = H.muted || [];
+    return `<div class="d-sec triage"><h3>${icon('newspaper', 14)} ${esc(t('oh_title'))}</h3><div class="hint">${esc(t('oh_line', H.tracked, H.live))}</div>
+      ${m.length ? `<details class="tg-recent"><summary>${esc(t('oh_muted', m.length))}</summary><div class="hint">${esc(t('oh_hint'))}</div><ul class="mini-list">${m.map(r =>
+        `<li><span class="t">${flagImg(r.country)}${esc(r.name)} <span class="tg-why">${esc(r.domain)}</span></span><span class="w">${r.queries}</span></li>`).join('')}</ul></details>` : ''}</div>`;
+  }
+
   /** Contrôle d'entrée des événements (v0.24) : chiffres et derniers refus, rétablissement en mode analyste. */
   function triageSection() {
     const T = D && D.triage; if (!T || !T.last) return '';
@@ -1897,6 +1929,7 @@
       ${(D.source_quality || []).length ? `<div class="d-sec"><h3>${esc(t('sq_title'))}</h3><div class="hint">${esc(t('sq_hint'))}</div><ul class="mini-list">${D.source_quality.slice(0, 15).map(r =>
         `<li><span class="t">${esc(r.source)}</span><span class="w">${r.decisions} · ${Math.round(r.false_rate * 100)} %${r.adjust ? (r.adjust > 0 ? ' ↓' : ' ↑') : ''}</span></li>`).join('')}</ul></div>` : ''}
       ${triageSection()}
+      ${outletsSection()}
       <div class="d-sec"><ul class="mini-list" style="gap:10px">${rows}</ul></div>
       ${(list => list.length ? `<div class="d-sec"><h3>${t('cov_title')}</h3><div class="hint">${t('cov_hint')}</div><ul class="mini-list">${list.map(([iso, c]) => `<li data-country="${iso}"><span class="t">${flagImg(iso)}${esc(countryName(iso) || iso)}</span><span class="w">${c.live} / ${Math.round(c.base)} ${t('per_month')}</span></li>`).join('')}</ul></div>` : '')(
         Object.entries(coverageMap()).filter(([, c]) => c.level !== 'good').sort((a, b) => a[1].ratio - b[1].ratio).slice(0, 25))}`, 'health');

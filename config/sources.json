@@ -51,6 +51,16 @@
       "min_magnitude": 4.0
     },
     {
+      "id": "emsc",
+      "type": "emsc",
+      "enabled": true,
+      "name": "EMSC – séismes (Centre sismologique euro-méditerranéen)",
+      "license": "CC BY 4.0 – citer l'EMSC",
+      "min_magnitude": 4.0,
+      "hours": 48,
+      "_comment": "v0.25 – deuxième réseau sismologique mondial : recoupe l'USGS (fusion des fiches, écart de magnitude signalé)."
+    },
+    {
       "id": "gdacs",
       "type": "gdacs",
       "enabled": true,
@@ -134,24 +144,24 @@
       "id": "gnews",
       "type": "gnews",
       "enabled": true,
-      "name": "Google News – presse locale (~110 pays)",
+      "name": "Google News – presse locale (~120 pays)",
       "license": "Titre + lien",
-      "queries_per_run": 40,
+      "queries_per_run": 45,
       "max_items_per_query": 20,
       "max_age_hours": 48,
-      "_comment": "Rotation : 40 requêtes par collecte sur ~220 (sûreté + économie pour ~110 pays). Liste des pays et mots-clés : veille/connectors/gnews.py"
+      "_comment": "Rotation : 45 requêtes par collecte sur ~250 (sûreté + économie pour ~120 pays ; édition et mots-clés dans la langue du pays quand Google News la propose). Liste des pays et mots-clés : veille/connectors/gnews.py"
     },
     {
       "id": "outlets",
       "type": "outlets",
       "enabled": true,
-      "name": "Médias de référence (≈ 206 pays, ≈ 780 titres, dont la presse de 25 pays à risque)",
+      "name": "Médias de référence (206 pays, ≈ 1 500 titres, mots-clés dans 56 langues)",
       "license": "Titre + lien",
-      "queries_per_run": 70,
+      "queries_per_run": 90,
       "max_items_per_query": 25,
       "max_age_hours": 48,
-      "time_budget_s": 150,
-      "_comment": "Catalogue : config/press_outlets.json (modifier tools/outlets_src.py puis le relancer). Rotation : 70 requêtes par collecte (~300 requêtes au total)."
+      "time_budget_s": 180,
+      "_comment": "Catalogue : config/press_outlets.json (modifier tools/outlets_src.py puis le relancer). Rotation : 90 requêtes par collecte (~460 requêtes au total, 56 langues de mots-clés depuis la v0.25)."
     },
     {
       "id": "guardian_world",
@@ -1750,6 +1760,24 @@
       "reliability": "A",
       "_comment": "v0.11 – vérifié le 30/09/2026. En pause automatique si le flux ne répond pas.",
       "category": "health"
+    },
+    {
+      "id": "cdc_thn",
+      "type": "official_rss",
+      "enabled": true,
+      "name": "CDC – avis sanitaires aux voyageurs",
+      "source": "CDC",
+      "license": "Domaine public (CDC, États-Unis)",
+      "url": "https://wwwnc.cdc.gov/travel/rss/notices.xml",
+      "category": "health",
+      "severity": 1,
+      "severity_words": {
+        "level 2": 2,
+        "level 3": 3,
+        "level 4": 4
+      },
+      "max_age_days": 45,
+      "_comment": "v0.25 – avis par pays (niveaux 1 à 4) ; avis mondiaux sans pays ignorés."
     },
     {
       "id": "nhc_atlantic",

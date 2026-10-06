@@ -17,7 +17,7 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import (__version__, accounts, agenda, ai, analytics, config, country_detail, crises, early_warning, enrich, legal, notify, providers,
+from veille import (__version__, accounts, agenda, ai, analytics, config, corroborate, country_detail, crises, early_warning, enrich, legal, notify, providers,
                     practical, press, profiles, reports, traffic,
                     publish, pulse, quality, risk, triage, vault)
 from veille.connectors import REGISTRY, Context
@@ -97,6 +97,17 @@ def prefetch_feeds(sources, store, args, now, log, workers=8):
     if urls:
         log(f"  Flux RSS préchargés : {len(out)} en {time.time() - t0:.0f} s")
     return out
+
+
+def outlets_health(store):
+    """Médias de référence suivis et « médias muets » (jamais trouvés après 30 requêtes : domaine à vérifier), v0.25."""
+    from veille.connectors import outlets
+    stats = (store.get("state") or {}).get("outlet_stats") or {}
+    if not stats:
+        return None
+    cat = (config.load_json("press_outlets.json", {}) or {}).get("countries") or {}
+    live = sum(1 for st in stats.values() if st.get("hits"))
+    return {"tracked": len(stats), "live": live, "muted": outlets.muted(stats, cat)[:60]}
 
 
 def with_context(n):
@@ -250,6 +261,10 @@ def main():
     merged = sum(len(e.get("merged") or []) for e in all_events)
     if merged:
         log(f"  Doublons : {merged} fiche(s) rattachée(s) à un même événement (sources, jours ou lieux différents)")
+    # recoupement (v0.25) : sources indépendantes, confirmation par les capteurs officiels, démentis
+    context_items = [n for n in store["news"].values() if with_context(n).get("context")] + \
+        [e for e in stored if (e.get("triage") or {}).get("status") == "context"]
+    all_events = corroborate.run(all_events, context_items, log)
     # validations de l'analyste (config/verified.json) + cotation de l'Amirauté sur chaque incident
     source_quality = quality.learn(store, all_events, verified)  # sources souvent infirmées : lettre abaissée
     all_events = quality.filter_and_rate(all_events, verified)
@@ -325,6 +340,7 @@ def main():
         "coverage": coverage(sources, store),
         "source_quality": source_quality,
         "triage": triage.payload(store),
+        "outlets_health": outlets_health(store),
         "sites": [] if public else sites, "corridors": [] if public else corridors,
         "site_alerts": [] if public else alerts,
         "settings": {"product_name": product, "default_lang": settings.get("default_lang", "fr"),

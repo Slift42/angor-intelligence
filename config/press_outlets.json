@@ -34,6 +34,27 @@
     "Khaleej Times",
     "khaleejtimes.com",
     "en"
+   ],
+   [
+    "Al Khaleej",
+    "alkhaleej.ae",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Emarat Al Youm",
+    "emaratalyoum.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "WAM",
+    "wam.ae",
+    "en",
+    "",
+    "D"
    ]
   ],
   "AF": [
@@ -54,7 +75,7 @@
    [
     "8am Media",
     "8am.media",
-    "en",
+    "fa",
     "",
     "B"
    ],
@@ -89,7 +110,7 @@
    [
     "Afghanistan International",
     "afintl.com",
-    "en",
+    "fa",
     "",
     "D"
    ],
@@ -99,6 +120,13 @@
     "en",
     "",
     "D"
+   ],
+   [
+    "BBC Pashto",
+    "bbc.com/pashto",
+    "ps",
+    "",
+    "B"
    ]
   ],
   "AG": [
@@ -128,20 +156,41 @@
    [
     "Euronews Albania",
     "euronews.al",
-    "en"
+    "sq"
    ],
    [
     "Balkan Insight",
     "balkaninsight.com",
     "en",
     "+"
+   ],
+   [
+    "Top Channel",
+    "top-channel.tv",
+    "sq",
+    "",
+    "B"
+   ],
+   [
+    "Reporter.al (BIRN)",
+    "reporter.al",
+    "sq",
+    "",
+    "B"
+   ],
+   [
+    "BalkanWeb",
+    "balkanweb.com",
+    "sq",
+    "",
+    "C"
    ]
   ],
   "AM": [
    [
     "Azatutyun (RFE/RL)",
     "azatutyun.am",
-    "en"
+    "hy"
    ],
    [
     "CivilNet",
@@ -153,6 +202,48 @@
     "oc-media.org",
     "en",
     "+"
+   ],
+   [
+    "Armenpress",
+    "armenpress.am",
+    "hy",
+    "",
+    "C"
+   ],
+   [
+    "News.am",
+    "news.am",
+    "hy",
+    "",
+    "C"
+   ],
+   [
+    "Hetq",
+    "hetq.am",
+    "hy",
+    "",
+    "B"
+   ],
+   [
+    "Aravot",
+    "aravot.am",
+    "hy",
+    "",
+    "C"
+   ],
+   [
+    "Panorama.am",
+    "panorama.am",
+    "hy",
+    "",
+    "C"
+   ],
+   [
+    "JAMnews",
+    "jam-news.net",
+    "en",
+    "+",
+    "B"
    ]
   ],
   "AO": [
@@ -170,6 +261,27 @@
     "Jornal de Angola",
     "jornaldeangola.ao",
     "pt"
+   ],
+   [
+    "Club-K",
+    "club-k.net",
+    "pt",
+    "",
+    "C"
+   ],
+   [
+    "Expansão",
+    "expansao.co.ao",
+    "pt",
+    "",
+    "C"
+   ],
+   [
+    "DW África (português)",
+    "dw.com/pt-002",
+    "pt",
+    "+",
+    "B"
    ]
   ],
   "AR": [
@@ -192,6 +304,55 @@
     "Página/12",
     "pagina12.com.ar",
     "es"
+   ],
+   [
+    "Perfil",
+    "perfil.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "TN",
+    "tn.com.ar",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "La Capital (Rosario)",
+    "lacapital.com.ar",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Rosario3",
+    "rosario3.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "La Voz (Córdoba)",
+    "lavoz.com.ar",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Los Andes (Mendoza)",
+    "losandes.com.ar",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Río Negro",
+    "rionegro.com.ar",
+    "es",
+    "",
+    "B"
    ]
   ],
   "AT": [
@@ -209,6 +370,27 @@
     "ORF",
     "orf.at",
     "de"
+   ],
+   [
+    "Kurier",
+    "kurier.at",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "Kleine Zeitung (Graz)",
+    "kleinezeitung.at",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "Kronen Zeitung",
+    "krone.at",
+    "de",
+    "",
+    "C"
    ]
   ],
   "AU": [
@@ -277,6 +459,27 @@
     "en",
     "+",
     "B"
+   ],
+   [
+    "AAP",
+    "aap.com.au",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The West Australian",
+    "thewest.com.au",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Brisbane Times",
+    "brisbanetimes.com.au",
+    "en",
+    "",
+    "B"
    ]
   ],
   "AZ": [
@@ -296,6 +499,41 @@
     "oc-media.org",
     "en",
     "+"
+   ],
+   [
+    "Meydan TV",
+    "meydan.tv",
+    "az",
+    "",
+    "B"
+   ],
+   [
+    "Azadliq Radiosu (RFE/RL)",
+    "azadliq.org",
+    "az",
+    "",
+    "B"
+   ],
+   [
+    "APA",
+    "apa.az",
+    "az",
+    "",
+    "D"
+   ],
+   [
+    "Report.az",
+    "report.az",
+    "az",
+    "",
+    "D"
+   ],
+   [
+    "Trend",
+    "trend.az",
+    "en",
+    "",
+    "D"
    ]
   ],
   "BA": [
@@ -307,13 +545,55 @@
    [
     "N1 BiH",
     "n1info.ba",
-    "en"
+    "sh"
    ],
    [
     "Balkan Insight",
     "balkaninsight.com",
     "en",
     "+"
+   ],
+   [
+    "Klix.ba",
+    "klix.ba",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "Oslobođenje",
+    "oslobodjenje.ba",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "Dnevni avaz",
+    "avaz.ba",
+    "sh",
+    "",
+    "C"
+   ],
+   [
+    "Nezavisne novine (Banja Luka)",
+    "nezavisne.com",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "Detektor (BIRN BiH)",
+    "detektor.ba",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "CIN",
+    "cin.ba",
+    "sh",
+    "",
+    "B"
    ]
   ],
   "BB": [
@@ -358,7 +638,7 @@
    [
     "Prothom Alo",
     "prothomalo.com",
-    "en",
+    "bn",
     "",
     "B"
    ],
@@ -396,6 +676,20 @@
     "en",
     "",
     "D"
+   ],
+   [
+    "Prothom Alo English",
+    "en.prothomalo.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "BBC Bangla",
+    "bbc.com/bengali",
+    "bn",
+    "",
+    "B"
    ]
   ],
   "BE": [
@@ -418,6 +712,27 @@
     "De Standaard",
     "standaard.be",
     "nl"
+   ],
+   [
+    "VRT NWS",
+    "vrt.be/vrtnws/nl",
+    "nl",
+    "",
+    "B"
+   ],
+   [
+    "HLN",
+    "hln.be",
+    "nl",
+    "",
+    "C"
+   ],
+   [
+    "Sudinfo",
+    "sudinfo.be",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "BF": [
@@ -483,6 +798,20 @@
     "fr",
     "",
     "D"
+   ],
+   [
+    "RFI",
+    "rfi.fr",
+    "fr",
+    "+",
+    "B"
+   ],
+   [
+    "Le Monde Afrique",
+    "lemonde.fr/afrique",
+    "fr",
+    "+",
+    "B"
    ]
   ],
   "BG": [
@@ -494,12 +823,33 @@
    [
     "BTA",
     "bta.bg",
-    "en"
+    "bg"
    ],
    [
     "The Sofia Globe",
     "sofiaglobe.com",
     "en"
+   ],
+   [
+    "Dnevnik",
+    "dnevnik.bg",
+    "bg",
+    "",
+    "B"
+   ],
+   [
+    "BNT",
+    "bnt.bg",
+    "bg",
+    "",
+    "B"
+   ],
+   [
+    "Mediapool",
+    "mediapool.bg",
+    "bg",
+    "",
+    "B"
    ]
   ],
   "BH": [
@@ -517,6 +867,20 @@
     "Al Ayam",
     "alayam.com",
     "ar"
+   ],
+   [
+    "Akhbar Al Khaleej",
+    "akhbar-alkhaleej.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "BNA",
+    "bna.bh",
+    "en",
+    "",
+    "D"
    ]
   ],
   "BI": [
@@ -535,6 +899,20 @@
     "rfi.fr",
     "fr",
     "+"
+   ],
+   [
+    "SOS Médias Burundi",
+    "sosmediasburundi.org",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Jeune Afrique",
+    "jeuneafrique.com",
+    "fr",
+    "+",
+    "B"
    ]
   ],
   "BJ": [
@@ -552,6 +930,27 @@
     "Banouto",
     "banouto.bj",
     "fr"
+   ],
+   [
+    "Matin Libre",
+    "matinlibre.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Fraternité",
+    "fraternitebj.info",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Bénin Web TV",
+    "beninwebtv.com",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "BM": [
@@ -605,6 +1004,48 @@
     "Correo del Sur",
     "correodelsur.com",
     "es"
+   ],
+   [
+    "Opinión",
+    "opinion.com.bo",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Unitel",
+    "unitel.bo",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Red Uno",
+    "reduno.com.bo",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Brújula Digital",
+    "brujuladigital.net",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Erbol",
+    "erbol.com.bo",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Urgente.bo",
+    "urgente.bo",
+    "es",
+    "",
+    "C"
    ]
   ],
   "BR": [
@@ -627,6 +1068,97 @@
     "O Globo",
     "oglobo.globo.com",
     "pt"
+   ],
+   [
+    "Extra (Rio)",
+    "extra.globo.com",
+    "pt",
+    "",
+    "C"
+   ],
+   [
+    "CNN Brasil",
+    "cnnbrasil.com.br",
+    "pt",
+    "",
+    "B"
+   ],
+   [
+    "Agência Brasil",
+    "agenciabrasil.ebc.com.br",
+    "pt",
+    "",
+    "B"
+   ],
+   [
+    "Metrópoles",
+    "metropoles.com",
+    "pt",
+    "",
+    "C"
+   ],
+   [
+    "Correio (Bahia)",
+    "correio24horas.com.br",
+    "pt",
+    "",
+    "B"
+   ],
+   [
+    "A Tarde (Bahia)",
+    "atarde.com.br",
+    "pt",
+    "",
+    "B"
+   ],
+   [
+    "O Povo (Ceará)",
+    "opovo.com.br",
+    "pt",
+    "",
+    "B"
+   ],
+   [
+    "Diário do Nordeste (Ceará)",
+    "diariodonordeste.verdesmares.com.br",
+    "pt",
+    "",
+    "B"
+   ],
+   [
+    "A Crítica (Amazonas)",
+    "acritica.com",
+    "pt",
+    "",
+    "C"
+   ],
+   [
+    "O Liberal (Pará)",
+    "oliberal.com",
+    "pt",
+    "",
+    "C"
+   ],
+   [
+    "GZH (Rio Grande do Sul)",
+    "gauchazh.clicrbs.com.br",
+    "pt",
+    "",
+    "B"
+   ],
+   [
+    "Ponte Jornalismo",
+    "ponte.org",
+    "pt",
+    "",
+    "B"
+   ],
+   [
+    "Amazônia Real",
+    "amazoniareal.com.br",
+    "pt",
+    "",
+    "B"
    ]
   ],
   "BS": [
@@ -678,13 +1210,27 @@
     "Weekend Post",
     "weekendpost.co.bw",
     "en"
+   ],
+   [
+    "The Voice Botswana",
+    "thevoicebw.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Daily News (BOPA)",
+    "dailynews.gov.bw",
+    "en",
+    "",
+    "C"
    ]
   ],
   "BY": [
    [
     "Belsat",
     "belsat.eu",
-    "en"
+    "ru"
    ],
    [
     "Zerkalo",
@@ -696,6 +1242,34 @@
     "rferl.org",
     "en",
     "+"
+   ],
+   [
+    "Pozirk",
+    "pozirk.online",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Reform.news",
+    "reform.news",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Belarusian Partisan",
+    "belaruspartisan.by",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "BelTA",
+    "belta.by",
+    "ru",
+    "",
+    "D"
    ]
   ],
   "BZ": [
@@ -713,6 +1287,13 @@
     "7 News Belize",
     "7newsbelize.com",
     "en"
+   ],
+   [
+    "News 5 (Greater Belize Media)",
+    "greaterbelize.com",
+    "en",
+    "",
+    "B"
    ]
   ],
   "CA": [
@@ -735,6 +1316,62 @@
     "La Presse",
     "lapresse.ca",
     "fr"
+   ],
+   [
+    "Radio-Canada",
+    "ici.radio-canada.ca",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Global News",
+    "globalnews.ca",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Toronto Star",
+    "thestar.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Le Devoir",
+    "ledevoir.com",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "TVA Nouvelles",
+    "tvanouvelles.ca",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "National Post",
+    "nationalpost.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Vancouver Sun",
+    "vancouversun.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Calgary Herald",
+    "calgaryherald.com",
+    "en",
+    "",
+    "B"
    ]
   ],
   "CD": [
@@ -793,6 +1430,27 @@
     "fr",
     "",
     "C"
+   ],
+   [
+    "La Libre Afrique",
+    "afrique.lalibre.be",
+    "fr",
+    "+",
+    "B"
+   ],
+   [
+    "La Prunelle RDC",
+    "laprunellerdc.info",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "BBC News Swahili",
+    "bbc.com/swahili",
+    "sw",
+    "+",
+    "B"
    ]
   ],
   "CF": [
@@ -811,6 +1469,27 @@
     "rfi.fr",
     "fr",
     "+"
+   ],
+   [
+    "Oubangui Médias",
+    "oubanguimedias.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Journal de Bangui",
+    "journaldebangui.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Jeune Afrique",
+    "jeuneafrique.com",
+    "fr",
+    "+",
+    "B"
    ]
   ],
   "CG": [
@@ -830,6 +1509,13 @@
     "jeuneafrique.com",
     "fr",
     "+"
+   ],
+   [
+    "Africanews",
+    "africanews.com",
+    "fr",
+    "+",
+    "B"
    ]
   ],
   "CH": [
@@ -852,6 +1538,20 @@
     "Swissinfo",
     "swissinfo.ch",
     "en"
+   ],
+   [
+    "SRF",
+    "srf.ch",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "RSI",
+    "rsi.ch",
+    "it",
+    "",
+    "B"
    ]
   ],
   "CI": [
@@ -869,6 +1569,34 @@
     "Fraternité Matin",
     "fratmat.info",
     "fr"
+   ],
+   [
+    "Koaci",
+    "koaci.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "AIP – Agence ivoirienne de presse",
+    "aip.ci",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "7info",
+    "7info.ci",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Connectionivoirienne",
+    "connectionivoirienne.net",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "CL": [
@@ -891,6 +1619,41 @@
     "El Mostrador",
     "elmostrador.cl",
     "es"
+   ],
+   [
+    "Cooperativa",
+    "cooperativa.cl",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "24 Horas (TVN)",
+    "24horas.cl",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "T13",
+    "t13.cl",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "CIPER",
+    "ciperchile.cl",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "SoyChile (réseau régional)",
+    "soychile.cl",
+    "es",
+    "",
+    "C"
    ]
   ],
   "CM": [
@@ -942,6 +1705,27 @@
     "fr",
     "",
     "C"
+   ],
+   [
+    "Cameroon-Info.net",
+    "cameroon-info.net",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "StopBlaBlaCam",
+    "stopblablacam.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "RFI",
+    "rfi.fr",
+    "fr",
+    "+",
+    "B"
    ]
   ],
   "CN": [
@@ -1003,6 +1787,62 @@
     "en",
     "",
     "D"
+   ],
+   [
+    "BBC News 中文",
+    "bbc.com/zhongwen",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "端传媒 Initium",
+    "theinitium.com",
+    "zh",
+    "+",
+    "B"
+   ],
+   [
+    "DW 中文",
+    "dw.com/zh",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "RFI 中文",
+    "rfi.fr/cn",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "中国数字时代",
+    "chinadigitaltimes.net/chinese",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "财新网 Caixin",
+    "caixin.com",
+    "zh",
+    "",
+    "C"
+   ],
+   [
+    "Phayul (Tibet)",
+    "phayul.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "新华网 Xinhua",
+    "news.cn",
+    "zh",
+    "",
+    "D"
    ]
   ],
   "CO": [
@@ -1020,6 +1860,76 @@
     "Semana",
     "semana.com",
     "es"
+   ],
+   [
+    "El Colombiano (Antioquia)",
+    "elcolombiano.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "El País Cali (Valle)",
+    "elpais.com.co",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "La Opinión (Cúcuta/Catatumbo)",
+    "laopinion.com.co",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "El Heraldo (Barranquilla)",
+    "elheraldo.co",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Vanguardia (Santander)",
+    "vanguardia.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Caracol Radio",
+    "caracol.com.co",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Blu Radio",
+    "bluradio.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Noticias Caracol",
+    "noticias.caracoltv.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Verdad Abierta",
+    "verdadabierta.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "La Silla Vacía",
+    "lasillavacia.com",
+    "es",
+    "",
+    "B"
    ]
   ],
   "CR": [
@@ -1037,6 +1947,27 @@
     "The Tico Times",
     "ticotimes.net",
     "en"
+   ],
+   [
+    "Teletica",
+    "teletica.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Diario Extra",
+    "diarioextra.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Delfino",
+    "delfino.cr",
+    "es",
+    "",
+    "B"
    ]
   ],
   "CU": [
@@ -1054,6 +1985,27 @@
     "elTOQUE",
     "eltoque.com",
     "es"
+   ],
+   [
+    "CubaNet",
+    "cubanet.org",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "CiberCuba",
+    "cibercuba.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Cubadebate",
+    "cubadebate.cu",
+    "es",
+    "",
+    "D"
    ]
   ],
   "CV": [
@@ -1087,7 +2039,28 @@
    [
     "Kathimerini Cyprus",
     "kathimerini.com.cy",
-    "en"
+    "el"
+   ],
+   [
+    "Philenews",
+    "philenews.com",
+    "el",
+    "",
+    "B"
+   ],
+   [
+    "Politis",
+    "politis.com.cy",
+    "el",
+    "",
+    "B"
+   ],
+   [
+    "Kıbrıs Postası (Nord)",
+    "kibrispostasi.com",
+    "tr",
+    "",
+    "C"
    ]
   ],
   "CZ": [
@@ -1105,6 +2078,34 @@
     "Prague Morning",
     "praguemorning.cz",
     "en"
+   ],
+   [
+    "ČT24",
+    "ct24.ceskatelevize.cz",
+    "cs",
+    "",
+    "B"
+   ],
+   [
+    "iROZHLAS",
+    "irozhlas.cz",
+    "cs",
+    "",
+    "B"
+   ],
+   [
+    "Seznam Zprávy",
+    "seznamzpravy.cz",
+    "cs",
+    "",
+    "B"
+   ],
+   [
+    "iDNES.cz",
+    "idnes.cz",
+    "cs",
+    "",
+    "B"
    ]
   ],
   "DE": [
@@ -1127,6 +2128,69 @@
     "Tagesschau",
     "tagesschau.de",
     "de"
+   ],
+   [
+    "Die Zeit",
+    "zeit.de",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "Die Welt",
+    "welt.de",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "Der Tagesspiegel (Berlin)",
+    "tagesspiegel.de",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "rbb24 (Berlin-Brandenburg)",
+    "rbb24.de",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "BR24 (Bayern)",
+    "br.de",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "NDR (Norddeutschland)",
+    "ndr.de",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "WDR (Nordrhein-Westfalen)",
+    "wdr.de",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "MDR (Mitteldeutschland)",
+    "mdr.de",
+    "de",
+    "",
+    "B"
+   ],
+   [
+    "SWR (Südwesten)",
+    "swr.de",
+    "de",
+    "",
+    "B"
    ]
   ],
   "DJ": [
@@ -1147,6 +2211,20 @@
     "africanews.com",
     "fr",
     "+"
+   ],
+   [
+    "Human Village",
+    "human-village.org",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "La Nation",
+    "lanation.dj",
+    "fr",
+    "",
+    "D"
    ]
   ],
   "DK": [
@@ -1163,7 +2241,49 @@
    [
     "DR",
     "dr.dk",
-    "en"
+    "da"
+   ],
+   [
+    "Politiken",
+    "politiken.dk",
+    "da",
+    "",
+    "B"
+   ],
+   [
+    "Berlingske",
+    "berlingske.dk",
+    "da",
+    "",
+    "B"
+   ],
+   [
+    "Jyllands-Posten",
+    "jp.dk",
+    "da",
+    "",
+    "B"
+   ],
+   [
+    "TV 2 Nyheder",
+    "nyheder.tv2.dk",
+    "da",
+    "",
+    "B"
+   ],
+   [
+    "Ekstra Bladet",
+    "ekstrabladet.dk",
+    "da",
+    "",
+    "C"
+   ],
+   [
+    "Fyens Stiftstidende",
+    "fyens.dk",
+    "da",
+    "",
+    "C"
    ]
   ],
   "DM": [
@@ -1199,6 +2319,27 @@
     "El Caribe",
     "elcaribe.com.do",
     "es"
+   ],
+   [
+    "Hoy",
+    "hoy.com.do",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "N Digital",
+    "n.com.do",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "El Nuevo Diario",
+    "elnuevodiario.com.do",
+    "es",
+    "",
+    "C"
    ]
   ],
   "DZ": [
@@ -1216,6 +2357,41 @@
     "Algérie 360",
     "algerie360.com",
     "fr"
+   ],
+   [
+    "El Khabar",
+    "elkhabar.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Echorouk",
+    "echoroukonline.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Ennahar",
+    "ennaharonline.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Le Soir d'Algérie",
+    "lesoirdalgerie.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "APS – Algérie Presse Service",
+    "aps.dz",
+    "fr",
+    "",
+    "D"
    ]
   ],
   "EC": [
@@ -1233,6 +2409,55 @@
     "El Universo",
     "eluniverso.com",
     "es"
+   ],
+   [
+    "Expreso (Guayaquil)",
+    "expreso.ec",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Extra",
+    "extra.ec",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "El Diario (Manabí)",
+    "eldiario.ec",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "La Hora",
+    "lahora.com.ec",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Ecuavisa",
+    "ecuavisa.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Teleamazonas",
+    "teleamazonas.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "GK",
+    "gk.city",
+    "es",
+    "",
+    "B"
    ]
   ],
   "EE": [
@@ -1250,6 +2475,41 @@
     "Estonian World",
     "estonianworld.com",
     "en"
+   ],
+   [
+    "ERR (estonien)",
+    "err.ee",
+    "et",
+    "",
+    "B"
+   ],
+   [
+    "Postimees",
+    "postimees.ee",
+    "et",
+    "",
+    "B"
+   ],
+   [
+    "Delfi Eesti",
+    "delfi.ee",
+    "et",
+    "",
+    "B"
+   ],
+   [
+    "Õhtuleht",
+    "ohtuleht.ee",
+    "et",
+    "",
+    "C"
+   ],
+   [
+    "ERR (russe)",
+    "rus.err.ee",
+    "ru",
+    "",
+    "B"
    ]
   ],
   "EG": [
@@ -1267,6 +2527,55 @@
     "Daily News Egypt",
     "dailynewsegypt.com",
     "en"
+   ],
+   [
+    "Mada Masr (arabe)",
+    "madamasr.com/ar",
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "Al Manassa",
+    "almanassa.com",
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "Al-Masry Al-Youm",
+    "almasryalyoum.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Shorouk News",
+    "shorouknews.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Masrawy",
+    "masrawy.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Youm7",
+    "youm7.com",
+    "ar",
+    "",
+    "D"
+   ],
+   [
+    "Ahram Online",
+    "english.ahram.org.eg",
+    "en",
+    "",
+    "D"
    ]
   ],
   "ER": [
@@ -1287,6 +2596,34 @@
     "theeastafrican.co.ke",
     "en",
     "+"
+   ],
+   [
+    "Awate",
+    "awate.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Asmarino Independent",
+    "asmarino.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Eritrea Hub",
+    "eritreahub.org",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Shabait (ministère de l'Information)",
+    "shabait.com",
+    "en",
+    "",
+    "D"
    ]
   ],
   "ES": [
@@ -1309,6 +2646,69 @@
     "RTVE",
     "rtve.es",
     "es"
+   ],
+   [
+    "ABC",
+    "abc.es",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Europa Press",
+    "europapress.es",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "elDiario.es",
+    "eldiario.es",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "El Periódico (Barcelona)",
+    "elperiodico.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "El Correo (País Vasco)",
+    "elcorreo.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "La Voz de Galicia",
+    "lavozdegalicia.es",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Diario de Sevilla",
+    "diariodesevilla.es",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Levante-EMV (Valencia)",
+    "levante-emv.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Canarias7",
+    "canarias7.es",
+    "es",
+    "",
+    "B"
    ]
   ],
   "ET": [
@@ -1367,13 +2767,34 @@
     "en",
     "",
     "D"
+   ],
+   [
+    "BBC News Amharic",
+    "bbc.com/amharic",
+    "am",
+    "",
+    "B"
+   ],
+   [
+    "DW Amharic",
+    "dw.com/am",
+    "am",
+    "",
+    "B"
+   ],
+   [
+    "Zehabesha",
+    "zehabesha.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "FI": [
    [
     "Yle News",
     "yle.fi",
-    "en"
+    "fi"
    ],
    [
     "Helsinki Times",
@@ -1383,7 +2804,56 @@
    [
     "Helsingin Sanomat",
     "hs.fi",
-    "en"
+    "fi"
+   ],
+   [
+    "MTV Uutiset",
+    "mtvuutiset.fi",
+    "fi",
+    "",
+    "B"
+   ],
+   [
+    "Iltalehti",
+    "iltalehti.fi",
+    "fi",
+    "",
+    "C"
+   ],
+   [
+    "Ilta-Sanomat",
+    "is.fi",
+    "fi",
+    "",
+    "C"
+   ],
+   [
+    "Aamulehti (Tampere)",
+    "aamulehti.fi",
+    "fi",
+    "",
+    "B"
+   ],
+   [
+    "Turun Sanomat",
+    "ts.fi",
+    "fi",
+    "",
+    "B"
+   ],
+   [
+    "Kaleva (Oulu)",
+    "kaleva.fi",
+    "fi",
+    "",
+    "B"
+   ],
+   [
+    "Hufvudstadsbladet",
+    "hbl.fi",
+    "sv",
+    "",
+    "B"
    ]
   ],
   "FJ": [
@@ -1401,6 +2871,20 @@
     "FBC News",
     "fbcnews.com.fj",
     "en"
+   ],
+   [
+    "RNZ Pacific",
+    "rnz.co.nz",
+    "en",
+    "+",
+    "B"
+   ],
+   [
+    "Islands Business",
+    "islandsbusiness.com",
+    "en",
+    "+",
+    "B"
    ]
   ],
   "FM": [
@@ -1447,6 +2931,90 @@
     "Ouest-France",
     "ouest-france.fr",
     "fr"
+   ],
+   [
+    "Le Parisien",
+    "leparisien.fr",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "BFMTV",
+    "bfmtv.com",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "La Dépêche du Midi",
+    "ladepeche.fr",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Sud Ouest",
+    "sudouest.fr",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "La Provence",
+    "laprovence.com",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Le Progrès",
+    "leprogres.fr",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "La Voix du Nord",
+    "lavoixdunord.fr",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Le Dauphiné Libéré",
+    "ledauphine.com",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Nice-Matin",
+    "nicematin.com",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Dernières Nouvelles d'Alsace",
+    "dna.fr",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Corse-Matin",
+    "corsematin.com",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Actu.fr",
+    "actu.fr",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "GA": [
@@ -1464,6 +3032,20 @@
     "Gabon Media Time",
     "gabonmediatime.com",
     "fr"
+   ],
+   [
+    "L'Union",
+    "union.sonapresse.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Jeune Afrique",
+    "jeuneafrique.com",
+    "fr",
+    "+",
+    "B"
    ]
   ],
   "GB": [
@@ -1546,6 +3128,41 @@
     "en",
     "",
     "C"
+   ],
+   [
+    "The Herald (Scotland)",
+    "heraldscotland.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Belfast Telegraph",
+    "belfasttelegraph.co.uk",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "WalesOnline",
+    "walesonline.co.uk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Birmingham Mail",
+    "birminghammail.co.uk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Liverpool Echo",
+    "liverpoolecho.co.uk",
+    "en",
+    "",
+    "C"
    ]
   ],
   "GD": [
@@ -1574,13 +3191,55 @@
    [
     "Interpressnews",
     "interpressnews.ge",
-    "en"
+    "ka"
    ],
    [
     "OC Media",
     "oc-media.org",
     "en",
     "+"
+   ],
+   [
+    "Netgazeti",
+    "netgazeti.ge",
+    "ka",
+    "",
+    "B"
+   ],
+   [
+    "Publika",
+    "publika.ge",
+    "ka",
+    "",
+    "B"
+   ],
+   [
+    "Radio Tavisupleba (RFE/RL)",
+    "radiotavisupleba.ge",
+    "ka",
+    "",
+    "B"
+   ],
+   [
+    "Formula",
+    "formulanews.ge",
+    "ka",
+    "",
+    "C"
+   ],
+   [
+    "JAMnews",
+    "jam-news.net",
+    "en",
+    "+",
+    "B"
+   ],
+   [
+    "Georgia Today",
+    "georgiatoday.ge",
+    "en",
+    "",
+    "C"
    ]
   ],
   "GH": [
@@ -1598,18 +3257,53 @@
     "Graphic Online",
     "graphic.com.gh",
     "en"
+   ],
+   [
+    "GhanaWeb",
+    "ghanaweb.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "3News",
+    "3news.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Ghana News Agency",
+    "gna.org.gh",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Modern Ghana",
+    "modernghana.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Fourth Estate",
+    "thefourthestategh.com",
+    "en",
+    "",
+    "B"
    ]
   ],
   "GL": [
    [
     "Sermitsiaq",
     "sermitsiaq.ag",
-    "en"
+    "da"
    ],
    [
     "KNR",
     "knr.gl",
-    "en"
+    "da"
    ],
    [
     "Arctic Today",
@@ -1633,6 +3327,13 @@
     "The Standard",
     "standard.gm",
     "en"
+   ],
+   [
+    "Kerr Fatou",
+    "kerrfatou.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "GN": [
@@ -1650,6 +3351,34 @@
     "Mosaïque Guinée",
     "mosaiqueguinee.com",
     "fr"
+   ],
+   [
+    "Guinée360",
+    "guinee360.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Guinéematin",
+    "guineematin.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Vision Guinée",
+    "visionguinee.info",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "RFI",
+    "rfi.fr",
+    "fr",
+    "+",
+    "B"
    ]
   ],
   "GQ": [
@@ -1670,6 +3399,27 @@
     "africanews.com",
     "en",
     "+"
+   ],
+   [
+    "Diario Rombe",
+    "diariorombe.es",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Ahora EG",
+    "ahoraeg.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Guinea Ecuatorial Press",
+    "guineaecuatorialpress.com",
+    "es",
+    "",
+    "D"
    ]
   ],
   "GR": [
@@ -1687,6 +3437,55 @@
     "Keep Talking Greece",
     "keeptalkinggreece.com",
     "en"
+   ],
+   [
+    "Kathimerini (GR)",
+    "kathimerini.gr",
+    "el",
+    "",
+    "B"
+   ],
+   [
+    "ERT News",
+    "ertnews.gr",
+    "el",
+    "",
+    "B"
+   ],
+   [
+    "ANA-MPA (AMNA)",
+    "amna.gr",
+    "el",
+    "",
+    "B"
+   ],
+   [
+    "Efimerida ton Syntakton",
+    "efsyn.gr",
+    "el",
+    "",
+    "B"
+   ],
+   [
+    "Proto Thema",
+    "protothema.gr",
+    "el",
+    "",
+    "C"
+   ],
+   [
+    "Voria.gr (Thessaloniki)",
+    "voria.gr",
+    "el",
+    "",
+    "C"
+   ],
+   [
+    "CretaLive (Crète)",
+    "cretalive.gr",
+    "el",
+    "",
+    "C"
    ]
   ],
   "GT": [
@@ -1704,6 +3503,48 @@
     "La Hora",
     "lahora.gt",
     "es"
+   ],
+   [
+    "Emisoras Unidas",
+    "emisorasunidas.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Publinews",
+    "publinews.gt",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "República",
+    "republica.gt",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Plaza Pública",
+    "plazapublica.com.gt",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Agencia Ocote",
+    "agenciaocote.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "No-Ficción",
+    "no-ficcion.com",
+    "es",
+    "",
+    "B"
    ]
   ],
   "GU": [
@@ -1740,6 +3581,13 @@
     "jeuneafrique.com",
     "fr",
     "+"
+   ],
+   [
+    "DW África (português)",
+    "dw.com/pt-002",
+    "pt",
+    "+",
+    "B"
    ]
   ],
   "GY": [
@@ -1757,6 +3605,20 @@
     "News Room",
     "newsroom.gy",
     "en"
+   ],
+   [
+    "Demerara Waves",
+    "demerarawaves.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Guyana Chronicle",
+    "guyanachronicle.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "HK": [
@@ -1774,6 +3636,41 @@
     "RTHK",
     "rthk.hk",
     "en"
+   ],
+   [
+    "South China Morning Post",
+    "scmp.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "明報 Ming Pao",
+    "news.mingpao.com",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "香港01 HK01",
+    "hk01.com",
+    "zh",
+    "",
+    "C"
+   ],
+   [
+    "端传媒 Initium",
+    "theinitium.com",
+    "zh",
+    "+",
+    "B"
+   ],
+   [
+    "獨立媒體 InMedia",
+    "inmediahk.net",
+    "zh",
+    "",
+    "C"
    ]
   ],
   "HN": [
@@ -1791,6 +3688,41 @@
     "Proceso Digital",
     "proceso.hn",
     "es"
+   ],
+   [
+    "La Tribuna",
+    "latribuna.hn",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Criterio.hn",
+    "criterio.hn",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Contracorriente",
+    "contracorriente.red",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "HCH",
+    "hch.tv",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Tu Nota",
+    "tunota.com",
+    "es",
+    "",
+    "C"
    ]
   ],
   "HR": [
@@ -1802,12 +3734,33 @@
    [
     "HINA",
     "hina.hr",
-    "en"
+    "sh"
    ],
    [
     "Index.hr",
     "index.hr",
-    "en"
+    "sh"
+   ],
+   [
+    "Jutarnji list",
+    "jutarnji.hr",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "Večernji list",
+    "vecernji.hr",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "HRT Vijesti",
+    "vijesti.hrt.hr",
+    "sh",
+    "",
+    "B"
    ]
   ],
   "HT": [
@@ -1825,13 +3778,55 @@
     "AyiboPost",
     "ayibopost.com",
     "fr"
+   ],
+   [
+    "AlterPresse",
+    "alterpresse.org",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Radio Télévision Caraïbes",
+    "radiotelevisioncaraibes.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Gazette Haïti",
+    "gazettehaiti.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Le National",
+    "lenational.org",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Juno7",
+    "juno7.ht",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "The Haitian Times",
+    "haitiantimes.com",
+    "en",
+    "",
+    "B"
    ]
   ],
   "HU": [
    [
     "Telex",
     "telex.hu",
-    "en"
+    "hu"
    ],
    [
     "Daily News Hungary",
@@ -1842,6 +3837,48 @@
     "Budapest Times",
     "budapesttimes.hu",
     "en"
+   ],
+   [
+    "HVG",
+    "hvg.hu",
+    "hu",
+    "",
+    "B"
+   ],
+   [
+    "444",
+    "444.hu",
+    "hu",
+    "",
+    "B"
+   ],
+   [
+    "24.hu",
+    "24.hu",
+    "hu",
+    "",
+    "C"
+   ],
+   [
+    "Index",
+    "index.hu",
+    "hu",
+    "",
+    "C"
+   ],
+   [
+    "Szabad Európa (RFE/RL)",
+    "szabadeuropa.hu",
+    "hu",
+    "",
+    "B"
+   ],
+   [
+    "Népszava",
+    "nepszava.hu",
+    "hu",
+    "",
+    "C"
    ]
   ],
   "ID": [
@@ -1853,7 +3890,7 @@
    [
     "Tempo",
     "tempo.co",
-    "en",
+    "id",
     "",
     "B"
    ],
@@ -1867,7 +3904,7 @@
    [
     "Antara",
     "antaranews.com",
-    "en"
+    "id"
    ],
    [
     "Detik.com",
@@ -1903,6 +3940,62 @@
     "id",
     "",
     "C"
+   ],
+   [
+    "BBC News Indonesia",
+    "bbc.com/indonesia",
+    "id",
+    "",
+    "B"
+   ],
+   [
+    "Kompas.id",
+    "kompas.id",
+    "id",
+    "",
+    "B"
+   ],
+   [
+    "Tempo English",
+    "en.tempo.co",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Antara English",
+    "en.antaranews.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Jubi (Papua)",
+    "jubi.id",
+    "id",
+    "",
+    "B"
+   ],
+   [
+    "Suara Papua",
+    "suarapapua.com",
+    "id",
+    "",
+    "C"
+   ],
+   [
+    "Serambi Indonesia (Aceh)",
+    "serambinews.com",
+    "id",
+    "",
+    "C"
+   ],
+   [
+    "Tribun Timur (Sulawesi)",
+    "makassar.tribunnews.com",
+    "id",
+    "",
+    "C"
    ]
   ],
   "IE": [
@@ -1920,6 +4013,27 @@
     "Irish Independent",
     "independent.ie",
     "en"
+   ],
+   [
+    "TheJournal.ie",
+    "thejournal.ie",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Irish Examiner",
+    "irishexaminer.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "BreakingNews.ie",
+    "breakingnews.ie",
+    "en",
+    "",
+    "C"
    ]
   ],
   "IL": [
@@ -1983,6 +4097,13 @@
     "en",
     "",
     "C"
+   ],
+   [
+    "Haaretz (hébreu)",
+    "haaretz.co.il",
+    "he",
+    "",
+    "B"
    ]
   ],
   "IN": [
@@ -2005,6 +4126,76 @@
     "NDTV",
     "ndtv.com",
     "en"
+   ],
+   [
+    "The Times of India",
+    "timesofindia.indiatimes.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "PTI",
+    "ptinews.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Tribune (Punjab, J&K)",
+    "tribuneindia.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Greater Kashmir",
+    "greaterkashmir.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Imphal Free Press (Manipur)",
+    "ifp.co.in",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Hitavada (Chhattisgarh/MP)",
+    "thehitavada.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Dainik Bhaskar",
+    "bhaskar.com",
+    "hi",
+    "",
+    "C"
+   ],
+   [
+    "Amar Ujala",
+    "amarujala.com",
+    "hi",
+    "",
+    "C"
+   ],
+   [
+    "BBC Hindi",
+    "bbc.com/hindi",
+    "hi",
+    "",
+    "B"
+   ],
+   [
+    "Daily Thanthi",
+    "dailythanthi.com",
+    "ta",
+    "",
+    "C"
    ]
   ],
   "IQ": [
@@ -2022,6 +4213,62 @@
     "Kurdistan24",
     "kurdistan24.net",
     "en"
+   ],
+   [
+    "Shafaq News (arabe)",
+    "shafaq.com/ar",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Alsumaria News",
+    "alsumaria.tv",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Al Mada",
+    "almadapaper.net",
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "Baghdad Today",
+    "baghdadtoday.news",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "NINA – National Iraqi News Agency",
+    "ninanews.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Rudaw (arabe)",
+    "rudaw.net/arabic",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "KirkukNow",
+    "kirkuknow.com/en",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "INA – Iraqi News Agency",
+    "ina.iq",
+    "ar",
+    "",
+    "D"
    ]
   ],
   "IR": [
@@ -2035,7 +4282,7 @@
    [
     "Iran International",
     "iranintl.com",
-    "en",
+    "fa",
     "",
     "D"
    ],
@@ -2138,6 +4385,62 @@
     "Il Sole 24 Ore",
     "ilsole24ore.com",
     "it"
+   ],
+   [
+    "La Stampa",
+    "lastampa.it",
+    "it",
+    "",
+    "B"
+   ],
+   [
+    "Il Messaggero",
+    "ilmessaggero.it",
+    "it",
+    "",
+    "B"
+   ],
+   [
+    "RaiNews",
+    "rainews.it",
+    "it",
+    "",
+    "B"
+   ],
+   [
+    "Sky TG24",
+    "tg24.sky.it",
+    "it",
+    "",
+    "B"
+   ],
+   [
+    "Il Mattino (Napoli)",
+    "ilmattino.it",
+    "it",
+    "",
+    "B"
+   ],
+   [
+    "La Nazione (Firenze)",
+    "lanazione.it",
+    "it",
+    "",
+    "B"
+   ],
+   [
+    "Il Giorno (Milano)",
+    "ilgiorno.it",
+    "it",
+    "",
+    "B"
+   ],
+   [
+    "LiveSicilia",
+    "livesicilia.it",
+    "it",
+    "",
+    "C"
    ]
   ],
   "JM": [
@@ -2155,6 +4458,13 @@
     "Radio Jamaica News",
     "radiojamaicanewsonline.com",
     "en"
+   ],
+   [
+    "Nationwide News Network",
+    "nationwideradiojm.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "JO": [
@@ -2166,12 +4476,47 @@
    [
     "Roya News",
     "royanews.tv",
-    "en"
+    "ar"
    ],
    [
     "Ammon News",
     "ammonnews.net",
-    "en"
+    "ar"
+   ],
+   [
+    "Al Ghad",
+    "alghad.com",
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "Al Rai",
+    "alrai.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Al Mamlaka",
+    "almamlakatv.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Khaberni",
+    "khaberni.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Petra",
+    "petra.gov.jo",
+    "ar",
+    "",
+    "D"
    ]
   ],
   "JP": [
@@ -2183,17 +4528,80 @@
    [
     "The Mainichi",
     "mainichi.jp",
-    "en"
+    "ja"
    ],
    [
     "The Asahi Shimbun",
     "asahi.com",
-    "en"
+    "ja"
    ],
    [
     "NHK World",
     "nhk.or.jp",
     "en"
+   ],
+   [
+    "The Asahi Shimbun (AJW)",
+    "asahi.com/ajw",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Mainichi (English)",
+    "mainichi.jp/english",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Kyodo News",
+    "english.kyodonews.net",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "NHK ニュース",
+    "news.web.nhk",
+    "ja",
+    "",
+    "B"
+   ],
+   [
+    "読売新聞",
+    "yomiuri.co.jp",
+    "ja",
+    "",
+    "B"
+   ],
+   [
+    "時事通信",
+    "jiji.com",
+    "ja",
+    "",
+    "B"
+   ],
+   [
+    "日本経済新聞",
+    "nikkei.com",
+    "ja",
+    "",
+    "B"
+   ],
+   [
+    "沖縄タイムス",
+    "okinawatimes.co.jp",
+    "ja",
+    "",
+    "B"
+   ],
+   [
+    "北海道新聞",
+    "hokkaido-np.co.jp",
+    "ja",
+    "",
+    "B"
    ]
   ],
   "KE": [
@@ -2211,13 +4619,55 @@
     "The Star",
     "the-star.co.ke",
     "en"
+   ],
+   [
+    "Capital FM",
+    "capitalfm.co.ke",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Citizen Digital",
+    "citizen.digital",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Kenyans.co.ke",
+    "kenyans.co.ke",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Eastleigh Voice",
+    "eastleighvoice.co.ke",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Taifa Leo",
+    "taifaleo.nation.co.ke",
+    "sw",
+    "",
+    "B"
+   ],
+   [
+    "BBC News Swahili",
+    "bbc.com/swahili",
+    "sw",
+    "+",
+    "B"
    ]
   ],
   "KG": [
    [
     "24.kg",
     "24.kg",
-    "en"
+    "ru"
    ],
    [
     "Kloop",
@@ -2228,6 +4678,27 @@
     "AKIpress",
     "akipress.com",
     "en"
+   ],
+   [
+    "Azattyk (RFE/RL)",
+    "rus.azattyk.org",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Kaktus Media",
+    "kaktus.media",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "Kabar",
+    "kabar.kg",
+    "ru",
+    "",
+    "D"
    ]
   ],
   "KH": [
@@ -2245,6 +4716,27 @@
     "CamboJA News",
     "cambojanews.com",
     "en"
+   ],
+   [
+    "Cambodianess",
+    "cambodianess.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Thmey Thmey",
+    "thmeythmey.com",
+    "km",
+    "",
+    "C"
+   ],
+   [
+    "Fresh News",
+    "freshnewsasia.com",
+    "km",
+    "",
+    "D"
    ]
   ],
   "KI": [
@@ -2310,12 +4802,26 @@
    [
     "Daily NK",
     "dailynk.com",
-    "en"
+    "ko"
    ],
    [
     "38 North",
     "38north.org",
     "en"
+   ],
+   [
+    "Daily NK (English)",
+    "dailynk.com/english",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "KCNA Watch",
+    "kcnawatch.org",
+    "en",
+    "",
+    "D"
    ]
   ],
   "KR": [
@@ -2327,12 +4833,61 @@
    [
     "Yonhap",
     "yna.co.kr",
-    "en"
+    "ko"
    ],
    [
     "Korea JoongAng Daily",
     "koreajoongangdaily.joins.com",
     "en"
+   ],
+   [
+    "Yonhap (English)",
+    "en.yna.co.kr",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Korea Times",
+    "koreatimes.co.kr",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "한겨레 Hankyoreh",
+    "hani.co.kr",
+    "ko",
+    "",
+    "B"
+   ],
+   [
+    "조선일보 Chosun Ilbo",
+    "chosun.com",
+    "ko",
+    "",
+    "B"
+   ],
+   [
+    "중앙일보 JoongAng",
+    "joongang.co.kr",
+    "ko",
+    "",
+    "B"
+   ],
+   [
+    "KBS 뉴스",
+    "news.kbs.co.kr",
+    "ko",
+    "",
+    "B"
+   ],
+   [
+    "부산일보 Busan Ilbo",
+    "busan.com",
+    "ko",
+    "",
+    "B"
    ]
   ],
   "KW": [
@@ -2350,6 +4905,27 @@
     "Times Kuwait",
     "timeskuwait.com",
     "en"
+   ],
+   [
+    "Al Qabas",
+    "alqabas.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Al Rai",
+    "alraimedia.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "KUNA",
+    "kuna.net.kw",
+    "en",
+    "",
+    "D"
    ]
   ],
   "KY": [
@@ -2386,6 +4962,55 @@
     "Orda.kz",
     "orda.kz",
     "ru"
+   ],
+   [
+    "Tengrinews",
+    "tengrinews.kz",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "Azattyq (RFE/RL)",
+    "rus.azattyq.org",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Informburo",
+    "informburo.kz",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "KazTAG",
+    "kaztag.kz",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "Zakon.kz",
+    "zakon.kz",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "Uralskaya Nedelya (Ouest)",
+    "uralskweek.kz",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Kazinform",
+    "inform.kz",
+    "ru",
+    "",
+    "D"
    ]
   ],
   "LA": [
@@ -2404,6 +5029,20 @@
     "thediplomat.com",
     "en",
     "+"
+   ],
+   [
+    "KPL Lao News Agency",
+    "kpl.gov.la",
+    "en",
+    "",
+    "D"
+   ],
+   [
+    "Bangkok Post",
+    "bangkokpost.com",
+    "en",
+    "+",
+    "B"
    ]
   ],
   "LB": [
@@ -2436,14 +5075,14 @@
    [
     "LBCI",
     "lbcgroup.tv",
-    "en",
+    "ar",
     "",
     "C"
    ],
    [
     "MTV Lebanon",
     "mtv.com.lb",
-    "en",
+    "ar",
     "",
     "C"
    ],
@@ -2464,6 +5103,13 @@
    [
     "Megaphone",
     "megaphone.news",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "L'Orient Today",
+    "lorientoday.com",
     "en",
     "",
     "B"
@@ -2519,6 +5165,41 @@
     "Sunday Times",
     "sundaytimes.lk",
     "en"
+   ],
+   [
+    "Ada Derana",
+    "adaderana.lk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Newsfirst",
+    "newsfirst.lk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Island",
+    "island.lk",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Tamil Guardian (Nord/Est)",
+    "tamilguardian.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Virakesari",
+    "virakesari.lk",
+    "ta",
+    "",
+    "C"
    ]
   ],
   "LR": [
@@ -2536,6 +5217,20 @@
     "The New Dawn",
     "thenewdawnliberia.com",
     "en"
+   ],
+   [
+    "The Bush Chicken",
+    "bushchicken.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Smart News Liberia",
+    "smartnewsliberia.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "LS": [
@@ -2559,18 +5254,53 @@
    [
     "LRT",
     "lrt.lt",
-    "en"
+    "lt"
    ],
    [
     "Delfi",
     "delfi.lt",
-    "en"
+    "lt"
    ],
    [
     "The Baltic Times",
     "baltictimes.com",
     "en",
     "+"
+   ],
+   [
+    "15min",
+    "15min.lt",
+    "lt",
+    "",
+    "B"
+   ],
+   [
+    "BNS",
+    "bns.lt",
+    "lt",
+    "",
+    "B"
+   ],
+   [
+    "Lietuvos rytas",
+    "lrytas.lt",
+    "lt",
+    "",
+    "C"
+   ],
+   [
+    "Diena (Kaunas)",
+    "diena.lt",
+    "lt",
+    "",
+    "C"
+   ],
+   [
+    "Klaipėda",
+    "kl.lt",
+    "lt",
+    "",
+    "C"
    ]
   ],
   "LU": [
@@ -2588,13 +5318,27 @@
     "Luxemburger Wort",
     "wort.lu",
     "de"
+   ],
+   [
+    "RTL Today",
+    "today.rtl.lu",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Virgule",
+    "virgule.lu",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "LV": [
    [
     "LSM",
     "lsm.lv",
-    "en"
+    "lv"
    ],
    [
     "BNN",
@@ -2606,6 +5350,41 @@
     "baltictimes.com",
     "en",
     "+"
+   ],
+   [
+    "Delfi Latvija",
+    "delfi.lv",
+    "lv",
+    "",
+    "B"
+   ],
+   [
+    "TVNET",
+    "tvnet.lv",
+    "lv",
+    "",
+    "B"
+   ],
+   [
+    "LETA",
+    "leta.lv",
+    "lv",
+    "",
+    "B"
+   ],
+   [
+    "LSM (russe)",
+    "rus.lsm.lv",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Latvijas Avīze",
+    "la.lv",
+    "lv",
+    "",
+    "C"
    ]
   ],
   "LY": [
@@ -2623,6 +5402,41 @@
     "Al Wasat",
     "alwasat.ly",
     "ar"
+   ],
+   [
+    "Libya Review",
+    "libyareview.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Al Marsad",
+    "almarsad.co",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "218 News",
+    "218tv.net",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Libya Al-Ahrar",
+    "libyaalahrar.net",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Ean Libya",
+    "eanlibya.com",
+    "ar",
+    "",
+    "C"
    ]
   ],
   "MA": [
@@ -2639,7 +5453,42 @@
    [
     "Hespress",
     "hespress.com",
-    "fr"
+    "ar"
+   ],
+   [
+    "Le360",
+    "le360.ma",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Hespress FR",
+    "fr.hespress.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Le Desk",
+    "ledesk.ma",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Yabiladi",
+    "yabiladi.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Alyaoum24",
+    "alyaoum24.com",
+    "ar",
+    "",
+    "C"
    ]
   ],
   "MC": [
@@ -2669,30 +5518,86 @@
    [
     "IPN",
     "ipn.md",
-    "en"
+    "ro"
    ],
    [
     "Moldova.org",
     "moldova.org",
     "en"
+   ],
+   [
+    "Ziarul de Gardă",
+    "zdg.md",
+    "ro",
+    "",
+    "B"
+   ],
+   [
+    "Agora",
+    "agora.md",
+    "ro",
+    "",
+    "B"
+   ],
+   [
+    "TV8",
+    "tv8.md",
+    "ro",
+    "",
+    "B"
+   ],
+   [
+    "Nokta (Gagauzia)",
+    "nokta.md",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Point.md",
+    "point.md",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "Unimedia",
+    "unimedia.info",
+    "ro",
+    "",
+    "C"
    ]
   ],
   "ME": [
    [
     "Vijesti",
     "vijesti.me",
-    "en"
+    "sh"
    ],
    [
     "RTCG",
     "rtcg.me",
-    "en"
+    "sh"
    ],
    [
     "Balkan Insight",
     "balkaninsight.com",
     "en",
     "+"
+   ],
+   [
+    "CdM",
+    "cdm.me",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "Pobjeda",
+    "pobjeda.me",
+    "sh",
+    "",
+    "C"
    ]
   ],
   "MG": [
@@ -2710,6 +5615,27 @@
     "NewsMada",
     "newsmada.com",
     "fr"
+   ],
+   [
+    "Madagascar Tribune",
+    "madagascar-tribune.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "2424.mg",
+    "2424.mg",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "La Gazette de la Grande Île",
+    "lagazette-dgi.com",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "MH": [
@@ -2735,18 +5661,39 @@
    [
     "MIA",
     "mia.mk",
-    "en"
+    "mk"
    ],
    [
     "Meta.mk",
     "meta.mk",
-    "en"
+    "mk"
    ],
    [
     "Balkan Insight",
     "balkaninsight.com",
     "en",
     "+"
+   ],
+   [
+    "Sloboden Pečat",
+    "slobodenpecat.mk",
+    "mk",
+    "",
+    "B"
+   ],
+   [
+    "360 Stepeni",
+    "360stepeni.mk",
+    "mk",
+    "",
+    "B"
+   ],
+   [
+    "SDK.mk",
+    "sdk.mk",
+    "mk",
+    "",
+    "C"
    ]
   ],
   "ML": [
@@ -2803,6 +5750,27 @@
     "fr",
     "",
     "D"
+   ],
+   [
+    "RFI",
+    "rfi.fr",
+    "fr",
+    "+",
+    "B"
+   ],
+   [
+    "Le Monde Afrique",
+    "lemonde.fr/afrique",
+    "fr",
+    "+",
+    "B"
+   ],
+   [
+    "Bamada.net",
+    "bamada.net",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "MM": [
@@ -2857,6 +5825,55 @@
     "en",
     "",
     "C"
+   ],
+   [
+    "BBC News Burmese",
+    "bbc.com/burmese",
+    "my",
+    "",
+    "B"
+   ],
+   [
+    "DVB (birman)",
+    "burmese.dvb.no",
+    "my",
+    "",
+    "B"
+   ],
+   [
+    "The Irrawaddy (birman)",
+    "burma.irrawaddy.com",
+    "my",
+    "",
+    "B"
+   ],
+   [
+    "Development Media Group (Rakhine)",
+    "dmediag.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Kachin News Group",
+    "kachinnews.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Kachin News Group (birman)",
+    "burmese.kachinnews.com",
+    "my",
+    "",
+    "B"
+   ],
+   [
+    "Karen News",
+    "karennews.org",
+    "en",
+    "",
+    "C"
    ]
   ],
   "MN": [
@@ -2868,13 +5885,27 @@
    [
     "News.mn",
     "news.mn",
-    "en"
+    "mn"
    ],
    [
     "Reuters",
     "reuters.com",
     "en",
     "+"
+   ],
+   [
+    "Ikon.mn",
+    "ikon.mn",
+    "mn",
+    "",
+    "B"
+   ],
+   [
+    "Gogo.mn",
+    "gogo.mn",
+    "mn",
+    "",
+    "C"
    ]
   ],
   "MO": [
@@ -2892,6 +5923,20 @@
     "Macau News Agency",
     "macaonews.org",
     "en"
+   ],
+   [
+    "Hoje Macau",
+    "hojemacau.com.mo",
+    "pt",
+    "",
+    "C"
+   ],
+   [
+    "論盡媒體 All About Macau",
+    "aamacau.com",
+    "zh",
+    "",
+    "B"
    ]
   ],
   "MR": [
@@ -2908,7 +5953,21 @@
    [
     "Alakhbar",
     "alakhbar.info",
-    "fr"
+    "ar"
+   ],
+   [
+    "Sahara Medias",
+    "saharamedias.net",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "AMI – Agence mauritanienne d'information",
+    "ami.mr",
+    "fr",
+    "",
+    "D"
    ]
   ],
   "MT": [
@@ -2926,6 +5985,13 @@
     "Malta Independent",
     "independent.com.mt",
     "en"
+   ],
+   [
+    "Newsbook",
+    "newsbook.com.mt",
+    "en",
+    "",
+    "C"
    ]
   ],
   "MU": [
@@ -2960,6 +6026,20 @@
     "PSM News",
     "psmnews.mv",
     "en"
+   ],
+   [
+    "Sun (anglais)",
+    "en.sun.mv",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Atoll Times",
+    "atolltimes.mv",
+    "en",
+    "",
+    "C"
    ]
   ],
   "MW": [
@@ -2977,6 +6057,20 @@
     "Times 360",
     "times.mw",
     "en"
+   ],
+   [
+    "Malawi24",
+    "malawi24.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Zodiak Online",
+    "zodiakmalawi.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "MX": [
@@ -3061,6 +6155,132 @@
     "es",
     "",
     "B"
+   ],
+   [
+    "Reforma",
+    "reforma.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "El Norte",
+    "elnorte.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Noroeste (Sinaloa)",
+    "noroeste.com.mx",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "El Sur de Acapulco (Guerrero)",
+    "suracapulco.mx",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Quadratín Michoacán",
+    "quadratin.com.mx",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "La Voz de Michoacán",
+    "lavozdemichoacan.com.mx",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "El Diario de Juárez",
+    "diario.mx",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "El Diario de Chihuahua",
+    "eldiariodechihuahua.mx",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Expreso (Tamaulipas)",
+    "expreso.press",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "El Mañana (Nuevo Laredo)",
+    "elmanana.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "AM (Guanajuato)",
+    "am.com.mx",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Periódico Correo (Guanajuato)",
+    "periodicocorreo.com.mx",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "El Sol de Zacatecas",
+    "oem.com.mx/elsoldezacatecas",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "El Imparcial (Sonora)",
+    "elimparcial.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "El Siglo de Torreón",
+    "elsiglodetorreon.com.mx",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Pie de Página",
+    "piedepagina.mx",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Chiapas Paralelo",
+    "chiapasparalelo.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Noticaribe (Quintana Roo)",
+    "noticaribe.com.mx",
+    "es",
+    "",
+    "C"
    ]
   ],
   "MY": [
@@ -3083,6 +6303,55 @@
     "New Straits Times",
     "nst.com.my",
     "en"
+   ],
+   [
+    "Bernama",
+    "bernama.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Malay Mail",
+    "malaymail.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Berita Harian",
+    "bharian.com.my",
+    "ms",
+    "",
+    "B"
+   ],
+   [
+    "Astro Awani",
+    "astroawani.com",
+    "ms",
+    "",
+    "B"
+   ],
+   [
+    "Sin Chew Daily",
+    "sinchew.com.my",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "Daily Express (Sabah)",
+    "dailyexpress.com.my",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Borneo Post (Sarawak)",
+    "theborneopost.com",
+    "en",
+    "",
+    "B"
    ]
   ],
   "MZ": [
@@ -3100,6 +6369,41 @@
     "O País",
     "opais.co.mz",
     "pt"
+   ],
+   [
+    "Zitamar News",
+    "zitamar.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "@Verdade",
+    "verdade.co.mz",
+    "pt",
+    "",
+    "C"
+   ],
+   [
+    "MZNews",
+    "mznews.co.mz",
+    "pt",
+    "",
+    "C"
+   ],
+   [
+    "DW África (português)",
+    "dw.com/pt-002",
+    "pt",
+    "+",
+    "B"
+   ],
+   [
+    "Notícias",
+    "jornalnoticias.co.mz",
+    "pt",
+    "",
+    "D"
    ]
   ],
   "NA": [
@@ -3117,6 +6421,20 @@
     "Namibian Sun",
     "namibiansun.com",
     "en"
+   ],
+   [
+    "Windhoek Observer",
+    "observer24.com.na",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Informanté",
+    "informante.web.na",
+    "en",
+    "",
+    "C"
    ]
   ],
   "NC": [
@@ -3136,6 +6454,20 @@
     "outremers360.com",
     "fr",
     "+"
+   ],
+   [
+    "RRB – Radio Rythme Bleu",
+    "rrb.nc",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Caledonia",
+    "caledonia.nc",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "NE": [
@@ -3205,6 +6537,13 @@
     "fr",
     "",
     "D"
+   ],
+   [
+    "BBC News Hausa",
+    "bbc.com/hausa",
+    "ha",
+    "+",
+    "B"
    ]
   ],
   "NG": [
@@ -3277,6 +6616,62 @@
     "en",
     "",
     "C"
+   ],
+   [
+    "BBC News Hausa",
+    "bbc.com/hausa",
+    "ha",
+    "",
+    "B"
+   ],
+   [
+    "RFI Hausa",
+    "rfi.fr/ha",
+    "ha",
+    "",
+    "B"
+   ],
+   [
+    "Sahara Reporters",
+    "saharareporters.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Daily Post Nigeria",
+    "dailypost.ng",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Nation",
+    "thenationonlineng.net",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Daily Nigerian (Kano)",
+    "dailynigerian.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Nigerian Tribune",
+    "tribuneonlineng.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Foundation for Investigative Journalism",
+    "fij.ng",
+    "en",
+    "",
+    "B"
    ]
   ],
   "NI": [
@@ -3294,6 +6689,41 @@
     "100% Noticias",
     "100noticias.com.ni",
     "es"
+   ],
+   [
+    "Divergentes",
+    "divergentes.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Despacho 505",
+    "despacho505.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Artículo 66",
+    "articulo66.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Nicaragua Investiga",
+    "nicaraguainvestiga.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "El 19 Digital",
+    "el19digital.com",
+    "es",
+    "",
+    "D"
    ]
   ],
   "NL": [
@@ -3311,6 +6741,27 @@
     "de Volkskrant",
     "volkskrant.nl",
     "nl"
+   ],
+   [
+    "NU.nl",
+    "nu.nl",
+    "nl",
+    "",
+    "B"
+   ],
+   [
+    "De Telegraaf",
+    "telegraaf.nl",
+    "nl",
+    "",
+    "C"
+   ],
+   [
+    "Rijnmond (Rotterdam)",
+    "rijnmond.nl",
+    "nl",
+    "",
+    "B"
    ]
   ],
   "NO": [
@@ -3327,7 +6778,56 @@
    [
     "NRK",
     "nrk.no",
-    "en"
+    "no"
+   ],
+   [
+    "VG",
+    "vg.no",
+    "no",
+    "",
+    "B"
+   ],
+   [
+    "Aftenposten",
+    "aftenposten.no",
+    "no",
+    "",
+    "B"
+   ],
+   [
+    "TV 2",
+    "tv2.no",
+    "no",
+    "",
+    "B"
+   ],
+   [
+    "Dagbladet",
+    "dagbladet.no",
+    "no",
+    "",
+    "C"
+   ],
+   [
+    "Bergens Tidende",
+    "bt.no",
+    "no",
+    "",
+    "B"
+   ],
+   [
+    "Adresseavisen (Trondheim)",
+    "adressa.no",
+    "no",
+    "",
+    "B"
+   ],
+   [
+    "Nordlys (Tromsø)",
+    "nordlys.no",
+    "no",
+    "",
+    "B"
    ]
   ],
   "NP": [
@@ -3345,6 +6845,48 @@
     "The Rising Nepal",
     "risingnepaldaily.com",
     "en"
+   ],
+   [
+    "Kantipur",
+    "ekantipur.com",
+    "ne",
+    "",
+    "B"
+   ],
+   [
+    "Onlinekhabar",
+    "onlinekhabar.com",
+    "ne",
+    "",
+    "C"
+   ],
+   [
+    "Setopati",
+    "setopati.com",
+    "ne",
+    "",
+    "C"
+   ],
+   [
+    "Ratopati",
+    "ratopati.com",
+    "ne",
+    "",
+    "C"
+   ],
+   [
+    "The Himalayan Times",
+    "thehimalayantimes.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Nepali Times",
+    "nepalitimes.com",
+    "en",
+    "",
+    "B"
    ]
   ],
   "NR": [
@@ -3382,6 +6924,34 @@
     "Stuff",
     "stuff.co.nz",
     "en"
+   ],
+   [
+    "1News",
+    "1news.co.nz",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Newsroom",
+    "newsroom.co.nz",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Otago Daily Times",
+    "odt.co.nz",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Press",
+    "thepress.co.nz",
+    "en",
+    "",
+    "B"
    ]
   ],
   "OM": [
@@ -3399,6 +6969,20 @@
     "Muscat Daily",
     "muscatdaily.com",
     "en"
+   ],
+   [
+    "Atheer",
+    "atheer.om",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Al Shabiba",
+    "shabiba.com",
+    "ar",
+    "",
+    "C"
    ]
   ],
   "PA": [
@@ -3416,6 +7000,27 @@
     "TVN",
     "tvn-2.com",
     "es"
+   ],
+   [
+    "Panamá América",
+    "panamaamerica.com.pa",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Telemetro",
+    "telemetro.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Crítica",
+    "critica.com.pa",
+    "es",
+    "",
+    "C"
    ]
   ],
   "PE": [
@@ -3433,6 +7038,62 @@
     "RPP",
     "rpp.pe",
     "es"
+   ],
+   [
+    "Perú21",
+    "peru21.pe",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Correo",
+    "diariocorreo.pe",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Gestión",
+    "gestion.pe",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Canal N",
+    "canaln.pe",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Infobae Perú",
+    "infobae.com/peru",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Ojo Público",
+    "ojo-publico.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "IDL-Reporteros",
+    "idl-reporteros.pe",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Andina (agence d'État)",
+    "andina.pe",
+    "es",
+    "",
+    "C"
    ]
   ],
   "PF": [
@@ -3451,6 +7112,13 @@
     "la1ere.francetvinfo.fr",
     "fr",
     "+"
+   ],
+   [
+    "Tahiti Infos",
+    "tahiti-infos.com",
+    "fr",
+    "",
+    "B"
    ]
   ],
   "PG": [
@@ -3468,6 +7136,27 @@
     "EMTV",
     "emtv.com.pg",
     "en"
+   ],
+   [
+    "NBC News PNG",
+    "nbc.com.pg",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "RNZ Pacific",
+    "rnz.co.nz",
+    "en",
+    "+",
+    "B"
+   ],
+   [
+    "ABC Pacific",
+    "abc.net.au",
+    "en",
+    "+",
+    "B"
    ]
   ],
   "PH": [
@@ -3490,6 +7179,48 @@
     "GMA News",
     "gmanetwork.com",
     "en"
+   ],
+   [
+    "ABS-CBN News",
+    "abs-cbn.com/news",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Manila Bulletin",
+    "mb.com.ph",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "MindaNews",
+    "mindanews.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "SunStar",
+    "sunstar.com.ph",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Bombo Radyo",
+    "bomboradyo.com",
+    "tl",
+    "",
+    "C"
+   ],
+   [
+    "Abante",
+    "abante.com.ph",
+    "tl",
+    "",
+    "C"
    ]
   ],
   "PK": [
@@ -3562,6 +7293,20 @@
     "en",
     "",
     "D"
+   ],
+   [
+    "BBC Urdu",
+    "bbc.com/urdu",
+    "ur",
+    "",
+    "B"
+   ],
+   [
+    "TNN – Tribal News Network (KP)",
+    "tnnenglish.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "PL": [
@@ -3584,6 +7329,48 @@
     "Notes from Poland",
     "notesfrompoland.com",
     "en"
+   ],
+   [
+    "PAP",
+    "pap.pl",
+    "pl",
+    "",
+    "B"
+   ],
+   [
+    "Polsat News",
+    "polsatnews.pl",
+    "pl",
+    "",
+    "B"
+   ],
+   [
+    "OKO.press",
+    "oko.press",
+    "pl",
+    "",
+    "B"
+   ],
+   [
+    "Polskie Radio",
+    "polskieradio.pl",
+    "pl",
+    "",
+    "B"
+   ],
+   [
+    "Trojmiasto.pl (Gdańsk)",
+    "trojmiasto.pl",
+    "pl",
+    "",
+    "C"
+   ],
+   [
+    "Kurier Lubelski",
+    "kurierlubelski.pl",
+    "pl",
+    "",
+    "C"
    ]
   ],
   "PR": [
@@ -3601,6 +7388,27 @@
     "NotiCel",
     "noticel.com",
     "es"
+   ],
+   [
+    "Centro de Periodismo Investigativo",
+    "periodismoinvestigativo.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Telemundo Puerto Rico",
+    "telemundopr.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Metro Puerto Rico",
+    "metro.pr",
+    "es",
+    "",
+    "C"
    ]
   ],
   "PS": [
@@ -3620,6 +7428,41 @@
     "+972 Magazine",
     "972mag.com",
     "en"
+   ],
+   [
+    "WAFA",
+    "wafa.ps",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Ma'an News",
+    "maannews.net",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Al-Quds",
+    "alquds.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Al-Ayyam (Ramallah)",
+    "al-ayyam.ps",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Arab48",
+    "arab48.com",
+    "ar",
+    "",
+    "B"
    ]
   ],
   "PT": [
@@ -3642,6 +7485,27 @@
     "Diário de Notícias",
     "dn.pt",
     "pt"
+   ],
+   [
+    "Observador",
+    "observador.pt",
+    "pt",
+    "",
+    "B"
+   ],
+   [
+    "Jornal de Notícias (Porto)",
+    "jn.pt",
+    "pt",
+    "",
+    "B"
+   ],
+   [
+    "Correio da Manhã",
+    "cmjornal.pt",
+    "pt",
+    "",
+    "C"
    ]
   ],
   "PW": [
@@ -3678,6 +7542,27 @@
     "La Nación",
     "lanacion.com.py",
     "es"
+   ],
+   [
+    "Hoy",
+    "hoy.com.py",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "NPY",
+    "npy.com.py",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Agencia IP",
+    "ip.gov.py",
+    "es",
+    "",
+    "C"
    ]
   ],
   "QA": [
@@ -3695,6 +7580,27 @@
     "Doha News",
     "dohanews.co",
     "en"
+   ],
+   [
+    "Al Raya",
+    "raya.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Al Sharq",
+    "al-sharq.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "QNA",
+    "qna.org.qa",
+    "en",
+    "",
+    "D"
    ]
   ],
   "RO": [
@@ -3706,19 +7612,68 @@
    [
     "HotNews",
     "hotnews.ro",
-    "en"
+    "ro"
    ],
    [
     "Digi24",
     "digi24.ro",
-    "en"
+    "ro"
+   ],
+   [
+    "Agerpres",
+    "agerpres.ro",
+    "ro",
+    "",
+    "B"
+   ],
+   [
+    "G4Media",
+    "g4media.ro",
+    "ro",
+    "",
+    "B"
+   ],
+   [
+    "Adevărul",
+    "adevarul.ro",
+    "ro",
+    "",
+    "B"
+   ],
+   [
+    "Știrile ProTV",
+    "stirileprotv.ro",
+    "ro",
+    "",
+    "B"
+   ],
+   [
+    "Libertatea",
+    "libertatea.ro",
+    "ro",
+    "",
+    "C"
+   ],
+   [
+    "Ziarul de Iași",
+    "ziaruldeiasi.ro",
+    "ro",
+    "",
+    "C"
+   ],
+   [
+    "Monitorul de Cluj",
+    "monitorulcj.ro",
+    "ro",
+    "",
+    "C"
    ]
   ],
   "RS": [
    [
     "N1 Serbia",
     "n1info.rs",
-    "en"
+    "sh"
    ],
    [
     "Serbian Monitor",
@@ -3730,13 +7685,62 @@
     "balkaninsight.com",
     "en",
     "+"
+   ],
+   [
+    "Danas",
+    "danas.rs",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "Nova.rs",
+    "nova.rs",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "KRIK",
+    "krik.rs",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "B92",
+    "b92.net",
+    "sh",
+    "",
+    "C"
+   ],
+   [
+    "Blic",
+    "blic.rs",
+    "sh",
+    "",
+    "C"
+   ],
+   [
+    "021.rs (Novi Sad)",
+    "021.rs",
+    "sh",
+    "",
+    "B"
+   ],
+   [
+    "Južne vesti (Niš)",
+    "juznevesti.com",
+    "sh",
+    "",
+    "B"
    ]
   ],
   "RU": [
    [
     "Meduza",
     "meduza.io",
-    "en",
+    "ru",
     "",
     "B"
    ],
@@ -3750,7 +7754,7 @@
    [
     "Novaya Gazeta Europe",
     "novayagazeta.eu",
-    "en",
+    "ru",
     "",
     "B"
    ],
@@ -3764,14 +7768,14 @@
    [
     "Mediazona",
     "zona.media",
-    "en",
+    "ru",
     "",
     "B"
    ],
    [
     "The Insider",
     "theins.ru",
-    "en",
+    "ru",
     "",
     "B"
    ],
@@ -3809,6 +7813,48 @@
     "ru",
     "",
     "D"
+   ],
+   [
+    "Kavkazsky Uzel (Caucasian Knot)",
+    "kavkaz-uzel.eu",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Idel.Realii (RFE/RL)",
+    "idelreal.org",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Sever.Realii (RFE/RL)",
+    "severreal.org",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "TV Rain (Dozhd)",
+    "tvrain.tv",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "Agentstvo",
+    "agents.media",
+    "ru",
+    "",
+    "B"
+   ],
+   [
+    "TASS",
+    "tass.ru",
+    "ru",
+    "",
+    "D"
    ]
   ],
   "RW": [
@@ -3826,6 +7872,20 @@
     "IGIHE",
     "en.igihe.com",
     "en"
+   ],
+   [
+    "Taarifa",
+    "taarifa.rw",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Chronicles",
+    "chronicles.rw",
+    "en",
+    "",
+    "C"
    ]
   ],
   "SA": [
@@ -3843,6 +7903,41 @@
     "Asharq Al-Awsat",
     "english.aawsat.com",
     "en"
+   ],
+   [
+    "Okaz",
+    "okaz.com.sa",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Al Riyadh",
+    "alriyadh.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Sabq",
+    "sabq.org",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Al Arabiya",
+    "alarabiya.net",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "SPA – Saudi Press Agency",
+    "spa.gov.sa",
+    "ar",
+    "",
+    "D"
    ]
   ],
   "SB": [
@@ -3948,6 +8043,20 @@
     "en",
     "",
     "D"
+   ],
+   [
+    "Radio Dabanga (arabe)",
+    "dabangasudan.org/ar",
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "Sudan Tribune (arabe)",
+    "sudantribune.net",
+    "ar",
+    "",
+    "B"
    ]
   ],
   "SE": [
@@ -3959,12 +8068,54 @@
    [
     "Sveriges Radio",
     "sverigesradio.se",
-    "en"
+    "sv"
    ],
    [
     "SVT",
     "svt.se",
-    "en"
+    "sv"
+   ],
+   [
+    "Dagens Nyheter",
+    "dn.se",
+    "sv",
+    "",
+    "B"
+   ],
+   [
+    "Svenska Dagbladet",
+    "svd.se",
+    "sv",
+    "",
+    "B"
+   ],
+   [
+    "Aftonbladet",
+    "aftonbladet.se",
+    "sv",
+    "",
+    "C"
+   ],
+   [
+    "Expressen",
+    "expressen.se",
+    "sv",
+    "",
+    "C"
+   ],
+   [
+    "Göteborgs-Posten",
+    "gp.se",
+    "sv",
+    "",
+    "B"
+   ],
+   [
+    "Sydsvenskan (Malmö)",
+    "sydsvenskan.se",
+    "sv",
+    "",
+    "B"
    ]
   ],
   "SG": [
@@ -3982,13 +8133,34 @@
     "TODAY",
     "todayonline.com",
     "en"
+   ],
+   [
+    "联合早报 Lianhe Zaobao",
+    "zaobao.com.sg",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "Berita Harian Singapura",
+    "beritaharian.sg",
+    "ms",
+    "",
+    "B"
+   ],
+   [
+    "Mothership",
+    "mothership.sg",
+    "en",
+    "",
+    "C"
    ]
   ],
   "SI": [
    [
     "RTV Slovenija",
     "rtvslo.si",
-    "en"
+    "sl"
    ],
    [
     "Total Slovenia News",
@@ -3999,6 +8171,27 @@
     "Slovenia Times",
     "sloveniatimes.com",
     "en"
+   ],
+   [
+    "24ur",
+    "24ur.com",
+    "sl",
+    "",
+    "C"
+   ],
+   [
+    "Delo",
+    "delo.si",
+    "sl",
+    "",
+    "B"
+   ],
+   [
+    "STA",
+    "sta.si",
+    "sl",
+    "",
+    "B"
    ]
   ],
   "SK": [
@@ -4015,7 +8208,28 @@
    [
     "Denník N",
     "dennikn.sk",
-    "en"
+    "sk"
+   ],
+   [
+    "SME",
+    "sme.sk",
+    "sk",
+    "",
+    "B"
+   ],
+   [
+    "Aktuality.sk",
+    "aktuality.sk",
+    "sk",
+    "",
+    "B"
+   ],
+   [
+    "TASR",
+    "tasr.sk",
+    "sk",
+    "",
+    "B"
    ]
   ],
   "SL": [
@@ -4033,6 +8247,20 @@
     "Calabash",
     "thecalabashnewspaper.com",
     "en"
+   ],
+   [
+    "Sierra Leone Telegraph",
+    "thesierraleonetelegraph.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Politico SL",
+    "politicosl.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "SM": [
@@ -4068,6 +8296,41 @@
     "Le Quotidien",
     "lequotidien.sn",
     "fr"
+   ],
+   [
+    "PressAfrik",
+    "pressafrik.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Senego",
+    "senego.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "SeneNews",
+    "senenews.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Le Soleil",
+    "lesoleil.sn",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "APS – Agence de presse sénégalaise",
+    "aps.sn",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "SO": [
@@ -4133,6 +8396,20 @@
     "en",
     "",
     "D"
+   ],
+   [
+    "BBC News Somali",
+    "bbc.com/somali",
+    "so",
+    "",
+    "B"
+   ],
+   [
+    "Goobjoog News",
+    "goobjoog.com",
+    "so",
+    "",
+    "C"
    ]
   ],
   "SR": [
@@ -4150,6 +8427,13 @@
     "Waterkant",
     "waterkant.net",
     "nl"
+   ],
+   [
+    "Suriname Herald",
+    "srherald.com",
+    "nl",
+    "",
+    "C"
    ]
   ],
   "SS": [
@@ -4167,6 +8451,41 @@
     "Sudans Post",
     "sudanspost.com",
     "en"
+   ],
+   [
+    "Radio Miraya (UNMISS)",
+    "radiomiraya.org",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Radio Tamazuj (arabe)",
+    "radiotamazuj.org/ar",
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "The City Review",
+    "cityreviewss.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Juba Echo",
+    "jubaecho.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Sudan Tribune",
+    "sudantribune.com",
+    "en",
+    "+",
+    "B"
    ]
   ],
   "ST": [
@@ -4203,13 +8522,41 @@
     "El Faro",
     "elfaro.net",
     "es"
+   ],
+   [
+    "Diario El Mundo",
+    "diario.elmundo.sv",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Revista Factum",
+    "revistafactum.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "La Página",
+    "lapagina.com.sv",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Focos",
+    "focostv.com",
+    "es",
+    "",
+    "C"
    ]
   ],
   "SY": [
    [
     "Enab Baladi",
     "enabbaladi.net",
-    "en"
+    "ar"
    ],
    [
     "Syria Direct",
@@ -4265,6 +8612,13 @@
     "en",
     "",
     "D"
+   ],
+   [
+    "Enab Baladi (anglais)",
+    "english.enabbaladi.net",
+    "en",
+    "",
+    "B"
    ]
   ],
   "SZ": [
@@ -4300,6 +8654,41 @@
     "Journal du Tchad",
     "journaldutchad.com",
     "fr"
+   ],
+   [
+    "RFI",
+    "rfi.fr",
+    "fr",
+    "+",
+    "B"
+   ],
+   [
+    "Jeune Afrique",
+    "jeuneafrique.com",
+    "fr",
+    "+",
+    "B"
+   ],
+   [
+    "Tchad One",
+    "tchadone.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Ialtchad Presse",
+    "ialtchad.com",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Makaila.fr",
+    "makaila.fr",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "TG": [
@@ -4317,6 +8706,20 @@
     "24heureinfo",
     "24heureinfo.com",
     "fr"
+   ],
+   [
+    "Togo Breaking News",
+    "togobreakingnews.info",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "Savoir News",
+    "savoirnews.net",
+    "fr",
+    "",
+    "C"
    ]
   ],
   "TH": [
@@ -4375,13 +8778,55 @@
     "th",
     "",
     "C"
+   ],
+   [
+    "Thai PBS",
+    "thaipbs.or.th",
+    "th",
+    "",
+    "B"
+   ],
+   [
+    "BBC News Thai",
+    "bbc.com/thai",
+    "th",
+    "",
+    "B"
+   ],
+   [
+    "Isranews (Sud profond)",
+    "isranews.org",
+    "th",
+    "",
+    "B"
+   ],
+   [
+    "Deep South Watch",
+    "deepsouthwatch.org",
+    "th",
+    "",
+    "B"
+   ],
+   [
+    "The Phuket News",
+    "thephuketnews.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Pattaya Mail",
+    "pattayamail.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "TJ": [
    [
     "Asia-Plus",
     "asiaplustj.info",
-    "en"
+    "ru"
    ],
    [
     "Ozodi (RFE/RL)",
@@ -4393,6 +8838,27 @@
     "timesca.com",
     "en",
     "+"
+   ],
+   [
+    "Avesta",
+    "avesta.tj",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "Eurasianet",
+    "eurasianet.org",
+    "en",
+    "+",
+    "B"
+   ],
+   [
+    "Khovar",
+    "khovar.tj",
+    "ru",
+    "",
+    "D"
    ]
   ],
   "TL": [
@@ -4412,23 +8878,44 @@
     "thediplomat.com",
     "en",
     "+"
+   ],
+   [
+    "Lusa",
+    "lusa.pt",
+    "pt",
+    "+",
+    "B"
    ]
   ],
   "TM": [
    [
     "Turkmen.news",
     "turkmen.news",
-    "en"
+    "ru"
    ],
    [
     "Chronicles of Turkmenistan",
     "hronikatm.com",
-    "en"
+    "ru"
    ],
    [
     "Azathabar (RFE/RL)",
     "azathabar.com",
     "ru"
+   ],
+   [
+    "Eurasianet",
+    "eurasianet.org",
+    "en",
+    "+",
+    "B"
+   ],
+   [
+    "Turkmenportal",
+    "turkmenportal.com",
+    "ru",
+    "",
+    "D"
    ]
   ],
   "TN": [
@@ -4446,6 +8933,41 @@
     "Kapitalis",
     "kapitalis.com",
     "fr"
+   ],
+   [
+    "Mosaïque FM",
+    "mosaiquefm.net",
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "Nawaat",
+    "nawaat.org",
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "Inkyfada",
+    "inkyfada.com",
+    "fr",
+    "",
+    "B"
+   ],
+   [
+    "Webdo",
+    "webdo.tn",
+    "fr",
+    "",
+    "C"
+   ],
+   [
+    "TAP – Agence Tunis Afrique Presse",
+    "tap.info.tn",
+    "fr",
+    "",
+    "D"
    ]
   ],
   "TO": [
@@ -4465,6 +8987,13 @@
     "abc.net.au",
     "en",
     "+"
+   ],
+   [
+    "Kaniva Tonga",
+    "kanivatonga.co.nz",
+    "en",
+    "",
+    "C"
    ]
   ],
   "TR": [
@@ -4476,7 +9005,7 @@
    [
     "Bianet",
     "bianet.org",
-    "en"
+    "tr"
    ],
    [
     "T24",
@@ -4487,6 +9016,48 @@
     "Cumhuriyet",
     "cumhuriyet.com.tr",
     "tr"
+   ],
+   [
+    "Anadolu Ajansı",
+    "aa.com.tr",
+    "tr",
+    "",
+    "D"
+   ],
+   [
+    "Sözcü",
+    "sozcu.com.tr",
+    "tr",
+    "",
+    "C"
+   ],
+   [
+    "Hürriyet",
+    "hurriyet.com.tr",
+    "tr",
+    "",
+    "C"
+   ],
+   [
+    "Medyascope",
+    "medyascope.tv",
+    "tr",
+    "",
+    "B"
+   ],
+   [
+    "BBC Türkçe",
+    "bbc.com/turkce",
+    "tr",
+    "",
+    "B"
+   ],
+   [
+    "Mezopotamya Ajansı (Sud-Est)",
+    "mezopotamyaajansi.com",
+    "tr",
+    "",
+    "C"
    ]
   ],
   "TT": [
@@ -4504,6 +9075,13 @@
     "Trinidad Express",
     "trinidadexpress.com",
     "en"
+   ],
+   [
+    "CNC3",
+    "cnc3.co.tt",
+    "en",
+    "",
+    "C"
    ]
   ],
   "TV": [
@@ -4541,6 +9119,48 @@
     "Taiwan News",
     "taiwannews.com.tw",
     "en"
+   ],
+   [
+    "中央社 CNA",
+    "cna.com.tw",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "自由時報 Liberty Times",
+    "ltn.com.tw",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "聯合新聞網 UDN",
+    "udn.com",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "公視新聞網 PTS",
+    "news.pts.org.tw",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "報導者 The Reporter",
+    "twreporter.org",
+    "zh",
+    "",
+    "B"
+   ],
+   [
+    "中時新聞網 China Times",
+    "chinatimes.com",
+    "zh",
+    "",
+    "C"
    ]
   ],
   "TZ": [
@@ -4558,6 +9178,41 @@
     "IPP Media",
     "ippmedia.com",
     "en"
+   ],
+   [
+    "Mwananchi",
+    "mwananchi.co.tz",
+    "sw",
+    "",
+    "B"
+   ],
+   [
+    "The Chanzo",
+    "thechanzo.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "MwanaHALISI Online",
+    "mwanahalisionline.com",
+    "sw",
+    "",
+    "C"
+   ],
+   [
+    "Millard Ayo",
+    "millardayo.com",
+    "sw",
+    "",
+    "C"
+   ],
+   [
+    "BBC News Swahili",
+    "bbc.com/swahili",
+    "sw",
+    "+",
+    "B"
    ]
   ],
   "UA": [
@@ -4571,7 +9226,7 @@
    [
     "Ukrainska Pravda",
     "pravda.com.ua",
-    "en",
+    "uk",
     "",
     "B"
    ],
@@ -4623,6 +9278,27 @@
     "en",
     "",
     "B"
+   ],
+   [
+    "NV (Novoye Vremya)",
+    "nv.ua",
+    "uk",
+    "",
+    "B"
+   ],
+   [
+    "Zaxid.net (Lviv)",
+    "zaxid.net",
+    "uk",
+    "",
+    "B"
+   ],
+   [
+    "LIGA.net",
+    "liga.net",
+    "uk",
+    "",
+    "B"
    ]
   ],
   "UG": [
@@ -4640,6 +9316,27 @@
     "New Vision",
     "newvision.co.ug",
     "en"
+   ],
+   [
+    "Nile Post",
+    "nilepost.co.ug",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "ChimpReports",
+    "chimpreports.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "The Independent",
+    "independent.co.ug",
+    "en",
+    "",
+    "B"
    ]
   ],
   "US": [
@@ -4662,6 +9359,104 @@
     "NPR",
     "npr.org",
     "en"
+   ],
+   [
+    "Reuters",
+    "reuters.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "CNN",
+    "cnn.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "NBC News",
+    "nbcnews.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "CBS News",
+    "cbsnews.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "ABC News",
+    "abcnews.go.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "USA Today",
+    "usatoday.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Wall Street Journal",
+    "wsj.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Los Angeles Times",
+    "latimes.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Chicago Tribune",
+    "chicagotribune.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Houston Chronicle",
+    "houstonchronicle.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Miami Herald",
+    "miamiherald.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "San Francisco Chronicle",
+    "sfchronicle.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Boston Globe",
+    "bostonglobe.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Politico",
+    "politico.com",
+    "en",
+    "",
+    "B"
    ]
   ],
   "UY": [
@@ -4679,23 +9474,58 @@
     "la diaria",
     "ladiaria.com.uy",
     "es"
+   ],
+   [
+    "Montevideo Portal",
+    "montevideo.com.uy",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Subrayado",
+    "subrayado.com.uy",
+    "es",
+    "",
+    "B"
    ]
   ],
   "UZ": [
    [
     "Kun.uz",
     "kun.uz",
-    "en"
+    "uz"
    ],
    [
     "Gazeta.uz",
     "gazeta.uz",
-    "en"
+    "ru"
    ],
    [
     "Daryo",
     "daryo.uz",
-    "en"
+    "uz"
+   ],
+   [
+    "Ozodlik (RFE/RL)",
+    "ozodlik.org",
+    "uz",
+    "",
+    "B"
+   ],
+   [
+    "Podrobno.uz",
+    "podrobno.uz",
+    "ru",
+    "",
+    "C"
+   ],
+   [
+    "UzA",
+    "uza.uz",
+    "uz",
+    "",
+    "D"
    ]
   ],
   "VA": [
@@ -4754,6 +9584,62 @@
     "El Nacional",
     "elnacional.com",
     "es"
+   ],
+   [
+    "Runrunes",
+    "runrun.es",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Crónica Uno",
+    "cronica.uno",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "Armando.info",
+    "armando.info",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "El Estímulo",
+    "elestimulo.com",
+    "es",
+    "",
+    "B"
+   ],
+   [
+    "La Patilla",
+    "lapatilla.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "El Impulso (Lara)",
+    "elimpulso.com",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Versión Final (Zulia)",
+    "versionfinal.com.ve",
+    "es",
+    "",
+    "C"
+   ],
+   [
+    "Últimas Noticias",
+    "ultimasnoticias.com.ve",
+    "es",
+    "",
+    "D"
    ]
   ],
   "VN": [
@@ -4771,6 +9657,48 @@
     "Viet Nam News",
     "vietnamnews.vn",
     "en"
+   ],
+   [
+    "BBC News Tiếng Việt",
+    "bbc.com/vietnamese",
+    "vi",
+    "",
+    "B"
+   ],
+   [
+    "RFI Tiếng Việt",
+    "rfi.fr/vi",
+    "vi",
+    "",
+    "B"
+   ],
+   [
+    "The Vietnamese",
+    "thevietnamese.org",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "VnExpress",
+    "vnexpress.net",
+    "vi",
+    "",
+    "D"
+   ],
+   [
+    "Tuổi Trẻ",
+    "tuoitre.vn",
+    "vi",
+    "",
+    "D"
+   ],
+   [
+    "Thanh Niên",
+    "thanhnien.vn",
+    "vi",
+    "",
+    "D"
    ]
   ],
   "VU": [
@@ -4809,6 +9737,13 @@
     "abc.net.au",
     "en",
     "+"
+   ],
+   [
+    "Talamua",
+    "talamua.com",
+    "en",
+    "",
+    "C"
    ]
   ],
   "XK": [
@@ -4820,13 +9755,48 @@
    [
     "Koha",
     "koha.net",
-    "en"
+    "sq"
    ],
    [
     "Balkan Insight",
     "balkaninsight.com",
     "en",
     "+"
+   ],
+   [
+    "Kallxo",
+    "kallxo.com",
+    "sq",
+    "",
+    "B"
+   ],
+   [
+    "RTK",
+    "rtklive.com",
+    "sq",
+    "",
+    "B"
+   ],
+   [
+    "Gazeta Express",
+    "gazetaexpress.com",
+    "sq",
+    "",
+    "C"
+   ],
+   [
+    "Telegrafi",
+    "telegrafi.com",
+    "sq",
+    "",
+    "C"
+   ],
+   [
+    "KoSSev (Nord du Kosovo)",
+    "kossev.info",
+    "sh",
+    "",
+    "B"
    ]
   ],
   "YE": [
@@ -4847,6 +9817,62 @@
     "newarab.com",
     "en",
     "+"
+   ],
+   [
+    "Al-Masdar Online",
+    "almasdaronline.com",
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "Al-Masdar Online English",
+    "al-masdaronline.net",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "Al-Ayyam (Aden)",
+    "alayyam.info",
+    "ar",
+    "",
+    "B"
+   ],
+   [
+    "Aden al-Ghad",
+    "adengad.net",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Yemen Monitor",
+    "yemenmonitor.com",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "South24",
+    "south24.net",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Belqees",
+    "belqees.net",
+    "ar",
+    "",
+    "C"
+   ],
+   [
+    "Saba (Sanaa, Houthis)",
+    "saba.ye",
+    "ar",
+    "",
+    "D"
    ]
   ],
   "ZA": [
@@ -4869,6 +9895,48 @@
     "IOL",
     "iol.co.za",
     "en"
+   ],
+   [
+    "EWN – Eyewitness News",
+    "ewn.co.za",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "SABC News",
+    "sabcnews.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Citizen",
+    "citizen.co.za",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "GroundUp (Cap-Occidental)",
+    "groundup.org.za",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Witness (KwaZulu-Natal)",
+    "witness.co.za",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "SowetanLIVE (Gauteng)",
+    "sowetanlive.co.za",
+    "en",
+    "",
+    "C"
    ]
   ],
   "ZM": [
@@ -4886,6 +9954,20 @@
     "Zambia Monitor",
     "zambiamonitor.com",
     "en"
+   ],
+   [
+    "Mwebantu",
+    "mwebantu.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "ZNBC",
+    "znbc.co.zm",
+    "en",
+    "",
+    "C"
    ]
   ],
   "ZW": [
@@ -4903,6 +9985,41 @@
     "NewZimbabwe",
     "newzimbabwe.com",
     "en"
+   ],
+   [
+    "263Chat",
+    "263chat.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "Bulawayo24",
+    "bulawayo24.com",
+    "en",
+    "",
+    "C"
+   ],
+   [
+    "CITE (Bulawayo)",
+    "cite.org.zw",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The NewsHawks",
+    "thenewshawks.com",
+    "en",
+    "",
+    "B"
+   ],
+   [
+    "The Herald",
+    "herald.co.zw",
+    "en",
+    "",
+    "D"
    ]
   ]
  }

@@ -16,6 +16,8 @@ from email.utils import parsedate_to_datetime
 from urllib.parse import quote
 
 from .. import http
+from ..langs import EDITIONS as LANG_EDITIONS
+from ..langs import LANGS
 
 KIND = "events"
 URL = "https://news.google.com/rss/search?q={q}&hl={hl}&gl={gl}&ceid={ceid}"
@@ -81,6 +83,12 @@ TERMS = {
     },
 }
 
+# 35 langues supplémentaires (v0.25, veille/langs.py) : requêtes et éditions Google News connues
+for _lg, _spec in LANGS.items():
+    TERMS["security"].setdefault(_lg, _spec["search"])
+for _lg, (_key, (_hl, _gl, _ceid)) in LANG_EDITIONS.items():
+    EDITIONS.setdefault(_key, (_hl, _gl, _ceid, _lg))
+
 # (pays, édition, nom du pays à ajouter à la requête si l'édition n'est pas celle du pays)
 COUNTRIES = [
     ("FR", "fr-FR", None), ("BE", "fr-BE", None), ("CA", "en-CA", None), ("SN", "fr-SN", None), ("MA", "fr-MA", None),
@@ -104,17 +112,20 @@ COUNTRIES = [
     ("UG", "en-US", "Uganda"), ("TZ", "en-US", "Tanzania"), ("MZ", "en-US", "Mozambique"), ("ZW", "en-US", "Zimbabwe"),
     ("LY", "en-US", "Libya"), ("YE", "en-US", "Yemen"), ("SY", "en-US", "Syria"), ("IQ", "en-US", "Iraq"),
     ("IR", "en-US", "Iran"), ("AF", "en-US", "Afghanistan"), ("BD", "en-US", "Bangladesh"), ("LK", "en-US", '"Sri Lanka"'),
-    ("NP", "en-US", "Nepal"), ("MM", "en-US", "Myanmar"), ("TH", "en-US", "Thailand"), ("VN", "en-US", "Vietnam"),
-    ("MY", "en-US", "Malaysia"), ("CN", "en-US", "China"), ("TW", "en-US", "Taiwan"), ("JP", "en-US", "Japan"),
-    ("KR", "en-US", '"South Korea"'), ("KP", "en-US", '"North Korea"'), ("KZ", "en-US", "Kazakhstan"),
+    ("NP", "en-US", "Nepal"), ("MM", "en-US", "Myanmar"), ("TH", "th-TH", None), ("VN", "vi-VN", None),
+    ("MY", "en-US", "Malaysia"), ("CN", "en-US", "China"), ("TW", "en-US", "Taiwan"), ("JP", "ja-JP", None),
+    ("KR", "ko-KR", None), ("KP", "en-US", '"North Korea"'), ("KZ", "en-US", "Kazakhstan"),
     ("AZ", "en-US", "Azerbaijan"), ("AM", "en-US", "Armenia"), ("GE", "en-US", "Georgia"), ("RS", "en-US", "Serbia"),
-    ("BA", "en-US", "Bosnia"), ("XK", "en-US", "Kosovo"), ("GR", "en-US", "Greece"), ("RO", "en-US", "Romania"),
-    ("HU", "en-US", "Hungary"), ("BY", "en-US", "Belarus"), ("MD", "en-US", "Moldova"), ("JO", "en-US", "Jordan"),
+    ("BA", "en-US", "Bosnia"), ("XK", "en-US", "Kosovo"), ("GR", "el-GR", None), ("RO", "ro-RO", None),
+    ("HU", "hu-HU", None), ("BY", "en-US", "Belarus"), ("MD", "en-US", "Moldova"), ("JO", "en-US", "Jordan"),
     ("KW", "en-US", "Kuwait"), ("QA", "en-US", "Qatar"), ("OM", "en-US", "Oman"), ("PS", "en-US", '(Gaza OR "West Bank")'),
     ("CU", "es-MX", "Cuba"), ("EC", "es-MX", "Ecuador"), ("BO", "es-MX", "Bolivia"), ("NI", "es-MX", "Nicaragua"),
     ("HN", "es-MX", "Honduras"), ("GT", "es-MX", "Guatemala"), ("SV", "es-MX", '"El Salvador"'), ("PA", "es-MX", "Panamá"),
     ("DO", "es-MX", '"República Dominicana"'), ("PY", "es-MX", "Paraguay"), ("UY", "es-MX", "Uruguay"),
     ("AO", "pt-PT", "Angola"), ("GW", "pt-PT", '"Guiné-Bissau"'),
+    # v0.25 : éditions et mots-clés dans la langue du pays (veille/langs.py)
+    ("CZ", "cs-CZ", None), ("SK", "sk-SK", None), ("BG", "bg-BG", None), ("SE", "sv-SE", None), ("NO", "no-NO", None),
+    ("LT", "lt-LT", None), ("LV", "lv-LV", None), ("SI", "sl-SI", None), ("IN", "hi-IN", None),
 ]
 TITLE_SOURCE = re.compile(r"^(.*)\s+-\s+([^-]{2,60})$")
 

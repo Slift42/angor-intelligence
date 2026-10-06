@@ -13,7 +13,7 @@ Ce qu'elle fait :
   4. angles business ;
   5. spécificités du pays : gouvernance, corruption, sanctions, société, cadre des affaires.
 - **Tableau de bord analytique** : courbes, camemberts, classements.
-- **Fil de presse** : environ 110 pays en 12 langues (Google News), plus près de 800 médias de référence dans 206 pays, dont la presse locale de 25 pays à risque (21 langues). Titres et liens uniquement.
+- **Fil de presse** : environ 120 pays (Google News, éditions locales quand elles existent), plus près de 1 500 médias de référence dans 206 pays, dont la presse nationale et régionale de 25 pays à risque (mots-clés en 56 langues). Titres et liens uniquement.
 - **Base historique (5 ans)** : conflits UCDP, détections GDELT, séismes, catastrophes, épidémies, pour l'onglet Analyses et la carte sur les longues périodes.
 - **Calques des ministères** : heatmap MEAE (France), FCDO (Royaume-Uni), State Dept (États-Unis), avec la carte officielle de chaque pays.
 - **Fonds de carte** : détaillé (routes, villes), contrasté, épuré, satellite, topographique ; noms en alphabet latin, affichage progressif (pays → régions → villes).
@@ -74,26 +74,28 @@ Une source qui échoue 3 fois de suite est mise en pause 24 h. Son état est vis
 
 | Famille | Sources (gratuites) |
 |---|---|
-| Catastrophes | USGS (séismes, alerte PAGER), GDACS (ONU/UE), NASA EONET |
-| Santé | OMS – Disease Outbreak News |
+| Catastrophes | USGS et EMSC (séismes, deux réseaux recoupés ; alerte PAGER), GDACS (ONU/UE), NASA EONET, NOAA NHC, Smithsonian GVP, PTWC/NTWC (tsunamis), Copernicus EMS |
+| Santé | OMS – Disease Outbreak News, ECDC, CDC (avis sanitaires aux voyageurs, niveaux 1 à 4) |
 | Météo officielle | NWS (États-Unis, alertes « Severe » et « Extreme »), Meteoalarm / EUMETNET (vigilances orange et rouges de 38 pays européens) |
 | Cyber | CISA KEV (vulnérabilités activement exploitées), CERT-FR |
 | Agenda | Nager.Date (jours fériés, ~120 pays), Wikidata (élections nationales), calendrier hégirien calculé, `config/calendar.json` |
 | Conflits, attaques, manifestations | GDELT (presse mondiale, 65 langues, filtrée et recoupée) |
-| Presse locale | Google News (≈ 110 pays, sûreté + économie, en rotation) et flux RSS : BBC, Guardian, NYT, DW, Euronews, Al Jazeera, France 24, Le Monde, RFI Afrique, Jeune Afrique, Al-Monitor, El País, MercoPress, Kyiv Independent, Times of Israel, Dawn, The Hindu, Premium Times, News24, Japan Times, Franceinfo, Le Parisien, 20 Minutes, Ouest-France |
+| Presse locale | Google News (≈ 120 pays, sûreté + économie, en rotation) et flux RSS : BBC, Guardian, NYT, DW, Euronews, Al Jazeera, France 24, Le Monde, RFI Afrique, Jeune Afrique, Al-Monitor, El País, MercoPress, Kyiv Independent, Times of Israel, Dawn, The Hindu, Premium Times, News24, Japan Times, Franceinfo, Le Parisien, 20 Minutes, Ouest-France |
 | Institutions | ONU (Paix et sécurité), OTAN, Crisis Group, Département d'État US, FCDO britannique, CERT-FR |
 | Avis aux voyageurs | MEAE (France, conseils aux voyageurs), FCDO (Royaume-Uni), Département d'État US, Gouvernement du Canada |
-| Médias de référence | ≈ 800 quotidiens et sites d'information dans 206 pays (dont la presse locale de 25 pays à risque, cotée A-F) (`config/press_outlets.json`, modifiable dans `tools/outlets_src.py`) |
+| Médias de référence | ≈ 1 500 quotidiens, chaînes et sites d'information dans 206 pays, presse nationale et régionale en langue locale, médias en exil (cotés A-F ; « médias muets » signalés) (`config/press_outlets.json`, modifiable dans `tools/outlets_src.py`) |
 | Historique (5 ans) | UCDP GED et « candidate events » (Uppsala, CC BY 4.0), GDELT 1.0 quotidien, USGS, GDACS, NASA EONET, OMS – script `historique.py` |
 | Économie et gouvernance | Banque mondiale (indicateurs, gouvernance WGI, projets actifs), FMI (prévisions), REST Countries, presse économique (BBC, Guardian, The Economist, Les Echos) |
 | Contexte pays | CIA World Factbook (archive : publication arrêtée en février 2026, domaine public) |
 
 **Comment un titre de presse devient une alerte** (`veille/press.py`) :
 
-1. Le titre est classé par mots-clés en 21 langues (dont thaï, chinois, persan, ourdou, bengali, amharique, somali, hébreu, indonésien) : catégorie et gravité.
+1. Le titre est classé par mots-clés en 56 langues (dont thaï, chinois, japonais, coréen, vietnamien, hindi, persan, ourdou, bengali, amharique, somali, swahili, haoussa, hébreu, indonésien, langues nordiques, d'Europe centrale, des Balkans et du Caucase) : catégorie et gravité.
 2. Le lieu est reconnu : pays cité, puis ville de ce pays, grâce au dictionnaire GeoNames.
 3. Le titre n'est placé sur la carte que si une ville est reconnue.
-4. Plusieurs médias qui rapportent le même fait, au même endroit et le même jour, forment un seul incident. Plus il y a de médias, plus la confiance monte.
+4. Plusieurs médias qui rapportent le même fait, au même endroit et le même jour, forment un seul incident ; les titres qui racontent la même histoire (même dépêche sur plusieurs jours, bilan mis à jour, deux villes) sont regroupés (v0.23).
+5. Contrôle d'entrée (v0.24) : seul un fait physique (pas une arrestation, une déclaration, une analyse) va sur la carte ; les autres titres restent dans le Fil.
+6. Recoupement (v0.25) : on compte les sources réellement indépendantes (une reprise d'agence ou un même groupe de presse = une source) ; un séisme ou un cyclone rapporté par la presse est rattaché à la mesure officielle ; un démenti publié est signalé sur la fiche.
 
 Tout est marqué « auto » et peut être masqué. Avec une clé IA, chaque incident reçoit un résumé de 2 à 3 phrases en français et en anglais ; sans clé, la fiche affiche le chapeau publié par le média (flux RSS) ou un résumé automatique (nature, lieu, date, médias).
 

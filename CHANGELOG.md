@@ -4,6 +4,51 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.25 – Sources étoffées, 56 langues, recoupement des sources et des contenus (octobre 2026)
+
+- **Médias de référence : 797 → 1 528** dans 206 pays. Presse nationale et **régionale** en langue locale (ex.
+  Mexique : Sinaloa, Guerrero, Michoacán, Tamaulipas… ; Nigeria : nord-est et nord-ouest ; Inde : Cachemire,
+  Manipur ; Philippines : Mindanao ; Indonésie : Papouasie, Aceh ; Thaïlande : provinces du Sud ; Birmanie : Rakhine,
+  Kachin ; France : grande presse régionale), agences, chaînes d'info, médias en exil (Russie, Biélorussie, Iran,
+  Érythrée, Nicaragua…). Médias d’État cotés « D ». 63 langues de recherche corrigées (médias nordiques, baltes,
+  d'Europe centrale, du Japon ou de Corée interrogés en anglais alors qu'ils publient dans leur langue).
+- **56 langues** de mots-clés (21 → 56) pour chercher et trier les titres : japonais, coréen, vietnamien, hindi,
+  népalais, tamoul, pachto, langues nordiques et baltes, tchèque, slovaque, hongrois, roumain, bulgare, macédonien,
+  serbo-croate, slovène, albanais, grec, géorgien, arménien, azéri, ouzbek, mongol, malais, filipino, birman, khmer,
+  swahili, haoussa. Google News : éditions locales pour 16 pays de plus (Japon, Corée, Viêt Nam, Thaïlande, Grèce,
+  Roumanie, Hongrie, Tchéquie, Slovaquie, Bulgarie, Suède, Norvège, Lituanie, Lettonie, Slovénie, Inde en hindi).
+  Apostrophes typographiques reconnues (« coup d’État »). Bilans lus dans ces langues (« två döda », « 3 morți »,
+  « три человека погибли »).
+- **Nouvelles sources officielles** : **EMSC** (deuxième réseau sismologique mondial, recoupe l'USGS) et **CDC**
+  (avis sanitaires aux voyageurs par pays, niveaux 1 à 4).
+- **Recoupement des sources** : une fiche compte désormais ses **sources indépendantes** – un même groupe de presse
+  (EBRA, Schibsted, Gannett, ARD, RFE/RL…) ou un titre repris mot pour mot ne comptent qu'une fois. La cote de
+  l'Amirauté s'appuie dessus (2 = au moins 3 sources indépendantes, ou une source officielle et une presse).
+  Ligne « Recoupement » dans la fiche : nombre de sources indépendantes, types (capteur, officiel, presse…), reprises.
+- **Recoupement des contenus** :
+  - un séisme, un cyclone ou une éruption rapportés par la presse ou GDELT sont **rattachés à la mesure
+    officielle** (USGS, EMSC, GDACS, NOAA, GVP) : une seule fiche, les articles en sources ;
+  - un séisme chiffré qu'aucun réseau n'a mesuré est marqué **« Non confirmé par les capteurs officiels »**
+    (crédibilité 4) ;
+  - un **démenti** publié qui raconte la même histoire (« fake », « hoax », « démenti », « desmiente »…) marque
+    l'événement **« Démenti signalé »** avec le lien (crédibilité 4) ;
+  - USGS et EMSC en désaccord sur la magnitude (écart ≥ 0,5) : écart signalé.
+- **Médias muets** : le robot compte, pour chaque média, les requêtes et les titres obtenus ; un média sans aucun titre
+  après 30 requêtes (domaine erroné, site fermé) est listé dans « État des sources » → « Médias de référence ».
+- **Annuaire des prestataires : 316 → 383 locaux, 107 → 153 pays**, 51 régionaux (États-Unis, Australie, Russie,
+  Pologne, Irlande, pays nordiques et baltes, Europe centrale, Caraïbes, Mongolie, Laos, Botswana, Namibie,
+  Palestine, Syrie, Maldives, Timor oriental…). Toujours « non vérifié – à contacter séparément » (niveau E).
+- **Robot** : machine du robot de tests et du robot historique aussi figées sur Ubuntu 24.04 (modèles
+  `tools/github-actions-*.yml`).
+- Développeur : `veille/langs.py` ; `veille/corroborate.py` (`independence`, `sensor_check`, `denials`, `run`,
+  `MEDIA_GROUPS`) ; `veille/connectors/emsc.py` ; `outlets.record`, `outlets.muted`, `collecte.outlets_health` ;
+  `quality.credibility` (sources indépendantes, démentis, capteurs) ; `tools/outlets_src.py` (`AJOUTS_V25`,
+  `LANGUE_V25`) ; `config/sources.json` (emsc, cdc_thn ; rotation outlets 90 requêtes, gnews 45) ; champs
+  `corroboration`, `press_reports`, `unconfirmed`, `disputed`, `mag_spread`, `outlets_health` ; tests
+  `tests/test_corroborate.py`, cas multilingues (`tests/test_press.py`), EMSC, médias muets et catalogue
+  (`tests/test_sources.py`) ; doc `doc/DONNEES.md`, `doc/CONNECTEURS.md`, `doc/ARCHITECTURE.md`, `doc/TESTS.md`,
+  README, aide ; cache hors ligne `angor-v8`.
+
 ## v0.24 – Contrôle d'entrée des événements : vérification a priori et permanente (octobre 2026)
 
 - **Chaque nouveauté est vérifiée avant d'entrer sur la carte**, plus seulement au moment de l'affichage : fait

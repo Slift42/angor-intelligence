@@ -11,6 +11,7 @@
   "BBC",
   "BBC World",
   "C",
+  "CDC",
   "CISA",
   "Copernicus EMS",
   "D",
@@ -20,6 +21,7 @@
   "Deutsche Welle",
   "E",
   "ECDC",
+  "EMSC",
   "El País",
   "Euronews",
   "F",
@@ -1134,5 +1136,7 @@
  "Filtre : prevention": "Filter: prevention",
  "Filtre : reaction": "Filter: reaction",
  "Filtre : retro{0}": "Filter: retro{0}",
- "v{0} (données en ligne, {1} oct. {2})": "v{0} (live data, {1} Oct {2})"
+ "v{0} (données en ligne, {1} oct. {2})": "v{0} (live data, {1} Oct {2})",
+ "CC BY {0} – citer l'EMSC": "CC BY {0} – credit EMSC",
+ "Domaine public (CDC, États-Unis)": "Public domain (CDC, United States)"
 }

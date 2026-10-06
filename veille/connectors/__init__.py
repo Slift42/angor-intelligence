@@ -9,12 +9,13 @@ Chaque connecteur est un module qui expose :
 Pour ajouter une source : créer un module ici, l'ajouter à REGISTRY,
 puis déclarer la source dans config/sources.json (avec "enabled": true).
 """
-from . import (acled, ca_advisories, cisa_kev, de_advisories, eonet, fr_advisories, gdacs, gdelt_events, gnews, jsonapi,
+from . import (acled, ca_advisories, cisa_kev, de_advisories, emsc, eonet, fr_advisories, gdacs, gdelt_events, gnews, jsonapi,
                meteoalarm, nws, official_rss, outlets, reliefweb, rss, telegram, uk_advisories, us_advisories, usgs,
                who_don)
 
 REGISTRY = {
     "usgs": usgs,
+    "emsc": emsc,      # 2e réseau sismologique mondial (recoupement USGS, v0.25)
     "gdacs": gdacs,
     "eonet": eonet,
     "gdelt_events": gdelt_events,

@@ -37,6 +37,11 @@ Produit par `veille/model.py → make_event`, complété au fil de la chaîne. C
 | `triage` | dict | — | Verdict du contrôle d'entrée (mémoire du robot, v0.24) : `status` (ok, context, noise, invalid, pending, unverifiable), `reason`, `since` (date du verdict), `sig` (empreinte règles + contenu) |
 | `physical` | bool | — | Avis de l'IA : fait physique confirmé (titres analysés par l'IA) |
 | `headline_failed` | bool | — | GDELT : aucun article lisible (page bloquée, sans titre) |
+| `corroboration` | dict | — | Recoupement (v0.25) : `independent` (sources indépendantes), `outlets` (médias), `copies` (reprises d'une même dépêche ou d'un même groupe), `kinds` (types : capteur, officiel, presse, détection automatique, réseaux sociaux) |
+| `press_reports` | int | — | Fiche officielle (USGS, GDACS…) : articles de presse qui lui ont été rattachés |
+| `unconfirmed` | str | — | `capteurs` : séisme chiffré rapporté par la presse sans mesure officielle correspondante (crédibilité 4) |
+| `disputed` | dict | — | Démenti publié (titre, lien, média, date) : crédibilité 4 jusqu'à la décision de l'analyste |
+| `mag_spread` | [float, float] | — | Séisme vu par deux réseaux (USGS, EMSC) avec un écart de magnitude ≥ 0,5 |
 | `admiralty` | str `A1`–`F6` | — | Cotation de l'Amirauté (`quality.py`) |
 | `verified` | dict | — | Validation de l'analyste (`config/verified.json`) |
 
@@ -229,4 +234,18 @@ Telegram, les notes de risque, Pulse ni les chronologies sans un verdict `ok`.
 
 Le verdict des sources officielles (USGS, GDACS, NWS, Météo-France, OMS…) est `ok` dès que la fiche est plausible :
 ce sont des événements déjà vérifiés par leur producteur.
+
+## Recoupement des sources et des contenus (v0.25)
+
+`veille/corroborate.py`, après le regroupement des doublons et avant la cotation de l'Amirauté :
+
+| Contrôle | Règle | Effet |
+|---|---|---|
+| Sources indépendantes | un témoin par domaine, par groupe de presse (`MEDIA_GROUPS` : EBRA, Schibsted, Gannett, ARD, RFE/RL…) et par titre identique repris mot pour mot | `corroboration` ; crédibilité 2 dès 3 sources indépendantes, ou 2 de types différents (officiel + presse) |
+| Confirmation par les capteurs | séisme (300 km, article publié dans les 72 h), cyclone (900 km, 5 jours), éruption (150 km, 14 jours) rapportés par la presse ou GDELT, rattachés à la fiche officielle (USGS, EMSC, GDACS, NOAA, GVP…) | une seule fiche, articles en sources (`press_reports`) ; séisme chiffré sans mesure : `unconfirmed`, crédibilité 4 |
+| Deux réseaux sismiques | USGS et EMSC fusionnés par lieu et heure | confiance haute ; écart de magnitude ≥ 0,5 : `mag_spread` |
+| Démentis | titre de contexte contenant un démenti (« fake », « hoax », « démenti », « desmiente », « no factual basis »…) qui partage au moins 3 mots significatifs (25 %) avec l'événement, même pays, ± 3 jours | `disputed`, crédibilité 4, lien vers le démenti sur la fiche |
+
+L'analyste garde le dernier mot (`config/verified.json`). Le recoupement travaille sur des copies : la mémoire du robot
+n'est jamais modifiée.
 

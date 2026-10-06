@@ -26,7 +26,7 @@ def test_configuration():
         assert len(p.get("note", "")) <= 160, p["name"]
         assert not re.search(r"\+?\d[\d .-]{7,}\d|@", p.get("note", "")), p["name"]          # aucun numéro ni e-mail
     assert {"care", "pclin"} <= set(cats) and cats["pclin"]["group"] == "sante"
-    assert sum(len(v) for v in DIR["local"].values()) >= 100                       # registres locaux remplis
+    assert sum(len(v) for v in DIR["local"].values()) >= 350 and len(DIR["local"]) >= 150   # registres locaux (v0.25)
 
 
 def test_fusion_et_doublons():

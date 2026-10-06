@@ -16,8 +16,10 @@
    D  pas toujours fiable   : détection automatique GDELT (codage machine de la presse mondiale)
    E  peu fiable            : réseaux sociaux, canaux Telegram
    F  fiabilité inconnue
-   1  confirmée (validée par l'analyste, ou mesure officielle)   2  probablement vraie (≥ 3 sources indépendantes)
-   3  possiblement vraie (2 sources, ou 1 source bien classée)    4  douteuse (source unique, classement incertain)
+   1  confirmée (validée par l'analyste, ou mesure officielle)   2  probablement vraie (≥ 3 sources indépendantes,
+                                                                  ou 2 de types différents : officiel + presse)
+   3  possiblement vraie (2 sources, ou 1 source bien classée)    4  douteuse (source unique, classement incertain,
+                                                                  démenti signalé, ou catastrophe sans mesure officielle)
    5  improbable (infirmée par l'analyste)                        6  invérifiable
 Cotation automatique, indicative : l'analyste la corrige via verified.json (champ "admiralty").
 """
@@ -25,9 +27,9 @@ import re
 
 from . import config
 
-OFFICIAL = {"USGS", "GDACS", "NASA EONET", "WHO", "UCDP", "NWS", "Meteoalarm", "CISA", "MEAE", "FCDO", "NOAA NHC",
+OFFICIAL = {"USGS", "EMSC", "CDC", "GDACS", "NASA EONET", "WHO", "UCDP", "NWS", "Meteoalarm", "CISA", "MEAE", "FCDO", "NOAA NHC",
             "Smithsonian GVP", "Copernicus EMS", "PTWC", "NTWC", "ECDC", "Auswärtiges Amt"}
-SENSORS = {"USGS", "GDACS", "NASA EONET", "NWS", "Meteoalarm", "CISA", "NOAA NHC", "PTWC", "NTWC"}  # mesure ou bulletin officiel direct
+SENSORS = {"USGS", "EMSC", "GDACS", "NASA EONET", "NWS", "Meteoalarm", "CISA", "NOAA NHC", "PTWC", "NTWC"}  # mesure ou bulletin officiel direct
 REFERENCE_EXTRA = {
     "Reuters", "AFP", "Associated Press", "AP", "BBC", "BBC World", "The Guardian", "New York Times", "Le Monde",
     "Deutsche Welle", "DW", "France 24", "RFI", "Al Jazeera", "Euronews", "Franceinfo", "Le Figaro", "Financial Times",
@@ -166,13 +168,22 @@ def credibility(ev, rel):
         return 5
     if v.get("status") in ("verified", "corrected"):
         return 1
+    if ev.get("disputed"):          # démenti signalé (veille/corroborate.py) : douteuse tant que l'analyste n'a pas tranché
+        return 4
     if rel == "A" and (ev.get("source") in SENSORS or "auto-detected" not in (ev.get("tags") or [])):
         return 1
-    outlets = {(s.get("name") if s.get("name") != "Press (via GDELT)" else s.get("url", "")[:40])
-               for s in ev.get("sources") or []}
-    n = len(outlets)
+    if ev.get("unconfirmed") == "capteurs":   # séisme, cyclone, éruption sans mesure officielle correspondante
+        return 4
+    corr = ev.get("corroboration")
+    if corr:   # v0.25 : sources réellement indépendantes (domaine, groupe de presse, reprise d'agence)
+        n = corr["independent"]
+        diverse = len(set(corr.get("kinds") or []) - {"détection automatique", "réseaux sociaux"}) >= 2
+    else:
+        n = len({(s.get("name") if s.get("name") != "Press (via GDELT)" else s.get("url", "")[:40])
+                 for s in ev.get("sources") or []})
+        diverse = False
     conf = ev.get("confidence", "medium")
-    if n >= 3 and conf != "low":
+    if (n >= 3 and conf != "low") or (n >= 2 and diverse):
         return 2
     if n >= 2 or conf == "high":
         return 3

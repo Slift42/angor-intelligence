@@ -920,3 +920,7 @@ body.guest .top-right { margin-left: auto; }
 .triage .tg-why { color: var(--muted); font-size: 12px; }
 .triage .tg-ok { color: var(--risk1); font-size: 12px; white-space: nowrap; }
 
+/* recoupement (fiche incident, v0.25) */
+.notice.disputed-notice { border-color: var(--sev3); background: color-mix(in srgb, var(--sev3) 10%, transparent); }
+.notice.disputed-notice a { color: inherit; }
+

@@ -70,6 +70,24 @@ def fetch(cfg, ctx):
 
 Liste complète et état : `python collecte.py --list`.
 
+## Langues de la presse (v0.25)
+
+Les mots-clés de recherche (connecteurs `gnews` et `outlets`) et de tri (`press.py`) existent en 56 langues :
+21 historiques dans `press.py` et `gnews.py`, 35 dans `veille/langs.py` (langues nordiques et baltes, Europe
+centrale, Balkans – `sh` pour le serbe, le croate, le bosnien et le monténégrin en alphabet latin –, grec,
+géorgien, arménien, azéri, ouzbek, mongol, hindi, népalais, pachto, tamoul, japonais, coréen, vietnamien, malais, filipino,
+birman, khmer, swahili, haoussa). Ajouter une langue : une entrée dans `LANGS` (requête, mots par catégorie, morts et
+blessés, arrestations, procédures, sport), son édition Google News dans `EDITIONS` si elle existe, puis des cas
+de test dans `tests/test_press.py` (`MULTI_GARDER`, `MULTI_ECARTER`). Les mots de 4 lettres ou moins sont cherchés
+en mot entier : vérifier qu'ils n'ont pas un autre sens dans une autre langue (« hari », « sud », « vita »…).
+
+## Santé des médias de référence (v0.25)
+
+`outlets.py` tient, pour chaque média du catalogue, le nombre de requêtes où il figurait et de titres obtenus
+(`store["state"]["outlet_stats"]`). Un média sans aucun titre après 30 requêtes est un « média muet » : domaine
+erroné, site fermé ou média sans actualité de sûreté. La liste est publiée dans « État des sources » (`outlets_health`)
+pour correction dans `tools/outlets_src.py`.
+
 ## Sources hors connecteurs
 
 Certaines données ne sont pas des événements et ont leur propre module, appelé par `collecte.py` :

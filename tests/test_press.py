@@ -134,3 +134,48 @@ def test_contexte_dans_le_fil_pas_sur_la_carte():
     events, news, _ = press.build(items, [], {}, lambda m: None, now)
     assert len(news) == 2 and [n.get("context") for n in news] == ["arrestation ou suites", None]
     assert all("Detienen" not in e["title"] for e in events)
+
+
+# ------------------------------------------------------------------ 35 langues supplémentaires (v0.25)
+MULTI_GARDER = [
+    ("Skottlossning i Malmö – två döda", "attack"),
+    ("Skyderi i København: tre dræbte", "attack"),
+    ("Lövöldözés Budapesten, két halott", "attack"),
+    ("Explozie la un bloc din București: 3 morți și 10 răniți", "attack"),
+    ("Poplave u Bosni: poginulo 5 osoba", "flood"),
+    ("Σεισμός 5,2 Ρίχτερ στην Κρήτη", "earthquake"),
+    ("Lũ lụt ở miền Trung, 12 người thiệt mạng", "flood"),
+    ("地震 震度6強 死者5人", "earthquake"),
+    ("भूकंप के झटके, 3 की मौत", "earthquake"),
+    ("Shambulio la al-Shabaab laua watu 10 Mandera, wameuawa", "terrorism"),
+    ("Взрыв в Белгороде: три человека погибли", "infrastructure"),
+    ("Protest în Piața Victoriei", "unrest"),
+    ("Coup d’État au Niger : la junte suspend la Constitution", "political"),   # apostrophe typographique
+]
+MULTI_ECARTER = [
+    "Fotbal: Steaua câștigă meciul",
+    "AFAD Duyurdu: Muğla Açıklarında Deprem Oldu!",      # « oldu » (turc) ≠ « öldü » (azéri)
+    "Remont dróg w Krakowie",                             # « drog » n'est pas un mot de la drogue en polonais
+    "Il sindaco di Roma: la vita in città",               # « vita » (vie) ≠ swahili « vita » (guerre)
+    "Kun.uz: Toshkentda kuchli zilzila",                  # séisme sans magnitude ni dégâts : couvert par les capteurs
+]
+
+
+@pytest.mark.parametrize("titre,categorie", MULTI_GARDER)
+def test_langues_ajoutees_retenues(titre, categorie):
+    cat, _ = press.classify(titre)
+    assert cat == categorie and press.is_event(titre, cat)
+
+
+@pytest.mark.parametrize("titre", MULTI_ECARTER)
+def test_langues_ajoutees_ecartees(titre):
+    cat, _ = press.classify(titre)
+    assert not press.is_event(titre, cat)
+
+
+def test_requetes_et_editions_des_langues_ajoutees():
+    from veille import langs
+    from veille.connectors import gnews, outlets
+    for lg in langs.LANGS:
+        assert gnews.TERMS["security"][lg] and outlets.LANG_EDITION[lg] in gnews.EDITIONS, lg
+    assert gnews.EDITIONS["ja-JP"] == ("ja", "JP", "JP:ja", "ja") and outlets.LANG_EDITION["sw"] == "en-US"

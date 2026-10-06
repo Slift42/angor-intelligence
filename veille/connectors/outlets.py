@@ -14,6 +14,8 @@ from datetime import timedelta
 from urllib.parse import quote
 
 from .. import config, http
+from ..langs import EDITIONS as LANG_EDITIONS
+from ..langs import LANGS
 from .gnews import EDITIONS, TERMS, URL, parse_items
 
 KIND = "events"
@@ -22,6 +24,9 @@ LANG_EDITION = {"fr": "fr-FR", "en": "en-US", "es": "es-MX", "pt": "pt-BR", "de"
                 "he": "he-IL", "id": "id-ID", "th": "th-TH", "zh": "zh-CN", "bn": "bn-BD",
                 # pas d'édition Google News dans ces langues : édition internationale, mots-clés dans la langue du média
                 "fa": "en-US", "ur": "en-US", "am": "en-US", "so": "en-US"}
+# langues ajoutées en v0.25 : leur édition Google News si elle existe, sinon l'édition internationale
+for _lg in LANGS:
+    LANG_EDITION.setdefault(_lg, LANG_EDITIONS[_lg][0] if _lg in LANG_EDITIONS else "en-US")
 CHUNK = 6  # médias par requête (au-delà, la requête est découpée)
 
 
@@ -43,8 +48,36 @@ def queries(catalog, countries, themes=("security",)):
                 sites = " OR ".join(f"site:{o[1]}" for o in part)
                 for theme in themes:
                     terms = TERMS[theme].get(lang, TERMS[theme]["en"])
-                    out.append((iso, lang, theme, f"{name}({sites}) ({terms}) when:2d", [o[0] for o in part]))
+                    out.append((iso, lang, theme, f"{name}({sites}) ({terms}) when:2d", [o[1] for o in part]))
     return out
+
+
+MUTE_AFTER = 30   # requêtes sans un seul titre : domaine erroné, site fermé ou média sans actualité de sûreté
+
+
+def _host(domain):
+    return domain.split("/")[0].lower()
+
+
+def record(stats, iso, domains, items, now):
+    """Bilan par média : requêtes où il figurait, titres obtenus (v0.25). Sert à repérer les « médias muets »."""
+    sites = [it.get("site") or "" for it in items]
+    for d in domains:
+        h = _host(d)
+        st = stats.setdefault(f"{iso}|{d}", {"q": 0, "hits": 0})
+        st["q"] += 1
+        n = sum(1 for s in sites if s == h or s.endswith("." + h) or h.endswith("." + s))
+        if n:
+            st["hits"] += n
+            st["last"] = now.replace(microsecond=0).isoformat()
+
+
+def muted(stats, catalog):
+    """Médias du catalogue jamais trouvés après MUTE_AFTER requêtes (à vérifier ou remplacer)."""
+    names = {f"{iso}|{o[1]}": o[0] for iso, rows in catalog.items() for o in rows}
+    out = [{"country": k.split("|")[0], "domain": k.split("|", 1)[1], "name": names[k], "queries": st["q"]}
+           for k, st in stats.items() if k in names and st["q"] >= MUTE_AFTER and not st["hits"]]
+    return sorted(out, key=lambda r: (-r["queries"], r["country"]))
 
 
 def fetch(cfg, ctx):
@@ -59,10 +92,15 @@ def fetch(cfg, ctx):
     max_age = timedelta(hours=int(cfg.get("max_age_hours", 48)))
     max_items = int(cfg.get("max_items_per_query", 25))
     fails = done = found = 0
-    for iso, lang, theme, q, _names in batch:
+    stats = ctx.state.setdefault("outlet_stats", {})
+    known = {f"{iso}|{o[1]}" for iso, rows in catalog.items() for o in rows}
+    for k in [k for k in stats if k not in known]:   # médias retirés du catalogue
+        del stats[k]
+    for iso, lang, theme, q, domains in batch:
         if time.time() > budget:
             break
         done += 1
+        before = len(ctx.press)
         hl, gl, ceid, _ = EDITIONS[LANG_EDITION[lang]]
         url = URL.format(q=quote(q), hl=hl, gl=gl, ceid=ceid)
         try:
@@ -71,6 +109,7 @@ def fetch(cfg, ctx):
             fails += 1
             continue
         found += parse_items(root, ctx, iso, lang, theme, max_age, max_items, feed="Médias de référence")
+        record(stats, iso, domains, ctx.press[before:], ctx.now)
     ctx.state["outlets_cursor"] = (start + done) % len(qs)
     if fails:
         ctx.log(f"  Médias de référence : {fails}/{done} requête(s) sans réponse")

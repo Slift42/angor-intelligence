@@ -42,7 +42,7 @@ flowchart LR
 | 4. Presse | `ai.analyze`, `press.build` | Tri des titres par mots-clés (+ IA si clé : pertinence et « fait physique »), géolocalisation, langue |
 | 4 bis. Contrôle d'entrée | `enrich.add_headlines`, `triage.check`, `triage.alarms` | **A priori** : verdict de chaque nouveauté avant la mémoire et la carte (fait physique, fiche plausible, article GDELT lu) ; fiches invalides jamais stockées ; alarme si une source est presque entièrement refusée |
 | 5. Fusion | `publish.merge` | Ajout à l'historique (rétention 95 jours), fil d'actualité, veille économique |
-| 6. Qualité | `triage.check` (contrôle **permanent** de toute la mémoire), `triage.on_map`, `triage.journal`, `dedupe.dedupe`, `quality.learn`, `quality.filter_and_rate` | Tri (bruit, contexte, GDELT hors sujet), regroupement par histoire puis fusion des doublons, validations de l'analyste (`config/verified.json`), cotation de l'Amirauté A1–F6, apprentissage de la fiabilité par source |
+| 6. Qualité | `triage.check` (contrôle **permanent** de toute la mémoire), `triage.on_map`, `triage.journal`, `dedupe.dedupe`, `corroborate.run` (sources indépendantes, capteurs, démentis), `quality.learn`, `quality.filter_and_rate` | Tri (bruit, contexte, GDELT hors sujet), regroupement par histoire puis fusion des doublons, validations de l'analyste (`config/verified.json`), cotation de l'Amirauté A1–F6, apprentissage de la fiabilité par source |
 | 7. Indices | `risk.compute`, `pulse.compute`, `crises.build`, `agenda.update`, `reports.update`, `early_warning.update`, `traffic.update`, `country_detail.build`, `profiles.build`, `practical.update` | Note de risque pays, indice Pulse, chronologies de crise, agenda, rapports, alerte précoce, trafic, fiches pays |
 | 8. Alertes | `notify.send`, `notify.send_digest` | Telegram et e-mail (incidents graves, point quotidien) |
 | 9. Publication | `publish.write_outputs`, `write_js`, `legal.write`, `accounts.ping`, `bust_cache`, `save_store` | Fichiers `docs/data/*.js`, empreinte de version dans les pages HTML, sauvegarde de la mémoire |
@@ -60,6 +60,9 @@ Chaque étape « annexe » (7) est encadrée par un `try/except` qui journalise 
 | `connectors/` | Un module par source (voir [CONNECTEURS.md](CONNECTEURS.md)) |
 | `press.py` | Tri des titres de presse : catégories par mots-clés multilingues, faux positifs, géolocalisation, langue |
 | `ai.py`, `llm.py` | Socle IA (Anthropic) : budget, cache, tâches activables ; tout est facultatif |
+| `corroborate.py` | Recoupement (v0.25) : sources indépendantes (groupes de presse, reprises d'agence), récits de presse rattachés aux mesures officielles, démentis |
+| `triage.py` | Contrôle d'entrée a priori et permanent des événements (v0.24) |
+| `langs.py` | Vocabulaire de sûreté de 35 langues supplémentaires (v0.25) |
 | `dedupe.py` | Regroupement par histoire (presse, GDELT : mêmes mots, jours, lieux ou catégories différents) puis fusion des doublons (même lieu, même famille, mots communs) |
 | `quality.py` | Cotation de l'Amirauté, validations de l'analyste, qualité mesurée par source |
 | `risk.py` | Note de risque pays 1–5 (avis officiels + activité sécuritaire + catastrophes) |

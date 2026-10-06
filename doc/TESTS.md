@@ -17,6 +17,7 @@ Les trois premiers et le test de fumée tournent automatiquement à chaque `push
 | `conftest.py` | Blocage du réseau, fabrique d'événements `make()`, pays (`countries`) |
 | `test_model_geo.py` | Format d'événement, dates, taxonomie, localisation des pays, distances |
 | `test_press.py` | Tri de la presse : titres à garder / à écarter (cas réels), gravité, langue, seuils sur le jeu étiqueté |
+| `test_corroborate.py` | Recoupement : reprises et groupes de presse, rattachement d'un récit de presse à la mesure USGS, séisme non confirmé, démenti, crédibilité |
 | `test_triage.py` | Contrôle d'entrée a priori et permanent : verdicts, fiches invalides, GDELT en attente, avis de l'IA, décision de l'analyste, journal, alarme, priorité des titres GDELT récents |
 | `test_pipeline.py` | Dédoublonnage (dont regroupement par histoire), tri avant regroupement, cotation de l'Amirauté, note de risque |
 | `test_sources.py` | XML abîmé, découpage FCDO, numéros d'urgence, motifs des avis américains (réponse simulée), trafic |
