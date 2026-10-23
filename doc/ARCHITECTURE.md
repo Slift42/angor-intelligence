@@ -43,7 +43,7 @@ flowchart LR
 | 4 bis. Contrôle d'entrée | `enrich.add_headlines`, `triage.check`, `triage.alarms` | **A priori** : verdict de chaque nouveauté avant la mémoire et la carte (fait physique, fiche plausible, article GDELT lu) ; fiches invalides jamais stockées ; alarme si une source est presque entièrement refusée |
 | 5. Fusion | `publish.merge` | Ajout à l'historique (rétention 95 jours), fil d'actualité, veille économique |
 | 6. Qualité | `triage.check` (contrôle **permanent** de toute la mémoire), `triage.on_map`, `triage.journal`, `dedupe.dedupe`, `corroborate.run` (sources indépendantes, capteurs, démentis), `quality.learn`, `quality.filter_and_rate` | Tri (bruit, contexte, GDELT hors sujet), regroupement par histoire puis fusion des doublons, validations de l'analyste (`config/verified.json`), cotation de l'Amirauté A1–F6, apprentissage de la fiabilité par source |
-| 7. Indices | `risk.compute`, `pulse.compute`, `crises.build`, `agenda.update`, `reports.update`, `early_warning.update`, `traffic.update`, `country_detail.build`, `profiles.build`, `practical.update` | Note de risque pays, indice Pulse, chronologies de crise, agenda, rapports, alerte précoce, trafic, fiches pays |
+| 7. Indices | `risk.compute`, `pulse.compute`, `crises.build`, `agenda.update`, `reports.update`, `early_warning.update`, `foresight.update`, `traffic.update`, `country_detail.build`, `profiles.build`, `practical.update` | Note de risque pays, indice Pulse, chronologies de crise, agenda, rapports, alerte précoce, tendances de risques, trafic, fiches pays |
 | 8. Alertes | `notify.send`, `notify.send_digest` | Telegram et e-mail (incidents graves, point quotidien) |
 | 9. Publication | `publish.write_outputs`, `write_js`, `legal.write`, `accounts.ping`, `bust_cache`, `save_store` | Fichiers `docs/data/*.js`, empreinte de version dans les pages HTML, sauvegarde de la mémoire |
 
@@ -71,6 +71,7 @@ Chaque étape « annexe » (7) est encadrée par un `try/except` qui journalise 
 | `agenda.py` | Jours fériés, élections, fêtes religieuses |
 | `reports.py` | Agrégateur de rapports (think tanks, OI, ONG) |
 | `early_warning.py`, `admin1.py` | Alerte précoce climat-conflit par région administrative |
+| `foresight.py` | Tendances de risques par région et par pays (méthode d'anticipation, voir `doc/FORESIGHT.md`) |
 | `country_detail.py`, `fcdo.py` | Fiches pays détaillées (villes, aéroports, secours, santé, texte FCDO) |
 | `traffic.py` | Instantané du trafic aérien (adsb.lol) |
 | `profiles.py`, `practical.py` | Profils économiques et informations pratiques (Banque mondiale, FMI, Wikidata) |

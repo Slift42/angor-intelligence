@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Méthode des tendances de risques – Angor Intelligence</title>
+<meta name="description" content="Méthode d'anticipation des risques d'Angor Intelligence : facteurs, échelles, score, contrôle qualité et sources.">
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<style>
+:root { --ink: #111B27; --ink-2: #3E4C5B; --muted: #6B7886; --line: #DDE3E8; --navy: #13263D; --bg: #F4F6F8; --surface: #fff; --accent: #1F5FD1; --soft: #E6EEFC;
+  --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #E7EDF3; --ink-2: #B7C3CF; --muted: #8A98A7; --line: #2A3847; --navy: #E7EDF3; --bg: #0F1823; --surface: #152231; --accent: #6A9BF4; --soft: #1B2B45; } }
+:root[data-theme="dark"] { --ink: #E7EDF3; --ink-2: #B7C3CF; --muted: #8A98A7; --line: #2A3847; --navy: #E7EDF3; --bg: #0F1823; --surface: #152231; --accent: #6A9BF4; --soft: #1B2B45; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+header.top { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 10px 20px; background: var(--surface); border-bottom: 1px solid var(--line); }
+header.top .brand { font-weight: 700; letter-spacing: -.01em; }
+header.top .sp { flex: 1; }
+header.top a.btn { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; text-decoration: none; color: var(--ink); font-size: 13.5px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 24px 20px 60px; display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 32px; }
+nav.toc { position: sticky; top: 72px; align-self: start; font-size: 13.5px; max-height: calc(100vh - 90px); overflow: auto; }
+nav.toc a { display: block; padding: 4px 8px; border-radius: 6px; color: var(--ink-2); text-decoration: none; }
+nav.toc a:hover { background: var(--soft); color: var(--ink); }
+nav.toc .grp { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 14px 8px 4px; }
+main { min-width: 0; }
+h1 { font-size: 30px; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 8px; }
+.lead { color: var(--ink-2); font-size: 16.5px; margin: 0 0 20px; max-width: 70ch; }
+section { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px 26px; margin: 0 0 16px; scroll-margin-top: 70px; }
+h2 { font-size: 21px; margin: 0 0 10px; letter-spacing: -.01em; }
+h3 { font-size: 15.5px; margin: 18px 0 6px; }
+p, li { max-width: 75ch; }
+ul, ol { padding-left: 22px; }
+li { margin: 3px 0; }
+code { font-family: var(--mono); font-size: 13px; background: var(--bg); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--line); }
+.tip { border-left: 3px solid var(--accent); background: var(--soft); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 14px; }
+.warn { border-left-color: #D7263D; }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 8px 0; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; }
+.muted { color: var(--muted); }
+td ul { margin: 0; }
+.steps { counter-reset: s; list-style: none; padding: 0; display: grid; gap: 10px; }
+.steps li { counter-increment: s; position: relative; padding: 10px 14px 10px 50px; border: 1px solid var(--line); border-radius: 10px; max-width: none; }
+.steps li::before { content: counter(s); position: absolute; left: 14px; top: 10px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff;
+  display: grid; place-items: center; font: 700 12.5px/1 var(--font); }
+.steps strong { display: block; }
+.fam { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.ref { font-size: 12px; vertical-align: super; text-decoration: none; }
+.mat { display: grid; grid-template-columns: 26px repeat(5, 1fr); gap: 3px; max-width: 360px; font: 600 12px/1 var(--mono); }
+.mat div { aspect-ratio: 1.5; display: grid; place-items: center; border-radius: 5px; color: #fff; }
+.mat .ax { color: var(--muted); background: none; aspect-ratio: auto; }
+.src-list { list-style: none; padding: 0; display: grid; gap: 8px; }
+.src-list li { max-width: none; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; scroll-margin-top: 80px; }
+.src-list li:target { border-color: var(--accent); background: var(--soft); }
+.src-list .meta { font-size: 12.5px; color: var(--muted); }
+.badge { display: inline-block; font: 700 11px/1 var(--mono); padding: 3px 6px; border-radius: 5px; border: 1px solid var(--line); background: var(--bg); margin-right: 6px; }
+footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 24px; }
+@media (max-width: 860px) { .wrap { grid-template-columns: 1fr; } nav.toc { position: static; max-height: none; } section { padding: 18px; } }
+@media print { header.top, nav.toc { display: none; } .wrap { display: block; } section { break-inside: avoid; border: 0; padding: 0 0 12px; } body { background: #fff; } }
+</style>
+</head>
+<body>
+<header class="top"><span class="brand">Angor Intelligence · Méthode des tendances de risques</span><span class="sp"></span><a class="btn" href="index.html?tab=trends">← Retour aux tendances</a></header>
+<div class="wrap">
+<nav class="toc" aria-label="Sommaire">
+  <div class="grp">Principes</div>
+  <a href="#objet">Objet et principes</a><a href="#cycle">Le cycle d'anticipation</a>
+  <div class="grp">Évaluer</div>
+  <a href="#facteurs">Facteurs et indicateurs</a><a href="#echelles">Échelles</a><a href="#score">Score et niveaux</a><a href="#temps-reel">Signaux en temps réel</a>
+  <div class="grp">Fiabilité</div>
+  <a href="#qualite">Contrôle qualité et biais</a><a href="#fiche">Anatomie d'une fiche</a><a href="#reperes">Repères des rapports de référence</a>
+  <div class="grp">Couverture</div>
+  <a href="#monde">Région par région, pays par pays</a><a href="#limites">Limites</a><a href="#sources">Bibliographie</a>
+</nav>
+<main>
+  <h1>Anticiper les risques : la méthode des tendances</h1>
+  <p class="lead">Repérer, plusieurs semaines ou mois à l'avance, les dynamiques qui peuvent toucher vos activités et vos collaborateurs en déplacement. Chaque tendance est évaluée selon une méthode explicite, sourcée et révisée à date fixe.</p>
+  <p class="muted" id="ver"></p>
+
+  <section id="objet">
+    <h2>Objet et principes</h2>
+    <p>La carte de veille d'Angor montre ce qui <em>se passe</em>. L'onglet <strong>Tendances</strong> (espace Anticipation) montre ce qui <em>se prépare</em>. Une tendance de risque est une dynamique durable, comme une crise énergétique, une contestation sociale ou une saison de feux. Elle est appelée à produire des incidents ayant une incidence sur une entreprise ou un voyageur.</p>
+    <ul>
+      <li><strong>Anticiper n'est pas prédire.</strong> On estime une vraisemblance et un impact, on dit sur quoi repose l'estimation et ce qui la ferait changer.</li>
+      <li><strong>Tous les facteurs comptent.</strong> Le climat, la géopolitique, la politique intérieure, la société, la sécurité, le cyber, l'économie, les finances publiques, l'énergie, les infrastructures, la santé, la démographie et les technologies. Les risques peuvent être violents ou non, du moment qu'ils ont une incidence sur l'activité ou les déplacements.</li>
+      <li><strong>Deux points de vue.</strong> L'entreprise (continuité, coûts, chaîne d'approvisionnement, image) et le voyageur (intégrité physique, mobilité, conditions de séjour).</li>
+      <li><strong>Transparence.</strong> Chaque fait est daté et relié à sa source, chaque source est cotée. Les échelles et les règles de calcul sont publiques (cette page).</li>
+      <li><strong>Sources ouvertes, événements et non personnes.</strong> La méthode suit des événements et des dynamiques, jamais des individus (RGPD). Les articles ne sont pas reproduits : seuls un titre, un résumé et un lien sont conservés.</li>
+    </ul>
+    <p>La démarche s'inspire de la prospective stratégique<a class="ref" href="#src-m_oecd">[OCDE]</a><a class="ref" href="#src-m_jrc">[JRC]</a>, du management des risques<a class="ref" href="#src-m_iso31000">[ISO 31000]</a>, de la gouvernance des risques émergents<a class="ref" href="#src-m_irgc">[IRGC]</a> et des méthodes d'indicateurs et d'alerte du renseignement<a class="ref" href="#src-m_heuer">[Heuer et Pherson]</a>. Elle s'appuie sur les grands rapports de prospective des risques : AXA Future Risks Report<a class="ref" href="#src-axa_frr26">[AXA]</a>, WEF Global Risks Report<a class="ref" href="#src-wef_grr26">[WEF]</a> et Allianz Risk Barometer<a class="ref" href="#src-allianz_rb26">[Allianz]</a>.</p>
+  </section>
+
+  <section id="cycle">
+    <h2>Le cycle d'anticipation</h2>
+    <ol class="steps">
+      <li><strong>Balayage de l'horizon</strong>Lecture continue des rapports de prospective, des données ouvertes (climat, économie, énergie, cyber, sécurité) et du flux d'incidents vérifiés d'Angor. On cherche les signaux faibles autant que les dynamiques installées.</li>
+      <li><strong>Identification des facteurs</strong>Chaque signal est rattaché à un facteur d'une des 13 familles (grille PESTEL élargie). Chaque facteur a ses indicateurs et ses sources de suivi (voir « Facteurs et indicateurs »).</li>
+      <li><strong>Formulation de la tendance</strong>Une phrase claire, un périmètre (région ou pays) et un horizon. Elle s'accompagne des faits datés qui la justifient et des liens avec d'autres tendances, car les risques s'enchaînent en cascade : le choc énergétique nourrit l'inflation, qui nourrit la contestation.</li>
+      <li><strong>Évaluation</strong>L'analyste évalue la vraisemblance (1 à 5), l'impact sur l'entreprise et sur le voyageur (1 à 5), la dynamique (hausse, stable, baisse) et sa confiance (faible, moyenne, élevée). Le score se calcule automatiquement.</li>
+      <li><strong>Indicateurs d'alerte et scénario de rupture</strong>On précise ce qui confirmerait ou infirmerait la tendance, et le scénario du pire plausible. C'est ce qui permet de réviser vite.</li>
+      <li><strong>Diffusion et révision</strong>La fiche donne les implications et les recommandations, entreprise et voyageur. Elle porte une date de revue, au plus tard 30, 60 ou 120 jours selon l'horizon. Le robot signale les fiches à réviser et les surprises du terrain (voir « Signaux en temps réel »). Les scores sont archivés chaque mois pour une évaluation a posteriori.</li>
+    </ol>
+  </section>
+
+  <section id="facteurs">
+    <h2>Familles de facteurs et indicateurs</h2>
+    <p>Treize familles couvrent tout ce qui peut faire naître un risque. Chaque facteur est suivi par des indicateurs mesurables, avec leurs sources (les numéros renvoient à la bibliographie).</p>
+    <div class="tbl" id="drivers"><p class="muted">Chargement…</p></div>
+  </section>
+
+  <section id="echelles">
+    <h2>Échelles d'évaluation</h2>
+    <h3>Vraisemblance</h3>
+    <p>Probabilité que la tendance se concrétise avec l'impact décrit, à l'horizon indiqué. Les fourchettes reprennent les échelles de probabilité des services de renseignement américains (ICD 203)<a class="ref" href="#src-m_icd203">[ICD 203]</a> et britanniques<a class="ref" href="#src-m_phia">[PHIA]</a> : un mot correspond toujours à la même fourchette.</p>
+    <div class="tbl" id="sc-likelihood"></div>
+    <h3>Impact sur l'entreprise et sur le voyageur</h3>
+    <div class="tbl" id="sc-impact"></div>
+    <h3>Horizon, dynamique et confiance</h3>
+    <div class="tbl" id="sc-other"></div>
+  </section>
+
+  <section id="score">
+    <h2>Score, niveaux et pression de risque</h2>
+    <p><strong>Score d'une tendance</strong> = vraisemblance × impact, de 1 à 25. Il se calcule pour l'entreprise, pour le voyageur, et en vue globale (le plus élevé des deux impacts). La matrice ci-dessous donne le niveau de chaque case.</p>
+    <div class="mat" id="mat" aria-label="Matrice vraisemblance × impact"></div>
+    <p class="muted">En lignes, la vraisemblance (5 en haut) ; en colonnes, l'impact (1 à 5).</p>
+    <div class="tbl" id="levels"></div>
+    <p><strong>Pression de risque d'un périmètre</strong> (0 à 100) = moyenne des <span id="topn">5</span> scores les plus élevés des tendances applicables, rapportée au maximum (25). Pour un pays, on retient ses tendances nationales et celles de sa région. Pour une région, on retient ses tendances régionales et celles de ses pays. La pression permet de comparer des périmètres, elle ne remplace pas la lecture des fiches.</p>
+    <p>Le score résume le jugement de l'analyste, il ne le produit pas : aucun algorithme ne fixe seul la vraisemblance ou l'impact.</p>
+  </section>
+
+  <section id="temps-reel">
+    <h2>Signaux en temps réel</h2>
+    <p>Une tendance peut désigner des catégories d'incidents (troubles civils, terrorisme, cyber, inondations…). À chaque collecte, le robot compte les incidents <strong>vérifiés</strong> d'Angor dans le périmètre (carte, contrôle a priori, recoupement) <span id="live"></span>.</p>
+    <ul>
+      <li>Hausse nette alors que l'analyste ne jugeait pas la tendance en hausse : <strong>surprise</strong>, la fiche est signalée « à réexaminer ».</li>
+      <li>Baisse nette alors que la tendance est jugée en hausse : signalement également.</li>
+    </ul>
+    <p>Ce signal ne modifie jamais le score. Il sert de détecteur de surprises, car beaucoup de risques sont saisonniers (chaleur, inondations) : une baisse en octobre n'annonce pas un été calme.</p>
+  </section>
+
+  <section id="qualite">
+    <h2>Contrôle qualité et biais</h2>
+    <h3>Règles vérifiées automatiquement</h3>
+    <ul id="rules"></ul>
+    <h3>Cotation des sources (système de l'Amirauté)</h3>
+    <p>Chaque source porte une lettre de fiabilité, comme pour les incidents de la carte<a class="ref" href="#src-m_admiralty">[OTAN]</a>. Une source de rang D (agrégateur, encyclopédie collaborative) peut signaler un fait. Ce fait doit alors être recoupé par une source primaire.</p>
+    <div class="tbl" id="rel"></div>
+    <h3>Techniques contre les biais</h3>
+    <p>Les biais les plus fréquents en anticipation sont la confirmation, l'ancrage sur la dernière crise, la disponibilité (surestimer ce qui fait l'actualité) et le statu quo. La méthode leur oppose des techniques structurées<a class="ref" href="#src-m_heuer">[Heuer et Pherson]</a> :</p>
+    <ul>
+      <li><strong>Vérification des hypothèses clés</strong> : sur quoi repose la vraisemblance, et que se passe-t-il si c'est faux ?</li>
+      <li><strong>Hypothèses concurrentes</strong> : pour les tendances à fort enjeu, comparer plusieurs explications des signaux.</li>
+      <li><strong>Scénario de rupture et pré-mortem</strong> : imaginer que le pire est arrivé et chercher ce qui l'aurait annoncé. Ces signes deviennent des indicateurs d'alerte.</li>
+      <li><strong>Relecture contradictoire</strong> : une seconde lecture (testeur, pair) avant toute hausse ou baisse de deux niveaux.</li>
+      <li><strong>Rétro-évaluation</strong> : les scores archivés chaque mois sont confrontés à ce qui s'est réellement produit.</li>
+    </ul>
+  </section>
+
+  <section id="fiche">
+    <h2>Anatomie d'une fiche tendance</h2>
+    <div class="tbl"><table>
+      <tr><th>Rubrique</th><th>Contenu</th></tr>
+      <tr><td>Titre et synthèse</td><td>La dynamique en une phrase, puis trois ou quatre lignes, en français et en anglais.</td></tr>
+      <tr><td>Famille et facteurs</td><td>Famille principale, familles secondaires et facteurs en jeu.</td></tr>
+      <tr><td>Évaluation</td><td>Vraisemblance, impact entreprise, impact voyageur, horizon, dynamique, confiance ; scores et niveaux calculés.</td></tr>
+      <tr><td>Signaux</td><td>Faits datés, chacun relié à ses sources numérotées.</td></tr>
+      <tr><td>Indicateurs d'alerte</td><td>Ce qu'il faut surveiller, avec des seuils quand c'est possible.</td></tr>
+      <tr><td>Scénario de rupture</td><td>Le pire plausible à l'horizon.</td></tr>
+      <tr><td>Implications et recommandations</td><td>Pour l'entreprise et pour le voyageur ; secteurs les plus exposés.</td></tr>
+      <tr><td>Tendances liées</td><td>Les risques en cascade.</td></tr>
+      <tr><td>Revue</td><td>Date de revue, échéance de révision, signal en temps réel, évolution mensuelle du score.</td></tr>
+    </table></div>
+  </section>
+
+  <section id="reperes">
+    <h2>Repères tirés des rapports de référence</h2>
+    <p>Ces repères ont servi à construire la taxonomie et à calibrer les premières évaluations (Europe de l'Ouest, France). Chaque chiffre est repris dans les fiches concernées.</p>
+    <h3>AXA Future Risks Report 2026<a class="ref" href="#src-axa_frr26">[AXA]</a></h3>
+    <ul>
+      <li>Top 10 des experts : IA et big data, changement climatique, géopolitique, cybersécurité, énergie, tensions sociales, fragmentation sociale, stabilité financière, macroéconomie, ressources naturelles.</li>
+      <li>Risques sous-estimés : informatique quantique, démographie, réseaux électriques (panne ibérique d'avril 2025), santé mentale liée au climat.</li>
+      <li>Climat : la destruction par les événements extrêmes est la première inquiétude (54 % des experts, 48 % du public). Seuls 13 % des experts et 30 % du public jugent les autorités prêtes. Chaque degré au-dessus de 20 °C réduit la productivité de 2 à 3 %.</li>
+      <li>Géopolitique : premier risque pour les experts européens ; 50 % des experts redoutent d'abord ses conséquences économiques, 85 % une menace sur l'approvisionnement alimentaire et énergétique.</li>
+      <li>Cyber : la cyberguerre et les attaques d'infrastructures critiques sont la première inquiétude (35 %). Sinistres chez AXA France : rançongiciels 28 %, connexions frauduleuses 28 %, fraude 21 %.</li>
+      <li>Énergie : les prix sont la première inquiétude (38 % des experts, 49 % du public) ; 43 % des experts européens citent la souveraineté et la dépendance aux importations.</li>
+      <li>Société : 63 % du grand public voient « de moins en moins de valeurs communes » ou une fracture profonde dans leur pays, 4 points de plus en un an. Les tensions sociales sont la 3e inquiétude du public européen, la 1re en Allemagne ; 89 % des experts jugent les autorités mal préparées. En France, 66 % des sondés estiment que la démocratie doit être préservée quoi qu'il arrive (74 % des moins de 25 ans). 40 % se disent prêts à servir (8 % dans l'armée, 32 % dans la protection civile).</li>
+      <li>Finance et économie : défaillance systémique des marchés (41 % des experts, 37 % du public), guerres commerciales et droits de douane (28 % des experts), chômage de masse durable (première inquiétude du public). Démographie : l'âge médian européen passerait de 42,5 à 46,2 ans en 2050.</li>
+    </ul>
+    <h3>WEF Global Risks Report 2026<a class="ref" href="#src-wef_grr26">[WEF]</a></h3>
+    <ul>
+      <li>À court terme : la confrontation géoéconomique passe au premier rang, suivie de la désinformation et de la polarisation ; les événements météorologiques extrêmes reculent au 4e rang.</li>
+      <li>À dix ans : les événements météorologiques extrêmes et la perte de biodiversité dominent ; les effets négatifs de l'IA font le plus grand bond (du 30e au 5e rang).</li>
+    </ul>
+    <h3>Allianz Risk Barometer 2026<a class="ref" href="#src-allianz_rb26">[Allianz]</a><a class="ref" href="#src-directindustry_allianz">[DirectIndustry]</a></h3>
+    <ul>
+      <li>Monde : cyber (42 %), IA (32 %, contre la 10e place en 2025), interruption d'activité (29 %) ; le risque politique et la violence atteignent la 7e place.</li>
+      <li>France : cyber (40 %), catastrophes naturelles (27 %), incendie et explosion (27 %), interruption d'activité (25 %), risque politique (23 %), changement climatique (22 %).</li>
+    </ul>
+    <h3>Autres références de calibrage</h3>
+    <ul>
+      <li>Europol TE-SAT 2026 : 45 attentats dans l'UE en 2025, dont 14 en France ; 486 arrestations, dont 130 personnes de 18 ans ou moins<a class="ref" href="#src-europol_tesat26">[Europol]</a>.</li>
+      <li>Copernicus, état du climat européen 2025 : record de surfaces brûlées (environ 1 034 550 ha)<a class="ref" href="#src-c3s_esotc25">[C3S]</a>. Météo-France, été 2026 : le plus chaud depuis 1900 (+3,6 °C)<a class="ref" href="#src-meteofrance_ete26">[Météo-France]</a>.</li>
+      <li>BCE, septembre 2026 : croissance de 0,9 % et inflation de 3,0 % en 2026, taux de dépôt relevé à 2,50 %<a class="ref" href="#src-ecb_proj_sep26">[BCE]</a>.</li>
+    </ul>
+  </section>
+
+  <section id="monde">
+    <h2>Région par région, pays par pays</h2>
+    <p>La méthode est la même partout : une fiche région porte les tendances communes à ses pays, et une fiche pays ajoute les tendances propres à ce pays. Un pays sans fiche hérite des tendances de sa région. Il apparaît en pointillés sur la carte.</p>
+    <p><strong>Ordre de couverture</strong> : d'abord les pays où les clients ont des sites ou des voyageurs, puis les pays à risque élevé, puis le reste du monde. L'outil d'alerte précoce climat-conflit (Corne de l'Afrique, Sahel) reste disponible dans l'onglet « Alerte précoce ». Ses indices viendront nourrir les fiches de ces régions.</p>
+    <div class="tbl" id="roadmap"></div>
+  </section>
+
+  <section id="limites">
+    <h2>Limites et avertissements</h2>
+    <div class="tip warn">Les tendances sont une aide à la décision. Elles reposent sur des sources ouvertes à la date de revue indiquée, peuvent être incomplètes et ne garantissent pas qu'un événement se produira ou non. Elles ne remplacent ni les consignes des autorités (vigilances, conseils aux voyageurs), ni l'analyse propre à chaque site ou déplacement.</div>
+    <ul>
+      <li>Les chiffres des rapports d'opinion (AXA, WEF, Allianz) mesurent des perceptions, pas des fréquences.</li>
+      <li>Les données publiques sont parfois tardives : la date de chaque fait est affichée.</li>
+      <li>Certaines bases exigent une licence pour un usage commercial (ACLED, par exemple) : elles ne sont intégrées qu'une fois la licence obtenue.</li>
+    </ul>
+  </section>
+
+  <section id="sources">
+    <h2>Bibliographie</h2>
+    <p>Toutes les sources citées par les fiches et par les indicateurs, avec leur cotation. Les liens ont été vérifiés à la date de mise à jour.</p>
+    <div id="biblio"><p class="muted">Chargement…</p></div>
+  </section>
+  <footer>Angor Intelligence – outil d'aide à la décision, informations non exhaustives, à vérifier. <a href="index.html">Retour à la carte</a> · <a href="aide.html">Aide</a> · <a href="legal.html">Informations légales</a></footer>
+</main>
+</div>
+<script>
+try { const th = JSON.parse(localStorage.getItem('vs-theme')); if (th) document.documentElement.dataset.theme = th; } catch (e) { /* thème par défaut */ }
+</script>
+<script src="data/foresight_method.js"></script>
+<script>
+(function () {
+  'use strict';
+  const M = window.VS_FS_METHOD;
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const $ = id => document.getElementById(id);
+  if (!M) { ['drivers', 'biblio'].forEach(id => { $(id).innerHTML = '<p class="muted">Données de méthode indisponibles : elles sont publiées par le robot à la prochaine collecte.</p>'; }); return; }
+  const fmt = d => { if (!d || !/^\d{4}/.test(d)) return d || ''; const p = d.split('-'); const dt = new Date(Date.UTC(+p[0], p[1] ? +p[1] - 1 : 0, p[2] ? +p[2] : 1, 12));
+    return dt.toLocaleDateString('fr-FR', p.length === 3 ? { day: 'numeric', month: 'long', year: 'numeric' } : p.length === 2 ? { month: 'long', year: 'numeric' } : { year: 'numeric' }); };
+  const ids = Object.keys(M.sources).sort((a, b) => M.sources[a].t.localeCompare(M.sources[b].t, 'fr'));
+  const num = {}; ids.forEach((k, i) => { num[k] = i + 1; });
+  const ref = k => M.sources[k] ? `<a class="ref" href="#src-${esc(k)}" title="${esc(M.sources[k].pub)}">[${num[k]}]</a>` : '';
+  $('ver').textContent = `Version ${M.version} · mise à jour le ${fmt(M.updated)}.`;
+  // facteurs
+  const byFam = {};
+  M.drivers.forEach(d => { (byFam[d.family] = byFam[d.family] || []).push(d); });
+  $('drivers').innerHTML = `<table><tr><th>Famille</th><th>Facteur</th><th>Indicateurs suivis</th></tr>${Object.entries(M.families).map(([k, f]) => (byFam[k] || []).map((d, i) =>
+    `<tr>${i === 0 ? `<td rowspan="${byFam[k].length}"><span class="fam"><i class="sw" style="background:${esc(f.color)}"></i>${esc(f.fr)}</span></td>` : ''}<td>${esc(d.fr)}</td><td><ul>${d.indicators.map(x => `<li>${esc(x.fr)} ${(x.src || []).map(ref).join('')}</li>`).join('')}</ul></td></tr>`).join('')).join('')}</table>`;
+  // échelles
+  const S = M.scales;
+  $('sc-likelihood').innerHTML = `<table><tr><th>Niveau</th><th>Terme</th><th>Probabilité</th><th>Repère</th></tr>${[1, 2, 3, 4, 5].map(n => `<tr><td>${n}</td><td>${esc(S.likelihood[n].fr)}</td><td>${esc(S.likelihood[n].p)}</td><td>${esc(S.likelihood[n].d_fr)}</td></tr>`).join('')}</table>`;
+  $('sc-impact').innerHTML = `<table><tr><th>Niveau</th><th>Terme</th><th>Entreprise</th><th>Voyageur</th></tr>${[1, 2, 3, 4, 5].map(n => `<tr><td>${n}</td><td>${esc(S.impact_business[n].fr)}</td><td>${esc(S.impact_business[n].d_fr)}</td><td>${esc(S.impact_travel[n].d_fr)}</td></tr>`).join('')}</table>`;
+  $('sc-other').innerHTML = `<table><tr><th>Horizon</th><th>Révision au plus tard</th></tr>${Object.values(S.horizon).map(h => `<tr><td>${esc(h.fr)}</td><td>${h.review_days} jours</td></tr>`).join('')}</table>
+    <table><tr><th>Dynamique</th><th>Confiance</th></tr><tr><td>↗ ${esc(S.momentum['1'].fr)} · → ${esc(S.momentum['0'].fr)} · ↘ ${esc(S.momentum['-1'].fr)}</td>
+    <td>${Object.values(S.confidence).reverse().map(c => `<strong>${esc(c.fr)}</strong> : ${esc(c.d_fr)}`).join('<br>')}</td></tr></table>`;
+  // niveaux et matrice
+  const levelOf = v => S.levels.find(l => v >= l.min && v <= l.max);
+  let mat = '';
+  for (let l = 5; l >= 1; l--) { mat += `<div class="ax">${l}</div>`; for (let i = 1; i <= 5; i++) mat += `<div style="background:${levelOf(l * i).color}">${l * i}</div>`; }
+  mat += '<div class="ax"></div>' + [1, 2, 3, 4, 5].map(i => `<div class="ax">${i}</div>`).join('');
+  $('mat').innerHTML = mat;
+  $('levels').innerHTML = `<table><tr><th>Niveau</th><th>Score</th></tr>${S.levels.map(l => `<tr><td><i class="sw" style="background:${l.color}"></i>${esc(l.fr)}</td><td>${l.min} à ${l.max}</td></tr>`).join('')}</table>`;
+  $('topn').textContent = M.rules.pressure_top_n || 5;
+  const lp = M.live_params;
+  $('live').textContent = `sur les ${lp.window_days} derniers jours, et compare ce nombre à la moyenne des ${lp.baseline_days} jours précédents (ramenée à ${lp.window_days} jours). Une hausse nette correspond à un rapport d'au moins ${String(lp.up_ratio).replace('.', ',')} avec ${lp.min_events} incidents ou plus ; une baisse nette, à un rapport de ${String(lp.down_ratio).replace('.', ',')} ou moins`;
+  const R = M.rules;
+  $('rules').innerHTML = [`Au moins ${R.min_sources_per_trend} sources par tendance, venant d'au moins ${R.min_independent_publishers} éditeurs différents.`,
+    `Au plus ${Math.round(R.max_low_grade_share * 100)} % de sources de faible cotation (D, E, F) par tendance.`,
+    'Chaque signal est daté, sourcé et rédigé en français et en anglais ; aucune date dans le futur.',
+    'Facteurs, familles, secteurs, catégories d\'incidents et tendances liées doivent exister ; vraisemblance, impacts, horizon, dynamique et confiance doivent respecter les échelles.',
+    'Une fiche dont la date de revue est dépassée est signalée « révision due ».'].map(x => `<li>${esc(x)}</li>`).join('');
+  $('rel').innerHTML = `<table><tr><th>Lettre</th><th>Signification</th></tr>${Object.entries(S.source_reliability).map(([k, v]) => `<tr><td><span class="badge">${k}</span></td><td>${esc(v.fr)}</td></tr>`).join('')}</table>`;
+  // couverture
+  const cov = {}; (M.coverage || []).forEach(c => { cov[c.id] = c; });
+  $('roadmap').innerHTML = `<table><tr><th>Région</th><th>État</th><th>Fiches pays</th></tr>${M.roadmap.map(r => { const c = cov[r.id];
+    const ctry = (M.coverage || []).filter(x => x.type === 'country' && x.parent === r.id).map(x => `${x.fr} (${x.n} tendance(s), revue le ${fmt(x.reviewed)})`);
+    return `<tr><td>${esc(r.fr)}</td><td>${r.status === 'active' ? `<strong>Couverte</strong>${c ? ` · ${c.n} tendance(s) régionale(s), revue le ${esc(fmt(c.reviewed))}` : ''}` : '<span class="muted">Prévue</span>'}</td><td>${esc(ctry.join(', ') || '—')}</td></tr>`; }).join('')}</table>`;
+  // bibliographie
+  const KIND = { report: 'Rapports de prospective et baromètres', official: 'Évaluations et publications officielles', data: 'Données et outils de suivi', press: 'Presse', aggregator: 'Agrégateurs (à recouper)', method: 'Méthode' };
+  $('biblio').innerHTML = Object.entries(KIND).map(([k, label]) => { const list = ids.filter(id => M.sources[id].kind === k); if (!list.length) return '';
+    return `<h3>${esc(label)}</h3><ul class="src-list">${list.map(id => { const s = M.sources[id];
+      return `<li id="src-${esc(id)}"><span class="badge" title="Cotation de la source">${esc(s.rel)}</span><strong>[${num[id]}]</strong> <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.t)}</a>
+        <div class="meta">${esc(s.pub)}${s.d ? ` · ${esc(fmt(s.d))}` : ''}${s.note_fr ? ` · ${esc(s.note_fr)}` : ''}</div></li>`; }).join('')}</ul>`; }).join('');
+  if (location.hash) { const el = document.querySelector(location.hash); if (el) el.scrollIntoView(); }
+})();
+</script>
+</body>
+</html>

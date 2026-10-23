@@ -45,6 +45,10 @@ for (const [name, viewport] of [['ordinateur', { width: 1400, height: 900 }], ['
     // sans collecte (docs/data/data.js absent), la carte affiche un état vide : seul le chargement est testé
     if (!desktop || !(await p.evaluate(() => !!window.VS_DATA))) return;
     for (const sp of ['veille', 'pays', 'sites', 'anticipation', 'trafic']) await p.click(`.tabs button[data-space="${sp}"]`);
+    // tendances de risques (v0.26) : périmètre pays, fiche d'une tendance
+    await p.click('.tabs button[data-space="anticipation"]'); await p.click('#subtabs button[data-tab="trends"]');
+    await p.waitForFunction(() => !!window.VS_FS || !!document.querySelector('#fs-body .hint'));
+    if (await p.evaluate(() => !!window.VS_FS)) { await p.selectOption('#fs-scope', 'FR'); await p.click('.fs-list li[data-fs]'); }
     await p.click('#period-btn'); await p.click('#period-menu button[data-h="168"]');
     await p.click('.tabs button[data-space="veille"]');
     await p.click('#btn-analytics'); await p.click('#af-group-btn');
@@ -76,7 +80,7 @@ for (const [name, viewport] of [['ordinateur', { width: 1400, height: 900 }], ['
         p.on('request', q => { if (/\/data\/(data|profiles|econ)\.js/.test(q.url())) asked = true; })]));
     check(!r.errors.length && !asked && (url === '/index.html' || locked), `coffre ${url} (${name}) : aucune donnée réservée téléchargée${url === '/index.html' ? '' : ', page verrouillée'} ${r.errors.join(' | ')}`);
   }
-  for (const url of ['/report.html#FR', '/report.html#ML/villes', '/brief.html#FR', '/aide.html', '/compte.html', '/compte.html?type=provider', '/prestataire.html', '/prestataire.html?id=x', '/admin.html']) {
+  for (const url of ['/report.html#FR', '/report.html#ML/villes', '/brief.html#FR', '/aide.html', '/methodologie.html', '/compte.html', '/compte.html?type=provider', '/prestataire.html', '/prestataire.html?id=x', '/admin.html']) {
     r = await page(url, viewport);
     check(!r.errors.length, `${url} (${name}) sans erreur ${r.errors.join(' | ')}`);
   }

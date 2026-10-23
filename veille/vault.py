@@ -33,7 +33,8 @@ from .config import ROOT, secret
 
 BUCKET = "angor-data"
 OUT = publish.OUT_DIR
-PUBLIC = {"config.js", "countries.js", "legal.js", "providers.js", "cities.js", "factbook.js", "guides.js", "guest.js"}
+PUBLIC = {"config.js", "countries.js", "legal.js", "providers.js", "cities.js", "factbook.js", "guides.js", "guest.js",
+          "foresight_method.js"}  # méthode des tendances : publique (page methodologie.html), les tendances restent réservées
 PUBLIC_DIRS = {"history"}
 KEEP = ROOT / "data" / "private"
 MANIFEST = ROOT / "data" / "vault_manifest.json"

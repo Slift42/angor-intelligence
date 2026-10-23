@@ -56,7 +56,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
   <a href="#apercu">Vue d'ensemble</a><a href="#ecran">L'écran en un coup d'œil</a>
   <div class="grp">Suivre la situation</div>
   <a href="#alertes">Alertes et filtres</a><a href="#fiabilite">Fiabilité : cotation et « Vérifié »</a><a href="#encours">En cours et chronologies</a>
-  <a href="#pays">Pays, risque et Pulse</a><a href="#calques">Calques et fonds de carte</a><a href="#fil">Fil de presse</a><a href="#agenda">Agenda</a><a href="#actualiser">Actualiser et traduire</a><a href="#rapports">Rapports</a><a href="#alerte">Alerte précoce</a><a href="#analyses">Analyses</a>
+  <a href="#pays">Pays, risque et Pulse</a><a href="#calques">Calques et fonds de carte</a><a href="#fil">Fil de presse</a><a href="#agenda">Agenda</a><a href="#actualiser">Actualiser et traduire</a><a href="#rapports">Rapports</a><a href="#tendances">Tendances de risques</a><a href="#alerte">Alerte précoce</a><a href="#analyses">Analyses</a>
   <div class="grp">Protéger</div>
   <a href="#sites">Mes sites et trajets</a><a href="#buddy">Travel buddy</a><a href="#gng">Go / no-go guidé</a><a href="#brief">Brief de mission</a><a href="#rapport">Rapport pays</a>
   <div class="grp">Partager et être alerté</div>
@@ -99,7 +99,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
       <tr><td>Veille</td><td>Alertes · En cours · Fil</td><td>Les incidents de la période, les situations actives (72 h) et les chronologies de crise, les titres de presse sans position.</td></tr>
       <tr><td>Pays</td><td>Pays · Agenda · Rapports</td><td>Niveau de risque et Pulse de chaque pays, échéances à venir, rapports de fond des think tanks et ONG.</td></tr>
       <tr><td>Mes sites</td><td>Mes sites · Travel buddy</td><td>Vos sites et trajets surveillés, l'assistant de voyage et le go / no-go.</td></tr>
-      <tr><td>Anticipation</td><td>Alerte précoce · Analyses</td><td>Convergence climat-sécurité-humanitaire par région, tableaux de bord.</td></tr>
+      <tr><td>Anticipation</td><td>Tendances · Alerte précoce · Analyses</td><td>Tendances de risques par région et par pays, convergence climat-sécurité-humanitaire, tableaux de bord.</td></tr>
     </table>
     <h3>Mode fiable (activé par défaut)</h3>
     <p>Au-dessus de la liste des alertes, l'interrupteur <strong>Mode fiable</strong> masque les détections automatiques issues de sources peu fiables (cotées D, E ou F : GDELT, réseaux sociaux…) tant qu'aucune autre source ne les confirme. Elles restent visibles si elles sont proches d'un de vos sites. Cliquez pour tout afficher.</p>
@@ -228,6 +228,17 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <div class="tip">Pays, régions et thèmes sont détectés automatiquement dans le titre et le résumé : un rapport régional peut ne citer aucun pays.</div>
   </section>
 
+  <section id="tendances">
+    <h2>Tendances de risques</h2>
+    <p>L'onglet <strong>Tendances</strong> (espace Anticipation) présente les dynamiques susceptibles d'affecter vos activités et vos voyageurs dans les prochains mois : énergie, politique, contestation sociale, terrorisme, cyber, climat, finances publiques… Couverture actuelle : <strong>Europe de l'Ouest</strong> et <strong>France</strong> ; les autres pays de la région affichent les tendances régionales.</p>
+    <ul>
+      <li><strong>Périmètre</strong> : choisissez la région ou un pays (liste ou clic sur la carte). La <strong>pression de risque</strong> (0 à 100) résume les tendances les plus fortes.</li>
+      <li><strong>Point de vue</strong> : Global, Entreprise ou Voyageur ; filtres par horizon (0–3 mois, 3–12 mois, 1–3 ans) et par famille de facteurs.</li>
+      <li><strong>Matrice</strong> : chaque point est une tendance, placée selon sa vraisemblance et son impact ; cliquez pour ouvrir la fiche.</li>
+      <li><strong>Fiche</strong> : faits datés et sourcés, indicateurs d'alerte, scénario de rupture, implications et recommandations, signal en temps réel tiré des incidents vérifiés. Le symbole ⚠ signale une fiche à réviser ou une surprise du terrain.</li>
+    </ul>
+    <p>La méthode complète (échelles, calcul, contrôle qualité, sources) est publique : <a href="methodologie.html">Méthode des tendances de risques</a>.</p>
+  </section>
   <section id="alerte">
     <h2>Alerte précoce</h2>
     <p>L'onglet <strong>Alerte précoce</strong> croise, région par région (niveau administratif 1 : régions, États, provinces), le climat, la sécurité et la situation humanitaire, pour repérer les zones où les risques convergent avant une dégradation. Régions couvertes : Corne de l'Afrique et Sahel – bassin du lac Tchad.</p>
@@ -431,6 +442,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
       <li><strong>Avis aux voyageurs</strong> : MEAE (France), FCDO (Royaume-Uni), Département d'État (États-Unis), Auswärtiges Amt (Allemagne), Canada.</li>
       <li><strong>Presse</strong> : Google News (environ 120 pays, éditions locales), près de 1 500 médias de référence dans 206 pays (dont la presse nationale et régionale de 25 pays à risque), mots-clés en 56 langues, grands flux internationaux et presse régionale française, GDELT.</li>
       <li><strong>Rapports</strong> : une trentaine de think tanks, ONG et organisations internationales (onglet Rapports).</li>
+      <li><strong>Tendances de risques</strong> : 72 sources cotées (rapports AXA, WEF, Allianz, Europol, BCE, Copernicus, Météo-France, ANSSI, Banque de France…), détail sur la page <a href="methodologie.html#sources">Méthode</a>.</li>
       <li><strong>Alerte précoce</strong> : NASA POWER (climat), HDX HAPI (insécurité alimentaire, déplacés), geoBoundaries (limites administratives).</li>
       <li><strong>Telegram</strong> : une cinquantaine de canaux publics (médias, agrégateurs d'urgence, comptes OSINT) en 9 langues. Les canaux officiels de médias sont cotés B ou C ; agrégateurs et comptes OSINT restent cotés E (« réseaux sociaux – non vérifié ») tant qu'une autre source ne confirme pas.</li>
       <li><strong>Contexte</strong> : Banque mondiale, FMI, Wikidata (urgences, hôpitaux, opérateurs, élections), Nager.Date (jours fériés), CIA World Factbook (archive).</li>

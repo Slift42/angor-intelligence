@@ -17,7 +17,7 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import (__version__, accounts, agenda, ai, analytics, config, corroborate, country_detail, crises, early_warning, enrich, legal, notify, providers,
+from veille import (__version__, accounts, agenda, ai, analytics, config, corroborate, country_detail, crises, early_warning, enrich, foresight, legal, notify, providers,
                     practical, press, profiles, reports, traffic,
                     publish, pulse, quality, risk, triage, vault)
 from veille.connectors import REGISTRY, Context
@@ -314,6 +314,11 @@ def main():
             early_warning.update(store, countries, events, settings, log, now)
         except Exception as exc:
             log(f"✘ alerte précoce : {type(exc).__name__}: {exc}")
+    # tendances de risques par région et par pays (config/foresight/) : scores, contrôle des fiches, signaux en temps réel
+    try:
+        foresight.update(store, all_events, log, now)
+    except Exception as exc:
+        log(f"✘ tendances de risques : {type(exc).__name__}: {exc}")
 
     # trafic aérien (instantané adsb.lol : militaires, détresse, zones d'intérêt)
     try:

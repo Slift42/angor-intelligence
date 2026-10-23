@@ -13,6 +13,7 @@ Ce qu'elle fait :
   4. angles business ;
   5. spécificités du pays : gouvernance, corruption, sanctions, société, cadre des affaires.
 - **Tableau de bord analytique** : courbes, camemberts, classements.
+- **Tendances de risques** (espace Anticipation) : dynamiques à 3 mois, 12 mois et 3 ans, région par région et pays par pays (Europe de l'Ouest et France pour commencer). 13 familles de facteurs (climat, géopolitique, politique, société, sécurité, cyber, économie, finances, énergie…), vraisemblance × impact entreprise et voyageur, signaux datés et sourcés, indicateurs d'alerte, recommandations. Méthode publique et sourcée : `methodologie.html` ; guide : `doc/FORESIGHT.md`.
 - **Fil de presse** : environ 120 pays (Google News, éditions locales quand elles existent), plus près de 1 500 médias de référence dans 206 pays, dont la presse nationale et régionale de 25 pays à risque (mots-clés en 56 langues). Titres et liens uniquement.
 - **Base historique (5 ans)** : conflits UCDP, détections GDELT, séismes, catastrophes, épidémies, pour l'onglet Analyses et la carte sur les longues périodes.
 - **Calques des ministères** : heatmap MEAE (France), FCDO (Royaume-Uni), State Dept (États-Unis), avec la carte officielle de chaque pays.

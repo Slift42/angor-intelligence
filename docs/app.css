@@ -924,3 +924,54 @@ body.guest .top-right { margin-left: auto; }
 .notice.disputed-notice { border-color: var(--sev3); background: color-mix(in srgb, var(--sev3) 10%, transparent); }
 .notice.disputed-notice a { color: inherit; }
 
+
+/* ------------------------------------------------------------------ v0.26 : tendances de risques (espace Anticipation) */
+#fs-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; min-width: 0; }
+#fs-body > * { min-width: 0; }
+.fs-controls { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.fs-controls select { width: 100%; min-width: 0; }
+.fs-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.fs-lab { font-size: 12px; color: var(--muted); min-width: 74px; }
+.fs-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.fs-seg button { border: 0; background: none; padding: 5px 10px; font: inherit; font-size: 12.5px; color: var(--ink-2); cursor: pointer; }
+.fs-seg button + button { border-left: 1px solid var(--line); }
+.fs-seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--ink); font-weight: 600; }
+.fs-outlook { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; background: var(--surface); display: grid; gap: 8px; }
+.fs-text { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink); }
+.fs-fams { display: grid; gap: 3px; }
+.fs-fam { display: grid; grid-template-columns: minmax(0, 1fr) 90px 26px; gap: 8px; align-items: center; border: 0; background: none; padding: 4px 6px; border-radius: 6px;
+  font: inherit; font-size: 12.5px; color: var(--ink); text-align: left; cursor: pointer; }
+.fs-fam:hover, .fs-fam.on { background: var(--surface-2); }
+.fs-fam .t { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fs-fam .track { height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+.fs-fam .fill { display: block; height: 100%; border-radius: 3px; }
+.fs-fam .v { text-align: right; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.fs-matrix { margin: 0; }
+.fs-matrix figcaption { font-size: 12px; font-weight: 600; color: var(--ink-2); margin-bottom: 4px; }
+.fs-matrix svg { width: 100%; max-width: 360px; height: auto; display: block; }
+.fs-matrix .ax { font-size: 9px; fill: var(--muted); }
+.fs-matrix .lab { font-size: 9.5px; fill: var(--muted); }
+.fs-dot { cursor: pointer; }
+.fs-dot text { font-size: 8px; font-weight: 700; fill: #fff; pointer-events: none; }
+.fs-dot:hover circle, .fs-dot:focus circle { stroke: var(--ink); stroke-width: 2; }
+.fs-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.fs-list li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 8px; align-items: start; padding: 7px 6px; border-radius: 7px; cursor: pointer; }
+.fs-list li:hover { background: var(--surface-2); }
+.fs-list li.empty { cursor: default; color: var(--muted); font-size: 13px; display: block; }
+.fs-list .n { width: 22px; height: 22px; border-radius: 6px; color: #fff; display: grid; place-items: center; font: 700 11px/1 var(--font); }
+.fs-list .body { display: grid; gap: 3px; min-width: 0; }
+.fs-list .t { font-size: 13px; font-weight: 600; line-height: 1.3; }
+.fs-list .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 11.5px; color: var(--muted); }
+.fs-list .meta .chip, .fs-chips .chip { padding: 1px 7px; font-size: 11px; }
+.fs-list .meta .chip.ghost { background: none; border-style: dashed; }
+.fs-list .meta .chip img { width: 14px; height: auto; }
+.fs-list .flag { color: #C0263B; display: inline-flex; }
+.fs-list .w { font-family: var(--mono); font-size: 12px; color: var(--muted); padding-top: 2px; }
+.fs-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.fs-signals { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13px; line-height: 1.45; }
+.fs-signals .dt { font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+.fs-src { font-size: 11px; margin-left: 2px; text-decoration: none; vertical-align: super; }
+.fs-sources { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 12.5px; line-height: 1.4; }
+.fs-flags p { margin: 0 0 4px; font-size: 12.5px; color: #C0263B; display: flex; gap: 6px; align-items: flex-start; }
+.fs-scale { margin: -2px 0 6px 138px; font-size: 11.5px; }
+@media (max-width: 860px) { .fs-scale { margin-left: 0; } }

@@ -4,6 +4,44 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.26 – Tendances de risques : méthode d'anticipation, Europe de l'Ouest et France (octobre 2026)
+
+- **Nouvel onglet « Tendances »** (espace Anticipation, en premier) : les tendances de risques qui peuvent toucher
+  l'entreprise et le voyageur, **région par région et pays par pays**. Premier périmètre : **Europe de l'Ouest**
+  (12 tendances régionales) et **France** (11 tendances nationales). Les autres pays de la région héritent des
+  tendances régionales (pointillés sur la carte) ; les 16 autres régions du monde sont planifiées.
+- **13 familles de facteurs** : climat, géopolitique, politique, société, terrorisme et criminalité, cyber,
+  économie, finances publiques, énergie, infrastructures, santé, démographie, technologies. 27 facteurs, chacun
+  avec ses indicateurs et ses sources de suivi.
+- **Chaque tendance** : vraisemblance (1 à 5, fourchettes de probabilité ICD 203 / PHIA), impact entreprise et
+  impact voyageur (1 à 5), horizon (0–3 mois, 3–12 mois, 1–3 ans), dynamique, confiance ; signaux **datés et
+  sourcés** ; indicateurs d'alerte ; scénario de rupture ; implications et recommandations ; secteurs exposés ;
+  tendances liées (risques en cascade) ; évolution mensuelle du score.
+- **Score** = vraisemblance × impact (1 à 25, cinq niveaux) ; **matrice** interactive ; **pression de risque**
+  (0–100) par périmètre ; vue Global / Entreprise / Voyageur ; filtres par horizon et par famille.
+- **Contrôle qualité automatique** : au moins 2 sources et 2 éditeurs indépendants par tendance, au plus 50 % de
+  sources de cotation D–F, dates jamais dans le futur, échelles respectées, textes bilingues ; fiche signalée
+  **« révision due »** après 30, 60 ou 120 jours selon l'horizon.
+- **Signal en temps réel** : les incidents vérifiés d'Angor du périmètre (30 derniers jours contre les 90
+  précédents) ; une hausse nette sur une tendance non jugée en hausse est signalée comme **surprise** à réexaminer.
+- **Page publique « Méthode des tendances de risques »** (`methodologie.html`) : principes, cycle d'anticipation,
+  facteurs et indicateurs, échelles, score, contrôle qualité et biais, repères tirés de l'AXA Future Risks Report
+  2026, du WEF Global Risks Report 2026 et de l'Allianz Risk Barometer 2026, couverture, limites et bibliographie
+  complète (72 sources cotées).
+
+Pour le développeur :
+- `veille/foresight.py` (chargement, `validate`, `score`, `live_signal`, `build`, `snapshot`, `public_method`,
+  `update`), appelé par `collecte.py` après l'alerte précoce.
+- Configuration : `config/foresight/method.json`, `sources.json`, `regions/weu.json`, `countries/FR.json`.
+  Ajouter un pays = créer `countries/<ISO2>.json` (voir `doc/FORESIGHT.md`).
+- Sorties : `docs/data/foresight.js` (`window.VS_FS`, réservé aux comptes validés) et `docs/data/foresight_method.js`
+  (`window.VS_FS_METHOD`, public, ajouté à `vault.PUBLIC`). Historique mensuel des scores dans
+  `store["state"]["foresight"]["history"]` (36 mois).
+- Front : `docs/foresight.js` (`window.AngorFS`), onglet `trends`, styles `.fs-*` ; pont carte commun avec l'alerte
+  précoce (`mapBridge`). Cache du service worker : `angor-v9`.
+- `tools/check_foresight_sources.py` : vérifie les liens de la bibliographie (à lancer sur le PC).
+- Tests : `tests/test_foresight.py` (13 tests).
+
 ## v0.25 – Sources étoffées, 56 langues, recoupement des sources et des contenus (octobre 2026)
 
 - **Médias de référence : 797 → 1 528** dans 206 pays. Presse nationale et **régionale** en langue locale (ex.

@@ -1,0 +1,484 @@
+{
+  "id": "weu",
+  "type": "region",
+  "fr": "Europe de l'Ouest",
+  "en": "Western Europe",
+  "countries": ["FR", "DE", "GB", "IE", "BE", "NL", "LU", "CH", "AT", "LI", "MC", "AD", "ES", "PT", "IT", "MT", "SM", "VA"],
+  "bbox": [-11.0, 35.5, 19.0, 59.5],
+  "perimeter_fr": "Périmètre opérationnel : Europe de l'Ouest au sens de la nomenclature M49 de l'ONU, élargie aux îles Britanniques, à la péninsule Ibérique, à l'Italie et à Malte (zone de déplacement courante des entreprises françaises).",
+  "perimeter_en": "Operational perimeter: Western Europe as defined by the UN M49 standard, extended to the British Isles, the Iberian Peninsula, Italy and Malta (a common travel zone for French companies).",
+  "reviewed": "2026-10-23",
+  "outlook": {
+    "fr": "Automne 2026 : l'Europe de l'Ouest subit un choc énergétique durable lié à la guerre au Moyen-Orient (détroit d'Ormuz quasiment fermé, Brent autour de 110 $). L'inflation repart, avec un pic attendu à 3,6 % fin 2026, et la BCE relève ses taux. La menace hybride russe devient plus agressive, comme l'a montré le drone piégé de l'aéroport de Leipzig. Ces chocs nourrissent la contestation contre la vie chère et la polarisation politique. La menace terroriste reste élevée, et 2025-2026 confirment l'accélération des extrêmes climatiques. Pour les entreprises, les enjeux sont l'énergie, les transports, le cyber et la continuité d'activité. Pour les voyageurs : grèves et blocages, perturbations aériennes, vigilance terroriste et chaleur l'été.",
+    "en": "Autumn 2026: Western Europe faces a lasting energy shock from the Middle East war (Strait of Hormuz nearly closed, Brent around $110). Inflation is picking up again, with a peak of 3.6% expected in late 2026, and the ECB is raising rates. Russian hybrid threats are becoming more aggressive, as the booby-trapped drone at Leipzig airport showed. These shocks fuel cost-of-living protests and political polarisation. The terrorist threat remains high, and 2025-2026 confirm that climate extremes are accelerating. For companies, the issues are energy, transport, cyber and business continuity. For travellers: strikes and blockades, air travel disruption, terrorism vigilance and summer heat."
+  },
+  "trends": [
+    {
+      "id": "weu-energy",
+      "family": "energy",
+      "also": ["geopolitics", "economy"],
+      "title": {"fr": "Choc énergétique durable lié à la crise d'Ormuz", "en": "Lasting energy shock from the Hormuz crisis"},
+      "summary": {
+        "fr": "Depuis la guerre déclenchée fin février 2026, le trafic dans le détroit d'Ormuz reste très inférieur à la normale. Le pétrole et le gaz demeurent chers et volatils. L'énergie, le transport et le kérosène coûtent donc plus cher dans toute l'Europe de l'Ouest, ce qui entretient l'inflation.",
+        "en": "Since the war that broke out in late February 2026, traffic through the Strait of Hormuz has remained far below normal. Oil and gas stay expensive and volatile, which raises the cost of energy, transport and jet fuel across Western Europe and keeps inflation high."
+      },
+      "drivers": ["middle_east", "oil_gas"],
+      "likelihood": 5, "impact": {"business": 4, "travel": 3}, "horizon": "12m", "momentum": 1, "confidence": "high",
+      "signals": [
+        {"fr": "Brent à 111 $ le baril le 22 octobre 2026, après un pic vers 118 $ fin mars.", "en": "Brent at $111 a barrel on 22 October 2026, after peaking near $118 in late March.", "src": ["straits_live", "wiki_fuel"], "d": "2026-10-22"},
+        {"fr": "4 passages dans le détroit le 18 octobre, contre 85 par jour avant la crise (IMF PortWatch).", "en": "4 transits through the strait on 18 October, against 85 a day before the crisis (IMF PortWatch).", "src": ["straits_live", "imf_portwatch"], "d": "2026-10-18"},
+        {"fr": "BCE : inflation de l'énergie de 9,3 % en 2026 ; inflation totale attendue à 3,6 % au 4e trimestre 2026.", "en": "ECB: energy inflation of 9.3% in 2026; headline inflation expected at 3.6% in Q4 2026.", "src": ["ecb_mp_sep26", "ecb_proj_sep26"], "d": "2026-09-10"},
+        {"fr": "Rationnement des carburants en Slovénie (mars), baisse des taxes sur les carburants en Allemagne (avril), manifestations en Irlande (avril).", "en": "Fuel rationing in Slovenia (March), fuel tax cuts in Germany (April), protests in Ireland (April).", "src": ["wiki_fuel"], "d": "2026-04"},
+        {"fr": "Les prix de l'énergie sont la première inquiétude des experts (38 %) et du public (49 %) sur l'énergie.", "en": "Energy prices are the top energy concern for experts (38%) and the public (49%).", "src": ["axa_frr26"], "d": "2026"}
+      ],
+      "watch": [
+        {"fr": "Brent durablement au-dessus de 120 $ ou gaz TTF au-dessus de 60 €/MWh", "en": "Brent lastingly above $120 or TTF gas above €60/MWh"},
+        {"fr": "Stocks de gaz de l'UE nettement sous l'objectif de remplissage avant l'hiver (AGSI+)", "en": "EU gas storage well below its pre-winter filling target (AGSI+)"},
+        {"fr": "Rationnement de carburant ou de kérosène annoncé dans un pays de la région", "en": "Fuel or jet fuel rationing announced in a country of the region"},
+        {"fr": "Nouvelles frappes sur des installations énergétiques du Golfe ou échec des négociations de réouverture", "en": "New strikes on Gulf energy facilities, or failed talks on reopening the strait"}
+      ],
+      "rupture": {"fr": "Fermeture totale et prolongée du détroit pendant l'hiver : pénuries de gazole et de kérosène, annulations massives de vols, délestages industriels.", "en": "Full, prolonged closure of the strait during winter: diesel and jet fuel shortages, mass flight cancellations, industrial load-shedding."},
+      "implications": {
+        "business": {"fr": "Hausse des coûts d'énergie et de fret ; marges sous tension dans l'industrie énergivore et le transport ; ruptures ponctuelles d'approvisionnement en carburant possibles.", "en": "Higher energy and freight costs; squeezed margins in energy-intensive industry and transport; occasional fuel supply outages possible."},
+        "travel": {"fr": "Billets plus chers, capacités réduites chez certaines compagnies, annulations en cas de pénurie de kérosène, détours aériens autour du Golfe.", "en": "Pricier tickets, reduced capacity at some airlines, cancellations if jet fuel runs short, flight detours around the Gulf."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Revoir les contrats d'énergie et les clauses d'indexation.", "en": "Review energy contracts and indexation clauses."},
+          {"fr": "Repérer les fournisseurs dépendants du Golfe (pétrochimie, engrais, hélium) et prévoir des alternatives.", "en": "Identify suppliers dependent on the Gulf (petrochemicals, fertilisers, helium) and plan alternatives."}
+        ],
+        "travel": [
+          {"fr": "Privilégier les billets modifiables et prévoir un itinéraire de repli (train).", "en": "Prefer flexible tickets and plan a fallback route (rail)."}
+        ]
+      },
+      "sectors": ["energy", "industry", "logistics", "aviation", "agri"],
+      "live": [],
+      "links": ["weu-stagflation", "fr-fuel", "weu-polarisation"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-hybrid",
+      "family": "geopolitics",
+      "also": ["security", "infrastructure"],
+      "title": {"fr": "Guerre hybride russe : sabotages, drones et espionnage", "en": "Russian hybrid warfare: sabotage, drones and espionage"},
+      "summary": {
+        "fr": "Les actions attribuées à la Russie montent en gamme : sabotages, drones près d'aéroports et de sites sensibles, recours à des intermédiaires criminels, espionnage et désinformation. Elles visent les infrastructures, la logistique et le soutien à l'Ukraine, avec des effets directs sur le transport aérien.",
+        "en": "Actions attributed to Russia are escalating: sabotage, drones near airports and sensitive sites, use of criminal proxies, espionage and disinformation. They target infrastructure, logistics and support for Ukraine, with direct effects on air transport."
+      },
+      "drivers": ["hybrid", "cyber_state"],
+      "likelihood": 5, "impact": {"business": 3, "travel": 3}, "horizon": "12m", "momentum": 1, "confidence": "medium",
+      "signals": [
+        {"fr": "Drone chargé d'explosifs découvert près d'un avion ukrainien à l'aéroport de Leipzig-Halle le 4 août 2026 ; Berlin accuse la Russie et ferme le consulat russe de Bonn.", "en": "Explosive-laden drone found near a Ukrainian aircraft at Leipzig/Halle airport on 4 August 2026; Berlin blames Russia and closes the Russian consulate in Bonn.", "src": ["pbs_leipzig"], "d": "2026-09-01"},
+        {"fr": "Europol signale que des acteurs de la menace hybride instrumentalisent la criminalité organisée et des intermédiaires.", "en": "Europol reports hybrid threat actors instrumentalising organised crime and proxies.", "src": ["europol_tesat26", "eucrim_tesat"], "d": "2026-07"},
+        {"fr": "L'ANSSI relève la montée de l'espionnage, notamment contre des entités diplomatiques françaises, par des groupes proches des intérêts russes et chinois.", "en": "ANSSI notes rising espionage, notably against French diplomatic entities, by groups close to Russian and Chinese interests.", "src": ["acteurs_publics_anssi"], "d": "2026-03-11"},
+        {"fr": "Les experts européens placent la géopolitique au premier rang des risques.", "en": "European experts rank geopolitics as the top risk.", "src": ["axa_frr26"], "d": "2026"}
+      ],
+      "watch": [
+        {"fr": "Fermetures d'aéroports ou de ports après des survols de drones", "en": "Airport or port closures after drone sightings"},
+        {"fr": "Sabotages ferroviaires, de câbles sous-marins ou de réseaux d'énergie", "en": "Sabotage of railways, subsea cables or energy networks"},
+        {"fr": "Expulsions de diplomates, nouvelles sanctions, fermetures de consulats", "en": "Diplomat expulsions, new sanctions, consulate closures"},
+        {"fr": "Brouillage GNSS signalé par l'aviation civile", "en": "GNSS jamming reported by civil aviation"}
+      ],
+      "rupture": {"fr": "Sabotage réussi d'une infrastructure critique (réseau électrique, grand aéroport) provoquant un arrêt de plusieurs jours.", "en": "Successful sabotage of critical infrastructure (power grid, major airport) causing a shutdown lasting several days."},
+      "implications": {
+        "business": {"fr": "Interruptions logistiques ; risques accrus pour les sites de défense et d'énergie ; espionnage et vol de données.", "en": "Logistics disruption; higher risks for defence and energy sites; espionage and data theft."},
+        "travel": {"fr": "Fermetures temporaires d'aéroports (quelques heures), retards en chaîne, contrôles renforcés.", "en": "Temporary airport closures (a few hours), knock-on delays, tighter checks."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Intégrer le scénario « sabotage d'un fournisseur critique » au plan de continuité.", "en": "Add a 'critical supplier sabotage' scenario to the continuity plan."},
+          {"fr": "Sensibiliser les équipes aux approches d'ingérence et aux recrutements par messagerie.", "en": "Train staff to spot interference approaches and recruitment via messaging apps."}
+        ],
+        "travel": [
+          {"fr": "Suivre l'état des aéroports en temps réel et garder une marge pour les correspondances.", "en": "Track airport status in real time and allow extra connection time."}
+        ]
+      },
+      "sectors": ["energy", "logistics", "aviation", "industry", "tech"],
+      "live": ["infrastructure", "attack"],
+      "links": ["weu-cyber", "weu-grid", "fr-interference"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-stagflation",
+      "family": "economy",
+      "also": ["finance", "energy"],
+      "title": {"fr": "Inflation énergétique et hausse des taux : risque de stagflation", "en": "Energy inflation and rate hikes: stagflation risk"},
+      "summary": {
+        "fr": "Le choc énergétique ravive l'inflation au moment où la croissance ralentit. La BCE a relevé ses taux en septembre 2026 : le crédit coûte plus cher aux entreprises comme aux ménages.",
+        "en": "The energy shock revives inflation just as growth slows. The ECB raised rates in September 2026, making credit more expensive for companies and households."
+      },
+      "drivers": ["growth", "monetary", "oil_gas"],
+      "likelihood": 4, "impact": {"business": 4, "travel": 2}, "horizon": "12m", "momentum": 1, "confidence": "medium",
+      "signals": [
+        {"fr": "La BCE relève ses taux de 25 points de base le 10 septembre 2026 : taux de dépôt à 2,50 %.", "en": "The ECB raises rates by 25 basis points on 10 September 2026: deposit rate at 2.50%.", "src": ["ecb_mp_sep26"], "d": "2026-09-10"},
+        {"fr": "Projections de la BCE : croissance de 0,9 % en 2026 ; inflation de 3,0 % en 2026 puis 2,5 % en 2027.", "en": "ECB projections: growth of 0.9% in 2026; inflation of 3.0% in 2026, then 2.5% in 2027.", "src": ["ecb_proj_sep26", "ecb_mp_sep26"], "d": "2026-09-10"},
+        {"fr": "Le chômage est la première inquiétude économique du public ; les droits de douane celle des experts (28 %).", "en": "Unemployment is the public's top economic worry; tariffs are the experts' (28%).", "src": ["axa_frr26"], "d": "2026"}
+      ],
+      "watch": [
+        {"fr": "Nouvelle hausse de taux de la BCE lors des prochaines réunions", "en": "Another ECB rate hike at upcoming meetings"},
+        {"fr": "Accélération de l'inflation hors énergie (Eurostat)", "en": "Core inflation accelerating (Eurostat)"},
+        {"fr": "Hausse du chômage et des défaillances d'entreprises", "en": "Rising unemployment and business insolvencies"}
+      ],
+      "rupture": {"fr": "Récession en 2027, avec spirale prix-salaires et vague de défaillances.", "en": "Recession in 2027, with a wage-price spiral and a wave of insolvencies."},
+      "implications": {
+        "business": {"fr": "Financement plus cher, demande atone, pression salariale.", "en": "Costlier financing, weak demand, wage pressure."},
+        "travel": {"fr": "Transport et hôtellerie plus chers ; pas d'effet direct sur la sécurité.", "en": "Pricier transport and hotels; no direct effect on safety."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Sécuriser des financements à taux fixe et surveiller la santé financière des fournisseurs clés.", "en": "Lock in fixed-rate financing and monitor key suppliers' financial health."}
+        ],
+        "travel": [
+          {"fr": "Réviser les budgets de déplacement.", "en": "Review travel budgets."}
+        ]
+      },
+      "sectors": ["all", "construction", "retail", "finance"],
+      "live": [],
+      "links": ["fr-failures", "weu-sovereign", "weu-polarisation"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-sovereign",
+      "family": "finance",
+      "also": ["political"],
+      "title": {"fr": "Tensions sur les dettes souveraines", "en": "Sovereign debt tensions"},
+      "summary": {
+        "fr": "Avec des dettes publiques élevées et des taux en hausse, les États budgétairement fragiles subissent la défiance des marchés. La BCE pointe un risque de contagion ; la France est en première ligne.",
+        "en": "With high public debt and rising rates, fiscally fragile states face market distrust. The ECB flags contagion risk; France is in the front line."
+      },
+      "drivers": ["sovereign", "monetary"],
+      "likelihood": 3, "impact": {"business": 4, "travel": 1}, "horizon": "12m", "momentum": 1, "confidence": "medium",
+      "signals": [
+        {"fr": "La BCE souligne que la dette publique élevée limite les marges budgétaires et expose à la contagion.", "en": "The ECB stresses that high public debt limits fiscal room and exposes countries to contagion.", "src": ["ecb_fsr", "bocconi_fsr"], "d": "2026-05"},
+        {"fr": "Le taux français à 10 ans dépasse 5 % le 21 octobre 2026.", "en": "France's 10-year yield exceeds 5% on 21 October 2026.", "src": ["boursorama_moodys"], "d": "2026-10-21"},
+        {"fr": "La BCE relève aussi des valorisations élevées (actions, obligations d'entreprises) et l'opacité des marchés privés.", "en": "The ECB also flags high valuations (equities, corporate bonds) and opaque private markets.", "src": ["bocconi_fsr"], "d": "2026-06"}
+      ],
+      "watch": [
+        {"fr": "Écart de taux avec l'Allemagne en forte hausse (France, Italie)", "en": "Sharp widening of spreads over Germany (France, Italy)"},
+        {"fr": "Dégradations de notes souveraines", "en": "Sovereign rating downgrades"},
+        {"fr": "Activation de l'instrument anti-fragmentation de la BCE (TPI)", "en": "Activation of the ECB's anti-fragmentation tool (TPI)"}
+      ],
+      "rupture": {"fr": "Crise de la dette dans un grand pays de la zone euro et resserrement brutal du crédit.", "en": "Debt crisis in a large euro area country and an abrupt credit crunch."},
+      "implications": {
+        "business": {"fr": "Crédit plus cher, hausses d'impôts possibles, retards de paiement publics.", "en": "Costlier credit, possible tax rises, late public payments."},
+        "travel": {"fr": "Pas d'effet direct.", "en": "No direct effect."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Diversifier les sources de financement et anticiper la fiscalité 2027.", "en": "Diversify funding sources and prepare for 2027 tax changes."}
+        ],
+        "travel": []
+      },
+      "sectors": ["finance", "public", "construction"],
+      "live": [],
+      "links": ["fr-debt", "weu-stagflation"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-heat",
+      "family": "climate",
+      "also": ["health", "infrastructure"],
+      "title": {"fr": "Chaleur extrême, sécheresse et feux de forêt", "en": "Extreme heat, drought and wildfires"},
+      "summary": {
+        "fr": "L'Europe est le continent qui se réchauffe le plus vite. 2025 a battu le record de surfaces brûlées et la France a connu en 2026 son été le plus chaud. Les vagues de chaleur sont désormais attendues chaque été, avec feux, restrictions d'eau et baisse de productivité.",
+        "en": "Europe is the fastest-warming continent. 2025 set a record for burned area and France had its hottest summer in 2026. Heatwaves are now expected every summer, bringing fires, water restrictions and lower productivity."
+      },
+      "drivers": ["heat", "drought", "wildfire", "climate_adaptation"],
+      "likelihood": 5, "impact": {"business": 3, "travel": 3}, "horizon": "12m", "momentum": 1, "confidence": "high",
+      "signals": [
+        {"fr": "2025 : environ 1 034 550 hectares brûlés en Europe, un record ; deuxième vague de chaleur la plus sévère jamais enregistrée sur le continent.", "en": "2025: about 1,034,550 hectares burned in Europe, a record; the continent's second most severe heatwave on record.", "src": ["c3s_esotc25"], "d": "2026-04-29"},
+        {"fr": "France, été 2026 : +3,6 °C au-dessus de la normale, record depuis 1900 ; saison des feux la plus sévère jamais enregistrée.", "en": "France, summer 2026: +3.6 °C above normal, the warmest since 1900; most severe fire season on record.", "src": ["meteofrance_ete26"], "d": "2026-09"},
+        {"fr": "Chaque degré au-dessus de 20 °C réduit la productivité de 2 à 3 % ; seuls 13 % des experts jugent les autorités prêtes.", "en": "Each degree above 20 °C cuts productivity by 2-3%; only 13% of experts think authorities are prepared.", "src": ["axa_frr26"], "d": "2026"}
+      ],
+      "watch": [
+        {"fr": "Prévisions saisonnières chaudes pour l'été 2027 (Copernicus)", "en": "Warm seasonal forecasts for summer 2027 (Copernicus)"},
+        {"fr": "Restrictions d'eau dès le printemps", "en": "Water restrictions as early as spring"},
+        {"fr": "Faibles débits des fleuves et baisse de production des centrales", "en": "Low river flows and reduced power plant output"}
+      ],
+      "rupture": {"fr": "Été encore plus chaud que 2026, avec méga-feux près de zones touristiques et coupures d'électricité.", "en": "A summer even hotter than 2026, with megafires near tourist areas and power cuts."},
+      "implications": {
+        "business": {"fr": "Productivité en baisse, horaires aménagés, arrêts liés au manque d'eau, dégâts aux sites.", "en": "Lower productivity, adjusted working hours, shutdowns due to water shortages, site damage."},
+        "travel": {"fr": "Évacuations de zones touristiques, massifs fermés, coups de chaleur, trains ralentis.", "en": "Tourist area evacuations, closed forests, heatstroke, slowed trains."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Préparer un plan canicule : horaires décalés, eau, rafraîchissement des locaux sensibles.", "en": "Prepare a heat plan: shifted hours, water, cooling for sensitive premises."},
+          {"fr": "Vérifier l'exposition des sites aux feux et à la sécheresse.", "en": "Check site exposure to fires and drought."}
+        ],
+        "travel": [
+          {"fr": "Éviter les massifs en danger de feu élevé ; consulter la météo des forêts.", "en": "Avoid forests under high fire danger; check fire weather forecasts."}
+        ]
+      },
+      "sectors": ["agri", "energy", "tourism", "construction", "health"],
+      "live": ["extreme_temp", "wildfire", "drought"],
+      "links": ["fr-heat", "weu-grid"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-terror",
+      "family": "security",
+      "also": ["social"],
+      "title": {"fr": "Menace terroriste persistante, radicalisation en ligne des mineurs", "en": "Persistent terrorist threat, online radicalisation of minors"},
+      "summary": {
+        "fr": "La menace reste élevée. Elle est dominée par des actes de basse intensité commis par des individus isolés, souvent jeunes et radicalisés en ligne. La guerre au Moyen-Orient peut servir de déclencheur.",
+        "en": "The threat remains high, dominated by low-level attacks by lone actors, often young and radicalised online. The Middle East war may act as a trigger."
+      },
+      "drivers": ["terrorism"],
+      "likelihood": 4, "impact": {"business": 3, "travel": 3}, "horizon": "12m", "momentum": 0, "confidence": "high",
+      "signals": [
+        {"fr": "UE, 2025 : 45 attentats (réussis, échoués ou déjoués), dont 14 en France, contre 58 en 2024 ; 486 arrestations.", "en": "EU, 2025: 45 attacks (completed, failed or foiled), 14 of them in France, against 58 in 2024; 486 arrests.", "src": ["europol_tesat26", "eucrim_tesat"], "d": "2026-07"},
+        {"fr": "130 des personnes arrêtées dont l'âge est connu avaient 18 ans ou moins ; la plus jeune avait 12 ans.", "en": "130 of the arrestees whose age was known were 18 or younger; the youngest was 12.", "src": ["europol_tesat26", "eucrim_tesat"], "d": "2026-07"},
+        {"fr": "Europol anticipe la persistance d'attaques de basse intensité et un risque d'attaques plus sophistiquées.", "en": "Europol expects low-level attacks to persist and warns of more sophisticated ones.", "src": ["eucrim_tesat"], "d": "2026-07"}
+      ],
+      "watch": [
+        {"fr": "Relèvement des niveaux de menace nationaux", "en": "National threat levels raised"},
+        {"fr": "Appels à frapper liés au conflit au Moyen-Orient", "en": "Calls to attack linked to the Middle East conflict"},
+        {"fr": "Grands événements et marchés de Noël", "en": "Major events and Christmas markets"}
+      ],
+      "rupture": {"fr": "Attentat de masse coordonné contre un lieu très fréquenté ou un transport.", "en": "Coordinated mass-casualty attack on a crowded place or transport."},
+      "implications": {
+        "business": {"fr": "Sûreté renforcée des sites recevant du public, contrôles d'accès, annulations d'événements.", "en": "Tighter security at public-facing sites, access controls, event cancellations."},
+        "travel": {"fr": "Vigilance accrue dans les gares, aéroports, lieux touristiques et marchés de Noël.", "en": "Extra vigilance in stations, airports, tourist sites and Christmas markets."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Organiser des exercices de confinement et d'évacuation.", "en": "Run lockdown and evacuation drills."}
+        ],
+        "travel": [
+          {"fr": "Connaître les réflexes « s'échapper, se cacher, alerter » et repérer les sorties.", "en": "Know the 'run, hide, tell' reflexes and locate exits."}
+        ]
+      },
+      "sectors": ["tourism", "retail", "public", "aviation"],
+      "live": ["terrorism", "attack"],
+      "links": ["fr-terror"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-polarisation",
+      "family": "social",
+      "also": ["political", "cyber"],
+      "title": {"fr": "Contestation sociale, polarisation et désinformation", "en": "Social unrest, polarisation and disinformation"},
+      "summary": {
+        "fr": "La vie chère, la défiance envers les institutions et la désinformation alimentent des mobilisations parfois violentes et la fragmentation politique. Les experts placent la désinformation et la polarisation parmi les premiers risques à court terme.",
+        "en": "The cost of living, distrust of institutions and disinformation fuel sometimes violent protests and political fragmentation. Experts rank disinformation and polarisation among the top short-term risks."
+      },
+      "drivers": ["cost_of_living", "mobilisation", "polarisation", "interference"],
+      "likelihood": 4, "impact": {"business": 3, "travel": 3}, "horizon": "12m", "momentum": 1, "confidence": "medium",
+      "signals": [
+        {"fr": "WEF : la désinformation est le 2e risque à court terme, la polarisation le 3e.", "en": "WEF: disinformation is the No. 2 short-term risk, polarisation No. 3.", "src": ["wef_grr26", "drishti_wef"], "d": "2026-01"},
+        {"fr": "63 % du grand public voient « de moins en moins de valeurs communes » ou une fracture profonde dans leur pays (+4 points en un an) ; les tensions sociales sont la 3e inquiétude du public européen (1re en Allemagne).", "en": "63% of the general public see fewer and fewer shared values or a deep divide in their country (up 4 points in a year); social tensions are the European public's No. 3 concern (No. 1 in Germany).", "src": ["axa_frr26"], "d": "2026"},
+        {"fr": "Manifestations contre les prix des carburants en Irlande en avril 2026.", "en": "Fuel price protests in Ireland in April 2026.", "src": ["wiki_fuel"], "d": "2026-04"},
+        {"fr": "Le risque politique et la violence atteignent leur plus haut rang (7e) dans le baromètre Allianz.", "en": "Political risk and violence reach their highest-ever rank (7th) in the Allianz barometer.", "src": ["allianz_rb26", "directindustry_allianz"], "d": "2026-01"}
+      ],
+      "watch": [
+        {"fr": "Appels à des journées de blocage relayés sur les réseaux sociaux", "en": "Calls for blockade days spreading on social media"},
+        {"fr": "Hausse des incidents de troubles civils sur la carte", "en": "Rising civil unrest incidents on the map"},
+        {"fr": "Campagnes de désinformation détectées par les autorités", "en": "Disinformation campaigns detected by the authorities"}
+      ],
+      "rupture": {"fr": "Mouvement durable de type « gilets jaunes » dans plusieurs pays, avec blocages d'axes et de dépôts.", "en": "A lasting 'yellow vest'-type movement in several countries, with road and depot blockades."},
+      "implications": {
+        "business": {"fr": "Commerces fermés les jours de manifestation, blocages logistiques, risque d'image.", "en": "Shops closed on protest days, logistics blockades, reputational risk."},
+        "travel": {"fr": "Grèves des transports, axes bloqués, manifestations en centre-ville.", "en": "Transport strikes, blocked roads, city-centre protests."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Préparer la fermeture préventive des points de vente exposés.", "en": "Plan precautionary closure of exposed outlets."}
+        ],
+        "travel": [
+          {"fr": "Consulter l'agenda des grèves avant chaque déplacement.", "en": "Check the strike calendar before every trip."}
+        ]
+      },
+      "sectors": ["retail", "logistics", "tourism", "public"],
+      "live": ["unrest"],
+      "links": ["fr-social", "fr-interference"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-cyber",
+      "family": "cyber",
+      "also": ["infrastructure", "technology"],
+      "title": {"fr": "Cyberattaques : rançongiciels, espionnage et IA offensive", "en": "Cyberattacks: ransomware, espionage and offensive AI"},
+      "summary": {
+        "fr": "Le cyber est le premier risque des entreprises pour la cinquième année consécutive. Les attaques visent aussi les systèmes partagés du transport aérien, et l'IA rend fraude et hameçonnage plus convaincants.",
+        "en": "Cyber is the top business risk for the fifth year running. Attacks also hit shared air transport systems, and AI makes fraud and phishing more convincing."
+      },
+      "drivers": ["ransomware", "cyber_state", "ai"],
+      "likelihood": 5, "impact": {"business": 4, "travel": 3}, "horizon": "12m", "momentum": 1, "confidence": "high",
+      "signals": [
+        {"fr": "Baromètre Allianz 2026 : cyber 1er risque des entreprises (42 %), IA 2e (32 %).", "en": "Allianz 2026 barometer: cyber is the top business risk (42%), AI second (32%).", "src": ["allianz_rb26", "directindustry_allianz"], "d": "2026-01"},
+        {"fr": "La cyberattaque d'un prestataire d'enregistrement (Collins Aerospace) perturbe Heathrow, Bruxelles et Berlin.", "en": "A cyberattack on a check-in provider (Collins Aerospace) disrupts Heathrow, Brussels and Berlin.", "src": ["techcrunch_collins"], "d": "2025-09-21"},
+        {"fr": "La cyberguerre et les attaques d'infrastructures critiques sont la première inquiétude des experts en cyber (35 %).", "en": "Cyberwarfare and attacks on critical infrastructure are the experts' top cyber concern (35%).", "src": ["axa_frr26"], "d": "2026"}
+      ],
+      "watch": [
+        {"fr": "Vulnérabilités critiques exploitées massivement (CERT-FR, ENISA)", "en": "Critical vulnerabilities exploited at scale (CERT-FR, ENISA)"},
+        {"fr": "Attaques visant des prestataires partagés (aéroports, santé, paie)", "en": "Attacks on shared providers (airports, healthcare, payroll)"},
+        {"fr": "Fraudes au président par deepfake", "en": "Deepfake CEO fraud"}
+      ],
+      "rupture": {"fr": "Compromission d'un logiciel commun paralysant simultanément de nombreuses entreprises.", "en": "Compromise of widely used software paralysing many companies at once."},
+      "implications": {
+        "business": {"fr": "Arrêt de production, fuite de données, rançon, sanctions au titre du RGPD.", "en": "Production halts, data leaks, ransom, GDPR penalties."},
+        "travel": {"fr": "Pannes d'enregistrement et de réservation, retards, données des voyageurs exposées.", "en": "Check-in and booking outages, delays, exposed traveller data."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Tester des sauvegardes hors ligne, organiser un exercice de crise cyber, imposer la double validation des virements.", "en": "Test offline backups, run a cyber crisis exercise, require dual approval for payments."}
+        ],
+        "travel": [
+          {"fr": "Garder une copie papier des réservations ; se méfier des Wi-Fi publics.", "en": "Keep paper copies of bookings; be wary of public Wi-Fi."}
+        ]
+      },
+      "sectors": ["all", "health", "public", "aviation", "tech"],
+      "live": ["cyber"],
+      "links": ["fr-cyber", "weu-hybrid", "weu-ai"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-grid",
+      "family": "infrastructure",
+      "also": ["energy", "climate"],
+      "title": {"fr": "Fragilité des réseaux électriques et grandes pannes", "en": "Fragile power grids and major blackouts"},
+      "summary": {
+        "fr": "La panne géante de la péninsule Ibérique en avril 2025 a montré qu'un réseau interconnecté peut s'effondrer en quelques secondes. Chaleur, sécheresse, sabotage et transition énergétique accroissent ce risque encore peu anticipé.",
+        "en": "The massive Iberian blackout of April 2025 showed that an interconnected grid can collapse within seconds. Heat, drought, sabotage and the energy transition raise this still underestimated risk."
+      },
+      "drivers": ["power_grid", "hybrid", "heat"],
+      "likelihood": 2, "impact": {"business": 4, "travel": 4}, "horizon": "36m", "momentum": 0, "confidence": "medium",
+      "signals": [
+        {"fr": "AXA classe les réseaux électriques parmi les risques sous-estimés, en citant la panne ibérique d'avril 2025.", "en": "AXA lists power grids among under-the-radar risks, citing the April 2025 Iberian blackout.", "src": ["axa_frr26"], "d": "2026"},
+        {"fr": "En 2025, environ 70 % des cours d'eau européens ont eu des débits annuels inférieurs à la moyenne (refroidissement des centrales).", "en": "In 2025, about 70% of European rivers had below-average annual flows (power plant cooling).", "src": ["c3s_esotc25"], "d": "2026-04-29"}
+      ],
+      "watch": [
+        {"fr": "Alertes Ecowatt rouges et marges hivernales (RTE, ENTSO-E)", "en": "Red Ecowatt alerts and winter margins (RTE, ENTSO-E)"},
+        {"fr": "Sabotages de postes électriques ou de lignes", "en": "Sabotage of substations or power lines"}
+      ],
+      "rupture": {"fr": "Black-out régional de plus de 24 heures en plein hiver.", "en": "Regional blackout lasting over 24 hours in midwinter."},
+      "implications": {
+        "business": {"fr": "Arrêt de production, pertes de données, rupture de la chaîne du froid.", "en": "Production halts, data loss, broken cold chain."},
+        "travel": {"fr": "Trains, métros, feux de circulation et paiements à l'arrêt ; voyageurs bloqués.", "en": "Trains, metros, traffic lights and payments down; travellers stranded."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Tester les groupes électrogènes et l'autonomie des systèmes critiques.", "en": "Test generators and the autonomy of critical systems."}
+        ],
+        "travel": [
+          {"fr": "Garder une batterie externe, un peu d'argent liquide et un point de ralliement.", "en": "Carry a power bank, some cash, and agree on a meeting point."}
+        ]
+      },
+      "sectors": ["industry", "health", "tech", "logistics"],
+      "live": ["infrastructure"],
+      "links": ["weu-heat", "weu-hybrid"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-geoeconomic",
+      "family": "geopolitics",
+      "also": ["economy"],
+      "title": {"fr": "Confrontation géoéconomique : droits de douane, sanctions, contrôles à l'export", "en": "Geoeconomic confrontation: tariffs, sanctions, export controls"},
+      "summary": {
+        "fr": "Selon le WEF, la confrontation géoéconomique est le premier risque mondial à court terme. Droits de douane, sanctions et restrictions d'investissement fragmentent les chaînes de valeur dont dépend l'industrie européenne.",
+        "en": "According to the WEF, geoeconomic confrontation is the top global short-term risk. Tariffs, sanctions and investment restrictions fragment the value chains European industry relies on."
+      },
+      "drivers": ["geoeconomic"],
+      "likelihood": 4, "impact": {"business": 4, "travel": 1}, "horizon": "12m", "momentum": 0, "confidence": "medium",
+      "signals": [
+        {"fr": "La confrontation géoéconomique passe au 1er rang des risques à court terme (3e en 2025).", "en": "Geoeconomic confrontation rises to No. 1 among short-term risks (3rd in 2025).", "src": ["wef_grr26", "drishti_wef"], "d": "2026-01"},
+        {"fr": "Les changements réglementaires, dont les droits de douane, sont le 4e risque mondial des entreprises.", "en": "Regulatory changes, including tariffs, are the No. 4 global business risk.", "src": ["allianz_rb26", "directindustry_allianz"], "d": "2026-01"},
+        {"fr": "Les droits de douane sont la première inquiétude économique des experts (28 %).", "en": "Tariffs are the experts' top economic concern (28%).", "src": ["axa_frr26"], "d": "2026"}
+      ],
+      "watch": [
+        {"fr": "Nouveaux droits de douane américains ou chinois sur des produits européens", "en": "New US or Chinese tariffs on European goods"},
+        {"fr": "Contrôles à l'export sur les terres rares et les composants", "en": "Export controls on rare earths and components"},
+        {"fr": "Mesures de rétorsion de l'UE", "en": "EU retaliatory measures"}
+      ],
+      "rupture": {"fr": "Guerre commerciale ouverte entre blocs, avec embargo sur des intrants critiques.", "en": "Open trade war between blocs, with embargoes on critical inputs."},
+      "implications": {
+        "business": {"fr": "Surcoûts, ruptures d'intrants, conformité aux sanctions, relocalisations.", "en": "Extra costs, input shortages, sanctions compliance, reshoring."},
+        "travel": {"fr": "Peu d'effet direct ; contrôles et visas plus stricts possibles.", "en": "Little direct effect; stricter checks and visas possible."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Mettre en place un double approvisionnement pour les intrants critiques et une veille sanctions.", "en": "Dual-source critical inputs and monitor sanctions."}
+        ],
+        "travel": []
+      },
+      "sectors": ["industry", "agri", "tech", "logistics"],
+      "live": [],
+      "links": ["weu-stagflation"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-ai",
+      "family": "technology",
+      "also": ["cyber", "economy"],
+      "title": {"fr": "IA : fraude, désinformation et transformation rapide des métiers", "en": "AI: fraud, disinformation and rapid job disruption"},
+      "summary": {
+        "fr": "L'IA est la menace qui progresse le plus : 2e risque des entreprises en 2026 et risque qui gagne le plus de rangs à dix ans selon le WEF. Elle accélère fraude, usurpation et désinformation, et peut bousculer vite emplois et valorisations.",
+        "en": "AI is the fastest-rising threat: the No. 2 business risk in 2026 and, per the WEF, the risk gaining the most ground over ten years. It speeds up fraud, impersonation and disinformation, and can quickly shake up jobs and valuations."
+      },
+      "drivers": ["ai"],
+      "likelihood": 4, "impact": {"business": 3, "travel": 1}, "horizon": "36m", "momentum": 1, "confidence": "medium",
+      "signals": [
+        {"fr": "L'IA devient le 2e risque des entreprises (32 %), contre la 10e place en 2025.", "en": "AI becomes the No. 2 business risk (32%), up from 10th in 2025.", "src": ["allianz_rb26", "directindustry_allianz"], "d": "2026-01"},
+        {"fr": "Effets négatifs de l'IA : du 30e rang à court terme au 5e à dix ans.", "en": "Adverse AI outcomes: from 30th in the short term to 5th over ten years.", "src": ["wef_grr26", "drishti_wef"], "d": "2026-01"},
+        {"fr": "L'IA et le big data arrivent en tête des risques identifiés par les experts.", "en": "AI and big data top the experts' risk list.", "src": ["axa_frr26"], "d": "2026"},
+        {"fr": "La BCE note que les ruptures liées à l'IA peuvent se refléter rapidement dans les valorisations.", "en": "The ECB notes that AI disruption may quickly show up in asset valuations.", "src": ["bocconi_fsr"], "d": "2026-06"}
+      ],
+      "watch": [
+        {"fr": "Fraudes par deepfake signalées", "en": "Reported deepfake fraud"},
+        {"fr": "Annonces de suppressions d'emplois attribuées à l'IA", "en": "Job cuts attributed to AI"}
+      ],
+      "rupture": {"fr": "Krach des valeurs liées à l'IA, ou désinformation massive par deepfake pendant une élection.", "en": "Crash in AI-related stocks, or massive deepfake disinformation during an election."},
+      "implications": {
+        "business": {"fr": "Fraude au président, fuites de données via des outils d'IA, tensions sociales.", "en": "CEO fraud, data leaks through AI tools, social tensions."},
+        "travel": {"fr": "Arnaques à la réservation plus crédibles.", "en": "More convincing booking scams."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Adopter une politique d'usage de l'IA et une procédure de vérification par rappel.", "en": "Adopt an AI use policy and a call-back verification procedure."}
+        ],
+        "travel": [
+          {"fr": "Réserver uniquement par des canaux validés.", "en": "Book only through approved channels."}
+        ]
+      },
+      "sectors": ["all", "finance", "tech"],
+      "live": [],
+      "links": ["weu-cyber", "fr-interference"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "weu-ageing",
+      "family": "demography",
+      "also": ["economy", "health"],
+      "title": {"fr": "Vieillissement et pénuries de main-d'œuvre", "en": "Ageing and labour shortages"},
+      "summary": {
+        "fr": "L'âge médian européen passerait de 42,5 à 46,2 ans d'ici 2050. Pénuries de compétences et pression sur la santé et les retraites en découlent : un risque lent mais certain, sous-estimé par le public.",
+        "en": "Europe's median age is set to rise from 42.5 to 46.2 by 2050. Skills shortages and pressure on healthcare and pensions follow: a slow but certain risk the public underestimates."
+      },
+      "drivers": ["ageing"],
+      "likelihood": 5, "impact": {"business": 2, "travel": 1}, "horizon": "36m", "momentum": 0, "confidence": "high",
+      "signals": [
+        {"fr": "Âge médian en Europe : 42,5 ans aujourd'hui, 46,2 ans en 2050 ; la démographie figure parmi les risques sous-estimés.", "en": "Median age in Europe: 42.5 today, 46.2 in 2050; demographics rank among under-the-radar risks.", "src": ["axa_frr26"], "d": "2026"},
+        {"fr": "Taux d'emplois vacants et ratio de dépendance suivis par Eurostat.", "en": "Job vacancy and dependency ratios tracked by Eurostat.", "src": ["eurostat"]}
+      ],
+      "watch": [
+        {"fr": "Taux d'emplois vacants dans les métiers critiques", "en": "Vacancy rates in critical occupations"},
+        {"fr": "Réformes des retraites et de l'immigration de travail", "en": "Pension and labour migration reforms"}
+      ],
+      "rupture": {"fr": "Pénuries aiguës dans la santé et les services essentiels.", "en": "Acute shortages in healthcare and essential services."},
+      "implications": {
+        "business": {"fr": "Difficultés de recrutement, hausse des salaires, transmission des savoir-faire.", "en": "Hiring difficulties, rising wages, knowledge transfer."},
+        "travel": {"fr": "Peu d'effet direct ; services saisonniers parfois sous tension.", "en": "Little direct effect; seasonal services sometimes stretched."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Cartographier les compétences critiques et organiser la transmission.", "en": "Map critical skills and organise knowledge transfer."}
+        ],
+        "travel": []
+      },
+      "sectors": ["all", "health"],
+      "live": [],
+      "links": ["weu-ai"],
+      "reviewed": "2026-10-23"
+    }
+  ]
+}

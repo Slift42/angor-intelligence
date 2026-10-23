@@ -1,0 +1,446 @@
+{
+  "id": "FR",
+  "type": "country",
+  "parent": "weu",
+  "fr": "France",
+  "en": "France",
+  "perimeter_fr": "France métropolitaine (Hexagone et Corse). Les outre-mer feront l'objet de fiches dédiées, rattachées à leur région géographique.",
+  "perimeter_en": "Metropolitan France (mainland and Corsica). Overseas territories will get dedicated sheets attached to their geographic region.",
+  "reviewed": "2026-10-23",
+  "outlook": {
+    "fr": "Fin octobre 2026, la France cumule une crise politique et budgétaire et une forte mobilisation sociale. Le gouvernement est minoritaire, le budget 2027 est menacé de censure, le taux à 10 ans dépasse 5 % et une dégradation de la note est attendue. La mobilisation contre la vie chère perturbe les transports, et une grève interprofessionnelle est prévue le 5 novembre. La menace terroriste reste au plus haut niveau, et la cybermenace se maintient sur un plateau élevé. À moyen terme, la présidentielle de 2027 est exposée aux ingérences, et d'autres étés extrêmes sont à prévoir après le record de 2026.",
+    "en": "In late October 2026, France faces a political and budget crisis together with strong social unrest. The government is a minority one, the 2027 budget faces a no-confidence threat, the 10-year yield is above 5% and a rating downgrade is expected. Cost-of-living protests are disrupting transport, and a cross-sector strike is set for 5 November. The terrorist threat stays at its highest level, and cyber threats remain on a high plateau. In the medium term, the 2027 presidential election is exposed to foreign interference, and more extreme summers are likely after the 2026 record."
+  },
+  "trends": [
+    {
+      "id": "fr-gov",
+      "family": "political",
+      "also": ["finance"],
+      "title": {"fr": "Gouvernement minoritaire : budget 2027 sous menace de censure", "en": "Minority government: 2027 budget under no-confidence threat"},
+      "summary": {
+        "fr": "Le gouvernement Lecornu, minoritaire, doit faire adopter le dernier budget du quinquennat. Pour éviter la censure, il dépend du PS ou du RN. Le recours au 49.3, une loi spéciale, voire des ordonnances jamais utilisées sous la Ve République restent envisagés. L'approche de la présidentielle de 2027 durcit les positions.",
+        "en": "The Lecornu minority government must pass the last budget of the presidential term. It depends on the Socialists or the National Rally to avoid a no-confidence vote. Article 49.3, a stop-gap budget law or even budget ordinances, never used under the Fifth Republic, remain options. The approaching 2027 presidential election is hardening positions."
+      },
+      "drivers": ["gov_stability", "elections"],
+      "likelihood": 4, "impact": {"business": 4, "travel": 1}, "horizon": "3m", "momentum": 1, "confidence": "high",
+      "signals": [
+        {"fr": "Le débat sur le projet de loi de finances 2027 s'ouvre le 13 octobre ; la partie « recettes » a été rejetée en commission le 9 octobre.", "en": "Debate on the 2027 finance bill opens on 13 October; the revenue section was rejected in committee on 9 October.", "src": ["lcp_plf27"], "d": "2026-10-12"},
+        {"fr": "Le PS menace de censurer si le texte n'évolue pas ; LFI déposera une motion en cas de 49.3 ; le RN refuse toute hausse d'impôts.", "en": "The Socialists threaten a no-confidence vote unless the bill changes; LFI will table a motion if 49.3 is used; the RN rejects any tax rise.", "src": ["lcp_plf27"], "d": "2026-10-12"},
+        {"fr": "Les marchés sanctionnent l'incertitude : le taux à 10 ans franchit 5 % le 21 octobre.", "en": "Markets punish the uncertainty: the 10-year yield crosses 5% on 21 October.", "src": ["boursorama_moodys"], "d": "2026-10-21"}
+      ],
+      "watch": [
+        {"fr": "Recours au 49.3 et vote d'une motion de censure", "en": "Use of article 49.3 and a no-confidence vote"},
+        {"fr": "Adoption d'une loi spéciale fin décembre", "en": "Stop-gap budget law adopted in late December"},
+        {"fr": "Démission du gouvernement ou dissolution de l'Assemblée", "en": "Government resignation or dissolution of the Assembly"},
+        {"fr": "Déclarations de candidature et primaires pour 2027", "en": "Candidacy announcements and primaries for 2027"}
+      ],
+      "rupture": {"fr": "Censure suivie d'une dissolution : législatives anticipées en pleine tension sur la dette.", "en": "No-confidence vote followed by dissolution: snap legislative elections amid debt market stress."},
+      "implications": {
+        "business": {"fr": "Incertitude fiscale (impôt sur les sociétés, surtaxes), commandes publiques gelées, subventions retardées.", "en": "Tax uncertainty (corporate tax, surcharges), frozen public procurement, delayed subsidies."},
+        "travel": {"fr": "Rassemblements autour de l'Assemblée et des préfectures, sans effet majeur sur les déplacements.", "en": "Gatherings near the Assembly and prefectures, with no major effect on travel."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Préparer plusieurs scénarios fiscaux pour 2027 et différer les décisions sensibles au cadre fiscal.", "en": "Prepare several 2027 tax scenarios and defer decisions sensitive to the tax framework."}
+        ],
+        "travel": [
+          {"fr": "Éviter les abords de l'Assemblée nationale les jours de vote.", "en": "Avoid the area around the National Assembly on voting days."}
+        ]
+      },
+      "sectors": ["public", "construction", "finance"],
+      "live": ["political"],
+      "links": ["fr-debt", "fr-social", "fr-interference"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "fr-debt",
+      "family": "finance",
+      "also": ["political", "economy"],
+      "title": {"fr": "Défiance des marchés envers la dette française", "en": "Market distrust of French debt"},
+      "summary": {
+        "fr": "Le taux d'emprunt à 10 ans a franchi 5 %, et une dégradation par Moody's est attendue le 23 octobre 2026. La hausse du coût de la dette réduit les marges budgétaires et se répercute sur le crédit aux entreprises et aux ménages.",
+        "en": "The 10-year borrowing rate has crossed 5%, and a Moody's downgrade is expected on 23 October 2026. Rising debt costs shrink fiscal room and feed through to credit for companies and households."
+      },
+      "drivers": ["sovereign", "gov_stability"],
+      "likelihood": 4, "impact": {"business": 4, "travel": 1}, "horizon": "3m", "momentum": 1, "confidence": "high",
+      "signals": [
+        {"fr": "Taux à 10 ans au-dessus de 5 % le 21 octobre 2026 ; la plupart des économistes attendent une dégradation par Moody's le 23 octobre.", "en": "10-year yield above 5% on 21 October 2026; most economists expect a Moody's downgrade on 23 October.", "src": ["boursorama_moodys"], "d": "2026-10-21"},
+        {"fr": "En avril 2026, Moody's avait maintenu la note Aa3 avec une perspective négative.", "en": "In April 2026, Moody's kept the Aa3 rating with a negative outlook.", "src": ["xinhua_moodys"], "d": "2026-04-11"},
+        {"fr": "La BCE relève le risque de contagion lié aux dettes publiques élevées.", "en": "The ECB flags contagion risk from high public debt.", "src": ["ecb_fsr", "bocconi_fsr"], "d": "2026-05"}
+      ],
+      "watch": [
+        {"fr": "Décision de Moody's du 23 octobre, puis calendrier des autres agences (AFT)", "en": "Moody's decision of 23 October, then the other agencies' calendar (AFT)"},
+        {"fr": "Écart de taux avec l'Allemagne", "en": "Spread over German Bunds"},
+        {"fr": "Adjudications de l'Agence France Trésor moins bien couvertes", "en": "Weaker cover at Agence France Trésor auctions"}
+      ],
+      "rupture": {"fr": "Spirale entre taux et déficit, intervention de la BCE et plan d'économies brutal.", "en": "Rate-deficit spiral, ECB intervention and an abrupt austerity plan."},
+      "implications": {
+        "business": {"fr": "Crédit plus cher ; risque de hausses d'impôts et de baisse des dépenses publiques (commandes, aides).", "en": "Costlier credit; risk of tax rises and public spending cuts (orders, subsidies)."},
+        "travel": {"fr": "Pas d'effet direct.", "en": "No direct effect."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Allonger la maturité des financements et surveiller les clients dépendants de la commande publique.", "en": "Extend financing maturities and monitor clients dependent on public contracts."}
+        ],
+        "travel": []
+      },
+      "sectors": ["finance", "public", "construction"],
+      "live": [],
+      "links": ["fr-gov", "weu-sovereign"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "fr-social",
+      "family": "social",
+      "also": ["infrastructure", "energy"],
+      "title": {"fr": "Mobilisation contre la vie chère : grèves, blocages, manifestations", "en": "Cost-of-living mobilisation: strikes, blockades, protests"},
+      "summary": {
+        "fr": "Depuis septembre 2026, plusieurs mouvements convergent contre la hausse des carburants et la perte de pouvoir d'achat : grèves (fonction publique, transports, contrôle aérien), mobilisations lycéennes et étudiantes, appels de type « gilets jaunes », taxis et agriculteurs. Une grève interprofessionnelle est annoncée pour le 5 novembre.",
+        "en": "Since September 2026, several movements have converged against rising fuel prices and lost purchasing power: strikes (civil service, transport, air traffic control), school and student protests, 'yellow vest'-style calls, taxis and farmers. A cross-sector strike is set for 5 November."
+      },
+      "drivers": ["mobilisation", "cost_of_living", "transport"],
+      "likelihood": 5, "impact": {"business": 3, "travel": 3}, "horizon": "3m", "momentum": 1, "confidence": "high",
+      "signals": [
+        {"fr": "29 septembre : journée de grève à l'appel de la CGT, avec perturbations ferroviaires et aériennes annoncées.", "en": "29 September: strike day called by the CGT, with rail and air disruption announced.", "src": ["lesfrancais_29sept"], "d": "2026-09-28"},
+        {"fr": "13 octobre : dégradations et fermeture de huit stations de métro à Paris.", "en": "13 October: vandalism and closure of eight metro stations in Paris.", "src": ["sortiraparis_17oct"], "d": "2026-10-16"},
+        {"fr": "17 octobre : environ 500 actions et plus de 90 manifestations recensées par le ministère de l'Intérieur ; 25 stations de métro fermées ; cellule interministérielle de crise activée.", "en": "17 October: around 500 actions and over 90 protests counted by the Interior Ministry; 25 metro stations closed; interministerial crisis cell activated.", "src": ["sortiraparis_17oct"], "d": "2026-10-16"},
+        {"fr": "Grève interprofessionnelle annoncée le 5 novembre 2026, soutenue par la CFDT et FO.", "en": "Cross-sector strike announced for 5 November 2026, backed by the CFDT and FO.", "src": ["sortiraparis_17oct"], "d": "2026-10-16"},
+        {"fr": "Les tensions sociales figurent parmi les premières inquiétudes du public européen.", "en": "Social tensions rank among the European public's top concerns.", "src": ["axa_frr26"], "d": "2026"}
+      ],
+      "watch": [
+        {"fr": "Préavis de grève dans le contrôle aérien et à la SNCF", "en": "Strike notices in air traffic control and at SNCF"},
+        {"fr": "Blocages de dépôts pétroliers ou de raffineries", "en": "Blockades of fuel depots or refineries"},
+        {"fr": "Appels à bloquer le périphérique et les accès aux aéroports", "en": "Calls to block the Paris ring road and airport access"},
+        {"fr": "Violences et dégradations en marge des cortèges", "en": "Violence and vandalism on the fringes of marches"}
+      ],
+      "rupture": {"fr": "Mouvement durable avec blocage des dépôts et pénuries de carburant, comme lors des grèves des raffineries d'octobre 2022.", "en": "A lasting movement with depot blockades and fuel shortages, as during the October 2022 refinery strikes."},
+      "implications": {
+        "business": {"fr": "Commerces fermés en centre-ville, livraisons retardées, absentéisme, dégradations.", "en": "City-centre shops closed, delayed deliveries, absenteeism, vandalism."},
+        "travel": {"fr": "Trains et vols annulés, axes routiers bloqués, stations fermées, manifestations parfois violentes.", "en": "Cancelled trains and flights, blocked roads, closed stations, sometimes violent protests."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Activer un plan de continuité « grève » : télétravail, stocks tampons, fermeture préventive des vitrines exposées.", "en": "Activate a strike continuity plan: remote work, buffer stocks, precautionary closure of exposed shopfronts."}
+        ],
+        "travel": [
+          {"fr": "Vérifier l'agenda des grèves, décaler les déplacements les jours de mobilisation nationale, éviter les cortèges.", "en": "Check the strike calendar, move trips away from national protest days, avoid marches."}
+        ]
+      },
+      "sectors": ["retail", "logistics", "tourism", "aviation", "public"],
+      "live": ["unrest"],
+      "links": ["fr-fuel", "fr-gov", "weu-polarisation"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "fr-fuel",
+      "family": "energy",
+      "also": ["social", "economy"],
+      "title": {"fr": "Carburants chers et risque de ruptures locales", "en": "Expensive fuel and risk of local shortages"},
+      "summary": {
+        "fr": "Poussé par la crise d'Ormuz, le prix des carburants pèse sur le transport routier, l'agriculture et les ménages. Il nourrit la contestation et expose à des ruptures en station si des dépôts sont bloqués.",
+        "en": "Driven by the Hormuz crisis, fuel prices weigh on road haulage, farming and households. They fuel protests and could cause station outages if depots are blocked."
+      },
+      "drivers": ["oil_gas", "cost_of_living"],
+      "likelihood": 4, "impact": {"business": 4, "travel": 3}, "horizon": "3m", "momentum": 1, "confidence": "medium",
+      "signals": [
+        {"fr": "Brent autour de 110 $ en octobre 2026.", "en": "Brent around $110 in October 2026.", "src": ["straits_live", "wiki_fuel"], "d": "2026-10-22"},
+        {"fr": "Le prix des carburants est au cœur des mobilisations d'octobre (taxis, VTC, agriculteurs, transport routier).", "en": "Fuel prices are at the heart of the October protests (taxis, ride-hailing drivers, farmers, road haulage).", "src": ["sortiraparis_17oct", "lesfrancais_29sept"], "d": "2026-10-16"},
+        {"fr": "Prix et ruptures publiés chaque jour, station par station.", "en": "Prices and outages published daily, station by station.", "src": ["prix_carburants"]}
+      ],
+      "watch": [
+        {"fr": "Part des stations en rupture (prix-carburants.gouv.fr)", "en": "Share of stations out of fuel (prix-carburants.gouv.fr)"},
+        {"fr": "Blocages de dépôts ou de raffineries", "en": "Depot or refinery blockades"},
+        {"fr": "Mesures de soutien ou de plafonnement des prix", "en": "Price support or cap measures"}
+      ],
+      "rupture": {"fr": "Pénurie généralisée de gazole pendant plusieurs jours.", "en": "Nationwide diesel shortage lasting several days."},
+      "implications": {
+        "business": {"fr": "Surcoût du transport, flottes sous tension, tournées interrompues.", "en": "Higher transport costs, stretched fleets, interrupted delivery rounds."},
+        "travel": {"fr": "Stations à sec sur certains axes, taxis et locations plus chers.", "en": "Dry stations on some routes, pricier taxis and car rentals."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Prévoir des cuves internes ou des contrats de livraison prioritaire pour les véhicules essentiels.", "en": "Arrange on-site tanks or priority delivery contracts for essential vehicles."}
+        ],
+        "travel": [
+          {"fr": "Faire le plein avant les journées de mobilisation ; privilégier le train.", "en": "Fill up before protest days; prefer rail."}
+        ]
+      },
+      "sectors": ["logistics", "agri", "retail"],
+      "live": [],
+      "links": ["weu-energy", "fr-social"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "fr-terror",
+      "family": "security",
+      "also": ["geopolitics"],
+      "title": {"fr": "Menace terroriste au plus haut niveau", "en": "Terrorist threat at its highest level"},
+      "summary": {
+        "fr": "La France reste le pays de l'UE le plus visé : 14 des 45 attentats recensés dans l'Union en 2025. Le plan Vigipirate a été maintenu au niveau « urgence attentat ». La guerre au Moyen-Orient, la radicalisation en ligne des mineurs et l'ultradroite entretiennent la menace.",
+        "en": "France remains the most targeted EU country: 14 of the 45 attacks recorded in the EU in 2025. The Vigipirate plan was kept at its 'emergency attack' level. The Middle East war, online radicalisation of minors and the far right keep the threat alive."
+      },
+      "drivers": ["terrorism", "middle_east"],
+      "likelihood": 4, "impact": {"business": 3, "travel": 3}, "horizon": "12m", "momentum": 0, "confidence": "high",
+      "signals": [
+        {"fr": "France, 2025 : 14 attentats réussis, échoués ou déjoués sur 45 dans l'UE ; un attentat d'ultradroite commis et trois déjoués.", "en": "France, 2025: 14 completed, failed or foiled attacks out of 45 in the EU; one far-right attack carried out and three foiled.", "src": ["europol_tesat26", "eucrim_tesat"], "d": "2026-07"},
+        {"fr": "Posture Vigipirate « urgence attentat » maintenue sur tout le territoire à partir du 5 janvier 2026.", "en": "Vigipirate 'emergency attack' posture maintained nationwide from 5 January 2026.", "src": ["echo_vigipirate", "sgdsn"], "d": "2025-12-30"}
+      ],
+      "watch": [
+        {"fr": "Changement de posture Vigipirate (SGDSN)", "en": "Change in Vigipirate posture (SGDSN)"},
+        {"fr": "Projets déjoués et interpellations de mineurs", "en": "Foiled plots and arrests of minors"},
+        {"fr": "Menaces contre des intérêts juifs, israéliens ou américains liées au conflit au Moyen-Orient", "en": "Threats against Jewish, Israeli or US interests linked to the Middle East conflict"},
+        {"fr": "Marchés de Noël et grands rassemblements", "en": "Christmas markets and large gatherings"}
+      ],
+      "rupture": {"fr": "Attentat de masse dans un lieu très fréquenté ou un transport en commun.", "en": "Mass-casualty attack in a crowded place or on public transport."},
+      "implications": {
+        "business": {"fr": "Sûreté renforcée des sites recevant du public, risque d'annulation d'événements.", "en": "Tighter security at public-facing sites, risk of event cancellations."},
+        "travel": {"fr": "Vigilance dans les gares, aéroports, lieux de culte et sites touristiques ; périmètres de sécurité.", "en": "Vigilance in stations, airports, places of worship and tourist sites; security perimeters."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Mettre à jour le plan de sûreté et former les équipes à repérer les comportements suspects.", "en": "Update the security plan and train staff to spot suspicious behaviour."}
+        ],
+        "travel": [
+          {"fr": "Repérer les sorties, éviter les attroupements, suivre les consignes des forces de l'ordre.", "en": "Locate exits, avoid crowds, follow police instructions."}
+        ]
+      },
+      "sectors": ["tourism", "retail", "public"],
+      "live": ["terrorism", "attack"],
+      "links": ["weu-terror"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "fr-heat",
+      "family": "climate",
+      "also": ["health", "energy"],
+      "title": {"fr": "Étés extrêmes : canicules, sécheresse et feux", "en": "Extreme summers: heatwaves, drought and fires"},
+      "summary": {
+        "fr": "L'été 2026 a été le plus chaud jamais mesuré en France (+3,6 °C), avec 53 jours de vague de chaleur et la saison des feux la plus sévère. Météo-France le juge rare (environ une chance sur cent dans le climat actuel), mais des vagues de chaleur sont désormais attendues chaque été : la préparation doit commencer dès le printemps 2027.",
+        "en": "Summer 2026 was the hottest ever measured in France (+3.6 °C), with 53 heatwave days and the most severe fire season. Météo-France rates it rare (about a 1-in-100 chance in today's climate), but heatwaves are now expected every summer: preparation should start in spring 2027."
+      },
+      "drivers": ["heat", "drought", "wildfire"],
+      "likelihood": 5, "impact": {"business": 3, "travel": 3}, "horizon": "12m", "momentum": 1, "confidence": "high",
+      "signals": [
+        {"fr": "Été 2026 : 24,0 °C de moyenne (+3,6 °C), record depuis 1900 ; 40 °C atteints 178 fois sur le réseau principal.", "en": "Summer 2026: 24.0 °C average (+3.6 °C), the warmest since 1900; 40 °C reached 178 times on the main network.", "src": ["meteofrance_ete26"], "d": "2026-09"},
+        {"fr": "53 jours de vague de chaleur, jusqu'à 72 départements en vigilance rouge canicule ; sécheresse des sols historique.", "en": "53 heatwave days, up to 72 départements on red heat alert; historic soil drought.", "src": ["meteofrance_ete26"], "d": "2026-09"},
+        {"fr": "27 jours de danger de feux rouge (13 en 2025) : la saison la plus sévère jamais enregistrée.", "en": "27 days of red fire danger (13 in 2025): the most severe season on record.", "src": ["meteofrance_ete26"], "d": "2026-09"},
+        {"fr": "Europe : record de surfaces brûlées en 2025.", "en": "Europe: record burned area in 2025.", "src": ["c3s_esotc25"], "d": "2026-04-29"}
+      ],
+      "watch": [
+        {"fr": "Pluies de l'hiver et recharge des nappes", "en": "Winter rainfall and groundwater recharge"},
+        {"fr": "Prévisions saisonnières du printemps 2027", "en": "Seasonal forecasts for spring 2027"},
+        {"fr": "Premiers arrêtés sécheresse (VigiEau)", "en": "First drought orders (VigiEau)"}
+      ],
+      "rupture": {"fr": "Pénuries d'eau potable locales et feux aux portes de zones urbaines ou touristiques en plein été.", "en": "Local drinking water shortages and fires on the edge of urban or tourist areas in midsummer."},
+      "implications": {
+        "business": {"fr": "Productivité en baisse, restrictions d'eau pour l'industrie et l'agriculture, production nucléaire modulée, dégâts aux sites.", "en": "Lower productivity, water restrictions for industry and farming, reduced nuclear output, site damage."},
+        "travel": {"fr": "Évacuations de campings et de zones touristiques, massifs fermés, malaises liés à la chaleur, trains ralentis.", "en": "Campsite and tourist area evacuations, closed forests, heat illness, slowed trains."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Tenir prêt pour mai 2027 un plan canicule et sécheresse ; vérifier l'exposition des sites (Géorisques).", "en": "Have a heat and drought plan ready by May 2027; check site exposure (Géorisques)."}
+        ],
+        "travel": [
+          {"fr": "Éviter les massifs en danger de feu rouge ; adapter les horaires et l'hydratation.", "en": "Avoid forests under red fire danger; adapt schedules and hydration."}
+        ]
+      },
+      "sectors": ["agri", "energy", "tourism", "construction", "health"],
+      "live": ["extreme_temp", "wildfire", "drought"],
+      "links": ["weu-heat", "fr-medflood"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "fr-medflood",
+      "family": "climate",
+      "also": ["infrastructure"],
+      "title": {"fr": "Épisodes méditerranéens et inondations d'automne-hiver", "en": "Mediterranean rain events and autumn-winter floods"},
+      "summary": {
+        "fr": "D'octobre à décembre, des pluies intenses frappent l'arc méditerranéen et la vallée du Rhône. Après un été très sec, les sols durcis favorisent le ruissellement. Crues rapides, routes coupées et dégâts aux sites sont attendus chaque saison.",
+        "en": "From October to December, intense rain hits the Mediterranean arc and the Rhône valley. After a very dry summer, hardened soils favour runoff. Flash floods, cut roads and site damage are expected every season."
+      },
+      "drivers": ["flood_storm"],
+      "likelihood": 4, "impact": {"business": 3, "travel": 4}, "horizon": "3m", "momentum": 0, "confidence": "medium",
+      "signals": [
+        {"fr": "Sols très secs fin août 2026 : sécheresse historique et généralisée.", "en": "Very dry soils at the end of August 2026: historic, widespread drought.", "src": ["meteofrance_ete26"], "d": "2026-09"},
+        {"fr": "Vigilance pluie-inondation et niveaux des cours d'eau suivis en continu.", "en": "Rain-flood warnings and river levels monitored continuously.", "src": ["vigicrues", "meteofrance_vigilance"]},
+        {"fr": "Zones inondables et historique des catastrophes naturelles par commune.", "en": "Flood zones and natural disaster history by municipality.", "src": ["georisques"]}
+      ],
+      "watch": [
+        {"fr": "Vigilance orange ou rouge pluie-inondation (Gard, Hérault, Ardèche, Var, Alpes-Maritimes)", "en": "Orange or red rain-flood warnings (Gard, Hérault, Ardèche, Var, Alpes-Maritimes)"},
+        {"fr": "Cumuls prévus au-delà de 200 mm en 24 heures", "en": "Forecast totals above 200 mm in 24 hours"}
+      ],
+      "rupture": {"fr": "Crue éclair majeure en zone urbaine, comme dans l'Aude en 2018 ou lors de la tempête Alex en 2020.", "en": "Major flash flood in an urban area, as in the Aude in 2018 or during storm Alex in 2020."},
+      "implications": {
+        "business": {"fr": "Sites inondés, flux interrompus, sinistres.", "en": "Flooded sites, interrupted flows, insurance claims."},
+        "travel": {"fr": "Routes et voies ferrées coupées, écoles fermées, danger mortel pour les automobilistes.", "en": "Roads and railways cut, schools closed, deadly danger for drivers."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Vérifier l'exposition des sites et tenir à jour le plan inondation.", "en": "Check site exposure and keep the flood plan up to date."}
+        ],
+        "travel": [
+          {"fr": "Ne jamais s'engager sur une route inondée ; reporter les trajets en vigilance rouge.", "en": "Never drive onto a flooded road; postpone trips under red warnings."}
+        ]
+      },
+      "sectors": ["construction", "logistics", "tourism", "agri"],
+      "live": ["flood", "storm"],
+      "links": ["fr-heat"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "fr-cyber",
+      "family": "cyber",
+      "also": ["political"],
+      "title": {"fr": "Cybermenace sur un plateau haut : collectivités, santé, éducation, PME", "en": "Cyber threat on a high plateau: local authorities, healthcare, education, SMEs"},
+      "summary": {
+        "fr": "L'ANSSI a traité 1 366 incidents en 2025, autant qu'en 2024. Administrations, éducation, recherche et santé sont très touchées, et l'espionnage d'État progresse. Le cyber reste le premier risque des entreprises françaises.",
+        "en": "ANSSI handled 1,366 incidents in 2025, as many as in 2024. Public administration, education, research and healthcare are hit hard, and state espionage is rising. Cyber remains the top risk for French companies."
+      },
+      "drivers": ["ransomware", "cyber_state"],
+      "likelihood": 5, "impact": {"business": 4, "travel": 2}, "horizon": "12m", "momentum": 0, "confidence": "high",
+      "signals": [
+        {"fr": "1 366 incidents traités par l'ANSSI en 2025 (1 361 en 2024) ; les administrations publiques en représentent 24 %.", "en": "1,366 incidents handled by ANSSI in 2025 (1,361 in 2024); public administration accounts for 24%.", "src": ["acteurs_publics_anssi", "anssi"], "d": "2026-03-11"},
+        {"fr": "Espionnage en hausse, notamment contre des entités diplomatiques françaises, par des groupes proches des intérêts chinois et russes.", "en": "Rising espionage, notably against French diplomatic entities, by groups close to Chinese and Russian interests.", "src": ["acteurs_publics_anssi"], "d": "2026-03-11"},
+        {"fr": "Le cyber est le premier risque des entreprises en France (40 %).", "en": "Cyber is the top business risk in France (40%).", "src": ["directindustry_allianz", "allianz_rb26"], "d": "2026-01"},
+        {"fr": "Sinistres cyber chez AXA France : rançongiciels 28 %, connexions frauduleuses 28 %, fraude 21 %.", "en": "Cyber claims at AXA France: ransomware 28%, fraudulent logins 28%, fraud 21%.", "src": ["axa_frr26"], "d": "2026"}
+      ],
+      "watch": [
+        {"fr": "Alertes CERT-FR sur des vulnérabilités activement exploitées", "en": "CERT-FR alerts on actively exploited vulnerabilities"},
+        {"fr": "Revendications de fuites de données (souvent exagérées : à vérifier)", "en": "Data leak claims (often exaggerated: verify)"},
+        {"fr": "Cyberattaques pendant la campagne présidentielle", "en": "Cyberattacks during the presidential campaign"}
+      ],
+      "rupture": {"fr": "Attaque paralysant un hôpital, une collectivité ou un prestataire national pendant plusieurs semaines.", "en": "Attack paralysing a hospital, local authority or national provider for several weeks."},
+      "implications": {
+        "business": {"fr": "Arrêt d'activité, rançon, fuite de données, responsabilité au titre du RGPD.", "en": "Business shutdown, ransom, data leaks, GDPR liability."},
+        "travel": {"fr": "Peu d'effet direct, sauf pannes de systèmes de réservation ou d'aéroport.", "en": "Little direct effect, except booking or airport system outages."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Généraliser l'authentification multifacteur, tester les sauvegardes hors ligne, organiser un exercice de crise.", "en": "Roll out multi-factor authentication, test offline backups, run a crisis exercise."}
+        ],
+        "travel": [
+          {"fr": "Éviter les réseaux Wi-Fi ouverts ; utiliser le VPN de l'entreprise.", "en": "Avoid open Wi-Fi; use the company VPN."}
+        ]
+      },
+      "sectors": ["all", "public", "health", "tech"],
+      "live": ["cyber"],
+      "links": ["weu-cyber", "fr-interference"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "fr-interference",
+      "family": "political",
+      "also": ["cyber", "technology"],
+      "title": {"fr": "Ingérences étrangères et désinformation avant la présidentielle 2027", "en": "Foreign interference and disinformation ahead of the 2027 presidential election"},
+      "summary": {
+        "fr": "Après des opérations détectées lors des municipales de 2026, le Premier ministre anticipe des menaces d'ingérence lourdes pour la présidentielle de 2027. Deepfakes, faux comptes et campagnes coordonnées peuvent viser candidats, institutions et entreprises.",
+        "en": "After operations detected during the 2026 municipal elections, the Prime Minister expects heavy interference threats for the 2027 presidential election. Deepfakes, fake accounts and coordinated campaigns may target candidates, institutions and companies."
+      },
+      "drivers": ["interference", "elections", "ai"],
+      "likelihood": 4, "impact": {"business": 2, "travel": 1}, "horizon": "12m", "momentum": 1, "confidence": "medium",
+      "signals": [
+        {"fr": "Juin 2026 : Sébastien Lecornu évoque des « perspectives de menaces lourdes » pour 2027 et annonce un projet de loi.", "en": "June 2026: Sébastien Lecornu warns of heavy threats ahead for 2027 and announces a bill.", "src": ["jdn_ingerences"], "d": "2026-06-12"},
+        {"fr": "Viginum a publié des rapports sur les ingérences liées aux municipales de 2026.", "en": "Viginum published reports on interference linked to the 2026 municipal elections.", "src": ["jdn_ingerences", "sgdsn"], "d": "2026-06-12"},
+        {"fr": "La désinformation est le 2e risque mondial à court terme.", "en": "Disinformation is the No. 2 global short-term risk.", "src": ["wef_grr26"], "d": "2026-01"}
+      ],
+      "watch": [
+        {"fr": "Rapports et alertes de Viginum", "en": "Viginum reports and alerts"},
+        {"fr": "Deepfakes visant des candidats ou des dirigeants d'entreprise", "en": "Deepfakes targeting candidates or business leaders"},
+        {"fr": "Campagnes contre des marques françaises à l'étranger", "en": "Campaigns against French brands abroad"}
+      ],
+      "rupture": {"fr": "Opération d'ingérence massive contestant le résultat de l'élection.", "en": "Massive interference operation contesting the election result."},
+      "implications": {
+        "business": {"fr": "Atteinte à la réputation, faux communiqués, manipulation de cours.", "en": "Reputational damage, fake press releases, share price manipulation."},
+        "travel": {"fr": "Pas d'effet direct.", "en": "No direct effect."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Préparer une procédure de démenti rapide et surveiller les usurpations de la marque.", "en": "Prepare a rapid rebuttal procedure and monitor brand impersonation."}
+        ],
+        "travel": []
+      },
+      "sectors": ["public", "tech", "finance"],
+      "live": [],
+      "links": ["fr-gov", "weu-polarisation", "weu-ai"],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "fr-narco",
+      "family": "security",
+      "also": ["social"],
+      "title": {"fr": "Narcotrafic : des violences armées jusque dans les villes moyennes", "en": "Drug trafficking: armed violence spreading to mid-sized cities"},
+      "summary": {
+        "fr": "Les règlements de comptes liés au trafic de drogue touchent désormais des villes moyennes : 110 meurtres en 2024 et 173 communes concernées par ces violences. Le risque pour les voyageurs reste faible hors des quartiers concernés.",
+        "en": "Drug-related killings now affect mid-sized cities: 110 murders in 2024 and 173 municipalities affected by such violence. The risk to travellers remains low outside the neighbourhoods concerned."
+      },
+      "drivers": ["organised_crime"],
+      "likelihood": 4, "impact": {"business": 2, "travel": 2}, "horizon": "12m", "momentum": 0, "confidence": "medium",
+      "signals": [
+        {"fr": "110 meurtres liés au trafic en 2024 ; 173 communes touchées par ces violences (OFDT).", "en": "110 trafficking-related murders in 2024; 173 municipalities affected by such violence (OFDT).", "src": ["localtis_narco", "ofdt"], "d": "2026-06-02"},
+        {"fr": "Grenoble : dix morts en six mois ; Marseille : 16 meurtres en 2025, contre 49 en 2023.", "en": "Grenoble: ten deaths in six months; Marseille: 16 murders in 2025, against 49 in 2023.", "src": ["localtis_narco"], "d": "2026-06-02"},
+        {"fr": "Au printemps 2026, moins d'un tiers des décrets d'application de la loi du 13 juin 2025 étaient publiés.", "en": "In spring 2026, fewer than a third of the implementing decrees of the law of 13 June 2025 had been published.", "src": ["localtis_narco"], "d": "2026-06-02"}
+      ],
+      "watch": [
+        {"fr": "Fusillades dans de nouvelles villes", "en": "Shootings in new cities"},
+        {"fr": "Attaques contre des agents publics ou des prisons", "en": "Attacks on public officials or prisons"},
+        {"fr": "Corruption dans les ports et la logistique", "en": "Corruption in ports and logistics"}
+      ],
+      "rupture": {"fr": "Attaque ciblée contre un représentant de l'État ou un site logistique.", "en": "Targeted attack on a state official or a logistics site."},
+      "implications": {
+        "business": {"fr": "Corruption de salariés (ports, logistique), sûreté des sites en zone sensible.", "en": "Employee corruption (ports, logistics), security of sites in sensitive areas."},
+        "travel": {"fr": "Éviter les quartiers concernés la nuit ; risque faible pour les visiteurs.", "en": "Avoid affected neighbourhoods at night; low risk for visitors."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Renforcer le contrôle des accès et la prévention de la corruption sur les sites logistiques.", "en": "Strengthen access control and anti-corruption measures at logistics sites."}
+        ],
+        "travel": [
+          {"fr": "Choisir un hébergement dans des quartiers sûrs et éviter les déplacements de nuit dans les zones concernées.", "en": "Stay in safe neighbourhoods and avoid night travel in affected areas."}
+        ]
+      },
+      "sectors": ["logistics", "retail"],
+      "live": ["crime"],
+      "links": [],
+      "reviewed": "2026-10-23"
+    },
+    {
+      "id": "fr-failures",
+      "family": "economy",
+      "also": ["finance"],
+      "title": {"fr": "Défaillances d'entreprises à un niveau élevé", "en": "Business insolvencies at a high level"},
+      "summary": {
+        "fr": "Plus de 70 000 défaillances sur douze mois à fin juillet 2026, soit 19 % de plus que la moyenne 2010-2019. Le choc énergétique, la hausse des taux et l'incertitude fiscale fragilisent PME et ETI : fournisseurs et sous-traitants sont à surveiller.",
+        "en": "Over 70,000 insolvencies over the twelve months to July 2026, 19% above the 2010-2019 average. The energy shock, higher rates and tax uncertainty weaken SMEs and mid-caps: suppliers and subcontractors need watching."
+      },
+      "drivers": ["growth", "monetary"],
+      "likelihood": 4, "impact": {"business": 3, "travel": 1}, "horizon": "12m", "momentum": 0, "confidence": "high",
+      "signals": [
+        {"fr": "70 605 défaillances sur 12 mois à fin juillet 2026 (+4,6 % sur un an, +19 % par rapport à 2010-2019).", "en": "70,605 insolvencies over 12 months to July 2026 (+4.6% year on year, +19% vs 2010-2019).", "src": ["bdf_defaillances"], "d": "2026-09"},
+        {"fr": "Hausse la plus forte chez les entreprises de taille moyenne (+13,2 %) ; agriculture +11,9 %.", "en": "Steepest rise among medium-sized firms (+13.2%); agriculture +11.9%.", "src": ["bdf_defaillances"], "d": "2026-09"},
+        {"fr": "Croissance de la zone euro attendue à 0,9 % en 2026.", "en": "Euro area growth expected at 0.9% in 2026.", "src": ["ecb_proj_sep26"], "d": "2026-09-10"}
+      ],
+      "watch": [
+        {"fr": "Défaillances mensuelles (Banque de France)", "en": "Monthly insolvencies (Banque de France)"},
+        {"fr": "Retards de paiement des clients", "en": "Late customer payments"},
+        {"fr": "Plans sociaux dans l'industrie", "en": "Layoff plans in manufacturing"}
+      ],
+      "rupture": {"fr": "Faillite d'un fournisseur stratégique sans solution de remplacement.", "en": "Bankruptcy of a strategic supplier with no replacement."},
+      "implications": {
+        "business": {"fr": "Ruptures d'approvisionnement, créances impayées.", "en": "Supply disruption, unpaid receivables."},
+        "travel": {"fr": "Faillites possibles de voyagistes ou de compagnies aériennes.", "en": "Possible failures of tour operators or airlines."}
+      },
+      "actions": {
+        "business": [
+          {"fr": "Évaluer la solidité financière des fournisseurs critiques ; envisager une assurance-crédit.", "en": "Assess critical suppliers' financial strength; consider credit insurance."}
+        ],
+        "travel": [
+          {"fr": "Privilégier des prestataires disposant d'une garantie financière.", "en": "Prefer providers with a financial guarantee."}
+        ]
+      },
+      "sectors": ["all", "construction", "retail", "agri"],
+      "live": [],
+      "links": ["weu-stagflation", "fr-debt"],
+      "reviewed": "2026-10-23"
+    }
+  ]
+}

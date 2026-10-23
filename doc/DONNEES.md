@@ -58,6 +58,8 @@ Produit par `veille/model.py → make_event`, complété au fil de la chaîne. C
 | `calendar.js` | `VS_CALENDAR` | `agenda.py` | 30 min | Agenda, fiche pays, rapport |
 | `reports.js` | `VS_REPORTS` | `reports.py` (flux toutes les 3 h) | 30 min | onglet Rapports, fiche pays |
 | `early_warning.js` | `VS_EW` | `early_warning.py` | 30 min | `ew.js` |
+| `foresight.js` | `VS_FS` | `foresight.py` | 30 min | `foresight.js` (onglet Tendances) |
+| `foresight_method.js` | `VS_FS_METHOD` | `foresight.py` | 30 min | `methodologie.html` (public) |
 | `country/<ISO2>.js` | `VS_CDETAIL[iso]` | `country_detail.py` | 30 min | `report.js`, fiche pays (villes) |
 | `health.js` | `VS_HEALTH` | `country_detail.py` (copie de `config/health.json`) | 30 min | `report.js` |
 | `traffic.js` | `VS_TRAFFIC` | `traffic.py` | 30 min | espace Trafic |
@@ -123,6 +125,7 @@ plus pour `emergency` un 12e élément : `hijack` | `radio` | `emergency`.
 | `calendar.json` | Échéances ajoutées à la main | analyste |
 | `reports.json` | Flux de rapports et ajouts manuels | analyste |
 | `early_warning.json` | Régions de l'alerte précoce et paramètres | développeur |
+| `foresight/` | Tendances de risques : `method.json` (échelles, facteurs), `sources.json` (bibliographie), `regions/*.json`, `countries/*.json` | analyste |
 | `press_outlets.json` | Médias de référence par pays et cotation | développeur |
 | `city_notes.json` | Notes d'analyste par ville (à valider) | analyste |
 | `health.json` | Listes de pays par risque sanitaire, textes maladies et vaccins | analyste / développeur |
@@ -168,7 +171,7 @@ En ligne (robot GitHub Actions, `VS_PUBLIC=1`) et comptes configurés, `veille/v
 
 | Publics (GitHub Pages) | Réservés (Supabase Storage, compartiment privé `angor-data`) |
 |---|---|
-| `config.js`, `countries.js`, `legal.js`, `providers.js`, `cities.js`, `factbook.js`, `guides.js`, `history/`, `guest.js` | tout le reste : `data.js`, `events.geojson`, `reports.js`, `early_warning.js`, `calendar.js`, `econ.js`, `profiles.js`, `practical.js`, `health.js`, `traffic.js`, `country/`, `archive/` |
+| `config.js`, `countries.js`, `legal.js`, `providers.js`, `cities.js`, `factbook.js`, `guides.js`, `history/`, `guest.js`, `foresight_method.js` | tout le reste : `data.js`, `events.geojson`, `reports.js`, `early_warning.js`, `foresight.js`, `calendar.js`, `econ.js`, `profiles.js`, `practical.js`, `health.js`, `traffic.js`, `country/`, `archive/` |
 
 `guest.js` = carte des visiteurs (7 jours, champs : id, catégorie, gravité, titre, date, position, lieu, pays, précision,
 fiabilité). Les fichiers réservés sont envoyés s'ils ont changé (`data/vault_manifest.json`), puis retirés de `docs/data`
