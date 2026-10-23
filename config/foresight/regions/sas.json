@@ -1,0 +1,27 @@
+{
+  "id": "sas",
+  "type": "region",
+  "fr": "Asie du Sud",
+  "en": "South Asia",
+  "countries": [
+    "AF",
+    "BD",
+    "BT",
+    "IN",
+    "KAS",
+    "LK",
+    "MV",
+    "NP",
+    "PK"
+  ],
+  "bbox": [
+    60,
+    5,
+    98,
+    38.5
+  ],
+  "perimeter_fr": "Afghanistan, Pakistan, Inde, Népal, Bhoutan, Bangladesh, Sri Lanka et Maldives.",
+  "perimeter_en": "Afghanistan, Pakistan, India, Nepal, Bhutan, Bangladesh, Sri Lanka and the Maldives.",
+  "outlook": null,
+  "trends": []
+}

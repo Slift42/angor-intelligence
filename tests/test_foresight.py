@@ -29,10 +29,24 @@ def test_perimetres_europe_ouest_et_france(cfg):
     assert len(cfg["scopes"]["weu"]["trends"]) >= 10 and len(cfg["scopes"]["FR"]["trends"]) >= 10
 
 
-def test_toutes_les_familles_sont_utilisees(cfg):
+def test_toutes_les_familles_sont_couvertes(cfg):
+    """Chaque famille a des facteurs suivis ; toutes sauf l'humanitaire (sans objet en Europe de l'Ouest) ont des tendances."""
     fams = {t["family"] for s in cfg["scopes"].values() for t in s["trends"]} | \
            {f for s in cfg["scopes"].values() for t in s["trends"] for f in t.get("also", [])}
-    assert set(cfg["method"]["families"]) - fams == set()
+    assert set(cfg["method"]["families"]) - fams == {"humanitarian"}
+    with_drivers = {d["family"] for d in cfg["method"]["drivers"]}
+    assert set(cfg["method"]["families"]) == with_drivers
+
+
+def test_sources_par_facteur(cfg):
+    """Chaque facteur a au moins deux sources de suivi, et chaque famille au moins une source intégrée ou officielle."""
+    src = cfg["sources"]
+    for d in cfg["method"]["drivers"]:
+        keys = {k for i in d["indicators"] for k in i["src"]}
+        assert len(keys) >= 2, d["id"]
+        assert all(k in src for k in keys)
+    auto = {d["family"] for d in cfg["method"]["drivers"] for i in d["indicators"] if i.get("auto")}
+    assert {"climate", "geopolitics", "political", "social", "security", "cyber", "economy", "finance", "health", "humanitarian"} <= auto
 
 
 def test_score_et_niveaux(cfg):
@@ -145,5 +159,5 @@ def test_methode_publique_sans_tendances(cfg):
     p = foresight.build(cfg, [], NOW)
     pub = foresight.public_method(cfg, p)
     assert "trends" not in pub and pub["sources"] and pub["drivers"]
-    assert {c["id"] for c in pub["coverage"]} == {"weu", "FR"}
+    assert {c["id"] for c in pub["coverage"]} >= {"weu", "FR", "wafr", "nam"} and len(pub["coverage"]) == 18
     assert next(c for c in pub["coverage"] if c["id"] == "FR")["parent"] == "weu"

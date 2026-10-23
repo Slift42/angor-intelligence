@@ -1,0 +1,36 @@
+{
+  "id": "wafr",
+  "type": "region",
+  "fr": "Afrique de l'Ouest et Sahel",
+  "en": "West Africa & Sahel",
+  "countries": [
+    "BF",
+    "BJ",
+    "CI",
+    "CV",
+    "GH",
+    "GM",
+    "GN",
+    "GW",
+    "LR",
+    "ML",
+    "MR",
+    "NE",
+    "NG",
+    "SL",
+    "SN",
+    "TG",
+    "TD",
+    "SH"
+  ],
+  "bbox": [
+    -26,
+    3,
+    24.5,
+    28
+  ],
+  "perimeter_fr": "Afrique de l'Ouest (CEDEAO et Mauritanie) et Tchad, pour couvrir l'ensemble du Sahel central et du bassin du lac Tchad.",
+  "perimeter_en": "West Africa (ECOWAS and Mauritania) plus Chad, to cover the whole central Sahel and Lake Chad Basin.",
+  "outlook": null,
+  "trends": []
+}

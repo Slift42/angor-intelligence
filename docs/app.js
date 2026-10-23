@@ -28,7 +28,7 @@
       sc_title: 'Safety check', sc_safe: 'Je suis en sécurité', sc_help: 'J’ai besoin d’aide', sc_nc: 'Pas concerné', sc_later: 'Plus tard',
       sc_done: 'Réponse envoyée. Merci.', sc_err: 'Réponse non envoyée : vérifiez votre connexion.', sc_launch: 'Lancer un safety check',
       acc_login: 'Se connecter', acc_pending: 'Compte en attente de validation',
-      tab_agenda: 'Agenda', help: 'Aide', tab_reports: 'Rapports', tab_ew: 'Alerte précoce', tab_trends: 'Tendances',
+      tab_agenda: 'Agenda', help: 'Aide', tab_reports: 'Rapports', tab_ew: 'Alerte précoce', tab_trends: 'Tendances · alerte précoce',
       sp_veille: 'Veille', sp_pays: 'Pays', sp_sites: 'Mes sites', sp_anticipation: 'Anticipation', sp_prestataires: 'Prestataires', tab_providers: 'Annuaire des prestataires',
       pb_q: 'Nom, service, ville, note…', pb_country: 'Tous les pays', pb_cat: 'Toutes les catégories', pb_scope: { all: 'Tous', local: 'Locaux', regional: 'Régionaux', global: 'Mondiaux' },
       pb_scope1: { local: 'Local', regional: 'Régional', global: 'Mondial' }, pb_verified: 'Vérifiés par Angor seulement (niveaux A et B)',
@@ -213,7 +213,7 @@
       sc_title: 'Safety check', sc_safe: 'I am safe', sc_help: 'I need help', sc_nc: 'Not concerned', sc_later: 'Later',
       sc_done: 'Answer sent. Thank you.', sc_err: 'Answer not sent: check your connection.', sc_launch: 'Launch a safety check',
       acc_login: 'Sign in', acc_pending: 'Account awaiting approval',
-      tab_agenda: 'Agenda', help: 'Help', tab_reports: 'Reports', tab_ew: 'Early warning', tab_trends: 'Risk trends',
+      tab_agenda: 'Agenda', help: 'Help', tab_reports: 'Reports', tab_ew: 'Early warning', tab_trends: 'Trends · early warning',
       sp_veille: 'Monitoring', sp_pays: 'Countries', sp_sites: 'My sites', sp_anticipation: 'Foresight', sp_prestataires: 'Providers', tab_providers: 'Provider directory',
       pb_q: 'Name, service, city, note…', pb_country: 'All countries', pb_cat: 'All categories', pb_scope: { all: 'All', local: 'Local', regional: 'Regional', global: 'Global' },
       pb_scope1: { local: 'Local', regional: 'Regional', global: 'Global' }, pb_verified: 'Verified by Angor only (tiers A and B)',
@@ -455,6 +455,7 @@
     if (BASEMAPS.includes(P.get('base'))) state.basemap = P.get('base');
     if (['fr', 'en'].includes(P.get('lang'))) state.lang = P.get('lang');
     if (['alerts', 'ongoing', 'countries', 'news', 'sites', 'buddy', 'agenda', 'reports', 'trends', 'ew', 'air', 'sea', 'providers'].includes(P.get('tab'))) state.tab = P.get('tab');
+    if (state.tab === 'ew') { state.tab = 'trends'; state.fsView = 'ew'; }   // v0.27 : l'alerte précoce est le niveau « subdivisions » des tendances
     if (P.get('focus')) state.crisisFocus = P.get('focus');
     if (P.get('analyste') === '0') state.analyst = false;
     try { localStorage.setItem('vs-analyst', JSON.stringify(state.analyst)); } catch (e) { /* stockage indisponible */ }
@@ -1365,7 +1366,7 @@
   }
 
   /* Quatre espaces (barre de gauche), chacun avec ses sous-onglets */
-  const SPACES = { veille: ['alerts', 'ongoing', 'news'], pays: ['countries', 'agenda', 'reports'], sites: ['sites', 'buddy'], anticipation: ['trends', 'ew', 'analytics'], trafic: ['air', 'sea'], prestataires: ['providers'] };
+  const SPACES = { veille: ['alerts', 'ongoing', 'news'], pays: ['countries', 'agenda', 'reports'], sites: ['sites', 'buddy'], anticipation: ['trends', 'analytics'], trafic: ['air', 'sea'], prestataires: ['providers'] };
   const SPACE_ICON = { veille: 'siren', pays: 'globe', sites: 'building-2', anticipation: 'radar', trafic: 'plane', prestataires: 'handshake' };
   const TAB_ICON = { alerts: 'siren', ongoing: 'radio-tower', countries: 'globe', news: 'newspaper', sites: 'building-2', buddy: 'message-circle', agenda: 'calendar', reports: 'book-open-text', trends: 'trending-up', ew: 'radar', analytics: 'chart-column', air: 'plane', sea: 'ship', providers: 'handshake' };
   const spaceOf = tab => Object.keys(SPACES).find(k => SPACES[k].includes(tab)) || 'veille';
@@ -1393,8 +1394,7 @@
     if (state.tab === 'providers') renderProvidersTab();
     if (state.tab === 'analytics') renderAnalyticsIntro();
     if (state.tab === 'air' || state.tab === 'sea') { renderTraffic(); trafficLayers(true); } else { closeTrafficView(); trafficLayers(false); }
-    if (window.AngorEW) { if (state.tab === 'ew' && !window.AngorEW.active) window.AngorEW.open(); else if (state.tab !== 'ew' && window.AngorEW.active) window.AngorEW.close(); }
-    if (window.AngorFS) { if (state.tab === 'trends' && !window.AngorFS.active) window.AngorFS.open(); else if (state.tab !== 'trends' && window.AngorFS.active) window.AngorFS.close(); }
+    if (window.AngorFS) { if (state.tab === 'trends' && !window.AngorFS.active) { window.AngorFS.open(state.fsView); state.fsView = null; } else if (state.tab !== 'trends' && window.AngorFS.active) window.AngorFS.close(); }
     renderMobileNav();
   }
   /* ------------------------------------------------------------------ trafic aérien et maritime (préparation)
@@ -2413,7 +2413,7 @@
       ev.stopPropagation();
       const b = ev.target.closest('[data-mm]'); if (!b) return;
       const k = b.dataset.mm; menu.hidden = true;
-      if (['countries', 'news', 'agenda', 'sites', 'reports', 'trends', 'ew', 'air', 'providers'].includes(k)) { state.tab = k; renderTabs(); $('#app').classList.add('panel-open'); closeDrawer(); }
+      if (['countries', 'news', 'agenda', 'sites', 'reports', 'trends', 'air', 'providers'].includes(k)) { state.tab = k; renderTabs(); $('#app').classList.add('panel-open'); closeDrawer(); }
       else if (k === 'analytics') { $('#app').classList.remove('panel-open'); $('#btn-analytics').click(); }
       else if (k === 'refresh') forceRefresh();
       else if (k === 'reliable') { state.reliable = !state.reliable; refresh(); toast(state.reliable ? t('rel_on', 0) : t('rel_off')); }
@@ -3093,7 +3093,7 @@
     showIncidents: b => { state.tab = 'alerts'; renderTabs(); closeDrawer(); map.flyToBounds(b, { padding: [40, 40], maxZoom: 8, duration: 0.8 }); } };
   if (window.AngorEW) window.AngorEW.init(mapBridge);
   if (window.AngorFS) window.AngorFS.init(mapBridge);
-  if (state.tab === 'ew' || state.tab === 'trends' || state.tab === 'reports') renderTabs();
+  if (state.tab === 'trends' || state.tab === 'reports') renderTabs();
   initAccount();
   offlineNotice();
   renderAnalystBar();

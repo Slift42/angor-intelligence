@@ -54,6 +54,21 @@ def load(base=BASE):
     return {"method": method, "sources": sources, "scopes": scopes}
 
 
+def regions(base=BASE):
+    """Régions du monde {id: {fr, en, countries, bbox}} : périmètres communs aux tendances et à l'alerte précoce."""
+    out = {}
+    folder = base / "regions"
+    for f in sorted(folder.glob("*.json")) if folder.is_dir() else []:
+        r = _read(f)
+        out[r["id"]] = {"fr": r["fr"], "en": r["en"], "countries": r["countries"], "bbox": r["bbox"]}
+    return out
+
+
+# famille de facteurs d'une tendance → composante de l'indice d'alerte précoce par subdivision (early_warning.py)
+FAMILY_COMPONENT = {"climate": "cl", "security": "co", "geopolitics": "co", "social": "so", "political": "so",
+                    "infrastructure": "hz", "energy": "hz", "cyber": "hz", "health": "hz", "humanitarian": "hu"}
+
+
 def _date(s):
     """Date (début de période) d'une chaîne AAAA, AAAA-MM ou AAAA-MM-JJ."""
     parts = [int(p) for p in s.split("-")]
@@ -96,6 +111,15 @@ def validate(cfg, now=None):
         if s.get("url") and not (s["url"].startswith("https://") or s["url"].endswith(".html")):
             err.append(f"source {k} : lien non sécurisé {s['url']}")
     seen = set()
+    owner = {}
+    for sid, sc in scopes.items():
+        if sc.get("type") == "region":
+            if not (isinstance(sc.get("bbox"), list) and len(sc["bbox"]) == 4):
+                err.append(f"région {sid} : emprise (bbox) absente")
+            for c in sc.get("countries") or []:
+                if c in owner:
+                    err.append(f"pays {c} rattaché à deux régions ({owner[c]}, {sid})")
+                owner[c] = sid
     for sid, sc in scopes.items():
         if sc.get("type") not in ("region", "country"):
             err.append(f"périmètre {sid} : type inconnu")
@@ -244,8 +268,27 @@ def pressure(scores, top_n=5):
     return round(sum(top) / len(top) * 4) if top else 0
 
 
-def build(cfg, events, now, history=None):
-    """Charge utile publiée : méthode, sources citées, périmètres (avec synthèse) et tendances calculées."""
+def _ew_top(units, comp=None, n=5):
+    key = (lambda u: (u["c"].get(comp, 0), u["v"])) if comp else (lambda u: u["v"])
+    pool = [u for u in units if (u["c"].get(comp, 0) if comp else u["v"]) > 0]
+    return [[u["id"], u["n"], u["iso"], u["v"], u["lvl"], u["c"].get(comp, 0) if comp else u["v"], u["reg"]]
+            for u in sorted(pool, key=key, reverse=True)[:n]]
+
+
+def _ew_summary(units):
+    return {"n": len(units), "with_climate": sum(1 for u in units if u.get("ok")),
+            "high": sum(1 for u in units if u["lvl"] >= 3), "top": _ew_top(units)}
+
+
+def build(cfg, events, now, history=None, ew=None, ind=None):
+    """Charge utile publiée : méthode, sources citées, périmètres (avec synthèse) et tendances calculées.
+    ew : sortie de early_warning.build (subdivisions), pour descendre au niveau de détail le plus fin ;
+    ind : indicateurs structurels par pays (indicators.py)."""
+    ew_units = (ew or {}).get("units") or []
+    ew_by_iso, ew_by_reg = {}, {}
+    for u in ew_units:
+        ew_by_iso.setdefault(u["iso"], []).append(u)
+        ew_by_reg.setdefault(u["reg"], []).append(u)
     m, sources, scopes = cfg["method"], cfg["sources"], cfg["scopes"]
     scales = m["scales"]
     levels = scales["levels"]
@@ -272,6 +315,10 @@ def build(cfg, events, now, history=None):
                          "sources": trend_sources(t), "reviewed": t.get("reviewed") or sc["reviewed"], "review_by": due_on,
                          "live": live, "flags": flags, "history": [h for h in hist if h[1] is not None][-12:]})
             item["live_cats"] = t.get("live") or []
+            comp = next((FAMILY_COMPONENT[f] for f in [t["family"], *(t.get("also") or [])] if f in FAMILY_COMPONENT), None)
+            if comp and ew_units:
+                pool = [u for c in countries for u in ew_by_iso.get(c, [])]
+                item["units"] = {"comp": comp, "top": _ew_top(pool, comp)}
             trends.append(item)
     by_scope = {}
     for t in trends:
@@ -283,14 +330,17 @@ def build(cfg, events, now, history=None):
             out_scopes[sid] = {"id": sid, "type": "region", "fr": sc["fr"], "en": sc["en"], "countries": members,
                                "bbox": sc.get("bbox"), "outlook": sc.get("outlook"), "reviewed": sc.get("reviewed"),
                                "perimeter_fr": sc.get("perimeter_fr"), "perimeter_en": sc.get("perimeter_en"),
-                               "covered": [c for c in members if c in scopes]}
+                               "covered": [c for c in members if c in scopes],
+                               **({"ew": _ew_summary(ew_by_reg.get(sid, []))} if ew_units else {})}
     # pays : décrits (fichier dédié) ou hérités de leur région (tendances régionales seules)
     for rid, reg in list(out_scopes.items()):
         for iso in reg["countries"]:
             sc = scopes.get(iso)
             out_scopes[iso] = {"id": iso, "type": "country", "parent": rid, "described": bool(sc),
                                **({"fr": sc["fr"], "en": sc["en"], "outlook": sc.get("outlook"), "reviewed": sc.get("reviewed"),
-                                   "perimeter_fr": sc.get("perimeter_fr"), "perimeter_en": sc.get("perimeter_en")} if sc else {})}
+                                   "perimeter_fr": sc.get("perimeter_fr"), "perimeter_en": sc.get("perimeter_en")} if sc else {}),
+                               **({"ew": _ew_summary(ew_by_iso.get(iso, []))} if ew_units else {}),
+                               **({"ind": (ind or {}).get(iso)} if (ind or {}).get(iso) else {})}
     top_n = int(rules.get("pressure_top_n", 5))
     for sid, s in out_scopes.items():
         if s["type"] == "region":
@@ -328,11 +378,12 @@ def public_method(cfg, payload):
     Les tendances, leurs scores et leurs signaux restent dans foresight.js (données réservées aux comptes validés)."""
     m = cfg["method"]
     cov = [{"id": s["id"], "type": s["type"], "fr": s["fr"], "en": s["en"], "n": len(s.get("trends") or []),
-            "reviewed": s.get("reviewed"), **({"parent": s["parent"]} if s.get("parent") else {})} for s in cfg["scopes"].values()]
+            "reviewed": s.get("reviewed"), **({"parent": s["parent"]} if s.get("parent") else {}),
+            **({"nc": len(s.get("countries") or [])} if s["type"] == "region" else {})} for s in cfg["scopes"].values()]
     return {"generated": payload["generated"], "version": m.get("version"), "updated": m.get("updated"),
             "scales": m["scales"], "rules": m.get("rules") or {}, "live_params": m.get("live") or {},
             "families": m["families"], "sectors": m.get("sectors", {}), "drivers": m.get("drivers", []),
-            "roadmap": m.get("roadmap", []), "coverage": cov, "sources": cfg["sources"]}
+            "roadmap": m.get("roadmap", []), "auto": m.get("auto", {}), "coverage": cov, "sources": cfg["sources"]}
 
 
 def snapshot(store, payload, now):
@@ -345,8 +396,8 @@ def snapshot(store, payload, now):
     return hist
 
 
-def update(store, events, log, now=None):
-    """Appelé à chaque collecte : contrôle, calcul et publication (docs/data/foresight.js)."""
+def update(store, events, log, now=None, ew=None, ind=None):
+    """Appelé à chaque collecte, après l'alerte précoce : contrôle, calcul et publication (docs/data/foresight.js)."""
     now = now or datetime.now(timezone.utc)
     if not BASE.is_dir():
         return None
@@ -355,9 +406,9 @@ def update(store, events, log, now=None):
     for e in errors[:20]:
         log(f"  ⚠ tendances : {e}")
     hist = (store.get("state") or {}).get("foresight", {}).get("history") or {}
-    payload = build(cfg, events, now, hist)
+    payload = build(cfg, events, now, hist, ew, ind)
     snapshot(store, payload, now)
-    payload = build(cfg, events, now, store["state"]["foresight"]["history"])
+    payload = build(cfg, events, now, store["state"]["foresight"]["history"], ew, ind)
     payload["errors"] = len(errors)
     write_js("foresight.js", "VS_FS", payload)
     write_js("foresight_method.js", "VS_FS_METHOD", public_method(cfg, payload))

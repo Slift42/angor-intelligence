@@ -1,0 +1,31 @@
+{
+  "id": "safr",
+  "type": "region",
+  "fr": "Afrique australe et océan Indien",
+  "en": "Southern Africa & Indian Ocean",
+  "countries": [
+    "BW",
+    "LS",
+    "NA",
+    "SZ",
+    "ZA",
+    "ZM",
+    "ZW",
+    "MW",
+    "MZ",
+    "MG",
+    "KM",
+    "MU",
+    "SC"
+  ],
+  "bbox": [
+    11,
+    -35,
+    63.5,
+    -8
+  ],
+  "perimeter_fr": "Afrique australe et îles de l'océan Indien occidental (dont La Réunion et Mayotte pour l'alerte précoce).",
+  "perimeter_en": "Southern Africa and the western Indian Ocean islands (including Réunion and Mayotte for early warning).",
+  "outlook": null,
+  "trends": []
+}

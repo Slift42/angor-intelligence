@@ -69,7 +69,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
   <div class="grp">Principes</div>
   <a href="#objet">Objet et principes</a><a href="#cycle">Le cycle d'anticipation</a>
   <div class="grp">Évaluer</div>
-  <a href="#facteurs">Facteurs et indicateurs</a><a href="#echelles">Échelles</a><a href="#score">Score et niveaux</a><a href="#temps-reel">Signaux en temps réel</a>
+  <a href="#facteurs">Facteurs et indicateurs</a><a href="#echelles">Échelles</a><a href="#score">Score et niveaux</a><a href="#temps-reel">Signaux en temps réel</a><a href="#alerte-precoce">Alerte précoce par subdivision</a><a href="#indicateurs">Indicateurs structurels</a>
   <div class="grp">Fiabilité</div>
   <a href="#qualite">Contrôle qualité et biais</a><a href="#fiche">Anatomie d'une fiche</a><a href="#reperes">Repères des rapports de référence</a>
   <div class="grp">Couverture</div>
@@ -82,7 +82,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
 
   <section id="objet">
     <h2>Objet et principes</h2>
-    <p>La carte de veille d'Angor montre ce qui <em>se passe</em>. L'onglet <strong>Tendances</strong> (espace Anticipation) montre ce qui <em>se prépare</em>. Une tendance de risque est une dynamique durable, comme une crise énergétique, une contestation sociale ou une saison de feux. Elle est appelée à produire des incidents ayant une incidence sur une entreprise ou un voyageur.</p>
+    <p>La carte de veille d'Angor montre ce qui <em>se passe</em>. L'onglet <strong>Tendances · alerte précoce</strong> (espace Anticipation) montre ce qui <em>se prépare</em>, de la région jusqu'à la subdivision. Une tendance de risque est une dynamique durable, comme une crise énergétique, une contestation sociale ou une saison de feux. Elle est appelée à produire des incidents ayant une incidence sur une entreprise ou un voyageur.</p>
     <ul>
       <li><strong>Anticiper n'est pas prédire.</strong> On estime une vraisemblance et un impact, on dit sur quoi repose l'estimation et ce qui la ferait changer.</li>
       <li><strong>Tous les facteurs comptent.</strong> Le climat, la géopolitique, la politique intérieure, la société, la sécurité, le cyber, l'économie, les finances publiques, l'énergie, les infrastructures, la santé, la démographie et les technologies. Les risques peuvent être violents ou non, du moment qu'ils ont une incidence sur l'activité ou les déplacements.</li>
@@ -97,7 +97,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
     <h2>Le cycle d'anticipation</h2>
     <ol class="steps">
       <li><strong>Balayage de l'horizon</strong>Lecture continue des rapports de prospective, des données ouvertes (climat, économie, énergie, cyber, sécurité) et du flux d'incidents vérifiés d'Angor. On cherche les signaux faibles autant que les dynamiques installées.</li>
-      <li><strong>Identification des facteurs</strong>Chaque signal est rattaché à un facteur d'une des 13 familles (grille PESTEL élargie). Chaque facteur a ses indicateurs et ses sources de suivi (voir « Facteurs et indicateurs »).</li>
+      <li><strong>Identification des facteurs</strong>Chaque signal est rattaché à un facteur d'une des 14 familles (grille PESTEL élargie). Chaque facteur a ses indicateurs et ses sources de suivi (voir « Facteurs et indicateurs »).</li>
       <li><strong>Formulation de la tendance</strong>Une phrase claire, un périmètre (région ou pays) et un horizon. Elle s'accompagne des faits datés qui la justifient et des liens avec d'autres tendances, car les risques s'enchaînent en cascade : le choc énergétique nourrit l'inflation, qui nourrit la contestation.</li>
       <li><strong>Évaluation</strong>L'analyste évalue la vraisemblance (1 à 5), l'impact sur l'entreprise et sur le voyageur (1 à 5), la dynamique (hausse, stable, baisse) et sa confiance (faible, moyenne, élevée). Le score se calcule automatiquement.</li>
       <li><strong>Indicateurs d'alerte et scénario de rupture</strong>On précise ce qui confirmerait ou infirmerait la tendance, et le scénario du pire plausible. C'est ce qui permet de réviser vite.</li>
@@ -107,7 +107,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
 
   <section id="facteurs">
     <h2>Familles de facteurs et indicateurs</h2>
-    <p>Treize familles couvrent tout ce qui peut faire naître un risque. Chaque facteur est suivi par des indicateurs mesurables, avec leurs sources (les numéros renvoient à la bibliographie).</p>
+    <p>Quatorze familles couvrent tout ce qui peut faire naître un risque. Chaque facteur est suivi par des indicateurs mesurables, avec leurs sources (les numéros renvoient à la bibliographie). La mention <span class="badge">intégré</span> signale un indicateur alimenté automatiquement par Angor : alerte précoce par subdivision, indicateurs structurels par pays ou carte des incidents. Les autres sont des sources de veille lues par l'analyste.</p>
     <div class="tbl" id="drivers"><p class="muted">Chargement…</p></div>
   </section>
 
@@ -140,6 +140,43 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
       <li>Baisse nette alors que la tendance est jugée en hausse : signalement également.</li>
     </ul>
     <p>Ce signal ne modifie jamais le score. Il sert de détecteur de surprises, car beaucoup de risques sont saisonniers (chaleur, inondations) : une baisse en octobre n'annonce pas un été calme.</p>
+  </section>
+
+  <section id="alerte-precoce">
+    <h2>Alerte précoce par subdivision</h2>
+    <p>C'est le niveau de détail le plus fin de la méthode. Tendances et alerte précoce forment un seul outil à trois niveaux : <strong>région</strong>, <strong>pays</strong>, <strong>subdivision</strong>. Les régions, États et provinces (niveau administratif 1) sont suivis sur le monde entier, avec les mêmes 17 régions que les tendances. Les outre-mer sont rattachés à leur région géographique : la Guadeloupe aux Caraïbes, La Réunion à l'océan Indien.</p>
+    <p>Chaque subdivision reçoit chaque mois un <strong>indice de convergence</strong> de 0 à 100. Ses cinq composantes reprennent les familles de facteurs des tendances :</p>
+    <div class="tbl"><table>
+      <tr><th>Composante</th><th>Points</th><th>Mesure</th><th>Sources</th></tr>
+      <tr><td>Climat et environnement</td><td>30</td><td>Pluie des 3 derniers mois comparée aux 15 années précédentes (déficit ou excès), chaleur anormale, sols plus secs que la normale ou que jamais.</td><td><a class="ref" href="#src-nasa_power">NASA POWER</a></td></tr>
+      <tr><td>Terrorisme, conflits et criminalité</td><td>30</td><td>Incidents vérifiés sur 3 mois, hausse par rapport aux 12 mois précédents, apparition dans une zone calme, conflits liés aux ressources (eau, terres, bétail).</td><td><a class="ref" href="#src-angor">Angor</a><a class="ref" href="#src-ucdp">UCDP</a><a class="ref" href="#src-gdelt">GDELT</a></td></tr>
+      <tr><td>Société et politique</td><td>15</td><td>Troubles civils et crises politiques localisés, et leur hausse.</td><td><a class="ref" href="#src-angor">Angor</a></td></tr>
+      <tr><td>Aléas, infrastructures et santé</td><td>10</td><td>Catastrophes naturelles, pannes, cyberattaques et alertes sanitaires de gravité 2 et plus, et leur hausse.</td><td><a class="ref" href="#src-angor">Angor</a><a class="ref" href="#src-gdacs">GDACS</a><a class="ref" href="#src-who_don">OMS</a></td></tr>
+      <tr><td>Crises humanitaires</td><td>15</td><td>Part de la population en insécurité alimentaire aiguë (IPC 3 et plus), personnes déplacées. Là où cette donnée n'existe pas, l'indice est ramené sur 100.</td><td><a class="ref" href="#src-hdx_hapi">HDX HAPI</a><a class="ref" href="#src-ipc">IPC</a><a class="ref" href="#src-iom_dtm">OIM</a></td></tr>
+    </table></div>
+    <p>Niveaux : faible (moins de 20), modéré (20 à 39), élevé (40 à 59), très élevé (60 et plus). Chaque fiche de subdivision affiche ses facteurs en clair et ses graphiques, puis les tendances de son pays et de sa région. Dans l'autre sens, chaque fiche tendance liste les subdivisions les plus exposées selon la composante qui lui correspond : climat pour une tendance climatique, société et politique pour une tendance sociale, par exemple.</p>
+    <p><strong>Rétro-évaluation.</strong> Chaque jour, l'indice est recalculé mois par mois sur les trois dernières années, avec les seules données disponibles à chaque date. On mesure ensuite la part des subdivisions qui ont connu une aggravation dans les 3 mois suivants. Le calcul porte sur les subdivisions ayant connu au moins un incident ; une aggravation signifie au moins 1,5 fois plus d'incidents de sécurité. Un indice utile montre une part qui croît avec le niveau. Le tableau est publié dans l'outil.</p>
+    <p><strong>Remplissage.</strong> Les limites administratives (<a class="ref" href="#src-geoboundaries">geoBoundaries</a>) et le climat sont chargés région après région : d'abord l'Afrique de l'Ouest et le Sahel, l'Afrique de l'Est et l'Europe de l'Ouest. La couverture mondiale, soit quelque 3 500 subdivisions, se complète en deux à trois jours, puis le climat est relu tous les dix jours.</p>
+  </section>
+
+  <section id="indicateurs">
+    <h2>Indicateurs structurels par pays</h2>
+    <p>Chaque fiche pays affiche des indicateurs publics mis à jour automatiquement, qui éclairent les tendances économiques, financières et politiques :</p>
+    <ul>
+      <li><strong>FMI, Perspectives de l'économie mondiale</strong><a class="ref" href="#src-imf_datamapper">[FMI]</a> : croissance du PIB, inflation, dette publique en % du PIB, chômage. Ce sont des projections pour l'année en cours.</li>
+      <li><strong>Banque mondiale, indicateurs de gouvernance</strong><a class="ref" href="#src-wgi">[WGI]</a> : stabilité politique et absence de violence, efficacité des pouvoirs publics, État de droit, maîtrise de la corruption. Ce sont des scores de 0 à 100.</li>
+      <li><strong>BCE, taux à long terme</strong><a class="ref" href="#src-ecb_irs">[BCE]</a> : rendement souverain à 10 ans et écart avec l'Allemagne, pour les pays de l'Union européenne.</li>
+    </ul>
+    <p>Un <strong>signal structurel</strong> est affiché quand un seuil est franchi :</p>
+    <ul>
+      <li>récession : croissance négative ;</li>
+      <li>inflation forte : 10 % ou plus ;</li>
+      <li>dette lourde : 100 % du PIB ou plus ;</li>
+      <li>chômage élevé : 15 % ou plus ;</li>
+      <li>forte instabilité politique : score de stabilité inférieur à 20 sur 100 ;</li>
+      <li>tension sur les taux : écart avec l'Allemagne de 150 points de base ou plus.</li>
+    </ul>
+    <p>Ces signaux orientent la lecture, ils ne fixent aucune évaluation.</p>
   </section>
 
   <section id="qualite">
@@ -210,8 +247,8 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
 
   <section id="monde">
     <h2>Région par région, pays par pays</h2>
-    <p>La méthode est la même partout : une fiche région porte les tendances communes à ses pays, et une fiche pays ajoute les tendances propres à ce pays. Un pays sans fiche hérite des tendances de sa région. Il apparaît en pointillés sur la carte.</p>
-    <p><strong>Ordre de couverture</strong> : d'abord les pays où les clients ont des sites ou des voyageurs, puis les pays à risque élevé, puis le reste du monde. L'outil d'alerte précoce climat-conflit (Corne de l'Afrique, Sahel) reste disponible dans l'onglet « Alerte précoce ». Ses indices viendront nourrir les fiches de ces régions.</p>
+    <p>Le monde est découpé en 17 régions, et chaque pays appartient à une seule d'entre elles. Tous les pays ont déjà l'alerte précoce par subdivision et les indicateurs structurels. Les tendances, qui demandent un travail d'analyste, sont rédigées région après région. Une fiche région porte les tendances communes à ses pays, une fiche pays ajoute les tendances propres à ce pays. Un pays sans fiche hérite des tendances de sa région ; il apparaît en pointillés sur la carte.</p>
+    <p><strong>Ordre de rédaction</strong> : d'abord les pays où les clients ont des sites ou des voyageurs, puis les pays à risque élevé, puis le reste du monde.</p>
     <div class="tbl" id="roadmap"></div>
   </section>
 
@@ -227,7 +264,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
 
   <section id="sources">
     <h2>Bibliographie</h2>
-    <p>Toutes les sources citées par les fiches et par les indicateurs, avec leur cotation. Les liens ont été vérifiés à la date de mise à jour.</p>
+    <p>Toutes les sources citées par les fiches et par les indicateurs, avec leur cotation et, le cas échéant, leur intégration dans Angor ou leur licence.</p>
     <div id="biblio"><p class="muted">Chargement…</p></div>
   </section>
   <footer>Angor Intelligence – outil d'aide à la décision, informations non exhaustives, à vérifier. <a href="index.html">Retour à la carte</a> · <a href="aide.html">Aide</a> · <a href="legal.html">Informations légales</a></footer>
@@ -254,7 +291,7 @@ try { const th = JSON.parse(localStorage.getItem('vs-theme')); if (th) document.
   const byFam = {};
   M.drivers.forEach(d => { (byFam[d.family] = byFam[d.family] || []).push(d); });
   $('drivers').innerHTML = `<table><tr><th>Famille</th><th>Facteur</th><th>Indicateurs suivis</th></tr>${Object.entries(M.families).map(([k, f]) => (byFam[k] || []).map((d, i) =>
-    `<tr>${i === 0 ? `<td rowspan="${byFam[k].length}"><span class="fam"><i class="sw" style="background:${esc(f.color)}"></i>${esc(f.fr)}</span></td>` : ''}<td>${esc(d.fr)}</td><td><ul>${d.indicators.map(x => `<li>${esc(x.fr)} ${(x.src || []).map(ref).join('')}</li>`).join('')}</ul></td></tr>`).join('')).join('')}</table>`;
+    `<tr>${i === 0 ? `<td rowspan="${byFam[k].length}"><span class="fam"><i class="sw" style="background:${esc(f.color)}"></i>${esc(f.fr)}</span></td>` : ''}<td>${esc(d.fr)}</td><td><ul>${d.indicators.map(x => `<li>${esc(x.fr)} ${(x.src || []).map(ref).join('')}${x.auto ? ` <span class="badge" title="${esc((M.auto || {})[x.auto] ? M.auto[x.auto].fr : '')}">intégré</span>` : ''}</li>`).join('')}</ul></td></tr>`).join('')).join('')}</table>`;
   // échelles
   const S = M.scales;
   $('sc-likelihood').innerHTML = `<table><tr><th>Niveau</th><th>Terme</th><th>Probabilité</th><th>Repère</th></tr>${[1, 2, 3, 4, 5].map(n => `<tr><td>${n}</td><td>${esc(S.likelihood[n].fr)}</td><td>${esc(S.likelihood[n].p)}</td><td>${esc(S.likelihood[n].d_fr)}</td></tr>`).join('')}</table>`;
@@ -281,9 +318,9 @@ try { const th = JSON.parse(localStorage.getItem('vs-theme')); if (th) document.
   $('rel').innerHTML = `<table><tr><th>Lettre</th><th>Signification</th></tr>${Object.entries(S.source_reliability).map(([k, v]) => `<tr><td><span class="badge">${k}</span></td><td>${esc(v.fr)}</td></tr>`).join('')}</table>`;
   // couverture
   const cov = {}; (M.coverage || []).forEach(c => { cov[c.id] = c; });
-  $('roadmap').innerHTML = `<table><tr><th>Région</th><th>État</th><th>Fiches pays</th></tr>${M.roadmap.map(r => { const c = cov[r.id];
+  $('roadmap').innerHTML = `<table><tr><th>Région</th><th>Pays</th><th>Alerte précoce et indicateurs</th><th>Tendances</th><th>Fiches pays</th></tr>${M.roadmap.map(r => { const c = cov[r.id] || {};
     const ctry = (M.coverage || []).filter(x => x.type === 'country' && x.parent === r.id).map(x => `${x.fr} (${x.n} tendance(s), revue le ${fmt(x.reviewed)})`);
-    return `<tr><td>${esc(r.fr)}</td><td>${r.status === 'active' ? `<strong>Couverte</strong>${c ? ` · ${c.n} tendance(s) régionale(s), revue le ${esc(fmt(c.reviewed))}` : ''}` : '<span class="muted">Prévue</span>'}</td><td>${esc(ctry.join(', ') || '—')}</td></tr>`; }).join('')}</table>`;
+    return `<tr><td>${esc(r.fr)}</td><td>${c.nc || '—'}</td><td>Oui</td><td>${c.n ? `<strong>${c.n} tendance(s)</strong>, revue le ${esc(fmt(c.reviewed))}` : '<span class="muted">À rédiger</span>'}</td><td>${esc(ctry.join(', ') || '—')}</td></tr>`; }).join('')}</table>`;
   // bibliographie
   const KIND = { report: 'Rapports de prospective et baromètres', official: 'Évaluations et publications officielles', data: 'Données et outils de suivi', press: 'Presse', aggregator: 'Agrégateurs (à recouper)', method: 'Méthode' };
   $('biblio').innerHTML = Object.entries(KIND).map(([k, label]) => { const list = ids.filter(id => M.sources[id].kind === k); if (!list.length) return '';

@@ -1,0 +1,29 @@
+{
+  "id": "bal",
+  "type": "region",
+  "fr": "Balkans et Méditerranée orientale",
+  "en": "Balkans & Eastern Mediterranean",
+  "countries": [
+    "AL",
+    "BA",
+    "HR",
+    "ME",
+    "MK",
+    "RS",
+    "XK",
+    "GR",
+    "CY",
+    "CYN",
+    "TR"
+  ],
+  "bbox": [
+    13,
+    34,
+    45,
+    47.5
+  ],
+  "perimeter_fr": "Balkans occidentaux, Grèce, Chypre et Turquie.",
+  "perimeter_en": "Western Balkans, Greece, Cyprus and Türkiye.",
+  "outlook": null,
+  "trends": []
+}

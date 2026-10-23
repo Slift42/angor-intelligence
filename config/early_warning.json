@@ -1,38 +1,13 @@
 {
-  "_comment": "Alerte précoce climat-conflit (onglet « Alerte précoce »). Régions : pays suivis (ISO2) ; unités = niveau administratif 1 (geoBoundaries). NASA POWER : 30 unités par collecte, rafraîchies tous les 10 jours. HDX HAPI : chaque semaine. hapi_app_identifier = base64(« application:e-mail »), voir https://hapi.humdata.org/docs.",
+  "_comment": "Alerte précoce par subdivision (niveau administratif 1, geoBoundaries), fusionnée avec les tendances de risques (v0.27) : les régions sont celles de config/foresight/regions/ (monde entier, 17 régions). Chaque collecte avance un peu : boundaries_per_run nouveaux pays (limites), power_per_run subdivisions NASA POWER (climat, rafraîchi tous les power_refresh_days jours), hapi_per_run pays HDX HAPI (humanitaire ; pays sans données relus tous les hapi_empty_refresh_days jours). priority : ordre de remplissage des régions. hapi_app_identifier = base64(« application:e-mail »), voir https://hapi.humdata.org/docs.",
   "enabled": true,
-  "regions": {
-    "horn": {
-      "fr": "Corne de l'Afrique",
-      "en": "Horn of Africa",
-      "countries": [
-        "DJ",
-        "ER",
-        "ET",
-        "KE",
-        "SO",
-        "SS",
-        "SD",
-        "UG"
-      ]
-    },
-    "sahel": {
-      "fr": "Sahel et bassin du lac Tchad",
-      "en": "Sahel & Lake Chad Basin",
-      "countries": [
-        "ML",
-        "BF",
-        "NE",
-        "TD",
-        "MR",
-        "NG",
-        "CM"
-      ]
-    }
-  },
-  "power_per_run": 30,
+  "priority": ["wafr", "eafr", "weu", "mena", "cafr", "sas", "eeca", "bal", "cam", "sam", "sea", "safr", "ceu", "neu", "eas", "nam", "oce"],
+  "boundaries_per_run": 10,
+  "power_per_run": 40,
   "power_refresh_days": 10,
+  "hapi_per_run": 8,
   "hapi_refresh_days": 7,
+  "hapi_empty_refresh_days": 90,
   "simplify_tolerance": 0.015,
   "hapi_app_identifier": "YW5nb3ItaW50ZWxsaWdlbmNlOmNvbnRhY3RAYW5nb3IuZnI="
 }

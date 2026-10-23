@@ -1,58 +1,227 @@
 {
-  "_comment": "Méthode des tendances de risques (espace Anticipation, v0.26). Échelles, familles de facteurs, facteurs et indicateurs, paramètres des signaux en temps réel, feuille de route mondiale. Les tendances elles-mêmes sont dans regions/<id>.json et countries/<ISO2>.json. Documentation : doc/FORESIGHT.md et docs/methodologie.html.",
-  "version": "1.0",
+  "_comment": "Méthode des tendances de risques (espace Anticipation, v0.26). Échelles, familles de facteurs, facteurs et indicateurs, paramètres des signaux en temps réel, feuille de route mondiale (17 régions). auto = indicateur alimenté automatiquement (ew : alerte précoce, ind : indicateurs pays, map : carte Angor). Les tendances elles-mêmes sont dans regions/<id>.json et countries/<ISO2>.json. Documentation : doc/FORESIGHT.md et docs/methodologie.html.",
+  "version": "1.1",
   "updated": "2026-10-23",
   "scales": {
     "likelihood": {
-      "1": {"fr": "Peu probable", "en": "Unlikely", "p": "< 20 %", "d_fr": "Ne peut être exclu, mais aucun signal ne l'annonce.", "d_en": "Cannot be ruled out, but no signal points to it."},
-      "2": {"fr": "Possible", "en": "Possible", "p": "20–40 %", "d_fr": "Signaux faibles ou isolés.", "d_en": "Weak or isolated signals."},
-      "3": {"fr": "Possibilité réelle", "en": "Realistic possibility", "p": "40–55 %", "d_fr": "Signaux concordants, issue encore ouverte.", "d_en": "Consistent signals, outcome still open."},
-      "4": {"fr": "Probable", "en": "Likely", "p": "55–80 %", "d_fr": "Dynamique engagée, plusieurs sources indépendantes la confirment.", "d_en": "Dynamic under way, confirmed by several independent sources."},
-      "5": {"fr": "Très probable", "en": "Highly likely", "p": "> 80 %", "d_fr": "Tendance déjà observée ou récurrente (saisonnière, structurelle).", "d_en": "Trend already observed or recurring (seasonal, structural)."}
+      "1": {
+        "fr": "Peu probable",
+        "en": "Unlikely",
+        "p": "< 20 %",
+        "d_fr": "Ne peut être exclu, mais aucun signal ne l'annonce.",
+        "d_en": "Cannot be ruled out, but no signal points to it."
+      },
+      "2": {
+        "fr": "Possible",
+        "en": "Possible",
+        "p": "20–40 %",
+        "d_fr": "Signaux faibles ou isolés.",
+        "d_en": "Weak or isolated signals."
+      },
+      "3": {
+        "fr": "Possibilité réelle",
+        "en": "Realistic possibility",
+        "p": "40–55 %",
+        "d_fr": "Signaux concordants, issue encore ouverte.",
+        "d_en": "Consistent signals, outcome still open."
+      },
+      "4": {
+        "fr": "Probable",
+        "en": "Likely",
+        "p": "55–80 %",
+        "d_fr": "Dynamique engagée, plusieurs sources indépendantes la confirment.",
+        "d_en": "Dynamic under way, confirmed by several independent sources."
+      },
+      "5": {
+        "fr": "Très probable",
+        "en": "Highly likely",
+        "p": "> 80 %",
+        "d_fr": "Tendance déjà observée ou récurrente (saisonnière, structurelle).",
+        "d_en": "Trend already observed or recurring (seasonal, structural)."
+      }
     },
     "impact_business": {
-      "1": {"fr": "Négligeable", "en": "Negligible", "d_fr": "Aucune perturbation notable de l'activité.", "d_en": "No noticeable disruption."},
-      "2": {"fr": "Limité", "en": "Limited", "d_fr": "Perturbations ponctuelles, surcoûts limités.", "d_en": "Occasional disruption, limited extra costs."},
-      "3": {"fr": "Significatif", "en": "Significant", "d_fr": "Un site ou une chaîne perturbé plusieurs jours, surcoûts sensibles.", "d_en": "A site or supply chain disrupted for several days, noticeable extra costs."},
-      "4": {"fr": "Majeur", "en": "Major", "d_fr": "Arrêt partiel, atteinte durable aux approvisionnements ou aux marges.", "d_en": "Partial shutdown, lasting damage to supply or margins."},
-      "5": {"fr": "Critique", "en": "Critical", "d_fr": "Arrêt d'activité, atteinte aux personnes ou crise systémique.", "d_en": "Shutdown, harm to people or systemic crisis."}
+      "1": {
+        "fr": "Négligeable",
+        "en": "Negligible",
+        "d_fr": "Aucune perturbation notable de l'activité.",
+        "d_en": "No noticeable disruption."
+      },
+      "2": {
+        "fr": "Limité",
+        "en": "Limited",
+        "d_fr": "Perturbations ponctuelles, surcoûts limités.",
+        "d_en": "Occasional disruption, limited extra costs."
+      },
+      "3": {
+        "fr": "Significatif",
+        "en": "Significant",
+        "d_fr": "Un site ou une chaîne perturbé plusieurs jours, surcoûts sensibles.",
+        "d_en": "A site or supply chain disrupted for several days, noticeable extra costs."
+      },
+      "4": {
+        "fr": "Majeur",
+        "en": "Major",
+        "d_fr": "Arrêt partiel, atteinte durable aux approvisionnements ou aux marges.",
+        "d_en": "Partial shutdown, lasting damage to supply or margins."
+      },
+      "5": {
+        "fr": "Critique",
+        "en": "Critical",
+        "d_fr": "Arrêt d'activité, atteinte aux personnes ou crise systémique.",
+        "d_en": "Shutdown, harm to people or systemic crisis."
+      }
     },
     "impact_travel": {
-      "1": {"fr": "Négligeable", "en": "Negligible", "d_fr": "Aucun effet sur les déplacements.", "d_en": "No effect on travel."},
-      "2": {"fr": "Limité", "en": "Limited", "d_fr": "Gênes ponctuelles, retards.", "d_en": "Occasional inconvenience, delays."},
-      "3": {"fr": "Significatif", "en": "Significant", "d_fr": "Annulations, accès restreints, vigilance renforcée.", "d_en": "Cancellations, restricted access, heightened vigilance."},
-      "4": {"fr": "Majeur", "en": "Major", "d_fr": "Déplacements à reporter dans les zones touchées, risque pour l'intégrité physique.", "d_en": "Postpone travel to affected areas, physical risk."},
-      "5": {"fr": "Critique", "en": "Critical", "d_fr": "Déplacements déconseillés, évacuation envisagée.", "d_en": "Travel advised against, evacuation considered."}
+      "1": {
+        "fr": "Négligeable",
+        "en": "Negligible",
+        "d_fr": "Aucun effet sur les déplacements.",
+        "d_en": "No effect on travel."
+      },
+      "2": {
+        "fr": "Limité",
+        "en": "Limited",
+        "d_fr": "Gênes ponctuelles, retards.",
+        "d_en": "Occasional inconvenience, delays."
+      },
+      "3": {
+        "fr": "Significatif",
+        "en": "Significant",
+        "d_fr": "Annulations, accès restreints, vigilance renforcée.",
+        "d_en": "Cancellations, restricted access, heightened vigilance."
+      },
+      "4": {
+        "fr": "Majeur",
+        "en": "Major",
+        "d_fr": "Déplacements à reporter dans les zones touchées, risque pour l'intégrité physique.",
+        "d_en": "Postpone travel to affected areas, physical risk."
+      },
+      "5": {
+        "fr": "Critique",
+        "en": "Critical",
+        "d_fr": "Déplacements déconseillés, évacuation envisagée.",
+        "d_en": "Travel advised against, evacuation considered."
+      }
     },
     "horizon": {
-      "3m": {"fr": "Court terme (0–3 mois)", "en": "Short term (0–3 months)", "review_days": 30},
-      "12m": {"fr": "Moyen terme (3–12 mois)", "en": "Medium term (3–12 months)", "review_days": 60},
-      "36m": {"fr": "Structurel (1–3 ans)", "en": "Structural (1–3 years)", "review_days": 120}
+      "3m": {
+        "fr": "Court terme (0–3 mois)",
+        "en": "Short term (0–3 months)",
+        "review_days": 30
+      },
+      "12m": {
+        "fr": "Moyen terme (3–12 mois)",
+        "en": "Medium term (3–12 months)",
+        "review_days": 60
+      },
+      "36m": {
+        "fr": "Structurel (1–3 ans)",
+        "en": "Structural (1–3 years)",
+        "review_days": 120
+      }
     },
     "momentum": {
-      "1": {"fr": "En hausse", "en": "Rising"},
-      "0": {"fr": "Stable", "en": "Stable"},
-      "-1": {"fr": "En baisse", "en": "Easing"}
+      "1": {
+        "fr": "En hausse",
+        "en": "Rising"
+      },
+      "0": {
+        "fr": "Stable",
+        "en": "Stable"
+      },
+      "-1": {
+        "fr": "En baisse",
+        "en": "Easing"
+      }
     },
     "confidence": {
-      "high": {"fr": "Élevée", "en": "High", "d_fr": "Sources de qualité (A–B), indépendantes et concordantes ; peu d'hypothèses.", "d_en": "Good-quality sources (A–B), independent and consistent; few assumptions."},
-      "medium": {"fr": "Moyenne", "en": "Moderate", "d_fr": "Sources crédibles mais partielles, ou interprétations divergentes.", "d_en": "Credible but partial sources, or diverging interpretations."},
-      "low": {"fr": "Faible", "en": "Low", "d_fr": "Informations fragmentaires, peu recoupées ou d'origine incertaine.", "d_en": "Fragmentary, poorly corroborated or uncertain information."}
+      "high": {
+        "fr": "Élevée",
+        "en": "High",
+        "d_fr": "Sources de qualité (A–B), indépendantes et concordantes ; peu d'hypothèses.",
+        "d_en": "Good-quality sources (A–B), independent and consistent; few assumptions."
+      },
+      "medium": {
+        "fr": "Moyenne",
+        "en": "Moderate",
+        "d_fr": "Sources crédibles mais partielles, ou interprétations divergentes.",
+        "d_en": "Credible but partial sources, or diverging interpretations."
+      },
+      "low": {
+        "fr": "Faible",
+        "en": "Low",
+        "d_fr": "Informations fragmentaires, peu recoupées ou d'origine incertaine.",
+        "d_en": "Fragmentary, poorly corroborated or uncertain information."
+      }
     },
     "levels": [
-      {"min": 1, "max": 4, "key": 1, "fr": "Faible", "en": "Low", "color": "#5FA37C"},
-      {"min": 5, "max": 9, "key": 2, "fr": "Modéré", "en": "Moderate", "color": "#E3B505"},
-      {"min": 10, "max": 14, "key": 3, "fr": "Élevé", "en": "High", "color": "#EE7D22"},
-      {"min": 15, "max": 19, "key": 4, "fr": "Très élevé", "en": "Very high", "color": "#C0263B"},
-      {"min": 20, "max": 25, "key": 5, "fr": "Critique", "en": "Critical", "color": "#7F0F1E"}
+      {
+        "min": 1,
+        "max": 4,
+        "key": 1,
+        "fr": "Faible",
+        "en": "Low",
+        "color": "#5FA37C"
+      },
+      {
+        "min": 5,
+        "max": 9,
+        "key": 2,
+        "fr": "Modéré",
+        "en": "Moderate",
+        "color": "#E3B505"
+      },
+      {
+        "min": 10,
+        "max": 14,
+        "key": 3,
+        "fr": "Élevé",
+        "en": "High",
+        "color": "#EE7D22"
+      },
+      {
+        "min": 15,
+        "max": 19,
+        "key": 4,
+        "fr": "Très élevé",
+        "en": "Very high",
+        "color": "#C0263B"
+      },
+      {
+        "min": 20,
+        "max": 25,
+        "key": 5,
+        "fr": "Critique",
+        "en": "Critical",
+        "color": "#7F0F1E"
+      }
     ],
     "source_reliability": {
-      "A": {"fr": "Mesure ou statistique officielle", "en": "Official measurement or statistics"},
-      "B": {"fr": "Évaluation institutionnelle ou rapport de référence", "en": "Institutional assessment or reference report"},
-      "C": {"fr": "Presse de référence, enquête d'opinion", "en": "Reputable press, opinion survey"},
-      "D": {"fr": "Agrégateur ou source secondaire, à recouper", "en": "Aggregator or secondary source, to corroborate"},
-      "E": {"fr": "Source peu sûre", "en": "Unreliable source"},
-      "F": {"fr": "Fiabilité impossible à évaluer", "en": "Reliability cannot be judged"}
+      "A": {
+        "fr": "Mesure ou statistique officielle",
+        "en": "Official measurement or statistics"
+      },
+      "B": {
+        "fr": "Évaluation institutionnelle ou rapport de référence",
+        "en": "Institutional assessment or reference report"
+      },
+      "C": {
+        "fr": "Presse de référence, enquête d'opinion",
+        "en": "Reputable press, opinion survey"
+      },
+      "D": {
+        "fr": "Agrégateur ou source secondaire, à recouper",
+        "en": "Aggregator or secondary source, to corroborate"
+      },
+      "E": {
+        "fr": "Source peu sûre",
+        "en": "Unreliable source"
+      },
+      "F": {
+        "fr": "Fiabilité impossible à évaluer",
+        "en": "Reliability cannot be judged"
+      }
     }
   },
   "rules": {
@@ -70,163 +239,1521 @@
     "min_events": 3
   },
   "sectors": {
-    "energy": {"fr": "Énergie", "en": "Energy"},
-    "industry": {"fr": "Industrie", "en": "Manufacturing"},
-    "logistics": {"fr": "Transport et logistique", "en": "Transport & logistics"},
-    "aviation": {"fr": "Aérien", "en": "Aviation"},
-    "retail": {"fr": "Commerce", "en": "Retail"},
-    "tourism": {"fr": "Tourisme, hôtellerie, événementiel", "en": "Tourism, hospitality, events"},
-    "finance": {"fr": "Banque et assurance", "en": "Banking & insurance"},
-    "public": {"fr": "Secteur public, collectivités", "en": "Public sector"},
-    "health": {"fr": "Santé", "en": "Healthcare"},
-    "agri": {"fr": "Agriculture et agroalimentaire", "en": "Agriculture & food"},
-    "construction": {"fr": "BTP et immobilier", "en": "Construction & real estate"},
-    "tech": {"fr": "Numérique et télécoms", "en": "Digital & telecoms"},
-    "all": {"fr": "Tous secteurs", "en": "All sectors"}
+    "energy": {
+      "fr": "Énergie",
+      "en": "Energy"
+    },
+    "industry": {
+      "fr": "Industrie",
+      "en": "Manufacturing"
+    },
+    "logistics": {
+      "fr": "Transport et logistique",
+      "en": "Transport & logistics"
+    },
+    "aviation": {
+      "fr": "Aérien",
+      "en": "Aviation"
+    },
+    "retail": {
+      "fr": "Commerce",
+      "en": "Retail"
+    },
+    "tourism": {
+      "fr": "Tourisme, hôtellerie, événementiel",
+      "en": "Tourism, hospitality, events"
+    },
+    "finance": {
+      "fr": "Banque et assurance",
+      "en": "Banking & insurance"
+    },
+    "public": {
+      "fr": "Secteur public, collectivités",
+      "en": "Public sector"
+    },
+    "health": {
+      "fr": "Santé",
+      "en": "Healthcare"
+    },
+    "agri": {
+      "fr": "Agriculture et agroalimentaire",
+      "en": "Agriculture & food"
+    },
+    "construction": {
+      "fr": "BTP et immobilier",
+      "en": "Construction & real estate"
+    },
+    "tech": {
+      "fr": "Numérique et télécoms",
+      "en": "Digital & telecoms"
+    },
+    "all": {
+      "fr": "Tous secteurs",
+      "en": "All sectors"
+    }
   },
   "families": {
-    "climate": {"fr": "Climat et environnement", "en": "Climate & environment", "icon": "thermometer", "color": "#2B9348"},
-    "geopolitics": {"fr": "Géopolitique et conflits", "en": "Geopolitics & conflict", "icon": "swords", "color": "#7B2CBF"},
-    "political": {"fr": "Politique et institutions", "en": "Politics & institutions", "icon": "landmark", "color": "#3A5A99"},
-    "social": {"fr": "Société et cohésion", "en": "Society & cohesion", "icon": "megaphone", "color": "#D9480F"},
-    "security": {"fr": "Terrorisme et criminalité", "en": "Terrorism & crime", "icon": "crosshair", "color": "#C0263B"},
-    "cyber": {"fr": "Cyber et information", "en": "Cyber & information", "icon": "radio-tower", "color": "#0B7285"},
-    "economy": {"fr": "Économie et commerce", "en": "Economy & trade", "icon": "chart-column", "color": "#5C7CFA"},
-    "finance": {"fr": "Finances publiques et marchés", "en": "Public finance & markets", "icon": "landmark", "color": "#364FC7"},
-    "energy": {"fr": "Énergie et ressources", "en": "Energy & resources", "icon": "flame", "color": "#E8590C"},
-    "infrastructure": {"fr": "Infrastructures et transports", "en": "Infrastructure & transport", "icon": "building-2", "color": "#495057"},
-    "health": {"fr": "Santé", "en": "Health", "icon": "biohazard", "color": "#2F9E44"},
-    "demography": {"fr": "Démographie et travail", "en": "Demography & labour", "icon": "globe", "color": "#868E96"},
-    "technology": {"fr": "Technologies (IA, quantique)", "en": "Technology (AI, quantum)", "icon": "radar", "color": "#1098AD"}
+    "climate": {
+      "fr": "Climat et environnement",
+      "en": "Climate & environment",
+      "icon": "thermometer",
+      "color": "#2B9348"
+    },
+    "geopolitics": {
+      "fr": "Géopolitique et conflits",
+      "en": "Geopolitics & conflict",
+      "icon": "swords",
+      "color": "#7B2CBF"
+    },
+    "political": {
+      "fr": "Politique et institutions",
+      "en": "Politics & institutions",
+      "icon": "landmark",
+      "color": "#3A5A99"
+    },
+    "social": {
+      "fr": "Société et cohésion",
+      "en": "Society & cohesion",
+      "icon": "megaphone",
+      "color": "#D9480F"
+    },
+    "security": {
+      "fr": "Terrorisme et criminalité",
+      "en": "Terrorism & crime",
+      "icon": "crosshair",
+      "color": "#C0263B"
+    },
+    "cyber": {
+      "fr": "Cyber et information",
+      "en": "Cyber & information",
+      "icon": "radio-tower",
+      "color": "#0B7285"
+    },
+    "economy": {
+      "fr": "Économie et commerce",
+      "en": "Economy & trade",
+      "icon": "chart-column",
+      "color": "#5C7CFA"
+    },
+    "finance": {
+      "fr": "Finances publiques et marchés",
+      "en": "Public finance & markets",
+      "icon": "landmark",
+      "color": "#364FC7"
+    },
+    "energy": {
+      "fr": "Énergie et ressources",
+      "en": "Energy & resources",
+      "icon": "flame",
+      "color": "#E8590C"
+    },
+    "infrastructure": {
+      "fr": "Infrastructures et transports",
+      "en": "Infrastructure & transport",
+      "icon": "building-2",
+      "color": "#495057"
+    },
+    "health": {
+      "fr": "Santé",
+      "en": "Health",
+      "icon": "biohazard",
+      "color": "#2F9E44"
+    },
+    "demography": {
+      "fr": "Démographie et travail",
+      "en": "Demography & labour",
+      "icon": "globe",
+      "color": "#868E96"
+    },
+    "technology": {
+      "fr": "Technologies (IA, quantique)",
+      "en": "Technology (AI, quantum)",
+      "icon": "radar",
+      "color": "#1098AD"
+    },
+    "humanitarian": {
+      "fr": "Crises humanitaires",
+      "en": "Humanitarian crises",
+      "icon": "tent",
+      "color": "#9C36B5"
+    }
   },
   "drivers": [
-    {"id": "heat", "family": "climate", "fr": "Chaleur extrême", "en": "Extreme heat",
-     "indicators": [
-       {"fr": "Vigilance canicule (orange, rouge) et nombre de jours de vague de chaleur", "en": "Heatwave warnings (orange, red) and number of heatwave days", "src": ["meteofrance_vigilance", "meteofrance_ete26"]},
-       {"fr": "Anomalie de température saisonnière (prévisions saisonnières)", "en": "Seasonal temperature anomaly (seasonal forecasts)", "src": ["c3s"]},
-       {"fr": "Projections climatiques régionalisées", "en": "Downscaled climate projections", "src": ["drias"]}]},
-    {"id": "drought", "family": "climate", "fr": "Sécheresse et stress hydrique", "en": "Drought & water stress",
-     "indicators": [
-       {"fr": "Arrêtés de restriction d'eau par département", "en": "Water-use restriction orders by département", "src": ["vigieau"]},
-       {"fr": "Humidité des sols et débits des cours d'eau", "en": "Soil moisture and river flows", "src": ["c3s", "meteofrance_ete26"]}]},
-    {"id": "wildfire", "family": "climate", "fr": "Feux de forêt", "en": "Wildfires",
-     "indicators": [
-       {"fr": "Danger météorologique de feux (Météo des forêts) et surfaces brûlées", "en": "Fire weather danger and burned area", "src": ["effis", "meteofrance_ete26"]},
-       {"fr": "Feux détectés par satellite (incidents Angor)", "en": "Satellite-detected fires (Angor incidents)", "src": ["angor"]}]},
-    {"id": "flood_storm", "family": "climate", "fr": "Inondations, tempêtes et épisodes méditerranéens", "en": "Floods, storms & Mediterranean rain events",
-     "indicators": [
-       {"fr": "Vigilance pluie-inondation, crues (Vigicrues)", "en": "Rain-flood warnings, river flood levels", "src": ["meteofrance_vigilance", "vigicrues"]},
-       {"fr": "Exposition des sites aux aléas (zones inondables, submersion)", "en": "Site exposure to hazards (flood zones, coastal flooding)", "src": ["georisques"]}]},
-    {"id": "climate_adaptation", "family": "climate", "fr": "Vulnérabilité et préparation climatique", "en": "Climate vulnerability & readiness",
-     "indicators": [
-       {"fr": "Indice ND-GAIN (vulnérabilité et préparation)", "en": "ND-GAIN index (vulnerability and readiness)", "src": ["ndgain"]},
-       {"fr": "Indice INFORM (aléas, vulnérabilité, capacité)", "en": "INFORM index (hazard, vulnerability, coping capacity)", "src": ["inform"]}]},
-    {"id": "middle_east", "family": "geopolitics", "fr": "Guerre au Moyen-Orient et routes maritimes", "en": "Middle East war & sea lanes",
-     "indicators": [
-       {"fr": "Passages quotidiens dans le détroit d'Ormuz et en mer Rouge", "en": "Daily transits through Hormuz and the Red Sea", "src": ["imf_portwatch"]},
-       {"fr": "Attaques contre des navires et des installations énergétiques", "en": "Attacks on ships and energy facilities", "src": ["angor", "crisiswatch"]}]},
-    {"id": "hybrid", "family": "geopolitics", "fr": "Menace hybride (sabotage, drones, brouillage)", "en": "Hybrid threats (sabotage, drones, jamming)",
-     "indicators": [
-       {"fr": "Fermetures d'aéroports pour drones, sabotages d'infrastructures attribués", "en": "Airport closures due to drones, attributed infrastructure sabotage", "src": ["angor", "pbs_leipzig"]},
-       {"fr": "Attributions et mesures officielles (expulsions, sanctions)", "en": "Official attributions and measures (expulsions, sanctions)", "src": ["crisiswatch"]}]},
-    {"id": "geoeconomic", "family": "geopolitics", "fr": "Confrontation géoéconomique (droits de douane, sanctions)", "en": "Geoeconomic confrontation (tariffs, sanctions)",
-     "indicators": [
-       {"fr": "Annonces de droits de douane, contrôles à l'export, sanctions", "en": "Tariff announcements, export controls, sanctions", "src": ["wef_grr26", "allianz_rb26"]},
-       {"fr": "Prévisions de commerce et de croissance mondiales", "en": "World trade and growth forecasts", "src": ["imf_weo"]}]},
-    {"id": "gov_stability", "family": "political", "fr": "Stabilité gouvernementale et budgétaire", "en": "Government & budget stability",
-     "indicators": [
-       {"fr": "Motions de censure, recours au 49.3, loi spéciale, remaniements", "en": "No-confidence motions, use of article 49.3, stop-gap budget law, reshuffles", "src": ["assemblee", "lcp_plf27"]},
-       {"fr": "Efficacité gouvernementale et stabilité politique (WGI)", "en": "Government effectiveness and political stability (WGI)", "src": ["wgi"]}]},
-    {"id": "elections", "family": "political", "fr": "Cycle électoral", "en": "Electoral cycle",
-     "indicators": [
-       {"fr": "Calendrier électoral et campagnes (agenda Angor)", "en": "Electoral calendar and campaigns (Angor agenda)", "src": ["angor"]},
-       {"fr": "Qualité démocratique et polarisation (V-Dem)", "en": "Democratic quality and polarisation (V-Dem)", "src": ["vdem"]}]},
-    {"id": "interference", "family": "political", "fr": "Ingérences étrangères et désinformation", "en": "Foreign interference & disinformation",
-     "indicators": [
-       {"fr": "Campagnes détectées et rapports de Viginum (SGDSN)", "en": "Campaigns detected and Viginum (SGDSN) reports", "src": ["sgdsn", "jdn_ingerences"]},
-       {"fr": "Rang de la désinformation dans les enquêtes d'experts", "en": "Rank of disinformation in expert surveys", "src": ["wef_grr26"]}]},
-    {"id": "cost_of_living", "family": "social", "fr": "Vie chère et pouvoir d'achat", "en": "Cost of living & purchasing power",
-     "indicators": [
-       {"fr": "Inflation (IPC/IPCH), prix des carburants à la pompe", "en": "Inflation (CPI/HICP), pump fuel prices", "src": ["insee", "prix_carburants", "eurostat"]},
-       {"fr": "Préoccupation du public pour les tensions sociales", "en": "Public concern about social tensions", "src": ["axa_frr26"]}]},
-    {"id": "mobilisation", "family": "social", "fr": "Mobilisations sociales et blocages", "en": "Social mobilisation & blockades",
-     "indicators": [
-       {"fr": "Préavis de grève (transports, contrôle aérien), appels à manifester", "en": "Strike notices (transport, air traffic control), calls to protest", "src": ["eurocontrol", "angor"]},
-       {"fr": "Manifestations et troubles recensés (incidents Angor)", "en": "Protests and unrest recorded (Angor incidents)", "src": ["angor", "gdelt"]}]},
-    {"id": "polarisation", "family": "social", "fr": "Polarisation et fragmentation sociale", "en": "Polarisation & social fragmentation",
-     "indicators": [
-       {"fr": "Perception d'une fracture sociale, confiance démocratique", "en": "Perceived social divide, trust in democracy", "src": ["axa_frr26", "vdem"]},
-       {"fr": "Rang de la polarisation dans les enquêtes d'experts", "en": "Rank of polarisation in expert surveys", "src": ["wef_grr26"]}]},
-    {"id": "terrorism", "family": "security", "fr": "Menace terroriste", "en": "Terrorist threat",
-     "indicators": [
-       {"fr": "Posture Vigipirate et niveaux de menace nationaux", "en": "Vigipirate posture and national threat levels", "src": ["sgdsn", "echo_vigipirate"]},
-       {"fr": "Attentats, projets déjoués et arrestations (UE)", "en": "Attacks, foiled plots and arrests (EU)", "src": ["europol_tesat26", "angor"]}]},
-    {"id": "organised_crime", "family": "security", "fr": "Criminalité organisée et narcotrafic", "en": "Organised crime & drug trafficking",
-     "indicators": [
-       {"fr": "Homicides liés au trafic, communes touchées", "en": "Trafficking-related homicides, municipalities affected", "src": ["localtis_narco", "ofdt"]},
-       {"fr": "Incidents criminels recensés (Angor)", "en": "Criminal incidents recorded (Angor)", "src": ["angor"]}]},
-    {"id": "ransomware", "family": "cyber", "fr": "Rançongiciels et cybercriminalité", "en": "Ransomware & cybercrime",
-     "indicators": [
-       {"fr": "Incidents traités par l'ANSSI, alertes CERT-FR", "en": "Incidents handled by ANSSI, CERT-FR alerts", "src": ["anssi", "cert_fr", "acteurs_publics_anssi"]},
-       {"fr": "Rang du cyber dans les baromètres d'entreprises", "en": "Rank of cyber in business risk surveys", "src": ["allianz_rb26"]}]},
-    {"id": "cyber_state", "family": "cyber", "fr": "Cyberespionnage et attaques d'État", "en": "State cyber-espionage & attacks",
-     "indicators": [
-       {"fr": "Campagnes attribuées à des acteurs étatiques", "en": "Campaigns attributed to state actors", "src": ["anssi", "enisa"]},
-       {"fr": "Attaques contre les infrastructures critiques", "en": "Attacks on critical infrastructure", "src": ["axa_frr26", "angor"]}]},
-    {"id": "growth", "family": "economy", "fr": "Croissance et conjoncture", "en": "Growth & business cycle",
-     "indicators": [
-       {"fr": "Projections de croissance et d'inflation", "en": "Growth and inflation projections", "src": ["ecb_proj_sep26", "imf_weo", "insee"]},
-       {"fr": "Défaillances d'entreprises (cumul sur 12 mois)", "en": "Business insolvencies (12-month total)", "src": ["bdf_defaillances"]}]},
-    {"id": "sovereign", "family": "finance", "fr": "Dette publique et taux souverains", "en": "Public debt & sovereign yields",
-     "indicators": [
-       {"fr": "Taux à 10 ans et écart avec l'Allemagne", "en": "10-year yield and spread over Germany", "src": ["ecb_data", "boursorama_moodys"]},
-       {"fr": "Notes et perspectives des agences de notation", "en": "Credit ratings and outlooks", "src": ["aft_ratings"]}]},
-    {"id": "monetary", "family": "finance", "fr": "Politique monétaire et stabilité financière", "en": "Monetary policy & financial stability",
-     "indicators": [
-       {"fr": "Taux directeurs de la BCE", "en": "ECB policy rates", "src": ["ecb_mp_sep26", "ecb_data"]},
-       {"fr": "Vulnérabilités relevées par la Revue de stabilité financière", "en": "Vulnerabilities flagged by the Financial Stability Review", "src": ["ecb_fsr"]}]},
-    {"id": "oil_gas", "family": "energy", "fr": "Prix et approvisionnement en pétrole et gaz", "en": "Oil & gas prices and supply",
-     "indicators": [
-       {"fr": "Brent, gaz TTF, kérosène", "en": "Brent, TTF gas, jet fuel", "src": ["straits_live", "iea"]},
-       {"fr": "Remplissage des stockages de gaz de l'UE", "en": "EU gas storage filling", "src": ["agsi"]},
-       {"fr": "Ruptures de carburant dans les stations", "en": "Fuel outages at filling stations", "src": ["prix_carburants"]}]},
-    {"id": "power_grid", "family": "energy", "fr": "Réseaux électriques", "en": "Power grids",
-     "indicators": [
-       {"fr": "Marges de sécurité d'approvisionnement, alertes Ecowatt", "en": "Supply adequacy margins, Ecowatt alerts", "src": ["rte_eco2mix", "entsoe"]},
-       {"fr": "Pannes de grande ampleur (incidents Angor)", "en": "Large-scale outages (Angor incidents)", "src": ["angor", "axa_frr26"]}]},
-    {"id": "transport", "family": "infrastructure", "fr": "Perturbation des transports", "en": "Transport disruption",
-     "indicators": [
-       {"fr": "Grèves du contrôle aérien et du ferroviaire, capacité aérienne", "en": "Air traffic control and rail strikes, airline capacity", "src": ["eurocontrol", "angor"]},
-       {"fr": "Pannes et cyberattaques des systèmes aéroportuaires", "en": "Outages and cyberattacks on airport systems", "src": ["techcrunch_collins", "angor"]}]},
-    {"id": "epidemics", "family": "health", "fr": "Épidémies et santé environnementale", "en": "Epidemics & environmental health",
-     "indicators": [
-       {"fr": "Bulletins de surveillance (ECDC, Santé publique France)", "en": "Surveillance bulletins (ECDC, Santé publique France)", "src": ["ecdc", "spf"]},
-       {"fr": "Effets sanitaires de la chaleur", "en": "Health effects of heat", "src": ["c3s", "spf"]}]},
-    {"id": "ageing", "family": "demography", "fr": "Vieillissement et pénuries de main-d'œuvre", "en": "Ageing & labour shortages",
-     "indicators": [
-       {"fr": "Âge médian, taux de dépendance, emplois vacants", "en": "Median age, dependency ratio, job vacancies", "src": ["eurostat", "axa_frr26"]}]},
-    {"id": "ai", "family": "technology", "fr": "IA, deepfakes et ruptures technologiques", "en": "AI, deepfakes & technological disruption",
-     "indicators": [
-       {"fr": "Rang de l'IA dans les enquêtes d'experts et d'entreprises", "en": "Rank of AI in expert and business surveys", "src": ["axa_frr26", "allianz_rb26", "wef_grr26"]},
-       {"fr": "Fraudes et usurpations par deepfake signalées", "en": "Reported deepfake fraud and impersonation", "src": ["cybermalveillance"]}]}
+    {
+      "id": "heat",
+      "family": "climate",
+      "fr": "Chaleur extrême",
+      "en": "Extreme heat",
+      "indicators": [
+        {
+          "fr": "Vigilance canicule (orange, rouge) et nombre de jours de vague de chaleur",
+          "en": "Heatwave warnings (orange, red) and number of heatwave days",
+          "src": [
+            "meteofrance_vigilance",
+            "meteofrance_ete26"
+          ]
+        },
+        {
+          "fr": "Anomalie de température saisonnière (prévisions saisonnières)",
+          "en": "Seasonal temperature anomaly (seasonal forecasts)",
+          "src": [
+            "c3s"
+          ]
+        },
+        {
+          "fr": "Projections climatiques régionalisées",
+          "en": "Downscaled climate projections",
+          "src": [
+            "drias"
+          ]
+        },
+        {
+          "fr": "Anomalies de température de chaque subdivision (15 années de référence)",
+          "en": "Temperature anomalies of each subdivision (15-year baseline)",
+          "src": [
+            "nasa_power"
+          ],
+          "auto": "ew"
+        },
+        {
+          "fr": "Projections et niveaux de réchauffement (GIEC)",
+          "en": "Warming projections and levels (IPCC)",
+          "src": [
+            "ipcc_ar6",
+            "c3s"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drought",
+      "family": "climate",
+      "fr": "Sécheresse et stress hydrique",
+      "en": "Drought & water stress",
+      "indicators": [
+        {
+          "fr": "Arrêtés de restriction d'eau par département",
+          "en": "Water-use restriction orders by département",
+          "src": [
+            "vigieau"
+          ]
+        },
+        {
+          "fr": "Humidité des sols et débits des cours d'eau",
+          "en": "Soil moisture and river flows",
+          "src": [
+            "c3s",
+            "meteofrance_ete26"
+          ]
+        },
+        {
+          "fr": "Déficit de pluie sur 3 mois et humidité du sol racinaire par subdivision",
+          "en": "3-month rainfall deficit and root-zone soil moisture by subdivision",
+          "src": [
+            "nasa_power"
+          ],
+          "auto": "ew"
+        },
+        {
+          "fr": "Stress hydrique de référence par bassin",
+          "en": "Baseline water stress by basin",
+          "src": [
+            "wri_aqueduct"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wildfire",
+      "family": "climate",
+      "fr": "Feux de forêt",
+      "en": "Wildfires",
+      "indicators": [
+        {
+          "fr": "Danger météorologique de feux (Météo des forêts) et surfaces brûlées",
+          "en": "Fire weather danger and burned area",
+          "src": [
+            "effis",
+            "meteofrance_ete26"
+          ]
+        },
+        {
+          "fr": "Feux détectés par satellite (incidents Angor)",
+          "en": "Satellite-detected fires (Angor incidents)",
+          "src": [
+            "angor"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flood_storm",
+      "family": "climate",
+      "fr": "Inondations, tempêtes et épisodes méditerranéens",
+      "en": "Floods, storms & Mediterranean rain events",
+      "indicators": [
+        {
+          "fr": "Vigilance pluie-inondation, crues (Vigicrues)",
+          "en": "Rain-flood warnings, river flood levels",
+          "src": [
+            "meteofrance_vigilance",
+            "vigicrues"
+          ]
+        },
+        {
+          "fr": "Exposition des sites aux aléas (zones inondables, submersion)",
+          "en": "Site exposure to hazards (flood zones, coastal flooding)",
+          "src": [
+            "georisques"
+          ]
+        },
+        {
+          "fr": "Excès de pluie sur 3 mois par subdivision ; inondations et tempêtes vérifiées",
+          "en": "3-month rainfall excess by subdivision; verified floods and storms",
+          "src": [
+            "nasa_power",
+            "angor"
+          ],
+          "auto": "ew"
+        },
+        {
+          "fr": "Prévisions de crues à l'échelle mondiale, cartographie de crise",
+          "en": "Global flood forecasts, crisis mapping",
+          "src": [
+            "glofas",
+            "copernicus_ems"
+          ]
+        },
+        {
+          "fr": "Vigilances météorologiques européennes",
+          "en": "European weather warnings",
+          "src": [
+            "meteoalarm"
+          ],
+          "auto": "map"
+        }
+      ]
+    },
+    {
+      "id": "climate_adaptation",
+      "family": "climate",
+      "fr": "Vulnérabilité et préparation climatique",
+      "en": "Climate vulnerability & readiness",
+      "indicators": [
+        {
+          "fr": "Indice ND-GAIN (vulnérabilité et préparation)",
+          "en": "ND-GAIN index (vulnerability and readiness)",
+          "src": [
+            "ndgain"
+          ]
+        },
+        {
+          "fr": "Indice INFORM (aléas, vulnérabilité, capacité)",
+          "en": "INFORM index (hazard, vulnerability, coping capacity)",
+          "src": [
+            "inform"
+          ]
+        },
+        {
+          "fr": "Pertes économiques et assurées des catastrophes",
+          "en": "Economic and insured disaster losses",
+          "src": [
+            "munichre"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geohazards",
+      "family": "climate",
+      "fr": "Séismes, volcans et cyclones",
+      "en": "Earthquakes, volcanoes & cyclones",
+      "indicators": [
+        {
+          "fr": "Séismes, éruptions et cyclones en temps réel",
+          "en": "Real-time earthquakes, eruptions and cyclones",
+          "src": [
+            "usgs",
+            "emsc",
+            "gvp",
+            "noaa_nhc",
+            "gdacs"
+          ],
+          "auto": "map"
+        },
+        {
+          "fr": "Catastrophes notables par subdivision (gravité 2 et plus)",
+          "en": "Notable disasters by subdivision (severity 2+)",
+          "src": [
+            "angor"
+          ],
+          "auto": "ew"
+        }
+      ]
+    },
+    {
+      "id": "middle_east",
+      "family": "geopolitics",
+      "fr": "Guerre au Moyen-Orient et routes maritimes",
+      "en": "Middle East war & sea lanes",
+      "indicators": [
+        {
+          "fr": "Passages quotidiens dans le détroit d'Ormuz et en mer Rouge",
+          "en": "Daily transits through Hormuz and the Red Sea",
+          "src": [
+            "imf_portwatch"
+          ]
+        },
+        {
+          "fr": "Attaques contre des navires et des installations énergétiques",
+          "en": "Attacks on ships and energy facilities",
+          "src": [
+            "angor",
+            "crisiswatch"
+          ]
+        },
+        {
+          "fr": "Alertes de sûreté maritime et avis aux navires",
+          "en": "Maritime security alerts and advisories to shipping",
+          "src": [
+            "ukmto",
+            "marad",
+            "imb_prc"
+          ]
+        },
+        {
+          "fr": "Zones de conflit pour l'aviation civile",
+          "en": "Conflict zones for civil aviation",
+          "src": [
+            "easa_czib"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hybrid",
+      "family": "geopolitics",
+      "fr": "Menace hybride (sabotage, drones, brouillage)",
+      "en": "Hybrid threats (sabotage, drones, jamming)",
+      "indicators": [
+        {
+          "fr": "Fermetures d'aéroports pour drones, sabotages d'infrastructures attribués",
+          "en": "Airport closures due to drones, attributed infrastructure sabotage",
+          "src": [
+            "angor",
+            "pbs_leipzig"
+          ]
+        },
+        {
+          "fr": "Attributions et mesures officielles (expulsions, sanctions)",
+          "en": "Official attributions and measures (expulsions, sanctions)",
+          "src": [
+            "crisiswatch"
+          ]
+        },
+        {
+          "fr": "Évaluations annuelles des menaces (alliés)",
+          "en": "Annual threat assessments (allies)",
+          "src": [
+            "odni_ata",
+            "msc",
+            "nato_sfa"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geoeconomic",
+      "family": "geopolitics",
+      "fr": "Confrontation géoéconomique (droits de douane, sanctions)",
+      "en": "Geoeconomic confrontation (tariffs, sanctions)",
+      "indicators": [
+        {
+          "fr": "Annonces de droits de douane, contrôles à l'export, sanctions",
+          "en": "Tariff announcements, export controls, sanctions",
+          "src": [
+            "wef_grr26",
+            "allianz_rb26"
+          ]
+        },
+        {
+          "fr": "Prévisions de commerce et de croissance mondiales",
+          "en": "World trade and growth forecasts",
+          "src": [
+            "imf_weo"
+          ]
+        },
+        {
+          "fr": "Régimes de sanctions en vigueur",
+          "en": "Sanctions regimes in force",
+          "src": [
+            "eu_sanctions",
+            "ofac"
+          ]
+        },
+        {
+          "fr": "Mesures commerciales recensées (droits de douane, subventions, restrictions)",
+          "en": "Recorded trade measures (tariffs, subsidies, restrictions)",
+          "src": [
+            "gta",
+            "wto"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "armed_conflict",
+      "family": "geopolitics",
+      "fr": "Conflits armés et instabilité régionale",
+      "en": "Armed conflict & regional instability",
+      "indicators": [
+        {
+          "fr": "Incidents de sécurité par subdivision et escalade sur 3 mois",
+          "en": "Security incidents by subdivision and 3-month escalation",
+          "src": [
+            "angor",
+            "ucdp",
+            "gdelt"
+          ],
+          "auto": "ew"
+        },
+        {
+          "fr": "Suivi mensuel des crises et conflits",
+          "en": "Monthly crisis and conflict tracking",
+          "src": [
+            "crisiswatch",
+            "cfr_gct",
+            "gpi"
+          ]
+        },
+        {
+          "fr": "Dépenses militaires et transferts d'armes",
+          "en": "Military expenditure and arms transfers",
+          "src": [
+            "sipri"
+          ]
+        },
+        {
+          "fr": "Événements de conflit géolocalisés",
+          "en": "Geolocated conflict events",
+          "src": [
+            "acled"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gov_stability",
+      "family": "political",
+      "fr": "Stabilité gouvernementale et budgétaire",
+      "en": "Government & budget stability",
+      "indicators": [
+        {
+          "fr": "Motions de censure, recours au 49.3, loi spéciale, remaniements",
+          "en": "No-confidence motions, use of article 49.3, stop-gap budget law, reshuffles",
+          "src": [
+            "assemblee",
+            "lcp_plf27"
+          ]
+        },
+        {
+          "fr": "Efficacité gouvernementale et stabilité politique (WGI)",
+          "en": "Government effectiveness and political stability (WGI)",
+          "src": [
+            "wgi"
+          ]
+        },
+        {
+          "fr": "Stabilité politique et efficacité des pouvoirs publics, pays par pays",
+          "en": "Political stability and government effectiveness, country by country",
+          "src": [
+            "wgi"
+          ],
+          "auto": "ind"
+        },
+        {
+          "fr": "Crises politiques localisées (subdivisions)",
+          "en": "Localised political crises (subdivisions)",
+          "src": [
+            "angor"
+          ],
+          "auto": "ew"
+        },
+        {
+          "fr": "Fragilité des États",
+          "en": "State fragility",
+          "src": [
+            "fsi",
+            "bti"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elections",
+      "family": "political",
+      "fr": "Cycle électoral",
+      "en": "Electoral cycle",
+      "indicators": [
+        {
+          "fr": "Calendrier électoral et campagnes (agenda Angor)",
+          "en": "Electoral calendar and campaigns (Angor agenda)",
+          "src": [
+            "angor"
+          ]
+        },
+        {
+          "fr": "Qualité démocratique et polarisation (V-Dem)",
+          "en": "Democratic quality and polarisation (V-Dem)",
+          "src": [
+            "vdem"
+          ]
+        },
+        {
+          "fr": "Calendrier électoral mondial",
+          "en": "Global electoral calendar",
+          "src": [
+            "electionguide"
+          ]
+        },
+        {
+          "fr": "Libertés, État de droit, qualité démocratique",
+          "en": "Freedoms, rule of law, democratic quality",
+          "src": [
+            "freedom_house",
+            "idea",
+            "eiu_democracy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interference",
+      "family": "political",
+      "fr": "Ingérences étrangères et désinformation",
+      "en": "Foreign interference & disinformation",
+      "indicators": [
+        {
+          "fr": "Campagnes détectées et rapports de Viginum (SGDSN)",
+          "en": "Campaigns detected and Viginum (SGDSN) reports",
+          "src": [
+            "sgdsn",
+            "jdn_ingerences"
+          ]
+        },
+        {
+          "fr": "Rang de la désinformation dans les enquêtes d'experts",
+          "en": "Rank of disinformation in expert surveys",
+          "src": [
+            "wef_grr26"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "governance",
+      "family": "political",
+      "fr": "Gouvernance, État de droit et corruption",
+      "en": "Governance, rule of law & corruption",
+      "indicators": [
+        {
+          "fr": "État de droit et maîtrise de la corruption, pays par pays",
+          "en": "Rule of law and control of corruption, country by country",
+          "src": [
+            "wgi"
+          ],
+          "auto": "ind"
+        },
+        {
+          "fr": "Fragilité et transformation des États",
+          "en": "State fragility and transformation",
+          "src": [
+            "fsi",
+            "bti"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cost_of_living",
+      "family": "social",
+      "fr": "Vie chère et pouvoir d'achat",
+      "en": "Cost of living & purchasing power",
+      "indicators": [
+        {
+          "fr": "Inflation (IPC/IPCH), prix des carburants à la pompe",
+          "en": "Inflation (CPI/HICP), pump fuel prices",
+          "src": [
+            "insee",
+            "prix_carburants",
+            "eurostat"
+          ]
+        },
+        {
+          "fr": "Préoccupation du public pour les tensions sociales",
+          "en": "Public concern about social tensions",
+          "src": [
+            "axa_frr26"
+          ]
+        },
+        {
+          "fr": "Inflation et chômage, pays par pays (projections FMI)",
+          "en": "Inflation and unemployment, country by country (IMF projections)",
+          "src": [
+            "imf_datamapper"
+          ],
+          "auto": "ind"
+        },
+        {
+          "fr": "Prix alimentaires mondiaux",
+          "en": "World food prices",
+          "src": [
+            "fao_ffpi"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mobilisation",
+      "family": "social",
+      "fr": "Mobilisations sociales et blocages",
+      "en": "Social mobilisation & blockades",
+      "indicators": [
+        {
+          "fr": "Préavis de grève (transports, contrôle aérien), appels à manifester",
+          "en": "Strike notices (transport, air traffic control), calls to protest",
+          "src": [
+            "eurocontrol",
+            "angor"
+          ]
+        },
+        {
+          "fr": "Manifestations et troubles recensés (incidents Angor)",
+          "en": "Protests and unrest recorded (Angor incidents)",
+          "src": [
+            "angor",
+            "gdelt"
+          ]
+        },
+        {
+          "fr": "Troubles civils par subdivision, hausse par rapport aux 12 mois précédents",
+          "en": "Civil unrest by subdivision, rise vs the previous 12 months",
+          "src": [
+            "angor"
+          ],
+          "auto": "ew"
+        },
+        {
+          "fr": "Grands mouvements de protestation antigouvernementaux",
+          "en": "Major anti-government protest movements",
+          "src": [
+            "carnegie_gpt"
+          ]
+        },
+        {
+          "fr": "Conflits du travail",
+          "en": "Labour disputes",
+          "src": [
+            "ilostat"
+          ]
+        },
+        {
+          "fr": "Événements de manifestation géolocalisés",
+          "en": "Geolocated protest events",
+          "src": [
+            "acled"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "polarisation",
+      "family": "social",
+      "fr": "Polarisation et fragmentation sociale",
+      "en": "Polarisation & social fragmentation",
+      "indicators": [
+        {
+          "fr": "Perception d'une fracture sociale, confiance démocratique",
+          "en": "Perceived social divide, trust in democracy",
+          "src": [
+            "axa_frr26",
+            "vdem"
+          ]
+        },
+        {
+          "fr": "Rang de la polarisation dans les enquêtes d'experts",
+          "en": "Rank of polarisation in expert surveys",
+          "src": [
+            "wef_grr26"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "terrorism",
+      "family": "security",
+      "fr": "Menace terroriste",
+      "en": "Terrorist threat",
+      "indicators": [
+        {
+          "fr": "Posture Vigipirate et niveaux de menace nationaux",
+          "en": "Vigipirate posture and national threat levels",
+          "src": [
+            "sgdsn",
+            "echo_vigipirate"
+          ]
+        },
+        {
+          "fr": "Attentats, projets déjoués et arrestations (UE)",
+          "en": "Attacks, foiled plots and arrests (EU)",
+          "src": [
+            "europol_tesat26",
+            "angor"
+          ]
+        },
+        {
+          "fr": "Incidents terroristes par subdivision (alerte précoce)",
+          "en": "Terrorist incidents by subdivision (early warning)",
+          "src": [
+            "angor",
+            "ucdp"
+          ],
+          "auto": "ew"
+        },
+        {
+          "fr": "Indices et bases de données du terrorisme",
+          "en": "Terrorism indices and databases",
+          "src": [
+            "gti",
+            "gtd"
+          ]
+        },
+        {
+          "fr": "Avis officiels aux voyageurs",
+          "en": "Official travel advice",
+          "src": [
+            "meae_cav",
+            "fcdo",
+            "us_travel",
+            "smartraveller",
+            "canada_travel"
+          ],
+          "auto": "map"
+        },
+        {
+          "fr": "Rapports de sûreté par pays",
+          "en": "Country security reports",
+          "src": [
+            "osac",
+            "isos",
+            "controlrisks"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "organised_crime",
+      "family": "security",
+      "fr": "Criminalité organisée et narcotrafic",
+      "en": "Organised crime & drug trafficking",
+      "indicators": [
+        {
+          "fr": "Homicides liés au trafic, communes touchées",
+          "en": "Trafficking-related homicides, municipalities affected",
+          "src": [
+            "localtis_narco",
+            "ofdt"
+          ]
+        },
+        {
+          "fr": "Incidents criminels recensés (Angor)",
+          "en": "Criminal incidents recorded (Angor)",
+          "src": [
+            "angor"
+          ]
+        },
+        {
+          "fr": "Indice mondial du crime organisé",
+          "en": "Global organised crime index",
+          "src": [
+            "ocindex"
+          ]
+        },
+        {
+          "fr": "Rapports mondiaux sur la drogue et le crime",
+          "en": "World drug and crime reports",
+          "src": [
+            "unodc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ransomware",
+      "family": "cyber",
+      "fr": "Rançongiciels et cybercriminalité",
+      "en": "Ransomware & cybercrime",
+      "indicators": [
+        {
+          "fr": "Incidents traités par l'ANSSI, alertes CERT-FR",
+          "en": "Incidents handled by ANSSI, CERT-FR alerts",
+          "src": [
+            "anssi",
+            "cert_fr",
+            "acteurs_publics_anssi"
+          ]
+        },
+        {
+          "fr": "Rang du cyber dans les baromètres d'entreprises",
+          "en": "Rank of cyber in business risk surveys",
+          "src": [
+            "allianz_rb26"
+          ]
+        },
+        {
+          "fr": "Vulnérabilités activement exploitées",
+          "en": "Actively exploited vulnerabilities",
+          "src": [
+            "cisa_kev"
+          ],
+          "auto": "map"
+        },
+        {
+          "fr": "Analyse annuelle des violations de données",
+          "en": "Annual data breach analysis",
+          "src": [
+            "verizon_dbir"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cyber_state",
+      "family": "cyber",
+      "fr": "Cyberespionnage et attaques d'État",
+      "en": "State cyber-espionage & attacks",
+      "indicators": [
+        {
+          "fr": "Campagnes attribuées à des acteurs étatiques",
+          "en": "Campaigns attributed to state actors",
+          "src": [
+            "anssi",
+            "enisa"
+          ]
+        },
+        {
+          "fr": "Attaques contre les infrastructures critiques",
+          "en": "Attacks on critical infrastructure",
+          "src": [
+            "axa_frr26",
+            "angor"
+          ]
+        },
+        {
+          "fr": "Alertes des CERT européens",
+          "en": "European CERT alerts",
+          "src": [
+            "cert_eu"
+          ]
+        },
+        {
+          "fr": "Maturité cyber des États",
+          "en": "National cyber maturity",
+          "src": [
+            "itu_gci"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internet",
+      "family": "cyber",
+      "fr": "Coupures d'Internet et censure",
+      "en": "Internet shutdowns & censorship",
+      "indicators": [
+        {
+          "fr": "Coupures détectées par pays et par région",
+          "en": "Outages detected by country and region",
+          "src": [
+            "ioda",
+            "cloudflare_radar"
+          ]
+        },
+        {
+          "fr": "Coupures imposées par les autorités",
+          "en": "Government-ordered shutdowns",
+          "src": [
+            "keepiton"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "growth",
+      "family": "economy",
+      "fr": "Croissance et conjoncture",
+      "en": "Growth & business cycle",
+      "indicators": [
+        {
+          "fr": "Projections de croissance et d'inflation",
+          "en": "Growth and inflation projections",
+          "src": [
+            "ecb_proj_sep26",
+            "imf_weo",
+            "insee"
+          ]
+        },
+        {
+          "fr": "Défaillances d'entreprises (cumul sur 12 mois)",
+          "en": "Business insolvencies (12-month total)",
+          "src": [
+            "bdf_defaillances"
+          ]
+        },
+        {
+          "fr": "Croissance du PIB et chômage, pays par pays",
+          "en": "GDP growth and unemployment, country by country",
+          "src": [
+            "imf_datamapper"
+          ],
+          "auto": "ind"
+        },
+        {
+          "fr": "Perspectives mondiales et risque pays",
+          "en": "Global outlook and country risk",
+          "src": [
+            "wb_gep",
+            "oecd_eo",
+            "coface",
+            "allianz_trade"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sovereign",
+      "family": "finance",
+      "fr": "Dette publique et taux souverains",
+      "en": "Public debt & sovereign yields",
+      "indicators": [
+        {
+          "fr": "Taux à 10 ans et écart avec l'Allemagne",
+          "en": "10-year yield and spread over Germany",
+          "src": [
+            "ecb_data",
+            "boursorama_moodys"
+          ]
+        },
+        {
+          "fr": "Notes et perspectives des agences de notation",
+          "en": "Credit ratings and outlooks",
+          "src": [
+            "aft_ratings"
+          ]
+        },
+        {
+          "fr": "Dette publique (% du PIB), pays par pays",
+          "en": "Public debt (% of GDP), country by country",
+          "src": [
+            "imf_datamapper"
+          ],
+          "auto": "ind"
+        },
+        {
+          "fr": "Rendement souverain à 10 ans et écart avec l'Allemagne (UE)",
+          "en": "10-year sovereign yield and spread over Germany (EU)",
+          "src": [
+            "ecb_irs"
+          ],
+          "auto": "ind"
+        },
+        {
+          "fr": "Surendettement des pays à faible revenu",
+          "en": "Debt distress of low-income countries",
+          "src": [
+            "imf_dsa"
+          ]
+        },
+        {
+          "fr": "Finances publiques mondiales",
+          "en": "Global public finances",
+          "src": [
+            "imf_fm"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "monetary",
+      "family": "finance",
+      "fr": "Politique monétaire et stabilité financière",
+      "en": "Monetary policy & financial stability",
+      "indicators": [
+        {
+          "fr": "Taux directeurs de la BCE",
+          "en": "ECB policy rates",
+          "src": [
+            "ecb_mp_sep26",
+            "ecb_data"
+          ]
+        },
+        {
+          "fr": "Vulnérabilités relevées par la Revue de stabilité financière",
+          "en": "Vulnerabilities flagged by the Financial Stability Review",
+          "src": [
+            "ecb_fsr"
+          ]
+        },
+        {
+          "fr": "Stabilité financière mondiale",
+          "en": "Global financial stability",
+          "src": [
+            "imf_gfsr",
+            "bis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "oil_gas",
+      "family": "energy",
+      "fr": "Prix et approvisionnement en pétrole et gaz",
+      "en": "Oil & gas prices and supply",
+      "indicators": [
+        {
+          "fr": "Brent, gaz TTF, kérosène",
+          "en": "Brent, TTF gas, jet fuel",
+          "src": [
+            "straits_live",
+            "iea"
+          ]
+        },
+        {
+          "fr": "Remplissage des stockages de gaz de l'UE",
+          "en": "EU gas storage filling",
+          "src": [
+            "agsi"
+          ]
+        },
+        {
+          "fr": "Ruptures de carburant dans les stations",
+          "en": "Fuel outages at filling stations",
+          "src": [
+            "prix_carburants"
+          ]
+        },
+        {
+          "fr": "Offre, demande et prévisions pétrolières et gazières",
+          "en": "Oil and gas supply, demand and forecasts",
+          "src": [
+            "eia",
+            "jodi",
+            "opec_momr"
+          ]
+        },
+        {
+          "fr": "Flux gaziers européens et marchés de l'énergie",
+          "en": "European gas flows and energy markets",
+          "src": [
+            "entsog",
+            "acer"
+          ]
+        },
+        {
+          "fr": "Passages dans les détroits stratégiques",
+          "en": "Transits through strategic straits",
+          "src": [
+            "imf_portwatch"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "power_grid",
+      "family": "energy",
+      "fr": "Réseaux électriques",
+      "en": "Power grids",
+      "indicators": [
+        {
+          "fr": "Marges de sécurité d'approvisionnement, alertes Ecowatt",
+          "en": "Supply adequacy margins, Ecowatt alerts",
+          "src": [
+            "rte_eco2mix",
+            "entsoe"
+          ]
+        },
+        {
+          "fr": "Pannes de grande ampleur (incidents Angor)",
+          "en": "Large-scale outages (Angor incidents)",
+          "src": [
+            "angor",
+            "axa_frr26"
+          ]
+        },
+        {
+          "fr": "Pannes et incidents d'infrastructure par subdivision",
+          "en": "Outages and infrastructure incidents by subdivision",
+          "src": [
+            "angor"
+          ],
+          "auto": "ew"
+        }
+      ]
+    },
+    {
+      "id": "transport",
+      "family": "infrastructure",
+      "fr": "Perturbation des transports",
+      "en": "Transport disruption",
+      "indicators": [
+        {
+          "fr": "Grèves du contrôle aérien et du ferroviaire, capacité aérienne",
+          "en": "Air traffic control and rail strikes, airline capacity",
+          "src": [
+            "eurocontrol",
+            "angor"
+          ]
+        },
+        {
+          "fr": "Pannes et cyberattaques des systèmes aéroportuaires",
+          "en": "Outages and cyberattacks on airport systems",
+          "src": [
+            "techcrunch_collins",
+            "angor"
+          ]
+        },
+        {
+          "fr": "Normes et zones à risque de l'aviation civile",
+          "en": "Civil aviation standards and risk zones",
+          "src": [
+            "icao",
+            "easa_czib"
+          ]
+        },
+        {
+          "fr": "Capacité aérienne et carburant aviation",
+          "en": "Airline capacity and jet fuel",
+          "src": [
+            "iata"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maritime",
+      "family": "infrastructure",
+      "fr": "Sûreté maritime et routes commerciales",
+      "en": "Maritime security & trade routes",
+      "indicators": [
+        {
+          "fr": "Attaques, piraterie et avis aux navires",
+          "en": "Attacks, piracy and advisories to shipping",
+          "src": [
+            "ukmto",
+            "imb_prc",
+            "marad"
+          ]
+        },
+        {
+          "fr": "Trafic dans les détroits et les ports",
+          "en": "Traffic through straits and ports",
+          "src": [
+            "imf_portwatch"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "epidemics",
+      "family": "health",
+      "fr": "Épidémies et santé environnementale",
+      "en": "Epidemics & environmental health",
+      "indicators": [
+        {
+          "fr": "Bulletins de surveillance (ECDC, Santé publique France)",
+          "en": "Surveillance bulletins (ECDC, Santé publique France)",
+          "src": [
+            "ecdc",
+            "spf"
+          ]
+        },
+        {
+          "fr": "Effets sanitaires de la chaleur",
+          "en": "Health effects of heat",
+          "src": [
+            "c3s",
+            "spf"
+          ]
+        },
+        {
+          "fr": "Flambées épidémiques signalées",
+          "en": "Reported disease outbreaks",
+          "src": [
+            "who_don",
+            "cdc_travel"
+          ],
+          "auto": "map"
+        },
+        {
+          "fr": "Surveillance régionale et signaux précoces",
+          "en": "Regional surveillance and early signals",
+          "src": [
+            "africa_cdc",
+            "promed"
+          ]
+        },
+        {
+          "fr": "Alertes sanitaires par subdivision",
+          "en": "Health alerts by subdivision",
+          "src": [
+            "angor"
+          ],
+          "auto": "ew"
+        }
+      ]
+    },
+    {
+      "id": "ageing",
+      "family": "demography",
+      "fr": "Vieillissement et pénuries de main-d'œuvre",
+      "en": "Ageing & labour shortages",
+      "indicators": [
+        {
+          "fr": "Âge médian, taux de dépendance, emplois vacants",
+          "en": "Median age, dependency ratio, job vacancies",
+          "src": [
+            "eurostat",
+            "axa_frr26"
+          ]
+        },
+        {
+          "fr": "Projections démographiques mondiales",
+          "en": "World population projections",
+          "src": [
+            "un_wpp"
+          ]
+        },
+        {
+          "fr": "Emploi et marché du travail",
+          "en": "Employment and labour market",
+          "src": [
+            "ilostat"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "family": "technology",
+      "fr": "IA, deepfakes et ruptures technologiques",
+      "en": "AI, deepfakes & technological disruption",
+      "indicators": [
+        {
+          "fr": "Rang de l'IA dans les enquêtes d'experts et d'entreprises",
+          "en": "Rank of AI in expert and business surveys",
+          "src": [
+            "axa_frr26",
+            "allianz_rb26",
+            "wef_grr26"
+          ]
+        },
+        {
+          "fr": "Fraudes et usurpations par deepfake signalées",
+          "en": "Reported deepfake fraud and impersonation",
+          "src": [
+            "cybermalveillance"
+          ]
+        },
+        {
+          "fr": "Incidents liés à l'IA recensés",
+          "en": "Recorded AI incidents",
+          "src": [
+            "oecd_aim",
+            "aiaaic"
+          ]
+        },
+        {
+          "fr": "État de l'IA (capacités, usages, investissements)",
+          "en": "State of AI (capabilities, uses, investment)",
+          "src": [
+            "ai_index"
+          ]
+        },
+        {
+          "fr": "Transition vers la cryptographie post-quantique",
+          "en": "Transition to post-quantum cryptography",
+          "src": [
+            "nist_pqc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "food_insecurity",
+      "family": "humanitarian",
+      "fr": "Insécurité alimentaire",
+      "en": "Food insecurity",
+      "indicators": [
+        {
+          "fr": "Population en phase IPC 3 et plus, par subdivision",
+          "en": "Population in IPC phase 3+, by subdivision",
+          "src": [
+            "hdx_hapi",
+            "ipc"
+          ],
+          "auto": "ew"
+        },
+        {
+          "fr": "Alerte précoce sur la famine et faim en temps réel",
+          "en": "Famine early warning and real-time hunger",
+          "src": [
+            "fewsnet",
+            "wfp_hungermap"
+          ]
+        },
+        {
+          "fr": "Prix alimentaires mondiaux",
+          "en": "World food prices",
+          "src": [
+            "fao_ffpi"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "displacement",
+      "family": "humanitarian",
+      "fr": "Déplacements de population",
+      "en": "Population displacement",
+      "indicators": [
+        {
+          "fr": "Personnes déplacées internes, par subdivision",
+          "en": "Internally displaced people, by subdivision",
+          "src": [
+            "hdx_hapi",
+            "iom_dtm"
+          ],
+          "auto": "ew"
+        },
+        {
+          "fr": "Réfugiés et demandeurs d'asile",
+          "en": "Refugees and asylum seekers",
+          "src": [
+            "unhcr"
+          ]
+        },
+        {
+          "fr": "Rapports et analyses de crise humanitaire",
+          "en": "Humanitarian crisis reports and analyses",
+          "src": [
+            "reliefweb",
+            "acaps",
+            "inform"
+          ]
+        }
+      ]
+    }
   ],
   "roadmap": [
-    {"id": "weu", "fr": "Europe de l'Ouest", "en": "Western Europe", "status": "active"},
-    {"id": "neu", "fr": "Europe du Nord et Baltes", "en": "Northern Europe & Baltics", "status": "planned"},
-    {"id": "ceu", "fr": "Europe centrale et orientale", "en": "Central & Eastern Europe", "status": "planned"},
-    {"id": "bal", "fr": "Balkans et Méditerranée orientale", "en": "Balkans & Eastern Mediterranean", "status": "planned"},
-    {"id": "eeca", "fr": "Europe orientale, Caucase et Asie centrale", "en": "Eastern Europe, Caucasus & Central Asia", "status": "planned"},
-    {"id": "mena", "fr": "Moyen-Orient et Afrique du Nord", "en": "Middle East & North Africa", "status": "planned"},
-    {"id": "wafr", "fr": "Afrique de l'Ouest et Sahel", "en": "West Africa & Sahel", "status": "planned"},
-    {"id": "cafr", "fr": "Afrique centrale", "en": "Central Africa", "status": "planned"},
-    {"id": "eafr", "fr": "Afrique de l'Est et Corne", "en": "East Africa & Horn", "status": "planned"},
-    {"id": "safr", "fr": "Afrique australe", "en": "Southern Africa", "status": "planned"},
-    {"id": "sas", "fr": "Asie du Sud", "en": "South Asia", "status": "planned"},
-    {"id": "sea", "fr": "Asie du Sud-Est", "en": "Southeast Asia", "status": "planned"},
-    {"id": "eas", "fr": "Asie de l'Est", "en": "East Asia", "status": "planned"},
-    {"id": "oce", "fr": "Océanie et Pacifique", "en": "Oceania & Pacific", "status": "planned"},
-    {"id": "nam", "fr": "Amérique du Nord", "en": "North America", "status": "planned"},
-    {"id": "cam", "fr": "Amérique centrale et Caraïbes", "en": "Central America & Caribbean", "status": "planned"},
-    {"id": "sam", "fr": "Amérique du Sud", "en": "South America", "status": "planned"}
-  ]
+    {
+      "id": "weu",
+      "fr": "Europe de l'Ouest",
+      "en": "Western Europe"
+    },
+    {
+      "id": "neu",
+      "fr": "Europe du Nord et Baltes",
+      "en": "Northern Europe & Baltics"
+    },
+    {
+      "id": "ceu",
+      "fr": "Europe centrale et orientale",
+      "en": "Central & Eastern Europe"
+    },
+    {
+      "id": "bal",
+      "fr": "Balkans et Méditerranée orientale",
+      "en": "Balkans & Eastern Mediterranean"
+    },
+    {
+      "id": "eeca",
+      "fr": "Europe orientale, Caucase et Asie centrale",
+      "en": "Eastern Europe, Caucasus & Central Asia"
+    },
+    {
+      "id": "mena",
+      "fr": "Moyen-Orient et Afrique du Nord",
+      "en": "Middle East & North Africa"
+    },
+    {
+      "id": "wafr",
+      "fr": "Afrique de l'Ouest et Sahel",
+      "en": "West Africa & Sahel"
+    },
+    {
+      "id": "cafr",
+      "fr": "Afrique centrale",
+      "en": "Central Africa"
+    },
+    {
+      "id": "eafr",
+      "fr": "Afrique de l'Est et Corne",
+      "en": "East Africa & Horn"
+    },
+    {
+      "id": "safr",
+      "fr": "Afrique australe",
+      "en": "Southern Africa"
+    },
+    {
+      "id": "sas",
+      "fr": "Asie du Sud",
+      "en": "South Asia"
+    },
+    {
+      "id": "sea",
+      "fr": "Asie du Sud-Est",
+      "en": "Southeast Asia"
+    },
+    {
+      "id": "eas",
+      "fr": "Asie de l'Est",
+      "en": "East Asia"
+    },
+    {
+      "id": "oce",
+      "fr": "Océanie et Pacifique",
+      "en": "Oceania & Pacific"
+    },
+    {
+      "id": "nam",
+      "fr": "Amérique du Nord",
+      "en": "North America"
+    },
+    {
+      "id": "cam",
+      "fr": "Amérique centrale et Caraïbes",
+      "en": "Central America & Caribbean"
+    },
+    {
+      "id": "sam",
+      "fr": "Amérique du Sud",
+      "en": "South America"
+    }
+  ],
+  "auto": {
+    "ew": {
+      "fr": "Intégré : alerte précoce par subdivision",
+      "en": "Integrated: early warning by subdivision"
+    },
+    "ind": {
+      "fr": "Intégré : indicateurs structurels par pays",
+      "en": "Integrated: structural indicators by country"
+    },
+    "map": {
+      "fr": "Intégré : carte et alertes Angor",
+      "en": "Integrated: Angor map and alerts"
+    }
+  },
+  "roadmap_comment": "Toutes les régions ont l'alerte précoce par subdivision et les indicateurs structurels ; les tendances sont rédigées région après région (fichier regions/<id>.json non vide)."
 }

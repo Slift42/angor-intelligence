@@ -15,7 +15,9 @@ Organisation :
 - agenda.py      : jours fériés, élections, fêtes religieuses, échéances de l'analyste
 - llm.py         : socle IA commun (budget, cache, tâches activables)
 - reports.py     : agrégateur de rapports (think tanks, OI, ONG) → onglet Rapports
-- early_warning.py : alerte précoce climat-conflit par unité administrative → onglet Alerte précoce
+- early_warning.py : alerte précoce mondiale par subdivision (niveau le plus fin des tendances) → docs/data/early_warning*
+- indicators.py  : indicateurs structurels par pays (FMI, Banque mondiale, BCE) → fiches pays des tendances
+- foresight.py   : tendances de risques par région et par pays → onglet Tendances · alerte précoce
 - fcdo.py        : texte détaillé des conseils FCDO par rubrique (rapport pays)
 - country_detail.py : villes, aéroports, secours, santé par pays → docs/data/country/<ISO>.js
 - legal.py       : informations légales (config/legal.json → docs/data/legal.js)
@@ -24,4 +26,4 @@ Organisation :
 - publish.py     : historique local et fichiers lus par la carte
 """
 
-__version__ = "0.26.0"
+__version__ = "0.27.0"

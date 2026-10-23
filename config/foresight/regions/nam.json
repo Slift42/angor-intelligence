@@ -1,0 +1,23 @@
+{
+  "id": "nam",
+  "type": "region",
+  "fr": "Amérique du Nord",
+  "en": "North America",
+  "countries": [
+    "US",
+    "CA",
+    "BM",
+    "GL",
+    "PM"
+  ],
+  "bbox": [
+    -140,
+    24,
+    -52,
+    62
+  ],
+  "perimeter_fr": "États-Unis, Canada, Groenland, Bermudes et Saint-Pierre-et-Miquelon.",
+  "perimeter_en": "United States, Canada, Greenland, Bermuda and Saint Pierre and Miquelon.",
+  "outlook": null,
+  "trends": []
+}

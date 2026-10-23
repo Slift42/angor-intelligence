@@ -17,6 +17,8 @@ Les trois premiers et le test de fumée tournent automatiquement à chaque `push
 | `conftest.py` | Blocage du réseau, fabrique d'événements `make()`, pays (`countries`) |
 | `test_model_geo.py` | Format d'événement, dates, taxonomie, localisation des pays, distances |
 | `test_press.py` | Tri de la presse : titres à garder / à écarter (cas réels), gravité, langue, seuils sur le jeu étiqueté |
+| `test_early_warning.py` | Alerte précoce mondiale : régions communes (couverture, pas de doublon, anciennes zones reprises), outre-mer, climat compact et migration, indice à cinq composantes, comptage par famille, sorties par région, priorité de chargement, liens avec les tendances |
+| `test_indicators.py` | Indicateurs structurels : lecture FMI, Banque mondiale, BCE, signaux de seuil, fonctionnement hors ligne |
 | `test_foresight.py` | Tendances de risques : configuration publiable, scores et niveaux, pression, contrôle des sources (nombre, éditeurs, cotation), dates et échelles, signal en temps réel, vues pays et région, révision due, historique mensuel, méthode publique |
 | `test_corroborate.py` | Recoupement : reprises et groupes de presse, rattachement d'un récit de presse à la mesure USGS, séisme non confirmé, démenti, crédibilité |
 | `test_triage.py` | Contrôle d'entrée a priori et permanent : verdicts, fiches invalides, GDELT en attente, avis de l'IA, décision de l'analyste, journal, alarme, priorité des titres GDELT récents |

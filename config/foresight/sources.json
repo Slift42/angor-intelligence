@@ -1,75 +1,1353 @@
 {
-  "_comment": "Bibliographie des tendances de risques. kind : report (rapport de prospective), official (évaluation ou publication officielle), data (donnée ou outil de suivi), press (presse), aggregator (agrégateur, à recouper), method (méthode). rel : cotation de l'Amirauté de la source (A à F), voir method.json. pub sert au contrôle d'indépendance (deux éditeurs distincts au minimum par tendance). Vérifier les liens : python tools/check_foresight_sources.py",
-  "axa_frr26": {"t": "Future Risks Report 2026", "pub": "AXA (enquête Ipsos)", "url": "https://www.axa.com/en/news/future-risks-report", "d": "2026", "kind": "report", "rel": "B", "note_fr": "Enquête auprès d'experts et du grand public ; principale source d'inspiration de la taxonomie.", "note_en": "Survey of experts and the general public; main inspiration for the taxonomy."},
-  "wef_grr26": {"t": "Global Risks Report 2026 (21e édition)", "pub": "Forum économique mondial", "url": "https://www.weforum.org/publications/global-risks-report-2026/", "d": "2026-01", "kind": "report", "rel": "B"},
-  "drishti_wef": {"t": "World Economic Forum released Global Risks Report 2026 (synthèse)", "pub": "Drishti IAS", "url": "https://www.drishtiias.com/state-pcs-current-affairs/world-economic-forum-released-global-risks-report-2026/print_manually", "d": "2026-01-16", "kind": "aggregator", "rel": "D"},
-  "allianz_rb26": {"t": "Allianz Risk Barometer 2026", "pub": "Allianz Commercial", "url": "https://commercial.allianz.com/news-and-insights/reports/allianz-risk-barometer.html", "d": "2026-01", "kind": "report", "rel": "B"},
-  "directindustry_allianz": {"t": "Biggest risks for businesses in 2026 (Allianz Risk Barometer, classement France)", "pub": "DirectIndustry e-magazine", "url": "https://emag.directindustry.com/2026/01/14/biggest-risks-businesses-2026-risk-barometer-allianz-cyber-artificial-intelligence-geopolitics/", "d": "2026-01-14", "kind": "press", "rel": "C"},
-  "europol_tesat26": {"t": "EU Terrorism Situation and Trend Report (TE-SAT) 2026", "pub": "Europol", "url": "https://www.europol.europa.eu/cms/sites/default/files/documents/EU-TE-SAT-2026.pdf", "d": "2026-07", "kind": "official", "rel": "B"},
-  "eucrim_tesat": {"t": "Europol TE-SAT 2026 (synthèse)", "pub": "eucrim", "url": "https://eucrim.eu/news/europol-te-sat-2026/", "d": "2026-07", "kind": "press", "rel": "C"},
-  "acteurs_publics_anssi": {"t": "L'éducation, la recherche et la santé particulièrement touchées par la cybermalveillance en 2025 (Panorama ANSSI)", "pub": "Acteurs publics", "url": "https://acteurspublics.fr/articles/leducation-la-recherche-et-la-sante-particulierement-touchees-par-la-cybermalveillance-en-2025/", "d": "2026-03-11", "kind": "press", "rel": "C"},
-  "anssi": {"t": "Publications de l'ANSSI (Panorama de la cybermenace)", "pub": "ANSSI", "url": "https://cyber.gouv.fr", "d": "2026-03", "kind": "official", "rel": "B"},
-  "cert_fr": {"t": "Alertes et avis du CERT-FR", "pub": "ANSSI", "url": "https://www.cert.ssi.gouv.fr", "d": "continu", "kind": "data", "rel": "A"},
-  "cybermalveillance": {"t": "Cybermalveillance.gouv.fr (rapports d'activité, alertes)", "pub": "GIP ACYMA", "url": "https://www.cybermalveillance.gouv.fr", "d": "continu", "kind": "official", "rel": "B"},
-  "enisa": {"t": "ENISA Threat Landscape", "pub": "ENISA", "url": "https://www.enisa.europa.eu", "d": "annuel", "kind": "official", "rel": "B"},
-  "techcrunch_collins": {"t": "Hundreds of flights delayed at Heathrow and other airports after apparent cyberattack", "pub": "TechCrunch", "url": "https://techcrunch.com/2025/09/21/hundreds-of-flights-delayed-at-heathrow-and-other-airports-after-apparent-cyberattack", "d": "2025-09-21", "kind": "press", "rel": "C"},
-  "ecb_proj_sep26": {"t": "Projections macroéconomiques des services de la BCE, septembre 2026", "pub": "Banque centrale européenne", "url": "https://www.ecb.europa.eu/press/projections/html/index.en.html", "d": "2026-09-10", "kind": "official", "rel": "A"},
-  "ecb_mp_sep26": {"t": "La BCE relève ses taux à 2,50 % sur fond d'inflation énergétique", "pub": "Lovguiden", "url": "https://www.lovguiden.dk/en/det-offentlige/den-europaeiske-centralbank/2026-09-23-ecb-haever-renten-til-250-pct-midt-i-energidrevet-inflation", "d": "2026-09-23", "kind": "press", "rel": "C"},
-  "ecb_fsr": {"t": "Financial Stability Review, mai 2026", "pub": "Banque centrale européenne", "url": "https://www.ecb.europa.eu/press/financial-stability-publications/fsr/html/index.en.html", "d": "2026-05", "kind": "official", "rel": "B"},
-  "bocconi_fsr": {"t": "Key takeaways from the ECB May 2026 Financial Stability Review", "pub": "Université Bocconi (BAFFI) / SUERF", "url": "https://baffi.unibocconi.eu/key-takeaways-ecb-may-2026-financial-stability-review", "d": "2026-06", "kind": "press", "rel": "C"},
-  "ecb_data": {"t": "ECB Data Portal (taux, rendements souverains)", "pub": "Banque centrale européenne", "url": "https://data.ecb.europa.eu", "d": "continu", "kind": "data", "rel": "A"},
-  "meteofrance_ete26": {"t": "Bilan climatique de l'été 2026 (juin-juillet-août)", "pub": "Météo-France", "url": "https://meteofrance.com/presse/bilan-climatique-de-lete-2026-juin-juillet-aout", "d": "2026-09", "kind": "official", "rel": "A"},
-  "meteofrance_vigilance": {"t": "Vigilance météorologique", "pub": "Météo-France", "url": "https://vigilance.meteofrance.fr", "d": "continu", "kind": "data", "rel": "A"},
-  "c3s_esotc25": {"t": "European State of the Climate 2025", "pub": "Copernicus (C3S) et OMM", "url": "https://wmo.int/news/media-centre/european-state-of-climate-2025-record-heatwaves-from-mediterranean-arctic-while-glaciers-shrink-and", "d": "2026-04-29", "kind": "official", "rel": "A"},
-  "c3s": {"t": "Copernicus Climate Change Service (bulletins, prévisions saisonnières)", "pub": "Copernicus / ECMWF", "url": "https://climate.copernicus.eu", "d": "continu", "kind": "data", "rel": "A"},
-  "drias": {"t": "DRIAS – Les futurs du climat", "pub": "Météo-France et partenaires", "url": "https://www.drias-climat.fr", "d": "continu", "kind": "data", "rel": "A"},
-  "effis": {"t": "European Forest Fire Information System (EFFIS)", "pub": "Copernicus / JRC", "url": "https://forest-fire.emergency.copernicus.eu", "d": "continu", "kind": "data", "rel": "A"},
-  "vigieau": {"t": "VigiEau – restrictions d'eau", "pub": "Ministère de la Transition écologique", "url": "https://vigieau.gouv.fr", "d": "continu", "kind": "data", "rel": "A"},
-  "vigicrues": {"t": "Vigicrues", "pub": "Ministère de la Transition écologique", "url": "https://www.vigicrues.gouv.fr", "d": "continu", "kind": "data", "rel": "A"},
-  "georisques": {"t": "Géorisques", "pub": "Ministère de la Transition écologique / BRGM", "url": "https://www.georisques.gouv.fr", "d": "continu", "kind": "data", "rel": "A"},
-  "ndgain": {"t": "ND-GAIN Country Index", "pub": "Université de Notre-Dame", "url": "https://gain.nd.edu/our-work/country-index/", "d": "annuel", "kind": "data", "rel": "B"},
-  "inform": {"t": "INFORM Risk Index", "pub": "Commission européenne (JRC) et partenaires", "url": "https://drmkc.jrc.ec.europa.eu/inform-index", "d": "semestriel", "kind": "data", "rel": "B"},
-  "wiki_fuel": {"t": "2026 Iran war fuel crisis", "pub": "Wikipédia", "url": "https://en.wikipedia.org/wiki/2026_Iran_war_fuel_crisis", "d": "2026-10", "kind": "aggregator", "rel": "D", "note_fr": "Chronologie utile, chaque chiffre est à recouper avec la source primaire citée par l'article.", "note_en": "Useful timeline; each figure should be checked against the primary source cited."},
-  "straits_live": {"t": "Strait of Hormuz – Straits Daily Brief (22 octobre 2026)", "pub": "straits.live", "url": "https://straits.live/briefs/2026-10-22", "d": "2026-10-22", "kind": "aggregator", "rel": "D", "note_fr": "Agrège IMF PortWatch, Reuters, Bloomberg ; certaines affirmations n'ont qu'une source.", "note_en": "Aggregates IMF PortWatch, Reuters, Bloomberg; some claims are single-sourced."},
-  "imf_portwatch": {"t": "IMF PortWatch (passages dans les détroits)", "pub": "FMI et Université d'Oxford", "url": "https://portwatch.imf.org", "d": "continu", "kind": "data", "rel": "A"},
-  "iea": {"t": "Agence internationale de l'énergie (rapports mensuels pétrole et gaz)", "pub": "AIE", "url": "https://www.iea.org", "d": "mensuel", "kind": "official", "rel": "B"},
-  "agsi": {"t": "AGSI+ – stockages de gaz européens", "pub": "Gas Infrastructure Europe", "url": "https://agsi.gie.eu", "d": "quotidien", "kind": "data", "rel": "A"},
-  "prix_carburants": {"t": "Prix des carburants en France (et ruptures)", "pub": "Ministère de l'Économie", "url": "https://www.prix-carburants.gouv.fr", "d": "quotidien", "kind": "data", "rel": "A"},
-  "rte_eco2mix": {"t": "éCO2mix et Ecowatt", "pub": "RTE", "url": "https://www.rte-france.com/eco2mix", "d": "continu", "kind": "data", "rel": "A"},
-  "entsoe": {"t": "ENTSO-E Transparency Platform", "pub": "ENTSO-E", "url": "https://transparency.entsoe.eu", "d": "continu", "kind": "data", "rel": "A"},
-  "lcp_plf27": {"t": "Budget 2027 : le gouvernement sur un fil à la veille de l'ouverture des débats à l'Assemblée", "pub": "LCP – Assemblée nationale", "url": "https://lcp.fr/actualites/budget-2027-le-gouvernement-sur-un-fil-a-la-veille-de-l-ouverture-des-debats-a-l", "d": "2026-10-12", "kind": "press", "rel": "B"},
-  "assemblee": {"t": "Assemblée nationale (scrutins, motions)", "pub": "Assemblée nationale", "url": "https://www.assemblee-nationale.fr", "d": "continu", "kind": "data", "rel": "A"},
-  "boursorama_moodys": {"t": "Dette française : Moody's devrait dégrader la note de la France vendredi", "pub": "Boursorama (AFP)", "url": "https://www.boursorama.com/bourse/actualites/dette-francaise-l-agence-moody-s-devrait-degrader-la-note-de-la-france-vendredi-estime-la-plupart-des-economistes-2f9bf4142e1dd174c99a6f728c1c7129", "d": "2026-10-21", "kind": "press", "rel": "C"},
-  "xinhua_moodys": {"t": "Moody's maintains France's Aa3 rating with negative outlook", "pub": "Xinhua", "url": "https://english.news.cn/20260411/cfcc4c9adf7349a4925638d8411ec0b8/c.html", "d": "2026-04-11", "kind": "press", "rel": "C"},
-  "aft_ratings": {"t": "Notations de la France et calendrier", "pub": "Agence France Trésor", "url": "https://www.aft.gouv.fr/en/frances-credit-ratings", "d": "continu", "kind": "data", "rel": "A"},
-  "bdf_defaillances": {"t": "Défaillances d'entreprises – juillet 2026", "pub": "Banque de France", "url": "https://www.banque-france.fr/fr/statistiques/entreprises/defaillances-dentreprises-2026-07", "d": "2026-09", "kind": "data", "rel": "A"},
-  "insee": {"t": "INSEE (prix, conjoncture, emploi)", "pub": "INSEE", "url": "https://www.insee.fr", "d": "continu", "kind": "data", "rel": "A"},
-  "eurostat": {"t": "Eurostat (inflation, démographie, emploi)", "pub": "Commission européenne", "url": "https://ec.europa.eu/eurostat", "d": "continu", "kind": "data", "rel": "A"},
-  "imf_weo": {"t": "Perspectives de l'économie mondiale (WEO)", "pub": "FMI", "url": "https://www.imf.org/en/Publications/WEO", "d": "semestriel", "kind": "official", "rel": "B"},
-  "sortiraparis_17oct": {"t": "Strike on October 17, 2026: Yellow Vests, students, transport disruptions – what's planned", "pub": "Sortiraparis", "url": "https://www.sortiraparis.com/en/news/in-paris/articles/353907-strike-on-october-17-2026-yellow-vests-protests-by-students-transport-disruptions-what-s-planned", "d": "2026-10-16", "kind": "press", "rel": "C"},
-  "lesfrancais_29sept": {"t": "Grève du 29 septembre 2026 : le grand blocage en France", "pub": "Les Français.press", "url": "https://lesfrancais.press/greve-29-septembre-2026-grand-blocage-en-france-et-consequences-pour-expatries/", "d": "2026-09-28", "kind": "press", "rel": "C"},
-  "eurocontrol": {"t": "EUROCONTROL (capacité, grèves du contrôle aérien)", "pub": "EUROCONTROL", "url": "https://www.eurocontrol.int", "d": "continu", "kind": "data", "rel": "A"},
-  "echo_vigipirate": {"t": "Vigipirate : la France maintenue en « urgence attentat » pour l'hiver-printemps 2026", "pub": "L'Écho du mardi", "url": "https://www.echodumardi.com/actualite/vigipirate-prolonge-la-france-en-etat-durgence-attentat-pour-lhiver-printemps-2026/?print=pdf", "d": "2025-12-30", "kind": "press", "rel": "C"},
-  "sgdsn": {"t": "SGDSN (plan Vigipirate, Viginum)", "pub": "Secrétariat général de la défense et de la sécurité nationale", "url": "https://www.sgdsn.gouv.fr", "d": "continu", "kind": "official", "rel": "A"},
-  "jdn_ingerences": {"t": "Sébastien Lecornu alerte sur des menaces lourdes d'ingérences pour la présidentielle 2027", "pub": "Journal du Net", "url": "https://www.journaldunet.com/business/action-publique/1551345-sebastien-lecornu-alerte-sur-des-menaces-lourdes-d-ingerences-pour-la-presidentielle-2027/", "d": "2026-06-12", "kind": "press", "rel": "C"},
-  "localtis_narco": {"t": "Les maires de grandes villes inquiets du retard pris dans la lutte contre le narcotrafic", "pub": "Banque des Territoires (Localtis)", "url": "https://www.banquedesterritoires.fr/les-maires-de-grandes-villes-inquiets-du-retard-pris-dans-la-lutte-contre-le-narcotrafic", "d": "2026-06-02", "kind": "press", "rel": "B"},
-  "ofdt": {"t": "Observatoire français des drogues et des tendances addictives", "pub": "OFDT", "url": "https://www.ofdt.fr", "d": "continu", "kind": "official", "rel": "B"},
-  "pbs_leipzig": {"t": "Germany blames Russia for attempted drone attack at Leipzig airport", "pub": "PBS NewsHour (AP)", "url": "https://pbs.org/newshour/world/germany-blames-russia-for-attempted-drone-attack-at-leipzig-airport", "d": "2026-09-01", "kind": "press", "rel": "C"},
-  "crisiswatch": {"t": "CrisisWatch", "pub": "International Crisis Group", "url": "https://www.crisisgroup.org/crisiswatch", "d": "mensuel", "kind": "official", "rel": "B"},
-  "ecdc": {"t": "Centre européen de prévention et de contrôle des maladies", "pub": "ECDC", "url": "https://www.ecdc.europa.eu", "d": "continu", "kind": "official", "rel": "A"},
-  "spf": {"t": "Santé publique France", "pub": "Santé publique France", "url": "https://www.santepubliquefrance.fr", "d": "continu", "kind": "official", "rel": "A"},
-  "wgi": {"t": "Worldwide Governance Indicators", "pub": "Banque mondiale", "url": "https://www.worldbank.org/en/publication/worldwide-governance-indicators", "d": "annuel", "kind": "data", "rel": "B"},
-  "vdem": {"t": "V-Dem (Varieties of Democracy)", "pub": "Institut V-Dem, Université de Göteborg", "url": "https://www.v-dem.net", "d": "annuel", "kind": "data", "rel": "B"},
-  "gdelt": {"t": "GDELT Project", "pub": "GDELT", "url": "https://www.gdeltproject.org", "d": "continu", "kind": "data", "rel": "D"},
-  "acled": {"t": "ACLED (événements de conflit et de manifestation)", "pub": "ACLED", "url": "https://acleddata.com", "d": "hebdomadaire", "kind": "data", "rel": "B", "note_fr": "Licence obligatoire pour un usage commercial : non intégré tant qu'elle n'est pas obtenue.", "note_en": "Commercial use requires a licence: not integrated until obtained."},
-  "angor": {"t": "Incidents vérifiés Angor (carte, contrôle a priori, recoupement)", "pub": "Angor Intelligence", "url": "index.html", "d": "continu", "kind": "data", "rel": "B"},
-  "m_iso31000": {"t": "ISO 31000:2018 – Management du risque, lignes directrices", "pub": "ISO", "url": "https://www.iso.org/standard/65694.html", "d": "2018", "kind": "method", "rel": "A"},
-  "m_icd203": {"t": "Intelligence Community Directive 203 – Analytic Standards (probabilités et confiance)", "pub": "ODNI (États-Unis)", "url": "https://www.dni.gov/files/documents/ICD/ICD-203.pdf", "d": "2015", "kind": "method", "rel": "A"},
-  "m_phia": {"t": "PHIA Probability Yardstick (échelle de probabilité)", "pub": "Professional Head of Intelligence Assessment (Royaume-Uni)", "url": "https://www.gov.uk", "d": "2023", "kind": "method", "rel": "A"},
-  "m_heuer": {"t": "Structured Analytic Techniques for Intelligence Analysis (R. Heuer, R. Pherson), 3e éd.", "pub": "CQ Press / SAGE", "url": "https://us.sagepub.com", "d": "2020", "kind": "method", "rel": "A"},
-  "m_oecd": {"t": "Strategic Foresight (méthodes de prospective)", "pub": "OCDE", "url": "https://www.oecd.org/en/about/programmes/strategic-foresight.html", "d": "continu", "kind": "method", "rel": "A"},
-  "m_jrc": {"t": "Competence Centre on Foresight (mégatendances)", "pub": "Commission européenne (JRC)", "url": "https://knowledge4policy.ec.europa.eu/foresight_en", "d": "continu", "kind": "method", "rel": "A"},
-  "m_espas": {"t": "ESPAS – Global Trends", "pub": "Système européen d'analyse stratégique et politique", "url": "https://www.espas.eu", "d": "2024", "kind": "method", "rel": "B"},
-  "m_irgc": {"t": "Guidelines for Emerging Risk Governance", "pub": "International Risk Governance Center (EPFL)", "url": "https://irgc.org", "d": "2015", "kind": "method", "rel": "B"},
-  "m_admiralty": {"t": "Système de cotation de l'Amirauté (fiabilité de la source A–F, crédibilité de l'information 1–6), doctrine OTAN AJP-2.1", "pub": "OTAN", "url": "https://www.nato.int", "d": "2016", "kind": "method", "rel": "A"}
+  "_comment": "Bibliographie des tendances de risques. kind : report (rapport de prospective), official (évaluation ou publication officielle), data (donnée ou outil de suivi), press (presse), aggregator (agrégateur, à recouper), method (méthode). rel : cotation de l'Amirauté de la source (A à F), voir method.json. pub sert au contrôle d'indépendance (deux éditeurs distincts au minimum par tendance). note_fr / note_en : intégration dans Angor, licence. Vérifier les liens : python tools/check_foresight_sources.py",
+  "axa_frr26": {
+    "t": "Future Risks Report 2026",
+    "pub": "AXA (enquête Ipsos)",
+    "url": "https://www.axa.com/en/news/future-risks-report",
+    "d": "2026",
+    "kind": "report",
+    "rel": "B",
+    "note_fr": "Enquête auprès d'experts et du grand public ; principale source d'inspiration de la taxonomie.",
+    "note_en": "Survey of experts and the general public; main inspiration for the taxonomy."
+  },
+  "wef_grr26": {
+    "t": "Global Risks Report 2026 (21e édition)",
+    "pub": "Forum économique mondial",
+    "url": "https://www.weforum.org/publications/global-risks-report-2026/",
+    "d": "2026-01",
+    "kind": "report",
+    "rel": "B"
+  },
+  "drishti_wef": {
+    "t": "World Economic Forum released Global Risks Report 2026 (synthèse)",
+    "pub": "Drishti IAS",
+    "url": "https://www.drishtiias.com/state-pcs-current-affairs/world-economic-forum-released-global-risks-report-2026/print_manually",
+    "d": "2026-01-16",
+    "kind": "aggregator",
+    "rel": "D"
+  },
+  "allianz_rb26": {
+    "t": "Allianz Risk Barometer 2026",
+    "pub": "Allianz Commercial",
+    "url": "https://commercial.allianz.com/news-and-insights/reports/allianz-risk-barometer.html",
+    "d": "2026-01",
+    "kind": "report",
+    "rel": "B"
+  },
+  "directindustry_allianz": {
+    "t": "Biggest risks for businesses in 2026 (Allianz Risk Barometer, classement France)",
+    "pub": "DirectIndustry e-magazine",
+    "url": "https://emag.directindustry.com/2026/01/14/biggest-risks-businesses-2026-risk-barometer-allianz-cyber-artificial-intelligence-geopolitics/",
+    "d": "2026-01-14",
+    "kind": "press",
+    "rel": "C"
+  },
+  "europol_tesat26": {
+    "t": "EU Terrorism Situation and Trend Report (TE-SAT) 2026",
+    "pub": "Europol",
+    "url": "https://www.europol.europa.eu/cms/sites/default/files/documents/EU-TE-SAT-2026.pdf",
+    "d": "2026-07",
+    "kind": "official",
+    "rel": "B"
+  },
+  "eucrim_tesat": {
+    "t": "Europol TE-SAT 2026 (synthèse)",
+    "pub": "eucrim",
+    "url": "https://eucrim.eu/news/europol-te-sat-2026/",
+    "d": "2026-07",
+    "kind": "press",
+    "rel": "C"
+  },
+  "acteurs_publics_anssi": {
+    "t": "L'éducation, la recherche et la santé particulièrement touchées par la cybermalveillance en 2025 (Panorama ANSSI)",
+    "pub": "Acteurs publics",
+    "url": "https://acteurspublics.fr/articles/leducation-la-recherche-et-la-sante-particulierement-touchees-par-la-cybermalveillance-en-2025/",
+    "d": "2026-03-11",
+    "kind": "press",
+    "rel": "C"
+  },
+  "anssi": {
+    "t": "Publications de l'ANSSI (Panorama de la cybermenace)",
+    "pub": "ANSSI",
+    "url": "https://cyber.gouv.fr",
+    "d": "2026-03",
+    "kind": "official",
+    "rel": "B"
+  },
+  "cert_fr": {
+    "t": "Alertes et avis du CERT-FR",
+    "pub": "ANSSI",
+    "url": "https://www.cert.ssi.gouv.fr",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "cybermalveillance": {
+    "t": "Cybermalveillance.gouv.fr (rapports d'activité, alertes)",
+    "pub": "GIP ACYMA",
+    "url": "https://www.cybermalveillance.gouv.fr",
+    "d": "continu",
+    "kind": "official",
+    "rel": "B"
+  },
+  "enisa": {
+    "t": "ENISA Threat Landscape",
+    "pub": "ENISA",
+    "url": "https://www.enisa.europa.eu",
+    "d": "annuel",
+    "kind": "official",
+    "rel": "B"
+  },
+  "techcrunch_collins": {
+    "t": "Hundreds of flights delayed at Heathrow and other airports after apparent cyberattack",
+    "pub": "TechCrunch",
+    "url": "https://techcrunch.com/2025/09/21/hundreds-of-flights-delayed-at-heathrow-and-other-airports-after-apparent-cyberattack",
+    "d": "2025-09-21",
+    "kind": "press",
+    "rel": "C"
+  },
+  "ecb_proj_sep26": {
+    "t": "Projections macroéconomiques des services de la BCE, septembre 2026",
+    "pub": "Banque centrale européenne",
+    "url": "https://www.ecb.europa.eu/press/projections/html/index.en.html",
+    "d": "2026-09-10",
+    "kind": "official",
+    "rel": "A"
+  },
+  "ecb_mp_sep26": {
+    "t": "La BCE relève ses taux à 2,50 % sur fond d'inflation énergétique",
+    "pub": "Lovguiden",
+    "url": "https://www.lovguiden.dk/en/det-offentlige/den-europaeiske-centralbank/2026-09-23-ecb-haever-renten-til-250-pct-midt-i-energidrevet-inflation",
+    "d": "2026-09-23",
+    "kind": "press",
+    "rel": "C"
+  },
+  "ecb_fsr": {
+    "t": "Financial Stability Review, mai 2026",
+    "pub": "Banque centrale européenne",
+    "url": "https://www.ecb.europa.eu/press/financial-stability-publications/fsr/html/index.en.html",
+    "d": "2026-05",
+    "kind": "official",
+    "rel": "B"
+  },
+  "bocconi_fsr": {
+    "t": "Key takeaways from the ECB May 2026 Financial Stability Review",
+    "pub": "Université Bocconi (BAFFI) / SUERF",
+    "url": "https://baffi.unibocconi.eu/key-takeaways-ecb-may-2026-financial-stability-review",
+    "d": "2026-06",
+    "kind": "press",
+    "rel": "C"
+  },
+  "ecb_data": {
+    "t": "ECB Data Portal (taux, rendements souverains)",
+    "pub": "Banque centrale européenne",
+    "url": "https://data.ecb.europa.eu",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "meteofrance_ete26": {
+    "t": "Bilan climatique de l'été 2026 (juin-juillet-août)",
+    "pub": "Météo-France",
+    "url": "https://meteofrance.com/presse/bilan-climatique-de-lete-2026-juin-juillet-aout",
+    "d": "2026-09",
+    "kind": "official",
+    "rel": "A"
+  },
+  "meteofrance_vigilance": {
+    "t": "Vigilance météorologique",
+    "pub": "Météo-France",
+    "url": "https://vigilance.meteofrance.fr",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "c3s_esotc25": {
+    "t": "European State of the Climate 2025",
+    "pub": "Copernicus (C3S) et OMM",
+    "url": "https://wmo.int/news/media-centre/european-state-of-climate-2025-record-heatwaves-from-mediterranean-arctic-while-glaciers-shrink-and",
+    "d": "2026-04-29",
+    "kind": "official",
+    "rel": "A"
+  },
+  "c3s": {
+    "t": "Copernicus Climate Change Service (bulletins, prévisions saisonnières)",
+    "pub": "Copernicus / ECMWF",
+    "url": "https://climate.copernicus.eu",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "drias": {
+    "t": "DRIAS – Les futurs du climat",
+    "pub": "Météo-France et partenaires",
+    "url": "https://www.drias-climat.fr",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "effis": {
+    "t": "European Forest Fire Information System (EFFIS)",
+    "pub": "Copernicus / JRC",
+    "url": "https://forest-fire.emergency.copernicus.eu",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "vigieau": {
+    "t": "VigiEau – restrictions d'eau",
+    "pub": "Ministère de la Transition écologique",
+    "url": "https://vigieau.gouv.fr",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "vigicrues": {
+    "t": "Vigicrues",
+    "pub": "Ministère de la Transition écologique",
+    "url": "https://www.vigicrues.gouv.fr",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "georisques": {
+    "t": "Géorisques",
+    "pub": "Ministère de la Transition écologique / BRGM",
+    "url": "https://www.georisques.gouv.fr",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "ndgain": {
+    "t": "ND-GAIN Country Index",
+    "pub": "Université de Notre-Dame",
+    "url": "https://gain.nd.edu/our-work/country-index/",
+    "d": "annuel",
+    "kind": "data",
+    "rel": "B"
+  },
+  "inform": {
+    "t": "INFORM Risk Index",
+    "pub": "Commission européenne (JRC) et partenaires",
+    "url": "https://drmkc.jrc.ec.europa.eu/inform-index",
+    "d": "semestriel",
+    "kind": "data",
+    "rel": "B"
+  },
+  "wiki_fuel": {
+    "t": "2026 Iran war fuel crisis",
+    "pub": "Wikipédia",
+    "url": "https://en.wikipedia.org/wiki/2026_Iran_war_fuel_crisis",
+    "d": "2026-10",
+    "kind": "aggregator",
+    "rel": "D",
+    "note_fr": "Chronologie utile, chaque chiffre est à recouper avec la source primaire citée par l'article.",
+    "note_en": "Useful timeline; each figure should be checked against the primary source cited."
+  },
+  "straits_live": {
+    "t": "Strait of Hormuz – Straits Daily Brief (22 octobre 2026)",
+    "pub": "straits.live",
+    "url": "https://straits.live/briefs/2026-10-22",
+    "d": "2026-10-22",
+    "kind": "aggregator",
+    "rel": "D",
+    "note_fr": "Agrège IMF PortWatch, Reuters, Bloomberg ; certaines affirmations n'ont qu'une source.",
+    "note_en": "Aggregates IMF PortWatch, Reuters, Bloomberg; some claims are single-sourced."
+  },
+  "imf_portwatch": {
+    "t": "IMF PortWatch (passages dans les détroits)",
+    "pub": "FMI et Université d'Oxford",
+    "url": "https://portwatch.imf.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "iea": {
+    "t": "Agence internationale de l'énergie (rapports mensuels pétrole et gaz)",
+    "pub": "AIE",
+    "url": "https://www.iea.org",
+    "d": "mensuel",
+    "kind": "official",
+    "rel": "B"
+  },
+  "agsi": {
+    "t": "AGSI+ – stockages de gaz européens",
+    "pub": "Gas Infrastructure Europe",
+    "url": "https://agsi.gie.eu",
+    "d": "quotidien",
+    "kind": "data",
+    "rel": "A"
+  },
+  "prix_carburants": {
+    "t": "Prix des carburants en France (et ruptures)",
+    "pub": "Ministère de l'Économie",
+    "url": "https://www.prix-carburants.gouv.fr",
+    "d": "quotidien",
+    "kind": "data",
+    "rel": "A"
+  },
+  "rte_eco2mix": {
+    "t": "éCO2mix et Ecowatt",
+    "pub": "RTE",
+    "url": "https://www.rte-france.com/eco2mix",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "entsoe": {
+    "t": "ENTSO-E Transparency Platform",
+    "pub": "ENTSO-E",
+    "url": "https://transparency.entsoe.eu",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "lcp_plf27": {
+    "t": "Budget 2027 : le gouvernement sur un fil à la veille de l'ouverture des débats à l'Assemblée",
+    "pub": "LCP – Assemblée nationale",
+    "url": "https://lcp.fr/actualites/budget-2027-le-gouvernement-sur-un-fil-a-la-veille-de-l-ouverture-des-debats-a-l",
+    "d": "2026-10-12",
+    "kind": "press",
+    "rel": "B"
+  },
+  "assemblee": {
+    "t": "Assemblée nationale (scrutins, motions)",
+    "pub": "Assemblée nationale",
+    "url": "https://www.assemblee-nationale.fr",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "boursorama_moodys": {
+    "t": "Dette française : Moody's devrait dégrader la note de la France vendredi",
+    "pub": "Boursorama (AFP)",
+    "url": "https://www.boursorama.com/bourse/actualites/dette-francaise-l-agence-moody-s-devrait-degrader-la-note-de-la-france-vendredi-estime-la-plupart-des-economistes-2f9bf4142e1dd174c99a6f728c1c7129",
+    "d": "2026-10-21",
+    "kind": "press",
+    "rel": "C"
+  },
+  "xinhua_moodys": {
+    "t": "Moody's maintains France's Aa3 rating with negative outlook",
+    "pub": "Xinhua",
+    "url": "https://english.news.cn/20260411/cfcc4c9adf7349a4925638d8411ec0b8/c.html",
+    "d": "2026-04-11",
+    "kind": "press",
+    "rel": "C"
+  },
+  "aft_ratings": {
+    "t": "Notations de la France et calendrier",
+    "pub": "Agence France Trésor",
+    "url": "https://www.aft.gouv.fr/en/frances-credit-ratings",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "bdf_defaillances": {
+    "t": "Défaillances d'entreprises – juillet 2026",
+    "pub": "Banque de France",
+    "url": "https://www.banque-france.fr/fr/statistiques/entreprises/defaillances-dentreprises-2026-07",
+    "d": "2026-09",
+    "kind": "data",
+    "rel": "A"
+  },
+  "insee": {
+    "t": "INSEE (prix, conjoncture, emploi)",
+    "pub": "INSEE",
+    "url": "https://www.insee.fr",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "eurostat": {
+    "t": "Eurostat (inflation, démographie, emploi)",
+    "pub": "Commission européenne",
+    "url": "https://ec.europa.eu/eurostat",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "imf_weo": {
+    "t": "Perspectives de l'économie mondiale (WEO)",
+    "pub": "FMI",
+    "url": "https://www.imf.org/en/Publications/WEO",
+    "d": "semestriel",
+    "kind": "official",
+    "rel": "B"
+  },
+  "sortiraparis_17oct": {
+    "t": "Strike on October 17, 2026: Yellow Vests, students, transport disruptions – what's planned",
+    "pub": "Sortiraparis",
+    "url": "https://www.sortiraparis.com/en/news/in-paris/articles/353907-strike-on-october-17-2026-yellow-vests-protests-by-students-transport-disruptions-what-s-planned",
+    "d": "2026-10-16",
+    "kind": "press",
+    "rel": "C"
+  },
+  "lesfrancais_29sept": {
+    "t": "Grève du 29 septembre 2026 : le grand blocage en France",
+    "pub": "Les Français.press",
+    "url": "https://lesfrancais.press/greve-29-septembre-2026-grand-blocage-en-france-et-consequences-pour-expatries/",
+    "d": "2026-09-28",
+    "kind": "press",
+    "rel": "C"
+  },
+  "eurocontrol": {
+    "t": "EUROCONTROL (capacité, grèves du contrôle aérien)",
+    "pub": "EUROCONTROL",
+    "url": "https://www.eurocontrol.int",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "echo_vigipirate": {
+    "t": "Vigipirate : la France maintenue en « urgence attentat » pour l'hiver-printemps 2026",
+    "pub": "L'Écho du mardi",
+    "url": "https://www.echodumardi.com/actualite/vigipirate-prolonge-la-france-en-etat-durgence-attentat-pour-lhiver-printemps-2026/?print=pdf",
+    "d": "2025-12-30",
+    "kind": "press",
+    "rel": "C"
+  },
+  "sgdsn": {
+    "t": "SGDSN (plan Vigipirate, Viginum)",
+    "pub": "Secrétariat général de la défense et de la sécurité nationale",
+    "url": "https://www.sgdsn.gouv.fr",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "jdn_ingerences": {
+    "t": "Sébastien Lecornu alerte sur des menaces lourdes d'ingérences pour la présidentielle 2027",
+    "pub": "Journal du Net",
+    "url": "https://www.journaldunet.com/business/action-publique/1551345-sebastien-lecornu-alerte-sur-des-menaces-lourdes-d-ingerences-pour-la-presidentielle-2027/",
+    "d": "2026-06-12",
+    "kind": "press",
+    "rel": "C"
+  },
+  "localtis_narco": {
+    "t": "Les maires de grandes villes inquiets du retard pris dans la lutte contre le narcotrafic",
+    "pub": "Banque des Territoires (Localtis)",
+    "url": "https://www.banquedesterritoires.fr/les-maires-de-grandes-villes-inquiets-du-retard-pris-dans-la-lutte-contre-le-narcotrafic",
+    "d": "2026-06-02",
+    "kind": "press",
+    "rel": "B"
+  },
+  "ofdt": {
+    "t": "Observatoire français des drogues et des tendances addictives",
+    "pub": "OFDT",
+    "url": "https://www.ofdt.fr",
+    "d": "continu",
+    "kind": "official",
+    "rel": "B"
+  },
+  "pbs_leipzig": {
+    "t": "Germany blames Russia for attempted drone attack at Leipzig airport",
+    "pub": "PBS NewsHour (AP)",
+    "url": "https://pbs.org/newshour/world/germany-blames-russia-for-attempted-drone-attack-at-leipzig-airport",
+    "d": "2026-09-01",
+    "kind": "press",
+    "rel": "C"
+  },
+  "crisiswatch": {
+    "t": "CrisisWatch",
+    "pub": "International Crisis Group",
+    "url": "https://www.crisisgroup.org/crisiswatch",
+    "d": "mensuel",
+    "kind": "official",
+    "rel": "B"
+  },
+  "ecdc": {
+    "t": "Centre européen de prévention et de contrôle des maladies",
+    "pub": "ECDC",
+    "url": "https://www.ecdc.europa.eu",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "spf": {
+    "t": "Santé publique France",
+    "pub": "Santé publique France",
+    "url": "https://www.santepubliquefrance.fr",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "wgi": {
+    "t": "Worldwide Governance Indicators",
+    "pub": "Banque mondiale",
+    "url": "https://www.worldbank.org/en/publication/worldwide-governance-indicators",
+    "d": "annuel",
+    "kind": "data",
+    "rel": "B",
+    "note_fr": "Intégré : stabilité politique, efficacité, État de droit, corruption (API Banque mondiale, source 3).",
+    "note_en": "Integrated: political stability, effectiveness, rule of law, corruption (World Bank API, source 3)."
+  },
+  "vdem": {
+    "t": "V-Dem (Varieties of Democracy)",
+    "pub": "Institut V-Dem, Université de Göteborg",
+    "url": "https://www.v-dem.net",
+    "d": "annuel",
+    "kind": "data",
+    "rel": "B"
+  },
+  "gdelt": {
+    "t": "GDELT Project",
+    "pub": "GDELT",
+    "url": "https://www.gdeltproject.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "D",
+    "note_fr": "Intégré : détection d'événements (titres d'articles relus avant affichage).",
+    "note_en": "Integrated: event detection (article titles checked before display)."
+  },
+  "acled": {
+    "t": "ACLED (événements de conflit et de manifestation)",
+    "pub": "ACLED",
+    "url": "https://acleddata.com",
+    "d": "hebdomadaire",
+    "kind": "data",
+    "rel": "B",
+    "note_fr": "Licence requise pour un usage commercial : consultée, non intégrée.",
+    "note_en": "Commercial use requires a licence: consulted, not integrated."
+  },
+  "angor": {
+    "t": "Incidents vérifiés Angor (carte, contrôle a priori, recoupement)",
+    "pub": "Angor Intelligence",
+    "url": "index.html",
+    "d": "continu",
+    "kind": "data",
+    "rel": "B",
+    "note_fr": "Intégré : signal en temps réel des tendances et comptages de l'alerte précoce.",
+    "note_en": "Integrated: real-time trend signal and early-warning counts."
+  },
+  "m_iso31000": {
+    "t": "ISO 31000:2018 – Management du risque, lignes directrices",
+    "pub": "ISO",
+    "url": "https://www.iso.org/standard/65694.html",
+    "d": "2018",
+    "kind": "method",
+    "rel": "A"
+  },
+  "m_icd203": {
+    "t": "Intelligence Community Directive 203 – Analytic Standards (probabilités et confiance)",
+    "pub": "ODNI (États-Unis)",
+    "url": "https://www.dni.gov/files/documents/ICD/ICD-203.pdf",
+    "d": "2015",
+    "kind": "method",
+    "rel": "A"
+  },
+  "m_phia": {
+    "t": "PHIA Probability Yardstick (échelle de probabilité)",
+    "pub": "Professional Head of Intelligence Assessment (Royaume-Uni)",
+    "url": "https://www.gov.uk",
+    "d": "2023",
+    "kind": "method",
+    "rel": "A"
+  },
+  "m_heuer": {
+    "t": "Structured Analytic Techniques for Intelligence Analysis (R. Heuer, R. Pherson), 3e éd.",
+    "pub": "CQ Press / SAGE",
+    "url": "https://us.sagepub.com",
+    "d": "2020",
+    "kind": "method",
+    "rel": "A"
+  },
+  "m_oecd": {
+    "t": "Strategic Foresight (méthodes de prospective)",
+    "pub": "OCDE",
+    "url": "https://www.oecd.org/en/about/programmes/strategic-foresight.html",
+    "d": "continu",
+    "kind": "method",
+    "rel": "A"
+  },
+  "m_jrc": {
+    "t": "Competence Centre on Foresight (mégatendances)",
+    "pub": "Commission européenne (JRC)",
+    "url": "https://knowledge4policy.ec.europa.eu/foresight_en",
+    "d": "continu",
+    "kind": "method",
+    "rel": "A"
+  },
+  "m_espas": {
+    "t": "ESPAS – Global Trends",
+    "pub": "Système européen d'analyse stratégique et politique",
+    "url": "https://www.espas.eu",
+    "d": "2024",
+    "kind": "method",
+    "rel": "B"
+  },
+  "m_irgc": {
+    "t": "Guidelines for Emerging Risk Governance",
+    "pub": "International Risk Governance Center (EPFL)",
+    "url": "https://irgc.org",
+    "d": "2015",
+    "kind": "method",
+    "rel": "B"
+  },
+  "m_admiralty": {
+    "t": "Système de cotation de l'Amirauté (fiabilité de la source A–F, crédibilité de l'information 1–6), doctrine OTAN AJP-2.1",
+    "pub": "OTAN",
+    "url": "https://www.nato.int",
+    "d": "2016",
+    "kind": "method",
+    "rel": "A"
+  },
+  "nasa_power": {
+    "t": "NASA POWER (réanalyse MERRA-2) – précipitations, température, humidité du sol",
+    "pub": "NASA Langley Research Center",
+    "url": "https://power.larc.nasa.gov",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré : climat de chaque subdivision (alerte précoce).",
+    "note_en": "Integrated: climate of each subdivision (early warning)."
+  },
+  "hdx_hapi": {
+    "t": "HDX Humanitarian API (IPC, déplacés OIM-DTM, population)",
+    "pub": "OCHA – Humanitarian Data Exchange",
+    "url": "https://hapi.humdata.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré : volet humanitaire de l'alerte précoce.",
+    "note_en": "Integrated: humanitarian component of early warning."
+  },
+  "geoboundaries": {
+    "t": "geoBoundaries – limites administratives (niveau 1)",
+    "pub": "William & Mary geoLab",
+    "url": "https://www.geoboundaries.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré, licence CC BY 4.0.",
+    "note_en": "Integrated, CC BY 4.0 licence."
+  },
+  "ucdp": {
+    "t": "Uppsala Conflict Data Program (événements de violence organisée)",
+    "pub": "Université d'Uppsala",
+    "url": "https://ucdp.uu.se",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré : historique des incidents (rétro-évaluation).",
+    "note_en": "Integrated: incident history (back-testing)."
+  },
+  "imf_datamapper": {
+    "t": "FMI – DataMapper (World Economic Outlook) : croissance, inflation, dette, chômage",
+    "pub": "Fonds monétaire international",
+    "url": "https://www.imf.org/external/datamapper/",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré : indicateurs structurels par pays.",
+    "note_en": "Integrated: structural indicators by country."
+  },
+  "ecb_irs": {
+    "t": "BCE – taux d'intérêt à long terme de convergence (10 ans)",
+    "pub": "Banque centrale européenne",
+    "url": "https://data.ecb.europa.eu",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré : rendement souverain et écart avec l'Allemagne.",
+    "note_en": "Integrated: sovereign yield and spread over Germany."
+  },
+  "ipcc_ar6": {
+    "t": "Sixième rapport d'évaluation du GIEC – rapport de synthèse",
+    "pub": "GIEC (IPCC)",
+    "url": "https://www.ipcc.ch/report/ar6/syr/",
+    "d": "2023",
+    "kind": "report",
+    "rel": "A"
+  },
+  "gdacs": {
+    "t": "GDACS – alertes mondiales de catastrophes",
+    "pub": "ONU et Commission européenne",
+    "url": "https://www.gdacs.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor.",
+    "note_en": "Integrated in the Angor map."
+  },
+  "usgs": {
+    "t": "USGS – séismes en temps réel",
+    "pub": "U.S. Geological Survey",
+    "url": "https://earthquake.usgs.gov",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor.",
+    "note_en": "Integrated in the Angor map."
+  },
+  "emsc": {
+    "t": "EMSC – Centre sismologique euro-méditerranéen",
+    "pub": "EMSC-CSEM",
+    "url": "https://www.emsc-csem.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor.",
+    "note_en": "Integrated in the Angor map."
+  },
+  "gvp": {
+    "t": "Global Volcanism Program",
+    "pub": "Smithsonian Institution",
+    "url": "https://volcano.si.edu",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "noaa_nhc": {
+    "t": "National Hurricane Center (cyclones de l'Atlantique et du Pacifique Est)",
+    "pub": "NOAA",
+    "url": "https://www.nhc.noaa.gov",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "meteoalarm": {
+    "t": "Meteoalarm – vigilances météorologiques européennes",
+    "pub": "EUMETNET",
+    "url": "https://www.meteoalarm.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor.",
+    "note_en": "Integrated in the Angor map."
+  },
+  "copernicus_ems": {
+    "t": "Copernicus Emergency Management Service (cartographie de crise)",
+    "pub": "Commission européenne",
+    "url": "https://emergency.copernicus.eu",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "glofas": {
+    "t": "GloFAS – système mondial d'alerte aux crues",
+    "pub": "Copernicus / ECMWF",
+    "url": "https://global-flood.emergency.copernicus.eu",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "wri_aqueduct": {
+    "t": "Aqueduct – atlas des risques liés à l'eau",
+    "pub": "World Resources Institute",
+    "url": "https://www.wri.org/aqueduct",
+    "d": "continu",
+    "kind": "data",
+    "rel": "B"
+  },
+  "munichre": {
+    "t": "NatCat – bilans des catastrophes naturelles",
+    "pub": "Munich Re",
+    "url": "https://www.munichre.com",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "sipri": {
+    "t": "SIPRI – dépenses militaires, transferts d'armes, conflits",
+    "pub": "Stockholm International Peace Research Institute",
+    "url": "https://www.sipri.org",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "cfr_gct": {
+    "t": "Global Conflict Tracker",
+    "pub": "Council on Foreign Relations",
+    "url": "https://www.cfr.org/global-conflict-tracker",
+    "d": "continu",
+    "kind": "report",
+    "rel": "B"
+  },
+  "easa_czib": {
+    "t": "Bulletins d'information sur les zones de conflit (CZIB)",
+    "pub": "Agence de l'Union européenne pour la sécurité aérienne",
+    "url": "https://www.easa.europa.eu/en/domains/air-operations/czibs",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "ukmto": {
+    "t": "UKMTO – alertes de sûreté maritime (mer Rouge, golfe d'Aden, Ormuz)",
+    "pub": "Royal Navy (Royaume-Uni)",
+    "url": "https://www.ukmto.org",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "imb_prc": {
+    "t": "Centre de signalement de la piraterie (IMB)",
+    "pub": "Chambre de commerce internationale",
+    "url": "https://www.icc-ccs.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "B"
+  },
+  "marad": {
+    "t": "Avis de sûreté maritime (MSCI)",
+    "pub": "U.S. Maritime Administration",
+    "url": "https://www.maritime.dot.gov",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "eu_sanctions": {
+    "t": "EU Sanctions Map",
+    "pub": "Union européenne",
+    "url": "https://www.sanctionsmap.eu",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "ofac": {
+    "t": "Sanctions américaines (OFAC)",
+    "pub": "Département du Trésor des États-Unis",
+    "url": "https://ofac.treasury.gov",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "gta": {
+    "t": "Global Trade Alert – mesures commerciales",
+    "pub": "St. Gallen Endowment",
+    "url": "https://www.globaltradealert.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "B"
+  },
+  "wto": {
+    "t": "Suivi du commerce et des mesures commerciales",
+    "pub": "Organisation mondiale du commerce",
+    "url": "https://www.wto.org",
+    "d": "continu",
+    "kind": "official",
+    "rel": "B"
+  },
+  "msc": {
+    "t": "Munich Security Report",
+    "pub": "Munich Security Conference",
+    "url": "https://securityconference.org",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "odni_ata": {
+    "t": "Annual Threat Assessment",
+    "pub": "Office of the Director of National Intelligence (États-Unis)",
+    "url": "https://www.dni.gov",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "nato_sfa": {
+    "t": "Strategic Foresight Analysis",
+    "pub": "OTAN – Allied Command Transformation",
+    "url": "https://www.act.nato.int",
+    "d": "continu",
+    "kind": "report",
+    "rel": "B"
+  },
+  "freedom_house": {
+    "t": "Freedom in the World",
+    "pub": "Freedom House",
+    "url": "https://freedomhouse.org",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "eiu_democracy": {
+    "t": "Democracy Index",
+    "pub": "Economist Intelligence Unit",
+    "url": "https://www.eiu.com",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B",
+    "note_fr": "Service payant : cité comme référence, aucune donnée reprise.",
+    "note_en": "Paid service: cited as a reference, no data reused."
+  },
+  "bti": {
+    "t": "Bertelsmann Transformation Index",
+    "pub": "Fondation Bertelsmann",
+    "url": "https://bti-project.org",
+    "d": "biennal",
+    "kind": "report",
+    "rel": "B"
+  },
+  "fsi": {
+    "t": "Fragile States Index",
+    "pub": "Fund for Peace",
+    "url": "https://fragilestatesindex.org",
+    "d": "annuel",
+    "kind": "data",
+    "rel": "B"
+  },
+  "electionguide": {
+    "t": "ElectionGuide – calendrier électoral mondial",
+    "pub": "IFES",
+    "url": "https://www.electionguide.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "idea": {
+    "t": "Global State of Democracy",
+    "pub": "International IDEA",
+    "url": "https://www.idea.int",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "carnegie_gpt": {
+    "t": "Global Protest Tracker",
+    "pub": "Carnegie Endowment for International Peace",
+    "url": "https://carnegieendowment.org/features/global-protest-tracker",
+    "d": "continu",
+    "kind": "data",
+    "rel": "B"
+  },
+  "ilostat": {
+    "t": "ILOSTAT – emploi, chômage, conflits du travail",
+    "pub": "Organisation internationale du travail",
+    "url": "https://ilostat.ilo.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "gti": {
+    "t": "Global Terrorism Index",
+    "pub": "Institute for Economics & Peace",
+    "url": "https://www.economicsandpeace.org",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "gpi": {
+    "t": "Global Peace Index",
+    "pub": "Institute for Economics & Peace",
+    "url": "https://www.visionofhumanity.org",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "gtd": {
+    "t": "Global Terrorism Database",
+    "pub": "START – Université du Maryland",
+    "url": "https://www.start.umd.edu/gtd/",
+    "d": "annuel",
+    "kind": "data",
+    "rel": "B",
+    "note_fr": "Licence requise pour un usage commercial : consultée, non intégrée.",
+    "note_en": "Commercial use requires a licence: consulted, not integrated."
+  },
+  "ocindex": {
+    "t": "Global Organized Crime Index",
+    "pub": "Global Initiative Against Transnational Organized Crime",
+    "url": "https://ocindex.net",
+    "d": "2025",
+    "kind": "data",
+    "rel": "B"
+  },
+  "unodc": {
+    "t": "Office des Nations unies contre la drogue et le crime (rapports mondiaux)",
+    "pub": "ONUDC",
+    "url": "https://www.unodc.org",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "osac": {
+    "t": "Overseas Security Advisory Council (rapports pays)",
+    "pub": "Département d'État des États-Unis",
+    "url": "https://www.osac.gov",
+    "d": "continu",
+    "kind": "official",
+    "rel": "B"
+  },
+  "meae_cav": {
+    "t": "Conseils aux voyageurs",
+    "pub": "Ministère de l'Europe et des Affaires étrangères",
+    "url": "https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor (calque).",
+    "note_en": "Integrated in the Angor map (layer)."
+  },
+  "fcdo": {
+    "t": "Foreign travel advice",
+    "pub": "Foreign, Commonwealth & Development Office (Royaume-Uni)",
+    "url": "https://www.gov.uk/foreign-travel-advice",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor (calque).",
+    "note_en": "Integrated in the Angor map (layer)."
+  },
+  "us_travel": {
+    "t": "Travel Advisories",
+    "pub": "Département d'État des États-Unis",
+    "url": "https://travel.state.gov",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor (calque).",
+    "note_en": "Integrated in the Angor map (layer)."
+  },
+  "smartraveller": {
+    "t": "Smartraveller",
+    "pub": "Gouvernement australien",
+    "url": "https://www.smartraveller.gov.au",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "canada_travel": {
+    "t": "Conseils aux voyageurs et avertissements",
+    "pub": "Gouvernement du Canada",
+    "url": "https://travel.gc.ca",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "controlrisks": {
+    "t": "RiskMap",
+    "pub": "Control Risks",
+    "url": "https://www.controlrisks.com",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B",
+    "note_fr": "Service payant : cité comme référence, aucune donnée reprise.",
+    "note_en": "Paid service: cited as a reference, no data reused."
+  },
+  "isos": {
+    "t": "Risk Outlook",
+    "pub": "International SOS",
+    "url": "https://www.internationalsos.com",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "cisa_kev": {
+    "t": "Known Exploited Vulnerabilities Catalog",
+    "pub": "CISA (États-Unis)",
+    "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor.",
+    "note_en": "Integrated in the Angor map."
+  },
+  "cert_eu": {
+    "t": "CERT-EU – alertes et menaces",
+    "pub": "Union européenne",
+    "url": "https://cert.europa.eu",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "itu_gci": {
+    "t": "Global Cybersecurity Index",
+    "pub": "Union internationale des télécommunications",
+    "url": "https://www.itu.int",
+    "d": "continu",
+    "kind": "report",
+    "rel": "B"
+  },
+  "verizon_dbir": {
+    "t": "Data Breach Investigations Report",
+    "pub": "Verizon",
+    "url": "https://www.verizon.com/business/resources/reports/dbir/",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "ioda": {
+    "t": "IODA – détection des coupures d'Internet",
+    "pub": "Georgia Tech (Internet Intelligence Lab)",
+    "url": "https://ioda.inetintel.cc.gatech.edu",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "cloudflare_radar": {
+    "t": "Cloudflare Radar – trafic et coupures d'Internet",
+    "pub": "Cloudflare",
+    "url": "https://radar.cloudflare.com",
+    "d": "continu",
+    "kind": "data",
+    "rel": "B"
+  },
+  "keepiton": {
+    "t": "#KeepItOn – coupures d'Internet imposées",
+    "pub": "Access Now",
+    "url": "https://www.accessnow.org/campaign/keepiton/",
+    "d": "continu",
+    "kind": "report",
+    "rel": "B"
+  },
+  "wb_gep": {
+    "t": "Global Economic Prospects",
+    "pub": "Banque mondiale",
+    "url": "https://www.worldbank.org/en/publication/global-economic-prospects",
+    "d": "semestriel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "oecd_eo": {
+    "t": "Perspectives économiques de l'OCDE",
+    "pub": "OCDE",
+    "url": "https://www.oecd.org",
+    "d": "semestriel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "coface": {
+    "t": "Évaluations risque pays",
+    "pub": "Coface",
+    "url": "https://www.coface.com",
+    "d": "trimestriel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "allianz_trade": {
+    "t": "Risque pays et défaillances d'entreprises",
+    "pub": "Allianz Trade",
+    "url": "https://www.allianz-trade.com",
+    "d": "trimestriel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "imf_gfsr": {
+    "t": "Global Financial Stability Report",
+    "pub": "Fonds monétaire international",
+    "url": "https://www.imf.org/en/Publications/GFSR",
+    "d": "semestriel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "imf_fm": {
+    "t": "Fiscal Monitor",
+    "pub": "Fonds monétaire international",
+    "url": "https://www.imf.org/en/Publications/FM",
+    "d": "semestriel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "imf_dsa": {
+    "t": "Liste des analyses de viabilité de la dette (pays à faible revenu)",
+    "pub": "Fonds monétaire international",
+    "url": "https://www.imf.org/external/Pubs/ft/dsa/DSAlist.pdf",
+    "d": "mensuel",
+    "kind": "data",
+    "rel": "A"
+  },
+  "bis": {
+    "t": "Banque des règlements internationaux (rapports, statistiques)",
+    "pub": "BRI",
+    "url": "https://www.bis.org",
+    "d": "continu",
+    "kind": "official",
+    "rel": "B"
+  },
+  "fao_ffpi": {
+    "t": "Indice FAO des prix des produits alimentaires",
+    "pub": "FAO",
+    "url": "https://www.fao.org/worldfoodsituation/foodpricesindex/en/",
+    "d": "mensuel",
+    "kind": "data",
+    "rel": "A"
+  },
+  "wfp_hungermap": {
+    "t": "HungerMap LIVE",
+    "pub": "Programme alimentaire mondial",
+    "url": "https://hungermap.wfp.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "eia": {
+    "t": "Statistiques et prévisions énergétiques (STEO)",
+    "pub": "U.S. Energy Information Administration",
+    "url": "https://www.eia.gov",
+    "d": "mensuel",
+    "kind": "data",
+    "rel": "A"
+  },
+  "jodi": {
+    "t": "JODI – données pétrolières et gazières",
+    "pub": "Joint Organisations Data Initiative",
+    "url": "https://www.jodidata.org",
+    "d": "mensuel",
+    "kind": "data",
+    "rel": "A"
+  },
+  "opec_momr": {
+    "t": "Monthly Oil Market Report",
+    "pub": "OPEP",
+    "url": "https://www.opec.org",
+    "d": "mensuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "entsog": {
+    "t": "ENTSOG Transparency Platform (flux gaziers)",
+    "pub": "ENTSOG",
+    "url": "https://transparency.entsog.eu",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "acer": {
+    "t": "Agence de coopération des régulateurs de l'énergie (marchés européens)",
+    "pub": "ACER",
+    "url": "https://www.acer.europa.eu",
+    "d": "continu",
+    "kind": "official",
+    "rel": "B"
+  },
+  "icao": {
+    "t": "Organisation de l'aviation civile internationale",
+    "pub": "OACI",
+    "url": "https://www.icao.int",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  },
+  "iata": {
+    "t": "IATA – trafic, capacité, carburant aviation",
+    "pub": "Association du transport aérien international",
+    "url": "https://www.iata.org",
+    "d": "continu",
+    "kind": "report",
+    "rel": "B"
+  },
+  "who_don": {
+    "t": "Disease Outbreak News",
+    "pub": "Organisation mondiale de la santé",
+    "url": "https://www.who.int/emergencies/disease-outbreak-news",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor.",
+    "note_en": "Integrated in the Angor map."
+  },
+  "cdc_travel": {
+    "t": "Travel Health Notices",
+    "pub": "CDC (États-Unis)",
+    "url": "https://wwwnc.cdc.gov/travel/notices",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor.",
+    "note_en": "Integrated in the Angor map."
+  },
+  "africa_cdc": {
+    "t": "Africa CDC – surveillance épidémiologique",
+    "pub": "Union africaine",
+    "url": "https://africacdc.org",
+    "d": "continu",
+    "kind": "official",
+    "rel": "B"
+  },
+  "promed": {
+    "t": "ProMED – alertes sanitaires",
+    "pub": "International Society for Infectious Diseases",
+    "url": "https://promedmail.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "C"
+  },
+  "un_wpp": {
+    "t": "World Population Prospects",
+    "pub": "Nations unies – Division de la population",
+    "url": "https://population.un.org/wpp/",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "unhcr": {
+    "t": "Refugee Data Finder",
+    "pub": "HCR",
+    "url": "https://www.unhcr.org/refugee-statistics/",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "ipc": {
+    "t": "Cadre intégré de classification de la sécurité alimentaire (IPC)",
+    "pub": "Partenariat IPC",
+    "url": "https://www.ipcinfo.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "fewsnet": {
+    "t": "FEWS NET – alerte précoce sur la famine",
+    "pub": "USAID / FEWS NET",
+    "url": "https://fews.net",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "iom_dtm": {
+    "t": "Displacement Tracking Matrix",
+    "pub": "Organisation internationale pour les migrations",
+    "url": "https://dtm.iom.int",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A"
+  },
+  "reliefweb": {
+    "t": "ReliefWeb – rapports et cartes humanitaires",
+    "pub": "OCHA",
+    "url": "https://reliefweb.int",
+    "d": "continu",
+    "kind": "data",
+    "rel": "A",
+    "note_fr": "Intégré à la carte Angor.",
+    "note_en": "Integrated in the Angor map."
+  },
+  "acaps": {
+    "t": "ACAPS – analyses des crises humanitaires",
+    "pub": "ACAPS",
+    "url": "https://www.acaps.org",
+    "d": "continu",
+    "kind": "report",
+    "rel": "B"
+  },
+  "oecd_aim": {
+    "t": "AI Incidents Monitor",
+    "pub": "OCDE",
+    "url": "https://oecd.ai/en/incidents",
+    "d": "continu",
+    "kind": "data",
+    "rel": "B"
+  },
+  "ai_index": {
+    "t": "AI Index Report",
+    "pub": "Stanford HAI",
+    "url": "https://hai.stanford.edu/ai-index",
+    "d": "annuel",
+    "kind": "report",
+    "rel": "B"
+  },
+  "aiaaic": {
+    "t": "AIAAIC Repository (incidents liés à l'IA)",
+    "pub": "AIAAIC",
+    "url": "https://www.aiaaic.org",
+    "d": "continu",
+    "kind": "data",
+    "rel": "C"
+  },
+  "nist_pqc": {
+    "t": "Cryptographie post-quantique",
+    "pub": "NIST (États-Unis)",
+    "url": "https://csrc.nist.gov/projects/post-quantum-cryptography",
+    "d": "continu",
+    "kind": "official",
+    "rel": "A"
+  }
 }

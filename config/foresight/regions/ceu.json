@@ -1,0 +1,25 @@
+{
+  "id": "ceu",
+  "type": "region",
+  "fr": "Europe centrale et orientale",
+  "en": "Central & Eastern Europe",
+  "countries": [
+    "PL",
+    "CZ",
+    "SK",
+    "HU",
+    "RO",
+    "BG",
+    "SI"
+  ],
+  "bbox": [
+    12,
+    41,
+    30,
+    55
+  ],
+  "perimeter_fr": "Pays d'Europe centrale membres de l'UE, de la Pologne à la Bulgarie.",
+  "perimeter_en": "Central European EU members, from Poland to Bulgaria.",
+  "outlook": null,
+  "trends": []
+}

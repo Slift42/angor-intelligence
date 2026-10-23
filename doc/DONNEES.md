@@ -57,7 +57,8 @@ Produit par `veille/model.py → make_event`, complété au fil de la chaîne. C
 | `practical.js` | `VS_PRACTICAL` | `practical.py` (Wikidata, progressif) | 30 min | `report.js`, Travel buddy |
 | `calendar.js` | `VS_CALENDAR` | `agenda.py` | 30 min | Agenda, fiche pays, rapport |
 | `reports.js` | `VS_REPORTS` | `reports.py` (flux toutes les 3 h) | 30 min | onglet Rapports, fiche pays |
-| `early_warning.js` | `VS_EW` | `early_warning.py` | 30 min | `ew.js` |
+| `early_warning.js` | `VS_EW` | `early_warning.py` | 30 min | `ew.js` (index : régions, mois, composantes, validation) |
+| `early_warning/<région>.js` | `VS_EW_R[région]` | `early_warning.py` | 30 min | `ew.js` (subdivisions d'une région, à la demande) |
 | `foresight.js` | `VS_FS` | `foresight.py` | 30 min | `foresight.js` (onglet Tendances) |
 | `foresight_method.js` | `VS_FS_METHOD` | `foresight.py` | 30 min | `methodologie.html` (public) |
 | `country/<ISO2>.js` | `VS_CDETAIL[iso]` | `country_detail.py` | 30 min | `report.js`, fiche pays (villes) |
@@ -124,7 +125,7 @@ plus pour `emergency` un 12e élément : `hijack` | `radio` | `emergency`.
 | `sites.json` | Sites et trajets **d'exemple** ; les vrais vont dans `sites.local.json` (ignoré par git) ou le secret `SITES_JSON` | analyste |
 | `calendar.json` | Échéances ajoutées à la main | analyste |
 | `reports.json` | Flux de rapports et ajouts manuels | analyste |
-| `early_warning.json` | Régions de l'alerte précoce et paramètres | développeur |
+| `early_warning.json` | Paramètres de l'alerte précoce (rythme de remplissage, priorité des régions) ; les régions sont celles de `foresight/regions/` | développeur |
 | `foresight/` | Tendances de risques : `method.json` (échelles, facteurs), `sources.json` (bibliographie), `regions/*.json`, `countries/*.json` | analyste |
 | `press_outlets.json` | Médias de référence par pays et cotation | développeur |
 | `city_notes.json` | Notes d'analyste par ville (à valider) | analyste |
@@ -145,7 +146,9 @@ planter (l'historique se reconstitue en quelques collectes, les référentiels s
 | `admin1/<ISO2>.json` | Centres des régions administratives (geoBoundaries) |
 | `ne_places.json`, `airports.json`, `hotlines.json` | Référentiels hebdomadaires (Natural Earth, OurAirports, worldhotlines.org) |
 | `geonames/` | Dictionnaire de villes GeoNames |
-| `early_warning.json` | Cache climat / humanitaire / sécurité de l'alerte précoce |
+| `early_warning.json` | Mémoire de l'alerte précoce (v3) : climat compact par subdivision (`y0`, séries `P`, `T`, `W`), comptages mensuels par famille (`[sec, res, unrest, pol, haz, infra, health]`), humanitaire par pays, validation |
+| `ew_units/<ISO2>.json` | Limites simplifiées des subdivisions d'un pays (geoBoundaries), chargées une fois |
+| `indicators.json` | Indicateurs structurels (FMI, Banque mondiale, BCE) et dates de mise à jour |
 
 ## 5. Base des comptes (Supabase, `supabase/schema.sql`)
 
@@ -171,7 +174,7 @@ En ligne (robot GitHub Actions, `VS_PUBLIC=1`) et comptes configurés, `veille/v
 
 | Publics (GitHub Pages) | Réservés (Supabase Storage, compartiment privé `angor-data`) |
 |---|---|
-| `config.js`, `countries.js`, `legal.js`, `providers.js`, `cities.js`, `factbook.js`, `guides.js`, `history/`, `guest.js`, `foresight_method.js` | tout le reste : `data.js`, `events.geojson`, `reports.js`, `early_warning.js`, `foresight.js`, `calendar.js`, `econ.js`, `profiles.js`, `practical.js`, `health.js`, `traffic.js`, `country/`, `archive/` |
+| `config.js`, `countries.js`, `legal.js`, `providers.js`, `cities.js`, `factbook.js`, `guides.js`, `history/`, `guest.js`, `foresight_method.js` | tout le reste : `data.js`, `events.geojson`, `reports.js`, `early_warning.js`, `early_warning/`, `foresight.js`, `calendar.js`, `econ.js`, `profiles.js`, `practical.js`, `health.js`, `traffic.js`, `country/`, `archive/` |
 
 `guest.js` = carte des visiteurs (7 jours, champs : id, catégorie, gravité, titre, date, position, lieu, pays, précision,
 fiabilité). Les fichiers réservés sont envoyés s'ils ont changé (`data/vault_manifest.json`), puis retirés de `docs/data`

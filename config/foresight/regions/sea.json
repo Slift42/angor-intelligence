@@ -1,0 +1,29 @@
+{
+  "id": "sea",
+  "type": "region",
+  "fr": "Asie du Sud-Est",
+  "en": "Southeast Asia",
+  "countries": [
+    "BN",
+    "ID",
+    "KH",
+    "LA",
+    "MM",
+    "MY",
+    "PH",
+    "SG",
+    "TH",
+    "TL",
+    "VN"
+  ],
+  "bbox": [
+    92,
+    -11,
+    141,
+    28.5
+  ],
+  "perimeter_fr": "Pays de l'ASEAN et Timor oriental.",
+  "perimeter_en": "ASEAN countries and Timor-Leste.",
+  "outlook": null,
+  "trends": []
+}

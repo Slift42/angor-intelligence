@@ -1,0 +1,38 @@
+{
+  "id": "mena",
+  "type": "region",
+  "fr": "Moyen-Orient et Afrique du Nord",
+  "en": "Middle East & North Africa",
+  "countries": [
+    "DZ",
+    "EG",
+    "EH",
+    "LY",
+    "MA",
+    "TN",
+    "AE",
+    "BH",
+    "IL",
+    "IQ",
+    "JO",
+    "KW",
+    "LB",
+    "OM",
+    "PS",
+    "QA",
+    "SA",
+    "SY",
+    "YE",
+    "IR"
+  ],
+  "bbox": [
+    -18,
+    12,
+    63.5,
+    38
+  ],
+  "perimeter_fr": "Maghreb, Égypte, Levant, péninsule Arabique, Irak et Iran.",
+  "perimeter_en": "Maghreb, Egypt, the Levant, the Arabian Peninsula, Iraq and Iran.",
+  "outlook": null,
+  "trends": []
+}

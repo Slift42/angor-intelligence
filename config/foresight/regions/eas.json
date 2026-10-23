@@ -1,0 +1,26 @@
+{
+  "id": "eas",
+  "type": "region",
+  "fr": "Asie de l'Est",
+  "en": "East Asia",
+  "countries": [
+    "CN",
+    "HK",
+    "JP",
+    "KP",
+    "KR",
+    "MN",
+    "MO",
+    "TW"
+  ],
+  "bbox": [
+    73,
+    18,
+    146,
+    54
+  ],
+  "perimeter_fr": "Chine, Hong Kong, Macao, Taïwan, Japon, Corées et Mongolie.",
+  "perimeter_en": "China, Hong Kong, Macao, Taiwan, Japan, the Koreas and Mongolia.",
+  "outlook": null,
+  "trends": []
+}

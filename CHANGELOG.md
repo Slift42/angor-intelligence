@@ -4,6 +4,72 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.27 – Tendances et alerte précoce fusionnées, monde entier, sources étoffées (octobre 2026)
+
+- **Un seul onglet, trois niveaux de détail** : « Tendances · alerte précoce » (espace Anticipation) remplace les
+  onglets Tendances et Alerte précoce. Le sélecteur « Niveau de détail » passe de **Région et pays** (tendances,
+  indicateurs) à **Subdivisions** (alerte précoce par région, État ou province). L'ancien lien `?tab=ew` ouvre
+  directement le niveau Subdivisions.
+- **Monde entier, 17 régions** communes aux deux niveaux. Chaque pays appartient à une seule région, et les
+  outre-mer sont rattachés à leur région géographique pour l'alerte précoce. Les anciennes zones Corne de l'Afrique
+  et Sahel sont reprises dans « Afrique de l'Est et Corne » et « Afrique de l'Ouest et Sahel » (le Cameroun est en
+  Afrique centrale).
+- **Alerte précoce généralisée** : l'indice de convergence (0-100) compte désormais cinq composantes calquées sur les
+  familles de facteurs des tendances :
+  - climat et environnement (30 points) ;
+  - terrorisme, conflits et criminalité (30) ;
+  - société et politique (15, nouveau) ;
+  - aléas, infrastructures et santé (10, nouveau) ;
+  - crises humanitaires (15).
+
+  Là où il n'y a pas de donnée humanitaire, l'indice est ramené sur 100. Les nouvelles séries mensuelles par
+  subdivision (troubles civils et politiques ; aléas, pannes, cyber et épidémies) ont leurs graphiques dans la fiche.
+- **Liens croisés** : chaque tendance liste les subdivisions les plus exposées selon la composante qui lui correspond,
+  et un clic y descend. Chaque subdivision liste, elle, les tendances de son pays et de sa région.
+- **Indicateurs structurels par pays** (nouveau), mis à jour automatiquement et sans clé :
+  - FMI : croissance, inflation, dette publique, chômage ;
+  - Banque mondiale : stabilité politique, efficacité des pouvoirs publics, État de droit, corruption ;
+  - BCE : taux souverain à 10 ans et écart avec l'Allemagne.
+
+  Des signaux apparaissent au-delà d'un seuil (récession, inflation forte, dette lourde, chômage élevé, forte
+  instabilité, tension sur les taux). Pour une région, la liste des pays concernés est affichée.
+- **Sources étoffées** :
+  - bibliographie portée de 72 à 162 sources cotées ;
+  - 14 familles de facteurs, dont la nouvelle famille « Crises humanitaires », et 34 facteurs (7 nouveaux :
+    séismes, volcans et cyclones ; conflits armés ; sûreté maritime ; coupures d'Internet ; gouvernance ;
+    insécurité alimentaire ; déplacements).
+
+  Chaque facteur a au moins deux sources de suivi. Les indicateurs alimentés automatiquement sont marqués
+  « intégré », et les licences sont signalées (ACLED, GTD : non intégrés sans licence ; services payants cités
+  seulement).
+- **Page de méthode** : nouvelles sections « Alerte précoce par subdivision » et « Indicateurs structurels »,
+  couverture des 17 régions, badges « intégré ».
+
+Pour le développeur :
+- `config/foresight/regions/` : 17 régions (16 nouvelles, tendances vides). `foresight.regions()` les fournit à
+  l'alerte précoce. `validate` contrôle qu'un pays n'appartient qu'à une région.
+- `veille/early_warning.py` réécrit :
+  - limites par pays dans `data/ew_units/<ISO2>.json`, avec un plafond de nouveaux pays par collecte et une
+    priorité configurable ;
+  - climat compact (`y0` + tableaux) ;
+  - comptages mensuels par famille `[sec, res, unrest, pol, haz, infra, health]` sur tous les incidents vérifiés
+    en mémoire ;
+  - HDX HAPI plafonné par collecte ;
+  - mémoire v3, migrée automatiquement depuis la v2 ;
+  - sorties `early_warning.js` (index) et `early_warning/<région>.js` ;
+  - `update(..., fetch)` renvoie un résumé par subdivision.
+- `config/early_warning.json` : plus de `regions`, nouveaux paramètres `priority`, `boundaries_per_run`,
+  `hapi_per_run`, `hapi_empty_refresh_days` ; `power_per_run` passe à 40.
+- `veille/indicators.py` (nouveau) : mémoire `data/indicators.json`, API `update`, `assemble`.
+- `foresight.build(..., ew, ind)` : `trend.units`, `scope.ew`, `scope.ind`.
+- `method.json` 1.1 : famille `humanitarian`, champ `auto` sur les indicateurs, `roadmap` sans statut (couverture
+  calculée).
+- Front : `ew.js` réécrit et piloté par `foresight.js` (`mount`, `unmount`, `openUnit`) ; `AngorFS.openTrend`.
+  Onglet `ew` retiré de `SPACES`. Cache du service worker : `angor-v10`.
+- `collecte.py` : alerte précoce sur tous les incidents en mémoire (`all_events`), puis indicateurs, puis tendances.
+- Tests : `test_early_warning.py` (8), `test_indicators.py` (5), `test_foresight.py` mis à jour ; test de fumée :
+  niveau Subdivisions.
+
 ## v0.26 – Tendances de risques : méthode d'anticipation, Europe de l'Ouest et France (octobre 2026)
 
 - **Nouvel onglet « Tendances »** (espace Anticipation, en premier) : les tendances de risques qui peuvent toucher

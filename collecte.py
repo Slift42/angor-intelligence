@@ -17,7 +17,7 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import (__version__, accounts, agenda, ai, analytics, config, corroborate, country_detail, crises, early_warning, enrich, foresight, legal, notify, providers,
+from veille import (__version__, accounts, agenda, ai, analytics, config, corroborate, country_detail, crises, early_warning, enrich, foresight, indicators, legal, notify, providers,
                     practical, press, profiles, reports, traffic,
                     publish, pulse, quality, risk, triage, vault)
 from veille.connectors import REGISTRY, Context
@@ -308,15 +308,22 @@ def main():
                 store["state"]["reports_last"] = now_iso()
         except Exception as exc:
             log(f"✘ rapports : {type(exc).__name__}: {exc}")
-    # alerte précoce climat-conflit (unités administratives, mensuel) : incrémental à chaque collecte
+    # anticipation (v0.27) : alerte précoce par subdivision (monde, incrémental), indicateurs structurels par pays,
+    # puis tendances de risques par région et par pays, reliées aux subdivisions les plus exposées
+    ew_out = ind = None
+    try:
+        ew_out = early_warning.update(store, countries, all_events, settings, log, now, fetch=not args.no_profiles)
+    except Exception as exc:
+        log(f"✘ alerte précoce : {type(exc).__name__}: {exc}")
     if not args.no_profiles:
         try:
-            early_warning.update(store, countries, events, settings, log, now)
+            ind = indicators.update(countries, log, now)
         except Exception as exc:
-            log(f"✘ alerte précoce : {type(exc).__name__}: {exc}")
-    # tendances de risques par région et par pays (config/foresight/) : scores, contrôle des fiches, signaux en temps réel
+            log(f"✘ indicateurs structurels : {type(exc).__name__}: {exc}")
+    else:
+        ind = indicators.assemble(indicators.load_cache())
     try:
-        foresight.update(store, all_events, log, now)
+        foresight.update(store, all_events, log, now, ew=ew_out, ind=ind)
     except Exception as exc:
         log(f"✘ tendances de risques : {type(exc).__name__}: {exc}")
 

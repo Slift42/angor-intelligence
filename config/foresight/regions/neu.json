@@ -1,0 +1,28 @@
+{
+  "id": "neu",
+  "type": "region",
+  "fr": "Europe du Nord et Baltes",
+  "en": "Northern Europe & Baltics",
+  "countries": [
+    "DK",
+    "EE",
+    "FI",
+    "FO",
+    "IS",
+    "LT",
+    "LV",
+    "NO",
+    "SE",
+    "AX"
+  ],
+  "bbox": [
+    -25,
+    53.5,
+    32,
+    71.5
+  ],
+  "perimeter_fr": "Pays nordiques, États baltes, Islande et îles Féroé.",
+  "perimeter_en": "Nordic countries, Baltic states, Iceland and the Faroe Islands.",
+  "outlook": null,
+  "trends": []
+}

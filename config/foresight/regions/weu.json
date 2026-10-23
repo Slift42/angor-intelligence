@@ -3,10 +3,10 @@
   "type": "region",
   "fr": "Europe de l'Ouest",
   "en": "Western Europe",
-  "countries": ["FR", "DE", "GB", "IE", "BE", "NL", "LU", "CH", "AT", "LI", "MC", "AD", "ES", "PT", "IT", "MT", "SM", "VA"],
+  "countries": ["FR", "DE", "GB", "IE", "BE", "NL", "LU", "CH", "AT", "LI", "MC", "AD", "ES", "PT", "IT", "MT", "SM", "VA", "GG", "JE", "IM"],
   "bbox": [-11.0, 35.5, 19.0, 59.5],
-  "perimeter_fr": "Périmètre opérationnel : Europe de l'Ouest au sens de la nomenclature M49 de l'ONU, élargie aux îles Britanniques, à la péninsule Ibérique, à l'Italie et à Malte (zone de déplacement courante des entreprises françaises).",
-  "perimeter_en": "Operational perimeter: Western Europe as defined by the UN M49 standard, extended to the British Isles, the Iberian Peninsula, Italy and Malta (a common travel zone for French companies).",
+  "perimeter_fr": "Périmètre opérationnel : Europe de l'Ouest au sens de la nomenclature M49 de l'ONU, élargie aux îles Britanniques (avec les îles Anglo-Normandes et l'île de Man), à la péninsule Ibérique, à l'Italie et à Malte (zone de déplacement courante des entreprises françaises). Les outre-mer français sont rattachés, pour l'alerte précoce, à leur région géographique.",
+  "perimeter_en": "Operational perimeter: Western Europe as defined by the UN M49 standard, extended to the British Isles (with the Channel Islands and the Isle of Man), the Iberian Peninsula, Italy and Malta (a common travel zone for French companies). For early warning, French overseas territories are attached to their geographic region.",
   "reviewed": "2026-10-23",
   "outlook": {
     "fr": "Automne 2026 : l'Europe de l'Ouest subit un choc énergétique durable lié à la guerre au Moyen-Orient (détroit d'Ormuz quasiment fermé, Brent autour de 110 $). L'inflation repart, avec un pic attendu à 3,6 % fin 2026, et la BCE relève ses taux. La menace hybride russe devient plus agressive, comme l'a montré le drone piégé de l'aéroport de Leipzig. Ces chocs nourrissent la contestation contre la vie chère et la polarisation politique. La menace terroriste reste élevée, et 2025-2026 confirment l'accélération des extrêmes climatiques. Pour les entreprises, les enjeux sont l'énergie, les transports, le cyber et la continuité d'activité. Pour les voyageurs : grèves et blocages, perturbations aériennes, vigilance terroriste et chaleur l'été.",

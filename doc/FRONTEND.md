@@ -69,7 +69,11 @@ Créer un `L.layerGroup()`, l'ajouter / le retirer selon l'onglet ou une case à
   section, toutes assemblées dans `render()`. Ajouter une section = une entrée dans `SECTIONS` + une fonction.
   La carte Leaflet du rapport doit recevoir sa vue (`fitBounds`) **avant** toute forme vectorielle.
   Impression : `dossier.css` (`@page`, couverture pleine page, pied de page numéroté via les boîtes de marge `@page`).
-- `ew.js` (alerte précoce) : branché par `window.AngorEW.init(pont)`, ouvert / fermé par `app.js`.
+- `foresight.js` (onglet `trends`, « Tendances · alerte précoce ») : `window.AngorFS`, ouvert / fermé par `app.js` ; deux niveaux de détail
+  (`S.view` : `trends` région et pays, `ew` subdivisions). `openTrend(id)` ouvre une fiche tendance depuis une subdivision.
+- `ew.js` (alerte précoce par subdivision) : `window.AngorEW.init(pont)` (pont commun `mapBridge`), puis piloté par `foresight.js` :
+  `mount(élément, {region, country, bbox})`, `unmount()`, `openUnit(id)`. Données par région chargées à la demande.
+  L'ancien onglet `ew` n'existe plus : `?tab=ew` ouvre l'onglet `trends` au niveau subdivisions.
 - `gonogo.js` : moteur de décision partagé par la carte et le brief (`window.AngorGNG`).
 - `account.js` : client Supabase minimal (Auth + REST), désactivé si `VS_CONFIG.accounts` est vide. Conditions : `legalRequired()`,
   `legalMissing()`, `acceptLegal()` ; l'inscription envoie les versions acceptées (`data.accepted`).

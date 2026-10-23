@@ -49,6 +49,10 @@ for (const [name, viewport] of [['ordinateur', { width: 1400, height: 900 }], ['
     await p.click('.tabs button[data-space="anticipation"]'); await p.click('#subtabs button[data-tab="trends"]');
     await p.waitForFunction(() => !!window.VS_FS || !!document.querySelector('#fs-body .hint'));
     if (await p.evaluate(() => !!window.VS_FS)) { await p.selectOption('#fs-scope', 'FR'); await p.click('.fs-list li[data-fs]'); }
+    // v0.27 : niveau « subdivisions » (alerte précoce) dans le même onglet
+    await p.click('[data-view="ew"]'); await p.waitForTimeout(800);
+    if (await p.evaluate(() => !!(window.VS_EW_R && Object.keys(window.VS_EW_R).length))) { const li = await p.$('.ew-rank li[data-ew]'); if (li) await li.click(); }
+    await p.click('[data-view="trends"]');
     await p.click('#period-btn'); await p.click('#period-menu button[data-h="168"]');
     await p.click('.tabs button[data-space="veille"]');
     await p.click('#btn-analytics'); await p.click('#af-group-btn');

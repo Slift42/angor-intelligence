@@ -455,8 +455,13 @@ dans l'ordre, puis lancez `publier.bat`.
 Les deux onglets se remplissent seuls après **publier.bat** :
 - **Rapports** : premiers titres dès la collecte suivante, puis mise à jour toutes les 3 heures (`config/reports.json` pour ajouter un
   producteur ou un rapport à la main, section `"manual"`).
-- **Alerte précoce** : limites administratives et données humanitaires à la première collecte ; le climat NASA POWER arrive
-  par lots de 30 unités par collecte (≈ 4 heures pour les 230 unités des deux régions). Ajouter une région : `config/early_warning.json`.
+- **Alerte précoce** (niveau « Subdivisions » de l'onglet Tendances · alerte précoce, v0.27) : monde entier, 17 régions.
+  Chaque collecte charge les limites de 10 nouveaux pays, le climat NASA POWER de 40 subdivisions et les données
+  humanitaires de 8 pays ; la couverture mondiale (≈ 3 500 subdivisions) se complète en deux à trois jours, en
+  commençant par l'Afrique de l'Ouest et Sahel, l'Afrique de l'Est et l'Europe de l'Ouest. Rythme et ordre :
+  `config/early_warning.json` ; régions : `config/foresight/regions/`.
+- **Indicateurs structurels** (fiches pays) : FMI, Banque mondiale et BCE, sans clé ; premiers chiffres à la première
+  collecte.
 
 Pour aller plus loin (facultatif) :
 - **ReliefWeb** (rapports de situation de l'ONU et des ONG, par pays) : demander un nom d'application gratuit sur

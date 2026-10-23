@@ -1,0 +1,30 @@
+{
+  "id": "eeca",
+  "type": "region",
+  "fr": "Europe orientale, Caucase et Asie centrale",
+  "en": "Eastern Europe, Caucasus & Central Asia",
+  "countries": [
+    "UA",
+    "BY",
+    "MD",
+    "RU",
+    "GE",
+    "AM",
+    "AZ",
+    "KZ",
+    "KG",
+    "TJ",
+    "TM",
+    "UZ"
+  ],
+  "bbox": [
+    20,
+    35,
+    100,
+    70
+  ],
+  "perimeter_fr": "Ukraine, Biélorussie, Moldavie, Russie, Caucase du Sud et Asie centrale.",
+  "perimeter_en": "Ukraine, Belarus, Moldova, Russia, the South Caucasus and Central Asia.",
+  "outlook": null,
+  "trends": []
+}

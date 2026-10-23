@@ -99,7 +99,7 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
       <tr><td>Veille</td><td>Alertes · En cours · Fil</td><td>Les incidents de la période, les situations actives (72 h) et les chronologies de crise, les titres de presse sans position.</td></tr>
       <tr><td>Pays</td><td>Pays · Agenda · Rapports</td><td>Niveau de risque et Pulse de chaque pays, échéances à venir, rapports de fond des think tanks et ONG.</td></tr>
       <tr><td>Mes sites</td><td>Mes sites · Travel buddy</td><td>Vos sites et trajets surveillés, l'assistant de voyage et le go / no-go.</td></tr>
-      <tr><td>Anticipation</td><td>Tendances · Alerte précoce · Analyses</td><td>Tendances de risques par région et par pays, convergence climat-sécurité-humanitaire, tableaux de bord.</td></tr>
+      <tr><td>Anticipation</td><td>Tendances · alerte précoce · Analyses</td><td>Tendances de risques, indicateurs structurels et alerte précoce : de la région à la subdivision, sur le monde entier ; tableaux de bord.</td></tr>
     </table>
     <h3>Mode fiable (activé par défaut)</h3>
     <p>Au-dessus de la liste des alertes, l'interrupteur <strong>Mode fiable</strong> masque les détections automatiques issues de sources peu fiables (cotées D, E ou F : GDELT, réseaux sociaux…) tant qu'aucune autre source ne les confirme. Elles restent visibles si elles sont proches d'un de vos sites. Cliquez pour tout afficher.</p>
@@ -230,29 +230,43 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
 
   <section id="tendances">
     <h2>Tendances de risques</h2>
-    <p>L'onglet <strong>Tendances</strong> (espace Anticipation) présente les dynamiques susceptibles d'affecter vos activités et vos voyageurs dans les prochains mois : énergie, politique, contestation sociale, terrorisme, cyber, climat, finances publiques… Couverture actuelle : <strong>Europe de l'Ouest</strong> et <strong>France</strong> ; les autres pays de la région affichent les tendances régionales.</p>
+    <p>L'onglet <strong>Tendances · alerte précoce</strong> (espace Anticipation) présente les risques susceptibles d'affecter vos activités et vos voyageurs dans les prochains mois. Ils couvrent l'énergie, la politique, la contestation sociale, le terrorisme, le cyber, le climat, les finances publiques… Il y a trois niveaux de détail, sur les 17 régions du monde :</p>
+    <ul>
+      <li><strong>Région</strong> et <strong>pays</strong> (niveau « Région et pays ») : tendances évaluées et sourcées, et indicateurs structurels des pays. Pour ces derniers, il s'agit de la croissance, l'inflation, la dette, le chômage et la gouvernance, ainsi que du taux souverain pour l'UE ; un signal apparaît quand un seuil est franchi. Les tendances sont rédigées pour l'<strong>Europe de l'Ouest</strong> et la <strong>France</strong> ; les autres régions suivront.</li>
+      <li><strong>Subdivision</strong> (niveau « Subdivisions ») : alerte précoce par région, État ou province (voir ci-dessous).</li>
+    </ul>
     <ul>
       <li><strong>Périmètre</strong> : choisissez la région ou un pays (liste ou clic sur la carte). La <strong>pression de risque</strong> (0 à 100) résume les tendances les plus fortes.</li>
       <li><strong>Point de vue</strong> : Global, Entreprise ou Voyageur ; filtres par horizon (0–3 mois, 3–12 mois, 1–3 ans) et par famille de facteurs.</li>
       <li><strong>Matrice</strong> : chaque point est une tendance, placée selon sa vraisemblance et son impact ; cliquez pour ouvrir la fiche.</li>
-      <li><strong>Fiche</strong> : faits datés et sourcés, indicateurs d'alerte, scénario de rupture, implications et recommandations, signal en temps réel tiré des incidents vérifiés. Le symbole ⚠ signale une fiche à réviser ou une surprise du terrain.</li>
+      <li><strong>Fiche</strong> : faits datés et sourcés, indicateurs d'alerte, scénario de rupture, implications et recommandations, signal en temps réel tiré des incidents vérifiés. La fiche liste aussi les <strong>subdivisions les plus exposées</strong> : un clic y descend directement. Le symbole ⚠ signale une fiche à réviser ou une surprise du terrain.</li>
     </ul>
     <p>La méthode complète (échelles, calcul, contrôle qualité, sources) est publique : <a href="methodologie.html">Méthode des tendances de risques</a>.</p>
   </section>
   <section id="alerte">
-    <h2>Alerte précoce</h2>
-    <p>L'onglet <strong>Alerte précoce</strong> croise, région par région (niveau administratif 1 : régions, États, provinces), le climat, la sécurité et la situation humanitaire, pour repérer les zones où les risques convergent avant une dégradation. Régions couvertes : Corne de l'Afrique et Sahel – bassin du lac Tchad.</p>
+    <h2>Alerte précoce (niveau « Subdivisions »)</h2>
+    <p>Au niveau <strong>Subdivisions</strong> de l'onglet Tendances · alerte précoce, chaque région, État ou province (niveau administratif 1) est suivi sur le monde entier. On y croise le climat, les incidents vérifiés par famille de facteurs et, là où elle existe, la situation humanitaire, pour repérer les zones où les risques convergent avant une dégradation. Choisir un pays restreint la carte à ses subdivisions. La fiche d'une subdivision liste les tendances de son pays et de sa région. Les limites et le climat se chargent région après région ; la couverture mondiale est complète en deux à trois jours.</p>
     <table>
       <tr><th>Donnée</th><th>Ce qu'elle montre</th><th>Source</th></tr>
       <tr><td>Précipitations</td><td>Pluie du mois comparée à la moyenne des 15 années précédentes (en %). Les mois de saison sèche sont grisés.</td><td>NASA POWER (MERRA-2)</td></tr>
       <tr><td>Température</td><td>Écart à la normale du mois (°C).</td><td>NASA POWER</td></tr>
       <tr><td>Humidité du sol</td><td>Humidité de la zone racinaire, écart à la normale : sécheresse agricole.</td><td>NASA POWER</td></tr>
-      <tr><td>Incidents de sécurité</td><td>Incidents Angor du mois dans l'unité, et ceux liés aux ressources (eau, terres, bétail, pêche, orpaillage).</td><td>Angor, UCDP, GDELT</td></tr>
+      <tr><td>Incidents de sécurité</td><td>Terrorisme, conflits, attaques et criminalité du mois dans la subdivision, et incidents liés aux ressources (eau, terres, bétail, pêche, orpaillage).</td><td>Angor, UCDP, GDELT</td></tr>
+      <tr><td>Troubles civils et crises politiques</td><td>Manifestations, émeutes, crises politiques localisées.</td><td>Angor</td></tr>
+      <tr><td>Aléas, pannes, cyber et épidémies</td><td>Catastrophes naturelles, pannes, cyberattaques et alertes sanitaires de gravité 2 et plus.</td><td>Angor (USGS, GDACS, OMS…)</td></tr>
       <tr><td>Insécurité alimentaire</td><td>Part de la population en phase IPC 3 ou plus (crise, urgence, famine), dernière analyse disponible.</td><td>IPC via HDX HAPI (OCHA)</td></tr>
       <tr><td>Personnes déplacées</td><td>Déplacés internes recensés, dernier relevé.</td><td>OIM-DTM via HDX HAPI</td></tr>
     </table>
     <h3>Indice de convergence des risques</h3>
-    <p>Indice expérimental de 0 à 100 : <strong>climat</strong> (40 points : déficit ou excès de pluie sur 3 mois, chaleur anormale, sols secs), <strong>sécurité</strong> (35 : volume d'incidents sur 3 mois, hausse par rapport aux 12 mois précédents, conflits liés aux ressources), <strong>humanitaire</strong> (25 : insécurité alimentaire, déplacés). Niveaux : faible, modéré, élevé, très élevé.</p>
+    <p>Indice de 0 à 100 en cinq composantes, les familles de facteurs des tendances :</p>
+    <ul>
+      <li><strong>climat et environnement</strong> (30 points) : pluie sur 3 mois, chaleur anormale, sols secs ;</li>
+      <li><strong>terrorisme, conflits et criminalité</strong> (30) : volume d'incidents sur 3 mois, hausse par rapport aux 12 mois précédents, conflits liés aux ressources ;</li>
+      <li><strong>société et politique</strong> (15) ;</li>
+      <li><strong>aléas, infrastructures et santé</strong> (10) ;</li>
+      <li><strong>crises humanitaires</strong> (15) : insécurité alimentaire, déplacés.</li>
+    </ul>
+    <p>Sans donnée humanitaire, l'indice est ramené sur 100. Niveaux : faible, modéré, élevé, très élevé.</p>
     <ul>
       <li>Cliquez sur une unité (ou dans la liste « Unités les plus exposées ») : fiche avec les facteurs explicatifs, les courbes des 12 derniers mois comparées aux années précédentes, et les données humanitaires datées.</li>
       <li>La case « Superposer les incidents du mois » ajoute des cercles proportionnels au nombre d'incidents.</li>
@@ -442,8 +456,9 @@ footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 2
       <li><strong>Avis aux voyageurs</strong> : MEAE (France), FCDO (Royaume-Uni), Département d'État (États-Unis), Auswärtiges Amt (Allemagne), Canada.</li>
       <li><strong>Presse</strong> : Google News (environ 120 pays, éditions locales), près de 1 500 médias de référence dans 206 pays (dont la presse nationale et régionale de 25 pays à risque), mots-clés en 56 langues, grands flux internationaux et presse régionale française, GDELT.</li>
       <li><strong>Rapports</strong> : une trentaine de think tanks, ONG et organisations internationales (onglet Rapports).</li>
-      <li><strong>Tendances de risques</strong> : 72 sources cotées (rapports AXA, WEF, Allianz, Europol, BCE, Copernicus, Météo-France, ANSSI, Banque de France…), détail sur la page <a href="methodologie.html#sources">Méthode</a>.</li>
-      <li><strong>Alerte précoce</strong> : NASA POWER (climat), HDX HAPI (insécurité alimentaire, déplacés), geoBoundaries (limites administratives).</li>
+      <li><strong>Tendances de risques</strong> : 162 sources cotées (rapports AXA, WEF, Allianz, Europol, BCE, Copernicus, Météo-France, ANSSI, Banque de France…), détail sur la page <a href="methodologie.html#sources">Méthode</a>.</li>
+      <li><strong>Alerte précoce</strong> : NASA POWER (climat), HDX HAPI (insécurité alimentaire, déplacés), geoBoundaries (limites administratives), incidents vérifiés Angor, UCDP et GDELT.</li>
+      <li><strong>Indicateurs structurels</strong> : FMI (Perspectives de l'économie mondiale), Banque mondiale (indicateurs de gouvernance), BCE (taux souverains).</li>
       <li><strong>Telegram</strong> : une cinquantaine de canaux publics (médias, agrégateurs d'urgence, comptes OSINT) en 9 langues. Les canaux officiels de médias sont cotés B ou C ; agrégateurs et comptes OSINT restent cotés E (« réseaux sociaux – non vérifié ») tant qu'une autre source ne confirme pas.</li>
       <li><strong>Contexte</strong> : Banque mondiale, FMI, Wikidata (urgences, hôpitaux, opérateurs, élections), Nager.Date (jours fériés), CIA World Factbook (archive).</li>
     </ul>

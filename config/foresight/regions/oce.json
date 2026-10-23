@@ -1,0 +1,42 @@
+{
+  "id": "oce",
+  "type": "region",
+  "fr": "Océanie et Pacifique",
+  "en": "Oceania & Pacific",
+  "countries": [
+    "AU",
+    "NF",
+    "NZ",
+    "FJ",
+    "NC",
+    "PG",
+    "SB",
+    "VU",
+    "FM",
+    "GU",
+    "KI",
+    "MH",
+    "MP",
+    "NR",
+    "PW",
+    "AS",
+    "CK",
+    "NU",
+    "PF",
+    "PN",
+    "TO",
+    "TV",
+    "WF",
+    "WS"
+  ],
+  "bbox": [
+    110,
+    -48,
+    180,
+    0
+  ],
+  "perimeter_fr": "Australie, Nouvelle-Zélande et États et territoires du Pacifique.",
+  "perimeter_en": "Australia, New Zealand and Pacific states and territories.",
+  "outlook": null,
+  "trends": []
+}

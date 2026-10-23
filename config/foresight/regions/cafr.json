@@ -1,0 +1,26 @@
+{
+  "id": "cafr",
+  "type": "region",
+  "fr": "Afrique centrale",
+  "en": "Central Africa",
+  "countries": [
+    "AO",
+    "CD",
+    "CF",
+    "CG",
+    "CM",
+    "GA",
+    "GQ",
+    "ST"
+  ],
+  "bbox": [
+    8,
+    -18.5,
+    31.5,
+    13.5
+  ],
+  "perimeter_fr": "Afrique centrale, dont le Cameroun (Extrême-Nord : bassin du lac Tchad).",
+  "perimeter_en": "Central Africa, including Cameroon (Far North: Lake Chad Basin).",
+  "outlook": null,
+  "trends": []
+}

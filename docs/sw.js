@@ -3,7 +3,7 @@
    - pages, code et données : réseau d'abord, copie locale si pas de réseau ;
    - bibliothèques et icônes : copie locale d'abord ;
    - fonds de carte et API externes : jamais mis en cache ici. */
-const CACHE = 'angor-v9';  // v9 : tendances de risques (v0.26) ; v8 : recoupement, médias (v0.25) ; v7 : contrôle des événements (v0.24)
+const CACHE = 'angor-v10';  // v10 : tendances et alerte précoce fusionnées (v0.27) ; v9 : tendances de risques (v0.26) ; v8 : recoupement, médias (v0.25) ; v7 : contrôle des événements (v0.24)
 const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'gonogo.js', 'foresight.js', 'account.js', 'compte.html', 'aide.html', 'methodologie.html', 'legal.html', 'vendor/fonts/fonts.css',
   'vendor/icons.js', 'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css', 'vendor/markercluster/leaflet.markercluster.js',
   'vendor/markercluster/MarkerCluster.css', 'data/countries.js', 'vault.js', 'manifest.webmanifest', 'icons/icon-192.png'];

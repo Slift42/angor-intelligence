@@ -1,0 +1,30 @@
+{
+  "id": "eafr",
+  "type": "region",
+  "fr": "Afrique de l'Est et Corne",
+  "en": "East Africa & Horn",
+  "countries": [
+    "BI",
+    "DJ",
+    "ER",
+    "ET",
+    "KE",
+    "RW",
+    "SO",
+    "SOL",
+    "SS",
+    "SD",
+    "TZ",
+    "UG"
+  ],
+  "bbox": [
+    21.5,
+    -12,
+    52,
+    23
+  ],
+  "perimeter_fr": "Corne de l'Afrique, Soudan, Soudan du Sud et Grands Lacs de l'Est.",
+  "perimeter_en": "Horn of Africa, Sudan, South Sudan and the eastern Great Lakes.",
+  "outlook": null,
+  "trends": []
+}
