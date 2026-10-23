@@ -12,7 +12,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from veille import geo, http, model  # noqa: E402
+from veille import geo, http, model, robots  # noqa: E402
 
 NOW = datetime(2026, 9, 30, 12, 0, tzinfo=timezone.utc)
 
@@ -24,6 +24,8 @@ def no_network(monkeypatch):
     monkeypatch.setattr(http, "get", blocked)
     monkeypatch.setattr(http, "get_json", blocked)
     monkeypatch.setattr(http, "post_json", blocked)
+    monkeypatch.setattr(robots._session, "get", blocked)
+    robots.configure([], {})   # ni exemption ni mémoire d'un test à l'autre
 
 
 @pytest.fixture(scope="session")

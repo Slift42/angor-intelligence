@@ -21,7 +21,8 @@ Les trois premiers et le test de fumée tournent automatiquement à chaque `push
 | `test_indicators.py` | Indicateurs structurels : lecture FMI, Banque mondiale, BCE, signaux de seuil, fonctionnement hors ligne |
 | `test_foresight.py` | Tendances de risques : configuration publiable, scores et niveaux, pression, contrôle des sources (nombre, éditeurs, cotation), dates et échelles, signal en temps réel, vues pays et région, révision due, historique mensuel, méthode publique |
 | `test_corroborate.py` | Recoupement : reprises et groupes de presse, rattachement d'un récit de presse à la mesure USGS, séisme non confirmé, démenti, crédibilité |
-| `test_connectors.py` | Filtres des flux (v0.28) : NWS (produits sans valeur, évacuations), Meteoalarm (mer, brouillard), NHC (un bulletin par cyclone, identifiant stable), GDELT (occupation de territoire, capitale en tête de dépêche), tri GDELT |
+| `test_connectors.py` | Flux propres des médias (découverte, lecture, robots.txt) ; filtres des flux (v0.28) : NWS (produits sans valeur, évacuations), Meteoalarm (mer, brouillard), NHC (un bulletin par cyclone, identifiant stable), GDELT (occupation de territoire, capitale en tête de dépêche), tri GDELT |
+| `test_robots.py` | robots.txt : règles (groupe du robot, règle la plus longue, jokers), statuts 4xx / 5xx, mémoire d'une semaine, exemption, aucune requête vers une adresse interdite |
 | `test_triage.py` | Contrôle d'entrée a priori et permanent : verdicts, fiches invalides, GDELT en attente, avis de l'IA, décision de l'analyste, journal, alarme, priorité des titres GDELT récents |
 | `test_pipeline.py` | Dédoublonnage (dont regroupement par histoire, mots rares, même cible, GDELT et presse), tri avant regroupement, cotation de l'Amirauté, note de risque |
 | `test_sources.py` | XML abîmé, découpage FCDO, numéros d'urgence, motifs des avis américains (réponse simulée), trafic |

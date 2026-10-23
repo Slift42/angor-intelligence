@@ -141,6 +141,20 @@
       "max_age_days": 3
     },
     {
+      "id": "outlet_feeds",
+      "type": "outlet_feeds",
+      "enabled": true,
+      "name": "Flux des médias de référence (RSS propres, robots.txt respecté)",
+      "license": "Titre + lien + chapeau publié par le média",
+      "discover_per_run": 40,
+      "recheck_days": 30,
+      "feeds_per_run": 150,
+      "max_age_hours": 48,
+      "max_items": 30,
+      "workers": 8,
+      "_comment": "v0.28 (run 3) : remplace progressivement Google News. Découvre le flux RSS de chaque média de config/press_outlets.json (page d'accueil, puis /feed/, /rss…) et le lit par roulement. Placé avant gnews et outlets : à titre égal, le lien direct du média est gardé."
+    },
+    {
       "id": "gnews",
       "type": "gnews",
       "enabled": true,
@@ -149,7 +163,11 @@
       "queries_per_run": 45,
       "max_items_per_query": 20,
       "max_age_hours": 48,
-      "_comment": "Rotation : 45 requêtes par collecte sur ~250 (sûreté + économie pour ~120 pays ; édition et mots-clés dans la langue du pays quand Google News la propose). Liste des pays et mots-clés : veille/connectors/gnews.py"
+      "_comment": "Rotation : 45 requêtes par collecte sur ~250 (sûreté + économie pour ~120 pays ; édition et mots-clés dans la langue du pays quand Google News la propose). Liste des pays et mots-clés : veille/connectors/gnews.py",
+      "robots_exempt": [
+        "news.google.com"
+      ],
+      "_robots": "Exemption TEMPORAIRE (v0.28, décision du 24/10/2026) : le robots.txt de news.google.com interdit /rss/search aux robots. À désactiver dès que les flux directs (outlet_feeds) couvrent l'essentiel du catalogue."
     },
     {
       "id": "outlets",
@@ -161,7 +179,11 @@
       "max_items_per_query": 25,
       "max_age_hours": 48,
       "time_budget_s": 180,
-      "_comment": "Catalogue : config/press_outlets.json (modifier tools/outlets_src.py puis le relancer). Rotation : 90 requêtes par collecte (~460 requêtes au total, 56 langues de mots-clés depuis la v0.25)."
+      "_comment": "Catalogue : config/press_outlets.json (modifier tools/outlets_src.py puis le relancer). Rotation : 90 requêtes par collecte (~460 requêtes au total, 56 langues de mots-clés depuis la v0.25).",
+      "robots_exempt": [
+        "news.google.com"
+      ],
+      "_robots": "Exemption TEMPORAIRE (v0.28, décision du 24/10/2026) : le robots.txt de news.google.com interdit /rss/search aux robots. À désactiver dès que les flux directs (outlet_feeds) couvrent l'essentiel du catalogue."
     },
     {
       "id": "guardian_world",

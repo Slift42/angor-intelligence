@@ -1193,5 +1193,6 @@
  "v{0} (données en ligne, {1} oct. {2}) ; v{3} run {4} : alerte sans impact = prévision": "v{0} (live data, {1} Oct. {2}); v{3} run {4}: alert without impact = forecast",
  "v{0} (données en ligne, {1} oct. {2}) ; v{3} run {4} : heurts avec la police = troubles": "v{0} (live data, {1} Oct. {2}); v{3} run {4}: clashes with police = unrest",
  "Glissement de terrain": "Landslide",
- "landslide": "landslide"
+ "landslide": "landslide",
+ "Titre + lien + chapeau publié par le média": "Headline + link + standfirst published by the outlet"
 }

@@ -105,7 +105,7 @@ def fetch(cfg, ctx):
     if isinstance(r, Exception):
         raise r
     if r is None:
-        r = http.get(cfg["url"], retries=1, timeout=30)
+        r = http.get(cfg["url"], retries=1, timeout=30, robots=True)
     root = parse_xml(r.content)
     keep = re.compile(cfg["keep"], re.I) if cfg.get("keep") else None
     drop = re.compile(cfg["drop"], re.I) if cfg.get("drop") else None

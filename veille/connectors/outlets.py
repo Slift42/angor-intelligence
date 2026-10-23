@@ -81,6 +81,7 @@ def muted(stats, catalog):
 
 
 def fetch(cfg, ctx):
+    http._robots_check(URL.format(q="robots", hl="fr", gl="FR", ceid="FR:fr"))  # interdit et non exempté : arrêt net
     catalog = (config.load_json(cfg.get("catalog", "press_outlets.json"), {}) or {}).get("countries", {})
     if not catalog:
         raise ValueError("catalogue config/press_outlets.json introuvable ou vide")
@@ -104,7 +105,7 @@ def fetch(cfg, ctx):
         hl, gl, ceid, _ = EDITIONS[LANG_EDITION[lang]]
         url = URL.format(q=quote(q), hl=hl, gl=gl, ceid=ceid)
         try:
-            root = ET.fromstring(http.get(url, retries=1, timeout=20).content)
+            root = ET.fromstring(http.get(url, retries=1, timeout=20, robots=True).content)
         except Exception:
             fails += 1
             continue

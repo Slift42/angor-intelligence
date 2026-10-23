@@ -18,7 +18,7 @@ SUFFIX_RE = re.compile(r"\s+[|\-–—:]\s+[^|\-–—:]{2,40}$")
 
 def _fetch_title(url):
     try:
-        r = http.get(url, retries=0, timeout=6, headers={"Range": "bytes=0-150000"})
+        r = http.get(url, retries=0, timeout=6, headers={"Range": "bytes=0-150000"}, robots=True)
         text = r.content[:150000].decode(r.encoding or "utf-8", errors="replace")
     except Exception:
         return ""

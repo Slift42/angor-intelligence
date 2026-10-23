@@ -168,7 +168,9 @@
       cr_unconf: 'Non confirmé par les capteurs officiels (USGS, EMSC, GDACS, NOAA…) : prudence, l’information peut être ancienne ou erronée.',
       cr_disputed: 'Démenti signalé', cr_magspread: (a, b) => `Magnitude différente selon les réseaux : ${a} à ${b}`,
       oh_title: 'Médias de référence', oh_line: (n, l) => `${n.toLocaleString('fr-FR')} médias suivis · ${l.toLocaleString('fr-FR')} ont déjà fourni des titres`,
-      oh_muted: n => `Médias muets à vérifier (${n})`, oh_hint: 'Aucun titre après 30 requêtes : domaine erroné, site fermé ou média sans actualité de sûreté.',
+      oh_direct: (f, c, o, k, n) => `Flux RSS directs (robots.txt respecté) : ${f.toLocaleString('fr-FR')} trouvés sur ${c.toLocaleString('fr-FR')} médias examinés (${o.toLocaleString('fr-FR')} au catalogue) · ${k} pays couverts sur ${n}`,
+      oh_muted: n => `Médias muets à vérifier (${n})`,
+      robots_exempt: 'robots.txt : exemption temporaire', robots_exempt_hint: 'Ce site interdit la lecture par les robots. Exemption provisoire, le temps que les flux directs des médias prennent le relais.', oh_hint: 'Aucun titre après 30 requêtes : domaine erroné, site fermé ou média sans actualité de sûreté.',
       tg_title: 'Contrôle des événements', tg_hint: 'Chaque nouveauté est vérifiée avant d’entrer sur la carte (fait physique, lieu et date plausibles, article lisible pour GDELT), puis revérifiée à chaque collecte. Seuls les événements retenus alimentent la carte, les alertes et les indices.',
       tg_st: { ok: 'retenus', context: 'contexte (Fil)', noise: 'écartés', invalid: 'invalides', pending: 'en attente', unverifiable: 'invérifiables' },
       tg_last: 'Dernière collecte', tg_today: 'Aujourd’hui', tg_mem: 'En mémoire', tg_new: n => `${n} nouveauté${n > 1 ? 's' : ''}`,
@@ -353,7 +355,9 @@
       cr_unconf: 'Not confirmed by official sensors (USGS, EMSC, GDACS, NOAA…): caution, the report may be old or wrong.',
       cr_disputed: 'Denial reported', cr_magspread: (a, b) => `Magnitude differs between networks: ${a} to ${b}`,
       oh_title: 'Reference outlets', oh_line: (n, l) => `${n.toLocaleString('en-GB')} outlets tracked · ${l.toLocaleString('en-GB')} have already returned headlines`,
-      oh_muted: n => `Silent outlets to check (${n})`, oh_hint: 'No headline after 30 queries: wrong domain, closed site or outlet without security news.',
+      oh_direct: (f, c, o, k, n) => `Direct RSS feeds (robots.txt respected): ${f.toLocaleString('en-GB')} found among ${c.toLocaleString('en-GB')} outlets checked (${o.toLocaleString('en-GB')} in the catalogue) · ${k} of ${n} countries covered`,
+      oh_muted: n => `Silent outlets to check (${n})`,
+      robots_exempt: 'robots.txt: temporary exemption', robots_exempt_hint: 'This site does not allow robots. Temporary exemption until the outlets\' own feeds take over.', oh_hint: 'No headline after 30 queries: wrong domain, closed site or outlet without security news.',
       tg_title: 'Event control', tg_hint: 'Every new item is checked before it reaches the map (physical fact, plausible place and date, readable article for GDELT), then re-checked at every collection. Only accepted events feed the map, alerts and indices.',
       tg_st: { ok: 'accepted', context: 'context (feed)', noise: 'rejected', invalid: 'invalid', pending: 'pending', unverifiable: 'unverifiable' },
       tg_last: 'Last collection', tg_today: 'Today', tg_mem: 'In memory', tg_new: n => `${n} new item${n > 1 ? 's' : ''}`,
@@ -1898,7 +1902,9 @@
   function outletsSection() {
     const H = D && D.outlets_health; if (!H) return '';
     const m = H.muted || [];
+    const X = H.direct;
     return `<div class="d-sec triage"><h3>${icon('newspaper', 14)} ${esc(t('oh_title'))}</h3><div class="hint">${esc(t('oh_line', H.tracked, H.live))}</div>
+      ${X && X.checked ? `<div class="hint">${esc(t('oh_direct', X.feeds, X.checked, X.outlets, X.covered, X.countries))}</div>` : ''}
       ${m.length ? `<details class="tg-recent"><summary>${esc(t('oh_muted', m.length))}</summary><div class="hint">${esc(t('oh_hint'))}</div><ul class="mini-list">${m.map(r =>
         `<li><span class="t">${flagImg(r.country)}${esc(r.name)} <span class="tg-why">${esc(r.domain)}</span></span><span class="w">${r.queries}</span></li>`).join('')}</ul></details>` : ''}</div>`;
   }
@@ -1922,7 +1928,7 @@
 
   function openHealth() {
     const rows = STATUS.map(s => `<li><span class="dot" style="background:${s.paused ? 'var(--muted)' : s.ok ? 'var(--risk1)' : 'var(--sev4)'}"></span>
-      <span><strong>${esc(s.name)}</strong> <span style="color:var(--muted)">· ${esc(s.license || '')}</span><br>
+      <span><strong>${esc(s.name)}</strong> <span style="color:var(--muted)">· ${esc(s.license || '')}</span>${(s.robots_exempt || []).length ? ` <span class="tg-why" title="${esc(t('robots_exempt_hint'))}">${esc(t('robots_exempt'))}</span>` : ''}<br>
       <span style="color:var(--muted)">${s.paused ? t('paused') : s.ok ? `${s.count} ${t('items')}` : esc(s.error || t('error'))}${s.last_success ? ` · ${t('last_success')} ${esc(ago(s.last_success))}` : ''}</span></span></li>`).join('');
     openDrawer(`<div class="d-head"><h2 class="d-title">${t('source_status')}</h2>
       <div class="hint">${t('updated')} ${esc(fmtDate(D.generated))} · v${esc(D.version)}</div>

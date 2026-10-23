@@ -167,6 +167,7 @@ def parse_items(root, ctx, iso, lang, theme, max_age, max_items, feed="Google Ne
 
 
 def fetch(cfg, ctx):
+    http._robots_check(URL.format(q="robots", hl="fr", gl="FR", ceid="FR:fr"))  # interdit et non exempté : arrêt net
     queries = _queries(cfg)
     per_run = int(cfg.get("queries_per_run", 40))
     start = int(ctx.state.get("gnews_cursor", 0)) % len(queries)
@@ -185,7 +186,7 @@ def fetch(cfg, ctx):
         q += " when:2d"
         url = URL.format(q=quote(q), hl=hl, gl=gl, ceid=ceid)
         try:
-            root = ET.fromstring(http.get(url, retries=1, timeout=20).content)
+            root = ET.fromstring(http.get(url, retries=1, timeout=20, robots=True).content)
         except Exception:
             fails += 1
             continue

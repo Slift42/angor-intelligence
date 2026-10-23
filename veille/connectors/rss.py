@@ -95,7 +95,7 @@ def fetch(cfg, ctx):
     if isinstance(r, Exception):
         raise r
     if r is None:
-        r = http.get(cfg["url"], auth=cfg.get("auth"), retries=1, timeout=25)
+        r = http.get(cfg["url"], auth=cfg.get("auth"), retries=1, timeout=25, robots=True)
     root = parse_xml(r.content)
     name = cfg.get("name", cfg["id"])
     mode = cfg.get("filter", "security")

@@ -4,10 +4,23 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
-## v0.28 – Affinage : ce qui n'est pas un incident quitte la carte, doublons et localisation (octobre 2026)
+## v0.28 – Affinage : ce qui n'est pas un incident quitte la carte, doublons, localisation, sources (octobre 2026)
 
-Deux premiers lots de l'affinage de tout le site (plan et avancement : `claude/finetune_angor.md` dans le projet),
+Trois premiers lots de l'affinage de tout le site (plan et avancement : `claude/finetune_angor.md` dans le projet),
 publiés ensemble.
+
+### Lot 3 : sources, respect des robots.txt
+
+- **Conformité** : le robot respecte désormais le fichier robots.txt de chaque site qu'il lit (flux RSS, médias,
+  Telegram, pages d'articles lues pour GDELT). Une adresse interdite n'est plus demandée. Les API publiques documentées
+  (USGS, NWS, FMI, Banque mondiale…) ne sont pas concernées.
+- **Google News** : son robots.txt interdit aux robots les recherches utilisées par les connecteurs « Google News » et
+  « Médias de référence » (environ 70 % des titres de presse). Décision : les remplacer, puis les couper. En attendant,
+  ils bénéficient d'une **exemption temporaire**, signalée dans « État des sources ».
+- **Nouveau : flux propres des médias** : le robot cherche le flux RSS de chacun des ≈ 1 400 médias nationaux et
+  régionaux du catalogue (40 par collecte), puis les lit par roulement (150 par collecte). Le bilan (flux trouvés, pays
+  couverts) s'affiche dans « État des sources » ; il dira quand Google News peut être coupé. À titre égal, le lien
+  direct du média est préféré au lien Google News.
 
 ### Lot 2 : second audit, doublons, localisation
 
@@ -83,6 +96,10 @@ Pour le développeur :
 - `tests/gold_tri.csv` : 641 titres (+95 de production) ; seuil de précision relevé à 94 % (mesuré : 95 %, rappel
   99 %). Nouveau `tests/test_connectors.py` (25 cas) ; `test_press.py` : audit et localisation.
 - Cache du service worker : `angor-v11`.
+- Lot 3 : `veille/robots.py` (RFC 9309, mémoire d'une semaine dans `store["state"]["robots"]`, exemptions
+  `robots_exempt`), `http.get(..., robots=True)` et `RobotsDisallowed` ; connecteur `outlet_feeds` (découverte et lecture
+  des flux, `summary` pour `outlets_health.direct`) ; état des sources : mention de l'exemption ; tests `test_robots.py`
+  (6) et 3 cas dans `test_connectors.py`.
 - Lot 2 :
   - `press.py` : `audit_context2` et nouvelles listes (suites, menaces, analyses, prévention, bruit) ;
   - `Gazetteer` : `country_mentions` (guillemets, acteurs), recherche par mots, `_cldr_country_names`, `US_STATES`,

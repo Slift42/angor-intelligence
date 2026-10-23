@@ -17,7 +17,7 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-from veille import (__version__, accounts, agenda, ai, analytics, config, corroborate, country_detail, crises, early_warning, enrich, foresight, indicators, legal, notify, providers,
+from veille import (__version__, accounts, agenda, ai, analytics, config, corroborate, country_detail, crises, early_warning, enrich, foresight, indicators, legal, notify, providers, robots,
                     practical, press, profiles, reports, traffic,
                     publish, pulse, quality, risk, triage, vault)
 from veille.connectors import REGISTRY, Context
@@ -87,7 +87,7 @@ def prefetch_feeds(sources, store, args, now, log, workers=8):
 
     def one(url):
         try:
-            return url, http.get(url, retries=1, timeout=25)
+            return url, http.get(url, retries=1, timeout=25, robots=True)
         except Exception as exc:  # l'erreur est rejouée par le connecteur, comme sans préchargement
             return url, exc
     t0 = time.time()
@@ -107,7 +107,9 @@ def outlets_health(store):
         return None
     cat = (config.load_json("press_outlets.json", {}) or {}).get("countries") or {}
     live = sum(1 for st in stats.values() if st.get("hits"))
-    return {"tracked": len(stats), "live": live, "muted": outlets.muted(stats, cat)[:60]}
+    from veille.connectors import outlet_feeds
+    return {"tracked": len(stats), "live": live, "muted": outlets.muted(stats, cat)[:60],
+            "direct": outlet_feeds.summary(store.get("state"), cat)}
 
 
 def with_context(n):
@@ -163,6 +165,9 @@ def main():
     new_events = []
     ctx = Context(countries, store["state"], log, now)
     ctx.advisories = {v["name"]: v["data"] for v in store["advisories"].values()}
+    robots.configure(sources, store["state"])   # v0.28 : robots.txt respecté par les flux, médias et pages lus
+    if robots.EXEMPT:
+        log(f"  robots.txt : exemption temporaire pour {', '.join(sorted(robots.EXEMPT))} (voir config/sources.json)")
     ctx.prefetch = prefetch_feeds(sources, store, args, now, log)
     for src in sources:
         if not src.get("enabled") or (args.only and src["id"] not in args.only):
@@ -190,6 +195,10 @@ def main():
         status.update({"id": src["id"], "name": src.get("name", src["id"]), "type": src["type"],
                        "kind": getattr(module, "KIND", "?"), "license": src.get("license", ""),
                        "last_attempt": now_iso()})
+        if src.get("robots_exempt"):
+            status["robots_exempt"] = src["robots_exempt"]
+        else:
+            status.pop("robots_exempt", None)
         t0 = time.time()
         try:
             if module is None:
@@ -391,6 +400,9 @@ def main():
     providers.update(settings, log)  # annuaire : inscrits (Supabase) + repérés par Angor → docs/data/providers.js
     publish.bust_cache()
     vault.publish_private(settings, log)  # en ligne : données réservées → Supabase, retirées du site public
+    for msg in robots.messages():
+        log(f"  {msg}")
+    robots.save(store["state"])   # robots.txt lus (une semaine de mémoire par site)
     publish.save_store(store)
 
     log(f"→ {len(events)} événements publiés, {len(country_risk)} pays notés, "

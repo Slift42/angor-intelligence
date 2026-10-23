@@ -142,7 +142,7 @@ planter (l'historique se reconstitue en quelques collectes, les référentiels s
 
 | Élément | Contenu |
 |---|---|
-| `store.json` | `events` (95 jours), `news`, `econ`, `headlines`, `advisories` (dernier état par source), `status`, `state` (curseurs, signatures de configuration, alertes déjà envoyées, historique Pulse…), caches IA |
+| `store.json` | `events` (95 jours), `news`, `econ`, `headlines`, `advisories` (dernier état par source), `status`, `state` (curseurs, signatures de configuration, alertes déjà envoyées, historique Pulse, robots.txt lus `robots`, flux des médias `outlet_feeds`…), caches IA |
 | `fcdo/<ISO2>.json` | Texte FCDO découpé (voir `fcdo.py`) |
 | `admin1/<ISO2>.json` | Centres des régions administratives (geoBoundaries) |
 | `ne_places.json`, `airports.json`, `hotlines.json` | Référentiels hebdomadaires (Natural Earth, OurAirports, worldhotlines.org) |

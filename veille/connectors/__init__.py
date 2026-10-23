@@ -10,7 +10,7 @@ Pour ajouter une source : créer un module ici, l'ajouter à REGISTRY,
 puis déclarer la source dans config/sources.json (avec "enabled": true).
 """
 from . import (acled, ca_advisories, cisa_kev, de_advisories, emsc, eonet, fr_advisories, gdacs, gdelt_events, gnews, jsonapi,
-               meteoalarm, nws, official_rss, outlets, reliefweb, rss, telegram, uk_advisories, us_advisories, usgs,
+               meteoalarm, nws, official_rss, outlet_feeds, outlets, reliefweb, rss, telegram, uk_advisories, us_advisories, usgs,
                who_don)
 
 REGISTRY = {
@@ -31,6 +31,7 @@ REGISTRY = {
     "official_rss": official_rss,    # bulletins officiels RSS/Atom (NOAA NHC, GVP, Copernicus EMS, tsunamis…)
     "gnews": gnews,      # presse locale de ~110 pays via Google News (rotation)
     "outlets": outlets,  # médias de référence par pays (≈ 200 pays), via Google News
+    "outlet_feeds": outlet_feeds,  # flux RSS propres des médias du catalogue (v0.28 : remplace Google News)
     "rss": rss,          # générique : flux RSS/Atom gratuits ou sous abonnement
     "telegram": telegram,  # canaux Telegram publics (aperçu t.me/s/…)
     "reliefweb": reliefweb,  # ONU OCHA – rapports humanitaires par pays (nom d'application requis)

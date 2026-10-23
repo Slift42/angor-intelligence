@@ -18,7 +18,9 @@ import time
 
 import requests
 
+from . import robots
 from .config import secret
+from .robots import RobotsDisallowed  # noqa: F401  (réexporté : http.RobotsDisallowed)
 
 USER_AGENT = "Mozilla/5.0 (compatible; VeilleSurete/0.1; veille de securite a partir de sources ouvertes)"
 DEFAULT_TIMEOUT = 30
@@ -82,11 +84,17 @@ def apply_auth(auth, headers, params, cookies):
         raise ValueError(f"type d'authentification inconnu : {kind}")
 
 
-def get(url, params=None, auth=None, headers=None, retries=2, timeout=DEFAULT_TIMEOUT):
-    """GET avec relances (erreurs réseau et codes 429/5xx). Renvoie l'objet Response."""
+def get(url, params=None, auth=None, headers=None, retries=2, timeout=DEFAULT_TIMEOUT, robots=False):
+    """GET avec relances (erreurs réseau et codes 429/5xx). Renvoie l'objet Response.
+
+    robots=True : l'adresse doit être autorisée par le robots.txt du site (flux de presse, pages d'articles…),
+    sinon RobotsDisallowed est levée sans aucune requête vers l'adresse (voir veille/robots.py)."""
     params = dict(params or {})
     headers = dict(headers or {})
     cookies = {}
+    if robots:
+        full = requests.Request("GET", url, params=params).prepare().url
+        _robots_check(full)
     apply_auth(auth, headers, params, cookies)
     last_error = None
     for attempt in range(retries + 1):
@@ -102,6 +110,10 @@ def get(url, params=None, auth=None, headers=None, retries=2, timeout=DEFAULT_TI
             if attempt < retries:
                 time.sleep(2 * (attempt + 1))
     raise last_error
+
+
+def _robots_check(url):
+    robots.check(url)
 
 
 def get_json(url, **kwargs):

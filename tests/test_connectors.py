@@ -147,3 +147,70 @@ def test_gdelt_occupation_de_territoire_au_tri():
              tags=["auto-detected"])
     g["headline"] = "Israeli army holds positions in Gaza"
     assert triage.verdict(g, NOW) == ("noise", "situation, pas un fait daté")
+
+
+# ------------------------------------------------------------------ flux propres des médias (v0.28, run 3)
+from veille.connectors import outlet_feeds  # noqa: E402
+from veille.robots import RobotsDisallowed  # noqa: E402
+
+FEED = ("<?xml version='1.0'?><rss version='2.0'><channel>" + "".join(
+    f"<item><title>Attaque contre un poste militaire à Tillabéri ({i})</title><link>https://actuniger.com/a{i}</link>"
+    f"<pubDate>Fri, 23 Oct 2026 0{i}:00:00 +0000</pubDate><description>Des hommes armés ont attaqué…</description></item>"
+    for i in range(4)) + "</channel></rss>").encode()
+
+
+def test_flux_annonce_par_la_page_d_accueil():
+    page = ('<head><link rel="alternate" type="application/rss+xml" title="Flux" href="/feed/">'
+            '<link rel="alternate" type="application/rss+xml" href="https://x.example/comments/feed/">'
+            '<link rel="stylesheet" href="/s.css"></head>')
+    assert outlet_feeds.feed_links(page, "https://x.example/") == ["https://x.example/feed/"]
+
+
+def test_decouverte_du_flux():
+    pages = {"https://actuniger.com/": SimpleNamespace(text="<html>sans lien</html>", url="https://actuniger.com/"),
+             "https://actuniger.com/feed/": SimpleNamespace(content=FEED)}
+
+    def get(u):
+        if u not in pages:
+            raise ValueError("404")
+        return pages[u]
+    assert outlet_feeds.discover("actuniger.com", get) == ("https://actuniger.com/feed/", "")
+    assert outlet_feeds.discover("vide.example", get) == ("", "injoignable")      # aucun serveur n'a répondu
+
+    class NotFound(Exception):
+        response = SimpleNamespace(status_code=404)
+
+    def get404(u):
+        if u == "https://sansflux.example/":
+            return SimpleNamespace(text="<html></html>", url=u)
+        raise NotFound()
+    assert outlet_feeds.discover("sansflux.example", get404) == ("", "aucun flux")
+
+    def forbidden(u):
+        raise RobotsDisallowed("interdit")
+    assert outlet_feeds.discover("interdit.example", forbidden) == ("", "robots.txt")
+
+
+def test_lecture_par_roulement(monkeypatch, countries):
+    catalog = {"NE": [["ActuNiger", "actuniger.com", "fr"], ["RFI", "rfi.fr", "fr", "+"]],
+               "ML": [["Maliweb", "maliweb.net", "fr"]]}
+    monkeypatch.setattr(outlet_feeds.config, "load_json", lambda *a, **k: {"countries": catalog})
+    monkeypatch.setattr(outlet_feeds, "discover",
+                        lambda d: ("https://actuniger.com/feed/", "") if d == "actuniger.com" else ("", "aucun flux"))
+
+    def get(url, **kw):
+        assert kw.get("robots") is True
+        return SimpleNamespace(content=FEED)
+    monkeypatch.setattr(outlet_feeds.http, "get", get)
+    ctx = _ctx(countries)
+    ctx.press = []
+    assert outlet_feeds.fetch({"discover_per_run": 10}, ctx) == []
+    assert set(ctx.state["outlet_feeds"]) == {"actuniger.com", "maliweb.net"}      # « + » (RFI) non examiné
+    assert len(ctx.press) == 4 and ctx.press[0]["country_hint"] == "NE" and ctx.press[0]["site"] == "actuniger.com"
+    s = outlet_feeds.summary(ctx.state, catalog)
+    assert s == {"outlets": 2, "checked": 2, "feeds": 1, "robots": 0, "countries": 2, "covered": 1}
+    # flux devenu interdit : retiré, redécouvert plus tard
+    monkeypatch.setattr(outlet_feeds.http, "get", lambda url, **kw: (_ for _ in ()).throw(RobotsDisallowed("x")))
+    outlet_feeds.fetch({"discover_per_run": 0}, ctx)
+    assert ctx.state["outlet_feeds"]["actuniger.com"]["f"] == "" and \
+        ctx.state["outlet_feeds"]["actuniger.com"]["w"] == "robots.txt"

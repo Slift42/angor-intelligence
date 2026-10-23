@@ -58,7 +58,7 @@ def fetch(cfg, ctx):
         if i:
             time.sleep(0.4)  # lecture espacée : quelques dizaines de pages publiques par demi-heure
         try:
-            page = http.get(URL.format(name=name), retries=1, timeout=20).text
+            page = http.get(URL.format(name=name), retries=1, timeout=20, robots=True).text
         except Exception as exc:
             ctx.log(f"  Telegram @{name} : {type(exc).__name__}")
             fails += 1

@@ -40,6 +40,13 @@ def fetch(cfg, ctx):
   quand le secret manque : la source est alors ignorée proprement.
 - **Budget** : le robot dispose de 20 minutes au total. Une source lente doit se limiter (`time_budget_s`, `pages_per_run`)
   et reprendre au tour suivant grâce à `ctx.state` (voir `uk_advisories.py`, `practical.py`).
+- **robots.txt** (v0.28) : tout connecteur qui lit un site de presse, un flux ou une page passe `robots=True` à
+  `http.get` (`rss`, `official_rss`, `outlet_feeds`, `telegram`, `gnews`, `outlets`, titres d'articles GDELT dans
+  `enrich.py`). Le robots.txt du site est lu une fois par semaine (`veille/robots.py`, mémoire dans
+  `store["state"]["robots"]`) ; une adresse interdite lève `RobotsDisallowed` sans qu'aucune requête parte. Les API
+  documentées (USGS, NWS, FMI…) n'y sont pas soumises. Exemption : `"robots_exempt": ["hôte"]` dans la source, affichée
+  dans l'état des sources ; à réserver à une transition décidée (aujourd'hui : `news.google.com` pour `gnews` et
+  `outlets`, dont le robots.txt interdit `/rss/search`, en attendant que `outlet_feeds` prenne le relais).
 - **Données** : événements, jamais personnes. Titre + résumé court + lien, jamais l'article complet.
 - **Licence** : renseigner `license` dans `sources.json` et vérifier l'usage commercial avant la vente
   (ex. ACLED, OpenSky, Global Fishing Watch, airplanes.live : non commercial sans licence).
@@ -65,7 +72,8 @@ def fetch(cfg, ctx):
 | `rss` | Flux RSS/Atom : presse, bulletins. Tolère les flux mal formés (`parse_xml`) |
 | `official_rss` | Bulletins officiels (catégorie et gravité fixées ou déduites de mots-clés, géolocalisation GeoRSS / texte). Option `group` (v0.28) : expression à un groupe (nom de la tempête) ; seul le dernier bulletin de chaque groupe est gardé, sous un identifiant stable (NHC : un cyclone = une fiche) |
 | `jsonapi` | API JSON authentifiée (fournisseur payant) : correspondance des champs dans la configuration |
-| `gnews`, `outlets` | Presse locale via Google News, en rotation par pays |
+| `gnews`, `outlets` | Presse locale via Google News, en rotation par pays (exemption robots.txt **temporaire**, voir ci-dessous) |
+| `outlet_feeds` | Flux RSS propres des médias de `press_outlets.json` : découverte (page d'accueil, puis `/feed/`, `/rss`…), puis lecture par roulement (v0.28) |
 | `telegram` | Canaux publics (aperçu `t.me/s/…`), budget de temps |
 
 Liste complète et état : `python collecte.py --list`.
@@ -102,6 +110,19 @@ Un flux officiel publie aussi ce qui n'est pas un incident. Filtres en place :
 Les capitales viennent du dictionnaire GeoNames (`geo.capitals()`, code `PPLC`) ; sans ce fichier, la règle ne
 s'applique pas. `FILTER_VERSION` de GDELT n'a pas été incrémenté : l'historique n'est pas reconstruit, les anciens
 événements « occupation » sont écartés par le tri (`triage`, motif « situation, pas un fait daté »).
+
+## Flux propres des médias et sortie de Google News (v0.28)
+
+Le connecteur `outlet_feeds` examine 40 médias du catalogue par collecte (environ 1 400 hors médias internationaux
+« + », soit une journée et demie pour tout le catalogue à raison d'une collecte toutes les 30 minutes) et lit 150 flux
+trouvés par collecte, en parallèle. Mémoire : `store["state"]["outlet_feeds"]` (`{domaine: {f: flux, t: date, w: motif,
+k: échecs}}`) ; un média sans flux est réexaminé au bout de 30 jours (3 jours si aucun serveur n'a répondu), un flux en échec
+5 fois de suite ou devenu interdit par le robots.txt est redécouvert.
+Bilan dans « État des sources » (médias examinés, flux trouvés, pays couverts).
+
+**Couper Google News** quand le bilan le permet (par exemple 80 % des pays couverts et des titres comparables sur une
+semaine) : `"enabled": false` sur `gnews` et `outlets` dans `config/sources.json` (et retirer `robots_exempt`). Un média
+sans flux et important pour un pays peut être remplacé ou complété par une source `rss` déclarée à la main.
 
 ## Sources hors connecteurs
 
