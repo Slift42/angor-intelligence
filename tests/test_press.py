@@ -59,7 +59,7 @@ def test_jeu_etiquete_ne_regresse_pas():
         fp += got and not want
         fn += want and not got
     precision, rappel = tp / max(1, tp + fp), tp / max(1, tp + fn)
-    assert precision >= 0.92, f"précision {precision:.0%}"   # v0.23 : 94 % (51 % en v0.22 sur le même jeu)
+    assert precision >= 0.94, f"précision {precision:.0%}"   # v0.28 : 95 % sur 641 titres (v0.23 : 94 %, v0.22 : 51 %)
     assert rappel >= 0.98, f"rappel {rappel:.0%}"
 
 
@@ -179,3 +179,193 @@ def test_requetes_et_editions_des_langues_ajoutees():
     for lg in langs.LANGS:
         assert gnews.TERMS["security"][lg] and outlets.LANG_EDITION[lg] in gnews.EDITIONS, lg
     assert gnews.EDITIONS["ja-JP"] == ("ja", "JP", "JP:ja", "ja") and outlets.LANG_EDITION["sw"] == "en-US"
+
+
+# ------------------------------------------------------------------ audit de la production (v0.28)
+# 34 faux positifs relevés sur 7 jours d'angor.fr (octobre 2026) : chacun a donné une règle.
+AUDIT_CONTEXTE = [
+    ("Rains expected in Nairobi, across Kenya as Met warns of flash floods", "prévision"),
+    ("Potensi Longsor dan Banjir Bandang di Kabupaten Bandung, 25 Kecamatan Masuk Kategori Menengah", "prévision"),
+    ("Weather system over Bay of Bengal may intensify into cyclone, cross Odisha-Andhra coasts by Friday", "prévision"),
+    ("Avant les pluies, Bizerte teste son dispositif contre les inondations", "prévention, bilan ou suites"),
+    ("For Timure’s flood survivors, Dashain brings memories of the lives they lost", "prévention, bilan ou suites"),
+    ("Ebola : le Nigeria renforce les contrôles sanitaires à l’aéroport de Lagos", "prévention, bilan ou suites"),
+    ("Grenoble. Après les émeutes, l’incompréhension et l’inquiétude des sapeurs-pompiers", "prévention, bilan ou suites"),
+    ("TÉMOIGNAGE. «La justice la présente comme une terroriste» : sa compagne, ex-professeure en Anjou, est détenue",
+     "analyse"),
+    ("Sri Lankan terrorism police summon Tamil National Cultural Council president in Jaffna", "arrestation ou suites"),
+    ("Russia and Ukraine agreed to ceasefire in occupied Oleshky, White House says", "cessez-le-feu (annonce)"),
+    ("Netanyahu Warns Iran Against Attack Ahead of Israeli Election", "déclaration"),
+    ("Juanma Moreno tras el último ataque del narco: «Se repite día tras día en Andalucía; basta ya»", "déclaration"),
+    ("حكومة السودان تنفي علاقة الجيش بقصف سوق النعام في أبيي", "déclaration"),
+    ("NOW: Initial reports of a ballistic missile launch from Razavi Khorasan, Iran This is likely a test originating",
+     "annonce militaire"),
+]
+AUDIT_BRUIT = [
+    "Bénin : le Port de Cotonou généralise les opérations d’enlèvement sept jours sur sept",   # marchandises
+    "Raw sewage floods this Durban main road",
+    "Investigan tiroteo en el que estuvieron involucrados policías de Monterey Park",
+    "Manhunt launched for Gauteng pastor over alleged rape, kidnapping and murder",
+    "Haridwar News: नाबालिग के अपहरण, हत्या की धमकी के आरोप में रिपोर्ट दर्ज",
+]
+AUDIT_GARDER = [
+    ("Worshippers killed in shooting at church in Jordan", "attack"),
+    ("Gran Concepción: comunas reportan inundaciones y calles anegadas por intensas lluvias", "flood"),
+    ("Russian forces attack gas station in Sumy, injuring two employees", "attack"),
+    ("Taiwan shuts down as Typhoon Champi approaches", "cyclone"),
+    ("Lycées piratés au Luxembourg: Les élèves sommés de changer leur mot de passe IAM", "cyber"),
+    ("Grenoble : des affrontements lors du blocage d'un lycée, la police intervient", "unrest"),
+    ("Kementerian PU: banjir rendam 3 kecamatan di Kota Padang, ribuan warga mengungsi", "flood"),
+]
+
+
+@pytest.mark.parametrize("titre,motif", AUDIT_CONTEXTE)
+def test_audit_contexte(titre, motif):
+    cat, _ = press.classify(titre)
+    assert cat and not press.not_incident(titre, cat)
+    assert press.context(titre, cat) == motif
+
+
+@pytest.mark.parametrize("titre", AUDIT_BRUIT)
+def test_audit_bruit(titre):
+    cat, _ = press.classify(titre)
+    assert cat is None or press.not_incident(titre, cat)
+
+
+@pytest.mark.parametrize("titre,categorie", AUDIT_GARDER)
+def test_audit_faits_gardes(titre, categorie):
+    cat, _ = press.classify(titre)
+    assert cat == categorie
+    assert press.is_event(titre, cat)
+
+
+def test_bruit_local_explicite():
+    assert press.not_incident("Raw sewage floods this Durban main road", "flood") == "pollution locale"
+    assert press.not_incident("Manhunt launched for Gauteng pastor over alleged rape", "crime") == "personne recherchée"
+
+
+# ------------------------------------------------------------------ localisation (v0.28), avec le dictionnaire GeoNames
+@pytest.fixture(scope="module")
+def gaz():
+    if not (press.GEONAMES_DIR / "cities15000.txt").exists():
+        pytest.skip("dictionnaire GeoNames absent (téléchargé à la première collecte)")
+    from veille import geo
+    return press.Gazetteer(geo.Countries(), lambda *_: None).load()
+
+
+@pytest.mark.parametrize("titre,indice,langue,pays,lieu", [
+    ("One person killed in shooting near Paris, French Prime Minister says", "US", "en", "FR", "Paris"),   # flux US
+    ("约旦河西岸发生袭击事件致2死5伤", "CN", "zh", "PS", None),               # Cisjordanie, pas la Chine
+    ("水利部对4省份启动洪水防御Ⅳ级应急响应", "CN", "zh", "CN", None),          # pas un village homonyme au hasard
+    ("Melania Trump 'secured ceasefire' in Ukrainian city of Oleshky: White House", "MA", "en", "UA", None),
+    ("BBC, The New York Times, The Guardian and Al Jazeera report on settler violence", "US", "en", "US", None),
+    ("Lycées piratés au Luxembourg: Les élèves sommés de changer leur mot de passe", "LU", "fr", "LU", "Luxembourg"),
+])
+def test_localisation_audit(gaz, titre, indice, langue, pays, lieu):
+    cat, _ = press.classify(titre)
+    loc = gaz.locate(titre, indice, cat, langue)
+    assert loc["country"] == pays
+    assert loc.get("place") == lieu
+
+
+def test_noms_de_medias_et_demonymes():
+    assert "york" not in press.strip_media("The New York Times reports").lower()
+    assert press.demonym_place("in Ukrainian city of Oleshky") == "UA"
+
+
+# ------------------------------------------------------------------ second audit de la production (v0.28, run 2)
+# 931 titres de la carte du 23 octobre 2026 : 277 faux positifs (30 %), ramenés à 7. Un cas par règle.
+AUDIT2_CONTEXTE = [
+    "Oregon elementary school shooting victims remembered",                                          # hommage
+    "A shattered community awaits answers, motive in Bend school shooting",
+    "Gun used in Oregon elementary school shooting was birthday gift from shooter's mom, sources say",
+    "El juez propone juzgar a otros cuatro exjefes de ETA por el atentado mortal de Santa Pola de 2002",
+    "#ÚLTIMAHORA | Por el secuestro y el asesinato del hijo del expresidente capturamos a sujeto en La Ceiba",
+    "Les États-Unis pourraient frapper l'Iran dès ce week-end, avance un diplomate américain",       # menace
+    "Comment la manifestation a dégénéré en émeutes urbaines dans le centre-ville de Chambéry",       # analyse
+    "What sparked the fiery protests in France – and how they could spread across Europe",
+    "Strikes on Civilian Infrastructure in Ukraine and Russia: Oct. 14-15, 2026 CIT Volunteer Summary",
+    "Iran has a new defense minister. Mehrdad Akhlaghi was confirmed Sunday with 237 votes, replacing Aziz Nasirzadeh, killed in February's opening strike on Tehran.",
+    "Danmark kjøper langtrekkende JSM-missiler fra Kongsberg",                                        # militaire
+    "Recomendaciones del Acueducto para evitar inundaciones en Bogotá",                               # prévention
+    "Alanya kırsalında sel riskine karşı dört bölgede çalışma",
+    "Nach Rekordhochwasser 2024: Wien rüstet Wienfluss auch für 5.000-jährige Hochwasser",
+    "Nigeria: Ebola - Kano, Niger, Kaduna, Plateau, Kogi, Nasarawa Adopt Preventive Measures",
+    "Nord-Kivu : Beni lance la vaccination contre Ebola avec le vaccin Ervebo",
+    "Ante un sismo simulado, Manizales evaluó cómo responder a viviendas colapsadas, heridos y vías bloqueadas",
+    "Kenya: 'No Ebola Billionaires' Says Duale",
+    "Gobierno de Canadá descarta atentado terrorista tras incendio en zona de entrenamiento militar de Alberta",
+]
+AUDIT2_BRUIT = [
+    "2027: Posters, banners flood Kaduna as residents lament economic hardship",                    # métaphore
+    "Inside Chicago's battle against the synthetic drugs flooding the US",
+    "JSP predicts landslide victory in Srikakulam mayoral poll",
+    "بحبح وبدر موسى يقودان هجوم السويس بتروجت أمام سيراميكا",                                      # football
+    "Investigado por homicídio e tráfico de drogas morre após confronto em Itabaiana",              # police
+    "À Montpellier, la dispute entre deux frères de 60 et 63 ans dégénère : l'aîné poignarde le cadet",
+    "Ariel Gutiérrez lleva a la pantalla el secuestro de su madre",                                  # culture
+    "神奈川県で最大震度1の地震 神奈川県・小田原市",                                                  # séisme faible
+    "Videos de lluvias e inundaciones en la región peruana de Piura son de febrero de 2026, no de octubre",
+    "Hunedoara: Minerii de la Vulcan au obținut primele promisiuni după protest",
+    "Iran will treat American and Israeli targets as legitimate if Trump backs any attack Netanyahu launches against the country, a senior Iranian official told Lebanon's Al…",
+]
+AUDIT2_GARDER = [
+    ("Thousands flood Athens streets in education protest", "unrest"),
+    ("Protest la Mina Vulcan din Valea Jiului: zeci de mineri nemulțumiți de salarii au refuzat să iasă", "unrest"),
+    ("Russian forces strike energy facility in Ternopil region", "armed_conflict"),
+    ("Vito Quiles en Zaragoza: cargas policiales, disturbios y enfrentamientos en el Campus San Francisco", "unrest"),
+    ("Burnt-out wreck: Ukraine destroys Smerch rocket artillery system that terrorised Kherson", "armed_conflict"),
+    ("Thousands evacuated amid Bangkok floods", "flood"),
+    ("Masisi : l'AFC/M23 reprend Remeka et attaque les positions des FARDC à Kaleta", "attack"),
+    ("Blocage des lycées : deux départs de feu dans un établissement à Poitiers, le rectorat appelle au calme", "unrest"),
+    ("Troops kill two suspected kidnappers, rescue victim, recover ransom in Kano – Official", "armed_conflict"),
+    ("Japan Earthquake LIVE Updates: 5.8 Magnitude Earthquake Jolts Japan, Injuries Reported", "earthquake"),
+]
+
+
+@pytest.mark.parametrize("titre", AUDIT2_CONTEXTE)
+def test_audit2_contexte(titre):
+    cat, _ = press.classify(titre)
+    assert cat and not press.not_incident(titre, cat) and press.context(titre, cat), (cat, titre)
+
+
+@pytest.mark.parametrize("titre", AUDIT2_BRUIT)
+def test_audit2_bruit(titre):
+    cat, _ = press.classify(titre)
+    assert cat is None or press.not_incident(titre, cat) or press.context(titre, cat)
+
+
+@pytest.mark.parametrize("titre,categorie", AUDIT2_GARDER)
+def test_audit2_faits_gardes(titre, categorie):
+    cat, _ = press.classify(titre)
+    assert cat == categorie and press.is_event(titre, cat), (cat, titre)
+
+
+@pytest.mark.parametrize("titre,indice,pays,lieu", [
+    ("França investiga tiroteio em Paris como ataque terrorista", "BR", "FR", "Paris"),      # noms de pays en portugais
+    ("A capital da Ucrânia foi alvo de um novo ataque com mísseis esta noite", "BR", "UA", None),
+    ("One killed, four injured in drive-by shooting near Paris", "ZA", "FR", "Paris"),       # pas Parys
+    ("Russia Hits Central Kyiv With Cluster Missile", "RU", "UA", "Kyiv"),                    # pays auteur
+    ("Hyderabad man killed in Riyadh airport attack, two sons injured", "IN", "SA", "Riyadh"),  # ville d'origine
+    ("Houthi attack on Riyadh airport disrupts 134 flights from Dhaka", "BD", "SA", "Riyadh"),
+    ('"We\'re trying to do it like in France." In Albania, clashes with police for the fifth day', "FR", "AL", None),
+    ("2 employees killed, 1 hurt in workplace shooting in Virginia; suspect dead", "ZA", "US", None),   # État américain
+    ("Dois homens morreram após confronto, no bairro de Mata Escura, em Salvador", "BR", "BR", "Salvador"),
+    ("وزير الداخلية الأردني مازن الفراية: ما حدث في الكرك عملية إرهابية", "ID", "JO", None),        # gentilé arabe
+    ("法国外长谴责以色列定居者在约旦河西岸袭击法国官员", "CN", "PS", None),
+    ("زلزال بقوة 5 درجات يضرب جنوب بنما - جريدة المدينة", "SA", "PA", None),                     # nom de journal
+    ("Romania Blames Russia for Drone Strike That Sank Black Sea Ship", "RO", "RO", None),
+])
+def test_localisation_audit2(gaz, titre, indice, pays, lieu):
+    cat, _ = press.classify(titre)
+    loc = gaz.locate(titre, indice, cat or "attack", press.guess_lang(titre))
+    assert loc["country"] == pays
+    if lieu:
+        assert loc.get("place") == lieu
+
+
+def test_noms_de_pays_multilingues():
+    names = press._cldr_country_names()
+    assert names["ucrania"] == "UA" and names["arnavutluk"] == "AL" and names["frankreich"] == "FR"
+    for ambigu in ("island", "indie", "mali", "peru", "salvador", "israeli", "somali"):   # mots courants, gentilés
+        assert ambigu not in names

@@ -100,3 +100,76 @@ def test_note_risque_avis_ne_pas_se_rendre():
 def test_diplomatie_hors_note():
     out = risk.compute([make(category="diplomatic")], {}, NOW)
     assert "ML" not in out or out["ML"]["counts"]["security"] == 0
+
+
+# ------------------------------------------------------------------ doublons restants en production (v0.28, run 2)
+def _ev(id, title, source="Press", category="attack", lat=31.18, lon=35.70, country="JO", date="2026-10-23T14:00:00+00:00",
+        place="", headline=None, precision="city"):
+    e = _src(make(id, source=source, category=category, title=title, lat=lat, lon=lon, country=country, date=date,
+                  place=place, precision=precision, tags=["auto-detected"] + (["press"] if source == "Press" else [])), id)
+    if headline:
+        e["headline"] = headline
+    return e
+
+
+def test_meme_attaque_crime_et_conflit_fusionnes():
+    """Église de Karak (Jordanie) : « crime » d'un côté, « conflit armé » de l'autre, même fait."""
+    a = _ev("g1", "Crime – Karak, Jordan", "GDELT", "crime",
+            headline="Gunmen open fire inside a church in Jordan, causing deaths and injuries")
+    b = _ev("g2", "Military force – Karak, Jordan", "GDELT", "armed_conflict", date="2026-10-23T20:55:00+00:00",
+            headline="Seven killed as gunmen open fire at church in Jordan in 'terrorist' attack, authorities say")
+    assert len(dedupe.dedupe([a, b])) == 1
+
+
+def test_meme_cible_autres_mots_fusionnes():
+    """Règle E : même pays, même jour, même cible (aéroport) et des mots en commun."""
+    a = _ev("p1", "One Killed, Eight Injured in Attack on Saudi Arabia's King Fahd Airport", lat=26.47, lon=49.80,
+            country="SA", place="Dammam", date="2026-10-23T01:24:00+00:00")
+    b = _ev("p2", "Indian among 2 killed in attack on Dammam airport, 2 other Indians injured", lat=26.43, lon=50.10,
+            country="SA", place="Dammam, Ash Sharqiyah", date="2026-10-22T12:22:00+00:00")
+    assert len(dedupe.story_merge([a, b])) == 1
+
+
+def test_gdelt_commune_voisine_meme_fait():
+    """GDELT place la fusillade « near Paris » à Trappes (28 km) : même fait si l'article raconte la même chose."""
+    g = _ev("g1", "Armed violence – Trappes, France", "GDELT", lat=48.7741, lon=2.0178, country="FR",
+            place="Trappes, France", date="2026-10-23T20:55:00+00:00",
+            headline="Terror investigation launched after drive-by shooting near Paris")
+    p = _ev("p1", "One killed, four injured in drive-by shooting near Paris", lat=48.853, lon=2.349, country="FR",
+            place="Paris", date="2026-10-23T10:08:00+00:00")
+    assert len(dedupe.dedupe([g, p])) == 1
+
+
+def test_gdelt_et_presse_sans_rapport_non_fusionnes():
+    """Même ville, même jour, mais deux faits : seuls « Gaza » et « Israeli » en commun."""
+    g = _ev("g1", "Military force – Gaza", "GDELT", "armed_conflict", lat=31.5, lon=34.47, country="PS", place="Gaza",
+            headline="Palestinian child killed as Israeli forces fire on displaced people's tents in central Gaza")
+    p = _ev("p1", "'Season of fear': Escalating Israeli attacks on West Bank olive farmers, deadly strikes on Gaza",
+            category="armed_conflict", lat=31.5, lon=34.47, country="PS", place="Gaza", date="2026-10-23T01:00:00+00:00")
+    assert len(dedupe.dedupe([g, p])) == 2
+
+
+def test_deux_articles_gdelt_meme_ville_non_fusionnes():
+    a = _ev("g1", "Protest – Delhi", "GDELT", "unrest", lat=28.65, lon=77.23, country="IN", place="Delhi, India",
+            headline="'India is neither Bangladesh nor France': Rijiju alleges plot to trigger violence")
+    b = _ev("g2", "Protest – Delhi", "GDELT", "unrest", lat=28.65, lon=77.23, country="IN", place="Delhi, India",
+            date="2026-10-23T20:00:00+00:00", headline="Delhi police seize Cockroach leader as youth defy state!")
+    assert len(dedupe.dedupe([a, b])) == 2
+
+
+def test_crue_meme_ville_deux_articles_fusionnes():
+    a = _ev("p1", "Fuertes lluvias en Fusagasugá causan inundaciones y daños", category="flood", lat=4.34, lon=-74.36,
+            country="CO", place="Fusagasugá")
+    b = _ev("p2", "Emergencia en Fusagasugá, Cundinamarca, por inundaciones tras fuertes lluvias: se reporta desbordamiento",
+            category="flood", lat=4.35, lon=-74.37, country="CO", place="Fusagasugá", date="2026-10-22T22:00:00+00:00")
+    assert len(dedupe.dedupe([a, b])) == 1
+
+
+def test_lieux_communs_ne_suffisent_pas():
+    """Règle D : « West Bank », « Israeli » ne prouvent pas un même fait (plusieurs par jour)."""
+    a = _ev("p1", "West Bank attack wounds 5 Israelis as Netanyahu cancels events", country="PS", place="West Bank",
+            lat=31.9, lon=35.2, precision="country")
+    b = _ev("p2", "West Bank Olive Harvest Under Attack as Israeli Settlers Target Palestinian Farmers", country="PS",
+            place="West Bank", lat=31.9, lon=35.2, precision="country", date="2026-10-22T12:00:00+00:00")
+    out = dedupe.story_merge([a, b])
+    assert len(out) == 2

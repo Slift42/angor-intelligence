@@ -10,6 +10,7 @@ qui racontent la même chose malgré des lieux, des jours ou des catégories dif
 jours de suite, même article placé dans deux villes, bilan mis à jour (« 9 morts » puis « 10 morts »), titre Google
 News suivi d'un texte parasite, même crash classé « attaque » ici et « infrastructure » là.
 """
+import math
 import re
 import unicodedata
 
@@ -25,8 +26,12 @@ FAMILIES = {
     "health": ("health", 300, 240),
     # incidents de sécurité : GDELT et presse locale se confirment mutuellement
     "attack": ("violence", 20, 24), "terrorism": ("violence", 20, 24), "armed_conflict": ("violence", 20, 24),
+    "crime": ("violence", 20, 24),   # v0.28 : « gunmen open fire inside a church » (crime) = la même attaque (conflit)
     "unrest": ("unrest", 15, 24),
+    "landslide": ("landslide", 50, 72),
 }
+HAZARD_FAMILIES = {"flood", "storm", "wildfire", "landslide"}
+HAZARD_SAME_KM, HAZARD_SAME_HOURS = 30, 48   # deux articles sur la crue d'une même ville en deux jours : un épisode
 # plus le chiffre est petit, plus la source fait référence pour la fiche fusionnée
 # Sources dont deux fiches peuvent décrire le même événement : presse (plusieurs médias, plusieurs jours),
 # GDELT, et alertes météo découpées par zone (un même épisode d'inondation couvre des dizaines de comtés).
@@ -44,10 +49,16 @@ def _same_event(a, b, fam):
     manifestations, ou même type d'alerte météo."""
     if a["source"] in ("NWS", "Meteoalarm"):
         return (a["title"].split(" – ")[0] == b["title"].split(" – ")[0]) and a.get("category") == b.get("category")
+    if fam in HAZARD_FAMILIES and a["source"] == "Press" and \
+            haversine_km(a["lat"], a["lon"], b["lat"], b["lon"]) <= HAZARD_SAME_KM and \
+            abs((parse_iso(a["date"]) - parse_iso(b["date"])).total_seconds()) <= HAZARD_SAME_HOURS * 3600:
+        return True
     wa, wb = _words(a), _words(b)
     jac = len(wa & wb) / max(1, len(wa | wb))
     if jac >= 0.3:
         return True
+    if a["source"] == "GDELT" and a.get("headline") and b.get("headline"):
+        return False   # v0.28 : deux articles GDELT au centre de Delhi ne sont pas la même manifestation
     return fam == "unrest" and a.get("place") and (a.get("place") or "").lower() == (b.get("place") or "").lower()
 
 
@@ -84,7 +95,66 @@ def story_tokens(e):
     return words[:STORY_TOKENS]
 
 
-def _same_story(a, b, ta, tb, hours):
+STORY_RARE_HOURS = 72      # règle D : mots rares en commun (lieu, cible, acteur), même pays
+STORY_RARE_KM = 150
+STORY_RARE_SIM = 0.3       # indice de Jaccard pondéré par la rareté des mots (idf)
+# cibles qui identifient un fait (« church », « school », « airport ») : deux titres du même pays, du même jour, qui
+# visent la même cible au même endroit racontent le même fait, même dans des mots différents (règle E)
+TARGETS = set("""church mosque synagogue temple school university college hospital clinic airport palace market bazaar mine
+mall supermarket hypermarket store shop hotel restaurant bar nightclub club park prison jail embassy consulate stadium
+festival concert bank factory plant refinery port bridge wedding funeral checkpoint convoy base barracks station
+eglise mosquee ecole lycee universite hopital aeroport palais marche mine hotel restaurant prison ambassade stade usine
+iglesia mezquita escuela colegio universidad aeropuerto palacio mercado mina carcel penal hotel discoteca fabrica
+igreja escola universidade aeroporto mercado presidio fabrica kirche schule flughafen markt""".split())
+STORY_TARGET_HOURS = 36
+STORY_TARGET_KM = 60
+COMPATIBLE = [{"attack", "terrorism", "armed_conflict", "crime", "unrest"}, {"landslide", "infrastructure", "flood"},
+              {"flood", "storm", "cyclone"}, {"health"}, {"earthquake"}, {"wildfire"}, {"volcano"}, {"cyber"}]
+
+
+def _compatible(a, b):
+    ca, cb = a.get("category"), b.get("category")
+    return ca == cb or any(ca in g and cb in g for g in COMPATIBLE)
+
+
+def _near(a, b, km):
+    if (a.get("place") or "").lower() == (b.get("place") or "").lower() and a.get("place"):
+        return True
+    if "country" in (a.get("precision"), b.get("precision")) or "region" in (a.get("precision"), b.get("precision")):
+        km *= 3
+    return a.get("lat") is not None and b.get("lat") is not None and \
+        haversine_km(a["lat"], a["lon"], b["lat"], b["lon"]) <= km
+
+
+GEO_WORDS = set("west east north south northern southern eastern western central bank strip region province city state "
+                "oblast district county governorate town village capital border coast valley".split())
+
+
+def _place_words(e):
+    t = unicodedata.normalize("NFKD", " ".join(x for x in (e.get("place"), e.get("country_name")) if x))
+    words = set(re.findall(r"[a-z]{3,}", t.encode("ascii", "ignore").decode().lower()))
+    return words | GEO_WORDS
+
+
+def _rare_story(a, b, sa, sb, hours, idf, rare):
+    """Règles D et E (v0.28, run 2) : même fait raconté avec d'autres mots (« Seven killed as gunmen open fire at church
+    in Jordan » / « Gunmen open fire inside a church in Jordan, causing deaths »)."""
+    if not idf or not a.get("country") or a.get("country") != b.get("country") or not _compatible(a, b) \
+            or "earthquake" in (a.get("category"), b.get("category")):
+        return False
+    # les noms de lieux ne prouvent rien (« West Bank », « Kharkiv » : plusieurs faits par jour au même endroit)
+    places = _place_words(a) | _place_words(b)
+    common = (sa & sb) - places
+    if hours <= STORY_TARGET_HOURS and common & TARGETS and len(common) >= 2 and _near(a, b, STORY_TARGET_KM):
+        return True
+    if hours > STORY_RARE_HOURS or len([w for w in common if idf.get(w, 0) >= rare]) < 2:
+        return False
+    num = sum(idf.get(w, 0) for w in common)
+    den = sum(idf.get(w, 0) for w in sa | sb) or 1
+    return num / den >= STORY_RARE_SIM and _near(a, b, STORY_RARE_KM)
+
+
+def _same_story(a, b, ta, tb, hours, idf=None, rare=0.0):
     if hours > STORY_HOURS or not ta or not tb:
         return False
     sa, sb = set(ta), set(tb)
@@ -100,7 +170,7 @@ def _same_story(a, b, ta, tb, hours):
         if same_place or (a.get("lat") is not None and b.get("lat") is not None
                           and haversine_km(a["lat"], a["lon"], b["lat"], b["lon"]) <= STORY_KM):
             return True
-    return False
+    return _rare_story(a, b, sa, sb, hours, idf, rare)
 
 
 def _combine(group):
@@ -134,6 +204,9 @@ def story_merge(events):
     for i, ws in enumerate(toks):
         for w in set(ws):
             index.setdefault(w, []).append(i)
+    n = len(items)
+    idf = {w: math.log((n + 1) / (len(p) + 0.5)) for w, p in index.items()}
+    rare = math.log((n + 1) / 5.5)     # mot présent dans 5 titres au plus
     parent = list(range(len(items)))
 
     def find(i):
@@ -155,7 +228,7 @@ def story_merge(events):
             if n < 2 or find(i) == find(j):
                 continue
             hours = abs((times[j] - times[i]).total_seconds()) / 3600
-            if _same_story(items[i], items[j], ws, toks[j], hours):
+            if _same_story(items[i], items[j], ws, toks[j], hours, idf, rare):
                 parent[find(j)] = find(i)
     groups = {}
     for i in range(len(items)):
@@ -173,6 +246,22 @@ def story_merge(events):
     if not replace:
         return events
     return [replace.get(e["id"], e) for e in events if e["id"] not in gone]
+
+
+def _cross_source_ok(a, b, fam, strict=False):
+    """GDELT et presse se confirment… si l'article lu par GDELT parle du même fait (v0.28) : dans une grande ville, une
+    fusillade et un rassemblement du même jour ne sont pas le même événement."""
+    if {a["source"], b["source"]} != {"GDELT", "Press"} or fam not in ("violence", "unrest"):
+        return not strict
+    g = a if a["source"] == "GDELT" else b
+    if not g.get("headline"):
+        return not strict
+    from .press import DEMONYMS
+    skip = _place_words(a) | _place_words(b) | set(DEMONYMS) | {w + "s" for w in DEMONYMS}
+    wa, wb = _words(a) - skip, _words(b) - skip
+    if strict:
+        return len(wa & wb) >= 2
+    return len(wa & wb) >= 2 or len(wa & wb) / max(1, len(wa | wb)) >= 0.2
 
 
 def dedupe(events):
@@ -200,7 +289,8 @@ def dedupe(events):
             group, srcs = [a], {a["source"]}
             same_ok = a["source"] in SAME_SOURCE_OK
             ci, cj = int(a["lat"] // cell), int(a["lon"] // cell)
-            cand = sorted(j for di in (-1, 0, 1) for dj in (-1, 0, 1) for j in grid.get((ci + di, cj + dj), ()) if j > i)
+            rng = (-2, -1, 0, 1, 2)   # deux cellules : la distance peut être doublée (GDELT / presse)
+            cand = sorted(j for di in rng for dj in rng for j in grid.get((ci + di, cj + dj), ()) if j > i)
             for j in cand:
                 b = items[j]
                 if b["id"] in used:
@@ -210,9 +300,14 @@ def dedupe(events):
                     continue
                 if abs((times[j] - times[i]).total_seconds()) > max_h * 3600:
                     continue
-                if haversine_km(a["lat"], a["lon"], b["lat"], b["lon"]) > max_km:
+                dist = haversine_km(a["lat"], a["lon"], b["lat"], b["lon"])
+                # GDELT place souvent le fait dans la commune voisine (Trappes pour « near Paris ») : distance doublée
+                # quand l'article lu par GDELT et le titre de presse racontent clairement le même fait (v0.28)
+                if dist > max_km and not (not same and dist <= 2 * max_km and _cross_source_ok(a, b, fam_name, strict=True)):
                     continue
                 if same and not _same_event(a, b, fam_name):
+                    continue
+                if not same and not _cross_source_ok(a, b, fam_name):
                     continue
                 group.append(b)
                 srcs.add(b["source"])

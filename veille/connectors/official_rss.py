@@ -17,6 +17,8 @@ Options (config/sources.json) :
                  "country" (pays cité dans le titre : « … , Spain », « Krakatau (Indonesia) ») ; plusieurs
                  méthodes sont essayées dans l'ordre georss → text → country
   "max_age_days": ancienneté maximale (défaut 10)
+  "group"      : expression régulière à un groupe (ex. nom de la tempête) : seul le bulletin le plus récent de chaque
+                 groupe est gardé, sous un identifiant stable (v0.28 : « Hurricane Vance Advisory 7, 8, 9 » = une fiche)
 Titre, lien et résumé court uniquement."""
 import hashlib
 import html
@@ -109,7 +111,8 @@ def fetch(cfg, ctx):
     drop = re.compile(cfg["drop"], re.I) if cfg.get("drop") else None
     max_age = timedelta(days=int(cfg.get("max_age_days", 10)))
     source = cfg.get("source") or cfg.get("name", cfg["id"])
-    out = []
+    group = re.compile(cfg["group"], re.I) if cfg.get("group") else None
+    out, latest = [], {}
     for it in list(_entries(root))[: int(cfg.get("max_items", 60))]:
         title = re.sub(r"\s+", " ", html.unescape(TAG_RE.sub(" ", it["title"]))).strip()
         desc = re.sub(r"\s+", " ", html.unescape(TAG_RE.sub(" ", html.unescape(it["desc"] or "")))).strip()
@@ -143,7 +146,14 @@ def fetch(cfg, ctx):
                 continue
             lat, lon = item["label"][1], item["label"][0]
             iso, precision, place = item["iso2"], "country", item["name_en"]
-        uid = hashlib.sha1((it["id"] or it["link"] or title).encode()).hexdigest()[:12]
+        gm = group.search(title) if group else None
+        gkey = gm.group(1).lower() if gm else None
+        uid = hashlib.sha1((f"group:{gkey}" if gkey else (it["id"] or it["link"] or title)).encode()).hexdigest()[:12]
+        if gkey:
+            if gkey in latest and latest[gkey] >= date:
+                continue
+            latest[gkey] = date
+            out = [e for e in out if e["id"] != f"{cfg['id']}-{uid}"]
         out.append(make_event(
             id=f"{cfg['id']}-{uid}", source=source, category=cat, severity=_severity(cfg, text), title=title,
             summary=desc[:280], date=to_iso(date), lat=lat, lon=lon, url=it["link"] or cfg["url"],

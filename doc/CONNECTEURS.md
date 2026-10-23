@@ -63,7 +63,7 @@ def fetch(cfg, ctx):
 | Type | Usage |
 |---|---|
 | `rss` | Flux RSS/Atom : presse, bulletins. Tolère les flux mal formés (`parse_xml`) |
-| `official_rss` | Bulletins officiels (catégorie et gravité fixées ou déduites de mots-clés, géolocalisation GeoRSS / texte) |
+| `official_rss` | Bulletins officiels (catégorie et gravité fixées ou déduites de mots-clés, géolocalisation GeoRSS / texte). Option `group` (v0.28) : expression à un groupe (nom de la tempête) ; seul le dernier bulletin de chaque groupe est gardé, sous un identifiant stable (NHC : un cyclone = une fiche) |
 | `jsonapi` | API JSON authentifiée (fournisseur payant) : correspondance des champs dans la configuration |
 | `gnews`, `outlets` | Presse locale via Google News, en rotation par pays |
 | `telegram` | Canaux publics (aperçu `t.me/s/…`), budget de temps |
@@ -87,6 +87,21 @@ en mot entier : vérifier qu'ils n'ont pas un autre sens dans une autre langue (
 (`store["state"]["outlet_stats"]`). Un média sans aucun titre après 30 requêtes est un « média muet » : domaine
 erroné, site fermé ou média sans actualité de sûreté. La liste est publiée dans « État des sources » (`outlets_health`)
 pour correction dans `tools/outlets_src.py`.
+
+## Filtres des flux officiels et de GDELT (v0.28)
+
+Un flux officiel publie aussi ce qui n'est pas un incident. Filtres en place :
+
+| Connecteur | Écarté | Gardé |
+|---|---|---|
+| `nws` (`worth_keeping`) | gel, givre, risque d'incendie (« Red Flag », « Fire Weather »), brouillard, fumée, qualité de l'air, avis de vent ou de chaleur, simples veilles (« Watch ») | avertissements (« Warning »), veilles cycloniques, de submersion, de tsunami et de vent extrême ; évacuations, dont la catégorie est lue dans le texte (feu, crue…) |
+| `meteoalarm` | zones uniquement maritimes (`marine_only`), brouillard orange | vigilances orange et rouge à terre, brouillard rouge |
+| `official_rss` NHC | bulletins précédents d'un même cyclone | le dernier bulletin |
+| `gdelt_events` | code CAMEO 192 « occupation de territoire » (une situation, pas un fait daté : `DROP_CODES`) ; fait violent placé à moins de 30 km du centre d'une capitale alors qu'un autre pays figure parmi les acteurs (capitale citée en tête de dépêche : « RIYADH – … frappes au Yémen ») | le reste, sous les seuils habituels |
+
+Les capitales viennent du dictionnaire GeoNames (`geo.capitals()`, code `PPLC`) ; sans ce fichier, la règle ne
+s'applique pas. `FILTER_VERSION` de GDELT n'a pas été incrémenté : l'historique n'est pas reconstruit, les anciens
+événements « occupation » sont écartés par le tri (`triage`, motif « situation, pas un fait daté »).
 
 ## Sources hors connecteurs
 

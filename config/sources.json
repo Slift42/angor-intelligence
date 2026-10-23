@@ -1795,6 +1795,7 @@
         "major hurricane": 4
       },
       "max_age_days": 3,
+      "group": "(?:hurricane|typhoon|tropical storm|tropical depression|subtropical storm|post-tropical cyclone|potential tropical cyclone|remnants of)\\s+([a-z]+)",
       "_comment": "v0.11 – avis cycloniques officiels (position lue dans le texte)."
     },
     {
@@ -1813,6 +1814,7 @@
         "major hurricane": 4
       },
       "max_age_days": 3,
+      "group": "(?:hurricane|typhoon|tropical storm|tropical depression|subtropical storm|post-tropical cyclone|potential tropical cyclone|remnants of)\\s+([a-z]+)",
       "_comment": "v0.11"
     },
     {

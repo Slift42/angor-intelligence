@@ -32,6 +32,20 @@ STATES = {
     "GU": ("66", 13.44, 144.79), "VI": ("78", 18.34, -64.9), "AS": ("60", -14.3, -170.7), "MP": ("69", 15.2, 145.75),
 }
 FIPS = {v[0]: k for k, v in STATES.items()}
+# v0.28 : produits sans fait physique pour un voyageur ou un site (conditions agricoles, risque d'incendie, simples
+# « veilles ») : retirés. On garde les veilles cycloniques et tsunami, qui précèdent de peu l'impact.
+LOW_VALUE = re.compile(r"freeze|frost|red flag|fire weather|wind advisory|heat advisory|dense fog|dense smoke|air quality|"
+                       r"lake effect|winter weather advisory|wind chill advisory|hydrologic outlook|special weather", re.I)
+WATCH = re.compile(r"\bwatch\b", re.I)
+KEEP_WATCH = re.compile(r"hurricane|typhoon|tropical storm|storm surge|tsunami|extreme wind", re.I)
+EVACUATION = re.compile(r"evacuat", re.I)
+
+
+def worth_keeping(event_name):
+    """Alerte NWS utile sur la carte (v0.28) : ni produit agricole ou de conditions, ni simple veille."""
+    if LOW_VALUE.search(event_name):
+        return False
+    return not (WATCH.search(event_name) and not KEEP_WATCH.search(event_name))
 MARINE = re.compile(r"marine|small craft|gale|freezing spray|hazardous seas|storm warning$|hurricane force wind|"
                     r"special marine|brisk wind|low water|rip current|beach hazards|high surf", re.I)
 CATS = [(r"tornado", "storm"), (r"hurricane|tropical storm|typhoon", "cyclone"), (r"flood|hydrologic", "flood"),
@@ -77,7 +91,7 @@ def fetch(cfg, ctx):
     for f in data.get("features", []):
         p = f.get("properties") or {}
         ev_name = p.get("event") or ""
-        if MARINE.search(ev_name) or p.get("severity") not in SEV:
+        if MARINE.search(ev_name) or p.get("severity") not in SEV or not worth_keeping(ev_name):
             continue
         if p.get("urgency") in ("Past",) or p.get("certainty") in ("Unlikely",):
             continue
@@ -102,8 +116,13 @@ def fetch(cfg, ctx):
         desc = re.sub(r"\s+", " ", p.get("description") or "").strip()
         summary = (p.get("headline") or "") + (". " + desc[:320] if desc else "")
         uid = hashlib.sha1((ev_name + area).encode()).hexdigest()[:12]
+        cat = category(ev_name)
+        if EVACUATION.search(ev_name) or cat == "other":
+            # « Evacuate Now! », « Pre Evacuation Notice » : l'aléa est dans le texte (feu, crue…)
+            guess = category(f"{p.get('headline') or ''} {desc}")
+            cat = guess if guess not in ("other", "extreme_temp") else "infrastructure"
         out.append(make_event(
-            id=f"nws-{uid}-{sent:%Y%m%d}", source="NWS", category=category(ev_name), severity=SEV[p["severity"]],
+            id=f"nws-{uid}-{sent:%Y%m%d}", source="NWS", category=cat, severity=SEV[p["severity"]],
             title=f"{ev_name} – {area[:110]}{'…' if len(area) > 110 else ''}", summary=summary,
             date=to_iso(sent), start=to_iso(parse_iso(p.get("onset")) or sent), lat=lat, lon=lon,
             url=p.get("@id") or "https://www.weather.gov/", source_url="https://alerts.weather.gov/",

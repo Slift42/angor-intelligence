@@ -128,6 +128,7 @@ plus pour `emergency` un 12e élément : `hijack` | `radio` | `emergency`.
 | `early_warning.json` | Paramètres de l'alerte précoce (rythme de remplissage, priorité des régions) ; les régions sont celles de `foresight/regions/` | développeur |
 | `foresight/` | Tendances de risques : `method.json` (échelles, facteurs), `sources.json` (bibliographie), `regions/*.json`, `countries/*.json` | analyste |
 | `press_outlets.json` | Médias de référence par pays et cotation | développeur |
+| `country_names.json` | Noms de pays en 28 langues (CLDR), pour situer les titres de presse ; généré par `tools/build_country_names.py`, ne pas modifier à la main | développeur |
 | `city_notes.json` | Notes d'analyste par ville (à valider) | analyste |
 | `health.json` | Listes de pays par risque sanitaire, textes maladies et vaccins | analyste / développeur |
 | `providers.json` | Catégories de services des prestataires (code, groupe, libellés), niveaux de fiabilité A–E et couleurs | développeur |
@@ -195,6 +196,48 @@ catastrophe, épidémie, panne. Le tri (`veille/press.py`) se fait en trois temp
    (« frappes contre », « repoussé une attaque ») reste un événement, sauf démenti ou condamnation ; un bilan ou un mot de
    fait récent (tué, blessé) garde l'événement.
 
+**Audit de la production (v0.28)** : 34 faux positifs relevés sur 7 jours d'angor.fr ont donné des règles dédiées
+(`audit_noise` au début de `not_incident`, `audit_context` au début de `context`) :
+
+| Motif | Exemples réels |
+|---|---|
+| bruit : « hors sujet (enlèvement de marchandises) », « pollution locale », « intervention policière », « personne recherchée », « fait divers local » | « opérations d'enlèvement » au port de Cotonou ; égouts qui débordent à Durban ; « tiroteo en el que estuvieron involucrados policías » ; avis de recherche ; brèves de faits divers régionales en hindi ou en ourdou |
+| contexte « prévision » (aléas naturels sans impact constaté) | « Met warns of flash floods », « Waspada Banjir », « may intensify into cyclone » |
+| contexte « prévention, bilan ou suites » | exercice avant les pluies, survivants d'une crue, contrôles Ebola à l'aéroport, « après les émeutes » |
+| contexte « analyse », « arrestation ou suites », « cessez-le-feu (annonce) », « déclaration », « annonce militaire » | témoignage ; convocation par la police antiterroriste ; cessez-le-feu annoncé ; « warns against », « basta ya », démenti en arabe ; tir d'essai de missile |
+
+Deux corrections de catégorie : un piratage décrit avec des mots d'attaque (« lycées piratés », « mot de passe ») passe
+en `cyber` ; des « affrontements » sans militaires ni groupe armé, lors d'une manifestation ou d'un blocage, passent en
+`unrest`. Localisation (`Gazetteer.locate`) : un nom de média n'est plus un lieu (« The New York Times » ≠ New York ;
+`strip_media`), un gentilé situe le pays (« Ukrainian city of Oleshky » → UA ; `demonym_place`), un pays cité dans le
+titre l'emporte sur le pays du flux, les noms de pays en chinois, japonais, thaï, arabe, persan, hébreu et hindi sont
+reconnus, une grande ville étrangère sans ambiguïté l'emporte sur un homonyme local, et une ville suivie d'un mot comme
+« Park » ou « County » n'est plus prise pour la ville homonyme (Monterey Park ≠ Monterrey).
+
+**Second audit (v0.28, run 2)**, sur les 931 titres de presse de la carte du 23 octobre 2026 : 277 faux positifs (30 %),
+ramenés à 7. Règles ajoutées (`audit_context2`, compléments d'`audit_noise` et de `classify`) :
+
+| Motif | Exemples réels |
+|---|---|
+| suites (enquête, hommage, témoignage) | « victims remembered », « awaits answers », « laid to rest », « dictan presidio perpetuo », « capturamos a sujeto », « adliyeye sevk edildi » ; avec une variante « souple » (« après les émeutes », « funérailles ») qui ne s'applique pas si le titre décrit aussi le fait (morts, feu, heurts) |
+| déclaration (menaces, projets de frappe, réactions) | « pourraient frapper l'Iran », « will treat … as legitimate targets », « Zelensky says », « ready to help », « تعرب عن تعاطفها », « 谴责 » |
+| analyse | « Comment la manifestation a dégénéré », « What sparked », « Volunteer Summary », « War update », genres en tête de titre (TÉMOIGNAGE, PORTRAIT, TRIBUNE) |
+| annonce militaire | achats d'armes (« kjøper … missiler »), radar, nouveau ministre de la Défense, exercices, avions de chasse décollant |
+| prévention, bilan ou suites (aléas, santé) | investissements et travaux contre les crues (espagnol, turc, allemand, indonésien, thaï, hindi), alertes sans impact, vaccination, mesures préventives, exercices (« sismo simulado ») |
+| bruit | métaphores (« protesters flood Belgrade » → troubles ; « drugs flooding the US » → écarté), « landslide victory », football (arabe, espagnol), culture (film, narcocorridos), saisies de drogue, querelles familiales, interventions de police au Brésil (« morre em confronto com a PM »), faits divers en hindi et en ourdou sans mot de sûreté, séismes japonais d'intensité 1 à 3, démentis d'images anciennes |
+| catégorie | grève ≠ frappe (« Russian forces strike energy facility » : conflit), heurts avec la police (Espagne, Belgique, France) : troubles, mine Vulcan (Roumanie) : troubles et non volcan, « système d'artillerie qui terrorisait Kherson » : conflit et non terrorisme |
+
+**Localisation (run 2)** : noms de pays en 28 langues (`config/country_names.json` : « França », « Ucrânia »,
+« Arnavutluk »), États américains (« in Virginia » n'est plus la ville sud-africaine), gentilés arabes (« الأردني »),
+recherche par mots plutôt que par 4 000 expressions (3 fois plus rapide). Choix du pays : un pays cité entre guillemets
+compte moins qu'un pays cité hors guillemets (« like in France. In Albania, clashes… ») ; un pays suivi d'un verbe de
+frappe est l'auteur, pas le lieu (« Russia hits central Kyiv » → Ukraine). Choix de la ville : une grande ville étrangère
+précédée de « in / at / on / near » l'emporte sur une ville locale qui ne l'est pas (« Hyderabad man killed in Riyadh
+airport attack », « attack on Riyadh airport disrupts flights from Dhaka ») ; un homonyme local beaucoup plus petit
+(Paris, Texas) ou qui ne porte ce nom qu'en variante (Parys, Afrique du Sud) s'efface devant la grande ville. Noms de
+journaux ignorés (« جريدة المدينة », « 京都新聞 »), mots arabes « la ville » et « les martyrs » et prénom « Vladimir » non
+pris pour des lieux.
+
 `is_event(titre, catégorie)` résume les trois. Pour **GDELT**, dont le titre est un code (« Military force – Kyiv »),
 `gdelt_noise` lit le vrai titre de l'article (`headline`) et n'écarte que ce qui n'a manifestement rien de physique.
 Dans `collecte.py`, `triage_reason` applique ces règles à tous les événements en mémoire **avant** le regroupement (un
@@ -208,6 +251,15 @@ pas re-triés par les mots-clés de contexte.
 | A | même pays, ≤ 100 km ou même lieu, ≤ 48 h, mots significatifs communs ≥ 50 % | « kill 9 civilians » puis « kill 10 civilians » |
 | B | mots communs ≥ 80 %, ≤ 5 jours, où que ce soit, toutes catégories | même dépêche sur 3 jours ; même article placé à Metz et à Nancy ; crash classé « attaque » et « infrastructure » |
 | C | 8 premiers mots identiques, ≤ 5 jours | titre Google News suivi d'un texte parasite |
+| D (v0.28) | même pays, catégories compatibles, ≤ 72 h, ≤ 150 km, au moins 2 mots rares en commun hors noms de lieux, Jaccard pondéré par la rareté ≥ 0,3 (hors séismes) | « Houthis attack presidential palace complex in Aden » / « 5 killed, 16 injured in Houthi attack on Aden presidential palace » |
+| E (v0.28) | même pays, ≤ 36 h, ≤ 60 km, même cible (église, école, aéroport, marché, mine…) et 2 mots en commun | attaque de l'aéroport King Fahd / « attack on Dammam airport » |
+
+Fusion par lieu et famille (v0.28) : `crime` rejoint la famille « violence » (une fusillade classée crime ici et conflit
+là), nouvelle famille « glissement de terrain » ; deux articles de presse sur une crue, une tempête ou un feu à moins de
+30 km et 48 h sont un même épisode ; GDELT et la presse ne se confirment que si l'article lu par GDELT partage au moins
+deux mots avec le titre de presse (hors lieux et gentilés), et la distance admise est alors doublée (GDELT place
+« near Paris » à Trappes) ; deux fiches GDELT d'une même ville ne fusionnent plus sur le seul lieu quand leurs articles
+diffèrent.
 
 La fiche de base est celle dont le lieu est le plus précis (puis la presse, puis la plus ancienne) ; elle prend la
 gravité maximale, la dernière date, la première date (`start`), toutes les sources (25 au plus) et la liste `merged`.

@@ -4,6 +4,96 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.28 – Affinage : ce qui n'est pas un incident quitte la carte, doublons et localisation (octobre 2026)
+
+Deux premiers lots de l'affinage de tout le site (plan et avancement : `claude/finetune_angor.md` dans le projet),
+publiés ensemble.
+
+### Lot 2 : second audit, doublons, localisation
+
+- **Second audit de la carte** (931 titres de presse du 23 octobre) : **277 n'étaient pas des incidents (30 %)** ;
+  il en reste 7. Ne vont plus sur la carte :
+  - suites d'un fait : hommages, funérailles, témoignages, enquête, procès, arrestations (« victims remembered »,
+    « suspect ID'd », « dictan presidio perpetuo ») ;
+  - menaces et projets (« les États-Unis pourraient frapper l'Iran »), réactions, appels au calme ;
+  - analyses (« Comment la manifestation a dégénéré », résumés quotidiens du front) ;
+  - sujets militaires sans incident (achats d'armes, nouveau ministre, exercices) ;
+  - prévention et préparation : travaux contre les crues, alertes sans dégâts, vaccinations, exercices de séisme ;
+  - bruit : « protesters flood Belgrade » (troubles, pas une crue), « landslide victory », football, films, saisies
+    de drogue, querelles familiales, interventions de police au Brésil, petits séismes japonais, faits divers locaux
+    en hindi et en ourdou.
+- **Catégories** : « Russian forces strike energy facility » est une frappe, pas une grève ; les heurts avec la police
+  lors des manifestations (France, Belgique, Espagne, Italie) sont des troubles civils ; la grève des mineurs de Vulcan
+  (Roumanie) n'est plus une éruption.
+- **Doublons** :
+  - même fait raconté avec d'autres mots, grâce aux mots rares communs (palais présidentiel d'Aden) ou à la même cible
+    le même jour (attaque de l'église de Karak, de l'aéroport de Dammam) ;
+  - une fusillade classée « crime » ici et « conflit » là ;
+  - deux articles sur la crue d'une même ville ;
+  - GDELT et la presse ne fusionnent plus deux faits sans rapport dans une même ville (Gaza, Delhi), mais
+    reconnaissent un même fait placé dans la commune voisine (Trappes pour « near Paris »).
+- **Localisation** :
+  - noms de pays reconnus en 28 langues de plus (« França », « Ucrânia ») ;
+  - États américains (« in Virginia » n'est plus en Afrique du Sud) ;
+  - le pays auteur d'une frappe n'est plus pris pour le lieu (« Russia hits central Kyiv » → Ukraine) ;
+  - une ville précédée de « in », « at » ou « on » l'emporte sur la ville d'origine d'une victime ou d'un vol
+    (« Hyderabad man killed in Riyadh airport attack » → Riyad) ;
+  - Paris n'est plus Parys (Afrique du Sud) ni Paris (Texas), ni Salvador (Brésil) le Salvador ;
+  - noms de journaux et mots arabes courants (« la ville », « les martyrs ») ne sont plus des lieux.
+  Les fusillades près de Paris et de l'église de Karak, vues trois fois chacune, n'ont plus qu'une fiche.
+
+### Lot 1 : premier audit
+
+- **Audit de la carte publique** (7 jours, 178 événements) : 34 faux positifs sur 95 titres de presse relus. Chacun
+  a donné une règle ; l'échantillon passe à **0 erreur**. Ne vont plus sur la carte :
+  - prévisions sans impact constaté (« alerte aux crues », « pourrait devenir un cyclone ») et travaux de prévention ;
+  - suites d'une catastrophe ou d'émeutes, contrôles sanitaires, témoignages, convocations ;
+  - annonces de cessez-le-feu, mises en garde (« warns against »), démentis, tirs d'essai de missiles ;
+  - hors sujet : « enlèvement » de marchandises, égouts qui débordent, intervention de police, avis de recherche,
+    brèves de faits divers locaux.
+
+  Ces titres restent dans le Fil, marqués « Contexte ».
+- **Catégories** : un piratage décrit avec des mots d'attaque est classé cyber ; des affrontements lors d'une
+  manifestation ou d'un blocage (sans militaires) sont classés troubles civils, et non conflit armé.
+- **Localisation** :
+  - les noms de médias ne sont plus des lieux (« The New York Times » n'est plus New York) ;
+  - un gentilé situe le pays (« Ukrainian city of… ») ;
+  - le pays cité dans le titre l'emporte sur celui du flux (fusillade près de Paris relayée par un flux américain) ;
+  - noms de pays reconnus en chinois, japonais, thaï, arabe, persan, hébreu et hindi ;
+  - plus de village homonyme pris au hasard dans un titre chinois ;
+  - Monterey Park n'est plus Monterrey (Mexique).
+- **Flux officiels** :
+  - NWS (États-Unis) : plus d'alertes gel, givre, risque d'incendie, brouillard, qualité de l'air ni de simples
+    veilles, sauf cycloniques, de submersion et de tsunami ;
+  - les ordres d'évacuation prennent la catégorie de l'aléa (feu, crue) ;
+  - Meteoalarm : plus de vigilances en mer seule ni de brouillard orange ;
+  - NHC : un cyclone = une seule fiche, mise à jour à chaque bulletin, au lieu d'une fiche par bulletin.
+- **GDELT** :
+  - « occupation de territoire » est écartée : c'est une situation, pas un fait daté ;
+  - un fait violent placé au centre d'une capitale alors qu'un autre pays est en cause est écarté (capitale citée
+    en tête de dépêche).
+
+Pour le développeur :
+- `press.py` : `audit_noise`, `audit_context`, `strip_media`, `demonym_place`, `SCRIPT_COUNTRY_ALIASES`,
+  `PLACE_SUFFIX` ; corrections de catégorie dans `classify` ; seuils des villes en écriture sans espaces.
+- `nws.worth_keeping`, `meteoalarm.marine_only`, option `group` d'`official_rss` (NHC Atlantique et Pacifique Est),
+  `gdelt_events.DROP_CODES` et `CAPITAL_RADIUS_KM`, `geo.capitals()` (GeoNames `PPLC`). `FILTER_VERSION` de GDELT
+  inchangé (pas de reconstruction de l'historique).
+- `triage` : GDELT « Occupation of territory » → bruit.
+- `tests/gold_tri.csv` : 641 titres (+95 de production) ; seuil de précision relevé à 94 % (mesuré : 95 %, rappel
+  99 %). Nouveau `tests/test_connectors.py` (25 cas) ; `test_press.py` : audit et localisation.
+- Cache du service worker : `angor-v11`.
+- Lot 2 :
+  - `press.py` : `audit_context2` et nouvelles listes (suites, menaces, analyses, prévention, bruit) ;
+  - `Gazetteer` : `country_mentions` (guillemets, acteurs), recherche par mots, `_cldr_country_names`, `US_STATES`,
+    `LOC_PREP_STRONG` ;
+  - `config/country_names.json` et `tools/build_country_names.py` (CLDR via Babel, à relancer seulement pour
+    ajouter une langue) ;
+  - `dedupe.py` : règles D (mots rares, idf) et E (`TARGETS`), `COMPATIBLE`, `_cross_source_ok`, famille
+    `landslide`, `crime` dans « violence », crues d'une même ville ;
+  - `tests/gold_tri.csv` : 1 077 titres (+436), précision 95 %, rappel 100 % ; tests ajoutés dans
+    `test_press.py` (audit 2, localisation, noms de pays) et `test_pipeline.py` (7 cas de doublons).
+
 ## v0.27 – Tendances et alerte précoce fusionnées, monde entier, sources étoffées (octobre 2026)
 
 - **Un seul onglet, trois niveaux de détail** : « Tendances · alerte précoce » (espace Anticipation) remplace les

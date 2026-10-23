@@ -149,7 +149,7 @@ Actualité | Ituri : un écogarde de l’ICCN tué dans une attaque des ADF à M
 Ituri : 18 personnes décédées d’Ebola enterrées en l’espace de 24 heures à Biakato,CD,1,health,"v0.23 (données en ligne, 5 oct. 2026)"
 Intervention policière en cours à Neuchâtel après une explosion,CH,1,attack,"v0.23 (données en ligne, 5 oct. 2026)"
 Flash Floods: el devastador fenómeno de inundaciones repentinas que azotó a Lota este miércoles,CL,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
-Al menos 6 detenidos dejaron enfrentamientos con Carabineros tras marcha estudiantil en Concepción,CL,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
+Al menos 6 detenidos dejaron enfrentamientos con Carabineros tras marcha estudiantil en Concepción,CL,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 run 2 : heurts avec la police = troubles"
 Inundaciones en Punta Arenas obligan a cerrar tramos de avenida Frei y acceso a Cruz de Froward,CL,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
 Inundaciones afectan viviendas tras fuertes lluvias en Barranquilla,CO,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
 Ataque con drones contra la fuerza pública alteró la movilidad en la vía Panamericana entre Popayán y Cali: el hecho quedó registrado en video,CO,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
@@ -174,8 +174,8 @@ Feuer unter Stromleitungen in Berlin - Anschlag?,DE,1,terrorism,"v0.23 (données
 Ehemaliger Schüler stürmt Schule Mehrere Verletzte nach Reizgas-Angriff in Berlin-Kreuzberg,DE,1,attack,"v0.23 (données en ligne, 5 oct. 2026)"
 Mieterverein ruft zum Protest gegen steigende Mieten in Hamburg auf,DE,1,unrest,"v0.23 (données en ligne, 5 oct. 2026)"
 Otro sismo 5.5 sacude a Santo Domingo y otras zonas del país,DO,1,earthquake,"v0.23 (données en ligne, 5 oct. 2026)"
-COE coloca alerta verde para el Gran Santo Domingo y San Cristóbal por riesgo de inundaciones,DO,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
-COE amplía alerta verde por riesgo de inundaciones en cuatro provincias y el Distrito Nacional,DO,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
+COE coloca alerta verde para el Gran Santo Domingo y San Cristóbal por riesgo de inundaciones,DO,0,,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 run 2 : alerte sans impact = prévision"
+COE amplía alerta verde por riesgo de inundaciones en cuatro provincias y el Distrito Nacional,DO,0,,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 run 2 : alerte sans impact = prévision"
 "SNTF : À Relizane, un conducteur de train grièvement blessé après une attaque aux pierres - Actualités",DZ,1,attack,"v0.23 (données en ligne, 5 oct. 2026)"
 Cámara captó el secuestro de una nutricionista del IESS al salir de su casa en Durán,EC,1,attack,"v0.23 (données en ligne, 5 oct. 2026)"
 Dos estudiantes mueren tras ataque armado a la salida de una unidad educativa en La Libertad,EC,1,attack,"v0.23 (données en ligne, 5 oct. 2026)"
@@ -215,29 +215,29 @@ Ethiopia army HQ rocked by explosion as Tigray fighting intensifies,ET,1,attack,
 Éthiopie : les combats se poursuivent,ET,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
 Ethiopian gov’t forces advance in Tigray as rebels retreat: What to know,ET,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
 Ethiopian govt retakes Tigray capital as rebels pull out,ET,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"Tensions dans plusieurs lycées autour de Lyon : la police intervient, des affrontements signalés",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
+"Tensions dans plusieurs lycées autour de Lyon : la police intervient, des affrontements signalés",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
 "Un homme entre la vie et la mort après avoir été poignardé dans un bus à Marseille, une dizaine de personnes recherchées",FR,1,attack,"v0.23 (données en ligne, 5 oct. 2026)"
 "Inondations à Montpellier : le Lez en crue, vigilance rouge dans l'Hérault",FR,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
 "Nord : un jeune homme tué par balles dans un café de Roubaix, le suspect en fuite",FR,1,attack,"v0.23 (données en ligne, 5 oct. 2026)"
-"Blocus des lycées, affrontements… Ce qu’il faut retenir de cette journée de mobilisation sous tension à Rennes - Ouest-France",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"Blocus des lycées en Franche-Comté. Affrontements à Belfort et devant la préfecture de Haute-Saône, des rassemblements partout dans le Doubs",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
+"Blocus des lycées, affrontements… Ce qu’il faut retenir de cette journée de mobilisation sous tension à Rennes - Ouest-France",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"Blocus des lycées en Franche-Comté. Affrontements à Belfort et devant la préfecture de Haute-Saône, des rassemblements partout dans le Doubs",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
 France : importantes inondations à Montpellier,FR,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
-"DIRECT. Lycées et universités bloqués : affrontements à Pantin, incendie dans un établissement à Nantes",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"Blocages des lycées. Affrontements avec la police, profs blessés, incendies… La situation se tend en Maine-et-Loire",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"Blocus des lycées. Une nouvelle journée de mobilisation ce jeudi, des affrontements devant plusieurs établissements à Rennes et un mouvement très suivi à Brest",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"REPORTAGE. Blocus des lycées : à Caen, poubelles incendiées et affrontements émaillent le mouvement de colère - Ouest-France",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"VIDÉO. Blocage des lycées. Tirs de mortiers, gaz lacrymogène : des affrontements entre des jeunes et la police à Laval - Ouest-France",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"REPORTAGE. Blocage des lycées : ""Ça brûle de partout"", à Toulouse, une matinée de chaos entre incendie et affrontements",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"VIDÉO. Blocage des lycées : en Mayenne, une matinée chargée entre ""batailles d'aura"", feux d'artifice et affrontements - Ouest-France",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-Vidéo. Blocus des lycées en Charente-Maritime : feux de poubelles et affrontements avec les forces de l’ordre à La Rochelle,FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"EN DIRECT Blocus de lycées : 564 établissements perturbés vendredi, un policier violemment frappé à Belfort...",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"Blocus des lycées en Lorraine. Affrontements avec les forces de l'ordre, dégradations, interpellations… Le point sur les manifestations en Lorraine",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"Blocus des lycées en Lorraine. Affrontements avec les forces de l'ordre, dégradations, interpellations… Revivez les manifestations en Lorraine",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"Blocage des lycées : 17 établissements fermés et des rassemblements interdits à Toulouse après les violences, dégradations et affrontements - france3-regions.franceinfo.fr",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-Blocage des lycées: des affrontements en cours entre manifestants et forces de l'ordre à Strasbourg,FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"Blocage d’un lycée à Flers : affrontements sous tension avec la police, ""c’est hyperviolent""",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
+"DIRECT. Lycées et universités bloqués : affrontements à Pantin, incendie dans un établissement à Nantes",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"Blocages des lycées. Affrontements avec la police, profs blessés, incendies… La situation se tend en Maine-et-Loire",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"Blocus des lycées. Une nouvelle journée de mobilisation ce jeudi, des affrontements devant plusieurs établissements à Rennes et un mouvement très suivi à Brest",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"REPORTAGE. Blocus des lycées : à Caen, poubelles incendiées et affrontements émaillent le mouvement de colère - Ouest-France",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"VIDÉO. Blocage des lycées. Tirs de mortiers, gaz lacrymogène : des affrontements entre des jeunes et la police à Laval - Ouest-France",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"REPORTAGE. Blocage des lycées : ""Ça brûle de partout"", à Toulouse, une matinée de chaos entre incendie et affrontements",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"VIDÉO. Blocage des lycées : en Mayenne, une matinée chargée entre ""batailles d'aura"", feux d'artifice et affrontements - Ouest-France",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+Vidéo. Blocus des lycées en Charente-Maritime : feux de poubelles et affrontements avec les forces de l’ordre à La Rochelle,FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"EN DIRECT Blocus de lycées : 564 établissements perturbés vendredi, un policier violemment frappé à Belfort...",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 run 2 : heurts avec la police = troubles"
+"Blocus des lycées en Lorraine. Affrontements avec les forces de l'ordre, dégradations, interpellations… Le point sur les manifestations en Lorraine",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"Blocus des lycées en Lorraine. Affrontements avec les forces de l'ordre, dégradations, interpellations… Revivez les manifestations en Lorraine",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"Blocage des lycées : 17 établissements fermés et des rassemblements interdits à Toulouse après les violences, dégradations et affrontements - france3-regions.franceinfo.fr",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+Blocage des lycées: des affrontements en cours entre manifestants et forces de l'ordre à Strasbourg,FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
+"Blocage d’un lycée à Flers : affrontements sous tension avec la police, ""c’est hyperviolent""",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 run 2 : heurts avec la police = troubles"
 Des affrontements devant le lycée Albert-Thomas à Roanne,FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
-"Blocage des lycées : après des affrontements entre élèves et forces de l’ordre, plusieurs établissements confinés à Annemasse",FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
+"Blocage des lycées : après des affrontements entre élèves et forces de l’ordre, plusieurs établissements confinés à Annemasse",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
 "Alerte orange aux inondations à Montpellier : événements annulés, gymnases ouverts en urgence et crues redoutées du Lez",FR,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
 Rhône. « Pour une véritable augmentation des salaires » : les conducteurs des bus TCL appelés à la grève,FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026)"
 Lille : affrontements et dégradations,FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
@@ -263,14 +263,14 @@ Ataque armado deja un fallecido y dos heridos en colonia Santa Isabel 2 de Villa
 "Seis ataques en un día que paralizaron la metrópoli de Guatemala: autoridades lo atribuyen a la guerra entre el Barrio 18, la Mara Salvatrucha y los Caradura",GT,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
 "Inundaciones nocturnas en el barrio San Jacinto del municipio de Cahabón, Alta Verapaz en Guatemala",GT,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
 Tragedia en Sololá: Ataque armado tras actividad religiosa en aldea Chaquijya deja dos fallecidos,GT,1,attack,"v0.23 (données en ligne, 5 oct. 2026)"
-"Caos en Cofradía, Cortés: Protestas por combustibles terminan en enfrentamientos y saqueos",HN,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
+"Caos en Cofradía, Cortés: Protestas por combustibles terminan en enfrentamientos y saqueos",HN,1,unrest,"v0.23 (données en ligne, 5 oct. 2026) ; v0.28 : heurts de manifestants avec la police = troubles"
 Fuertes lluvias provocan inundaciones y caos vial en Tegucigalpa,HN,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
 Más de 4 mil personas quedan afectadas por inundaciones tras crecida del río Goascorán en Honduras,HN,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
 Inundaciones en San Pedro Sula afectan a 120 familias y 70 vehículos,HN,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
 "Au moins 11 morts à Artibonite, en Haïti, après des affrontements entre les forces de sécurité du Golfe et des gangs.",HT,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
 Kondisi Terkini Solok usai Diterjang Banjir Bandang,ID,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
 "BANJIR RENDAM 28 RUMAH WARGA DI KOTA SUBULUSSALAM, JEMBATAN RUSAK DAN TERANCAM AMBRUK",ID,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
-"Waspada Banjir Rob Jakarta hingga 4 Oktober, Ini 12 Wilayah yang Berpotensi Terdampak",ID,1,flood,"v0.23 (données en ligne, 5 oct. 2026)"
+"Waspada Banjir Rob Jakarta hingga 4 Oktober, Ini 12 Wilayah yang Berpotensi Terdampak",ID,0,,"v0.28 : prévision (Fil, pas carte)"
 "Gempa Besar Guncang Berbagai Wilayah RI Pagi Ini, Sumbawa M 6,1",ID,1,earthquake,"v0.23 (données en ligne, 5 oct. 2026)"
 "Gempa M 6,1 Guncang Sumba Barat Daya, Getaran Terasa hingga Labuan Bajo",ID,1,earthquake,"v0.23 (données en ligne, 5 oct. 2026)"
 "Gempa Magnitudo 6,0 guncang Bima, warga berhamburan keluar rumah",ID,1,earthquake,"v0.23 (données en ligne, 5 oct. 2026)"
@@ -545,3 +545,534 @@ Takeaways from AP report on Iranian attack in Kuwait that killed 6 US soldiers a
 SCR Vaduz gelingt Coup mit Verpflichtung (Abo),LI,0,,"v0.23 (données en ligne, 5 oct. 2026)"
 Zingeris: Lithuania needs additional NATO forces and air defenses against Russian drones,LT,0,,"v0.23 (données en ligne, 5 oct. 2026)"
 الثقافة تحيي الذكرى الثالثة لكارثة فيضان درنة بفعالية في طرابلس,LY,0,,"v0.23 (données en ligne, 5 oct. 2026)"
+"BREAKING: Multi-storey building collapses in Kenya capital Nairobi, casualties feared @insiderpaper",KE,1,infrastructure,prod 2026-10
+"At least 7 people are dead in southern Jordan. Per a Jordanian media outlet, gunmen opened fire inside a church",JO,1,attack,prod 2026-10
+Russian forces attack businesses in Chernihiv: 1 killed and 25 injured,UA,1,armed_conflict,prod 2026-10
+"Ukrainian missiles struck the Proton Plant in Russia's Oryol Oblast, an electronics manufacturer",RU,1,armed_conflict,prod 2026-10
+"France: 1 killed, 4 wounded after shooting near Paris",FR,1,attack,prod 2026-10
+Melania Trump 'secured ceasefire' in Ukrainian city of Oleshky: White House,UA,0,,déclaration (prod 2026-10)
+"Cargo ship capsized and sank about 13 nautical miles off Constanța, Romania, after a drone strike. The vessel",RO,1,armed_conflict,prod 2026-10
+"Weather system over Bay of Bengal may intensify into cyclone, cross Odisha-Andhra coasts by October 28",IN,0,,prévision (prod 2026-10)
+Netanyahu Orders West Bank Closure as Attack Wounds Israelis before Election,PS,1,attack,prod 2026-10
+Worshippers killed in shooting at church in Jordan,JO,1,attack,prod 2026-10
+"Russia and Ukraine agreed to ceasefire in occupied Oleshky, White House says",UA,0,,cessez-le-feu (prod 2026-10)
+White House claims Melania Trump secured ceasefire in Oleshky,UA,0,,déclaration (prod 2026-10)
+"Videos muestran momento exacto del atentado con carro bomba en peaje San Pedro, en Casanare, que dejó tres heridos",CO,1,attack,prod 2026-10
+Netanyahu Warns Iran Against Attack Ahead of Israeli Election,IL,0,,déclaration (prod 2026-10)
+Kisangani : controverse autour d'un meeting populaire convoqué par le Gouverneur en pleine épidémie d'Ebola,CD,0,,polémique (prod 2026-10)
+Congo-Kinshasa: Ebola Responders Under Pressure As Outbreak Expands,CD,1,health,prod 2026-10
+"Continúan las inundaciones en el Litoral: cuáles son las ciudades más comprometidas en Misiones, Corrientes y Entre Ríos",AR,1,flood,prod 2026-10
+Temporal en Neuquén: inundaciones y rutas cortadas,AR,1,flood,prod 2026-10
+"Russian forces attack gas station in Sumy, injuring two employees",UA,1,armed_conflict,prod 2026-10
+Gaza: Moment Israeli airstrike hits building in Nuseirat caught on camera,PS,1,armed_conflict,prod 2026-10
+News: #Kenya Red Cross launches emergency response for families fleeing #Moyale clashes into #Marsabit,KE,1,armed_conflict,prod 2026-10
+Investigan el ataque a balazos contra un autobús del servicio público en Sinaloa,MX,1,attack,prod 2026-10
+Drone attack targets energy infrastructure facility in Lviv region,UA,1,armed_conflict,prod 2026-10
+"Dozens of Bandits Eliminated as Vigilantes, Troops Repel Attack in Zamfara",NG,1,armed_conflict,prod 2026-10
+"Haridwar News: नाबालिग के अपहरण, हत्या की धमकी के आरोप में रिपोर्ट दर्ज",IN,0,,"plainte, fait divers (prod 2026-10)"
+Houthi targets on several fronts in Yemen's Taiz came under repeated airstrikes this afternoon. @alsakaniali,YE,1,armed_conflict,prod 2026-10
+"NOW: Initial reports of a ballistic missile launch from Razavi Khorasan, Iran This is likely a test originating",IR,0,,essai (prod 2026-10)
+"One person killed in shooting near Paris, French Prime Minister says",FR,1,attack,prod 2026-10
+Kenya: Ebola - First Contact to Leave Quarantine On Sunday,KE,0,,suites sanitaires (prod 2026-10)
+Drones attack Azot chemical plant in Russia's Perm region – media,RU,1,armed_conflict,prod 2026-10
+Juanma Moreno tras el último ataque del narco: «Se repite día tras día en Andalucía; basta ya»,ES,0,,déclaration (prod 2026-10)
+🔻 در پی بارش‌های شدید و جاری شدن سیلاب در شهرستان‌های سلماس و ماکو در استان آذربایجان غربی ایران,IR,1,flood,prod 2026-10
+«جبهه آزادی» از حمله بر پایگاه نظامی بگرام خبر داد,AF,1,attack,prod 2026-10
+Sri Lankan terrorism police summon Tamil National Cultural Council president in Jaffna,LK,0,,convocation (prod 2026-10)
+At least 9 killed in Sittwe explosion as clashes near military command intensify,MM,1,armed_conflict,prod 2026-10
+"Super Typhoon Champi: Hong Kong airlines cancel at least 12 Taiwan, Japan flights",HK,1,cyclone,prod 2026-10
+"Potensi Longsor dan Banjir Bandang di Kabupaten Bandung, 25 Kecamatan Masuk Kategori Menengah-Tinggi",ID,0,,prévision (prod 2026-10)
+BREAKING: Two Suspected APC Thugs Killed After Attacking NDC Candidate’s Convoy In Ebonyi,NG,1,attack,prod 2026-10
+Two injured and houses damaged in Russian attack on Vilniansk,UA,1,armed_conflict,prod 2026-10
+2 barangay officials killed in Cotabato gun attack,PH,1,attack,prod 2026-10
+Daily_Brief: Clashes between rival groups leave about 70 dead in #South_Sudan’s Lakes state,SS,1,armed_conflict,prod 2026-10
+حكومة السودان تنفي علاقة الجيش بقصف سوق النعام في أبيي,SD,0,,démenti (prod 2026-10)
+Lycées piratés au Luxembourg: Les élèves sommés de changer leur mot de passe IAM,LU,1,cyber,prod 2026-10
+"'अपर सियांग पावर प्रोजेक्ट' को लेकर अरुणाचल प्रदेश में प्रदर्शन, पुलिस ने दागे आंसू गैस के गोले; झड़प में चार महिलाएं घायल",IN,1,unrest,prod 2026-10
+"Russian forces attack Dnipro and region nearly 20 times since evening, two injured",UA,1,armed_conflict,prod 2026-10
+เตือนภัยน้ำท่วมกรุงเทพฯ! ผ่าแผนขุดคลองใหม่ ชี้จุดเสี่ยงรับน้ำที่คนไทยต้องรู้! 23/10/69 #เตือนภัยน้ำท่วม #น้ำท่วมกรุงเทพฯ,TH,0,,prévention (prod 2026-10)
+Ebola : le Nigeria renforce les contrôles sanitaires à l’aéroport de Lagos,NG,0,,prévention (prod 2026-10)
+"Grenoble. Après les émeutes, l’incompréhension et l’inquiétude des sapeurs-pompiers : « Certains se disent :",FR,0,,suites (prod 2026-10)
+"Russian strikes hit Kharkiv, Zlatopil and Nova Vodolaha, sparking fires and causing damage",UA,1,armed_conflict,prod 2026-10
+"BBC, The New York Times, The Guardian and Al Jazeera report on Israeli “settler violence” on the daily. This month",US,0,,commentaire médias (prod 2026-10)
+Enlèvement d'un médecin à Kinshasa : l'ordre des médecins sollicite l'implication des autorités compétentes,CD,1,crime,prod 2026-10
+Belarusian Citizen Injured in Drone Attack in Russia’s Bryansk Region,RU,1,armed_conflict,prod 2026-10
+Inondations en Australie : un journaliste et un passant plongent pour sauver un automobiliste piégé dans sa voiture,AU,1,flood,prod 2026-10
+Flash floods lash southeast Queensland in record October rainfall,AU,1,flood,prod 2026-10
+Flash floods swamp southeast Australia as record October rainfall forces school closures,AU,1,flood,prod 2026-10
+Bénin : le Port de Cotonou généralise les opérations d’enlèvement sept jours sur sept,BJ,0,,enlèvement de marchandises (prod 2026-10)
+Vente Venezuela denunció el secuestro de siete personas durante movilizaciones en Caracas,VE,1,attack,prod 2026-10
+"Avant les pluies, Bizerte teste son dispositif contre les inondations",TN,0,,prévention (prod 2026-10)
+"Un saldo parcial de cuatro heridos deja atentado contra peaje en Villanueva, Casanare",CO,1,attack,prod 2026-10
+"Severe flooding in eastern Spain, while UK hit by first named storm of winter",ES,1,flood,prod 2026-10
+"Russian attacks leave nearly 105,000 customers without power in Volyn region, one person injured",UA,1,armed_conflict,prod 2026-10
+"GALERI FOTO | Hadapi Cuaca Ekstrem, BPBD Imbau Warga Medan Waspada Banjir, 53 Personel TRC Disiagakan",ID,0,,prévention (prod 2026-10)
+"Kementerian PU Tangani Dampak Banjir pada Sejumlah SPAM di Kota Padang, 6.000 SR Kembali Terlayani",ID,0,,suites (prod 2026-10)
+ชาวลาดกระบัง ตกค้างยื่นเยียวยาน้ำท่วม วอน กทม. เร่งจ่าย,TH,0,,indemnisation (prod 2026-10)
+"Russian forces attack energy facility, civilian infrastructure in Odesa region overnight",UA,1,armed_conflict,prod 2026-10
+Taiwan shuts down as Typhoon Champi approaches,TW,1,cyclone,prod 2026-10
+"Russian forces attack Rivne region overnight, leaving parts of region without power",UA,1,armed_conflict,prod 2026-10
+约旦河西岸发生袭击事件致2死5伤,PS,1,attack,prod 2026-10
+"Magnitude 5.6 earthquake rattles Northern California: Some injuries reported, thousands lose power",US,1,earthquake,prod 2026-10
+کراچی: پولیس اورڈاکوؤں کے درمیان فائرنگ کے تبادلے میں ایک ملزم ہلاک، 3 زخمی,PK,0,,fait divers policier (prod 2026-10)
+"TÉMOIGNAGE. «La justice la présente comme une terroriste» : sa compagne, ex-professeure en Anjou, est détenue",AL,0,,témoignage (prod 2026-10)
+Russian forces attack critical infrastructure facility in Zhytomyr region,UA,1,armed_conflict,prod 2026-10
+"Rains expected in Nairobi, across Kenya as Met warns of flash floods",KE,0,,prévision (prod 2026-10)
+Cinco personas son declaradas culpables por secuestro extorsivo que terminó con la muerte de joven en Temuco,CL,0,,verdict (prod 2026-10)
+El suplicio de las familias afectadas por las inundaciones en Esmeraldas y El Oro,EC,1,flood,prod 2026-10
+Raw sewage floods this Durban main road,ZA,0,,pollution locale (prod 2026-10)
+Ejército del Perú controla inundaciones en Tumbes tras lluvias intensas,PE,1,flood,prod 2026-10
+Investigan tiroteo en el que estuvieron involucrados policías de Monterey Park,US,0,,"enquête, fait divers (prod 2026-10)"
+"Emergencia en Moniquirá, Boyacá, por deslizamiento de tierra en la vereda de Pajales tras fuertes lluvias",CO,1,landslide,prod 2026-10
+Las carencias del saneamiento de Bilbo; lo que las inundaciones dejan al descubierto,ES,0,,analyse (prod 2026-10)
+Classes suspended in Pagudpud due to Typhoon Rosal,PH,1,cyclone,prod 2026-10
+"Wujudkan Lingkungan Bersih dan Antisipasi Banjir, Polres Lampung Barat Gelar Akselerasi Green Policing di Pekon",ID,0,,prévention (prod 2026-10)
+水利部对4省份启动洪水防御Ⅳ级应急响应,CN,1,flood,prod 2026-10
+"Manhunt launched for Gauteng pastor over alleged rape, kidnapping and murder",ZA,0,,personne recherchée (prod 2026-10)
+Landslide leaves thousands stranded on Baltistan Road,PK,1,landslide,prod 2026-10
+Poderosa tormenta provoca emergencia en Quito: Autos son arrastrados en medio de las inundaciones| VIDEOS,EC,1,flood,prod 2026-10
+Deja ataque en Chimalhuacán un muerto y tres heridos,MX,1,attack,prod 2026-10
+"Alerts issued in Saudi Arabia's Riyadh and Najran, Saudi-led coalition says Houthi missiles intercepted",SA,1,armed_conflict,prod 2026-10
+"One Killed, Eight Injured in Attack on Saudi Arabia’s King Fahd Airport",SA,1,attack,prod 2026-10
+"For Timure’s flood survivors, Dashain brings memories of the lives they lost",NP,0,,rétrospective (prod 2026-10)
+"Envían a la cárcel a dos procesados por el atentado con explosivos contra el Batallón Pichincha en Cali, en abril",CO,0,,suites judiciaires (prod 2026-10)
+Bareilly News: पंचायत सहायक पर किया जानलेवा हमला,IN,0,,fait divers local (prod 2026-10)
+Ataque armado en la cárcel de El Inca deja al menos un fallecido en Quito,EC,1,attack,prod 2026-10
+ITB Libatkan Masyarakat Cirebon Petakan Risiko Banjir dan Kesiapan Infrastruktur Desa,ID,0,,prévention (prod 2026-10)
+Gran Concepción: comunas reportan inundaciones y calles anegadas por intensas lluvias,CL,1,flood,prod 2026-10
+"Les États-Unis pourraient frapper l'Iran dès ce week-end, avance un diplomate américain",US,0,,déclaration (prod 2026-10-23)
+ملك الأردن يطمئن على مصابي هجوم الكنيسة ويُعرب عن خالص تعازيه لذوي الشهداء,JO,0,,déclaration (prod 2026-10-23)
+Dictan presidio perpetuo para autor de brutal secuestro extorsivo que culminó con la muerte de la víctima en Temuco,CL,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Mississippi police officer who shot and killed 1-year-old Kohen Wiley resigns after being cleared by state,US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Ebola en RDC : le premier participant à l'essai clinique ""Tumaini"" est vacciné contre le virus Bundibugyo à Bunia",CD,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+/VIDEO/ Cu căruța peste drumul de beton proaspăt turnat: O primărie din Hîncești a sesizat poliția,MD,0,,hors sûreté (prod 2026-10-23)
+Three injured and infrastructure damaged in Russians attack on Odesa Oblast – photos,UA,1,attack,prod 2026-10-23
+الصدر يوجه نداءً من النجف بشأن المسيحيين بعد هجوم الأردن,JO,0,,déclaration (prod 2026-10-23)
+Kenya: Nairobi Braces for Heavy Rains and Flash Floods,KE,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Ukrainian missiles struck the Proton Plant in Russia’s Oryol Oblast, an electronics manufacturer producing components used in Iskander-M ballistic missiles, Pantsir-S1 air…",RU,1,armed_conflict,prod 2026-10-23
+"धान पर ट्रैक्टर निकालने से रोका तो मां-बेटे को पीटा: तीन लोगों पर कुल्हाड़ी से हमला करने का आरोप, युवक गंभीर घायल - Bilhaur News",IN,0,,hors sûreté (prod 2026-10-23)
+البيت الأبيض: ترامب يحارب اليوم النظام الإيراني الذي وجّه الهجوم على المارينز في بيروت قبل 43 عامًا,LB,0,,déclaration (prod 2026-10-23)
+3 killed in another attack in Cotabato City,PH,1,attack,prod 2026-10-23
+Delhi NCR News: बाढ़ से निपटने के लिए यमुना किनारे बनेगी 4.7 किलोमीटर आरसीसी दीवार,IN,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Romania Blames Russia for Drone Strike That Sank Black Sea Ship,RO,0,,déclaration (prod 2026-10-23)
+Gebze'de sel sularına kapılan araç Pendik'te bulundu. İki kişi hayatını kaybetmişti,TR,1,flood,prod 2026-10-23
+Hochwasser: Ein Tal in Niederösterreich rüstet sich für die nächste Katastrophe,AT,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Poliomyélite : Une campagne de vaccination de quatre jours pour les enfants de Tombouctou, Koro, Youwarou et Ansongo",ML,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Recomendaciones del Acueducto para evitar inundaciones en Bogotá,CO,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Kenya: 'No Ebola Billionaires' Says Duale,KE,0,,déclaration (prod 2026-10-23)
+Ηράκλειο: Συλλήψεις ανηλίκων και γονέων για την επίθεση σε μαθήτρια Γυμνασίου – Τραυματίστηκε στο κεφάλι,GR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Teroristul Hamas care a răpit-o și ucis-o pe Shani Louk a fost lichidat în Gaza, a anunțat armata israeliană",PS,1,terrorism,prod 2026-10-23
+Typhoon Rosal to exit PAR early Saturday — Pagasa,PH,1,cyclone,prod 2026-10-23
+"2 dead, 1 injured in shooting near gas station in Northwest Baltimore",US,1,attack,prod 2026-10-23
+Enfrentamiento entre policías e indígenas yukpas en el norte de Barranquilla: tres funcionarios de la Alcaldía fueron agredidos,CO,1,unrest,prod 2026-10-23 ; catégorie corrigée (armed_conflict → unrest)
+Asignarán fondos a programa de prevención de inundaciones en Área Metropolitana de San Salvador,SV,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Ante un sismo simulado, Manizales evaluó cómo responder a viviendas colapsadas, heridos y vías bloqueadas 🔗 Encuentre el link de la noticia en el primer comentario 🗞️",CO,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Videos de lluvias e inundaciones en la región peruana de Piura son de febrero de 2026, no de octubre",PE,0,,hors sûreté (prod 2026-10-23)
+رییس کمیسیون امور داخلی مجلس جمهوری اسلامی هشدار داد کشورهایی که خاک یا حریم هوایی خود را برای حمله احتمالی آمریکا به ایران در اختیار واشینگتن قرار دهند، با پاسخ سخت جمهوری…,IR,0,,déclaration (prod 2026-10-23)
+"Person in hospital after shooting involving at least one Sacramento deputy, officials say",US,0,,hors sûreté (prod 2026-10-23)
+Basti News: बाढ़ में डूबी फसलों का किसानों को नहीं मिला मुआवजा,IN,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+ADB เตือนกรุงเทพฯ เสี่ยง 'น้ำท่วมใหญ่รอบ 100 ปี' บ่อยขึ้น,TH,0,,faux positif connu (prod 2026-10-23)
+"Vito Quiles en Zaragoza: cargas policiales, disturbios y enfrentamientos en el Campus San Francisco",ES,1,unrest,prod 2026-10-23 ; catégorie corrigée (armed_conflict → unrest)
+Insivumeh advierte riesgo de inundaciones y deslizamientos por lluvias en Guatemala,GT,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"21 years on, double life term for Jammu terror attack that killed baby, 2 others",IN,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Minerii de la Vulcan au obținut primele promisiuni după protest. Când ar putea fi rezolvate problemele salariale,RO,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Terjun ke Titik Banjir di Ciwandan, Wali Kota Cilegon Imbau Masyarakat Waspada",ID,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Iran will treat American and Israeli targets as legitimate if Trump backs any attack Netanyahu launches against the country, a senior Iranian official told Lebanon's Al…",IR,0,,hors sûreté (prod 2026-10-23)
+"Chapra News: बाढ़ से मकेर पीएचसी को करोड़ों की क्षति, स्वास्थ्य व्यवस्था चरमराई",IN,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+İstanbul’a sel desteği 430 milyon liraya ulaştı,TR,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"2027: Posters, banners flood Kaduna as residents lament economic hardship, voice expectations",NG,0,,hors sûreté (prod 2026-10-23)
+"‘No change’ in Russia’s attitude on war shown by deadly attacks, Zelensky says",RU,0,,déclaration (prod 2026-10-23)
+"Strong and shallow M7.0 earthquake hits Xizang-Qinghai border region, China - The Watchers",CN,1,earthquake,prod 2026-10-23
+Assainissement – Lutte contre les inondations et prépa Joj 2026 : Cheikh Tidiane Dièye satisfait de l’avancée des chantiers à Dakar – Lequotidien – Journal d'information Générale,SN,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Durban attack: Crowd of 50 beats foreigner to death in South Africa,ZA,1,attack,prod 2026-10-23
+"Les États-Unis et Israël prévoient de nouvelles frappes contre l’Iran après les élections Les États-Unis et Israël préparent une nouvelle phase de combats visant l'Iran, a…",US,0,,déclaration (prod 2026-10-23)
+Reports show US and Israel are planning new strikes on Iran,IL,0,,déclaration (prod 2026-10-23)
+"Nigeria: Anambra Deploys Nurses to Airport, Activates Ebola Hotlines",NG,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+MOP invertirá $593 millones para reducir inundaciones en el sector Panificadores de Chillán,CL,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"An Israeli patrol of six military vehicles and 25 personnel raided the village of al-Hurriyeh in Quneitra’s countryside, entering homes to search them during the incursion.",SY,1,armed_conflict,prod 2026-10-23
+Alanya kırsalında sel riskine karşı dört bölgede çalışma,TR,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Police dock 23-year-old man for kidnapping, killing of cleric, one other in Abuja",NG,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Danmark kjøper langtrekkende JSM-missiler fra Kongsberg,DK,0,,annonce militaire (prod 2026-10-23)
+Investigado por homicídio e tráfico de drogas morre após confronto em Itabaiana,BR,0,,hors sûreté (prod 2026-10-23)
+Esenyurt'ta kuyumcuya silahlı saldırı düzenleyen şüpheli adliyeye sevk edildi,TR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Dois homens morreram após confronto com policiais militares, no bairro de Mata Escura, em Salvador. Segundo a polícia, as equipes realizavam rondas na região quando foram recebidas a tiros por um grupo armado. O caso ocorreu na noite desta quarta-fei",BR,0,,hors sûreté (prod 2026-10-23)
+Homem suspeito de matar adolescente em Araguari morre em confronto com a PM,BR,0,,hors sûreté (prod 2026-10-23)
+بنوں: پولیس پارٹی پر فائرنگ، موٹر سائیکل میں نصب ریموٹ کنٹرول بم دھماکے سے دو شہری زخمی,PK,1,attack,prod 2026-10-23
+West Bank Olive Harvest Under Attack as Israeli Settlers Target Palestinian Farmers,PS,1,attack,prod 2026-10-23
+Adıyaman Belediyesi'nden sel ve su baskını sorunlarına kalıcı çözüm,TR,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Injured Bend, Oregon teacher tried to shut classroom door during school shooting before playing dead",US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Walmart employee killed in shooting in store's parking lot in Montgomery County,US,1,attack,prod 2026-10-23
+Elazığ’da Sel ve Taşkın Toplantısı,TR,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Nach Rekordhochwasser 2024: Wien rüstet Wienfluss auch für 5.000-jährige Hochwasser,AT,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Nighttime junta airstrike kills 2 and injures 6 in Pauktaw Township,MM,1,armed_conflict,prod 2026-10-23
+Ariel Gutiérrez lleva a la pantalla el secuestro de su madre y el bullying que sufrió por su peso,MX,0,,hors sûreté (prod 2026-10-23)
+PM é baleado em confronto com homens em moto em São Gonçalo; um morre,BR,0,,hors sûreté (prod 2026-10-23)
+Walikale : l’administrateur du territoire appelle la population à faire bloc contre le FRN et à rejeter les sollicitations rebelles,CD,0,,déclaration (prod 2026-10-23)
+Australia: Bystanders dive into floodwaters to save trapped driver,AU,1,flood,prod 2026-10-23
+"Nigeria: Troops Rescue Four Kidnapped Victims in Zamfara, Kebbi",NG,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Nigeria: Ebola - Medical Laboratory Scientists Urge Virtual Campaigns Ahead of 2027 Elections,NG,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Cat rescued alive from rubble five days after Russian attack on Sloviansk – video,UA,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+El juez propone juzgar a otros cuatro exjefes de ETA por el atentado mortal de Santa Pola de 2002,ES,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Floods and Landslides Disrupt Roads in Gandaki and Karnali Provinces,NP,1,flood,prod 2026-10-23
+Zelensky on Overnight Strike: ‘Russian ‘Humanists’ Launch 21 Ballistic Missiles at Kyiv in 3 Waves’,UA,1,armed_conflict,prod 2026-10-23
+"Ukrainian drone strikes kill man in Russia’s Belgorod region, injure another, authorities say",RU,1,armed_conflict,prod 2026-10-23
+Des « camps de terroristes » d’ultragauche ? Pourquoi le plateau de Millevaches est visé après l’incendie de la mairie de Limoges,FR,0,,analyse (prod 2026-10-23)
+Hamas droht mit neuem Angriff nach dem Muster des 7. Oktober,DE,0,,hors sûreté (prod 2026-10-23)
+Shafaq News..Decade-old unexploded missiles destroyed in Al-Anbar,IQ,0,,annonce militaire (prod 2026-10-23)
+मूर्ति विसर्जन के बाद गुटका खरीदने को लेकर विवाद: सारण में युवक पर चाकू से हमला; हालत गंभीर - Chhapra News,IN,0,,hors sûreté (prod 2026-10-23)
+"आजमगढ़ में पुलिस मुठभेड़: जानलेवा हमले का आरोपी गिरफ्तार, कार्रवाई में गोली लगने से बदमाश घायल",IN,1,armed_conflict,prod 2026-10-23
+„Leipzig wird nicht der letzte Anschlag gewesen sein“ Putin hat offenbar eine neue Sabotage-Welle gegen die Nato befohlen,DE,0,,déclaration (prod 2026-10-23)
+Serbia: Student protesters flood Belgrade ahead of snap elections,RS,1,unrest,prod 2026-10-23 ; catégorie corrigée (flood → unrest)
+เขตวัฒนาฝากเตือน! ลงทะเบียนรับเงินน้ำท่วม ต้องให้ข้อมูลตามจริง แจ้งเท็จมีโทษหนักตามกฎหมาย . สำนักงานเขตวัฒนาโพสต์แจ้งเตือนประชาชนที่ลงทะเบียนขอรับเงินช่วยเหลือผู้ประสบอุทกภัยตามมติคณะรัฐมนตรี ขอให้ตรวจสอบข้อมูล เอกสาร และหลักฐานต่าง ๆ ให้ถูกต้องตรงตามความเป็น,TH,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"CCOO denuncia el trabajo de los repartidores durante las inundaciones de Bilbao: ""A pesar del aviso naranja, Glovo y Fliits no pararon la actividad""",ES,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Ukraine’s Pavlohrad refuses to yield to Putin despite unrelenting bombardment,UA,0,,analyse (prod 2026-10-23)
+"Prison de Salon-de-Provence : Intempéries et inondations, la solidarité des personnels",FR,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Nigeria: Ebola - Kano, Niger, Kaduna, Plateau, Kogi, Nasarawa Adopt Preventive Measures",NG,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Sevilla se prepara para las lluvias un año después de las inundaciones que causaron el caos en la ciudad,ES,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Adelaide’s indie wave floods music award noms,AU,0,,hors sûreté (prod 2026-10-23)
+Bupati Batang Resmikan Jembatan Kalibelo yang Sempat Roboh Diterjang Banjir Bandang,ID,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Marea Rey eleva riesgo de inundaciones en el sur de Florida,US,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Former Khyber Pakhtunkhwa chief Gandapur clashes with PTI secretary-general — Dawn,PK,0,,hors sûreté (prod 2026-10-23)
+ENVIRONMENT: 'ผู้ว่าฯ เชียงใหม่' ปิดศูนย์บัญชาการน้ำท่วมหลังสถานการณ์ปกติ สั่งเตรียมรับมือภัยแล้ง-หมอกควัน กำชับงดเผาตอซังแก้ฝุ่น PM2.5 วันนี้ (21 ต.ค. 69) เวลา 09.00 น. ณ ห้องประชุมศูนย์ปฏิบัติการน้ำอัจฉริยะ สำนักงานชลประทานที่ 1 นายทศพล เผื่อนอุดม ผู้ว่าราชการจังหวัดเชี,TH,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"UP, MMDA team up to boost Metro Manila flood resilience",PH,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Tras registrar cuatro ataques armados en un día que dejaron tres muertos y dos lesionados, la FGJES investiga posibles disputas por narcomenudeo en Cajeme",MX,1,attack,prod 2026-10-23
+"Buoyed by community support, flood-hit ramen shop in Chiba reopens",JP,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Tembló Catamarca: el fuerte sismo tuvo epicentro a 40 kilómetros de la Capital,AR,1,earthquake,prod 2026-10-23
+"Italy sends troops, toughens security laws after Milan clashes",IT,0,,déclaration (prod 2026-10-23)
+"आवारा कुत्तों के हमले पर इलाहाबाद HC सख्त, प्रयागराज और लखनऊ में 'डॉग बाइट हॉटस्पॉट' चिह्नित करने के निर्देश",IN,0,,hors sûreté (prod 2026-10-23)
+"Explosions, fires reported amid overnight Ukrainian drone attack on Lipetsk, Russia",RU,1,armed_conflict,prod 2026-10-23
+"Relatives, co-workers remember Antioch woman killed in Mundelein mass shooting",US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Las fuertes lluvias registradas durante la tarde de este miércoles 21 de octubre provocaron inundaciones en la Clínica Avidanti, en Manizales. La situación se suma a las afectaciones ocasionadas por las precipitaciones en diferentes sectores de la ciudad. 🎥",CO,1,flood,prod 2026-10-23
+Una tormenta llega al sur de California: cuándo lloverá y qué zonas enfrentan riesgo de inundaciones y corrientes de resaca,US,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Osmaniye'de galericiler sitesinde silahlı saldırı: 1 ölü | Son dakika haberleri,TR,1,attack,prod 2026-10-23
+Rescatan Policía Estatal y Municipal a joven víctima de secuestro virtual en Fresnillo,MX,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Un reportero de la cadena australiana ABC y un transeúnte rescataron a un conductor cuyo vehículo quedó atrapado y comenzó a hundirse en aguas de inundación en Morayfield, Queensland, Australia, el jueves 22 de octubre. Will Murray informaba sobre l",AU,1,flood,prod 2026-10-23
+Tres detenidos y varios heridos en los disturbios tras el mitin de Vox en Avilés: varias cargas policiales y una guerra de insultos,ES,1,unrest,prod 2026-10-23 ; catégorie corrigée (armed_conflict → unrest)
+"Teacher who survived Oregon school shooting recounts being shot, pretending to be dead to survive",US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Greece: Thousands flood Athens streets in education protest,GR,1,unrest,prod 2026-10-23 ; catégorie corrigée (flood → unrest)
+Dan de alta a profesor herido en ataque a Secundaria General 13 de Torreón,MX,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Nuevos enfrentamientos en A Coruña: lanzamiento de bengalas contra la Policía y cargas tras los altercados de María Pita,ES,1,unrest,prod 2026-10-23 ; catégorie corrigée (armed_conflict → unrest)
+Empresario hospitalizado por dengue en Barranquilla entrega su testimonio y expresa preocupación por el aumento de contagios,CO,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"À Montpellier, la dispute entre deux frères de 60 et 63 ans dégénère : l’aîné poignarde mortellement le cadet et traîne son corps dans le hall",FR,0,,hors sûreté (prod 2026-10-23)
+"Caracas tras el terremoto: más búsqueda de casas, menos apartamentos, más Baruta y menos Chacao",VE,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Enugu begins surveillance at airport, council areas to curtail Ebola spread",NG,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Piura: ministros anuncian despliegue de motobombas tras inundaciones en Ignacio Merino,PE,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Actualité | Kinshasa : les déchets plastiques obstruent la rivière Kalamu et font craindre des inondations,CD,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+حیدرآباد، پرانی دشمنی پر فائرنگ سے ایک شخص جاں بحق,PK,0,,hors sûreté (prod 2026-10-23)
+کراچی، نیوکراچی خمیسہ گوٹھ میں پراسرار فائرنگ سے دو کم سن بھائی زخمی,PK,0,,hors sûreté (prod 2026-10-23)
+Inondations à Dakar: la DGAS déploie un dispositif de recasement temporaire et d’accompagnement des ménages sinistrés,SN,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Russian forces attack warehouses in Kropyvnytskyi District,UA,1,attack,prod 2026-10-23
+"Iranian ballistic missile movement recorded in Pouneh tunnel near Khorramabad, western Iran. @hey_itsmyturn Contributed by @Conflict_Radar",IR,0,,annonce militaire (prod 2026-10-23)
+Houthi attack on Riyadh airport disrupts 134 flights from Dhaka,SA,1,attack,prod 2026-10-23
+Lluvias en Perú: advierten alta probabilidad de inundaciones en Lima y el norte entre enero y febrero,PE,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Pemkot Cilegon Perkuat Koordinasi Tangani Banjir di Sejumlah Wilayah,ID,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+بحبح وبدر موسى يقودان هجوم السويس بتروجت أمام سيراميكا,EG,0,,hors sûreté (prod 2026-10-23)
+Kidnappers kill seven-year-old boy after demanding ₦2.5m ransom,NG,1,attack,prod 2026-10-23
+Ataque armado deja 3 muertos y 2 heridos en Ario de Rosales,MX,1,attack,prod 2026-10-23
+"Lyon. « Je suis favorable à l’état d’urgence » : après le 17 octobre, Pierre Oliver redoute un nouveau samedi explosif en Presqu’île",FR,0,,analyse (prod 2026-10-23)
+"29 Russian Troops Captured, 108 Eliminated, 1,100+ Targets Hit: Ukraine’s HUR Summarizes Sumy Operation",UA,0,,déclaration (prod 2026-10-23)
+سایت حقوق بشری هرانا چهارشنبه ۲۹ مهر گزارش داد ایلیا بن‌رشید، معترض ۲۲ ساله بازداشت‌شده در اعتراضات دی‌ماه ۱۴۰۴، از سوی شعبه پنجم دادگاه انقلاب اصفهان به اتهام «محاربه» به…,IR,1,health,prod 2026-10-23
+Exhortan al P.E. a declarar en emergencia cinco distritos del Ñeembucú por inundaciones,PY,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Inondations dans la Likouala : plus de 42000 personnes déclarées sinistrées,CG,1,flood,prod 2026-10-23
+ECUADOR: Inundaciones en Santa Rosa amplían vigilancia por Fusarium R4T,EC,0,,hors sûreté (prod 2026-10-23)
+Ataque a balazos en Siquirres deja un fallecido y dos heridos,CR,1,attack,prod 2026-10-23
+Piura registra más de 13.000 casos de dengue en Perú: Fuertes lluvias elevan la preocupación por nuevos contagios,PE,1,health,prod 2026-10-23
+"Tặng 48 xuồng cứu hộ lũ lụt cho người dân ở Tây Nha Trang, Diên Điền",VN,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Sahel : des affrontements pour le contrôle de territoires stratégiques,BF,0,,faux positif connu (prod 2026-10-23)
+"Asesinó a su odontólogo por dejarle un diente flojo, huyó tras el ataque y murió en un enfrentamiento con la Policía en México",MX,0,,hors sûreté (prod 2026-10-23)
+‘Epidemia’ de mordeduras: Salud reporta 4.158 víctimas de perros en la Región de Antofagasta,CL,0,,hors sûreté (prod 2026-10-23)
+"Hunedoara: Protest la mina Vulcan. Peste 90 de angajați refuză să iasă din subteran, nemulțumiți de diferențele salariale. Trei au solicitat ajutor medical | AUDIO",HU,1,unrest,prod 2026-10-23 ; catégorie corrigée (volcano → unrest)
+Nigéria : premier cas d’Ebola Bundibugyo confirmé,NG,1,health,prod 2026-10-23
+پشاور: اعلیٰ سرکاری افسر کے بچوں کے اغوا کا معمہ حل نہ ہوسکا، گاڑی کوہاٹ سے مل گئی,PK,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+2 Syrian soldiers injured in landmine explosion in Raqqa countryside,SY,1,attack,prod 2026-10-23
+Australia Has Yet to Pay Compensation to Afghan War Crimes Victims,AU,0,,annonce militaire (prod 2026-10-23)
+Polícia monta cerco em área de mata na Grande Porto Alegre após PM ser baleado no rosto durante confronto e suspeitos fugirem,BR,0,,hors sûreté (prod 2026-10-23)
+Nigeria: Ebola - Kano Govt Activates Emergency Operatiions Centre,NG,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Abomey-Calavi: coup d’arrêt pour un gang de cambrioleurs à Ouèdo, deux mineurs appréhendés et un important butin récupéré",BJ,1,crime,prod 2026-10-23
+“รมช.เจเศรษฐ์” ลุยระยอง เตรียมแผนรับมือน้ำท่วมระยะยาว สั่งปกป้องรพ.แกลง ย้ำดูแลผู้ป่วย-ยา-น้ำประปาให้พร้อม - พรรคภูมิใจไทย : พูดแล้วทำ,TH,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Inundaciones en Santiago y caídas de árboles en Valverde,DO,1,flood,prod 2026-10-23
+Ex-militar suspeito de matar subtenente dentro de quartel do Exército morre em confronto com policiais na Bahia,BR,0,,hors sûreté (prod 2026-10-23)
+Espagne : 11 militaires blessés dans des affrontements avec des migrants marocains à Ceuta - Monde,ES,1,unrest,prod 2026-10-23 ; catégorie corrigée (armed_conflict → unrest)
+One killed and one injured in Russian attacks on Chernihiv,UA,1,attack,prod 2026-10-23
+6 more DPWH officials relieved amid Davao City flood control probe,PH,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+DEM Parti’li Çiçek’ten İstanbul’daki sel için Meclis araştırması önergesi,TR,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+กทม.เดินหน้าฟื้นฟูหลังน้ำท่วม สั่งเตรียมทีมช่างกว่า 500 คน ลงพื้นที่สำรวจความเสียหาย เพื่อ ขณะที่สถานการณ์น้ำโดยรวมเริ่มดีขึ้น เหลือพื้นที่ประสบภัย 2 เขต คือ ลาดกระบัง และหนองจอก . วันที่ 21 ต.ค. 2569 นายชัชชาติ สิทธิพันธุ์ ผู้ว่าฯ กทม. พร้อม น.ส.ทวิดา กมลเวชช รองผู้ว่าฯ กทม. แถล,TH,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Kidnapping: Kaduna Police Seek Residents’ Support To Prevent Attacks,NG,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"90 de mineri refuză să iasă de 24 de ore din subteran: reclamă salarii mai mici, după transferul de la Lupeni la Mina Vulcan. Un angajat a leșinat",RO,1,unrest,prod 2026-10-23 ; catégorie corrigée (volcano → unrest)
+Gaza Families Face Floods and Collapsing Ground as Winter Aid Falls Short,PS,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Kremlin warned Germany after Leipzig airport sabotage that it won’t be the last attack, WSJ reports",DE,0,,hors sûreté (prod 2026-10-23)
+TÉMOIGNAGE. « Je suis miraculé ! » : le combat de Ronan Augé pour se reconstruire après avoir frôlé la mort en Malaisie,MY,0,,analyse (prod 2026-10-23)
+LIST: Canceled ferry trips Wednesday afternoon due to Super Typhoon Rosal,PH,1,cyclone,prod 2026-10-23
+2 alleged NPA rebels on Surigao del Sur’s most wanted list fall,PH,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+BMKG Gelar Sekolah Lapang Gempa dan Tsunami di Cilacap,ID,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Bunia : en attendant sa fermeture fin octobre, le CTE d’Elikiya a pris en charge plus de 550 patients confirmés d’Ebola en quatre mois",CD,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Explosion In Under-Construction Bengaluru Building, Cops Suspect IED Used",IN,1,attack,prod 2026-10-23
+Protest la Mina Vulcan din Valea Jiului: zeci de mineri nemulțumiți de salarii au refuzat să iasă din...,RO,1,unrest,prod 2026-10-23 ; catégorie corrigée (volcano → unrest)
+Ankara presses Belgium on terror groups and extraditions,BE,0,,déclaration (prod 2026-10-23)
+Μαχαίρωσαν 29χρονο στη Θεσσαλονίκη για να του πάρουν το πατίνι,GR,1,attack,prod 2026-10-23
+"Tim Balai SABO DAM Kementerian PU Survei Batang Tapan, Upaya Atasi Banjir",ID,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Bijnor: दशहरा मेला देखकर लौट रहे 3 किशोरों पर गुलदार का हमला, दो घायल; लक्की की सूझबूझ से बची जान",IN,0,,hors sûreté (prod 2026-10-23)
+"Inundaciones en Valle de Sula dejan 1,741 afectados",HN,1,flood,prod 2026-10-23
+Three injured in Russian strikes on Poltava region,UA,1,armed_conflict,prod 2026-10-23
+Un coup de matraque et 7 points de suture : un manifestant dit avoir été frappé par la police à Caen le 17 octobre et dépose plainte,FR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+東京大洪水で太陽光パネルが水没すると二次災害が発生する,JP,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"""วรศิษฎ์"" นั่งหัวโต๊ะสอบงบฟื้นฟูน้ำท่วมหาดใหญ่ สั่งเคลียร์ปมไร้ตัวเลขขนขยะใน 45 วัน",TH,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Russian drone attack kills two in Kyiv as residents survey damage,UA,1,armed_conflict,prod 2026-10-23
+"Pakistan’s Balochistan defends counterterrorism record, says 1,100 militants killed in past year",PK,0,,annonce militaire (prod 2026-10-23)
+Sel vuran gökdelen ve stadyumlarda hayati eşik! Sakarya’yı da kurtaracak: Çözüm viyadük şehir mi?,TR,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Ebola, festive season and insecurity: The cocktail of pressure at Mombasa Port",KE,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Balochistan says Rs14bn spent to counter terrorism,PK,0,,annonce militaire (prod 2026-10-23)
+السعودية تعترض صاروخا باتجاه الرياض و73 قتيلا في هجوم حوثي على معسكر باليمن,SA,1,attack,prod 2026-10-23
+"Devastating Floods Kill Several in Badakhshan, Baghlan",AF,1,flood,prod 2026-10-23
+Deputado eleito pelo PL diz ter sofrido atentado em São Paulo: ‘Deram um tiro no meu carro’,BR,1,attack,prod 2026-10-23
+"Tunis: après les attentats, les autorités veulent rassurer les touristes",TN,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Lluvias en Perú EN VIVO: inundaciones en Piura y Tumbes, zonas afectadas y últimas alertas del Senamhi",PE,1,flood,prod 2026-10-23
+爆発の恐れも…「使用しないで」ガソリン混入した灯油販売の恐れ_消防が使用しないよう呼びかけ_北海道釧路市のガソリンスタンド,JP,0,,hors sûreté (prod 2026-10-23)
+Barrio Sarie Bay en San Andrés completa 32 años con inundaciones y fallos judiciales incumplidos,CO,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Cotabato school shooting survivor battles impaired vision,PH,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Hunedoara: Protest spontan al minerilor de la exploatarea de cărbune Vulcan,RO,1,unrest,prod 2026-10-23 ; catégorie corrigée (volcano → unrest)
+Checking in on Nashville school security after the shooting in Oregon,US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Hospital Ortopédico Infantil e instituciones aliadas intensifican la entrega de prótesis y atención integral a niños víctimas del doble terremoto,VE,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Man, 23, dies after shooting in Winnipeg's West Broadway area",CA,1,attack,prod 2026-10-23
+熊本地震の家屋被害8万棟,JP,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Italy's Meloni approves tougher anti-riot laws after Milan violence,IT,0,,déclaration (prod 2026-10-23)
+TC Bruxelles - Enlèvement à Uccle: report au 3 novembre en raison d'un souci à la prison de Tournai,BE,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+𝐄𝐚𝐬𝐭𝐥𝐞𝐢𝐠𝐡 𝐕𝐨𝐢𝐜𝐞 𝐚𝐭 𝐍𝐢𝐧𝐞 - Busia health promoters demand Ebola protective gear,KE,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Three killed as flooding affects Somalia’s Mudug region,SO,1,flood,prod 2026-10-23
+Oregon elementary school shooting victims remembered,US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+神奈川県で最大震度1の地震 神奈川県・小田原市,JP,0,,hors sûreté (prod 2026-10-23)
+"Ataque armado deja un muerto y dos heridos en la colonia Luis Echeverría, en Mazatlán",MX,1,attack,prod 2026-10-23
+"""Je me souviens avoir réussi à m'extirper, mais après c'est un trou noir"" : le street medic frappé par des policiers samedi à Paris raconte",FR,0,,analyse (prod 2026-10-23)
+5 found dead in Mundelein murder-suicide shooting on Wellington Avenue ID'd by Lake County Coroner,US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Un prestataire du RN au cœur des affrontements avec des antifascistes à Rouen,FR,1,unrest,prod 2026-10-23 ; catégorie corrigée (armed_conflict → unrest)
+"Russian attack on critical infrastructure facility in Vinnytsia Oblast sparks fire – photo, video",UA,1,attack,prod 2026-10-23
+Observatorio de Amenazas advierte inundaciones y deslizamientos por vaguada y alta presión en El Salvador,SV,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+INDECOM probes fatal shooting of two alleged gunmen in Manchester,JM,0,,hors sûreté (prod 2026-10-23)
+VIDEO | Ñuñoa instala barreras para contener el agua y no repetir inundaciones de la última tormenta,CL,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Tiroteo escolar de San Cristóbal: sobreseyeron al alumno de 15 años que mató a un compañero en un colegio de Santa Fe,AR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+کراچی، گلشن معمار میں نامعلوم افراد کی فائرنگ سے ایک نوجوان شدید زخمی,PK,0,,hors sûreté (prod 2026-10-23)
+Drone Strike Targets Suspected AQAP Operative East of Mukalla,YE,1,armed_conflict,prod 2026-10-23
+"Russians attack Kherson, injuring woman and three children",UA,1,attack,prod 2026-10-23
+Ukrainian troops capture 29 Russians in Sumy Oblast – video,UA,1,armed_conflict,prod 2026-10-23
+Explosion at a depot for damaged equipment inside a Popular Mobilization Forces (PMF) base in eastern Baghdad,IQ,1,attack,prod 2026-10-23
+Kyiv metro resumes operation after brief halt following Russian strike on energy facility,UA,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Police: One dead, two wounded during another triple shooting in Baltimore - WBAL-TV",US,1,attack,prod 2026-10-23
+"Brazil's Newcastle poultry outbreak unlikely to have major long-term impact, analysts say",BR,0,,hors sûreté (prod 2026-10-23)
+بوندي وعيد يقودان هجوم بترول أسيوط أمام الزمالك,EG,0,,hors sûreté (prod 2026-10-23)
+Ebola en RDC : MSF prévoit de fermer le CTE d’Elikiya à Bunia d’ici fin octobre,CD,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Baku prepares for winter amid recurring floods and questions over infrastructure safety,AZ,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+地震情報 2026年10月20日 20時48分頃発生 最大震度：1 震源地：徳島県南部,JP,0,,hors sûreté (prod 2026-10-23)
+V okrese Liptovský Mikuláš naďalej hrozia povodne - fotogaléria 1,SK,1,flood,prod 2026-10-23
+Three civilians injured as Russian forces attack shopping center in Rivne region,UA,1,attack,prod 2026-10-23
+کراچی؛ 20 بچوں میں منکی پاکس کی تصدیق کے بعد ملیر 15 میں واقع ابن حسن اسپتال سیل,PK,1,health,prod 2026-10-23 ; catégorie corrigée (flood → health)
+Myanmar military airstrikes kill 16 in single day,MM,1,armed_conflict,prod 2026-10-23
+Todavía hay 7 carreteras cortadas por inundaciones provocadas por la dana Adam en Andalucía y la Comunidad Valenciana,ES,1,flood,prod 2026-10-23
+Damascus fears offensive by Druze groups and claims Israeli support — Jerusalem Post,SY,0,,déclaration (prod 2026-10-23)
+Poland scrambles military aircraft for second time in response to Russian attack on Ukraine,PL,0,,annonce militaire (prod 2026-10-23)
+"Las últimas inundaciones en la Comunitat Valenciana reabren la herida de la DANA de 2024: ""No hemos podido perdonar ni olvidar""",ES,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Antalya'da oto galeriye silahlı saldırı iddianamesi kabul edildi: Talimat yurt dışından verilmiş,TR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+İstanbul'daki sel felaketinde can kaybı 7'ye yükseldi,TR,1,flood,prod 2026-10-23
+"Russia is reportedly building an over-the-horizon radar in Kaliningrad capable of detecting aircraft and missiles up to 3,000 km away, potentially covering Germany, France and…",RU,0,,annonce militaire (prod 2026-10-23)
+Coalition ‘destroyed’ Houthi missile fired toward Riyadh,SA,1,armed_conflict,prod 2026-10-23
+"Violences du 17 octobre. Couvre-feu, interdiction de manifester, état d'urgence : quelles différences ?",FR,0,,analyse (prod 2026-10-23)
+Mashujaa Day windfall: Eldoret businesses cash in as visitors flood city,KE,0,,hors sûreté (prod 2026-10-23)
+İzmir'de sel tehlikesine karşı altyapı ve yapılaşma sorunları sürüyor: 'Selleri afete dönüştüren yanlış kentleşme politikaları',TR,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Social. L'après 17 octobre : élus de gauche et préfet s'insurgent après le défilé de l'ultra-droite, nouvelle mobilisation des étudiants ce matin",FR,0,,déclaration (prod 2026-10-23)
+Fresno city leaders announce safety changes to Tower District after 4th shooting,US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Θεσσαλονίκη: Ταυτοποιήθηκαν τρεις 12χρονοι για την επίθεση σε συνομήλικό τους,GR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+« Les dégâts constatés sont trop importants pour être répertoriés » : la police réagit après les émeutes à Bruxelles,BE,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+मेरठ के सर्किट हाउस में मधुमक्खियों के हमले में 20 घायल; ऐसा हाेते ही सबसे पहले क्‍या करने को कहते हैं डॉक्‍टर? - meerut circuit house honeybee attack 20 injured panic doctors advice on bee stings,IN,0,,hors sûreté (prod 2026-10-23)
+Elazığ'da Sel Nedeniyle Yayla Yolu Yarıldı,TR,1,flood,prod 2026-10-23
+Russian drone attack damages three energy facilities in Ternopil region,UA,1,armed_conflict,prod 2026-10-23
+ガス爆発店舗の運営破産手続き開始 負債額3600万円 福島・郡山,JP,0,,hors sûreté (prod 2026-10-23)
+Atentado incendiario en Parque Eólico Cancura de Angol daña una torre y 600 metros de cable,CL,1,attack,prod 2026-10-23
+"1 killed, 6 wounded in weekend shooting in Riverside County",US,1,attack,prod 2026-10-23
+Fuertes lluvias por el frente frío 2 deja graves inundaciones y deslaves en Veracruz; gobierno anuncia suspensión de clases en 29 municipios https://mile.io/47pYYpl,MX,1,flood,prod 2026-10-23
+El Mides creó un protocolo de emergencia en Salto y apuesta a la organización barrial ante las inundaciones,UY,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Deslizamiento de tierra en mina de oro artesanal en Nariño deja al menos nueve muertos,VE,1,landslide,prod 2026-10-23
+"Muslim community in Eupen, Belgium, declares anti-Ukrainian jihad",BE,0,,déclaration (prod 2026-10-23)
+Un muerto y dos heridos deja ataque con arma cortopunzante en Chiquinquirá,CO,1,attack,prod 2026-10-23
+"Gun used in Oregon elementary school shooting was birthday gift from shooter's mom, sources say",US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Search continues for gunman in deadly Midtown Manhattan subway station shooting,US,1,attack,prod 2026-10-23
+Barranquilla refuerza controles contra el mosquito del dengue: más de 15.230 viviendas intervenidas y alerta por automedicación,CO,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Strikes on Civilian Infrastructure in Ukraine and Russia: Oct. 14-15, 2026 CIT Volunteer Summary Over the past 24 hours, reports emerged of at least 9 civilians killed and 61…",UA,0,,analyse (prod 2026-10-23)
+"Columbus shooting today: Deadly Ohio shooting was not mosque attack, but was nearby, police say",US,1,attack,prod 2026-10-23
+"Un parque y un laboratorio de innovación para las inundaciones en La Molana, Atrato, Chocó",CO,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Lyon. Chaos du 17 octobre : des habitants terrorisés et déboussolés, « on s’est senti très seul et abandonné »",FR,0,,hors sûreté (prod 2026-10-23)
+Syria fears Israeli-backed Druze attack as Sweida tensions rise,SY,0,,hors sûreté (prod 2026-10-23)
+« Un déferlement de petites frappes de 14-15 ans » : deux commerçantes de Rouen ne veulent pas revivre ça,FR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Guerre en Ukraine : Moscou revendique la destruction de 250 équipages de drones ukrainiens stationnés à Dobropillia,UA,1,armed_conflict,prod 2026-10-23
+Menina resgatada de sequestro em São Paulo agradece policial: ‘única pessoa que me entendeu’,BR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Israeli Police Detain 10 Over Violent Settler Attacks in West Bank,PS,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"غارتان إسرائيليتان على بلدة طلوسة في قضاء مرجعيون وغارة على أطراف بلدة برعشيت في قضاء بنت جبيل https://x.com/LBCI_NEWS/status/2112231260613394871 October 19, 2026 at 07:15PM",LB,1,armed_conflict,prod 2026-10-23
+Commander of 3rd Army Corps explains why Lyman offensive was named Vivaldi,UA,0,,analyse (prod 2026-10-23)
+Canarias necesita 1.647 millones para atender demandas de agua y 38 millones para inundaciones,ES,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+🔴 Grenoble : Un probable impact de balle découvert sur un fourgon de police après les émeutes du 17 octobre x.actu17.fr/ujBF,FR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Santander despliega fuerte ofensiva militar y ofrece recompensa de 50 millones de pesos tras la quema de un bus en la provincia García Rovira,CO,0,,déclaration (prod 2026-10-23)
+قتلى وجرحى في هجوم بطائرة مسيرة يستهدف سوقاً رئيسياً في أبيي,SD,1,attack,prod 2026-10-23
+"Youth services in parts of England in state of emergency, children’s commissioner says",GB,0,,déclaration (prod 2026-10-23)
+滋賀の工場爆発で死亡したのはブラジル国籍の51歳男性 死因は多発外傷（京都新聞）,JP,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Sowore Clashes With Lawyer Over ‘Tout’ Remark At Abuja Court,NG,0,,hors sûreté (prod 2026-10-23)
+和歌山県で最大震度1の地震 和歌山県・海南市、有田市、湯浅町（TBS NEWS DIG Powered by JNN）,JP,0,,hors sûreté (prod 2026-10-23)
+Приплывшего в Магадан моряка осудили по делу об оправдании терроризма в интернете,RU,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Adam deja inundaciones en gran parte de Andalucía,ES,1,flood,prod 2026-10-23
+الاحتلال يعتقل ثلاثة مواطنين عقب هجوم للمستعمرين على قاطفي الزيتون جنوب الخليل - وكالة الانباء والمعلومات الفلسطينية,PS,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Ebola au Nord-Kivu : les autorités renforcent les restrictions et suspendent plusieurs activités dans la province,CD,1,health,prod 2026-10-23
+"Agamed refuerza la protección de Torrevieja frente a inundaciones con 37,6 kilómetros de red de pluviales y más de 64.700 metros cúbicos de almacenamiento",ES,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Saudi Arabia postpones 'Davos in the Desert' until 2027 amid Houthi attacks,SA,0,,annonce militaire (prod 2026-10-23)
+"GALERI FOTO | Rico Waas dan Komisi IV DPRD Medan Bahas Banjir, Parkir, PBG hingga Kebutuhan Mobil Damkar",ID,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"One dead, two injured in Fayetteville Gentleman's club shooting",US,1,attack,prod 2026-10-23
+"‘Season of fear’: Escalating Israeli attacks on West Bank olive farmers, deadly strikes on Gaza",PS,1,armed_conflict,prod 2026-10-23
+食品卸会社の破産開始決定 福島・郡山のガス爆発で原因店舗を運営 [福島県],JP,0,,hors sûreté (prod 2026-10-23)
+Capturadas siete personas en Santa Marta por secuestro de empresario,CO,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Auto durchbricht Zaun - Anschlag auf Flughafen Leipzig geklärt,DE,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+RDC: deux cas d'Ebola enregistrés dans la province du Nord-Ubangi,CD,1,health,prod 2026-10-23
+"Three Houthi missiles hit a military training compound in the city of Shabwa, Hadhramaut province, Yemen. Dozens of soldiers are reported killed.",YE,1,armed_conflict,prod 2026-10-23
+"Kidnapping, torture case registered against railway police officials amid dispute with KMC over road project",PK,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Schools evacuated as police urgently look into 'explosive device' email,GB,1,attack,prod 2026-10-23
+"Pedro Duarte ""sabe onde nos encontrar"": manifestantes pela habitação no Porto falam em ""terror psicológico""",PT,0,,déclaration (prod 2026-10-23)
+6年前爆発事故の「しゃぶしゃぶ温野菜郡山新さくら通り店」運営の髙島屋商店が破産手続き開始決定 福島・いわき市,JP,0,,hors sûreté (prod 2026-10-23)
+Palenque Culiacán 2026: artistas señalados por narcocorridos se presentarán en medio de la guerra del Cártel de Sinaloa,MX,0,,hors sûreté (prod 2026-10-23)
+"Gubernur DKI Resmikan Dua Embung di Jakarta Timur, Perkuat Upaya Pengendali Banjir",ID,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Touadéra et les rebelles : en Centrafrique, l’interminable bras de fer entre le président et les groupes armés",CF,0,,analyse (prod 2026-10-23)
+地震情報 2026年10月19日 15時54分頃発生 最大震度：1 震源地：山口県北部,JP,0,,hors sûreté (prod 2026-10-23)
+Maputo River basin to face floods following water discharge from South African dam,MZ,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Russia’s Lavrov heads to Tehran as Gulf states press Moscow over Iran attacks,RU,0,,déclaration (prod 2026-10-23)
+Terrorists increasingly targeting civilians in three Cabo Delgado districts – ACLED,MZ,0,,analyse (prod 2026-10-23)
+Nigeria: 5 Security Operatives Killed As Boko Haram Attacks Adamawa Communities,NG,1,terrorism,prod 2026-10-23
+Piden declarar en emergencia a San Pedro por graves inundaciones,PY,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+ทนายอั๋นเมิ๊ดคำสิเว่า! อนุทินแก้น้ำท่วมหรือจ้องแต่จะของบ ครั้งก่อน 1.6 แสนล้านไม่พอ รอบนี้ขออีก 5 หมื่นล้าน! วันที่ 19 ตุลาคม 2569 ทนายอั๋น บุรีรัมย์ โพสต์เฟซบุ๊กวิพากษ์วิจารณ์นายอนุทิน ชาญวีรกูล นายกรัฐมนตรี อย่างดุเดือด หลังลงพื้นที่ติดตามสถานการณ์น้ำท่วมจังหวัดสุพรรณบุรี พร้อมก,TH,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Kenya : un patient suspecté d'avoir contracté Ebola testé négatif,KE,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+地震情報 2026年10月19日 12時38分頃発生 最大震度：1 震源地：熊本県天草・芦北地方,JP,0,,hors sûreté (prod 2026-10-23)
+"Mangrove loss raises flood, erosion risks along Karachi coast",PK,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"5 killed, 16 injured in Houthi attack on Yemen’s Aden presidential palace",YE,1,attack,prod 2026-10-23
+دہشت گردی کے خلاف جنگ کیلیے جدید بکتر بند گاڑیاں پشاور پولیس کو موصول,PK,0,,annonce militaire (prod 2026-10-23)
+เช้านี้ ถนนเทพรัตน (บางนา-ตราด) ช่องคู่ขนาน กม.29 มุ่งหน้าชลบุรี น้ำท่วม รถติดหนักเลี่ยงได้เลี่ยง ข้อมูล/ภาพ@Lee ลูกเสือปราการ #น้ำท่วม #ถนนเทพรัตน #ข่าวจราจรสวพFM91,TH,1,flood,prod 2026-10-23
+Gobierno de Canadá descarta atentado terrorista tras incendio en zona de entrenamiento militar de Alberta,CA,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+El tiempo en México esta semana: lluvias torrenciales y riesgo de inundaciones prevalecerá esta semana,MX,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Concepción: Río Paraguay sube 9 centímetros, pero no se reportan inundaciones",PY,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Facundo Gulli, el 10 de San Lorenzo, le hizo un homenaje a Messi en el último segundo: gran golpe del Ciclón ante Estudiantes",AR,0,,hors sûreté (prod 2026-10-23)
+#LoMásRelevante | Capturamos a un sujeto involucrado en el asesinato de un ciudadano en una discoteca de La Ceiba. El sospechoso también resultó herido durante el enfrentamiento y fue trasladado a un hospital de San Pedro Sula debido a la gravedad,HN,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+地震情報 2026年10月19日 07時14分頃発生 最大震度：1 震源地：熊本県天草・芦北地方,JP,0,,hors sûreté (prod 2026-10-23)
+"Adolescente venezuelana de 14 anos é encontrada morta em mata no Paraná; padrasto, apontado como suspeito, morre em confronto com a PM",BR,0,,hors sûreté (prod 2026-10-23)
+Inside Chicago's battle against the synthetic drugs flooding the US,US,0,,hors sûreté (prod 2026-10-23)
+「非現実的な光景に恐怖」イオン爆発事故 救助隊員は声の元へ進んだ [熊本県] [2026年熊本地震],JP,0,,faux positif connu (prod 2026-10-23)
+"Bend, Oregon, school shooting: Suspect ID'd, previously attended elementary school, police say - ABC News",US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Procesan a funcionario de Taxco por secuestro de Alcalde,MX,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"CFB Wainwright: Latest on deadly explosion, fire at Alberta military base",CA,1,attack,prod 2026-10-23
+"War update: 173 clashes on front line, fiercest fighting in Pokrovsk sector",UA,0,,analyse (prod 2026-10-23)
+"Em ato de Flávio na Paulista, bolsonaristas pedem que Trump bombardeie Brasil com arma nuclear",BR,0,,déclaration (prod 2026-10-23)
+"खुद जूडो खिलाड़ी, फिर भी दिखाया गजब का संयम; दिल्ली प्रदर्शन में हमले के बाद CRPF महिला अफसर की DG ने की जमकर तारीफ - crpf woman officer praised for patience amid delhi protest attack",IN,0,,hors sûreté (prod 2026-10-23)
+和歌山県で最大震度1の地震 和歌山県・和歌山市（FNNプライムオンライン（フジテレビ系））,JP,0,,hors sûreté (prod 2026-10-23)
+"Two killed, four wounded in Garowe market shooting",SO,1,attack,prod 2026-10-23
+Floods: Lagos threatens to shut sites dumping waste on roads,NG,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+One dead near Barcelona as torrential rain sparks floods in Spain,ES,1,flood,prod 2026-10-23
+"🔴 ‏צה""ל: תרגיל יחל מחר בבוקר באזור חיפה ויימשך עד שלישי, יישמעו פיצוצים וירי למבזק המלא ב-ynet >",IL,0,,annonce militaire (prod 2026-10-23)
+Alsace. Les manifestants du 17 octobre ne veulent pas que les affrontements « effacent » leur mobilisation,FR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Tirs de mortiers, commerces endommagés : une nuit d’affrontements à Blois entre des jeunes et les forces de l’ordre",FR,1,unrest,prod 2026-10-23 ; catégorie corrigée (armed_conflict → unrest)
+"1 dead, 2 injured in shooting near Dupont Circle",US,1,attack,prod 2026-10-23
+Residents recount drone strikes in Ethiopia’s northern Tigray region,ET,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Violences du 17 octobre. À Lorient, 400 seniors confinés dans le Palais des congrès en plein cœur des affrontements…",FR,1,unrest,prod 2026-10-23 ; catégorie corrigée (armed_conflict → unrest)
+França registra novos confrontos em Paris após dia de protestos,FR,1,unrest,prod 2026-10-23
+"İstanbul’da 7,5 büyüklüğünde deprem mi olacak? Uzman isimden açıklama",TR,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"""On devrait laisser leur ville cramer"" : au lendemain de la manifestation du 17 octobre à Toulouse, de nouveaux affrontements et une ville sous tension",FR,0,,faux positif connu (prod 2026-10-23)
+کراچی؛ موبائل فون چھیننے پر مزاحمت، ڈاکوؤں کی فائرنگ سے نوجوان جاں بحق,PK,0,,hors sûreté (prod 2026-10-23)
+قصف وتفتيش منازل.. الاحتلال الإسرائيلي يتوغل بـ15 آلية في ريف القنيطرة | تلفزيون سوريا,SY,1,armed_conflict,prod 2026-10-23
+"Anti-Narcotics Administration, working with the Road Security Administration, seized 260 kilograms of hashish in Aleppo province as part of ongoing efforts to combat drug…",SY,0,,hors sûreté (prod 2026-10-23)
+熊本県で最大震度1の地震 熊本県・八代市,JP,0,,hors sûreté (prod 2026-10-23)
+"Suite à l’émeute, résidence Gayant à Douai : quatre interpellations et un arrêté anti rassemblement pris",FR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Ontario ‘ready to help’ after deadly explosion at Alberta military base: Ford,CA,0,,analyse (prod 2026-10-23)
+Los Mossos investigan un presunto secuestro en Santa Coloma de Gramenet,ES,1,attack,prod 2026-10-23
+福島県、茨城県で最大震度1の地震 福島県・田村市、棚倉町、浅川町、いわき市、川内村、大熊町、浪江町,JP,0,,hors sûreté (prod 2026-10-23)
+پشاور میں گیس کنکشن کاٹنے کے تنازع پر ہمسائیوں کی فائرنگ، ایک بھائی قتل دوسرا زخمی,PK,0,,hors sûreté (prod 2026-10-23)
+"Gwalior temple tragedy: Shrine panel suspects 'terror attack', demands SIT probe; death toll rises to 16",IN,1,terrorism,prod 2026-10-23
+Manifestation à Bruxelles : 150 personnes interpellées après les affrontements,BE,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Sakarya'da sel nedeniyle evlerinde mahsur kalan yaşlı çiftin kurtarılması kamerada,TR,1,flood,prod 2026-10-23
+Olomouc má nový systém pro přípravu na povodně,CZ,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Iran has a new defense minister. Mehrdad Akhlaghi was confirmed Sunday with 237 votes, replacing Aziz Nasirzadeh, killed in February's opening strike on Tehran.",IR,0,,annonce militaire (prod 2026-10-23)
+وزير الدفاع الإيراني الجديد يتوعّد الولايات المتحدة بـ«أضرار جسيمة» حال التعرض لهجوم,US,0,,déclaration (prod 2026-10-23)
+"Voitures incendiées, gaz lacrymogène, arrestations… une journée de manifestation sous tension à Bruxelles",BE,1,unrest,prod 2026-10-23
+"El temporal se ensaña con Málaga y deja inundaciones, carreteras cortadas y desprendimientos",ES,1,flood,prod 2026-10-23
+Súper Niño en el Gran Mendoza: las zonas más expuestas a inundaciones y las medidas que toman los municipios,AR,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+06.02 น. ถนนลาดกระบัง หน้าโลตัส ลาดกระบัง เมื่อเช้ามืดฝนตกลงมาหนัก ล่าสุดมีน้ำท่วมขัง ทุกช่องทาง รถเล็กโปรดพิจรณา #น้ำท่วมขัง #ลาดกระบัง #ข่าวจราจรสวพ91 ขอบคุณข้อมูล : Toon Toon,TH,1,flood,prod 2026-10-23
+"« Du jamais-vu » : à Brest, après les affrontements, on ramasse les pavés",FR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Inondations à Dakar : l’ONAS booste sa capacité de pompage à 9 000 m³/h à la Zone de Captage - APS,SN,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Povestea meteoritului căzut la Gresia, Teleorman, în urmă cu peste 200 de ani, vândut, pe bucăți, pe internet: Muzeul de Istorie Naturală din Viena deține mai multe fragmente",RO,0,,hors sûreté (prod 2026-10-23)
+Four killed as bandits attack Plateau community,NG,1,attack,prod 2026-10-23
+"A wave of cost-of-living, education and housing protests swept across Europe, with France at the center and violent clashes in several cities. 🇫🇷 France: About 550,000 marched…",FR,0,,analyse (prod 2026-10-23)
+"Alcantarillas, inundaciones y reventa: la ruta oscura del aceite quemado en Ciudad de México",MX,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Clashes across Italy: Two officers hurt, at least 40 arrested as cost-of-living protest turns violent in Milan",IT,1,unrest,prod 2026-10-23
+"🌧️ La DANA 'Adam' deja fuertes lluvias que provocan inundaciones en la provincia de Almería 👉 Ha afectado especialmente al municipio de El Ejido y a otras localidades del Poniente almeriense como Roquetas de Mar, Vícar, Dalías y Huércal de Almería. 🎥",ES,1,flood,prod 2026-10-23
+الكويت تعرب عن تعاطفها مع تركيا إثر الفيضانات التي اجتاحت إسطنبول,KW,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Rescue teams resume search for bodies under rubble after Russian strike on Sloviansk,UA,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+وزیر خارجه‌ی بلجیم: شهرک‌نشینان اسرائیلی به دیپلمات‌های اروپایی حمله کرده‌اند,AF,0,,déclaration (prod 2026-10-23)
+"Russian strikes kill two, injure five in Sumy region in one day",UA,1,armed_conflict,prod 2026-10-23
+🇨🇩 Frontline workers in DRC receive Ervebo vaccine amid growing Ebola outbreak Health care and other frontline workers received the Ervebo vaccine on Friday in Beni in the…,CD,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Misión a Europa: Durazno avanza en soluciones contra las inundaciones,UY,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"After another downpour, Lembah Subang resident asks minister to step in over recurring floods",MY,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Επεισόδιο με μαχαίρωμα μεταξύ ανηλίκων στην Πάτρα,GR,1,attack,prod 2026-10-23
+"Archives du Quai d’Orsay. Ep1. Un bateau allemand coulé, ses deux plaisanciers captifs à Tindouf, et le chantage terroriste du Polisario",DZ,0,,analyse (prod 2026-10-23)
+JSP predicts landslide victory in Srikakulam mayoral poll,IN,0,,hors sûreté (prod 2026-10-23)
+"A shattered community awaits answers, motive in Bend school shooting",US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+อุตสาหกรรมเสียหายน้ำท่วม 1.8 หมื่นล้าน ‘ชลบุรี’ อ่วมสุด-ช่วยพักหนี้โรงงาน1ปี,TH,0,,faux positif connu (prod 2026-10-23)
+Activan Plan Marina en Tuxpan para Apoyar a Habitantes de Álamo tras Inundaciones,MX,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Sismo de magnitud 5,1 se registra en el sur de México",MX,1,earthquake,prod 2026-10-23
+Anthrax infection kills female elephant in Coimbatore forest; carcass burnt,IN,0,,hors sûreté (prod 2026-10-23)
+"Graves inundaciones en Paraguay: murió una mujer, hay más de 1200 evacuados y temen por nuevas lluvias",PY,1,flood,prod 2026-10-23
+熊本県で最大震度2の地震 熊本県・芦北町,JP,0,,hors sûreté (prod 2026-10-23)
+Inundaciones en Managua: aguacero arrastra vehículo y afecta varios sectores (VIDEO),NI,1,flood,prod 2026-10-23
+Oregon school shooting victims include 5-year-old whose family is ‘broken and lost’,US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Pillages, affrontements, interpellations… Comment la manifestation du 17 octobre à Rennes a basculé dans le chaos…",FR,0,,analyse (prod 2026-10-23)
+Inondations à Dakar : Cheikh Tidiane Dièye annonce le renforcement du bassin de la zone de captage,SN,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Riyadh residents warned of ‘hostile aerial threat’ as Saudi Arabia intercepts Houthi missiles,SA,1,armed_conflict,prod 2026-10-23
+法国外长谴责以色列定居者在约旦河西岸袭击法国官员,PS,0,,déclaration (prod 2026-10-23)
+"Sudanese army drone strike kills four civilians in West Kordofan, monitor says",SD,1,armed_conflict,prod 2026-10-23
+'Kırmızı Çarşamba’ ve şehirden sofraya uzanan sel tehlikesi,TR,0,,faux positif connu (prod 2026-10-23)
+México y Guatemala conmemoran el papel de la Embajada mexicana como refugio tras el golpe de Estado de 1954,MX,0,,déclaration (prod 2026-10-23)
+После атаки ВСУ на Петербург и Ленобласть завели дело о теракте,RU,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+Incendiu la CET Iași: Peste 22.000 de apartamente din oraș au rămas fără apă caldă și căldură,RO,1,infrastructure,prod 2026-10-23 ; catégorie corrigée (health → infrastructure)
+Se gesta una tormenta del noreste que causará vientos fuertes e inundaciones en los Outer Banks y el Atlántico Medio,CO,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Comment la manifestation a dégénéré en émeutes urbaines dans le centre-ville de Chambéry,FR,0,,analyse (prod 2026-10-23)
+RDC: l'archevêque François Xavier Maroy écrit au gouvernement et au FRN pour ne pas utiliser l'éducation comme arme de guerre,CD,0,,déclaration (prod 2026-10-23)
+کراچی، سہراب گوٹھ نور خان گوٹھ میں فائرنگ سے ایک شخص جاں بحق,PK,0,,hors sûreté (prod 2026-10-23)
+Nivel 1 de la Fase de Emergencia por riesgo de inundaciones ante el aviso rojo en El Ejido,ES,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Manifestation du 17 octobre : à Quimper, une boutique pillée et l’entrée d’une banque incendiée lors des affrontements - Ouest-France",FR,1,unrest,prod 2026-10-23
+Russian forces strike energy facility in Ternopil region,UA,1,armed_conflict,prod 2026-10-23 ; catégorie corrigée (unrest → armed_conflict)
+"Chamba News: बाढ़ से जंग लड़ेगा ‘फ्लड रक्षक’, खतरा भांपकर बचाएगा जान",IN,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Autoridades alertan por fuertes lluvias y riesgo de inundaciones en Montería,CO,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"İstanbul Valisi Davut Gül, Ayazağa’da selden etkilenen bölgelerde yürütülen çalışmaların son durumuna ilişkin açıklamalarda bulundu — (Dere yatağında) Bu akşam ve yarın…",TR,0,,faux positif connu (prod 2026-10-23)
+"Saudi strikes on Yemen kill at least 12, Houthi media report",YE,1,armed_conflict,prod 2026-10-23
+At least 183 killed in clashes in Ethiopia’s Amhara: UN,ET,1,armed_conflict,prod 2026-10-23
+"Journée des « colères » : affrontements et dégradations dans les rues de Bruxelles, des renforts arrivent à Marseille",BE,1,unrest,prod 2026-10-23 ; catégorie corrigée (armed_conflict → unrest)
+Burnt-out wreck: Ukraine destroys Smerch rocket artillery system that terrorised Kherson and Mykolaiv oblasts – video,UA,1,armed_conflict,prod 2026-10-23 ; catégorie corrigée (terrorism → armed_conflict)
+محافظ عدن: المدينة آمنة ومستقرة، واستهداف المنشآت الحيوية والأعيان المدنية لن ينال من صمودها.,SA,0,,déclaration (prod 2026-10-23)
+"#ÚLTIMAHORA | Por el secuestro y el asesinato del hijo del expresidente Ricardo Maduro capturamos a sujeto en Tegucigalpa El sospechoso pertenece a la banda de secuestradores ""Los Bustillos"". El hecho ocurrió el 23 de abril de 1997 en San Pedro Sula",HN,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Lluvias, deslizamientos y oleaje: estas son las alertas del Ideam para el fin de semana en el Caribe colombiano y las zonas que requieren atención",CO,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Families plagued by drug-related intimidation plan Leinster House protest,IE,0,,déclaration (prod 2026-10-23)
+長野県で最大震度2の地震 長野県・大町市,JP,0,,hors sûreté (prod 2026-10-23)
+"Turkana steps up Ebola preparedness with Sh2.3m supplies, frontline workers’ training",KE,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"""J'ai jamais vu cette quantité de lacrymos"": de violents affrontements surviennent à Bordeaux",FR,1,unrest,prod 2026-10-23 ; catégorie corrigée (armed_conflict → unrest)
+Hochwasser in Schleswig-Holstein erwartet: Droht auch eine Sturmflut?,DE,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Emergencias envía un Es-Alert por riesgo de inundaciones en el litoral norte, el interior sur de Valencia y litoral norte de Alicante",ES,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+پشاور؛ یکہ توت میں نامعلوم افراد کی رکشے پر فائرنگ، دو خواتین جاں بحق,PK,0,,hors sûreté (prod 2026-10-23)
+La Junta activa el plan de preemergencia por riesgo de inundaciones en Andalucía,ES,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"अरब सागर में तेल टैंकर पर 4-5 ड्रोन हमले, इंजन रूम में मौजूद थे कानपुर के चीफ इंजीनियर; घर पहुंचते ही छलकीं परिवार की आंखें - kanpur chief engineer nitin shukla returns home safely after drone and missile attacks on oil tan",IN,1,armed_conflict,prod 2026-10-23
+Θεσσαλονίκη: Επίθεση με κατσαβίδι σε βάρος διανομέα φαγητού,GR,1,attack,prod 2026-10-23
+Last victim of South Cotabato school shooting laid to rest,PH,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+"Война. Что происходит в 1697-й день Президент Украины Владимир Зеленский заявил, что российские войска за прошедшие сутки нанесли мощный удар по украинской энергетике. Цель…",RU,0,,analyse (prod 2026-10-23)
+"Two loco pilots injured in separate stone-pelting attacks near Tuni, Samalkot railway station",IN,1,attack,prod 2026-10-23
+Interactive Map: Battles Reshape Control in Taiz and Bab al-Mandeb as Houthi Attacks Hit Aden,YE,0,,analyse (prod 2026-10-23)
+Flour sacks turned flood barriers: Gaza faces another winter without safe shelter,PS,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"UP Cebu: Hagip-ot nga sapa, basura hinungdan sa pagbaha",PH,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Sakarya'da sağanak nedeniyle meydana gelen selde mahsur kalan vatandaşlar, AFAD ve İl Jandarma Komutanlığı ekiplerince kurtarıldı https://v.aa.com.tr/4091838",TR,1,flood,prod 2026-10-23
+Houthis strike Yemen’s Aden: What that means,YE,0,,analyse (prod 2026-10-23)
+"Après la sécheresse, gare aux inondations au Luxembourg !",LU,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+Sudan’s army claims dozens of RSF fighters killed in Nyala attack,SD,1,attack,prod 2026-10-23
+Nord-Kivu : Beni lance la vaccination contre Ebola avec le vaccin Ervebo,CD,0,,"prévention, bilan ou suites (prod 2026-10-23)"
+"Walikale : choléra, paludisme et rougeole menacent les déplacés de Ziralo et d’Ufamandu 1er cantonnés dans le groupement Waloa Loanda",CD,1,health,prod 2026-10-23
+Hundreds of thousands of people without electricity in Zhytomyr Oblast after Russian attack,UA,1,attack,prod 2026-10-23
+Birzeit-Uni: Warum Zürich die Kooperation trotz Terrorismus-Vorwürfen fortführt,CH,0,,analyse (prod 2026-10-23)
+China Urges Kabul to Crack Down on Terrorist Groups in Afghanistan,AF,0,,déclaration (prod 2026-10-23)
+Terrorist attack on Erbil government building raises concern in Iraqi Kurdistan / Fazel Hawramy,IQ,1,terrorism,prod 2026-10-23
+"Terrorism has no link with Baloch values, says Bugti",PK,0,,déclaration (prod 2026-10-23)
+"Five ‘terrorist associates’ held, hideout busted in Kashmir: police",IN,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"

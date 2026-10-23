@@ -11,7 +11,7 @@ import zipfile
 from urllib.parse import urlparse
 from datetime import datetime, timedelta, timezone
 
-from .. import http
+from .. import geo, http
 from ..model import make_event, to_iso
 
 KIND = "events"
@@ -39,6 +39,9 @@ CAMEO = {
     "203": ("armed_conflict", 4, "Ethnic cleansing"), "204": ("armed_conflict", 4, "Weapons of mass destruction"),
 }
 PRECISION = {"1": "country", "2": "region", "3": "city", "4": "city", "5": "region"}
+# v0.28 : codes écartés – « occupation de territoire » décrit une situation, pas un fait daté
+DROP_CODES = {"192"}
+CAPITAL_RADIUS_KM = 30
 
 
 def _stamp(dt):
@@ -118,6 +121,8 @@ def fetch(cfg, ctx):
                 code = row[C["root"]] + "0"
                 if code not in CAMEO:
                     continue
+            if code in DROP_CODES:
+                continue
             category, base_sev, label = CAMEO[code]
             try:
                 event_day = datetime.strptime(row[C["sqldate"]], "%Y%m%d").replace(tzinfo=timezone.utc)
@@ -159,6 +164,13 @@ def fetch(cfg, ctx):
         city = row[C["geo_name"]].split(",")[0].strip().upper()
         if violent and (city in a["actor_names"] or
                         (item and a["actor_cc"] and item["iso3"] not in a["actor_cc"])):
+            dropped["lieu"] += 1
+            continue
+        # 1 bis. Capitale citée en tête de dépêche (« RIYADH – la coalition frappe au Yémen ») : un autre pays parmi les
+        # acteurs et le point au centre de la capitale → le fait s'est probablement produit ailleurs (v0.28)
+        cap = geo.capitals().get(country) if country and violent else None
+        if cap and item and a["actor_cc"] - {item["iso3"]} and row[C["geo_type"]] in ("3", "4") \
+                and geo.haversine_km(a["lat"], a["lon"], cap[1], cap[2]) < CAPITAL_RADIUS_KM:
             dropped["lieu"] += 1
             continue
         # 2. Seuils selon le contexte du pays

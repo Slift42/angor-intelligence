@@ -10,6 +10,7 @@ C'est volontairement prudent : en cas de doute, l'article reste dans le « Fil �
 sur la carte. L'étape IA prendra le relais pour le classement fin et le résumé en anglais.
 """
 import io
+import json
 import re
 import unicodedata
 import zipfile
@@ -184,7 +185,7 @@ SPEECH_VERBS = ("says", "said", "warns", "warned", "accuses", "accused", "announ
                 "rejects", "dit", "affirme", "accuse", "annonce", "dénonce", "appelle", "rejette", "dice",
                 "afirma", "acusa", "anuncia", "denuncia", "diz", "sagt", "warnt", "wirft", "говорит", "заявил")
 
-LOC_PREP = {"in", "at", "near", "outside", "around", "a", "au", "aux", "en", "pres", "dans", "vers", "cerca", "de", "del", "em", "no", "na", "nel", "nella", "bei", "nahe", "im", "w", "we", "pod", "yakinlarinda",
+LOC_PREP = {"in", "at", "on", "over", "near", "outside", "around", "a", "au", "aux", "en", "pres", "dans", "vers", "cerca", "de", "del", "em", "no", "na", "nel", "nella", "bei", "nahe", "im", "w", "we", "pod", "yakinlarinda",
             "в", "под", "у", "في", "قرب"}
 PREP_LANGS = {"en", "fr", "es", "pt", "it", "de", "nl", ""}
 NATURAL = {"earthquake", "flood", "cyclone", "storm", "wildfire", "volcano", "landslide", "extreme_temp", "drought"}
@@ -193,7 +194,11 @@ STOP_PLACES = {"nice", "mobile", "split", "bath", "reading", "van", "bar", "mary
                "police", "union", "independence", "liberty", "hope", "mercedes", "concord", "george", "orange",
                "marina", "patience", "trinidad", "valencia", "cordoba", "santiago", "san jose", "la paz", "grand",
                "de", "la", "le", "el", "san", "santa", "centre", "center", "city", "nord", "sud", "north", "south",
-               "east", "west", "new", "port", "ville", "gaza city"}
+               "east", "west", "new", "port", "ville", "gaza city",
+               # v0.28 : « White House » est un nom alternatif de Casablanca dans GeoNames
+               "white house", "maison blanche", "casa blanca", "casa bianca", "weisses haus",
+               # v0.28 (run 2) : « la ville », « les martyrs », « colons » (persan), prénom Vladimir
+               "المدينة", "مدينة", "مدن", "الشهداء", "شهداء", "شهرک", "владимир", "владимира"}
 
 
 _APOS = str.maketrans({"\u2019": "'", "\u2018": "'", "\u02bb": "'", "\u02bc": "'", "`": "'", "\u00b4": "'"})
@@ -595,6 +600,9 @@ _SMALL_ACCIDENT_RE = _word_re(["crane", "grue", "scaffold", "echafaudage", "cons
 def not_incident(title, cat=None):
     """Titre qui ne décrit pas un incident pouvant toucher une organisation ou un voyageur (motif), sinon None."""
     t = norm(title)
+    why = audit_noise(t, cat)
+    if why:
+        return why
     if cat in ("earthquake", "flood", "cyclone", "storm", "wildfire", "landslide", "volcano", "drought", "extreme_temp") and _RETRO_RE.search(t):
         return "rétrospective ou projet"
     if cat == "armed_conflict" and not _VIOLENCE_RE.search(t) and not _CONFLICT_EVENT_RE.search(t):
@@ -751,6 +759,9 @@ def context(title, cat):
     if cat == "diplomatic":
         return "signal politique"
     t = norm(title)
+    why = audit_context(t, cat)
+    if why:
+        return why
     if _RETRO2_RE.search(t) or _YEARS_AGO_RE.search(t):
         return "rétrospective ou démenti"
     if (_QUESTION_RE.search(t) and cat != "unrest") or _ANALYSIS_RE.search(t) \
@@ -780,6 +791,368 @@ def context(title, cat):
             return "annonce militaire"
         if cat == "attack" and _MILITARY_CONTEXT_RE.search(t) and not _FRESH_RE.search(t):
             return "annonce de sécurité"
+    return None
+
+
+# ------------------------------------------------------------------ v0.28 : audit de la production (octobre 2026)
+# 178 événements réels de la carte relus un par un : 34 n'étaient pas des incidents. Chaque motif ci-dessous vient d'un
+# cas réel (tests/gold_tri.csv, commentaire « prod 2026-10 »).
+FORECAST_WORDS = ["may intensify", "likely to intensify", "could intensify", "expected to intensify", "set to intensify",
+                  "may hit", "could hit", "likely to hit", "set to hit", "expected to hit", "to make landfall", "forecast",
+                  "prevision", "previsions", "pronostico", "pronostica", "rains expected", "rain expected",
+                  "heavy rain expected", "se esperan lluvias", "lluvias esperadas", "pluies attendues", "warns of possible",
+                  "met warns", "met office warns", "met department warns", "weather office warns", "warns of flash",
+                  "warns of heavy", "potensi", "berpotensi", "prakiraan", "waspada banjir", "imbau warga", "disiagakan",
+                  "antisipasi", "risiko", "petakan", "pemetaan", "mitigasi", "kategori menengah", "pourrait toucher",
+                  "risque de crues", "alerta por posibles", "posibles inundaciones", "podria afectar", "risk map",
+                  "เตือนภัย", "เฝ้าระวัง", "预警", "预报", "पूर्वानुमान", "चेतावनी", "پیش‌بینی", "توقعات"]
+_FORECAST_RE = _word_re(FORECAST_WORDS)
+_IMPACT_RE = _word_re(["shuts", "shut down", "closed", "closes", "closure", "cancel", "cancels", "cancelled", "canceled",
+                       "suspend", "suspended", "suspends", "stranded", "ferme", "fermees", "annule", "annules", "cerrad",
+                       "suspendid", "evacu", "evakuasi", "damage", "damaged", "destroy", "missing", "swept", "rendam",
+                       "terendam", "tewas", "hilang", "inundated", "inondee", "inondees", "submerg", "cut off", "isoles"])
+AFTERCARE_WORDS = ["teste son dispositif", "dispositif contre", "avant les pluies", "avant l'hiver", "renforce les controles",
+                   "controles sanitaires", "controle sanitaire", "screening", "depistage", "tangani dampak", "kembali terlayani",
+                   "kembali normal", "green policing", "lingkungan bersih", "wujudkan", "indemnisation", "indemnisations",
+                   "compensation claims", "เยียวยา", "carencias", "dejan al descubierto", "saneamiento", "leave quarantine",
+                   "leaves quarantine", "quitte la quarantaine", "sale de cuarentena", "released from quarantine",
+                   "controverse", "controversy", "polemique", "polemica", "memories", "souvenirs", "recuerdos",
+                   "brings memories", "survivors recall", "lives they lost"]
+_AFTERCARE_RE = _word_re(AFTERCARE_WORDS)
+_CEASEFIRE_RE = _word_re(["ceasefire", "cease-fire", "cessez-le-feu", "cese al fuego", "alto el fuego", "tregua", "truce",
+                          "treve", "waffenruhe", "waffenstillstand", "перемир", "припинення вогню", "هدنة", "وقف إطلاق النار",
+                          "آتش‌بس", "停火", "休战"])
+_VIOLATION_RE = _word_re(["violat", "breach", "violation", "viole", "violent", "rompe", "rupture", "despite ceasefire",
+                          "malgre le cessez-le-feu", "pese a la tregua", "collapse", "collapses", "s'effondre"])
+_WARNS_AGAINST_RE = re.compile(r"\bwarns?\b(?:\s+\S+){0,3}\s+against\b|\bwarns? of\b|\bmet(?:tent)? en garde\b|"
+                               r"\bmise en garde\b|\badviert\w*\b|\bwarnt\b|\bpreviene contra\b")
+SUMMON_WORDS = ["summon", "summons", "summoned", "convoque", "convoquee", "convoques", "citado a declarar", "citada a declarar",
+                "interroge", "interrogee", "questioned", "questioning", "detenu", "detenue", "detenus", "detenues",
+                "incarcere", "incarceree", "emprisonne", "emprisonnee", "encarcelad", "envian a la carcel", "a la carcel",
+                "procesados", "procesado", "declarados culpables", "declarado culpable", "declarada culpable",
+                "declaradas culpables", "found guilty", "reconnu coupable", "reconnus coupables", "dihukum",
+                "रिपोर्ट दर्ज", "मुकदमा दर्ज", "केस दर्ज", "गिरफ्तार", "گرفتار"]
+_SUMMON_RE = _word_re(SUMMON_WORDS)
+_TESTIMONY_RE = _word_re(["temoignage", "testimony", "testimonio", "portrait", "reportage", "report on", "reports on",
+                          "on the daily", "op-ed", "column", "chronique"])
+_STATEMENT_RE = _word_re(["basta ya", "se repite", "tras el ultimo", "after the latest", "apres la derniere",
+                          "apres le dernier", "secured ceasefire",
+                          "تنفي", "ينفي", "نفى", "نفت", "تدين", "يدين", "می‌گوید", "میگوید", "اعلام کرد"])
+_MISSILE_TEST_RE = _word_re(["likely a test", "missile test", "test launch", "test-fire", "test fire", "test-fired",
+                             "test fired", "essai de missile", "tir d'essai", "prueba de misil", "ensayo de misil"])
+_AFTER_RIOTS_RE = re.compile(r"^(?:\w+\W+){0,2}(?:apres|after|tras|despues de|nach)\s+(?:les |the |los |las |la |den |der )?"
+                             r"(?:emeutes|riots|disturbios|violences|unruhen|manifestations|protests|affrontements)")
+_LOGISTICS_RE = re.compile(r"operations? d'enlevement|enlevement (?:des |de )?(?:conteneurs|marchandises|colis|ordures|"
+                           r"dechets|vehicules|epaves|bagages|encombrants|cargaisons)")
+_SEWAGE_RE = _word_re(["raw sewage", "eaux usees", "aguas residuales", "aguas negras", "sewage spill", "egouts debordent"])
+_POLICE_INVOLVED_RE = re.compile(r"officer-involved|police-involved|involucrad\w* (?:\w+ )?polic|"
+                                 r"policiers? implique|policias? involucrad")
+_MANHUNT_RE = re.compile(r"\bmanhunt (?:launched |under way |underway )?for\b|\bwanted for\b|\bavis de recherche\b|"
+                         r"\bse busca a\b|\bchasse a l'homme (?:pour|contre)\b")
+_ALLEGED_RE = _word_re(["alleged", "allegedly", "accused", "presume", "presumed", "presunto", "presunta", "suspected of"])
+_LOCAL_DESK_RE = re.compile(r"^[\w .'-]{2,30}\s(?:news|samachar|समाचार)\s*[:|]", re.I)
+_DEVANAGARI = re.compile(r"[\u0900-\u097F]")
+_SOUTH_ASIA_CRIME_RE = _word_re(["मुठभेड़", "बदमाश", "आरोपी", "चोर", "लूट", "ڈاکو", "ملزم", "مقابلے", "پولیس مقابلہ"])
+CYBER_HINTS = ["mot de passe", "mots de passe", "password", "passwords", "piratage", "pirates informatiques", "rancongiciel",
+               "ransomware", "data breach", "fuite de donnees", "ddos", "phishing", "hameconnage", "malware",
+               "cyberattaque", "cyberattack", "hackers", "hacked"]
+_CYBER_HINT_RE = _word_re(CYBER_HINTS)
+_PROTEST_RE = _word_re(["protest", "protests", "protesters", "manifest", "manifestation", "manifestants", "protesta",
+                        "manifestantes", "demonstration", "demonstrators", "प्रदर्शन", "आंसू गैस", "tear gas", "teargas",
+                        "gaz lacrymogene", "gases lacrimogenos", "احتجاج", "تظاهرات"])
+_CIVIL_UNREST_RE = _word_re(["blocus", "blocage", "blocages", "lycees", "lyceens", "etudiants", "students", "estudiantes",
+                             "mobilisation", "manifest", "protest", "protesta", "gaz lacrymogene", "tear gas", "teargas",
+                             "huelga", "greve", "strike action", "saqueos", "pillages", "looting"])
+_MILITARY_RE = _word_re(["army", "troops", "soldiers", "military", "militants", "rebels", "insurgents", "jihadist",
+                         "airstrike", "air strike", "drone", "missile", "artillery", "shelling", "armee", "soldats",
+                         "rebelles", "ejercito", "militares", "guerrilla", "disidencias", "सेना", "उग्रवादी", "आतंकी"])
+
+
+# ------------------------------------------------------------------ v0.28, run 2 : second audit (931 titres du 23 octobre)
+# 277 faux positifs sur 931 titres de presse de la carte : suites d'un fait (hommages, témoignages, procès, enquête),
+# prévention et préparation (crues, épidémies), menaces et projets de frappe, sujets militaires sans incident,
+# métaphores (« protesters flood Belgrade »), faits divers locaux, interventions de police, sport. Cas réels :
+# tests/gold_tri.csv, commentaire « prod 2026-10-23 ».
+THREAT_WORDS = ["pourraient frapper", "pourrait frapper", "prevoient de nouvelles frappes", "prevoit de frapper",
+                "planning new strikes", "plan new strikes", "plans new strikes", "planning strikes", "could strike",
+                "may strike", "might strike", "threatens", "threatened", "threat to", "menace de", "menacent de",
+                "amenaza con", "amenazan con", "droht", "drohen", "vows to", "vow to", "will treat", "legitimate targets",
+                "won't be the last", "will not be the last", "nicht der letzte", "ne sera pas la derniere",
+                "fears offensive", "fears an offensive", "fears israeli", "fears attack", "craint une offensive",
+                "teme una ofensiva", "warned germany", "warned that", "يتوعد", "يتوعّد", "توعد", "هشدار داد", "هشدار",
+                "تهدد", "يهدد", "loi anti-emeutes", "anti-riot laws", "approves tougher", "toughens security laws"]
+_THREAT_RE = _word_re(THREAT_WORDS)
+STATEMENT2_WORDS = ["blames", "blamed", "'no change'", "no change in", "zelensky says", "putin says", "defends", "defend",
+                    "appeal for calm", "appeals for calm", "appelle la population", "appelle au calme", "ecrit au",
+                    "writes to", "urges", "insta a", "presses", "heads to", "ready to help", "pret a aider",
+                    "expresses sympathy", "تعرب عن", "يعرب عن", "يطمئن", "يوجه نداء", "نداء", "has no link", "no link with",
+                    "explains why", "explique pourquoi", "summarizes", "summarises", "resume l'operation",
+                    "safe and stable", "آمنة ومستقرة", "s'insurgent", "favorable a", "je suis favorable", "favorable al",
+                    "deplore", "denuncia el trabajo", "asks minister", "pide al ministro",
+                    "commemor", "conmemor", "rinde homenaje", "recompensa", "ofrece recompensa", "reward",
+                    "sympathy", "solidarity", "solidarite", "solidaridad", "satisfait", "satisfecho", "pedem que", "pede que",
+                    "piden que", "pide que", "falam em", "hablan de", "parlent de", "البيت الأبيض", "البيت الابيض", "وزير الخارجية", "وزیر خارجه", "foreign minister",
+                    "ministre des affaires etrangeres", "canciller", "谴责", "批评", "declares", "declare le", "declara la"]
+_STATEMENT2_RE = _word_re(STATEMENT2_WORDS)
+FOLLOWUP_WORDS = ["remembered", "remember", "victims include", "laid to rest", "awaits answers", "await answers",
+                  "recounts", "recount", "survivor battles", "birthday gift", "suspect id'd", "id'd", "ids suspect",
+                  "checking in on", "security after the", "dan de alta", "dado de alta", "rescued alive", "resume search",
+                  "resumes search", "resumes operation", "resume operation", "agradece", "thanks officer", "sobreseyeron",
+                  "sobresee", "dictan presidio", "presidio perpetuo", "life term", "double life", "iddianame",
+                  "adliyeye sevk", "осудили", "осужден", "завели дело", "возбудили дело", "geklart", "aufgeklart",
+                  "procesan", "procesa a", "case registered", "report au", "renvoye au", "relieved amid",
+                  "flood control probe", "arastirma onergesi", "mystery", "معمہ", "still unsolved", "victim battles",
+                  "battles impaired", "laid to", "un mes despues", "one month after",
+                  "dit avoir ete frappe", "resigns after", "cleared by", "tested negative", "teste negatif",
+                  "testado negativo", "negativo para", "dio negativo", "secuestro virtual", "virtual kidnapping",
+                  "most wanted", "playing dead", "pretending to be dead", "juzgar a", "propone juzgar", "capturamos", "on ramasse",
+                  "police reagit", "promisiuni", "dupa protest", "死因", "身元", "rassurer", "reassure", "tranquilizar",
+                  "descarta", "rules out", "ruled out", "ecarte la piste", "exclut la piste", "s'est senti",
+                  "se sont sentis", "announce safety", "safety changes", "safety measures", "to prevent attacks",
+                  "prevent attacks", "seek residents"]
+_FOLLOWUP_RE = _word_re(FOLLOWUP_WORDS)
+# suites probables, sauf si le titre décrit aussi le fait lui-même (morts, feu, heurts)
+FOLLOWUP_SOFT_WORDS = ["survivor", "survivors", "survived", "reabre", "reopens", "on ramasse", "au lendemain",
+                       "suite a l'emeute", "apres les emeutes", "apres l'emeute", "apres les affrontements",
+                       "apres les violences", "ne veulent pas revivre", "ne veulent pas que les affrontements",
+                       "ne veulent pas que", "troops rescue", "rescue kidnapped", "rescued kidnapped", "rescue victim",
+                       "rescues victim", "funeral", "mourn", "mourns",
+                       "funerailles", "velorio", "sepelio", "entierro", "despiden", "pleure", "lloran", "says he was",
+                       "dit avoir ete", "blanchi"]
+_FOLLOWUP_SOFT_RE = _word_re(FOLLOWUP_SOFT_WORDS)
+# arrestations : en tête de titre seulement (« Capturamos a un sujeto… », pas « …, la police a interpellé 3 personnes »)
+_ARREST_LEAD_RE = _word_re(["capturamos", "capturadas", "capturados", "capturan", "hideout busted", "police dock", "docked",
+                            "detain", "detains", "detained", "يعتقل", "اعتقال", "συλληψεις", "ταυτοποιηθηκαν"])
+_PHYSICAL2_RE = _word_re(["affrontements", "clashes", "enfrentamientos", "emeutes", "riots", "pillages", "incendi", "ravage",
+                          "fire", "fires", "explos", "blast", "shooting", "fusillade", "tiroteo", "disparos", "barricades",
+                          "feu", "brule", "brulent"])
+ANALYSIS2_WORDS = ["what sparked", "what that means", "what it means", "how they could", "struggles to contain",
+                   "fallout from", "likened to", "quelles differences", "interactive map", "carte interactive",
+                   "volunteer summary", "war update", "что происходит", "comment la manifestation", "a degenere",
+                   "a bascule", "swept across", "increasingly targeting",
+                   "acled", "cocktail", "analysts say", "unlikely to have", "reabren la herida", "reopens the wound",
+                   "ravive", "la ruta oscura", "ruta oscura", "inside chicago's battle", "battle against",
+                   "lutte contre", "bras de fer", "interminable", "the story", "l'histoire", "la historia", "uzman",
+                   "olacak mi", "expert", "experts", "archives du", "archives", "il y a", "years on", "ans apres",
+                   "anos despues", "rebellion rocks", "rocks france", "refuses to yield", "refuse de ceder",
+                   "explainer", "faq", "everything we know", "font craindre", "fait craindre", "hinungdan", "tout savoir", "lo que sabemos", "testimonio",
+                   "racontent", "raconte", "relatan", "relata", "residents recount",
+                   "leur ville cramer", "ciudad del miedo", "pourquoi", "why ", "warum", "por que", "por qué"]
+_ANALYSIS2_RE = _word_re(ANALYSIS2_WORDS)
+MILITARY_NEWS_WORDS = ["kjoper", "kjop", "kauft", "acquires", "buys", "to buy", "achete", "compra de", "adquiere",
+                       "over-the-horizon radar", "building a radar", "radar", "unexploded", "non explose", "sin explotar",
+                       "defense minister", "defence minister", "ministre de la defense", "ministro de defensa",
+                       "new defense", "nuevo ministro", "armored vehicles", "vehicules blindes", "بکتر بند", "scrambles",
+                       "scrambled", "decolle", "fait decoller", "exercise", "exercice militaire", "drill", "תרגיל",
+                       "military parade", "compensation", "indemnisation", "war crimes victims",
+                       "1,100 militants killed in past year", "rs14bn", "spent to counter", "counterterrorism record",
+                       "record antiterroriste", "named vivaldi", "offensive was named", "ballistic missile movement",
+                       "movement recorded", "tunnel", "postpones", "aplaza", "davos", "commander explains"]
+MILITARY_NEWS_WORDS += ["kjøper", "kjøp"]
+_MILITARY_NEWS_RE = _word_re(MILITARY_NEWS_WORDS)
+# résumés et bulletins : jamais un fait daté et localisé
+_ANALYSIS_STRICT_RE = _word_re(["comment la manifestation", "a degenere", "a bascule", "swept across", "quelles differences",
+                                "pourquoi", "what sparked", "what that means", "what it means", "je suis favorable",
+                                "favorable a l'etat", "ready to help", "pret a aider", "how they could"])
+_DIGEST_RE = _word_re(["volunteer summary", "war update", "interactive map", "carte interactive", "daily brief", "что происходит",
+                       "lo que sabemos", "ce que l'on sait"])
+_GENRE_RE = re.compile(r"^\W*(?:temoignage|portrait|entretien|interview|opinion|tribune|editorial|chronique)\b")
+_QUOTE_SAYS_RE = re.compile(r"""^\W*(?:[\w .-]{2,20}:\s*)?['"‘“«].{3,80}['"’”»]\s*,?\s*(?:says|said|dit|affirme|dice|afirma)\b|,\s*(?:[\w'’.-]+\s){0,4}says$""")
+_CULTURE_RE = _word_re(["lleva a la pantalla", "pelicula", "documental", "documentary", "film sur", "movie", "libro sobre",
+                        "book on", "novela", "exposicion", "exhibition", "narcocorrid", "artistas senalados", "concierto"])
+_SEIZURE2_RE = re.compile(r"seiz\w* \d[\d,.]* ?(?:kilograms|kilos|kg|tonnes|tons)|saisie de \d|decomis\w* \d|incaut\w* \d")
+_FAMILY_RE = re.compile(r"\b(?:dispute|querelle|rina|pelea|disputa) (?:entre|familiale|conjugale|de pareja)|entre (?:deux )?freres|"
+                        r"\bson (?:frere|cadet|aine|epouse)\b|\bsa (?:femme|compagne|mere|fille)\b")
+_BR_CONFRONTO_RE = re.compile(r"\bconfronto\b")
+_BR_POLICE_RE = re.compile(r"\b(?:pm|policia\w*|policiais|suspeito|investigado|bandido)s?\b")
+_TERROR_METAPHOR_RE = _word_re(["terrorises", "terrorisees", "terrorise", "terrorised", "terrorized", "terror psicologico",
+                                "terreur psychologique", "psychological terror"])
+_PLAN_PROTEST_RE = re.compile(r"\bplans? (?:\w+ ){0,3}protest|\bappellent a manifester|\bconvocan (?:una )?marcha")
+PREPARE_WORDS = ["recomendaciones", "prevencion de", "fondos", "invertira", "invierte", "inversion", "se prepara",
+                 "se preparan", "preparativos", "preparacion", "advierte", "advierten", "riesgo de", "eleva riesgo",
+                 "zonas expuestas", "zonas mas expuestas", "protocolo", "instala barreras", "laboratorio de innovacion",
+                 "necesita", "millones para", "red de pluviales", "refuerza la proteccion", "despliegue de motobombas",
+                 "motobombas", "activan plan", "apoyar a habitantes", "exhortan", "piden declarar", "declarar en emergencia",
+                 "mision a europa", "no se reportan", "fallos judiciales", "vigilancia por", "sel riskine",
+                 "kalici cozum", "toplanti", "sel destegi", "milyon lira", "altyapi", "cozum", "rustet", "rustet sich",
+                 "erwartet", "lutte contre les inondations", "dispositif de recasement", "booste sa capacite",
+                 "annonce le renforcement", "renforcement du", "gare aux", "prepa", "braces for heavy", "braces for rain",
+                 "braces for flood", "prepares for", "se prepare", "resilience", "inaugur", "resmikan", "perkuat",
+                 "koordinasi", "survei", "upaya atasi", "bahas banjir", "imbau masyarakat", "terjun ke titik", "risks along",
+                 "loss raises", "threatens to shut", "asks minister", "to face floods", "se gesta", "storm will",
+                 "flood guard", "flood rakshak", "फ्लड रक्षक", "राशन किट", "राहत सामग्री", "बजट", "सीएम", "निपटने", "तैयारी", "मुआवजा", "डूबी फसलों", "करोड़ों",
+                 "vaccin", "vaccine", "vaccination", "vacunacion", "vacuna", "essai clinique", "clinical trial",
+                 "preventive measures", "mesures preventives", "medidas preventivas", "surveillance", "deploys nurses",
+                 "hotlines", "hotline", "preparedness", "supplies", "training", "health promot", "refuerza controles",
+                 "controles contra", "urge virtual", "campaign", "campagne", "campana de", "fermeture", "prevoit de fermer",
+                 "fermer le", "simulado", "simulacro", "sekolah lapang", "protesis", "tras el terremoto", "家屋被害",
+                 "intensifican la entrega", "emergency operations centre", "operations center", "activates emergency",
+                 "intervenidas", "plan marina", "donne", "tang ", "xuong cuu ho", "relieved", "probe", "inquiry",
+                 "meclis", "budget", "งบ", "ฟื้นฟู", "เยียวยา", "ลงทะเบียน", "รับเงิน", "ปิดศูนย์", "เตรียมแผน",
+                 "estas son las alertas", "solution", "soluciones", "permanent", "kalici", "mangrove", "dumping waste", "shut sites", "nuevo sistema",
+                 "novy system", "pripravu", "secondary disaster", "二次災害", "reopen", "community support",
+                 "farms destroy", "insurance", "seguro", "aid falls short", "winter aid", "without safe shelter",
+                 "aprovecha", "cash in", "windfall"]
+_PREPARE_RE = _word_re(PREPARE_WORDS)
+_NAT_IMPACT2_RE = _word_re(["holiday", "conge", "feriado", "evacuated", "evacues", "evacuados", "tombee", "collapsed",
+                            "effondre", "derrumbe", "missing", "disparus", "desaparecidos"])
+# exercices et prévention : même avec « blessés » dans le texte (« séisme simulé : blessés, routes coupées »)
+_PREPARE_STRICT_RE = _word_re(["simulado", "simulacro", "sismo simulado", "drill", "sekolah lapang", "vaccin", "vacuna",
+                               "essai clinique", "clinical trial", "recomendaciones", "invertira", "fondos", "kalici cozum",
+                               "toplanti", "resmikan", "inaugur", "preparedness", "protesis"])
+_FLOOD_METAPHOR_RE = re.compile(r"\b(?:posters|banners|visitors|tourists|fans|crowds|thousands|hundreds|students|protesters|"
+                                r"demonstrators|migrants|drugs|orders|calls|messages|tributes|complaints|wave|applications|"
+                                r"people|supporters|shoppers)\b(?:\W+(?!amid|after|from|by|in|as|due)[\w']+)?\W+flood(?:s|ed|ing)?\b"
+                                r"(?! victims| waters| warning| alert)|"
+                                r"\bflooding (?:the )?(?:us|u\.s\.|market|streets|country|internet)\b|"
+                                r"\bflood (?:\w+ )?(?:streets|music|award)")
+_PROTESTERS_RE = _word_re(["protesters", "demonstrators", "students", "protest", "rally", "march", "manifestants"])
+_WEAK_QUAKE_JA_RE = re.compile(r"最大震度[：:]?\s*[1-3](?![0-9])|震度[1-3]の地震")
+_JA_NOISE_RE = re.compile(r"破産|負債|使用しないで|販売の恐れ|混入")
+_SPORT2_RE = _word_re(["الزمالك", "الأهلي", "بيراميدز", "سيراميكا", "بتروجت", "الدوري", "مباراة", "المنتخب", "يقودان هجوم",
+                       "homenaje a messi", "golazo", "goleador", "delantero", "el 10 de", "judo", "जूडो", "खिलाड़ी"])
+_ANIMAL_RE = _word_re(["stray dogs", "dog attack", "dog bites", "mordeduras", "perros", "chiens", "कुत्तों", "कुत्ते",
+                       "मधुमक्खि", "bees", "abejas", "elephant", "elefante", "poultry", "volailles", "newcastle disease",
+                       "fusarium", "meteorit", "meteorite", "caruta", "carut"])
+_POLICE_CLASH_RE = re.compile(r"(?:morre|morreu|morrem|mortos?|baleado|ferido)\w* (?:\w+ ){0,3}(?:apos |em )?confronto com "
+                              r"(?:a |os |as )?(?:pm|policia|policiais|guardas|brigada)|confronto com (?:a |os )?(?:pm\b|policia)|"
+                              r"(?:murio|muere|mueren|murieron|abatido|abatidos) en (?:un )?enfrentamiento con (?:la )?(?:policia|"
+                              r"guardia|agentes)|fatal shooting of (?:\w+ )?(?:alleged|suspected)|"
+                              r"shooting involving (?:at least )?(?:\w+ ){0,3}(?:deputy|deputies|officer|officers|trooper)|"
+                              r"\bindecom\b|enfrentamiento entre policias e|tiroteo con (?:la )?policia")
+_VERBAL_CLASH_RE = re.compile(r"\bclash(?:es|ed)? with (?:the )?(?:lawyer|secretary|minister|governor|president|chief|party|"
+                              r"leader|judge|journalist|pti|apc|pdp|opposition)|clashes with \w+ (?:over|on) |"
+                              r"\bs'en prend (?:a|au)\b")
+_FACTCHECK_RE = re.compile(r"\bson de (?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|"
+                           r"diciembre)\b|\bno de (?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|"
+                           r"noviembre|diciembre)\b|fact[- ]check|verificacion|desinformacion|imagenes antiguas|old video")
+_URDU_RE = re.compile(r"[ٹڈڑںھہے]")
+_URDU_SECURITY_RE = _word_re(["دہشت", "دھماک", "بم", "خودکش", "مسلح افراد", "عسکریت", "حملہ آور", "پولیس پارٹی",
+                              "ایف سی", "سیکیورٹی فورسز", "فتنۃ", "فتنہ", "اغوا"])
+_HINDI_SECURITY_RE = _word_re(["आतंक", "उग्रवाद", "नक्सल", "बम", "विस्फोट", "ब्लास्ट", "दंगा", "दंगे", "सांप्रदायिक",
+                               "आंसू गैस", "प्रदर्शन", "ड्रोन", "मिसाइल", "सेना"])
+_PROTEST_MINE_RE = _word_re(["minerii", "minerilor", "mineri", "mina", "minei", "exploatarea", "subteran", "protest",
+                             "refuza", "salarii"])
+_LANDSLIDE_VICTORY_RE = _word_re(["landslide victory", "landslide win", "landslide majority", "predicts landslide",
+                                  "victoire ecrasante", "victoria aplastante"])
+_UNREST_HINT_RE = _word_re(["disturbios", "cargas policiales", "carga policial", "contra la policia", "contre la police",
+                            "forces de l'ordre", "antifascist", "jeunes", "migrants",
+                            "migrantes", "altercados", "bengalas", "mitin", "carabineros", "riot", "riots", "emeute",
+                            "emeutes", "lacrymo", "indigenas", "violences urbaines", "17 octobre", "ultra-droite",
+                            "ultradroite", "manifestation", "manifestations", "mobilisation", "marcha", "protesters",
+                            "street medic", "pillages", "barricades"])
+_STRIKE_MILITARY_RE = re.compile(r"\b(?:forces|drone|drones|missile|missiles|shahed|russian|ukrainian|israeli|air)\s+"
+                                 r"(?:\w+\s+)?strikes?\b|\bstrikes? (?:hit|on|against|kill)")
+
+def audit_noise(t, cat):
+    """Non-incidents relevés en production (v0.28), texte normalisé : motif d'exclusion, ou None."""
+    if cat in ("attack", "crime") and _LOGISTICS_RE.search(t):
+        return "hors sujet (enlèvement de marchandises)"
+    if cat == "flood" and _SEWAGE_RE.search(t) and not heavy_toll(t):
+        return "pollution locale"
+    if cat in ("attack", "crime") and _POLICE_INVOLVED_RE.search(t) and not heavy_toll(t):
+        return "intervention policière"
+    if cat in ("attack", "crime", "terrorism") and _MANHUNT_RE.search(t) and _ALLEGED_RE.search(t):
+        return "personne recherchée"
+    if cat in ("attack", "crime") and not heavy_toll(t) and (
+            (_DEVANAGARI.search(t) and _LOCAL_DESK_RE.search(t)) or _SOUTH_ASIA_CRIME_RE.search(t)):
+        return "fait divers local"
+    # v0.28, run 2
+    if cat in ("attack", "crime") and not heavy_toll(t) and (
+            (_DEVANAGARI.search(t) and not _HINDI_SECURITY_RE.search(t)) or
+            (_URDU_RE.search(t) and not _URDU_SECURITY_RE.search(t))):
+        return "fait divers local"   # brèves régionales en hindi et en ourdou : querelles, vols, règlements de comptes
+    if cat in VIOLENT_CATS and _POLICE_CLASH_RE.search(t) and not heavy_toll(t):
+        return "intervention policière"
+    if cat in VIOLENT_CATS and _VERBAL_CLASH_RE.search(t) and not _FRESH_RE.search(t):
+        return "politique (joute verbale)"
+    if _SPORT2_RE.search(t):
+        return "sport"
+    if _ANIMAL_RE.search(t) and not heavy_toll(t):
+        return "hors sujet (animaux)"
+    if _FACTCHECK_RE.search(t):
+        return "rétrospective ou démenti"
+    if cat == "earthquake" and _WEAK_QUAKE_JA_RE.search(t):
+        return "séisme faible (couvert par l'USGS)"
+    if _JA_NOISE_RE.search(t):
+        return "hors sujet"
+    if _CULTURE_RE.search(t):
+        return "hors sujet (culture)"
+    if cat in VIOLENT_CATS and _SEIZURE2_RE.search(t) and not _FRESH_RE.search(t):
+        return "saisie"
+    if cat in ("attack", "crime") and _FAMILY_RE.search(t):
+        return "fait divers"
+    if cat in VIOLENT_CATS and _BR_CONFRONTO_RE.search(t) and _BR_POLICE_RE.search(t) and not heavy_toll(t):
+        return "intervention policière"
+    return None
+
+
+def audit_context(t, cat):
+    """Titres de sûreté qui ne décrivent pas un fait physique (v0.28) : motif, ou None. Texte normalisé."""
+    fresh = bool(_FRESH_RE.search(t))   # casualty_toll lirait « 53 personel » (indonésien) comme un bilan
+    if cat in NATURAL or cat == "health":
+        if _FORECAST_RE.search(t) and not _IMPACT_RE.search(t) and not fresh:
+            return "prévision"
+        if _AFTERCARE_RE.search(t):
+            return "prévention, bilan ou suites"
+        return audit_context2(t, cat, fresh)
+    if _TESTIMONY_RE.search(t) and not fresh and not _PHYSICAL2_RE.search(t):
+        return "analyse"
+    if _SUMMON_RE.search(t) and not (fresh and not _SUMMON_RE.search(" ".join(t.split()[:8]))):
+        return "arrestation ou suites"
+    if cat in ("armed_conflict", "terrorism", "attack") and _CEASEFIRE_RE.search(t) and not _VIOLATION_RE.search(t) \
+            and not fresh and not _CONCRETE_ATTACK_RE.search(t):
+        return "cessez-le-feu (annonce)"
+    if cat in VIOLENT_CATS and _WARNS_AGAINST_RE.search(t) and not fresh:
+        return "déclaration"
+    if cat in VIOLENT_CATS and _STATEMENT_RE.search(t) and not fresh and not _CONCRETE_ATTACK_RE.search(t):
+        return "déclaration"
+    if cat in ("armed_conflict", "terrorism") and _MISSILE_TEST_RE.search(t) and not fresh:
+        return "annonce militaire"
+    if cat == "unrest" and _AFTER_RIOTS_RE.search(t) and not fresh:
+        return "prévention, bilan ou suites"
+    if cat in ("health",) and _AFTERCARE_RE.search(t):
+        return "prévention, bilan ou suites"
+    return audit_context2(t, cat, fresh)
+
+
+def audit_context2(t, cat, fresh):
+    """Second audit de la production (v0.28, run 2) : suites, menaces, analyses, sujets militaires, prévention."""
+    soft = _FOLLOWUP_SOFT_RE.search(t)
+    # « après les émeutes » : le mot « émeutes » de la formule ne compte pas comme un fait décrit
+    rest = (t[:soft.start()] + " " + t[soft.end():]) if soft else t
+    rest = rest.replace("couvre-feu", " ").replace("toque de queda", " ")
+    physical = bool(_FRESH_RE.search(rest)) or bool(_PHYSICAL2_RE.search(rest))
+    if _DIGEST_RE.search(t) or _GENRE_RE.search(t) or _ANALYSIS_STRICT_RE.search(t):
+        return "analyse"
+    if cat in NATURAL or cat == "health":
+        if _PREPARE_RE.search(t) and not (fresh and not _FOLLOWUP_RE.search(t)):
+            return "prévention, bilan ou suites"
+        if _PREPARE_STRICT_RE.search(t):
+            return "prévention, bilan ou suites"
+        if _PLAN_PROTEST_RE.search(t) or (_QUOTE_SAYS_RE.search(t) and not fresh):
+            return "déclaration"
+        if _FOLLOWUP_RE.search(t) or _ANALYSIS_STRICT_RE.search(t) or (
+                (_ANALYSIS2_RE.search(t) or _STATEMENT2_RE.search(t) or _FOLLOWUP_SOFT_RE.search(t))
+                and not fresh and not _IMPACT_RE.search(t) and not _NAT_IMPACT2_RE.search(t)):
+            return "prévention, bilan ou suites"
+        return None
+    if _FOLLOWUP_RE.search(t) or (soft and not physical) or \
+            _ARREST_LEAD_RE.search(" ".join(t.split()[:8])):
+        return "suites (enquête, hommage, témoignage)"
+    if _ANALYSIS2_RE.search(t) and not physical:
+        return "analyse"
+    if cat in VIOLENT_CATS | {"unrest", "political"} and _THREAT_RE.search(t) and not fresh:
+        return "déclaration"
+    if _STATEMENT2_RE.search(t) and not physical:
+        return "déclaration"
+    if cat in VIOLENT_CATS and (_MILITARY_NEWS_RE.search(" ".join(t.split()[:8])) or
+                                (_MILITARY_NEWS_RE.search(t) and not fresh)):
+        return "annonce militaire"
+    if _QUOTE_SAYS_RE.search(t) and not physical:
+        return "déclaration"
+    if cat in ("unrest", "health", "political") and _PLAN_PROTEST_RE.search(t):
+        return "annonce"
     return None
 
 
@@ -842,6 +1215,30 @@ def classify(title):
             cat = "infrastructure"
         else:
             return None, None
+    if cat in ("attack", "crime") and _CYBER_HINT_RE.search(t) and not _VIOLENCE_RE.search(t):
+        cat = "cyber"   # « lycées piratés : les élèves doivent changer leur mot de passe » (v0.28)
+    if cat == "armed_conflict" and (("unrest" in found and _PROTEST_RE.search(t)) or _CIVIL_UNREST_RE.search(t)) \
+            and not _MILITARY_RE.search(t) and not _ARMED_GROUP_RE.search(t):
+        cat = "unrest"  # manifestation dispersée au gaz lacrymogène, heurts avec la police (v0.28)
+    # v0.28, run 2
+    if cat == "flood" and _FLOOD_METAPHOR_RE.search(t):
+        if not (_PROTESTERS_RE.search(t) and "unrest" in _CAT_RE):
+            return None, None   # « posters flood Kaduna », « synthetic drugs flooding the US »
+        cat = "unrest"          # « Thousands flood Athens streets in education protest »
+    if cat == "volcano" and _PROTEST_MINE_RE.search(t):
+        return ("unrest", BASE_SEVERITY["unrest"]) if _word_re(["protest", "refuza"]).search(t) else (None, None)
+    if cat == "landslide" and _LANDSLIDE_VICTORY_RE.search(t):
+        return None, None
+    if cat == "terrorism" and _TERROR_METAPHOR_RE.search(t):
+        rest = [c for c in found if c != "terrorism" and _CAT_RE[c].search(_TERROR_METAPHOR_RE.sub(" ", t))]
+        if not rest:
+            return None, None
+        cat = rest[0]           # « système d'artillerie qui terrorisait Kherson » : conflit armé, pas terrorisme
+    if cat == "unrest" and _STRIKE_MILITARY_RE.search(t) and not _PROTEST_RE.search(t):
+        cat = "armed_conflict"  # « Russian forces strike energy facility » n'est pas une grève
+    if cat == "armed_conflict" and _UNREST_HINT_RE.search(t) and not _MILITARY_RE.search(t) \
+            and not _ARMED_GROUP_RE.search(t) and not _STRIKE_MILITARY_RE.search(t):
+        cat = "unrest"          # heurts avec la police, émeutes urbaines du 17 octobre
     if not_incident(title, cat):
         return None, None
     sev = BASE_SEVERITY[cat]
@@ -871,6 +1268,7 @@ class Gazetteer:
         self.big = {}              # grandes villes (> 1 M hab.) : nom → (ville, iso2)
         self.big_ambiguous = set()
         self.nospace = {}          # iso2 → [(nom en thaï/chinois/birman…, entrée)] : recherche en sous-chaîne
+        self.nospace_countries = []  # (nom de pays en chinois, japonais, thaï…, iso2) : recherche en sous-chaîne (v0.28)
 
     def load(self):
         if self.ready:
@@ -900,7 +1298,9 @@ class Gazetteer:
                 for n in names:
                     k = norm(n)
                     if _NOSPACE.search(k):
-                        if len(k) >= 2 and pop >= 50000:
+                        # chinois, thaï… : un nom de 2 caractères est trop ambigu (« 河西 » dans « 约旦河西岸 », la
+                        # Cisjordanie, donnait Genhe en Mongolie-Intérieure) sauf pour les très grandes villes (v0.28)
+                        if (len(k) >= 3 and pop >= 50000) or (len(k) >= 2 and pop >= 1000000):
                             self.nospace.setdefault(iso, []).append((k, entry))
                         continue
                     if len(k) < 4 or k.isdigit() or k in STOP_PLACES or len(k.split()) > 4:
@@ -917,29 +1317,79 @@ class Gazetteer:
                             self.big[k] = (entry, iso)
         self.big_entries = {k: v[0] for k, v in self.big.items() if k not in self.big_ambiguous}
         self.big_iso = {v[0][0]: v[1] for k, v in self.big.items() if k not in self.big_ambiguous}
+        names = {}
         for item in self.countries.items:
             for n in {item["name_en"], item["name_fr"]}:
-                if n and len(n) > 3:
-                    self.country_names.append((re.compile(r"(?<!\w)" + re.escape(norm(n)) + r"(?!\w)"), item["iso2"]))
-        for alias, iso in _extra_country_aliases().items():
-            self.country_names.append((re.compile(r"(?<!\w)" + re.escape(alias) + r"(?!\w)"), iso))
+                k = norm(n or "")
+                if len(k) > 3 and k not in AMBIGUOUS_COUNTRY_NAMES:
+                    names[k] = item["iso2"]
+        names.update(_extra_country_aliases())
+        for alias, iso in SCRIPT_COUNTRY_ALIASES.items():
+            k = norm(alias)
+            if _NOSPACE.search(k):
+                self.nospace_countries.append((k, iso))
+            else:   # arabe, persan, hébreu, cyrillique, devanagari : mot entier (« إسرائيلية » n'est pas « إسرائيل »)
+                names[k] = iso
+        for k, iso in _cldr_country_names().items():   # 28 langues (v0.28 : « França », « Ucrânia », « Arnavutluk »)
+            names.setdefault(k, iso)
+        self.country_index = names
+        self.country_max_words = max(len(k.split()) for k in names)
         self.ready = True
         return self
 
-    def find_country(self, title):
-        t = norm(title)
-        best = None
-        for rx, iso in self.country_names:
-            m = rx.search(t)
-            if m and (best is None or m.start() < best[0]):
-                best = (m.start(), iso)
-        return best[1] if best else None
+    def country_mentions(self, title):
+        """Pays cités dans le titre, dans l'ordre : [(position, iso2, acteur ?, entre guillemets ?)] (v0.28)."""
+        t = strip_media(norm(title))
+        quoted = [m.span() for m in _QUOTED_RE.finditer(t)]
+        found = []
+        toks = [(m.start(), m.end(), m.group(0)) for m in re.finditer(r"[\w'’-]+", t)]
+        idx = self.country_index
+        for i in range(len(toks)):
+            for n in range(min(self.country_max_words, len(toks) - i), 0, -1):
+                key = " ".join(x[2] for x in toks[i:i + n])
+                iso = idx.get(key)
+                if not iso and n == 1:
+                    for strip in _script_prefix_variants(key):
+                        iso = idx.get(strip)
+                        if iso:
+                            break
+                if iso:
+                    found.append((toks[i][0], toks[i + n - 1][1], iso))
+                    break
+        for k, iso in self.nospace_countries:
+            i = t.find(k)
+            while i >= 0:
+                found.append((i, i + len(k), iso))
+                i = t.find(k, i + len(k))
+        found.sort(key=lambda x: (x[0], -x[1]))
+        out = []
+        for start, end, iso in found:
+            if out and start < out[-1][4]:
+                continue   # « soudan du sud » contient « soudan »
+            after = t[end:end + 40]
+            actor = bool(_ACTOR_AFTER_RE.match(after)) or (bool(_NOSPACE.search(t[start:end])) and
+                                                           any(after.startswith(x) for x in CJK_ACTOR_SUFFIX))
+            inq = any(a <= start < b for a, b in quoted)
+            out.append((start, iso, actor, inq, end))
+        return [x[:4] for x in out]
+
+    def find_country(self, title, with_actor=False):
+        """Pays où se passe le fait : premier pays cité hors guillemets qui n'est pas l'auteur d'une frappe
+        (« Russia hits central Kyiv » : la Russie est l'acteur), sinon le premier cité."""
+        ms = self.country_mentions(title)
+        if not ms:
+            return (None, False, -1) if with_actor else None
+        outside = [m for m in ms if not m[3]] or ms
+        place = [m for m in outside if not m[2]]
+        best = place[0] if place else outside[0]
+        return (best[1], best[2], best[0]) if with_actor else best[1]
 
     def find_city(self, title, iso, allow_capital_bare=False, lang=""):
         """Ville du pays citée dans le titre (la plus peuplée si plusieurs)."""
         d = self.by_country.get(iso)
         if not d:
             return None
+        title = strip_media(title)
         hit = self._match(title, d, allow_capital_bare, lang in PREP_LANGS)
         if hit or not _NOSPACE.search(title):
             return hit
@@ -948,7 +1398,7 @@ class Gazetteer:
         if not found:
             return None
         e = max(found)[2]
-        return {"place": e[0], "lat": e[1], "lon": e[2], "capital": e[4]}
+        return {"place": e[0], "lat": e[1], "lon": e[2], "capital": e[4], "pop": e[3]}
 
     def geocode(self, place, iso):
         """Coordonnées d'un lieu nommé (par l'IA) dans un pays donné."""
@@ -960,7 +1410,7 @@ class Gazetteer:
         t = norm(title)
         tokens = re.findall(r"[\w-]+", t)
         raw_tokens = re.findall(r"[\w-]+", title)
-        hits = []
+        hits, keys = [], []
         for size in (3, 2, 1):
             for i in range(len(tokens) - size + 1):
                 key = " ".join(tokens[i:i + size])
@@ -969,8 +1419,11 @@ class Gazetteer:
                     if first[:1].isalpha() and first[:1].islower() and first[:1].upper() != first[:1]:
                         continue  # mot commun en minuscules (« nice day »)
                     nxt = tokens[i + size] if i + size < len(tokens) else ""
+                    if nxt in PLACE_SUFFIX:
+                        continue  # « Monterey Park » (Californie) n'est pas Monterrey (Mexique) (v0.28)
                     prev = tokens[i - 1] if i > 0 else ""
                     hits.append((d[key], nxt, prev))
+                    keys.append(key)
         if not hits:
             return None
         # Une capitale désigne souvent le gouvernement (« Paris met en garde Moscou ») :
@@ -983,12 +1436,35 @@ class Gazetteer:
             return None
         non_capital = [p for p in places if not p[4]]
         best = max(non_capital or places, key=lambda p: p[3])
-        return {"place": best[0], "lat": best[1], "lon": best[2], "capital": best[4]}
+        key, nxt, prev = next((k, n, pr) for (h, n, pr), k in zip(hits, keys) if h is best)
+        return {"place": best[0], "lat": best[1], "lon": best[2], "capital": best[4], "key": key, "prev": prev,
+                "pop": best[3]}
 
     def locate(self, title, country_hint=None, category=None, lang=""):
         """Renvoie {country, place, lat, lon, precision} ou {country} ou None."""
         natural = category in NATURAL
-        iso = self.find_country(title) or country_hint
+        title = strip_media(title)
+        cited, actor, cited_pos = self.find_country(title, with_actor=True)
+        cited = cited or demonym_place(title)
+        iso = cited or country_hint
+        if iso:
+            # pays déduit de l'édition du flux (Google News États-Unis, Chine…) ou seulement auteur d'une frappe : une
+            # grande ville étrangère citée l'emporte sur un homonyme local (« near Paris » n'est pas Paris, Texas ni
+            # Parys en Afrique du Sud) ou sur une ville d'origine (« Hyderabad man killed in Riyadh airport attack ») (v0.28)
+            big = self._match(title, self.big_entries, natural or actor, lang in PREP_LANGS)
+            if big and self.big_iso.get(big["place"]) and self.big_iso[big["place"]] != iso:
+                local = self.find_city(title, iso, natural, lang)
+                strong = big["prev"] in LOC_PREP_STRONG and not (local and local.get("prev") in LOC_PREP_STRONG)
+                # même mot : la ville locale ne porte ce nom qu'en variante (« Paris » pour Parys, Afrique du Sud) ou est
+                # un petit homonyme (Paris, Texas : 25 000 habitants contre 2 millions)
+                same_word = bool(local) and local.get("key") == big["key"] and (
+                    norm(local["place"]) != big["key"] or big.get("pop", 0) >= 20 * (local.get("pop") or 1))
+                # pays cité (non auteur) : la grande ville l'emporte seulement si elle est citée avant lui, après « in »
+                # (« strikes reported in Kyiv… Russia »), pas « attaque contre l'Ukraine… négociations à Saint-Pétersbourg »
+                before = 0 <= norm(strip_media(title)).find(big["key"]) < cited_pos if cited_pos >= 0 else True
+                if (cited and (actor or (strong and before))) or (not cited and (not local or same_word or strong)):
+                    return {"country": self.big_iso[big["place"]], "place": big["place"], "lat": big["lat"],
+                            "lon": big["lon"], "precision": "city"}
         if not iso:
             # pas de pays cité : on tente les grandes villes au nom sans ambiguïté
             city = self._match(title, self.big_entries, natural, lang in PREP_LANGS)
@@ -1004,13 +1480,145 @@ class Gazetteer:
         return {"country": iso}
 
 
+# Pays « auteur » d'un fait (v0.28) : « Russia hits Kyiv », « Israel strikes… », « 法国外长谴责… »
+_ACTOR_AFTER_RE = re.compile(r"^(?:'s)?\s*(?:\w+\s+){0,1}(?:hits?|strikes?|struck|bombs?|bombed|attacks?|attacked|shells?|pounds?|"
+                             r"launch(?:es|ed)?|fires?|fired|targets?|targeted|frappe\w*|bombarde\w*|attaque\w*|ataca\w*|"
+                             r"bombardea\w*|golpea\w*|forces? (?:attack|strike|hit|launch|shell))\b")
+CJK_ACTOR_SUFFIX = ("外长", "外交部", "总统", "总理", "政府", "军方", "国防部", "外相", "首相", "大統領", "政府は")
+LOC_PREP_STRONG = {"in", "at", "on", "over", "near", "outside", "en", "a", "au", "dans", "pres", "em", "no", "na", "cerca", "im",
+                   "bei", "nel", "nella", "в", "في", "قرب"}
+_QUOTED_RE = re.compile(r'"[^"]{3,200}"|“[^”]{3,200}”|«[^»]{3,200}»|„[^“”]{3,200}[“”]')
+def _script_prefix_variants(tok):
+    """Préfixes collés de l'arabe (و، ف، ب، ل + ال) et de l'hébreu (ה، ב، ו، ל، מ، ש، כ) retirés : « والأردن » → « الأردن »."""
+    out = []
+    if _ARABIC.search(tok):
+        for p in ("و", "ف", "ب", "ل"):
+            if tok.startswith(p) and len(tok) > 4:
+                out.append(tok[1:])
+        if tok.startswith("لل"):
+            out.append("ال" + tok[2:])
+    elif _HEBREW.search(tok):
+        for k in (1, 2):
+            if len(tok) > k + 2 and all(c in "הבולמשכ" for c in tok[:k]):
+                out.append(tok[k:])
+    return out
+# noms de pays ambigus en anglais ou en français : « Salvador » (Bahia), « Georgia » (État américain), « Jordan » (prénom)
+AMBIGUOUS_COUNTRY_NAMES = {"salvador", "georgia", "georgie"}
+US_STATES = ["alabama", "alaska", "arizona", "arkansas", "california", "californie", "colorado", "connecticut", "delaware",
+             "florida", "floride", "hawaii", "idaho", "illinois", "indiana", "iowa", "kansas", "kentucky", "louisiana",
+             "louisiane", "maine", "maryland", "massachusetts", "michigan", "minnesota", "mississippi", "missouri",
+             "montana", "nebraska", "nevada", "new hampshire", "new jersey", "new mexico", "nouveau-mexique",
+             "north carolina", "caroline du nord", "north dakota", "ohio", "oklahoma", "oregon", "pennsylvania",
+             "pennsylvanie", "rhode island", "south carolina", "caroline du sud", "south dakota", "tennessee", "texas",
+             "utah", "vermont", "virginia", "virginie", "west virginia", "wisconsin", "wyoming", "carolina del norte",
+             "carolina del sur", "luisiana", "pensilvania", "nuevo mexico", "virginia occidental"]
+_CLDR = {}
+
+
+def _cldr_country_names():
+    """Noms de pays en 28 langues (config/country_names.json, généré par tools/build_country_names.py)."""
+    if "n" not in _CLDR:
+        try:
+            raw = json.loads((ROOT / "config" / "country_names.json").read_text(encoding="utf-8"))["names"]
+        except (OSError, ValueError, KeyError):
+            raw = {}
+        _CLDR["n"] = {norm(k): v for k, v in raw.items()
+                      if norm(k) not in AMBIGUOUS_COUNTRY_NAMES and norm(k) not in DEMONYMS}
+    return _CLDR["n"]
+
+
+# Noms de pays et territoires dans d'autres écritures (v0.28) : un titre chinois sur la Cisjordanie ne doit pas être
+# placé en Chine parce que le flux vient de l'édition chinoise de Google News. Pays « acteurs » fréquents (Israël,
+# Russie, États-Unis) volontairement absents des écritures sans espaces : le premier pays cité serait souvent l'auteur
+# de la frappe, pas le lieu.
+SCRIPT_COUNTRY_ALIASES = {
+    # chinois
+    "约旦河西岸": "PS", "加沙": "PS", "黎巴嫩": "LB", "叙利亚": "SY", "也门": "YE", "苏丹": "SD", "南苏丹": "SS",
+    "缅甸": "MM", "乌克兰": "UA", "阿富汗": "AF", "巴基斯坦": "PK", "伊拉克": "IQ", "索马里": "SO", "海地": "HT",
+    "刚果": "CD", "马里": "ML", "尼日尔": "NE", "尼日利亚": "NG", "利比亚": "LY", "埃塞俄比亚": "ET", "菲律宾": "PH",
+    "印度尼西亚": "ID", "印尼": "ID", "泰国": "TH", "越南": "VN", "日本": "JP", "韩国": "KR", "朝鲜": "KP", "台湾": "TW",
+    "香港": "HK", "澳门": "MO", "墨西哥": "MX", "巴西": "BR", "法国": "FR", "德国": "DE", "英国": "GB", "意大利": "IT",
+    "西班牙": "ES", "土耳其": "TR", "印度": "IN", "孟加拉": "BD", "尼泊尔": "NP", "斯里兰卡": "LK", "马来西亚": "MY",
+    "柬埔寨": "KH", "老挝": "LA", "新加坡": "SG", "澳大利亚": "AU", "新西兰": "NZ", "埃及": "EG", "沙特": "SA",
+    "约旦": "JO", "伊朗": "IR",
+    # japonais
+    "ヨルダン川西岸": "PS", "ガザ": "PS", "レバノン": "LB", "シリア": "SY", "イエメン": "YE", "ウクライナ": "UA",
+    "ミャンマー": "MM", "アフガニスタン": "AF", "フィリピン": "PH", "インドネシア": "ID", "韓国": "KR",
+    # thaï
+    "เมียนมา": "MM", "พม่า": "MM", "กัมพูชา": "KH", "ลาว": "LA", "มาเลเซีย": "MY", "ฟิลิปปินส์": "PH",
+    "อินโดนีเซีย": "ID", "เวียดนาม": "VN", "ญี่ปุ่น": "JP", "จีน": "CN", "ยูเครน": "UA", "กาซา": "PS",
+    # arabe (mot entier)
+    "فلسطين": "PS", "غزة": "PS", "الضفة الغربية": "PS", "لبنان": "LB", "سوريا": "SY", "العراق": "IQ", "اليمن": "YE",
+    "السودان": "SD", "مصر": "EG", "ليبيا": "LY", "تونس": "TN", "الجزائر": "DZ", "المغرب": "MA", "الأردن": "JO",
+    "السعودية": "SA", "الكويت": "KW", "قطر": "QA", "البحرين": "BH", "الإمارات": "AE", "الصومال": "SO",
+    "مالي": "ML", "النيجر": "NE", "تشاد": "TD", "نيجيريا": "NG", "أفغانستان": "AF", "باكستان": "PK", "أوكرانيا": "UA",
+    "إيران": "IR", "تركيا": "TR", "أبيي": "SD",
+    # gentilés arabes (« وزير الداخلية الأردني ») ; israélien volontairement absent (souvent l'auteur de la frappe)
+    "الأردني": "JO", "الأردنية": "JO", "السوري": "SY", "السورية": "SY", "العراقي": "IQ", "العراقية": "IQ",
+    "اللبناني": "LB", "اللبنانية": "LB", "اليمني": "YE", "اليمنية": "YE", "السوداني": "SD", "السودانية": "SD",
+    "المصري": "EG", "المصرية": "EG", "الليبي": "LY", "الليبية": "LY", "الفلسطيني": "PS", "الفلسطينية": "PS",
+    "الصومالي": "SO", "الصومالية": "SO", "التونسي": "TN", "التونسية": "TN", "الجزائري": "DZ", "الجزائرية": "DZ",
+    "المغربي": "MA", "المغربية": "MA", "الكويتي": "KW", "القطري": "QA", "الأفغاني": "AF", "الباكستاني": "PK",
+    # persan et ourdou (mot entier ; « آذربایجان » volontairement absent : province iranienne)
+    "افغانستان": "AF", "پاکستان": "PK", "عراق": "IQ", "سوریه": "SY", "یمن": "YE", "اوکراین": "UA", "ایران": "IR",
+    "ترکیه": "TR", "هند": "IN", "بھارت": "IN",
+    # hébreu
+    "לבנון": "LB", "סוריה": "SY", "עזה": "PS", "תימן": "YE", "איראן": "IR", "עיראק": "IQ",
+    # devanagari (hindi, népali)
+    "पाकिस्तान": "PK", "नेपाल": "NP", "बांग्लादेश": "BD", "अफगानिस्तान": "AF", "श्रीलंका": "LK", "भारत": "IN",
+}
+PLACE_SUFFIX = {"park", "beach", "heights", "springs", "hills", "valley", "county", "township", "falls", "creek",
+                "harbor", "harbour", "gardens", "grove", "ridge", "bluffs", "shores"}
+MEDIA_NAMES = ["new york times", "new york post", "new york daily news", "washington post", "los angeles times",
+               "la times", "chicago tribune", "boston globe", "times of israel", "jerusalem post", "times of india",
+               "hindustan times", "economic times", "khaleej times", "gulf times", "tehran times", "moscow times",
+               "kyiv independent", "kyiv post", "the guardian", "al jazeera", "bbc", "cnn", "france 24", "le parisien",
+               "ouest-france", "la depeche", "le dauphine", "le progres", "dallas morning news", "houston chronicle",
+               "miami herald", "seattle times", "irish times", "straits times", "bangkok post", "jakarta post",
+               "manila times", "japan times", "korea times", "china daily", "global times", "south china morning post",
+               "arab news", "jordan times", "egypt independent", "daily nation", "sydney morning herald", "the hindu",
+               "dawn", "the nation", "punch", "vanguard", "premium times"]
+_MEDIA_RE = re.compile(r"(?<!\w)(?:" + "|".join(re.escape(n) for n in sorted(MEDIA_NAMES, key=len, reverse=True)) + r")(?!\w)", re.I)
+
+
+DEMONYMS = {"ukrainian": "UA", "russian": "RU", "israeli": "IL", "palestinian": "PS", "lebanese": "LB", "syrian": "SY",
+            "iraqi": "IQ", "iranian": "IR", "yemeni": "YE", "sudanese": "SD", "nigerian": "NG", "malian": "ML",
+            "burkinabe": "BF", "somali": "SO", "kenyan": "KE", "ethiopian": "ET", "congolese": "CD", "pakistani": "PK",
+            "afghan": "AF", "indian": "IN", "french": "FR", "german": "DE", "british": "GB", "spanish": "ES",
+            "italian": "IT", "mexican": "MX", "colombian": "CO", "brazilian": "BR", "haitian": "HT", "venezuelan": "VE",
+            "turkish": "TR", "saudi": "SA", "egyptian": "EG", "libyan": "LY", "burmese": "MM", "filipino": "PH",
+            "thai": "TH", "chinese": "CN", "japanese": "JP", "ecuadorian": "EC", "peruvian": "PE", "chilean": "CL",
+            "argentine": "AR", "cameroonian": "CM", "chadian": "TD", "nigerien": "NE", "mozambican": "MZ",
+            "ukrainienne": "UA", "russe": "RU", "israelienne": "IL", "libanaise": "LB", "syrienne": "SY",
+            "irakienne": "IQ", "malienne": "ML", "nigeriane": "NG", "congolaise": "CD", "mexicaine": "MX"}
+_DEMONYM_PLACE_RE = re.compile(r"\b(" + "|".join(DEMONYMS) + r")\s+(?:city|town|village|region|province|oblast|state|capital|port|"
+                               r"border town|district)\b|\b(?:ville|region|province|localite|capitale) (" + "|".join(DEMONYMS) + r")\b")
+
+
+def demonym_place(title):
+    """« Ukrainian city of Oleshky », « la ville ukrainienne de… » : pays du lieu (v0.28)."""
+    m = _DEMONYM_PLACE_RE.search(norm(title))
+    return DEMONYMS.get(m.group(1) or m.group(2)) if m else None
+
+
+def strip_media(text):
+    """Retire les noms de médias (« New York Times », « Times of Israel », « 京都新聞 », « جريدة المدينة ») avant la
+    géolocalisation (v0.28)."""
+    return _MEDIA_SCRIPT_RE.sub(" ", _MEDIA_RE.sub(" ", text or ""))
+
+
+_MEDIA_SCRIPT_RE = re.compile(r"[\u4e00-\u9fff]{1,4}(?:新聞|新闻|日報|日报|時報|时报)|（[^）]{0,30}(?:NEWS|新聞|ニュース)[^）]{0,30}）|"
+                              r"(?:جريدة|صحيفة|موقع|قناة)\s+\S+")
+
+
 def _extra_country_aliases():
     return {"usa": "US", "etats-unis": "US", "uk": "GB", "royaume-uni": "GB",
             "britain": "GB", "rdc": "CD", "drc": "CD", "dr congo": "CD", "congo-kinshasa": "CD",
             "cote d'ivoire": "CI", "ivory coast": "CI", "burma": "MM", "birmanie": "MM", "gaza": "PS",
             "cisjordanie": "PS", "west bank": "PS", "turkiye": "TR", "russie": "RU", "ukraine": "UA",
             "centrafrique": "CF", "soudan du sud": "SS", "coree du nord": "KP", "north korea": "KP",
-            "south korea": "KR", "coree du sud": "KR", "taiwan": "TW", "kosovo": "XK"}
+            "south korea": "KR", "coree du sud": "KR", "taiwan": "TW", "kosovo": "XK",
+            **{s: "US" for s in US_STATES}}
 
 
 _GAZ = {}

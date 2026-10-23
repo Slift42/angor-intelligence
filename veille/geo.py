@@ -52,6 +52,27 @@ def normalize(name):
     return name
 
 
+_CAPITALS = {}
+
+
+def capitals():
+    """Capitales nationales {iso2: (nom, lat, lon)} lues dans GeoNames (data/geonames/cities15000.txt, code PPLC) ;
+    {} si le fichier n'est pas encore téléchargé (v0.28)."""
+    if "c" not in _CAPITALS:
+        out = {}
+        path = ROOT / "data" / "geonames" / "cities15000.txt"
+        try:
+            with open(path, encoding="utf-8") as fh:
+                for line in fh:
+                    f = line.split("\t")
+                    if len(f) > 8 and f[7] == "PPLC":
+                        out[f[8]] = (f[1], float(f[4]), float(f[5]))
+        except OSError:
+            pass
+        _CAPITALS["c"] = out
+    return _CAPITALS["c"]
+
+
 def haversine_km(lat1, lon1, lat2, lon2):
     r = 6371.0
     p1, p2 = math.radians(lat1), math.radians(lat2)

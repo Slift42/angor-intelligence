@@ -8,6 +8,7 @@ placée au centre du pays (précision « région ») ; la liste des zones figure
 Les vigilances jaunes sont ignorées (trop nombreuses, faible enjeu sûreté).
 """
 import hashlib
+import re
 import time
 
 from .. import http
@@ -30,6 +31,15 @@ TYPES = {"1": ("Vent", "storm"), "2": ("Neige / verglas", "storm"), "3": ("Orage
          "4": ("Brouillard", "other"), "5": ("Chaleur", "extreme_temp"), "6": ("Grand froid", "extreme_temp"),
          "7": ("Vagues-submersion", "flood"), "8": ("Feux de forêt", "wildfire"), "9": ("Avalanches", "landslide"),
          "10": ("Pluie", "flood"), "12": ("Crues", "flood"), "13": ("Pluie-inondation", "flood")}
+
+
+# v0.28 : zones uniquement maritimes (« Northern Baltic Sea », « Sea - North ») : sans objet pour un site ou un voyageur
+MARINE_AREA = re.compile(r"\b(?:sea|seas|mer|baltic|gulf of|golfe|offshore|marine|kattegat|skagerrak|bothnian|seegebiet|"
+                         r"zee|meri|hav|open water|haute mer|large)\b", re.I)
+
+
+def marine_only(areas):
+    return bool(areas) and all(MARINE_AREA.search(a or "") for a in areas)
 
 
 def _param(info, name):
@@ -98,8 +108,10 @@ def fetch(cfg, ctx):
             continue
         done += 1
         for (typ, sev), g in parse(data, iso, ctx.now).items():
-            if not g["sent"]:
+            if not g["sent"] or marine_only(g["areas"]):
                 continue
+            if typ == "4" and sev < 4:
+                continue   # brouillard orange : gêne passagère, pas un incident (v0.28)
             n = len(g["areas"])
             areas = ", ".join(g["areas"][:12]) + (f" (+{n - 12})" if n > 12 else "")
             name = ctx.countries.name(iso, "fr")

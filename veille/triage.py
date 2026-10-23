@@ -96,6 +96,8 @@ def verdict(e, now, verified=None):
         ctx = press.context(e["title"], e["category"])
         return ("context", ctx) if ctx else ("ok", None)
     if e.get("source") == "GDELT":
+        if (e.get("title") or "").startswith("Occupation of territory"):
+            return "noise", "situation, pas un fait daté"   # code CAMEO 192, retiré de la collecte (v0.28)
         if not e.get("headline"):
             return ("unverifiable", "article illisible") if e.get("headline_failed") else ("pending", "titre de l'article à lire")
         why = press.gdelt_noise(e["headline"])
