@@ -925,7 +925,7 @@ _ARREST_LEAD_RE = _word_re(["capturamos", "capturadas", "capturados", "capturan"
                             "detain", "detains", "detained", "يعتقل", "اعتقال", "συλληψεις", "ταυτοποιηθηκαν"])
 _PHYSICAL2_RE = _word_re(["affrontements", "clashes", "enfrentamientos", "emeutes", "riots", "pillages", "incendi", "ravage",
                           "fire", "fires", "explos", "blast", "shooting", "fusillade", "tiroteo", "disparos", "barricades",
-                          "feu", "brule", "brulent"])
+                          "feu", "brule", "brulent", "combats", "fighting", "combates", "kampfe"])
 ANALYSIS2_WORDS = ["what sparked", "what that means", "what it means", "how they could", "struggles to contain",
                    "fallout from", "likened to", "quelles differences", "interactive map", "carte interactive",
                    "volunteer summary", "war update", "что происходит", "comment la manifestation", "a degenere",
@@ -956,7 +956,8 @@ _ANALYSIS_STRICT_RE = _word_re(["comment la manifestation", "a degenere", "a bas
                                 "favorable a l'etat", "ready to help", "pret a aider", "how they could"])
 _DIGEST_RE = _word_re(["volunteer summary", "war update", "interactive map", "carte interactive", "daily brief", "что происходит",
                        "lo que sabemos", "ce que l'on sait"])
-_GENRE_RE = re.compile(r"^\W*(?:temoignage|portrait|entretien|interview|opinion|tribune|editorial|chronique)\b")
+_GENRE_RE = re.compile(r"^\W*(?:temoignage|portrait|entretien|interview|opinion|opinie|opinion|op-ed|tribune|edito|"
+                       r"editorial|chronique|columna|analisis|analyse|decryptage|explainer)\b")
 _QUOTE_SAYS_RE = re.compile(r"""^\W*(?:[\w .-]{2,20}:\s*)?['"‘“«].{3,80}['"’”»]\s*,?\s*(?:says|said|dit|affirme|dice|afirma)\b|,\s*(?:[\w'’.-]+\s){0,4}says$""")
 _CULTURE_RE = _word_re(["lleva a la pantalla", "pelicula", "documental", "documentary", "film sur", "movie", "libro sobre",
                         "book on", "novela", "exposicion", "exhibition", "narcocorrid", "artistas senalados", "concierto"])
@@ -1044,8 +1045,202 @@ _UNREST_HINT_RE = _word_re(["disturbios", "cargas policiales", "carga policial",
 _STRIKE_MILITARY_RE = re.compile(r"\b(?:forces|drone|drones|missile|missiles|shahed|russian|ukrainian|israeli|air)\s+"
                                  r"(?:\w+\s+)?strikes?\b|\bstrikes? (?:hit|on|against|kill)")
 
+# ------------------------------------------------------------------ v0.29 (run 4) : contrôle hors échantillon
+# Mesure sur 559 titres jamais vus (carte du 24 octobre, règles v0.28 en ligne) : 257 faux positifs (46 %). Les règles
+# ajoutées sont volontairement générales (familles de motifs plutôt que phrases) : sport, annonces et interdictions de
+# manifester, alertes météo sans dégâts, brèves locales, procédures judiciaires, déclarations, nouvelles militaires.
+SPORT3_WORDS = ["penalty", "penalties", "penaltis", "penales", "goal", "goals", "goles", "gol$", "golazo", "goalie",
+                "goalkeeper", "portero", "gardien de but", "squad", "la liga", "premier league", "serie a", "bundesliga",
+                "ligue 1", "champions league", "europa league", "cup final", "final place", "semi-final", "semifinal",
+                "quarter-final", "matchday", "fixture", "fixtures", "clasico", "partido", "jornada", "por la fecha",
+                "camogie", "hurling", "gaelic", "wnbl", "nfl", "mlb", "nhl", "punters", "jockey", "racecourse",
+                "sha tin", "yesil sahalar", "stormsteg", "stormers", "lightning stakes", "adelaide lightning", "knockout",
+                "head coach", "entrenador", "hat-trick", "hat trick", "red card", "carton rouge",
+                "tarjeta roja", "ibrox", "vallecas", "stade de france", "camp nou", "bernabeu",
+                "transfer window", "verpflichtet", "secures point", "secure point", "earns point", "victory over",
+                "win over", "beats", "sink", "sinks", "draw with", "bulls against", "rayo vs", "vs.", "frente a frente", "historial de",
+                "to victory", "real madrid", "atletico madrid", "psg", "juventus", "bayern munich", "manchester united",
+                "manchester city", "ac milan", "inter milan", "olympique de marseille", "olympique lyonnais"]
+_SPORT3_RE = _word_re(SPORT3_WORDS)
+_SCORE_RE = re.compile(r"\b\d{1,2}\s*[-–:]\s*\d{1,2}\b(?!\s*(?:h|heures|ans|km|octobre|october|oct))")
+ANNOUNCE_WORDS = ["interdit", "interdite", "interdits", "interdites", "interdiction", "interdictions", "aucune manifestation",
+                  "n'est autorisee", "ne sera autorisee", "prefecture", "parcours", "trace de la manifestation", "attendue",
+                  "attendues", "attendus", "prevue", "prevues", "a quoi s'attendre", "ce qu'il faut savoir",
+                  "quelles mesures", "y aura-t-il", "perturbations attendues", "appelle a manifester", "appellent a",
+                  "convoca", "convocan", "scheduled", "to take place", "will take place", "planned protest",
+                  "plan to protest", "se organizan", "preparan", "aprovam novos", "redoutent", "redoute", "crainte",
+                  "inquiet", "inquietude", "couvre-feu sera", "sera instaure", "dispositif", "securite renforcee",
+                  "haute securite", "ultra-securise", "barricaded for possible", "for possible unrest", "renfort",
+                  "renforts", "recours", "mesures exceptionnelles", "nouveau parcours", "suivez", "en prevision",
+                  "a la veille", "ahead of", "avant la manifestation", "demain", "tomorrow", "samedi prochain",
+                  "ce samedi", "ce week-end", "this weekend", "este sabado", "am sonntag", "le prefet", "faut-il"]
+_ANNOUNCE_RE = _word_re(ANNOUNCE_WORDS)
+_DESPITE_RE = _word_re(["malgre", "despite", "pese a", "a pesar", "brave", "bravent", "ont brave", "defy", "defient"])
+# signes qu'une manifestation a bien eu lieu (ou se déroule) : l'annonce n'est alors qu'un détail du récit
+_CALL_RE = _word_re(["appelle a", "appellent a", "calls for", "convoca", "convocan", "llama a"])
+_PLOT_RE = _word_re(["se organizan para", "para provocar", "plan to provoke", "prevoient de", "planean"])
+# citation en tête à la première personne (« J'avais la boule au ventre… ») : témoignage
+_LEADING_QUOTE_RE = re.compile(r'^\W{0,3}[«"“„][^»"”“]*\b(?:je|j\'|on|nous|i|we|my|mon|ma|yo|nos)\b[^»"”“]*[»"”“]')
+_ANALYSIS3_RE = _word_re(["qui sont", "immersion au", "en immersion", "doivent-elles", "doit-on", "faut-il", "outlets framed", "profiles",
+                          "como se ha", "vers un bain", "revele", "revelo", "detalla", "ofensiva mediatica",
+                          "offensive mediatique", "media offensive", "awareness", "world polio day", "end polio",
+                          "journee de l", "participe a la manifestation", "certificacion", "celebran", "se plantea",
+                          "declarar emergencia", "siapkan", "strategi$", "shirya", "incorpora", "para enfrentar",
+                          "en campana", "asks officials", "resilient", "plan de riesgos", "estudo clinico",
+                          "vacina", "dispositif de detection", "prolonge", "prolongation", "extended until",
+                          "compensate"])
+_LAUNCH_RE = _word_re(["launches", "launch", "lance", "a lance", "lancement", "sensibilisation", "awareness", "inaugur",
+                       "caravane", "campagne", "campaign"])
+_HEALTH_NOISE_RE = _word_re(["no confirmed case", "aucun cas confirme", "ningun caso", "negative", "negatif", "negativo",
+                             "no outbreak", "clarifies", "en greve", "grevistes", "strike for", "primes", "menacent de suspendre"])
+_HAPPENED_RE = _word_re(["blocking", "bloquean", "bloqueando", "occupent", "occupy", "occupying", "ont ", "se sont", "a eu lieu", "ont eu lieu", "took place", "marched", "rallied", "gathered",
+                         "protested", "blocked", "bloque", "bloquent", "defilent", "ont defile", "manifestent",
+                         "protestan", "protestam", "protestano", "protestieren", "rassemblement a", "rassemblent",
+                         "cortege", "en cours", "sous tension", "tensions", "flood", "throng", "fill the streets",
+                         "descend on", "took to the streets", "descendent dans la rue", "investissent", "disturbios",
+                         "saqueos", "quema", "scontri", "heurts", "echauffourees", "lacrymo", "projectiles", "casse",
+                         "degradations", "brises", "affrontements", "clashes", "enfrentamientos", "pillages", "interpell",
+                         "detenidos", "arrested", "arrestations", "blesses", "injured", "heridos"])
+_TURNOUT_RE = re.compile(r"\d[\d\s .]*\s*(?:manifestants|personnes|people|protesters|manifestantes|demonstrators|"
+                         r"persone|menschen|pessoas)\b|\b(?:thousands|hundreds|milliers|centaines|miles|cientos|milhares|"
+                         r"tausende|hunderte)\b")
+WARNING2_WORDS = ["expected", "predicted", "forecast", "likely by", "likely to", "brewing", "brace for", "braces for",
+                  "threatens", "ameaca", "amenaza", "se espera", "se esperan", "a que hora llegan", "registraran",
+                  "sigue alerta", "alerta amarilla", "alerta naranja", "alerta verde", "yellow warning", "amber warning",
+                  "orange warning", "red warning", "warning in effect", "warning issued", "warnings issued",
+                  "alerts issued", "warning for", "flood warning", "flood alert", "uyarisi", "uyari", "upozorava",
+                  "предупреждение", "livsfara", "varning", "warnung", "se forma", "low pressure", "depression",
+                  "basse pression", "내일", "approaching", "s'approche", "se acerca", "se aproxima", "en camino",
+                  "risco de", "riesgo de", "dikkat", "attendues", "attendus", "prevues", "iniciara", "week-end noir",
+                  "que pasara", "pourrait", "podria", "could bring"]
+_WARNING2_RE = _word_re(WARNING2_WORDS)
+_IMPACT2_RE = _word_re(["hits", "hit by", "batters", "battered", "lash", "lashes", "slams", "slam", "sweep", "sweeps",
+                        "closes", "closed", "close roads", "cancel", "cancels", "cancelled", "disruption", "disrupts",
+                        "prives d'electricite", "coupures", "power cut", "without power", "blackout", "stranded",
+                        "flooded", "inundad", "anegad", "plough", "injured", "blesses", "degats", "damage", "destroyed", "derrumb",
+                        "collapsed", "arrastrad", "evacu", "kills", "killed", "dead", "muertos", "morts", "rescued",
+                        "submerg", "affected", "afectad", "touched down", "made landfall", "toque tierra", "landfall",
+                        "brings heavy", "apporte", "trae fuertes", "scrapped", "annule", "annulee", "suspendu", "provoc"])
+DIGEST2_RE = re.compile(r"\b(?:en vivo|en direct|live|minute par minute|minuto a minuto|recap|morning recap|итоги дня)\b"
+                        r".{0,80}\b(?:hoy|today|aujourd'hui|cette semaine|this week|\d{1,2} de (?:octubre|noviembre)|"
+                        r"seguridad|clima|bloqueos|top stories|other top)", re.I)
+JUDICIAL2_WORDS = ["judge rules", "judge says", "juge", "jugee", "juge a", "juzgar", "juicio", "court orders", "court rules",
+                   "court order", "panel to hear", "to hear evidence", "suit over", "lawsuit", "sues", "demanda a",
+                   "apologie", "apologia", "inculpe", "mis en examen", "procesan", "denuncian en", "privados de libertad",
+                   "nab", "nabs", "nabbed", "presentes au", "presentados", "aprehenden", "perquisizioni", "perquisitions",
+                   "allanamientos", "fauteurs de troubles presentes", "case after", "changes stance", "igpn",
+                   "enquete de l'igpn", "enquete ouverte", "probe launched", "launch probe", "launches probe", "توقيف",
+                   "القبض على", "judge says", "judge orders", "must have new manager"]
+_JUDICIAL2_RE = _word_re(JUDICIAL2_WORDS)
+# verbes de réaction souvent attachés au récit d'un vrai fait (« denuncian secuestro », « exigen paz ») volontairement
+# absents : ils ne suffisent pas à faire d'un titre une simple déclaration
+STATEMENT3_WORDS = ["calls on", "llama a", "reaffirme", "reaffirms", "insiste", "distances itself", "se desmarca",
+                    "issues warning", "harsh warning", "sounds alarm", "alerte lancee", "lance l'alerte", "alleges",
+                    "says ex", "former u.s. envoy", "ex-us envoy", "envoy says", "minister says", "commissioner says",
+                    "president issues", "offers to", "has offered", "affirme que", "furieux", "furious", "criticise",
+                    "criticize", "seeks to portray", "عون:", "گفت", "کارشناس", "تشديد الإجراءات", "إجراءات أمنية",
+                    "tightens security", "tightening security", "heightened security", "renforce la securite",
+                    "threatening", "fears that", "fear that", "may attack", "procureur", "prosecutor", "fiscal general", "falam em"]
+_STATEMENT3_RE = _word_re(STATEMENT3_WORDS)
+# suites certaines, même si le titre rappelle le bilan (« body of Bangladeshi killed in Riyadh attack arrives in Dhaka »)
+_AFTERMATH_STRICT_RE = _word_re(["vigil$", "vigils", "candlelight", "vigile$", "veillee", "condolence", "condoleances", "عزاء",
+                                 "blood donation", "التبرع بالدم", "discharged", "dado de alta", "body of", "repatri",
+                                 "played dead", "playing dead", "hablo el hombre", "le recit", "recit glacant", "retour sur",
+                                 "bilan mitige", "studi kasus", "perdieron todo", "que cultivos", "habilitada", "reopened",
+                                 "fin de la greve", "end hunger strike", "agrees to end", "au obtinut", "promisiuni",
+                                 "orders checks", "after years", "years after", "historia de", "la dramatica historia",
+                                 "perdidas aseguradas", "insured losses", "ayuda federal", "federal aid", "provides",
+                                 "donates", "sediakan", "relawan", "يتفقد", "inspects", "inspect", "readiness",
+                                 "rescue kidnap", "rescues kidnap", "rescued kidnap", "kidnap victim", "evitaron",
+                                 "evitan", "frustraron", "plans for", "discussed plans"])
+AFTERMATH3_WORDS = ["arrives in", "historial", "recit", "tras los disturbios", "apres la liberation", "after the release",
+                    "un an apres", "a year after", "year after", "penyebab", "drama de los", "se han perdido", "reabierta",
+                    "back to normal", "retour a la normale", "ends hunger strike", "ont obtenu"]
+_AFTERMATH3_RE = _word_re(AFTERMATH3_WORDS)
+MILITARY3_WORDS = ["improves", "mass-produces", "mass produces", "veut produire", "produire", "to produce", "production",
+                   "recruiting", "recruit", "recrute", "arming", "delays approval", "approval of", "patriot missiles",
+                   "missile defense", "missile defence", "spent", "deploys", "deploy", "sends troops", "unit base",
+                   "sets up", "lessons", "trains its", "training", "drills", "exercise", "manoeuvres", "maniobras"]
+_MILITARY3_RE = _word_re(MILITARY3_WORDS)
+_ECONOMY2_RE = _word_re(["oil price", "prix du petrole", "barrel", "baril", "precio del petroleo", "stocks", "markets",
+                         "marches financiers", "exports", "export", "eksport", "trade deal", "inflation", "tariff"])
+CULTURE2_WORDS = ["cartelera", "cine", "cinema", "festival", "fest$", "cortometrajes", "horror", "terror se toma",
+                  "game", "jeu video", "satire", "satira", "mural", "lan-party", "lan party",
+                  "vulkanlan", "celebs", "celebrity", "selebriti", "seleb$", "speak up", "ex-miss", "miss universe", "concierto",
+                  "concert",
+                  "tiger shroff", "bollywood", "series", "netflix", "museum", "exhibition", "mostra", "zoo"]
+_CULTURE2_RE = _word_re(CULTURE2_WORDS)
+_MISC_NOISE_RE = re.compile(r"\bbird strike\b|\bhacked to death\b|\bkalp krizi\b|\bcrime epidemic\b|\bepidemic of\b|"
+                            r"\bcrocodile\b|\bcrocodil|\bjadwal\b|\bpemadaman\b|"
+                            r"\bcoupures? d'electricite annoncees\b|\bmanifesto\b|\bmanifeste electoral|"
+                            r"\bscam\b|\bonline fraud\b|\bescroquerie\b|\bfraude en ligne\b|\bcyberlibel\b|\bcaravane\b|"
+                            r"\bprejudices de la cybercriminalite\b|\bmiddelalder|\bmedieval\b|\bmoyen age\b|"
+                            r"\bstate of emergency\b.{0,40}\b(?:youth|services|children)|\btrau\b|\bbuffalo\b|"
+                            r"\bworld \w+ day\b|\b(?:janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|"
+                            r"novembre|decembre) dernier\b|\beksport\b")
+_HINDI_PROTEST_RE = _word_re(["धरना", "विरोध प्रदर्शन", "आंदोलन", "लाठीचार्ज", "आंसू गैस", "बंद", "हड़ताल", "पथराव"])
+_HINDI_DESK_RE = re.compile(r"^[\w .'-]{2,30}\s(?:news|samachar|समाचार)\s*[:|]", re.I)
+
+
+def audit3_noise(t, cat):
+    """Bruit (v0.29) : sport, culture, faux sens, brèves locales en hindi."""
+    if _SPORT3_RE.search(t) and not _VIOLENCE_RE.search(t.replace("strike", "")) and cat not in NATURAL - {"storm"}:
+        return "sport"
+    if _SCORE_RE.search(t) and re.search(r"\bvs?\.?\b|\bcontre\b|\bcontra\b|\bagainst\b|\bfecha\b|\bliga\b", t) \
+            and not _FRESH_RE.search(t):
+        return "sport"
+    if _CULTURE2_RE.search(t) and not heavy_toll(t) and not _PHYSICAL2_RE.search(t):
+        return "hors sujet (culture)"
+    if _MISC_NOISE_RE.search(t):
+        return "hors sujet"
+    if cat in ("cyber", "infrastructure") and _LAUNCH_RE.search(t) and not _FRESH_RE.search(t) \
+            and not _PHYSICAL2_RE.search(t):
+        return "annonce"
+    if _DEVANAGARI.search(t) and not heavy_toll(t) and (
+            _HINDI_DESK_RE.search(t) or (cat == "unrest" and not _HINDI_PROTEST_RE.search(t))):
+        return "fait divers local"
+    if cat in ("armed_conflict", "attack", "unrest") and _ECONOMY2_RE.search(t) and not _FRESH_RE.search(t):
+        return "économie"
+    return None
+
+
+def audit3_context(t, cat, fresh, physical):
+    """Contexte (v0.29) : annonces, alertes sans dégâts, résumés, procédures, déclarations, suites, militaire."""
+    if DIGEST2_RE.search(t):
+        return "analyse"
+    if _AFTERMATH_STRICT_RE.search(t):
+        return "prévention, bilan ou suites" if cat in NATURAL or cat == "health" else "suites (enquête, hommage, témoignage)"
+    if _ANALYSIS3_RE.search(t) or (_LEADING_QUOTE_RE.search(t) and not physical and cat in VIOLENT_CATS | {"unrest"}):
+        return "analyse"
+    if _JUDICIAL2_RE.search(t) and cat in NATURAL:
+        return "arrestation ou suites"
+    if cat in NATURAL or cat == "health":
+        if _WARNING2_RE.search(t) and not _IMPACT2_RE.search(t) and not fresh:
+            return "prévision"
+        if cat == "health" and _HEALTH_NOISE_RE.search(t):
+            return "prévention, bilan ou suites"
+        if _AFTERMATH3_RE.search(t) or (_STATEMENT3_RE.search(t) and not fresh):
+            return "prévention, bilan ou suites"
+        return None
+    if cat == "unrest" and ((_ANNOUNCE_RE.search(t) and not physical and not _TURNOUT_RE.search(t)
+                             and not _HAPPENED_RE.search(t) and (not _DESPITE_RE.search(t) or _CALL_RE.search(t)))
+                            or _PLOT_RE.search(t)):
+        return "annonce"
+    if _JUDICIAL2_RE.search(t) and not (physical and cat == "unrest"):
+        return "arrestation ou suites"
+    if _AFTERMATH3_RE.search(t) and not fresh:
+        return "suites (enquête, hommage, témoignage)"
+    if _STATEMENT3_RE.search(t) and not physical:
+        return "déclaration"
+    if cat in VIOLENT_CATS and _MILITARY3_RE.search(t) and not fresh and not _CONCRETE_ATTACK_RE.search(t):
+        return "annonce militaire"
+    return None
+
 def audit_noise(t, cat):
     """Non-incidents relevés en production (v0.28), texte normalisé : motif d'exclusion, ou None."""
+    why = audit3_noise(t, cat)
+    if why:
+        return why
     if cat in ("attack", "crime") and _LOGISTICS_RE.search(t):
         return "hors sujet (enlèvement de marchandises)"
     if cat == "flood" and _SEWAGE_RE.search(t) and not heavy_toll(t):
@@ -1125,6 +1320,9 @@ def audit_context2(t, cat, fresh):
     physical = bool(_FRESH_RE.search(rest)) or bool(_PHYSICAL2_RE.search(rest))
     if _DIGEST_RE.search(t) or _GENRE_RE.search(t) or _ANALYSIS_STRICT_RE.search(t):
         return "analyse"
+    why = audit3_context(t, cat, fresh, physical)   # v0.29 (run 4)
+    if why:
+        return why
     if cat in NATURAL or cat == "health":
         if _PREPARE_RE.search(t) and not (fresh and not _FOLLOWUP_RE.search(t)):
             return "prévention, bilan ou suites"
@@ -1192,6 +1390,7 @@ def gdelt_noise(headline):
 def classify(title):
     """Renvoie (catégorie, gravité) ou (None, None) si le titre ne relève pas de la sûreté."""
     t = _SEIZURE_RE.sub("saisie", norm(title))
+    t = re.sub(r"\bpeste (?=(?:o |un |una |\d))", "plus de ", t)   # roumain « peste 90 » = plus de 90 (pas la peste)
     if _NOISE_RE.search(t):
         return None, None
     found = [c for c in PRIORITY if _CAT_RE[c].search(t)]

@@ -99,6 +99,7 @@ Détails : [FRONTEND.md](FRONTEND.md).
 | `report.html` | `report.js`, `dossier.css` | Rapport pays (écran + PDF A4) |
 | `brief.html` | `brief.js`, `report.css` | Brief de mission |
 | `aide.html` | — | Aide utilisateur |
+| `help.html` | — | Aide en anglais, générée depuis `aide.html` (`tools/build_help_en.py`, ne pas modifier à la main) |
 | `compte.html`, `admin.html` | `compte.js`, `admin.js`, `account.js` | Comptes, administration (Supabase) |
 | `prestataire.html` | `prestataire.js`, `providers-lib.js`, `account.js` | Espace prestataire (fiche, justificatifs, photos, demandes, avis) et fiche publique |
 | `legal.html`, `mentions-legales.html`, `cgu.html`, `cgv.html`, `confidentialite.html`, `sous-traitance.html`, `licences.html` | `legal.js`, `legal.css` | Informations légales (contenu variable : `config/legal.json`) |

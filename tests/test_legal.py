@@ -61,7 +61,7 @@ def test_aucun_appel_a_google_fonts_ni_flagcdn():
 
 
 def test_lien_vers_les_informations_legales_partout():
-    for name in ("compte.html", "admin.html", "aide.html"):
+    for name in ("compte.html", "admin.html", "aide.html", "help.html"):
         assert "legal.html" in (ROOT / "docs" / name).read_text(encoding="utf-8"), name
     assert "legal.html" in (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
 

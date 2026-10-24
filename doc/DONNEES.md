@@ -227,6 +227,28 @@ ramenés à 7. Règles ajoutées (`audit_context2`, compléments d'`audit_noise`
 | bruit | métaphores (« protesters flood Belgrade » → troubles ; « drugs flooding the US » → écarté), « landslide victory », football (arabe, espagnol), culture (film, narcocorridos), saisies de drogue, querelles familiales, interventions de police au Brésil (« morre em confronto com a PM »), faits divers en hindi et en ourdou sans mot de sûreté, séismes japonais d'intensité 1 à 3, démentis d'images anciennes |
 | catégorie | grève ≠ frappe (« Russian forces strike energy facility » : conflit), heurts avec la police (Espagne, Belgique, France) : troubles, mine Vulcan (Roumanie) : troubles et non volcan, « système d'artillerie qui terrorisait Kherson » : conflit et non terrorisme |
 
+**Contrôle hors échantillon (v0.29, run 4)**, sur 559 titres de presse placés sur la carte le 24 octobre 2026 par les
+règles v0.28, **non vus pendant les réglages** : seuls 300 étaient de vrais incidents, soit une **précision réelle de
+54 %** (contre 95 % mesurés sur le jeu étiqueté, sur lequel les règles avaient été réglées). Les règles par mots-clés
+s'ajustent bien à ce qu'elles ont vu et beaucoup moins au reste. Après correction : 45 faux positifs, 1 incident perdu
+(précision 87 %, rappel 99,7 %), chiffre à nouveau optimiste puisque mesuré sur les titres qui ont servi à corriger.
+Règles ajoutées (`audit3_noise` en tête d'`audit_noise`, `audit3_context` dans `audit_context2`) :
+
+| Motif | Exemples réels |
+|---|---|
+| annonce (troubles) | « manifestations … attendues à Rome », interdictions, appels à manifester, complots déjoués ; sauf si le titre dit que c'est arrivé (heurts, blessés, « ahead of Sunday's protest » après un rassemblement tenu) |
+| prévision, alerte sans dégâts (aléas) | « Cyclonic storm likely by October 26 », « braces for Hurricane », « à quoi s'attendre », « dónde se esperan inundaciones », « weather LIVE as more flood alerts issued » ; une alerte qui décrit des dégâts reste (« alerta roja … por inundaciones », « cars plough through water ») |
+| arrestation ou suites | « présentés au ministre », « dictan prisión », procès, hommages, y compris pour les aléas (bilans d'indemnisation, reconstruction) |
+| analyse, déclaration | genres en tête (« Las rutas del narcotráfico que reveló… »), citation à la première personne en tête de titre, réactions sans fait |
+| militaire sans attaque | exercices, déploiements, achats, sauf frappe ou attaque concrète |
+| bruit | sport (clubs, scores « 4-0 », « to victory »), culture, économie (exportations de gaz, marchés), brèves locales en hindi |
+| langue | roumain « peste 200 de gospodării » = « plus de 200 », pas l'épidémie de peste |
+
+Garde-fous vérifiés : « Russia launches mass missile attack » reste une attaque (« launches » n'est une annonce que pour
+le cyber et les infrastructures), « Beni lance la vaccination » reste du contexte santé. **Leçon** : chaque audit doit
+être mesuré sur des titres neufs ; l'étape suivante pour la précision est le tri par IA (déjà codé, champ `physical`),
+qui ne demande que la clé d'API dans les secrets GitHub.
+
 **Localisation (run 2)** : noms de pays en 28 langues (`config/country_names.json` : « França », « Ucrânia »,
 « Arnavutluk »), États américains (« in Virginia » n'est plus la ville sud-africaine), gentilés arabes (« الأردني »),
 recherche par mots plutôt que par 4 000 expressions (3 fois plus rapide). Choix du pays : un pays cité entre guillemets

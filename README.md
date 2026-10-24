@@ -31,7 +31,8 @@ Ce qu'elle fait :
 - **Agenda** : jours fériés (Nager.Date), élections et référendums nationaux (Wikidata), grandes fêtes religieuses, vos échéances (`config/calendar.json`) ; repris dans les fiches pays, le brief et le point quotidien.
 - **Trajets surveillés** : bande de vigilance autour d'un itinéraire (villes ou tracé sur la carte), alertes comme pour les sites.
 - **Go / no-go guidé** (Travel buddy) : questionnaire → matrice menace × vulnérabilité → décision et conditions, reportées dans le brief.
-- **Aide intégrée** (`aide.html`, bouton « ? ») : guide d'utilisation complet.
+- **Aide intégrée** (`aide.html`, bouton « ? ») : guide d'utilisation complet ; version anglaise `help.html`, générée
+  depuis l'aide française par `tools/build_help_en.py` (traductions dans `tools/aide_en.json`).
 - **IA prête à brancher** : un socle commun (`veille/llm.py`) et un relais Cloudflare multi-tâches ; tout fonctionne sans clé.
 - **Interface** : bilingue FR/EN, thème clair ou sombre, utilisable sur mobile.
 

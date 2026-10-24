@@ -4,6 +4,30 @@ Format : une entrée par version, la plus récente en haut. Chaque entrée dit *
 puis, si besoin, **ce qui change pour le développeur** (fichiers, données, configuration). Le numéro de version
 est dans `veille/__init__.py` (`__version__`) et s'affiche dans « État des sources ».
 
+## v0.29 – Affinage, lot 4 : contrôle hors échantillon du tri, aide en anglais (octobre 2026)
+
+Quatrième lot de l'affinage de tout le site (plan et avancement : `claude/finetune_angor.md` dans le projet).
+
+- **Mesure honnête du tri** : 559 titres de presse placés sur la carte le 24 octobre, jamais vus pendant les réglages,
+  ont été relus un à un. Seuls 300 étaient de vrais incidents : **précision réelle 54 %**, loin des 95 % mesurés sur
+  les titres qui avaient servi aux réglages. Après correction, il reste 45 faux positifs et 1 incident perdu.
+- **Ne vont plus sur la carte** (ils restent dans le Fil, étiquette « Contexte ») : annonces et interdictions de
+  manifester, prévisions et alertes météo sans dégâts (« braces for Hurricane », « à quoi s'attendre »), présentations
+  de suspects et procès, analyses, déploiements et exercices militaires sans attaque. **Écartés** : sport (clubs, scores),
+  culture, économie, brèves locales en hindi.
+- **Gardés à coup sûr** : une alerte qui décrit des dégâts (« alerte rouge … pour inondations »), une manifestation qui a
+  eu lieu même si le titre en annonce une autre, « Russia launches mass missile attack ». En roumain, « peste 200 » veut
+  dire « plus de 200 » et n'est plus pris pour l'épidémie de peste.
+- **Aide en anglais** : nouvelle page `help.html`, ouverte par le bouton « ? » et le menu Plus quand la plateforme est en
+  anglais ; lien « English / Français » en haut des deux pages. Le texte « Contexte » de l'aide liste les nouveaux cas.
+- **Recommandation** : la précision ne progressera plus beaucoup par mots-clés. Le tri par IA (déjà codé) s'active en
+  ajoutant le secret GitHub `ANTHROPIC_API_KEY` (budget plafonné dans `config/settings.json`).
+
+Pour le développeur : `audit3_noise` et `audit3_context` (`veille/press.py`), 395 titres ajoutés à `tests/gold_tri.csv`
+(1 472), seuil de précision de `test_press.py` ramené à 88 % (voir `doc/TESTS.md`), `tools/build_help_en.py` +
+`tools/aide_en.json` (aide anglaise générée, `tests/test_help_en.py` échoue si un texte n'est pas traduit ou si
+`help.html` n'est pas à jour), cache hors ligne `angor-v12`.
+
 ## v0.28 – Affinage : ce qui n'est pas un incident quitte la carte, doublons, localisation, sources (octobre 2026)
 
 Trois premiers lots de l'affinage de tout le site (plan et avancement : `claude/finetune_angor.md` dans le projet),

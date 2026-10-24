@@ -20,7 +20,8 @@ Une évolution n'est terminée que si **toutes** les cases sont cochées :
   - raccourci assumé ou limite connue → [`doc/DETTE_TECHNIQUE.md`](doc/DETTE_TECHNIQUE.md).
 - [ ] **En-tête de module** : tout nouveau fichier commence par un commentaire qui dit ce qu'il fait, ses sources
       (avec licence) et ce qu'il produit.
-- [ ] **Documentation utilisateur** : `docs/aide.html` si l'utilisateur voit un changement ; `GUIDE_MISE_EN_LIGNE.md`
+- [ ] **Documentation utilisateur** : `docs/aide.html` si l'utilisateur voit un changement, puis
+  traduire les textes nouveaux dans `tools/aide_en.json` et lancer `python tools/build_help_en.py` (aide anglaise) ; `GUIDE_MISE_EN_LIGNE.md`
       si une manipulation est nécessaire (secret, compte, réglage).
 - [ ] **Version** : `__version__` dans `veille/__init__.py` et une entrée dans [`CHANGELOG.md`](CHANGELOG.md).
 - [ ] **Sécurité et conformité** : aucun secret dans le code, la configuration ou le site ; aucune donnée

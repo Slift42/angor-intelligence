@@ -19,7 +19,7 @@ Derhachi in Kharkiv Oblast completely without power after Russian attack,UA,1,ar
 Police investigate shooting at athletic fields behind Jacksonville Commons Elementary,US,1,attack,
 "96 Gempa Terjadi di Bandung, Apakah Termasuk Gempa Swarm?",ID,0,,
 Une jeune femme grièvement blessée dans une fusillade près de Lyon,FR,0,,
-Grève et manifestation à Paris ce 29 septembre : parcours et lieux en Ile-de-France,FR,1,unrest,
+Grève et manifestation à Paris ce 29 septembre : parcours et lieux en Ile-de-France,FR,0,,"v0.29 : annonce ou prévision, pas un fait"
 "Sismo de magnitud 3,2 se registró cerca de Bahía de Caráquez, en Manabí",EC,0,,
 "Malgré les incendies de Jijel, l'artisan algérien Nabil Gamache fait briller le bois précieux à Marseille - tsa-algerie.com",DZ,0,,
 "Where grief remains: One year after the Bogo earthquake, families still carry the weight of loss",PH,0,,
@@ -66,7 +66,7 @@ Hochwasser in Hannover: Die aktuellen Pegel der Leine am 28.09.2026,DE,1,flood,
 Sismo de magnitud 4.5 sacude las costas de Chiapas este martes,MX,0,,
 Tiroteo y cuchillo en asesinatos de fin de semana en el Gran Concepción,CL,0,,
 "Municipales 2026 : la justice annule l’élection à Vénissieux près de Lyon, remportée par LFI, en raison d’irrégularités sur une autre liste",FR,0,,
-STOP Biogás convoca una protesta en Valladolid contra la expansión de estas plantas en Castilla y León,ES,1,unrest,
+STOP Biogás convoca una protesta en Valladolid contra la expansión de estas plantas en Castilla y León,ES,0,,"v0.29 : annonce ou prévision, pas un fait"
 Kaolack : remise de motopompes aux quartiers touchés par les inondations - APS,SN,0,,
 "Three killed, four injured in shooting at Detroit, Michigan, strip club",US,1,attack,
 Menor de 8 años resulta herido por bala perdida tras tiroteo en La Serena,CL,0,,
@@ -116,7 +116,7 @@ Tirupattur TVK MLA’s win by a single vote: Madras High Court rejects election 
 "“No empujar, no gritar, no correr”: cómo protegerse durante un terremoto en El Salvador",SV,0,,
 Watch: Bangkok locals create floating market during floods,TH,1,flood,
 Kriminalität - Angriff auf schwules Paar in Berlin – Polizei sucht Täter - Panorama - SZ.de,DE,0,,
-Mexico's Baja California braces for Hurricane Polo as Hurricane Nolo threatens Hawaii,MX,1,cyclone,
+Mexico's Baja California braces for Hurricane Polo as Hurricane Nolo threatens Hawaii,MX,0,,"v0.29 : annonce ou prévision, pas un fait"
 Hakkari'de KYK yurdunda kalan öğrenciler su kesintilerini protesto etti,TR,1,unrest,
 """War is on everyone's mind in Minsk"": Analyst reveals private Belarusian discontent with Moscow",BY,0,,
 "1 Taliban Killed, 2 Wounded in Kabul Clashes: MoD",AF,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
@@ -242,7 +242,7 @@ Des affrontements devant le lycée Albert-Thomas à Roanne,FR,1,armed_conflict,"
 Rhône. « Pour une véritable augmentation des salaires » : les conducteurs des bus TCL appelés à la grève,FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026)"
 Lille : affrontements et dégradations,FR,1,armed_conflict,"v0.23 (données en ligne, 5 oct. 2026)"
 "Blocage des lycées : deux départs de feu dans un établissement à Poitiers, le rectorat appelle au calme et au dialogue",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026)"
-"Pas de blocus, établissements fermés… À Saint-Malo, à quoi s’attendre pour la manifestation du mardi 6 octobre ? - Ouest-France",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026)"
+"Pas de blocus, établissements fermés… À Saint-Malo, à quoi s’attendre pour la manifestation du mardi 6 octobre ? - Ouest-France",FR,0,,"v0.23 (données en ligne, 5 oct. 2026) ; v0.29 : annonce ou prévision, pas un fait"
 "Blocus des lycées en Franche-Comté. Un lycée bloqué à Besançon, un rassemblement à Belfort : la mobilisation a continué ce lundi",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026)"
 "Social. Blocus des lycées : drame à Lens, multiples incidents... une nouvelle journée de tensions ce lundi",FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026)"
 « Toujours plus avec toujours moins de moyens » : l’accueil périscolaire de la moitié des écoles en grève ce mardi à Paris,FR,1,unrest,"v0.23 (données en ligne, 5 oct. 2026)"
@@ -1076,3 +1076,399 @@ China Urges Kabul to Crack Down on Terrorist Groups in Afghanistan,AF,0,,déclar
 Terrorist attack on Erbil government building raises concern in Iraqi Kurdistan / Fazel Hawramy,IQ,1,terrorism,prod 2026-10-23
 "Terrorism has no link with Baloch values, says Bugti",PK,0,,déclaration (prod 2026-10-23)
 "Five ‘terrorist associates’ held, hideout busted in Kashmir: police",IN,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-23)"
+法国周末将举行新一轮示威 凡尔赛宫等多家文化场所关闭,FR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Des manifestations sous haute sécurité attendues à Rome et Milan,IT,0,,"annonce (prod 2026-10-24, hors échantillon)"
+A Nepali among eight injured in Dammam airport attack,SA,1,attack,prod 2026-10-24 (hors échantillon)
+"France: réuni à Orléans autour de Marine Le Pen, le RN cherche une démonstration de force en pleines tensions sociales Une partie des regards se tournent vers Orléans en ce…",FR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Manifestation du 24 octobre à Toulouse : ""Où est ma ville, ça ne donne pas envie"", triste samedi dans le centre cadenassé et coupé en deux",FR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Social. Mobilisation du 24 octobre : 10 000 manifestants à Lyon, 36 interpellations, 22 blessés et trois commerces dégradés",FR,1,unrest,prod 2026-10-24 (hors échantillon)
+"« J’avais la boule au ventre avant d’arriver » : à Limoges, dispositif ultra-sécurisé et interdiction ont dissuadé nombre de manifestants",FR,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Hamburg: Protest gegen Kürzungen im Gesundheitswesen,DE,1,unrest,prod 2026-10-24 (hors échantillon)
+Protester Loses Eye After Police Fire Rubber Bullets in Tirana,AL,1,unrest,prod 2026-10-24 (hors échantillon)
+"Berisha pas protestës: Kryeqyteti përjetoi një ditë dhe natë terrori, dhunë ndaj protestuesve paqësorë",AL,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Full list of flood warnings and alerts across Greater Manchester as Storm Boelo hits,GB,1,flood,prod 2026-10-24 (hors échantillon)
+"Nach Angriff auf israelische Firma in Ulm: Hunderte bei ""Free the Ulm 5""-Demo",DE,1,unrest,prod 2026-10-24 (hors échantillon)
+Alerta en las playas del centro-este de Florida: dónde se esperan inundaciones y oleaje peligroso el domingo 25 y lunes 26 de octubre,US,0,,"prévision (prod 2026-10-24, hors échantillon)"
+🔴 تشهد مدينة الحسكة في هذه الأثناء عاصفة رعدية مصحوبة بأمطار غزيرة ورياح 🔔 وكالة أنباء هاوار #ANHA 🦋 موقعنا على بلوسكاي https://apps.osrah.sa/hawarnews 📱 موقعنا على…,SY,1,storm,prod 2026-10-24 (hors échantillon)
+إجراءات أمنية مشددة في الأردن عقب هجوم كنيسة الكرك الإرهابي,JO,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+Thousands rally in Brno for public media ahead of Sunday’s Prague protest,CZ,1,unrest,prod 2026-10-24 (hors échantillon)
+Jerebu: 23 kawasan tidak sihat setakat jam 7 malam,MY,1,wildfire,prod 2026-10-24 (hors échantillon)
+Meloni supera la prueba de fuego ante decenas de manifestaciones en Italia,IT,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Declaran alerta roja en Santa Marta por inundaciones y crecientes súbitas,CO,1,flood,prod 2026-10-24 (hors échantillon)
+"Saudi Arabia announced its forces intercepted missiles launched by the Houthi terrorist organization over Mecca and Medina, inside Saudi territory. The Houthis are denying any…",SA,1,terrorism,prod 2026-10-24 (hors échantillon)
+Indonesia kurangkan eksport gas ke Singapura ketika pertikaian jerebu memuncak,ID,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+با نزدیک شدن به روز انتخابات در اسرائیل کارزارهای مخالفان بنیامین نتانیاهو هم شدت گرفته است و امروز قرار است در یکی از اصلی‌ترین میادین شهر تل‌آویو تجمع بزرگی برگزار شود. جمال…,IL,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Cars plough through water and flood alerts issued as Storm Boelo hits Wales,GB,1,flood,prod 2026-10-24 (hors échantillon)
+Cyclonic storm likely by October 26; heavy rain in Coastal Andhra from October 27: IMD,IN,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Las rutas de narcotráfico del Eln que reveló la destrucción de un laboratorio de cocaína,CO,0,,"analyse (prod 2026-10-24, hors échantillon)"
+مسعود الفک، کارشناس امور خاورمیانه، گفت حوثی‌ها با وجود رد حمله به اماکن مقدس مکه و مدینه، به دنبال ایجاد محدودیت در پروازهای منطقه هستند. او گفت ادامه حملات به زیرساخت‌های…,SA,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+오늘 곳곳 ‘비 소식’…내일 태풍 ‘참피’ 남부·제주 해상 근접,KR,0,,"prévision (prod 2026-10-24, hors échantillon)"
+"Iran has offered to reopen the Strait of Hormuz if the United States lifts its blockade on Iranian ports, according to Saudi broadcaster Al Arabiya, citing its own sources.…",IR,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+Typhoon Champi kills one and injures more than 500 in Taiwan as it heads to China,TW,1,cyclone,prod 2026-10-24 (hors échantillon)
+"Intensas lluvias de este sábado causan inundaciones y caos en la movilidad de Córdoba, Sucre y Bolívar",CO,1,flood,prod 2026-10-24 (hors échantillon)
+‏الدفاع المدني السعودي: سقوط شظايا اعتراض صواريخ حوثية بوادي المغمّس في مكة المكرمة,SA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Merseyside weather LIVE as more flood alerts issued for parts of Liverpool and Wirral,GB,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Protestos pela habitação continuam em Évora no sábado e dia 30 e mudam de local,PT,1,unrest,prod 2026-10-24 (hors échantillon)
+Lualaba : 58 présumés fauteurs de troubles présentés au ministre provincial de l’Intérieur à Kolwezi,CD,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+"Muere recién nacido en IMSS Bienestar de Guerrero mientras personal médico tenía un convivio, CNDH exige reparación del daño",MX,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Manifestation du 24 octobre à Tours : bilan mitigé du maintien de l'ordre avec une banque incendiée et un magasin pillé,FR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+"Já há tendas montadas: milhares de manifestantes preparam ""mega acampada"" em Lisboa",PT,1,unrest,prod 2026-10-24 (hors échantillon)
+Enfrentamientos entre policía y manifestantes en Roma y otras ciudades como Bolonia,IT,1,unrest,prod 2026-10-24 (hors échantillon)
+Miles de personas protestaron en México exigiendo una solución a la contaminación del agua,MX,1,unrest,prod 2026-10-24 (hors échantillon)
+Piura: madre de menor reporta que no hay prueba de dengue en el Hospital Cruzado Miguel Vera,PE,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Exigían $200 mil: Dictan cadena perpetua tras secuestro con resultado de muerte en Temuco,CL,1,attack,prod 2026-10-24 (hors échantillon)
+Pemkot Cilegon Siapkan Strategi Responsif Hadapi Bencana Banjir,ID,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Il ministro dell’Istruzione Valditara a Firenze: sarà una visita blindata per la manifestazione degli studenti,IT,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"EN IMAGES ET VIDEOS. Mobilisation du 24 octobre à Bordeaux : 15 000 manifestants malgré l’interdiction, pluie de pavés et de lacrymos… le point en photos",FR,1,unrest,prod 2026-10-24 (hors échantillon)
+Штормовое предупреждение объявили в 15 регионах Казахстана на 25 октября,KZ,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Peste o sută de susținători ai lui Călin Georgescu protestează în fața Arestului Central. Locuitorii din zonă se plâng de zgomot,HU,1,unrest,prod 2026-10-24 (hors échantillon)
+🔴 مقتل وإصابة 3 مسلحين في اشتباك مع قوى الأمن الداخلي جنوب الحسكة 🔵 قُتل مسلح وأُصيب اثنان آخران، إثر اشتباك مع دورية لقوى الأمن الداخلي أثناء ملاحقتهم، في المنطقة الواقعة بين…,SY,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+"10 000 manifestants, des interpellations et un feu devant la mairie : le bilan de la mobilisation du 24 octobre à Caen",FR,1,unrest,prod 2026-10-24 (hors échantillon)
+"Pakistani Military Recruiting Afghans to Fight Insurgents, Says Former U.S. Envoy",PK,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+El Fabril toca fondo con un duelo nefasto en el que regaló los cinco goles al Extremadura (0-5),ES,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Manifestation du 24 octobre à Alençon : le préfet de l’Orne à la rencontre des Gilets Jaunes,FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"Alsace. Mobilisation du 24 octobre : plusieurs milliers de manifestants, des heurts à Strasbourg, calme plat à Colmar et Mulhouse",FR,1,unrest,prod 2026-10-24 (hors échantillon)
+اشتباكات بين الشرطة ومتظاهرين مناهضين للحكومة في بروكسل,BE,1,unrest,prod 2026-10-24 (hors échantillon)
+Lluvias Quito: La dramática historia de comerciantes de la calle Mosquera Narváez en la tempestad,EC,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Sirsa News: स्वास्थ्य कर्मचारी 25 को मुख्यमंत्री आवास पर करेंगे प्रदर्शन,IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Scontri al centro di Roma, cariche e idranti sui manifestanti",IT,1,unrest,prod 2026-10-24 (hors échantillon)
+"सऊदी अरब पर हूतियों का बड़ा हमला: रियाद एयरपोर्ट पर भीषण बमबारी, अरामको समेत कई ठिकानों को बनाया निशाना - houthi attack on saudi arabia intense bombardment of riyadh airport several targets including aramco facilities hit",SA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+السودان يطالب «يونيسفا» بالتحقيق في الهجوم على سوق رئيسي بأبيي,SD,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Pays de Savoie . Mobilisation du 24 octobre : revivez en direct les manifestations à Chambéry, Annecy, Albertville et Thonon-les-Bains",FR,1,unrest,prod 2026-10-24 (hors échantillon)
+"Fusillade à Trappes : le tireur présumé aurait voulu ""venger les commerçants"" en ciblant ""les Noirs et les Arabes""",FR,1,attack,prod 2026-10-24 (hors échantillon)
+NW Florida City extends local state of emergency following Isaias,US,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"EN VIVO | Bloqueos, accidentes y manifestaciones hoy 24 de octubre: Cierran avenida Juárez",MX,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Fatehabad News: वोट चोरी के आरोपों पर कांग्रेस का प्रदर्शन,IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Judge rules Cornell’s ‘Jane Doe’ can use pseudonym in suit over alleged gang-rape,GB,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+Yousef Salech strikes after penalty miss as Cardiff City sink Birmingham City,GB,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+颱風攪局不減熱情 高雄小林夜祭照常登場,TW,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Jeremy Corbyn joins protesters in Cardiff,GB,1,unrest,prod 2026-10-24 (hors échantillon)
+Protest against police scheduled in Montreal,CA,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"1 killed, 1 injured in shooting at Airbnb being used for a party near east of downtown Houston, HPD says",US,1,attack,prod 2026-10-24 (hors échantillon)
+World Polio Day: Rotary Clubs District 9141 Hold Awareness Rally in Delta,NG,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Flood warning issued for parts of Wirral due to 'high tides',GB,0,,"prévision (prod 2026-10-24, hors échantillon)"
+”On n’en peut plus de l’État qui nous réprime” : immersion au cœur de la manifestation à Bruxelles,BE,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Yeşil sahalarda kordu dolu anlar! Son dakikalarda kalp krizi geçirdi,TR,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Rangers blow away St Johnstone as Storm Boelo batters Ibrox with Kelsy and Naderi shining – 5 talking points,GB,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Aughrim storm past Kildavin-Clonegal to book Leinster camogie final place,IE,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Manifestations du 24 octobre : ""C'est pas une voiture qui va nous arrêter !"" À Albi, plus d'un millier de manifestants contre la vie chère bravent l'interdiction préfectorale",FR,1,unrest,prod 2026-10-24 (hors échantillon)
+"Cyclone brewing as low pressure area forms in east-central, Southeast Bay of Bengal | Live",IN,0,,"prévision (prod 2026-10-24, hors échantillon)"
+"""المملكة"" توثق مشهد التلاحم والوحدة الوطنية في بيت عزاء شهداء الهجوم الإرهابي على كنيسة حمود بالكرك",IR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+"Manifestations du 24 octobre à Auch : casques, garrots et sacs de secours... Qui sont Chat et Belette, ces mystérieux ""street medics"" présents dans les manifestations ?",FR,0,,"analyse (prod 2026-10-24, hors échantillon)"
+VIDÉO. Manifestation du 24 octobre à Nantes : le canon à eau entre en action sur le cours des 50-Otages - Ouest-France,FR,1,unrest,prod 2026-10-24 (hors échantillon)
+PRN Melaka: Manifesto BN diumum seminggu selepas penamaan calon - Ab Rauf,MY,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Mujer armada con cuchillo es baleada por policías tras ataque que dejó cuatro heridos en Nueva York,US,1,attack,prod 2026-10-24 (hors échantillon)
+Ho Chi Minh City eyes flood-resilient metro stations,VN,0,,"analyse (prod 2026-10-24, hors échantillon)"
+"‘If you are alive, you must show it’: Hyderabad’s anti-SIR protest brings together people of all age groups",IN,1,unrest,prod 2026-10-24 (hors échantillon)
+"Tineri atrași prin conturi false și canalul „ProtestMD” pentru proteste violente, anunță Poliția Republicii Moldova / Percheziții în Chișinău și în alte regiuni",MD,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Sturmtief trifft Bahnverkehr und bremst Achterbahnen aus: Wetter im Land bleibt ungemütlich,DE,1,storm,prod 2026-10-24 (hors échantillon)
+Släkten var värst – när MFF tog stormsteg mot Europa,SE,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Interdictions de manifester, couvre-feu… À Nantes et Saint-Nazaire, des mesures « exceptionnelles » pour samedi…",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+North Korea improves ballistic missiles and mass-produces drones with Russian support – NYT,KP,0,,"annonce militaire (prod 2026-10-24, hors échantillon)"
+"Habilitada la vía Alóag Santo Domingo en los cuatro carriles, luego del deslizamiento",DO,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Brotes de dengue en el Atlántico: niño de 2 años murió tras dar positivo en Sabanalarga; su familia cuestiona la atención recibida,CO,1,health,prod 2026-10-24 (hors échantillon)
+"Severe storms and extreme fire danger expected on Sunday in KZN, Eastern Cape",ZA,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Kanisa Katoliki litakavyowaombea waliothiriwa na vurugu za Oktoba 29,TZ,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+'Islamabad arming Afghans to fight anti-Pakistani insurgents': Ex-US envoy sounds alarm,BD,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+The Republic of Moldova expels an employee of the Russian Embassy following the crash of a drone carrying explosives in Telenești District,MD,1,attack,prod 2026-10-24 (hors échantillon)
+Historial de Banfield vs. Lanús: quién ganó más y enfrentamientos,AR,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+El arte dominicano toca el cielo neoyorquino: Angurria crea en El Bronx el mural más alto de EE. UU.,US,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Telangana CM asks officials to be prepared to convince Maharashtra for 152 m FRL barrage at Tummidihatti,IN,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Lâm Đồng: Trâu xổng chuồng tấn công khiến 6 người bị thương,VN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Manifestation du 24 octobre à Paris : Bastille-Nation interdit, voici le nouveau parcours entre les portes d’Italie et de Vincennes imposé par la préfecture",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Ciclone extratropical ameaça região Sul com ventos de até 100 km/h,BR,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Manifestation du 24 octobre : retour sur les moments forts du cortège à Rouen,FR,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+Ebola: No confirmed case in Bayelsa — Commissioner,NG,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+10 killed in Taraba attack as residents flee community,NG,1,attack,prod 2026-10-24 (hors échantillon)
+Lluvias en Neuquén y Río Negro: qué zona sigue alerta amarilla por tormentas y cómo estará el tiempo,AR,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Presidenta de la República y gobernador de Arequipa no hablaron de derrumbes en la Panamericana Sur,PE,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Manifestation du 24 octobre à Niort : Une automobiliste refuse de klaxonner, elle se fait huer et doit faire demi-tour - Ouest-France",FR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Manifestations du 24 octobre : ""Quand je vois des étudiants qui ne mangent pas à leur faim, je trouve ça révoltant..."", dans le Lot près de 800 personnes réunies pour l'acte II",FR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Agricultores de Daule afectados por inundaciones, ¿qué cultivos se han perdido?",EC,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+El Elche asalta Vallecas entre penaltis y protestas contra Presa,ES,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Police rescue 23yr old kidnap victim in Delta,NG,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+ONU alerta famílias em Gaza sobre risco de inundação e inverno intenso,PS,0,,"prévision (prod 2026-10-24, hors échantillon)"
+طنجة: توقيف مشتبه فيه باعتراض سبيل المواطنين وآخر بسرقة دراجة نارية,MA,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+Opinie: Een jaar na het eerste PAIS-protest in Den Haag is het nog steeds donker,NL,0,,"analyse (prod 2026-10-24, hors échantillon)"
+5 عند الخامسة - عون: الانقسام لا يحمي أحداً... تحذير أمني أميركي بشأن لبنان واستنفار فرنسي قبل التظاهرات,LB,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+Más de 46.000 reclamos y USD 582 millones en pérdidas aseguradas: Florida solicita ayuda federal tras el huracán Isaias,US,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Ebola en Ituri : les prestataires de Rwampara et Kasenyi menacent de suspendre leurs activités,CD,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Derrumbe de rocas bloqueó la Panamericana Sur en Arequipa durante varias horas,PE,1,landslide,prod 2026-10-24 (hors échantillon)
+"5.3-magnitude earthquake hits China’s Qinghai, two days after Tibet quake that kills 16",CN,1,earthquake,prod 2026-10-24 (hors échantillon)
+Michael Carrick told Man Utd squad revolt 'wouldn't have happened' under Sir Alex Ferguson,GB,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Une entreprise frappée par un violent incendie à Dorval,CA,1,infrastructure,prod 2026-10-24 (hors échantillon)
+"En vivo - Rayo vs. Elche: 0 - 3, por la fecha 10 de La Liga de España",ES,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Farmers brace for cyclone after rain relief in Chittoor, Annamayya",IN,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Mobilisation du 24 octobre : le rond-point d'Auchan bloqué par des dizaines de manifestants à Dieppe,FR,1,unrest,prod 2026-10-24 (hors échantillon)
+Kochi cyber police launch probe as LuLu Group reportedly loses ₹1.64 crore in online fraud,IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Manifestations du 24 octobre : voici le matériel interdit retrouvé par la police dans le Morbihan,FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Manifestations du 24 octobre : seulement 200 personnes mobilisées dans l'Oise,FR,1,unrest,prod 2026-10-24 (hors échantillon)
+Logan shooting: Drive-by shooting in Queensland leaves four people in hospital,AU,1,attack,prod 2026-10-24 (hors échantillon)
+"U Zenici održan ""End Polio Now"": Nijedno dijete ne bi smjelo trpjeti posljedice bolesti koju možemo spriječiti",BA,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Yellow wind warning in effect as Storm Boelo threatens 80mph gusts in Scotland,GB,0,,"prévision (prod 2026-10-24, hors échantillon)"
+"Manifestation du 24 octobre : une centaine de personnes dans les rues de Belfort, le centre-ville protégé par la police",FR,1,unrest,prod 2026-10-24 (hors échantillon)
+"Four people injured in Russian drone attack in Nikopol district, including child",UA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Manifestation du 24 octobre à Tours : des heurts entre militants antifa et groupes d'extrême droite en marge du cortège,FR,1,unrest,prod 2026-10-24 (hors échantillon)
+Drones kamikazes : la Turquie veut produire 5 millions d'unités en cinq ans,TR,0,,"annonce militaire (prod 2026-10-24, hors échantillon)"
+Body of Bangladeshi Killed in Riyadh Missile Attack Arrives in Dhaka,BD,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+"Hog raisers’ groups from across the country stage a protest outside the Department of Agriculture main office in Quezon City on Friday, October 23. They say the government’s importation policy is killing the local industry. | via Andrea Taguines, ABS-CBN New",PH,1,unrest,prod 2026-10-24 (hors échantillon)
+"EN VIVO| Seguridad, narcotráfico y crimen en México hoy 24 de octubre: reunión de Kate del Castillo con El Chapo frenó colaboración con la CIA para detener al líder del CDS",MX,0,,"analyse (prod 2026-10-24, hors échantillon)"
+SCMP Best Bets: Lightning can strike again for punters at Sha Tin,HK,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+VulkanLAN: Ein Besuch bei Österreichs größter LAN-Party in Graz,AT,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Une enquête de l'IGPN ouverte concernant un photographe blessé à Paris par une grenade policière lors d'une manifestation du 17 octobre,FR,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+Voor de vierde keer protest in Delft tegen komst van azc: demonstrante aangehouden zonder ID,NL,1,unrest,prod 2026-10-24 (hors échantillon)
+Depistarea timpurie a cancerului de piele și tratamentele moderne pot salva vieți. Peste 270 de specialiști reuniți la Cluj-Napoca pentru o îngrijire mai bună a pacienților,RO,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+European Parliament vice-president agrees to end hunger strike over Oleshky,UA,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+"2 critical, 1 hurt after shooting at Tempe party",US,1,attack,prod 2026-10-24 (hors échantillon)
+Protest in Prag: Demonstration gegen staatliche Finanzierung von Fernsehen und Rundfunk am Sonntag,CZ,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"Attack in the West Bank kills 2 Israeli soldiers, and other Mideast news",PS,1,attack,prod 2026-10-24 (hors échantillon)
+Varning för ”livsfara” när stormen Boelo når Storbritannien,GB,0,,"prévision (prod 2026-10-24, hors échantillon)"
+"Au Yémen, des frappes saoudiennes font au moins quatre morts à Sanaa, capitale aux mains des houthistes",YE,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+"Un commerçant tué par balles dans sa boutique à Muanda, la société civile dénonce l’insécurité",CD,1,attack,prod 2026-10-24 (hors échantillon)
+مشروع أوروبي يوظف الأقمار الصناعية لرصد التصحر والجفاف في الجزائر,DZ,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Côte d’Ivoire-AIP/La caravane scolaire cyber Pathways encourage les jeunes filles du lycée technique de Cocody à s’orienter vers la cybersécurité,CI,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Delhi NEET protest: SC panel to hear evidence on pellet gun use, harassment claims on Oct 29, 30",IN,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+"Russia Says Drone Attack Damages Tolyatti Facilities, Ukraine Says Petrochemical Plant Hit",RU,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Insurgency: Eno sets up counter terrorism unit base in Akwa Ibom,NG,0,,"annonce militaire (prod 2026-10-24, hors échantillon)"
+🔻 مریم عبداللهی، همسر رشید مظاهری از اعمال محدودیت‌های بیشتر و انتقال او به سلول انفرادی در پی اعتراض به توهین‌ به فردوسی، شاعر نامدار ایرانی خبر داد. دروازه‌بان پیشین تیم ملی…,IR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Cebu City struggles to relocate
+families year after typhoon Tino - SunStar Publishing Inc.",PH,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Police unveil new response as e-bike crime epidemic in Cardiff grows,GB,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Les prestataires de la riposte contre Ebola en grève à Nia-Nia pour réclamer leurs primes,CD,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+"Feijóo llama a ""derribar el muro de Sánchez"" tras los disturbios de A Coruña: ""Hay que discrepar con palabras, no con piedras""",ES,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+Baznas Kuningan sediakan konsumsi dan obat bagi relawan karhutla,ID,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+مریم عبداللهی: رشید مظاهری پس از اعتراض به توهین به فردوسی به سلول انفرادی منتقل شد,IR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Cartelera Cine en Lima y Perú hoy sábado 24 de octubre,PE,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Nach schwerer Verletzung von Chudjakow: Sturm verpflichtet Goalie,AT,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+DIRECT - Plusieurs centaines de manifestants rassemblés au Mont des Arts à Bruxelles,BE,1,unrest,prod 2026-10-24 (hors échantillon)
+"El terror se toma Barranquilla: Criaturas Fest reúne cortometrajes, arte y música este sábado en Plaza 76",CO,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+قوات التحالف تعلن اعتراض وتدمير صاروخين باليستيين باتجاه مدينتي الطائف وينبع بالسعودية,SA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+المخواة وجهة خريفية تجمع التراث والطبيعة في تهامة الباحة,SA,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Acte 2 du 24 octobre : malgré l’interdiction de manifester à Vannes, un syndicat appelle à se mobiliser",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Ray of hope for drought-hit Telangana as low pressure over Bay of Bengal likely to bring heavy rain,IN,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Perth Lynx star Anneli Maley dominates in WNBL victory over Adelaide Lightning after returning from America,AU,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Bayern Munich coach Vincent Kompany's recovery will take 'weeks' after collapse,DE,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Alerta naranja por tormentas para este sábado 24 de octubre en la ciudad de Formosa,AR,0,,"prévision (prod 2026-10-24, hors échantillon)"
+"Al menos dos muertos y decenas de heridos en nuevos ataques israelíes en Gaza, pese al alto el fuego",PS,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+العقبة.. حملة للتبرع بالدم دعماً لمصابي هجوم الكرك...,JO,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+One road remains closed after flash floods in Scarborough,GB,1,flood,prod 2026-10-24 (hors échantillon)
+"Ebola : à l’aéroport de Yaoundé, le dispositif de détection et de prise en charge est opérationnel",CM,0,,"analyse (prod 2026-10-24, hors échantillon)"
+"Slavi Binev, controversial businessman and former politician, shot dead in Sofia",BG,1,attack,prod 2026-10-24 (hors échantillon)
+"Orhan Şenden Sel Uyarısı: İstanbul, Ege ve Akdenize Dikkat!",TR,0,,"prévision (prod 2026-10-24, hors échantillon)"
+4 air force pilots die in Batangas plane crash; planes grounded,PH,1,infrastructure,prod 2026-10-24 (hors échantillon)
+SITEU convoca protesto no Santo António no dia da greve,PT,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"कोटक महिंद्रा बैंक का शानदार प्रदर्शन: दूसरी तिमाही में मुनाफा 26 बढ़कर रहा ₹5645 करोड़, एसेट क्वालिटी में हुआ सुधार - kotak mahindra bank q2 profit jumps 26 percent to rs 5645 crore npa ratio fell",IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Inundaciones en Chaco: el drama de los que perdieron todo por la crecida del Paraná y viven al costado de la ruta,AR,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Birmingham gunmen were 'reckless and selfish' in shooting outside nightclub - detective,GB,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Manifestation du 24 octobre : voici les perturbations attendues à Metz,FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Powerful storms sweep across South Australia,AU,1,storm,prod 2026-10-24 (hors échantillon)
+Paul de Villiers ‘comfortable’ leading young Stormers team,ZA,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"« Aucune manifestation ne sera autorisée » : à Rennes, la préfecture interdit les rassemblements du samedi 24 octobre - Ouest-France",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"रांची में इन सरकारी दफ्तरों के पास धरना-प्रदर्शन पर पाबंदी, बिना अनुमति जुलूस-रैली निकालने पर होगी कार्रवाई - ranchi protest ban near government offices without prior permission",IN,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Coupures d’électricité, ferries annulés : on fait le point après la tempête Austen à Dieppe et dans sa région",FR,1,infrastructure,prod 2026-10-24 (hors échantillon)
+Несовершеннолетний хакер из Гродно разработал программу для хищения денег,BY,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Burkina Faso : la BCLCC chiffre à plus de 9 milliards FCFA les préjudices de la cybercriminalité,BF,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Asap pekat akibat karhutla masih selimuti Palangka Raya-Kalteng,ID,1,wildfire,prod 2026-10-24 (hors échantillon)
+OMS anuncia início de primeiro estudo clínico de vacina contra o Ebola que arrasa República Democrática do Congo,BR,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Tiger Shroff shooting: Mumbai cops recover two firearms from Surat,IN,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"""Risques de trouble à l'ordre public"" : la préfecture interdit de manifester aux abords du village de la Route du Rhum",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"Morning recap: Ebola updates, looming petrol price hike, Lagos building collapse, other top stories",NG,0,,"analyse (prod 2026-10-24, hors échantillon)"
+سفر کوتاه پزشکیان به مشهد/ ادای احترام رئیس جمهور به مزار رهبر شهید انقلاب,IR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Manifestations : les forces de l’ordre doivent-elles prévenir avant l’utilisation des gaz lacrymogènes ? On vous répond,FR,0,,"analyse (prod 2026-10-24, hors échantillon)"
+"Lightning reportedly strikes, kills student in Biliran",PH,1,storm,prod 2026-10-24 (hors échantillon)
+Drinking water supplies dwindle in Yemeni city besieged by Houthi rebels,YE,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Ebola: Kenya announces second death,KE,1,health,prod 2026-10-24 (hors échantillon)
+Im Bann des „Biber-Staates“: Oregon zwischen Vulkanen und US-Westküste,US,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+السفارة الأميركية في عمّان: تشديد الإجراءات الأمنية عقب هجوم «الكرك»,JO,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+Toure strike secures point for Bulls against Jets,AU,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+AMS upozorava na maglu i odrone: Evo gdje se vozi sporije,BA,0,,"prévision (prod 2026-10-24, hors échantillon)"
+KZN VIP distances itself from former boss after Phoenix protest 'warning',US,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+"Vaucluse. Mobilisation du 24 octobre : rassemblements et manifestations interdits en centre-ville à Avignon, une journée sous haute tension annoncée",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"3. ģimnāzijas direktors: Skolotājs ir nemiera gars, kas meklē pareizo ceļu pie skolēna",LV,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+L’AAPI participe à la manifestation «Journée de l’Afrique 2026 » : l’Algérie séduit à Vienne,AT,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Deretan Seleb yang Speak Up soal Karhutla,ID,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Dramático derrumbe de un entrepiso de un bar en medio de un festejo de cumpleaños: hay al menos 15 heridos,AR,1,infrastructure,prod 2026-10-24 (hors échantillon)
+"Ex-Miss é favorita para assumir cargo de porta-voz de Trump deixado por Katie Zacharia, após passagem relâmpago pela Casa Branca",MA,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+لاہور سے گوجرانوالہ کی رائیڈ پر جانے والا آن لائن ٹیکسی ڈرائیور مبینہ طور پر اغوا,PK,1,attack,prod 2026-10-24 (hors échantillon)
+Cebu City clarifies: No ASF outbreak in Barangay Sapangdaku,PH,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+"À Orléans, la crainte des sympathisants et militants du RN devant la mobilisation des manifestants contre l'extrême droite",FR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Pionero plan de riesgos de inundaciones en Arrecife,BR,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Fuegos artificiales y enfrentamientos con Carabineros marcan conmemoración de la muerte de Alex Núñez en Maipú: Hay tres detenidos,CL,1,unrest,prod 2026-10-24 (hors échantillon)
+لاہور: ایل پی جی ڈسٹری بیوٹرز کی دو روزہ ہڑتال، پنجاب بھر میں بیشتر دکانیں بند,PK,1,unrest,prod 2026-10-24 (hors échantillon)
+"Entre manifestation du 24 octobre et fermetures habituelles, week-end noir dans les transports en Ile-de-France",FR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Penyebab dan Dampak Bencana Alam di Indonesia: Studi Kasus Karhutla Kalimantan dan Banjir Padang,ID,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+"Hafta letters: NL’s coverage of SIR protest, question for Anand and violence in Manipur",IN,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Tempête Austen : la circulation des TER interrompue dans les Hauts-de-France jusqu’à la fin de la journée,FR,1,storm,prod 2026-10-24 (hors échantillon)
+Typhoon Champi traveling north of Okinawa islands,JP,1,cyclone,prod 2026-10-24 (hors échantillon)
+"Pulong Duterte sues NBI chief, others for P20M in cyberlibel",PH,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Plantón en defensa de los derechos de las mujeres movilizó a manifestantes por San José: fotos y videos,CR,1,unrest,prod 2026-10-24 (hors échantillon)
+Bomberos Voluntarios celebran histórica certificación en rescate,GT,0,,"analyse (prod 2026-10-24, hors échantillon)"
+'พลอยทะเล' ซัด 'ดวงฤทัย' แกล้งไม่รู้หรือหิวแสง! ปั่นข่าวน้ำท่วมเล่นเกมการเมือง,TH,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Manifestation du 24 octobre à Valence : interdictions, couvre-feu et renfort militaire…à quoi faut-il s'attendre ?",FR,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Seven injured in Russian attacks on Sloviansk and Kramatorsk,UA,1,attack,prod 2026-10-24 (hors échantillon)
+Teacher wounded in Oregon school shooting played dead after she was shot,US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+Vuelven las tormentas al Litoral y se agrava la situación de las familias que llevan dos semanas evacuadas,AR,1,storm,prod 2026-10-24 (hors échantillon)
+El BNG busca su espacio propio en campaña señalando al PSOE por su gestión de los disturbios,ES,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Operación Eclipse: 11 personas quedan privados de libertad por tráfico de drogas y tenencia de armas en Los Vilos,CL,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+Mali : le couvre-feu prolongé jusqu’au 20 novembre dans la région de Koulikoro,ML,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Hentikan pembungkaman protes Karhutla dan tetapkan status bencana nasional,ID,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Lucknow News: बाढ़ का पानी उतरा, प्यास बुझाने का खर्च बढ़ गया",IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Ataque armado en Iztapalapa deja dos muertos: detienen a dos jóvenes de 22 años que habían escapado en una moto,MX,1,attack,prod 2026-10-24 (hors échantillon)
+"EN VIVO| Seguridad, narcotráfico y crimen en México hoy 23 de octubre: hallan sin vida a Ariana Scarlett de 12 años en Chiapas",MX,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Protest outside the UN building in Damascus condemns Israeli aggressions on Syria,SY,1,unrest,prod 2026-10-24 (hors échantillon)
+"Niños Emberá, sin atención psicosocial, por bloqueo indígena: Distrito denuncia agresiones",CO,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Época seca en El Salvador iniciará el 5 de noviembre: ¿qué pasará con las lluvias?,SV,0,,"prévision (prod 2026-10-24, hors échantillon)"
+’뉴욕 마차’ 역사속으로…’시위 풍자’ 게임 등장,US,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Students protest against SIR at Mumbai University, demand arrest of CEC Gyanesh Kumar",IN,1,unrest,prod 2026-10-24 (hors échantillon)
+"Thunderstorms, heavy rain and flash flooding predicted for much of Australia",AU,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Two dead after shooting at Henderson apartment complex,US,1,attack,prod 2026-10-24 (hors échantillon)
+“Quiero disculparme por no haber salvado a sus bebés”: habló el hombre que abatió al atacante del tiroteo mortal en la escuela primaria de Oregón,US,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+¿Dónde está lloviendo más fuerte en Guayaquil? Estas zonas reportan inundaciones,EC,1,flood,prod 2026-10-24 (hors échantillon)
+Suspenden trabajos por derrumbe en vía Alóag-Santo Domingo; circulación permanece restringida,EC,1,infrastructure,prod 2026-10-24 (hors échantillon)
+Denuncian en Bariloche a un candidato del oficialismo local por apología del terrorismo de Estado,AR,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+"Brann, krig, epidemier og flom rammet middelalderens Oslo. Likevel ble byen bygget opp igjen, gang på gang",NO,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Tibetans hold candlelight vigil in Dharamshala for earthquake victims in Nakchu,IN,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Un militar muerto y otro herido dejan combates contra Los Pachenca en Santa Marta,CO,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Inundaciones y fallas de ascensor preocupan a residentes en Ñuñoa: sistema frontal reveló fallas de edificio nuevo,CL,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Calgary Zoo taking precautions amid avian flu case in southern Alberta,CA,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Typhoon Champi waves slam Taiwan's Taitung coast,TW,1,cyclone,prod 2026-10-24 (hors échantillon)
+Punjab govt to pursue alleged gang-rape case after Azerbaijani victim changes stance,PK,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+Ukraine’s Battlefield Lessons Reshape How Bundeswehr Trains Its Combat Medics,UA,0,,"annonce militaire (prod 2026-10-24, hors échantillon)"
+Panchkula News: कचरा कलेक्टरों का नगर निगम कार्यालय के बाहर प्रदर्शन,IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Erst Stille aus Protest, dann bitterer Austria-Knockout gegen Blau-Weiß Linz",AT,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"One dead, five injured in Paris after 'terrorist and racist attack'",FR,1,terrorism,prod 2026-10-24 (hors échantillon)
+Social. Mobilisation du 24 octobre : le recours des partis de gauche sur les interdictions de manifester rejeté,FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Bilaspur News: एम फार्मेसी में शिवा इंस्टीट्यूट के विद्यार्थियों का शानदार प्रदर्शन,IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Ebola scare at Zamfara airport as passenger develops high temperature,NG,1,health,prod 2026-10-24 (hors échantillon)
+"Udhampur News: एपीएस उधमपुर के फेंसिंग खिलाड़ियों का शानदार प्रदर्शन, चार रजत, दो कांस्य पदक जीते",IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Jihohi 21 ne kawai suka shirya tinkarar cutar ebola - Minista,NG,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Pregnant minor gang-raped in Rajasthan; newborn dies after delivery in deserted area,IN,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+“Las operaciones de EEUU en México ya comenzaron”: Riva Palacio detalla el papel de la CIA contra los cárteles,MX,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Alerta verde por inundaciones en República Dominicana,DO,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Протест се проведе пред Съдебната палата в София срещу миграцията,BG,1,unrest,prod 2026-10-24 (hors échantillon)
+"Manifestation du 24 octobre à Toulouse : gendarmes dans le centre-ville, RAID, militaires de Sentinelle, véhicules Centaures... des moyens exceptionnels déployés pour la sécurité",FR,1,unrest,prod 2026-10-24 (hors échantillon)
+Guatemala incorpora cuatro aeronaves estadounidenses para enfrentar incendios forestales,GT,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Sri Lankan Court Orders Supporters Of Hardline Buddhist Monk To Vacate Protest Site In Colombo,LK,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+"A qué hora llegan las tormentas fuertes y el granizo a Buenos Aires hoy, jueves 15 de octubre",AR,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Las ciudades de La Paz y El Alto registrarán lluvias y tormentas eléctricas este fin de semana,BO,0,,"prévision (prod 2026-10-24, hors échantillon)"
+"Aucune manifestation autorisée, 50 vigiles déployés à Toulon, couvre-feu étendu à Hyères… Un samedi 24 octobre sous haute tension",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+ÉLECTRICITÉ – Le Colonel Michaël Randrianirina donne une semaine à la Jirama pour mettre fin aux coupures de courant à Ambovombe,MG,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Mobilisations du 24 octobre. Grenoble : un couvre-feu sera instauré dès samedi soir, annonce la préfète de l’Isère",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Organizações guineenses protestam contra a falta de mediação senegalesa na crise da Guiné-Bissau,GW,1,unrest,prod 2026-10-24 (hors échantillon)
+"Thousands Protest In Syria Against Israeli Attacks, Rallying In Quneitra And Daraa: how 6 outlets framed it",SY,0,,"analyse (prod 2026-10-24, hors échantillon)"
+والي اترارزة يتفقد أشغال طريق بغداد وكرمدك والحواجز الوقائية من الفيضانات,IQ,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Manifestation du samedi 24 octobre à Dijon : la préfecture interdit les rassemblements dans un périmètre défini,FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Ethiopia: Ethiopia's Abiy Inaugurates Major Megech Irrigation Dam,ET,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Kenya: huge piles of rubble after high-rise building collapses,KE,1,infrastructure,prod 2026-10-24 (hors échantillon)
+"Villefranche-sur-Saône. Couvre-feu, renforts de police, barricades : la sécurité renforcée ce week-end",FR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+BBC profiles Russian exile who says his surveillance network tracked General Staff officer Fanil Sarvarov before his assassination in Moscow,RU,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Strasbourg. Mobilisation du 24 octobre : une manifestation déclarée et des restrictions annoncées par la préfecture,FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Oil price rises above $117 a barrel amid fears US will renew strikes on Iran,IR,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Sudan denies role in Abyei market drone strike that killed at least 220,SD,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+ویدیوی منتشرشده در رسانه‌های اجتماعی نشان می‌دهد که مادر علیرضا نوری بر مزار فرزندش، مویه‌کنان گفت که انتقام او را می‌گیرد و «خون بر زمین نمی‌مانَد.» این جاویدنام در اعتراضات…,IR,1,unrest,prod 2026-10-24 (hors échantillon)
+"Marchés annulés, ponts fermés, coupures d’électricité, vents jusqu’à 148 km/h : la Normandie stoppée par la tempête",FR,1,infrastructure,prod 2026-10-24 (hors échantillon)
+Isère. Y aura-t-il une manifestation autorisée à Vienne ce samedi ?,AT,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Irrigation brings a future to North Otago after years of dust and drought,NZ,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Ituri : fin de la grève des chauffeurs de poids lourds sur la RN27,CD,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+Maestros denuncian arresto de exdirigente y gasificación durante protesta en Sucre,BO,1,unrest,prod 2026-10-24 (hors échantillon)
+"في اجتماع هو الأول من نوعه.. إسطنبول تجمع وزراء خارجية 8 دول إقليمية وأوروبية لبحث أزمات المنطقة وتعزيز التنسيق السياسي حيال التحديات الأمنية المتصاعدة. موفد ""الشرق بلومبرغ""…",TR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+En tres municipios de Nariño el conflicto toca fondo: reportan 357 familias desplazadas y 460 confinadas,CO,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Montreal protest against police misconduct to take place at Station 21 on Oct. 24,CA,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"""Cela va échauffer les esprits"" : la modification du tracé de la manifestation du 24 octobre à Orléans agace les syndicats",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Radicales se organizan para provocar disturbios en las manifestaciones de este sábado en Madrid y Barcelona,ES,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Cargolux orders checks on all 747-8F aircraft after landing gear collapse,LU,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+"Armed Anti-Taliban Group Claims Attack on Bagram Airfield, Reports 10 Taliban Casualties",AF,1,attack,prod 2026-10-24 (hors échantillon)
+Protests in Raqqa against Israeli incursions in Southern Syria,SY,1,unrest,prod 2026-10-24 (hors échantillon)
+Burkina/Sécurité numérique : L'Agence nationale de sécurité des systèmes d'information a lancé officiellement le Réseau national des RSSI et points focaux cyber,BF,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"⚡️ Russian daytime attack on Chernihiv civilian businesses kills 1, injures at least 25. Chernihiv City Council said two private businesses were targeted in the Russian attack…",UA,1,attack,prod 2026-10-24 (hors échantillon)
+Manifestantes aprovam novos protestos para sábado em Lisboa e no Porto,PT,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Moldova says Tiraspol protest seeks to portray false unity,MD,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+EN VIVO | Clima CDMX y resto de México hoy miércoles 21 de octubre: se forma Tormenta Tropical Vance en el pacífico,MX,0,,"analyse (prod 2026-10-24, hors échantillon)"
+ویدیوی منتشرشده در رسانه‌های اجتماعی نشان می‌دهد زادروز رضا ریزوندی بر مزارش برگزار شد. این جاویدنام در سن ۲۷ سالگی در اعتراضات ۱۹ دی ۱۴۰۴ در پاکدشت به‌دست ماموران حکومتی کشته شد.,IR,1,unrest,prod 2026-10-24 (hors échantillon)
+"« 15 ans sans revalorisation salariale » : après une manifestation d’ampleur le 23 septembre dernier, les agents de Monaco Parkings seront-ils entendus ? - Nice-Matin",MC,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Drought brings new famine risk to Sudan as drone strike kills 153,SD,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Bird strike disrupts flights at Kathmandu airport,NP,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Haut-Mbomou : après la libération des otages de Bambouti, l’inquiétude renait sur le sort de 13 autres personnes enlevées",CF,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+La tempête Austen balaie la France et le Royaume-Uni avec des vents jusqu'à 160 km/h,FR,1,storm,prod 2026-10-24 (hors échantillon)
+‘People Against SIR’ stage protest in Shivamogga,IN,1,unrest,prod 2026-10-24 (hors échantillon)
+"Manifestation samedi à Bruxelles : les commerces du centre, de la Porte de Namur et de l'Avenue Louise barricadent leurs vitrines",BE,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+"Russians strike Dnipro multiple times during the day, killing a person and injuring five – photos",UA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+ELN responde con atentado en Yopal usando 120 kilos de explosivos,CO,1,attack,prod 2026-10-24 (hors échantillon)
+Vor Knesset-Wahl: Junge Israelis zwischen Trauma und Zukunftssorge https://www.tagesschau.de/ausland/asien/israel-parlamentswahlen-erstwaehler-100.html Der Terrorangriff der…,DE,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Hongkong Land and Marsh report shows climate resilient design can cut expected flood losses by 88%,HK,0,,"analyse (prod 2026-10-24, hors échantillon)"
+"En Belgique, la crainte de nouvelles manifestations violentes relance le débat sur la coupure des réseaux sociaux",BE,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"Manifestation du 24 octobre : à Bordeaux, les syndicats sont furieux contre la préfecture de Gironde",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"Sécurité privée, interdictions, commerces, centre-ville… Quelles mesures à Angers pour la manifestation du 24 octobre ? - Ouest-France",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"CARTE. Rassemblements des gilets jaunes, transports perturbés : ce qu'il faut savoir sur la manifestation du 24 octobre à Tours",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"Dehradun News: रेलवे कर्मचारियेां ने किया प्रदर्शन, ओपीएस की मांग",IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"One dies, three injured in Lagos building collapse",NG,1,infrastructure,prod 2026-10-24 (hors échantillon)
+France: shops barricaded in Lyon and Orléans for possible unrest,FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Teacher hurt in axe attack at Kuching school discharged from hospital,MY,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+"Ludhiana News: सड़क हादसे में महिला की मौत, लोगों का प्रदर्शन",IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Coalition 2026 Unveils 66-Point Manifesto, Promises Reforms on Cost of Living, Jobs & Governance",GM,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Tempête Austen : de fortes perturbations attendues sur les RER et Transiliens vendredi en Île-de-France,FR,0,,"prévision (prod 2026-10-24, hors échantillon)"
+Côte d’Ivoire : Des Coupures d'électricité annoncées à Toulepleu et Danané les 24 et 25 octobre,CI,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Protesters block major Cape Town highway – demand water, electricity",ZA,1,unrest,prod 2026-10-24 (hors échantillon)
+Francia quiere bloquear las redes para frenar saqueos: cómo se ha estado usando Internet en los disturbios,FR,0,,"analyse (prod 2026-10-24, hors échantillon)"
+‎Tenkodogo : Les agents des eaux et forêts capturent un crocodile près d'un poulailler et le relâchent dans le barrage,BF,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Dubai Police nab 6-member gang after residents' savings lost in shopping website scam,AE,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"À Lille, les commerçants redoutent de nouveaux débordements lors de la manifestation : « On va fermer boutique »",BE,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Defense Forces strike drone launch site near Donetsk and Russian warehouses,UA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+【第3報】お取引先および退職者の皆さまへ、当社グループ管理サーバーへの不正アクセスおよび情報漏えいの可能性について注意喚起のお願い,JP,1,cyber,prod 2026-10-24 (hors échantillon)
+David Eustace mulls Lightning Stakes aim with Colourful King ahead of key Sha Tin test,HK,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+Ukraine strikes town in Russia that houses a Federal Tax Service data center,RU,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Woman hacked to death in Thoothukudi over objection to man contacting her minor daughter,IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Jadwal dan Lokasi Pemadaman Listrik Makassar Sore Ini 23 Oktober, Mati Lampu hingga Tengah Malam - Tribun-timur.com",ID,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Mulhouse. Mobilisations du 24 octobre : centre-ville interdit, couvre-feu et centre commercial fermé",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+"Antagonisti, molotov e terrorismo a Bari. Cento perquisizioni in tutta Italia",IT,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+شهيد ومصابون بقصف إسرائيلي على خان يونس جنوب غزة,PS,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Enugu youths protest alleged police killing of socialite ‘Stone’,NG,1,unrest,prod 2026-10-24 (hors échantillon)
+"Violences du 17 octobre. “On ne peut que se montrer inquiet pour les prochaines manifestations ”, explique l’ancien patron des CRS du Grand Est",FR,0,,"annonce (prod 2026-10-24, hors échantillon)"
+Changement climatique et transmission du paludisme : l’alerte lancée au sommet mondial de la santé à Berlin,DE,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+"Governor Rimbasa, officials inspect Yambio Ebola unit to test readiness",SS,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+"Vers un bain de sang, la tension entre Bangui et Kigali : Jules Njawé, un conseiller de Touadéra, révèle un plan d’assassinat de ce dernier",CF,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Saudi Aviation Body Reports Two Killed in Dammam Airport Attack,SA,1,attack,prod 2026-10-24 (hors échantillon)
+Ataques Terroristas: três pescadores escapam do cativeiro após sequestro da embarcação em Mocímboa da Praia,MZ,1,terrorism,prod 2026-10-24 (hors échantillon)
+Insécurité à Conakry : le procureur général passe à l’offensive contre les foyers criminels,GN,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+Araghchi: US Spent $11 Billion on Missile Defense for Israel,IL,0,,"annonce militaire (prod 2026-10-24, hors échantillon)"
+Ebola à Lubero : deux structures sanitaires restent fermées à Alimbongo après la contamination de soignants,CD,1,health,prod 2026-10-24 (hors échantillon)
+Inundaciones en Ecuador por fuertes lluvias y granizo: imágenes evidencian cómo quedó Quito,EC,1,flood,prod 2026-10-24 (hors échantillon)
+UN confirms 80 dead in Abyei drone strikes,SD,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Arabie saoudite : le récit glaçant d’une Algérienne blessée dans l’attaque d’un aéroport,SA,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+Lucknow News: फैजुल्लागंज में बाढ़ का पानी उतरा... नजर आए सड़कों के जख्म,IN,0,,"hors sûreté (prod 2026-10-24, hors échantillon)"
+"Inundaciones, mayores emergencias en época de lluvias de Guatemala",GT,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+Afghanistan Chamber of Commerce Provides Nearly 7.6 Million Afghanis to Flood-Hit Families in Nuristan,AF,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Centrafrique: la Présidence réaffirme que l’attaque des FACA et de leurs alliés russes s’est déroulée exclusivement sur le territoire centrafricain,CF,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+Video | Omstanders blussen auto na Israëlische aanval op Gaza,PS,1,attack,prod 2026-10-24 (hors échantillon)
+"Texas Camp Hit by Floods Must Have New Manager, Judge Says (2)",US,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+China: la ofensiva mediática que mantiene en Guatemala,GT,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Russia launches mass missile and drone strikes on Kyiv,UA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+"Italy deploys 500 troops to Milan, tighten security laws after clashes",IT,0,,"annonce militaire (prod 2026-10-24, hors échantillon)"
+El Salvador’s President Issues Harsh Warning to Haitian Gangs After 4 Soldiers Are Abducted,BR,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+"Russian Ballistic Missile Attack Hits Kyiv Transport Facility, Injures Six",UA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+قتيل وجرحى في قصف مطار الدمام,SA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Iran is threatening to expand its target list in the event of another major war. A senior Iranian security official told Fars News that if renewed fighting includes…,IR,0,,"faux positif connu (prod 2026-10-24, hors échantillon)"
+BREAKING: Sudanese army drones reportedly strike Amiet Market in Abyei,SD,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+"Russian attack damages homes, car repair shop and gas station in Kyiv’s Dniprovskyi District, injuring two",UA,1,attack,prod 2026-10-24 (hors échantillon)
+"Afghanistan Records Six New Polio Cases, Bringing 2026 Total to 42: WHO",AF,1,health,prod 2026-10-24 (hors échantillon)
+Australia Has Yet to Compensate Afghan Victims of Alleged War Crimes,AU,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Quatre soldats de la FRG blessés dans des affrontements avec les gangs à Port-au-Prince* -,HT,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+"Russian forces strike Epicentr shopping center in Pervomaisk, injuring two women",UA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Huracán Trudy continúa en categoría 2 y Frente frío no. 2 ocasiona fuertes lluvias: el clima en México hoy domingo 18 de octubre,MX,1,cyclone,prod 2026-10-24 (hors échantillon)
+Damascus Fears Druze Factions May Attack Syrian Forces Amid Allegations of Israeli Military Support,SY,0,,"déclaration (prod 2026-10-24, hors échantillon)"
+Trump Administration Delays Approval of Patriot Missiles for Ukraine,UA,0,,"annonce militaire (prod 2026-10-24, hors échantillon)"
+"Rescatan los primeros seis cuerpos tras el fatal derrumbe en mina de Santa Bárbara de Iscuandé, Nariño: una mujer fue identificada entre las víctimas",CO,1,infrastructure,prod 2026-10-24 (hors échantillon)
+"Three killed in Manipur attack, bodies left outside CM’s bungalow",IN,1,attack,prod 2026-10-24 (hors échantillon)
+L’eurodéputée LFI Rima Hassan est jugée à Paris lundi et mardi pour apologie du terrorisme - Ouest-France,FR,0,,"arrestation ou suites (prod 2026-10-24, hors échantillon)"
+"Russian strike on Kyiv kills 21-year-old woman; U.S. gave Ukraine no advance warning, journalists report",UA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Se plantea declarar emergencia en San Pedro tras las inundaciones,PY,0,,"analyse (prod 2026-10-24, hors échantillon)"
+Kenya confirms preliminary tests on suspected Ebola case come back negative,KE,0,,"prévention, bilan ou suites (prod 2026-10-24, hors échantillon)"
+Sydney man allegedly discussed plans for childcare mass shooting with AI chatbot,AU,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+France protests: Fresh clashes in Paris as cities reel from widespread destruction,FR,1,unrest,prod 2026-10-24 (hors échantillon)
+قلات اور گوادر میں سیکیورٹی فورسز کی کارروائیوں میں 4 دہشت گرد ہلاک، پاک فوج کا ایک میجر شہید,PK,1,terrorism,prod 2026-10-24 (hors échantillon)
+⚡️ ️️️️️️ Russian ballistic missiles slam Kyiv right as air raid alarms sound. Residents had little warning before the missiles struck late on Oct. 18. A medical center in Kyiv…,UA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+Así evitaron un presunto secuestro en Durán: las cámaras siguieron un vehículo hasta que intervino la Policía,EC,0,,"suites (enquête, hommage, témoignage) (prod 2026-10-24, hors échantillon)"
+"Wafa, 'bambino ucciso a Gaza in un attacco dell'Idf, il secondo oggi'",PS,1,attack,prod 2026-10-24 (hors échantillon)
+İçişleri Bakanı Çiftçi: Sakarya'da etkili olan sel neticesinde 2 yapı ve 5 köprü yıkılmış durumda,TR,1,flood,prod 2026-10-24 (hors échantillon)
+"Russian Strike Hits Odesa High-Rise, Injures 2",UA,1,armed_conflict,prod 2026-10-24 (hors échantillon)
+"One Killed, 5 Injured in Ukrainian Drone Attack on St. Petersburg, Governor Says",RU,1,armed_conflict,prod 2026-10-24 (hors échantillon)

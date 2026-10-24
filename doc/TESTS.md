@@ -16,7 +16,7 @@ Les trois premiers et le test de fumée tournent automatiquement à chaque `push
 |---|---|
 | `conftest.py` | Blocage du réseau, fabrique d'événements `make()`, pays (`countries`) |
 | `test_model_geo.py` | Format d'événement, dates, taxonomie, localisation des pays, distances |
-| `test_press.py` | Tri de la presse : titres à garder / à écarter (cas réels), gravité, langue, seuils sur le jeu étiqueté, cas de l'audit de production v0.28, localisation (ignorée sans le dictionnaire GeoNames) |
+| `test_press.py` | Tri de la presse : titres à garder / à écarter (cas réels), gravité, langue, seuils sur le jeu étiqueté, cas des audits de production v0.28 et v0.29 (hors échantillon), localisation (ignorée sans le dictionnaire GeoNames) |
 | `test_early_warning.py` | Alerte précoce mondiale : régions communes (couverture, pas de doublon, anciennes zones reprises), outre-mer, climat compact et migration, indice à cinq composantes, comptage par famille, sorties par région, priorité de chargement, liens avec les tendances |
 | `test_indicators.py` | Indicateurs structurels : lecture FMI, Banque mondiale, BCE, signaux de seuil, fonctionnement hors ligne |
 | `test_foresight.py` | Tendances de risques : configuration publiable, scores et niveaux, pression, contrôle des sources (nombre, éditeurs, cotation), dates et échelles, signal en temps réel, vues pays et région, révision due, historique mensuel, méthode publique |
@@ -29,6 +29,7 @@ Les trois premiers et le test de fumée tournent automatiquement à chaque `push
 | `test_country_detail.py` | Choix des villes, santé, activité, validité de `config/city_notes.json` |
 | `test_providers.py` | Catégories et annuaire, fusion inscrits / repérés (même site = une seule ligne), lecture Supabase simulée, grille de qualité identique (SQL, JS, page publiée) |
 | `test_legal.py` | Pages légales (références valides vers `config/legal.json`), champs manquants, absence d'appel à Google Fonts / flagcdn, liens légaux, entretien Supabase |
+| `test_help_en.py` | Aide en anglais : chaque texte de `aide.html` a sa traduction dans `tools/aide_en.json`, `help.html` est à jour (`python tools/build_help_en.py`), mêmes ancres, lien d'aide selon la langue |
 | `test_risk_workbook.py` | Classeur de revue des risques : onglets, réglages identiques au code, simulateurs en formules, pas d'écrasement, version anglaise complète |
 
 Règles :
@@ -38,18 +39,21 @@ Règles :
 
 ## Jeu étiqueté du tri (`tests/gold_tri.csv`)
 
-1 077 titres réels classés à la main (garder 1/0, catégorie attendue), dont 426 tirés des données en ligne en v0.23, 95
-en v0.28 (audit de 7 jours d'angor.fr, commentaire « prod 2026-10 ») et 436 au second audit (931 titres du 23 octobre
-2026, dont 298 à écarter, commentaire « prod 2026-10-23 »).
-« Garder » = un fait physique qui peut toucher un voyageur ou un site ; arrestations, déclarations, analyses,
-rétrospectives et travaux de prévention valent 0 (ils restent dans le Fil). `tools/eval_tri.py` mesure précision,
-rappel et justesse de la catégorie avec `press.is_event` ; `test_press.py` impose des seuils minimaux (précision ≥ 94 %,
-rappel ≥ 98 % ; mesurés en v0.28 : 95 %, 99 % et 99 % de catégories justes ; en v0.23 : 94 % et 100 %, contre 51 % de
-précision en v0.22). Sur l'échantillon de production de la v0.28, les règles passent de 34 faux positifs sur 95 à 0, puis, au second audit,
-de 277 sur 931 à 7 (mesures v0.28 sur 1 077 titres : précision 95 %, rappel 100 %, catégorie 99 %). Contrôle hors
-échantillon : sur 756 titres plus anciens non étiquetés, les nouvelles règles n'en retirent que 7, tous à bon droit.
-Les règles ayant été réglées sur ce jeu, elles ont été contrôlées sur une seconde moitié de titres en ligne non étiquetée
-(relecture des écarts) ; constituer un **jeu de contrôle** étiqueté distinct avant de publier des chiffres.
+1 472 titres réels classés à la main (garder 1/0, catégorie attendue), dont 426 tirés des données en ligne en v0.23, 95
+en v0.28 (audit de 7 jours d'angor.fr, commentaire « prod 2026-10 »), 436 au second audit (931 titres du 23 octobre
+2026, commentaire « prod 2026-10-23 ») et 395 au contrôle hors échantillon de la v0.29 (titres du 24 octobre,
+commentaire « prod 2026-10-24, hors échantillon »).
+« Garder » = un fait physique qui peut toucher un voyageur ou un site ; arrestations, procès, hommages, déclarations,
+analyses, rétrospectives, annonces, prévisions, alertes sans dégâts et travaux de prévention valent 0 (ils restent dans
+le Fil). `tools/eval_tri.py` mesure précision, rappel et justesse de la catégorie avec `press.is_event` ;
+`test_press.py` impose des seuils minimaux (précision ≥ 88 %, rappel ≥ 98 %). Mesures v0.29 sur 1 472 titres :
+précision 89 %, rappel 99 %, catégorie 98 %.
+
+**Pourquoi le seuil de précision est passé de 94 % à 88 % (v0.29)** : les 395 titres ajoutés sont plus difficiles
+(prévisions, annonces, faits mêlés de suites), et surtout ils ont montré que la mesure précédente était flatteuse. Les
+règles v0.28, mesurées à 95 % sur ce jeu, n'atteignaient que **54 %** sur 559 titres neufs de la carte. Un chiffre mesuré
+sur le jeu qui a servi aux réglages ne dit pas la précision réelle : à chaque audit, étiqueter d'abord un lot de titres
+**neufs**, mesurer, puis seulement corriger (`tools/eval_tri.py --erreurs` liste les écarts).
 
 ## Test de fumée du site (`tests/e2e/smoke.mjs`)
 

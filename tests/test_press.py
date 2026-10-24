@@ -59,7 +59,10 @@ def test_jeu_etiquete_ne_regresse_pas():
         fp += got and not want
         fn += want and not got
     precision, rappel = tp / max(1, tp + fp), tp / max(1, tp + fn)
-    assert precision >= 0.94, f"précision {precision:.0%}"   # v0.28 : 95 % sur 641 titres (v0.23 : 94 %, v0.22 : 51 %)
+    # v0.29 : le jeu contient désormais 395 titres hors échantillon (carte du 24 octobre, jamais vus au réglage des règles
+    # v0.28), dont 46 faux positifs connus laissés tels quels : il est plus dur, d'où un seuil plus bas qu'en v0.28
+    # (95 % sur 641 titres). Mesuré en v0.29 : 89 % sur 1 472 titres.
+    assert precision >= 0.88, f"précision {precision:.0%}"
     assert rappel >= 0.98, f"rappel {rappel:.0%}"
 
 
@@ -369,3 +372,49 @@ def test_noms_de_pays_multilingues():
     assert names["ucrania"] == "UA" and names["arnavutluk"] == "AL" and names["frankreich"] == "FR"
     for ambigu in ("island", "indie", "mali", "peru", "salvador", "israeli", "somali"):   # mots courants, gentilés
         assert ambigu not in names
+
+
+# v0.29 (run 4) : contrôle hors échantillon (titres de production du 24 octobre 2026, non vus pendant les réglages)
+AUDIT3_CONTEXTE = [
+    "Des manifestations sous haute sécurité attendues à Rome et Milan",                       # annonce
+    "Cyclonic storm likely by October 26; heavy rain in Coastal Andhra from October 27: IMD",  # prévision
+    "Merseyside weather LIVE as more flood alerts issued for parts of Liverpool and Wirral",   # alerte sans dégâts
+    "Alerta en las playas del centro-este de Florida: dónde se esperan inundaciones y oleaje peligroso el domingo 25 y lunes 26 de octubre",
+    "Baja California braces for Hurricane Polo",
+    "Lualaba : 58 présumés fauteurs de troubles présentés au ministre provincial de l’Intérieur à Kolwezi",  # suites
+    "Las rutas de narcotráfico del Eln que reveló la destrucción de un laboratorio de cocaína",               # analyse
+]
+AUDIT3_GARDER = [
+    ("Social. Mobilisation du 24 octobre : 10 000 manifestants à Lyon, 36 interpellations, 22 blessés et trois commerces dégradés", "unrest"),
+    ("Protester Loses Eye After Police Fire Rubber Bullets in Tirana", "unrest"),
+    ("Declaran alerta roja en Santa Marta por inundaciones y crecientes súbitas", "flood"),     # alerte + dégâts
+    ("Typhoon Champi kills one and injures more than 500 in Taiwan as it heads to China", "cyclone"),
+    ("Enfrentamientos entre policía y manifestantes en Roma y otras ciudades como Bolonia", "unrest"),
+    ("Thousands rally in Brno for public media ahead of Sunday’s Prague protest", "unrest"),   # « ahead of » : a eu lieu
+    ("Cars plough through water and flood alerts issued as Storm Boelo hits Wales", "flood"),
+    ("Russia launches mass missile and drone attack on Ukraine's energy grid", None),          # « launches » ≠ annonce
+    ("Inundaţii în judeţul Galaţi: peste 200 de gospodării afectate", None),                  # roumain « peste » = plus de
+]
+
+
+@pytest.mark.parametrize("titre", AUDIT3_CONTEXTE)
+def test_audit3_contexte(titre):
+    cat, _ = press.classify(titre)
+    assert cat and not press.not_incident(titre, cat) and press.context(titre, cat), (cat, titre)
+
+
+@pytest.mark.parametrize("titre,categorie", AUDIT3_GARDER)
+def test_audit3_faits_gardes(titre, categorie):
+    cat, _ = press.classify(titre)
+    assert press.is_event(titre, cat), (cat, titre)
+    if categorie:
+        assert cat == categorie, (cat, titre)
+
+
+@pytest.mark.parametrize("titre", [
+    "Mbappé fires Real Madrid to victory as Barcelona collapse",
+    "PSG thrash Marseille 4-0 in Le Classique as Dembélé scores twice",
+])
+def test_audit3_sport(titre):
+    cat, _ = press.classify(titre)
+    assert not press.is_event(titre, cat)

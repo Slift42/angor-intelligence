@@ -468,6 +468,7 @@
   const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
   const t = (k, ...a) => { const v = I18N[state.lang][k]; return typeof v === 'function' ? v(...a) : (v ?? k); };
+  const helpPage = () => (state.lang === 'en' ? 'help.html' : 'aide.html');   // aide en anglais générée (v0.29)
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const icon = (n, size) => `<svg viewBox="0 0 24 24"${size ? ` width="${size}" height="${size}"` : ''} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n] || ICONS['circle-alert'] || ''}</svg>`;
   const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -2115,7 +2116,7 @@
     $$('#period-menu button[data-h]').forEach(b => { b.innerHTML = `<span>${esc(t('period_long')[b.dataset.h])}</span><span class="pm-short">${esc(t('period_lbl')[b.dataset.h])}</span>`; });
     if (typeof markPeriod === 'function') markPeriod();
     $$('#ag-range option').forEach(o => { o.textContent = t('ag_range')[o.value]; });
-    $('#btn-help') && $('#btn-help').setAttribute('title', t('help'));
+    if ($('#btn-help')) { $('#btn-help').setAttribute('title', t('help')); $('#btn-help').setAttribute('aria-label', t('help')); $('#btn-help').setAttribute('href', helpPage()); }
   }
   function applyTheme() {
     document.documentElement.dataset.theme = state.theme;
@@ -2448,7 +2449,7 @@
       ['lang', 'globe', state.lang === 'fr' ? 'English' : 'Français'], ['theme', state.theme === 'dark' ? 'sun-medium' : 'moon', state.theme === 'dark' ? 'Clair' : 'Sombre'],
       ...(installEvt ? [['install', 'download', t('m_install')]] : [])]
       .map(([k, ic, lb]) => k === 'account' ? `<a class="mm" href="compte.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>` : k === 'admin' ? `<a class="mm" href="admin.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>`
-        : k === 'help' ? `<a class="mm" href="aide.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>`
+        : k === 'help' ? `<a class="mm" href="${helpPage()}">${icon(ic, 20)}<span>${esc(lb)}</span></a>`
         : k === 'legal' ? `<a class="mm" href="legal.html">${icon(ic, 20)}<span>${esc(lb)}</span></a>` : `<button class="mm" data-mm="${k}">${icon(ic, 20)}<span>${esc(lb)}</span></button>`).join('');
   }
   /* Couches repliables sur mobile */

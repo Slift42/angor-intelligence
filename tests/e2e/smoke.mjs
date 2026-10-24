@@ -84,7 +84,7 @@ for (const [name, viewport] of [['ordinateur', { width: 1400, height: 900 }], ['
         p.on('request', q => { if (/\/data\/(data|profiles|econ)\.js/.test(q.url())) asked = true; })]));
     check(!r.errors.length && !asked && (url === '/index.html' || locked), `coffre ${url} (${name}) : aucune donnée réservée téléchargée${url === '/index.html' ? '' : ', page verrouillée'} ${r.errors.join(' | ')}`);
   }
-  for (const url of ['/report.html#FR', '/report.html#ML/villes', '/brief.html#FR', '/aide.html', '/methodologie.html', '/compte.html', '/compte.html?type=provider', '/prestataire.html', '/prestataire.html?id=x', '/admin.html']) {
+  for (const url of ['/report.html#FR', '/report.html#ML/villes', '/brief.html#FR', '/aide.html', '/help.html', '/methodologie.html', '/compte.html', '/compte.html?type=provider', '/prestataire.html', '/prestataire.html?id=x', '/admin.html']) {
     r = await page(url, viewport);
     check(!r.errors.length, `${url} (${name}) sans erreur ${r.errors.join(' | ')}`);
   }

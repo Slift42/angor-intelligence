@@ -1,0 +1,542 @@
+<!doctype html>
+<!-- Généré par tools/build_help_en.py depuis docs/aide.html : ne pas modifier à la main. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help – Angor Intelligence</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<style>
+:root { --ink: #111B27; --ink-2: #3E4C5B; --muted: #6B7886; --line: #DDE3E8; --navy: #13263D; --bg: #F4F6F8; --surface: #fff; --accent: #1F5FD1; --soft: #E6EEFC;
+  --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #E7EDF3; --ink-2: #B7C3CF; --muted: #8A98A7; --line: #2A3847; --navy: #E7EDF3; --bg: #0F1823; --surface: #152231; --accent: #6A9BF4; --soft: #1B2B45; } }
+:root[data-theme="dark"] { --ink: #E7EDF3; --ink-2: #B7C3CF; --muted: #8A98A7; --line: #2A3847; --navy: #E7EDF3; --bg: #0F1823; --surface: #152231; --accent: #6A9BF4; --soft: #1B2B45; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+header.top { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 10px 20px; background: var(--surface); border-bottom: 1px solid var(--line); }
+header.top .brand { font-weight: 700; letter-spacing: -.01em; }
+header.top .sp { flex: 1; }
+header.top a.btn { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; text-decoration: none; color: var(--ink); font-size: 13.5px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 24px 20px 60px; display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 32px; }
+nav.toc { position: sticky; top: 72px; align-self: start; font-size: 13.5px; max-height: calc(100vh - 90px); overflow: auto; }
+nav.toc a { display: block; padding: 4px 8px; border-radius: 6px; color: var(--ink-2); text-decoration: none; }
+nav.toc a:hover { background: var(--soft); color: var(--ink); }
+nav.toc .grp { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 14px 8px 4px; }
+main { min-width: 0; }
+h1 { font-size: 30px; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 8px; }
+.lead { color: var(--ink-2); font-size: 16.5px; margin: 0 0 20px; max-width: 70ch; }
+section { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px 26px; margin: 0 0 16px; scroll-margin-top: 70px; }
+h2 { font-size: 21px; margin: 0 0 10px; letter-spacing: -.01em; }
+h3 { font-size: 15.5px; margin: 18px 0 6px; }
+p, li { max-width: 75ch; }
+ul, ol { padding-left: 22px; }
+li { margin: 3px 0; }
+.k { display: inline-block; font: 600 12.5px/1 var(--font); padding: 4px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); white-space: nowrap; }
+code { font-family: var(--mono); font-size: 13px; background: var(--bg); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--line); }
+.tip { border-left: 3px solid var(--accent); background: var(--soft); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 14px; }
+.warn { border-left-color: #D7263D; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 8px 0; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+.card { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.card h3 { margin-top: 0; }
+.muted { color: var(--muted); }
+footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 24px; }
+@media (max-width: 860px) { .wrap { grid-template-columns: 1fr; } nav.toc { position: static; max-height: none; } .grid2 { grid-template-columns: 1fr; } section { padding: 18px; } }
+@media print { header.top, nav.toc { display: none; } .wrap { display: block; } section { break-inside: avoid; border: 0; padding: 0 0 12px; } body { background: #fff; } }
+</style>
+</head>
+<body>
+<header class="top"><span class="brand">Angor Intelligence · Help</span><span class="sp"></span><a class="btn" href="aide.html" hreflang="fr" lang="fr">Français</a><a class="btn" href="index.html">← Back to the map</a></header>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <div class="grp">Getting started</div>
+  <a href="#apercu">Overview</a><a href="#ecran">The screen at a glance</a>
+  <div class="grp">Following the situation</div>
+  <a href="#alertes">Alerts and filters</a><a href="#fiabilite">Reliability: grading and “verified”</a><a href="#encours">Ongoing and timelines</a>
+  <a href="#pays">Countries, risk and Pulse</a><a href="#calques">Layers and basemaps</a><a href="#fil">Press feed</a><a href="#agenda">Agenda</a><a href="#actualiser">Refresh and translate</a><a href="#rapports">Reports</a><a href="#tendances">Risk trends</a><a href="#alerte">Early warning</a><a href="#analyses">Analytics</a>
+  <div class="grp">Protecting</div>
+  <a href="#sites">My sites and journeys</a><a href="#buddy">Travel buddy</a><a href="#gng">Guided go / no-go</a><a href="#brief">Mission brief</a><a href="#rapport">Country report</a>
+  <div class="grp">Sharing and getting alerts</div>
+  <a href="#mobile">Mobile app</a><a href="#compte">My account</a><a href="#safety">Safety check</a><a href="#partage">Links, views, followed countries</a><a href="#telegram">Alerts and daily digest</a><a href="#export">Exports</a>
+  <div class="grp">For the analyst</div>
+  <a href="#analyste">Analyst mode</a><a href="#ia">Artificial intelligence</a>
+  <div class="grp">Reference</div>
+  <a href="#sources">Sources and updates</a><a href="#prestataires">Providers</a><a href="#confidentialite">Privacy</a><a href="#limites">Limitations</a><a href="#glossaire">Glossary</a><a href="#faq">Frequently asked questions</a>
+</nav>
+<main>
+  <h1>User guide</h1>
+  <p class="lead">Angor Intelligence is a worldwide security monitoring map: it gathers open sources (press, official bodies, sensors), classifies every incident by type and severity, assesses the risk of every country and helps you prepare and follow trips. This page explains every feature, step by step.</p>
+
+  <section id="apercu">
+    <h2>Overview</h2>
+    <div class="grid2">
+      <div class="card"><h3>See</h3><p>Incidents of the last few hours on the map, ongoing crises, the risk and stability of each country, upcoming events.</p></div>
+      <div class="card"><h3>Understand</h3><p>The reliability of each piece of information (A1 to F6 grading), how a crisis evolves day by day, the causes of a deterioration.</p></div>
+      <div class="card"><h3>Protecting</h3><p>Your monitored sites and journeys, a guided go / no-go, a printable mission brief that records the decision.</p></div>
+      <div class="card"><h3>Get alerted</h3><p>Telegram or e-mail alerts for serious incidents, alerts when a country deteriorates, a daily digest every morning.</p></div>
+    </div>
+    <div class="tip">The map updates itself about every 30 minutes. The time of the last update is shown at the top right, next to the number of active sources.</div>
+  </section>
+
+  <section id="ecran">
+    <h2>The screen at a glance</h2>
+    <h3>Top bar</h3>
+    <ul>
+      <li><strong>Single search</strong> : a country, a city, one of your sites, an incident or a report (“Lagos”, “explosion”, “Crisis Group”). Results are grouped by type; Enter opens the first one.</li>
+      <li><strong>Period</strong> : <span class="k">24 h</span> <span class="k">72 h</span> <span class="k">7 d</span> <span class="k">30 d</span> … <span class="k">All</span>, or the calendar to pick exact dates (DD/MM/YYYY). Beyond 30 days, history is loaded on demand (up to 5 years).</li>
+      <li><strong>Analytics</strong> : dashboard (curves, breakdowns, rankings).</li>
+      <li><strong>Views</strong> and <strong>Share</strong> : see <a href="#partage">Links, views, followed countries</a>.</li>
+      <li><strong>Sources badge</strong> : number of sources responding; click for details (source down, paused…).</li>
+      <li><strong>?</strong> opens this help, <strong>EN/FR</strong> switches the language, the moon/sun switches the theme.</li>
+    </ul>
+    <h3>Left column: four spaces</h3>
+    <p>The left bar groups the tool into four spaces; each has its tabs at the top of the column.</p>
+    <table>
+      <tr><th>Space</th><th>Tabs</th><th>What it is for</th></tr>
+      <tr><td>Monitoring</td><td>Alerts · Ongoing · Feed</td><td>Incidents of the period, active situations (72 h) and crisis timelines, press headlines without a location.</td></tr>
+      <tr><td>Countries</td><td>Countries · Agenda · Reports</td><td>Risk level and Pulse of each country, upcoming events, in-depth reports from think tanks and NGOs.</td></tr>
+      <tr><td>My sites</td><td>My sites · Travel buddy</td><td>Your monitored sites and journeys, the travel assistant and the go / no-go.</td></tr>
+      <tr><td>Foresight</td><td>Trends · early warning · Analytics</td><td>Risk trends, structural indicators and early warning: from region to subdivision, worldwide; dashboards.</td></tr>
+    </table>
+    <h3>Reliable mode (on by default)</h3>
+    <p>Above the alert list, the switch <strong>Reliable mode</strong> hides automatic detections from less reliable sources (graded D, E or F: GDELT, social media…) until another source confirms them. They remain visible if they are close to one of your sites. Click to show everything.</p>
+    <h3>Alert cards</h3>
+    <p>Each alert states in one line <strong>why it matters</strong> : distance to your nearest site or journey, ongoing crisis, followed country, corroboration by several sources, official warning… then the category, place, time and reliability grade.</p>
+    <h3>The map</h3>
+    <p>Click a marker to open the incident card, a country to open its country card. Nearby markers are grouped in a numbered circle whose ring shows the share of each severity; <strong>hover over it</strong> to fan out its categories in a star (click one of them to zoom in on those incidents only), or click it to zoom in. On a marker, the <strong>ripples</strong> indicate high or critical severity, the <strong>white dot</strong> an incident less than 6 hours old, the dotted outline an automatic detection. The <strong>Layers</strong> box (top right) sets what is displayed; the <strong>Legend</strong> (bottom left) folds away with one click.</p>
+    <p class="muted">On a phone, navigation goes through the bottom bar: see <a href="#mobile">Mobile app</a>.</p>
+  </section>
+
+  <section id="alertes">
+    <h2>Alerts and filters</h2>
+    <p>Each alert shows its type (icon and category), its severity (colour), the place, its age and its source.</p>
+    <table>
+      <tr><th>Severity</th><th>Meaning</th></tr>
+      <tr><td><span class="sw" style="background:#3F86C6"></span>1 · Low</td><td>Local nuisance, no casualties or notable disruption.</td></tr>
+      <tr><td><span class="sw" style="background:#E0A21B"></span>2 · Moderate</td><td>Injuries, local disruption.</td></tr>
+      <tr><td><span class="sw" style="background:#E0622B"></span>3 · High</td><td>Casualties, major disruption, orange warning.</td></tr>
+      <tr><td><span class="sw" style="background:#B0182E"></span>4 · Critical</td><td>Many casualties, escalation of a conflict, national emergency, red warning.</td></tr>
+    </table>
+    <h3>Filtering</h3>
+    <ul>
+      <li>The four <strong>severity tiles</strong> at the top of the tab are switched on and off with one click.</li>
+      <li><strong>Filters</strong> : categories by family (security, politics, disasters, health, cyber, diplomacy &amp; politics), and the options “only near my sites”, “hide automatic detections”, “only Angor-verified incidents”, “only my followed countries”.</li>
+      <li><strong>Sort</strong> : most recent or most serious. <strong>PDF</strong> prints the filtered list.</li>
+    </ul>
+    <h3>The incident card</h3>
+    <p>Summary (excerpt from the source, automatic summary or AI summary, always flagged), local and UTC date, place and location accuracy, country risk level, confidence, <a href="#fiabilite">grade</a>, sites concerned, and all sources with their links. If the incident belongs to a <a href="#encours">crisis timeline</a>, a link leads to it.</p>
+    <h3>Diplomacy and politics</h3>
+    <p>Elections, resignations, reshuffles, no-confidence motions, sanctions, expulsions of diplomats: these facts are not incidents, but they often herald tensions. They are classified in the category <strong>Diplomacy / politics</strong> (severity 1 or 2), remain viewable and filterable, but <strong>count neither in the risk score nor in the Pulse</strong>. Upcoming elections also appear in the<a href="#agenda">Agenda</a>.</p>
+    <div class="tip">“auto” and the dotted outline indicate an unverified automatic detection (press, GDELT): place and nature to be confirmed before any decision.</div>
+  </section>
+
+  <section id="fiabilite">
+    <h2>Reliability: Admiralty grading and “Angor verified”</h2>
+    <p>Each incident carries a <strong>grade</strong> such as <span class="k">B2</span>, following the intelligence grid used by NATO: the letter rates the <strong>source</strong>, the number rates the<strong>information</strong>.</p>
+    <div class="grid2">
+      <table><tr><th>Letter</th><th>Source reliability</th></tr>
+        <tr><td>A</td><td>Completely reliable: official bodies and sensors (USGS, EMSC, GDACS, NASA, WHO, CDC, weather services, CISA…)</td></tr>
+        <tr><td>B</td><td>Usually reliable: reference media</td></tr>
+        <tr><td>C</td><td>Fairly reliable: other press</td></tr>
+        <tr><td>D</td><td>Not usually reliable: GDELT automatic detection</td></tr>
+        <tr><td>E</td><td>Unreliable: social media, Telegram channels</td></tr>
+        <tr><td>F</td><td>Reliability unknown</td></tr></table>
+      <table><tr><th>Number</th><th>Credibility of the information</th></tr>
+        <tr><td>1</td><td>Confirmed (verified by the analyst, or official measurement)</td></tr>
+        <tr><td>2</td><td>Probably true (at least 3 independent sources, or 2 of different types: official and press)</td></tr>
+        <tr><td>3</td><td>Possibly true (2 sources, or 1 well-graded source)</td></tr>
+        <tr><td>4</td><td>Doubtful (single source, uncertain classification, denial reported, or earthquake without official measurement)</td></tr>
+        <tr><td>5</td><td>Improbable (disproved by the analyst)</td></tr>
+        <tr><td>6</td><td>Cannot be judged</td></tr></table>
+    </div>
+    <p>The green badge <strong>✔ Angor verified</strong> means an analyst has checked the incident (sometimes correcting its severity or category). Disproved incidents disappear from the map, alerts and calculations.</p>
+    <p><strong>Corroboration</strong> (incident card): the number of <em>independent sources</em> and their types. Ten media outlets repeating the same wire story, or newspapers of the same press group, count as a single source. An earthquake, cyclone or eruption reported by the press is attached to the official measurement (USGS, EMSC, GDACS, NOAA…): a single card, with the articles as sources. Two orange banners may appear: <strong>Denial reported</strong> (a published denial tells the same story, with its link) and <strong>Not confirmed by official sensors</strong> (an earthquake with a magnitude that no network measured: old, mislocated or false).</p>
+  </section>
+
+  <section id="encours">
+    <h2>Ongoing and crisis timelines</h2>
+    <p>The <strong>Ongoing</strong> keeps the alerts of the last 72 hours that matter: critical, high and reliable, active disasters, corroborated by several sources, evolving or close to your sites. They are grouped by country and ranked as <em>major crisis</em>, <em>crisis</em> or <em>alert</em>.</p>
+    <h3>Crisis timelines</h3>
+    <p>Below the list, the <strong>timelines</strong> automatically group the incidents of the same crisis over several days (same country, same family of events, close in space and time). Each one shows its dates, its number of incidents, a small daily chart and its trend:</p>
+    <p><span class="k" style="background:#B0182E;color:#fff">Escalating</span> <span class="k" style="background:#E0622B;color:#fff">New</span> <span class="k" style="background:#5E6B78;color:#fff">Stable</span> <span class="k" style="background:#2E9E5B;color:#fff">Easing / calmed</span></p>
+    <p>Click to open the timeline: summary, incidents per day, peak, then the day-by-day list. <strong>Show on the map</strong> isolates its incidents (a banner takes you back to all alerts).</p>
+  </section>
+
+  <section id="pays">
+    <h2>Countries, risk and Pulse</h2>
+    <h3>Risk level (1 to 5)</h3>
+    <p>Minimal, Low, Moderate, High, Extreme. It combines official advice (60%), security activity over the last 7 days (30%) and disasters and epidemics (10%). A country a government “advises against all travel” to is at least High.</p>
+    <h3>Pulse (0 to 100)</h3>
+    <p>The <strong>stability</strong> index follows the momentum: 100 = stable, 0 = very unstable. It takes into account official advice, recent security activity, an <em>anomaly</em> (last 7 days compared with the 3 previous weeks) and disasters. The country card shows the value, the change over 7 and 30 days, the curve and the <strong>causes</strong> (rise in one type of incident, change in official advice).</p>
+    <table><tr><th>Pulse</th><th>Reading</th></tr>
+      <tr><td><span class="sw" style="background:#9E1B32"></span>under 25</td><td>Very unstable</td></tr>
+      <tr><td><span class="sw" style="background:#E0592A"></span>25 to 44</td><td>Unstable</td></tr>
+      <tr><td><span class="sw" style="background:#E3B505"></span>45 to 64</td><td>Fragile</td></tr>
+      <tr><td><span class="sw" style="background:#8DBF4E"></span>65 to 79</td><td>Fairly stable</td></tr>
+      <tr><td><span class="sw" style="background:#2E9E5B"></span>80 and above</td><td>Stable</td></tr></table>
+    <h3>The country card</h3>
+    <p>Risk level, Pulse, ongoing timelines, <strong>Upcoming</strong> (agenda for the next 90 days), incidents over 24 h to 90 days, score components, official advice (France MEAE, UK FCDO, US, Canada) with the official map, recent alerts. Buttons <strong>Country report (PDF)</strong> and <strong>Mission brief</strong>. The star ☆ adds the country to your <a href="#partage">followed countries</a>.</p>
+    <p>In the Countries tab, the menu sorts by risk, by Pulse (most unstable) or by sharpest fall. The label <em>low coverage</em> flags a country where our sources report far fewer incidents than usual: the situation is probably underestimated.</p>
+  </section>
+
+  <section id="calques">
+    <h2>Layers and basemaps</h2>
+    <ul>
+      <li><strong>Country layer</strong> : Country risk (Angor), Pulse, MEAE heatmap (France), FCDO (United Kingdom), State Dept (United States), Auswärtiges Amt (Germany), or none. For ministries, a dotted outline means only some areas are concerned: the official map prevails.</li>
+      <li><strong>My sites</strong> : vigilance radii and monitored journeys.</li>
+      <li><strong>Basemap</strong> : detailed (roads, cities), high contrast, clean, <strong>realistic</strong> (relief, elevation tints and sea floor, then satellite imagery when zooming in), satellite, topographic, grey, neutral (offline). Names are shown in the Latin alphabet and appear progressively (countries, regions, cities). In dark theme, the “Angor Night” basemap (midnight-blue seas, subtle relief) and brighter risk colours.</li>
+      <li><strong>Period</strong> : drop-down menu at the top (24 h to the full history, or a custom period).</li>
+    </ul>
+  </section>
+
+  <section id="fil">
+    <h2>Press feed</h2>
+    <p>Security-related press headlines (about 120 countries and nearly 1,500 reference media, including the national and regional press of 25 high-risk countries, in 56 languages), actively exploited software vulnerabilities (CISA) and CERT-FR alerts. Title and link only: click to read the article on the publisher's site. The filter field accepts a country or a keyword.</p>
+    <p>The label <strong>Context</strong> flags a security headline that does not describe a physical event: arrest, trial or tribute, statement, analysis, retrospective, announcement or forecast, warning without damage, prevention work. It stays in the Feed for information but is not placed on the map. On the map, headlines telling the same story (same wire story over several days, updated toll, same article placed in two cities) are grouped into a single card that lists all their sources.</p>
+  </section>
+
+  <section id="agenda">
+    <h2>Agenda</h2>
+    <p>The <strong>Agenda</strong> lists what is planned: <strong>public holidays</strong> (about 120 countries), <strong>national elections and referendums</strong>, <strong>major religious festivals</strong> (start of Ramadan, Eid al-Fitr, Eid al-Adha, Ashura: indicative dates, give or take 1 or 2 days) and the <strong>dates added by the analyst</strong> (announced strikes, summits, sensitive anniversaries…).</p>
+    <ul>
+      <li>Choose the horizon (7 days to 12 months) and “All countries” or “My followed countries”.</li>
+      <li>The Holidays, Elections, Religious and Analyst buttons hide or show each type.</li>
+      <li>Elections whose date is not yet set are listed at the bottom, under “Dates not yet fixed”.</li>
+    </ul>
+    <div class="tip">Why it is useful: closed administrations, gatherings, tighter checks and disrupted transport. The mission brief automatically includes the dates that fall during the stay.</div>
+  </section>
+
+  <section id="actualiser">
+    <h2>Refresh and translate</h2>
+    <ul>
+      <li><strong>⟳ button (Refresh)</strong> : immediately reloads the latest data published by the robot (every 30 minutes). If you are signed in with an approved account, it also starts an immediate collection: the map updates about 5 minutes later (one collection at a time, at most one request every 10 minutes).</li>
+      <li><strong>文A button (automatic translation)</strong> : the titles of alerts, the feed and reports are shown in the platform language (French or English). Translated titles are underlined with dots; hover over them to see the original. On Chrome and Edge (desktop), translation happens on your device, without sending anything to a third party. Elsewhere, the incident card offers “Translate with Google”.</li>
+    </ul>
+  </section>
+
+  <section id="rapports">
+    <h2>Reports</h2>
+    <p>The <strong>Reports</strong> gathers the latest in-depth publications on countries and crises: think tanks (Chatham House, RUSI, IRIS, SWP, CFR, Atlantic Council, Lowy…), NGOs and specialised organisations (International Crisis Group, INSO, Global Initiative, Human Rights Watch, Amnesty, MSF…), public agencies (FEWS NET, ECDC) and consultancies. About thirty producers, updated every 3 hours.</p>
+    <ul>
+      <li>Each card gives the organisation, the date, the title, the summary published by the publisher and the link to the report (the text stays with the publisher).</li>
+      <li><strong>Filters</strong> : country or region (Sahel, Horn of Africa, Middle East…), type of producer, theme (conflicts, terrorism, economy, climate, food security, migration, crime, cyber, energy, maritime…), period, free search.</li>
+      <li>The countries mentioned are clickable. The <strong>country card</strong> also shows recent reports on that country.</li>
+    </ul>
+    <div class="tip">Countries, regions and themes are detected automatically in the title and summary: a regional report may not mention any country.</div>
+  </section>
+
+  <section id="tendances">
+    <h2>Risk trends</h2>
+    <p>The <strong>Trends · early warning</strong> (Foresight space) presents the risks likely to affect your operations and your travellers in the coming months. They cover energy, politics, social unrest, terrorism, cyber, climate, public finances… There are three levels of detail, across the 17 regions of the world:</p>
+    <ul>
+      <li><strong>Region</strong> and <strong>country</strong> (“Region and country” level): assessed and sourced trends, and structural indicators of countries. For the latter, these are growth, inflation, debt, unemployment and governance, plus the sovereign yield for the EU; a signal appears when a threshold is crossed. Trends are written for<strong>Western Europe</strong> and <strong>France</strong> ; the other regions will follow.</li>
+      <li><strong>Subdivision</strong> (“Subdivisions” level): early warning by region, state or province (see below).</li>
+    </ul>
+    <ul>
+      <li><strong>Scope</strong> : choose the region or a country (list or click on the map). The <strong>risk pressure</strong> (0 to 100) sums up the strongest trends.</li>
+      <li><strong>Point of view</strong> : Global, Business or Traveller; filters by horizon (0–3 months, 3–12 months, 1–3 years) and by family of drivers.</li>
+      <li><strong>Matrix</strong> : each dot is a trend, placed according to its likelihood and its impact; click to open its card.</li>
+      <li><strong>Card</strong> : dated and sourced facts, warning indicators, disruption scenario, implications and recommendations, real-time signal drawn from verified incidents. The card also lists the <strong>most exposed subdivisions</strong> : one click takes you straight there. The ⚠ symbol flags a card due for review or a surprise from the ground.</li>
+    </ul>
+    <p>The full method (scales, calculation, quality control, sources) is public: <a href="methodologie.html">Risk trends methodology (in French)</a>.</p>
+  </section>
+  <section id="alerte">
+    <h2>Early warning (“Subdivisions” level)</h2>
+    <p>At the <strong>Subdivisions</strong> level of the Trends · early warning tab, every region, state or province (administrative level 1) is monitored worldwide. It combines climate, verified incidents by family of drivers and, where available, the humanitarian situation, to spot areas where risks converge before a deterioration. Choosing a country restricts the map to its subdivisions. A subdivision's card lists the trends of its country and its region. Boundaries and climate load region by region; worldwide coverage is complete within two to three days.</p>
+    <table>
+      <tr><th>Data</th><th>What it shows</th><th>Source</th></tr>
+      <tr><td>Rainfall</td><td>Rainfall of the month compared with the average of the previous 15 years (in %). Dry-season months are greyed out.</td><td>NASA POWER (MERRA-2)</td></tr>
+      <tr><td>Temperature</td><td>Departure from the monthly normal (°C).</td><td>NASA POWER</td></tr>
+      <tr><td>Soil moisture</td><td>Root-zone moisture, departure from normal: agricultural drought.</td><td>NASA POWER</td></tr>
+      <tr><td>Security incidents</td><td>Terrorism, conflicts, attacks and crime of the month in the subdivision, and resource-related incidents (water, land, livestock, fishing, artisanal gold mining).</td><td>Angor, UCDP, GDELT</td></tr>
+      <tr><td>Civil unrest and political crises</td><td>Demonstrations, riots, localised political crises.</td><td>Angor</td></tr>
+      <tr><td>Hazards, outages, cyber and epidemics</td><td>Natural disasters, outages, cyberattacks and health alerts of severity 2 and above.</td><td>Angor (USGS, GDACS, WHO…)</td></tr>
+      <tr><td>Food insecurity</td><td>Share of the population in IPC phase 3 or above (crisis, emergency, famine), latest available analysis.</td><td>IPC via HDX HAPI (OCHA)</td></tr>
+      <tr><td>Displaced people</td><td>Recorded internally displaced people, latest count.</td><td>IOM-DTM via HDX HAPI</td></tr>
+    </table>
+    <h3>Risk convergence index</h3>
+    <p>Index from 0 to 100 in five components, the families of drivers used by the trends:</p>
+    <ul>
+      <li><strong>climate and environment</strong> (30 points): 3-month rainfall, abnormal heat, dry soils;</li>
+      <li><strong>terrorism, conflicts and crime</strong> (30): incident volume over 3 months, rise compared with the previous 12 months, resource-related conflicts;</li>
+      <li><strong>society and politics</strong> (15);</li>
+      <li><strong>hazards, infrastructure and health</strong> (10);</li>
+      <li><strong>humanitarian crises</strong> (15): food insecurity, displaced people.</li>
+    </ul>
+    <p>Without humanitarian data, the index is rescaled to 100. Levels: low, moderate, high, very high.</p>
+    <ul>
+      <li>Click a unit (or in the “Most exposed units” list): card with the explanatory factors, the curves of the last 12 months compared with previous years, and the dated humanitarian data.</li>
+      <li>The “Overlay this month's incidents” box adds circles proportional to the number of incidents.</li>
+    </ul>
+    <div class="tip">The index flags convergences, not certainties: it says nothing about the intentions of actors. Always check it against analysis (Reports tab, country card).</div>
+  </section>
+
+  <section id="analyses">
+    <h2>Analytics</h2>
+    <p>The <strong>Analytics</strong> button opens a dashboard for the chosen period: trend by family, breakdown by category and severity, most affected countries and places, contribution of sources. The filters (country, family, minimum severity, source, automatic detections) apply to all charts. Over long periods, the historical base (5 years: UCDP, GDELT, USGS, GDACS, NASA, WHO) takes over.</p>
+  </section>
+
+  <section id="sites">
+    <h2>My monitored sites and journeys</h2>
+    <h3>Add a site</h3>
+    <ol><li>Tab <strong>My sites</strong> → <strong>Add a site</strong>.</li><li>Click on the map at the site's location.</li><li>Give a name and a vigilance radius (in km) → <strong>Save</strong>.</li></ol>
+    <p>Alerts within the radius are flagged everywhere (◉ site name · distance), counted in the tab and filterable (“only near my sites”).</p>
+    <h3>Add a monitored journey</h3>
+    <p>A journey is a vigilance band around a route, for example Lagos – Abuja by road.</p>
+    <ol><li><strong>Add a journey</strong> → name, departure city, optional stops (separated by commas), arrival city, vigilance width (km on either side) → <strong>Save</strong> ;</li>
+      <li>or <strong>Draw on the map</strong> : click the stops one by one, then <strong>Finish</strong>. This is the method to use for small towns or a precise route.</li></ol>
+    <p>Incidents within the band are flagged “⟿ journey …”. The Travel buddy also offers <strong>Monitor this journey</strong> when you ask it about a journey between two cities.</p>
+    <div class="tip warn">Sites and journeys added here stay <strong>in your browser</strong> : they are neither sent nor published. For the robot to send Telegram alerts about them, use <strong>Export (sites.json)</strong> and send the file to the tool's administrator (online, real sites are kept in a secure vault and never displayed publicly).</div>
+  </section>
+
+  <section id="buddy">
+    <h2>Travel buddy</h2>
+    <p>Ask a question in plain language about a destination: “Which vaccines before Nigeria?”, “How do I secure a Lagos – Abuja journey?”, “Dress code for a woman in Indonesia?”, “Emergency numbers in Kenya?”, “Elections or public holidays in Senegal?”.</p>
+    <p>It recognises countries and major cities and answers from Angor data: official advice and MEAE excerpts, recent incidents (around the city or along the journey), journey advice according to the risk level, cultural profile, health, hospitals, emergencies, telecoms, providers, agenda. Each answer offers the country report, the mission brief and the guided go / no-go.</p>
+    <p class="muted">Without AI, answers are built from the data. When the AI assistant is enabled, the answer is written by Claude from the same data, with sources cited in square brackets; do not enter personal data.</p>
+  </section>
+
+  <section id="gng">
+    <h2>Guided go / no-go</h2>
+    <p>In the Travel buddy, button <strong>Guided go / no-go</strong> (or under an answer): choose the country, the city, the dates, then answer 10 questions (mission criticality, profile, experience, local support, transport, night travel, accommodation, insurance, communications, preparation).</p>
+    <ul>
+      <li><strong>Threat</strong> (1 to 5): calculated from the country risk, MEAE and US advice, the Pulse, serious incidents within 100 km, ongoing crises and elections during the stay.</li>
+      <li><strong>Vulnerability</strong> (1 to 5): derived from your answers.</li>
+      <li><strong>Residual risk</strong> = threat × vulnerability, placed on a 5 × 5 matrix.</li>
+    </ul>
+    <table><tr><th>Decision</th><th>When</th></tr>
+      <tr><td><span class="sw" style="background:#2E9E5B"></span>GO</td><td>Low residual risk: standard measures.</td></tr>
+      <tr><td><span class="sw" style="background:#E3B505"></span>GO with conditions</td><td>Listed conditions to meet before departure.</td></tr>
+      <tr><td><span class="sw" style="background:#EE7D22"></span>Escalating</td><td>Decision by the security management (always the case if the threat is extreme).</td></tr>
+      <tr><td><span class="sw" style="background:#D7263D"></span>NO-GO</td><td>Risk too high; a mission that can be postponed should be postponed or carried out remotely.</td></tr></table>
+    <p>The result lists the threat factors and the conditions to meet. <strong>Open the mission brief</strong> carries the full assessment (matrix, answers, conditions) over to the brief. The assessment remains indicative: the decision belongs to the security manager or to management.</p>
+  </section>
+
+  <section id="brief">
+    <h2>Mission brief</h2>
+    <p>From the country card (<strong>Mission brief</strong>), the Travel buddy or the go / no-go. Fill in country, city, dates, profile, number of travellers, purpose, accommodation and issuer: the document builds itself instantly.</p>
+    <ol>
+      <li>Header: unique reference, date and time of issue, data date, <strong>recommendation</strong> (Go, with conditions, not advised, no) and its reasons;</li>
+      <li>official advice and MEAE excerpts, go / no-go assessment if one was made, dates <strong>during your stay</strong> ;</li>
+      <li>security situation: crisis timelines, incidents within 100 km of the city over 30 days, with their grading;</li>
+      <li>measures to tick: before departure, on site, observed threats, according to the profile;</li>
+      <li>health, emergencies, hospitals, contacts to fill in by hand, providers;</li>
+      <li>customs to respect; <strong>traceability</strong> : sources consulted and three sign-offs (traveller, manager, security manager).</li>
+    </ol>
+    <p><strong>Print / PDF</strong> → “Save as PDF”. Keep the signed PDF: it is the record of your duty of care.</p>
+    <div class="tip">Nothing you enter is sent: everything is calculated in your browser. Do not write names in it; they are filled in by hand on the printed document.</div>
+  </section>
+
+  <section id="rapport">
+    <h2>Country report</h2>
+    <p>Full country file, readable on screen (contents on the left) and exportable as a premium A4 PDF (cover, numbered footer, “confidential” label). Fifteen parts:</p>
+    <ol>
+      <li><strong>Summary</strong> : the essentials on one page (overall level, main threats, reasons cited by the United States, incident trend, cities to watch, upcoming dates), advice from the four ministries, threat profile and a box <strong>Analyst's assessment</strong> where you write your own opinion (printed in the PDF, saved on your device).</li>
+      <li><strong>Risk assessment</strong> : matrix by threat (24 h to 90 days, trend, basis) and governance indicators.</li>
+      <li><strong>Detailed security</strong> : terrorism, armed conflict, kidnapping, arbitrary detention, crime, civil unrest, surveillance and photography, natural disasters, cyber. For each: the Angor level, the clues drawn from the data, then the official British text (FCDO) quoted in full.</li>
+      <li><strong>Recommendations</strong> for travellers, staff and sites.</li>
+      <li><strong>Cities</strong> : map, comparison table then one card per major city (capital, cities of more than a million inhabitants, cities followed by the analyst such as Goma, Maiduguri or Culiacán): analyst's level, sensitive areas, advice, customs, what the FCDO says, incidents within 20 to 40 km over 90 days, airport and hospitals. City notes are in <code>config/city_notes.json</code> (first draft written with AI assistance, to be validated).</li>
+      <li><strong>Recent incidents</strong> (30 days), <strong>official advice</strong> (France, United Kingdom, United States, Germany, excerpts and maps).</li>
+      <li><strong>Travel</strong> : airports, driving side, entry requirements, roads, taxis, air, boat, outdoor activities.</li>
+      <li><strong>Health and emergency services</strong> : emergency numbers (police, ambulance, fire brigade), vaccinations to consider, health risks (malaria, dengue, yellow fever, meningitis…), recent health alerts, healthcare provision, hospitals.</li>
+      <li><strong>Laws, customs and culture</strong>, <strong>calendar</strong> for the next 12 months, <strong>economy</strong>, <strong>country context</strong>, <strong>communications and providers</strong>, <strong>sources</strong>.</li>
+    </ol>
+    <p>Top bar buttons: <strong>Translate</strong> (English excerpts translated on your device by recent Chrome or Edge), <strong>Contents</strong> (choose the parts of the PDF, with the “Traveller” and “Management” templates), <strong>EN / FR</strong> and <strong>Export to PDF</strong> (choose “Save as PDF” and tick “Background graphics”). A direct link to a part: <code>report.html#ML/villes</code>.</p>
+  </section>
+
+  <section id="mobile">
+    <h2>Mobile app</h2>
+    <p>Angor can be used on a phone like an app: open <strong>angor.fr</strong> in Chrome (Android) or Safari (iPhone), then <strong>More → Install the app</strong> (or browser menu → “Add to Home Screen”). The Angor icon appears among your apps and opens full screen. An Android version published on Google Play is in preparation.</p>
+    <h3>Navigation</h3>
+    <ul>
+      <li><strong>Bottom bar</strong> : Map, Alerts, Ongoing (with the number of active incidents), Travel (Travel buddy) and <strong>More</strong> (countries, press feed, agenda, my sites, analytics, sharing, my account, help, language, theme).</li>
+      <li><strong>Cards</strong> (incident, country, timeline): they open at the bottom of the screen; the cross closes them.</li>
+      <li><strong>Layers</strong> : floating button at the top right of the map.</li>
+      <li><strong>Offline</strong> : the last downloaded version remains viewable, with a message showing its date.</li>
+    </ul>
+  </section>
+
+  <section id="compte">
+    <h2>My account</h2>
+    <p>An account is not needed to view the map. It is used to <strong>find your settings on all your devices</strong> and to receive your organisation's <a href="#safety">safety checks</a> .</p>
+    <ol>
+      <li><strong>Create an account</strong> : profile icon at the top of the map (or More → My account) → “Create an account”. Name, organisation, e-mail, password (at least 10 characters).</li>
+      <li><strong>Confirm your e-mail</strong> with the link you receive.</li>
+      <li><strong>Approval</strong> : an Angor administrator checks the request and approves the account. Until then, the page shows “Awaiting approval”.</li>
+    </ol>
+    <h3>What you can set</h3>
+    <ul>
+      <li><strong>Profile</strong> : name, organisation, job title, phone (optional, only useful if you report needing help).</li>
+      <li><strong>Preferences</strong> : language, theme, period displayed, basemap, country of residence, minimum severity, followed countries, planned trips, daily digest. They apply everywhere the next time you open the app.</li>
+      <li><strong>Notifications and location</strong> : notifications on the device, location sharing (always optional).</li>
+      <li><strong>My sites and journeys</strong> : save them to the account, or retrieve them on a new device.</li>
+      <li><strong>Security</strong> : change the password, sign out, <strong>permanently delete the account</strong> (profile, preferences and answers).</li>
+    </ul>
+    <p class="muted">Forgotten password: “Forgot password?” on the sign-in screen; a reset link arrives by e-mail.</p>
+  </section>
+
+  <section id="safety">
+    <h2>Safety check</h2>
+    <p>After a serious event, an administrator can ask the people concerned to confirm that they are safe.</p>
+    <ul>
+      <li><strong>Who is concerned</strong> : all users, those in a country (country of residence, declared trips or last shared location), or those within a radius around a place. Targeting can be limited to one organisation.</li>
+      <li><strong>How you are notified</strong> : a notification on your phone (if you enabled it) and a red banner when you open the map.</li>
+      <li><strong>Answering</strong> : “I am safe”, “I need help”, “Not concerned” or “Later” (the banner comes back 30 minutes later). From the notification, a single tap is enough.</li>
+      <li><strong>What the administrator sees</strong> : the number of people concerned, safe, needing help or without an answer, and for each person their answer, their phone and, if you agreed, their location at the time of the answer.</li>
+    </ul>
+    <div class="tip">The safety check complements your emergency procedures; it does not replace them. In immediate danger, call the local emergency services.</div>
+  </section>
+
+  <section id="partage">
+    <h2>Shareable links, saved views, followed countries</h2>
+    <h3>Share</h3>
+    <p>The <strong>Share</strong> copies the address of what you are looking at: period, severities, categories, layer, basemap, zoom, tab, open card or timeline. Whoever opens the link gets exactly the same view.</p>
+    <h3>Views</h3>
+    <p><strong>Views</strong> → name the view (e.g. “Sahel – 7 d”) → <strong>Save the current view</strong>. Your views stay in this browser; the 🔗 icon copies a view's link, the bin deletes it.</p>
+    <h3>Followed countries</h3>
+    <p>The star ☆ on a country card adds the country to your followed countries. They serve as a filter (alerts, Countries tab, agenda). In the Countries tab, <strong>Copy for Telegram</strong> copies their list so that the daily digest follows them (see below).</p>
+  </section>
+
+  <section id="telegram">
+    <h2>Alerts and daily digest</h2>
+    <ul>
+      <li><strong>Immediate alert</strong> : each new high or critical, reliable and recent incident is sent once on the Telegram channel (and/or by e-mail). The message says whether it is close to one of your sites or journeys.</li>
+      <li><strong>Stability alert</strong> : when a country's Pulse falls sharply within 7 days or drops below a threshold.</li>
+      <li><strong>Daily digest</strong> (early morning: 7 am Paris time in summer, 6 am in winter): figures for the last 24 h, key incidents, ongoing crises, escalating timelines, Pulse falls, the week's upcoming dates, exploited cyber vulnerabilities, focus on followed countries, link to the map. With AI, it starts with “Today's essentials”.</li>
+    </ul>
+    <p class="muted">Settings (minimum severity, countries, categories, digest time, Pulse thresholds): file <code>config/settings.json</code>, managed by the administrator.</p>
+  </section>
+
+  <section id="export">
+    <h2>Exports</h2>
+    <ul>
+      <li><strong>PDF</strong> of the filtered alert list (Alerts tab).</li>
+      <li><strong>Country report</strong> and <strong>mission brief</strong> as PDF.</li>
+      <li><strong>sites.json</strong> : your sites and journeys (My sites tab).</li>
+      <li>Raw data: <code>events.geojson</code> (map incidents, GeoJSON format readable by QGIS or ArcGIS) – online, reserved for approved accounts: ask the administrator for the export.</li>
+    </ul>
+  </section>
+
+  <section id="analyste">
+    <h2>Analyst mode</h2>
+    <p>Open the map with <code>?analyste=1</code> at the end of the address. The mode stays active in this browser ( <strong>Quit</strong> button to leave it).</p>
+    <ol>
+      <li>Open an incident: a box <strong>Analyst mode</strong> offers <strong>Validate</strong>, <strong>Correct</strong> (severity, category) or <strong>Disprove</strong>, with a note (confirming source, comment).</li>
+      <li>Your decisions apply immediately in your browser (a disproved incident appears struck through).</li>
+      <li><strong>Export verified.json</strong> downloads all decisions; the administrator replaces <code>config/verified.json</code> then publishes: the “Angor verified” badge appears for everyone.</li>
+    </ol>
+    <p>Agenda dates are added in <code>config/calendar.json</code> ; a country's risk levels can be corrected in <code>config/risk.json</code>.</p>
+      <h3>One-click validation and measured source quality</h3>
+    <p>In analyst mode (link <code>?analyste=1</code>, or “Analyst mode” in Source status and in the More menu), each incident card shows at the top <strong>Validate</strong> and <strong>False alarm</strong>. The <strong>Save</strong> button writes directly to <code>config/verified.json</code> (Chrome and Edge: choose the file the first time), then double-click publier.bat.</p>
+    <p>Each decision feeds the <strong>measured quality of sources</strong> (Source status): from 5 decisions on, a frequently disproved source automatically loses one reliability letter (two above 80% false alarms); a source confirmed 90% of the time gains one.</p>
+    <p><strong>Event control</strong> (Source status): every new item is checked before it enters the map (physical event, plausible place and date, article read for GDELT), then rechecked at each collection. The section shows the figures of the last collection, alarms (source almost entirely rejected) and the latest rejected headlines with their reason. In analyst mode, <strong>Restore</strong> corrects a wrong rejection: the decision goes out with <code>verified.json</code> and applies at the next collection.</p>
+</section>
+
+  <section id="ia">
+    <h2>Artificial intelligence</h2>
+    <p>The tool works entirely without AI. When it is enabled (Anthropic key, Claude model), it steps in at specific points, always flagged as “AI – to be checked”:</p>
+    <table><tr><th>Use</th><th>Where</th></tr>
+      <tr><td>Sorting and summarising press headlines (FR/EN)</td><td>Incident cards</td></tr>
+      <tr><td>Summary of crisis timelines</td><td>Ongoing → timeline</td></tr>
+      <tr><td>Explanation of Pulse changes</td><td>Country card</td></tr>
+      <tr><td>“Today's essentials”</td><td>Telegram daily digest</td></tr>
+      <tr><td>Written, sourced answers</td><td>Travel buddy</td></tr>
+      <tr><td>Reasoned opinion on a go / no-go</td><td>Travel buddy</td></tr>
+      <tr><td>Mission brief summary</td><td>Brief (“AI summary” button)</td></tr></table>
+    <p>The AI works only from the Angor data it is given, cites its supporting evidence and invents neither facts nor figures; a monthly budget caps the costs.</p>
+  </section>
+
+  <section id="sources">
+    <h2>Sources and updates</h2>
+    <ul>
+      <li><strong>Official bodies and sensors</strong> : USGS (earthquakes), GDACS (UN/EU), NASA EONET, WHO, NWS and NOAA NHC (weather and cyclones, United States), tsunami warnings (PTWC, NTWC), Smithsonian GVP (volcanoes), Copernicus EMS (emergency mapping), ECDC (health), Meteoalarm (orange and red warnings in 38 European countries), CISA and CERT-FR (cyber), UCDP (conflicts, history).</li>
+      <li><strong>Travel advice</strong> : MEAE (France), FCDO (United Kingdom), State Department (United States), Auswärtiges Amt (Germany), Canada.</li>
+      <li><strong>Press</strong> : nearly 1,500 reference media in 206 countries (including the national and regional press of 25 high-risk countries), read through their own RSS feeds in line with their access rules (robots.txt), keywords in 56 languages, major international feeds and French regional press, GDELT. Google News (about 120 countries) is still used on a transitional basis, until the media's own feeds take over.</li>
+      <li><strong>Reports</strong> : about thirty think tanks, NGOs and international organisations (Reports tab).</li>
+      <li><strong>Risk trends</strong> : 162 graded sources (reports by AXA, WEF, Allianz, Europol, ECB, Copernicus, Météo-France, ANSSI, Banque de France…), details on the page <a href="methodologie.html#sources">Methodology</a>.</li>
+      <li><strong>Early warning</strong> : NASA POWER (climate), HDX HAPI (food insecurity, displaced people), geoBoundaries (administrative boundaries), Angor verified incidents, UCDP and GDELT.</li>
+      <li><strong>Structural indicators</strong> : IMF (World Economic Outlook), World Bank (governance indicators), ECB (sovereign yields).</li>
+      <li><strong>Telegram</strong> : about fifty public channels (media, emergency aggregators, OSINT accounts) in 9 languages. Official media channels are graded B or C; aggregators and OSINT accounts stay graded E (“social media – unverified”) until another source confirms.</li>
+      <li><strong>Context</strong> : World Bank, IMF, Wikidata (emergencies, hospitals, operators, elections), Nager.Date (public holidays), CIA World Factbook (archive).</li>
+    </ul>
+    <p>Automatic update every 30 minutes; MEAE advice re-read every 3 days; practical information every 30 days; historical base once a month.</p>
+  </section>
+
+  <section id="prestataires">
+    <h2>Service providers</h2>
+    <p>Each country card shows the number of <strong>available service providers</strong> (security, medical assistance, private jets, drivers, taxis, meet &amp; greet…) by category. The colour goes from <strong>green</strong> (provider verified by Angor) to <strong>red</strong> (spotted in public sources, unverified, to be contacted separately). Click a category to see the list.</p>
+    <ul>
+      <li>Signed in with an approved account, you can access the full card of a registered provider: contacts, rates, guarantees, reviews, and you can send them a quote request. Angor puts you in touch but is not a party to the contract.</li>
+      <li>No provider pays to be ranked higher: the order depends only on verification and on the quality of their card (<a href="annuaire.html">directory terms</a>).</li>
+      <li>Are you a provider? Create a free “Service provider” account from <a href="compte.html?type=provider">My account</a>.</li>
+      <li>Providers: the<strong>company registration extract</strong> is mandatory to publish the card; licences, insurance certificate, certifications (ISO…) and CVs of key team members count for more than half of the quality score (see the criteria in the
+      <a href="annuaire.html">directory terms</a>).</li>
+    </ul>
+  </section>
+
+  <section id="confidentialite">
+    <h2>Privacy</h2>
+    <ul>
+      <li>The tool follows <strong>events</strong>, never people.</li>
+      <li>Without an approved account, only the event map is visible; details, sources, country cards, filters and alerts are reserved for approved accounts.</li>
+      <li>Without an account, your sites, journeys, views, followed countries, analyst decisions and brief entries stay <strong>in your browser</strong>.</li>
+      <li>With an account, only your profile, your preferences, the sites and journeys you choose to save there and your answers to safety checks are kept. Your location is only saved if you agree, and you can delete your account at any time.</li>
+      <li>The real sites used for alerts are kept in a secure vault and are never published on the map.</li>
+      <li>Only the questions asked to the AI assistant (when it is enabled) go to the AI relay, with the Angor data needed for the answer: do not put personal data in them.</li>
+      <li>Press: title, summary and link only; the article stays with the publisher.</li>
+      <li>No advertising cookies or audience measurement; fonts and flags are hosted by Angor (no calls to Google).</li>
+    </ul>
+    <p>Details, retention periods and exercising your rights: <a href="confidentialite.html">privacy and cookie policy</a>. All documents: <a href="legal.html">legal information</a> (legal notice, terms of use, terms of sale, data processing agreement, licences).</p>
+  </section>
+
+  <section id="limites">
+    <h2>Limitations to be aware of</h2>
+    <ul>
+      <li>A<strong>decision-support tool</strong> : information from open sources, not exhaustive, to be checked. It replaces neither official instructions nor the advice of a security professional.</li>
+      <li>Automatic detections contain noise (hence the grading, the “auto” label and corroboration).</li>
+      <li>In some countries (conflict zones, controlled media), open sources underestimate the situation: watch for the label <em>low coverage</em>.</li>
+      <li>Religious festival dates are indicative; the list of elections is incomplete (Wikidata); hospitals and providers are indicative, to be validated with your assistance provider.</li>
+    </ul>
+  </section>
+
+  <section id="glossaire">
+    <h2>Glossary</h2>
+    <table>
+      <tr><td><strong>Ongoing alert</strong></td><td>Incident of the last 72 hours deemed active (critical, high and reliable, disaster, corroborated, evolving or close to a site).</td></tr>
+      <tr><td><strong>Crisis timeline</strong></td><td>Series of linked incidents (same country, same family, close together) over several days.</td></tr>
+      <tr><td><strong>Confidence</strong></td><td>Robustness of the detection (low, medium, high), depending on the source and corroboration.</td></tr>
+      <tr><td><strong>Grading (A1-F6)</strong></td><td>Source reliability × credibility of the information (Admiralty grid).</td></tr>
+      <tr><td><strong>Low coverage</strong></td><td>Our sources report far fewer incidents than the country's historical average.</td></tr>
+      <tr><td><strong>Duty of care</strong></td><td>The employer's obligation to protect staff travelling for work; the brief keeps a record of it.</td></tr>
+      <tr><td><strong>HEAT</strong></td><td>Hostile Environment Awareness Training: training for hostile environments.</td></tr>
+      <tr><td><strong>Pulse</strong></td><td>Stability index of a country, from 0 (very unstable) to 100 (stable).</td></tr>
+      <tr><td><strong>Monitored journey</strong></td><td>Vigilance band around a route; incidents occurring within it are flagged.</td></tr>
+      <tr><td><strong>Angor verified</strong></td><td>Incident checked by an Angor analyst.</td></tr>
+    </table>
+  </section>
+
+  <section id="faq">
+    <h2>Frequently asked questions</h2>
+    <h3>Why does a country I know to be dangerous show few incidents?</h3>
+    <p>Open sources report little information from it (restricted access, controlled press). Rely on the risk level, official advice and the “low coverage” label.</p>
+    <h3>My sites have disappeared.</h3>
+    <p>They are stored in the browser: another browser, private browsing or clearing your data erases them. Export them regularly (sites.json).</p>
+    <h3>The shared link does not show my sites to my colleague.</h3>
+    <p>That is intended: a link shares the view and the filters, never your sites or journeys.</p>
+    <h3>The map has not changed for a long time.</h3>
+    <p>Look at the sources badge at the top right: if the update time is more than 3 hours old, it switches to “Stale data”. Reload the page; if it persists, tell the administrator.</p>
+    <h3>How do I print a card?</h3>
+    <p>Country report: “Export to PDF” button. Brief: “Print / PDF” button. Alert list: “PDF” button in the Alerts tab.</p>
+  </section>
+  <footer>Angor Intelligence – decision-support tool, information not exhaustive, to be checked. <a href="index.html">Back to the map</a> · <a href="legal.html">Legal information</a> · <a href="mentions-legales.html">Legal notice</a> · <a href="confidentialite.html">Privacy</a></footer>
+</main>
+</div>
+<script>
+try { const th = JSON.parse(localStorage.getItem('vs-theme')); if (th) document.documentElement.dataset.theme = th; } catch (e) { /* thème par défaut */ }
+</script>
+</body>
+</html>
